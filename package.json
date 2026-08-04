@@ -1,0 +1,31 @@
+{
+  "name": "aimcodes-mvp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/generate-localized-routes.mjs",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "validate:crosshairs": "node scripts/validate-crosshairs.mjs",
+    "validate:finder": "node scripts/validate-reaction-ranks.mjs",
+    "validate:localization": "node scripts/validate-localization.mjs",
+    "validate:routing": "node scripts/validate-localized-routes.mjs",
+    "validate:analytics": "node scripts/validate-analytics.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "@eslint/js": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "latest",
+    "globals": "latest",
+    "vite-plugin-singlefile": "latest"
+  }
+}
