@@ -36,6 +36,7 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
       `content="${t('meta.description')}"`,
       `rel="canonical" href="${origin}${config.path}"`,
       'hreflang="x-default"',
+      'rel="icon" href="https://aimcodes.com/favicon.svg" type="image/svg+xml" sizes="any"',
     ]
 
     for (const value of expected) {
@@ -53,10 +54,12 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
 
 const sitemap = await readFile(resolve(projectRoot, 'dist/sitemap.xml'), 'utf8')
 const robots = await readFile(resolve(projectRoot, 'dist/robots.txt'), 'utf8')
+const favicon = await readFile(resolve(projectRoot, 'dist/favicon.svg'), 'utf8')
 for (const config of Object.values(localeRoutes)) {
   if (!sitemap.includes(`${origin}${config.path}`)) errors.push(`sitemap.xml: missing ${config.path}`)
 }
 if (!robots.includes(`${origin}/sitemap.xml`)) errors.push('robots.txt: sitemap URL missing')
+if (!favicon.includes('width="96" height="96"')) errors.push('favicon.svg: expected a square 96×96 icon')
 
 if (errors.length) {
   console.error(errors.join('\n'))
