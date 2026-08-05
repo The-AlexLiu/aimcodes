@@ -43,7 +43,7 @@ function formatRankRange(rank, t) {
   return `${rank.min}–${rank.max} ${unit}`
 }
 
-export default function CrosshairFinder({ crosshairs, onExit, onCopy, t }) {
+export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusChange, t }) {
   const [phase, setPhase] = useState('intro')
   const [roundTimes, setRoundTimes] = useState([])
   const [earlyClicks, setEarlyClicks] = useState(0)
@@ -59,6 +59,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, t }) {
   const copiedTimer = useRef(null)
   const shareTimer = useRef(null)
   const attemptNumber = useRef(0)
+  const isFocusedTest = ['waiting', 'ready', 'early', 'feedback'].includes(phase)
+
+  useEffect(() => {
+    onFocusChange?.(isFocusedTest)
+  }, [isFocusedTest, onFocusChange])
+
+  useEffect(() => () => onFocusChange?.(false), [onFocusChange])
 
   const clearTimers = () => {
     if (waitTimer.current) window.clearTimeout(waitTimer.current)
@@ -443,7 +450,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, t }) {
     <section className="finder finder-test" aria-labelledby="finder-title">
       <div className="finder-heading">
         <div><h1 id="finder-title">{t('finder.title')}</h1><p>{t('finder.subtitle')}</p></div>
-        <button className="finder-secondary-button" type="button" onClick={exitFinder}><Icon name="exit" size={17} />{t('finder.exit')}</button>
+        <button className="finder-secondary-button finder-exit-button" type="button" onClick={exitFinder}><Icon name="exit" size={17} />{t('finder.exit')}</button>
       </div>
 
       <div className="finder-round-heading"><span />{t('finder.round', { current: roundNumber, total: REACTION_ROUNDS })}<span /></div>

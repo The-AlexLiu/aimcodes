@@ -8,12 +8,14 @@ export default function CrosshairCard({ crosshair, href, selected, copied, onSel
         className="icon-button card-copy"
         type="button"
         aria-label={copied ? t('card.copied', { name: crosshair.name }) : t('card.copy', { name: crosshair.name })}
+        title={copied ? t('actions.copiedShort') : t('actions.copyShort')}
         onClick={(event) => {
           event.stopPropagation()
           onCopy(crosshair, { source: 'catalog_card' })
         }}
       >
         <Icon name={copied ? 'check' : 'copy'} size={18} />
+        <span>{copied ? t('actions.copiedShort') : t('actions.copyShort')}</span>
       </button>
       <a className="card-select" href={href} onClick={() => onSelect(crosshair, 'catalog_card')} aria-current={selected ? 'page' : undefined} aria-label={t('card.test', { name: crosshair.name })}>
         {selected && (

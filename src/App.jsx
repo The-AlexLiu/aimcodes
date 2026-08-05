@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import CodeDialog from './components/CodeDialog.jsx'
 import { BrandMark, BrandWordmark } from './components/BrandLogo.jsx'
 import CrosshairCanvas from './components/CrosshairCanvas.jsx'
@@ -21,6 +21,8 @@ import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytic
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const utilityFilters = ['recent']
 const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(crosshairs)
+const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
+const recommendedOrder = new Map(SEO_CROSSHAIR_IDS.map((id, index) => [id, index]))
 const MAIN_PREVIEW_SCALE = 2.25
 
 function readStoredValue(key, fallback) {
@@ -70,6 +72,7 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(() => route.crosshairId || crosshairs[0].id)
   const [query, setQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('all')
+  const [catalogSort, setCatalogSort] = useState('recommended')
   const [background, setBackground] = useState(() => backgroundOptions.some((item) => item.value === initialParams.get('mapa')) ? initialParams.get('mapa') : 'ascent')
   const [colorOverrides, setColorOverrides] = useState({})
   const [toast, setToast] = useState(null)
@@ -77,6 +80,7 @@ export default function App() {
   const [showInstructions, setShowInstructions] = useState(false)
   const [showPreviewSettings, setShowPreviewSettings] = useState(true)
   const [mobileNav, setMobileNav] = useState(false)
+  const [finderFocus, setFinderFocus] = useState(false)
   const [codeDialogItem, setCodeDialogItem] = useState(null)
   const toastTimer = useRef(null)
   const copiedTimer = useRef(null)
@@ -116,7 +120,7 @@ export default function App() {
 
   const visibleCrosshairs = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase(language)
-    return allCrosshairs.filter((item) => {
+    const filtered = allCrosshairs.filter((item) => {
       const localizedCategory = t(`filters.${item.category}`)
       const matchesText = !normalized || [item.name, item.shortName, item.player, item.description, localizedCategory, item.colorName]
         .join(' ')
@@ -128,11 +132,23 @@ export default function App() {
         || (activeFilter === 'recent' && recentIds.includes(item.id))
         || item.category === activeFilter
       return matchesText && matchesFilter
-    }).sort((left, right) => {
-      if (activeFilter !== 'recent') return 0
-      return recentIds.indexOf(left.id) - recentIds.indexOf(right.id)
     })
-  }, [activeFilter, allCrosshairs, language, query, recentIds, t])
+
+    return filtered.sort((left, right) => {
+      if (activeFilter === 'recent') return recentIds.indexOf(left.id) - recentIds.indexOf(right.id)
+      if (catalogSort === 'name') return left.shortName.localeCompare(right.shortName, language, { sensitivity: 'base' })
+      if (catalogSort === 'updated') {
+        const byDate = String(right.sourceCheckedAt || '').localeCompare(String(left.sourceCheckedAt || ''))
+        if (byDate) return byDate
+      }
+
+      const leftPriority = recommendedOrder.get(left.id) ?? Number.MAX_SAFE_INTEGER
+      const rightPriority = recommendedOrder.get(right.id) ?? Number.MAX_SAFE_INTEGER
+      if (leftPriority !== rightPriority) return leftPriority - rightPriority
+      if (left.isPro !== right.isPro) return left.isPro ? -1 : 1
+      return (catalogOrder.get(left.id) ?? 0) - (catalogOrder.get(right.id) ?? 0)
+    })
+  }, [activeFilter, allCrosshairs, catalogSort, language, query, recentIds, t])
 
   const displayedCrosshairs = useMemo(() => {
     if (route.type === 'catalog') return visibleCrosshairs
@@ -302,6 +318,24 @@ export default function App() {
     trackEvent('filter_select', { filter_name: nextFilter })
   }
 
+  const changeSort = (nextSort) => {
+    setCatalogSort(nextSort)
+    trackEvent('catalog_sort_change', { sort_name: nextSort })
+  }
+
+  const openRandomCrosshair = (pool, source) => {
+    const candidates = (pool?.length ? pool : allCrosshairs).filter((item) => item.id !== selected.id)
+    const next = candidates[Math.floor(Math.random() * candidates.length)] || pool?.[0] || allCrosshairs[0]
+    selectCrosshair(next, source)
+    trackEvent('random_crosshair', { crosshair_id: next.id, source })
+    window.location.assign(routePath(language, { type: 'crosshair', crosshairId: next.id }))
+  }
+
+  const handleFinderFocusChange = useCallback((isFocused) => {
+    setFinderFocus(isFocused)
+    if (isFocused) setMobileNav(false)
+  }, [])
+
   const changeLanguage = (nextLanguage) => {
     trackEvent('language_change', { from_language: language, to_language: nextLanguage })
     setMobileNav(false)
@@ -316,7 +350,7 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell" data-locale={language}>
+    <div className={`app-shell ${finderFocus ? 'is-finder-focus' : ''}`} data-locale={language}>
       <header className="topbar">
         <a className="brand" href={routePath(language, { type: 'home' })} aria-label={`AimCodes · ${t('nav.explore')}`}>
           <BrandMark />
@@ -350,7 +384,7 @@ export default function App() {
         ) : route.type === 'guide' ? (
           <ImportGuide locale={language} />
         ) : showFinder ? (
-          <CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} t={t} />
+          <CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} />
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
@@ -387,7 +421,7 @@ export default function App() {
             <span className="panel-cut" aria-hidden="true" />
             <div className="detail-heading">
               {route.type === 'crosshair' ? <h1>{selected.name}</h1> : <h2>{selected.name}</h2>}
-              <p><Icon name="star" size={19} /> {selected.description}</p>
+              <p>{selected.description}</p>
             </div>
 
             <button className="settings-toggle" type="button" onClick={() => setShowPreviewSettings(!showPreviewSettings)} aria-expanded={showPreviewSettings} aria-controls="preview-settings">
@@ -448,28 +482,54 @@ export default function App() {
         </section>}
 
         {route.type === 'crosshair' && (
-          <CrosshairSeoDetails crosshair={selected} locale={language} onCopy={copyCrosshair} copied={copiedId === selected.id} />
+          <CrosshairSeoDetails crosshair={selected} locale={language} />
         )}
 
         {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair') && <section className="collection-section" id="collection">
-          <div className="collection-heading">
-            <div className="collection-title-block">
-              <BrandMark compact />
-              <div>
-                <h2>{route.type === 'home' ? seoCopy(language).home.popular : route.type === 'crosshair' ? seoCopy(language).detail.related : t('collection.title')}</h2>
-                <p>{route.type === 'home' ? seoCopy(language).home.popularBody : t('collection.subtitle')}</p>
+          {route.type === 'catalog' ? (
+            <div className="catalog-summary">
+              <h2 className="visually-hidden">{t('collection.title')}</h2>
+              <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
+              <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, 'catalog_random')}>
+                <Icon name="rotate" size={16} /> {t('actions.random')}
+              </button>
+            </div>
+          ) : (
+            <div className="collection-heading">
+              <div className="collection-title-block">
+                <BrandMark compact />
+                <div>
+                  <h2>{route.type === 'home' ? seoCopy(language).home.popular : seoCopy(language).detail.related}</h2>
+                  <p>{route.type === 'home' ? seoCopy(language).home.popularBody : t('collection.subtitle')}</p>
+                </div>
+              </div>
+              <div className="collection-meta">
+                <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
+                {route.type === 'crosshair' && (
+                  <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, 'related_random')}>
+                    <Icon name="rotate" size={15} /> {t('actions.random')}
+                  </button>
+                )}
               </div>
             </div>
-            <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
-          </div>
+          )}
           {route.type === 'catalog' && <div className="filters" aria-label={t('filters.label')}>
             <div className="filter-tabs">
-              {[...filters, ...utilityFilters].map((filter) => (
+              {[...filters, ...(recentIds.length >= 2 ? utilityFilters : [])].map((filter) => (
                 <button key={filter} type="button" className={activeFilter === filter ? 'is-active' : ''} onClick={() => changeFilter(filter)}>
                   {t(`filters.${filter}`)}
                 </button>
               ))}
             </div>
+            <label className="catalog-sort">
+              <span>{t('sort.label')}</span>
+              <select value={catalogSort} onChange={(event) => changeSort(event.target.value)}>
+                <option value="recommended">{t('sort.recommended')}</option>
+                <option value="name">{t('sort.name')}</option>
+                <option value="updated">{t('sort.updated')}</option>
+              </select>
+              <Icon name="chevronDown" size={14} />
+            </label>
           </div>}
 
           {displayedCrosshairs.length > 0 ? (

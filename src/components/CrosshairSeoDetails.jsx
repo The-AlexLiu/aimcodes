@@ -19,22 +19,18 @@ function settingRows(crosshair, locale) {
   return rows
 }
 
-export default function CrosshairSeoDetails({ crosshair, locale, onCopy, copied }) {
+export default function CrosshairSeoDetails({ crosshair, locale }) {
   const labels = seoCopy(locale).detail
   const details = detailCopy(locale, crosshair.id)
   const rows = settingRows(crosshair, locale)
-  const localSettings = settingLabels[locale] || settingLabels.en
 
   return (
     <section className="seo-detail-content" aria-label={labels.code}>
       <div className="seo-code-panel">
         <div>
           <span>{labels.code}</span>
-          <code>{crosshair.code}</code>
+          <code title={crosshair.code}>{crosshair.code}</code>
         </div>
-        <button className="primary-button" type="button" onClick={() => onCopy(crosshair, { source: 'seo_detail' })}>
-          <Icon name={copied ? 'check' : 'copy'} size={18} /> {copied ? localSettings.copied : labels.copy}
-        </button>
       </div>
 
       <div className="seo-detail-grid">
