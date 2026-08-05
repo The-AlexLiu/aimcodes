@@ -262,8 +262,11 @@ legend { margin-bottom: 10px; }
 .finder-secondary-button:hover { border-color: #65727c; background: var(--surface); color: white; }
 .finder-secondary-button:disabled { opacity: .65; cursor: wait; }
 .finder-heading-actions { display: flex; align-items: center; gap: 10px; }
-.finder-share-button { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); color: #fff; background: color-mix(in srgb, var(--accent) 12%, #0f171e); }
-.finder-share-button:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, #0f171e); }
+.finder-challenge-banner { margin: 26px 0 0; padding: 16px 18px; display: flex; align-items: center; gap: 14px; border: 1px solid color-mix(in srgb, var(--accent) 48%, #34424d); border-radius: 7px; background: linear-gradient(100deg, rgba(255, 91, 85, .14), rgba(14, 23, 30, .96) 55%); }
+.finder-challenge-banner > span { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; color: #091016; background: var(--accent); box-shadow: 0 0 20px rgba(255, 91, 85, .18); }
+.finder-challenge-banner strong { display: block; font: 800 18px/1.2 var(--display-font); }
+.finder-challenge-banner p { margin: 5px 0 0; color: #aeb8bf; font-size: 13px; line-height: 1.45; }
+.finder-challenge-banner + .finder-round-heading { margin-top: 18px; }
 .finder-round-heading { margin: 33px auto 13px; display: grid; grid-template-columns: minmax(45px, 80px) auto minmax(45px, 80px); align-items: center; justify-content: center; gap: 18px; color: #f5f6f7; font: 800 17px/1 var(--display-font); letter-spacing: 3px; text-transform: uppercase; }
 .finder-round-heading span { width: 100%; height: 1px; background: #65727c; position: relative; }
 .finder-round-heading span:first-child::after { content: ''; position: absolute; right: -1px; top: 0; width: 17px; height: 1px; background: #65727c; transform: rotate(45deg); transform-origin: right center; }
@@ -310,11 +313,25 @@ legend { margin-bottom: 10px; }
 .finder-rank-copy h2 { margin: 7px 0 5px; font: 850 clamp(29px, 3.2vw, 43px)/.95 var(--display-font); letter-spacing: -.8px; }
 .finder-rank-copy p { margin: 0; color: #c3cbd1; font-size: 13px; }
 .finder-rank-copy .finder-rank-taunt { max-width: 720px; margin-top: 10px; display: block; color: color-mix(in srgb, var(--rank-color) 72%, white); font-size: 13px; line-height: 1.45; font-weight: 740; }
+.finder-challenge-outcome { width: max-content; max-width: 100%; margin-top: 9px; padding: 6px 9px; display: block; border: 1px solid #3d4a54; border-radius: 5px; color: #dbe2e6; background: rgba(7, 13, 18, .56); font-size: 12px; line-height: 1.35; }
+.finder-challenge-outcome.is-won { border-color: rgba(101, 223, 154, .45); color: #83e9ad; }
+.finder-challenge-outcome.is-missed { border-color: rgba(255, 113, 109, .4); color: #ff9692; }
 .finder-rank-score { min-width: 146px; padding-left: 24px; display: grid; justify-items: end; gap: 7px; border-left: 1px solid #35424c; }
 .finder-rank-score > span { color: #909ca5; font: 750 10px/1 var(--display-font); letter-spacing: 1.3px; text-transform: uppercase; }
 .finder-rank-score strong { font: 850 42px/.9 var(--display-font); }
 .finder-rank-score small { margin-left: 5px; color: #9ba7b0; font-size: 14px; }
 
+.finder-share-panel { margin-bottom: 14px; padding: 20px 24px; display: grid; grid-template-columns: 168px minmax(0, 1fr); align-items: center; gap: 26px; overflow: hidden; border: 1px solid #45535e; border-radius: 7px; background: linear-gradient(110deg, rgba(255, 91, 85, .1), rgba(15, 23, 30, .96) 38%); }
+.finder-share-preview-frame { width: 150px; aspect-ratio: 3 / 4; overflow: hidden; display: grid; place-items: center; border: 1px solid #47545e; border-radius: 6px; background: #0b1319; box-shadow: 0 10px 32px rgba(0, 0, 0, .22); }
+.finder-share-preview-frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.finder-share-preview-frame > span { padding: 16px; display: grid; justify-items: center; gap: 10px; color: #87949d; font-size: 10px; text-align: center; }
+.finder-share-copy > span { color: var(--accent); font: 800 11px/1 var(--display-font); letter-spacing: 1.7px; text-transform: uppercase; }
+.finder-share-copy h2 { margin: 10px 0 0; font: 830 clamp(26px, 3vw, 38px)/1.05 var(--display-font); letter-spacing: -.5px; }
+.finder-share-copy p { max-width: 660px; margin: 11px 0 0; color: #aab5bd; font-size: 14px; line-height: 1.55; }
+.finder-share-actions { margin-top: 19px; display: flex; align-items: center; gap: 10px; }
+.finder-share-primary { min-width: 230px; padding: 0 22px; }
+.finder-link-button { min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; background: transparent; color: #aeb8bf; font-size: 12px; font-weight: 720; cursor: pointer; }
+.finder-link-button:hover { color: white; }
 .finder-primary-recommendation, .finder-rank-spectrum { border: 1px solid #3c4954; border-radius: 7px; background: rgba(15, 23, 30, .9); }
 .finder-result-workbench { padding: 24px; }
 .finder-workbench-heading { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 20px; align-items: start; }
@@ -493,6 +510,10 @@ legend { margin-bottom: 10px; }
   .finder-secondary-button svg { width: 20px; height: 20px; }
   .finder-secondary-button.finder-exit-button { min-width: auto; padding: 0 13px; gap: 7px; font-size: 12px; }
   .finder-heading-actions { gap: 7px; }
+  .finder-challenge-banner { margin-top: 20px; padding: 14px; align-items: flex-start; }
+  .finder-challenge-banner > span { width: 38px; height: 38px; }
+  .finder-challenge-banner strong { font-size: 16px; }
+  .finder-challenge-banner p { font-size: 12px; }
   .finder-round-heading { margin-top: 30px; grid-template-columns: minmax(24px, 55px) auto minmax(24px, 55px); gap: 12px; font-size: 14px; letter-spacing: 1.8px; }
   .reaction-field { min-height: 480px; height: min(520px, calc(100dvh - 285px)); padding: 42px 18px; gap: 26px; }
   .reaction-reticle { width: 54px; height: 54px; }
@@ -512,6 +533,14 @@ legend { margin-bottom: 10px; }
   .finder-rank-copy .finder-rank-taunt { font-size: 12px; line-height: 1.4; }
   .finder-rank-score { grid-column: 1 / -1; min-width: 0; padding: 13px 0 0; grid-template-columns: 1fr auto; justify-items: start; align-items: baseline; border-left: 0; border-top: 1px solid #35424c; }
   .finder-rank-score strong { font-size: 32px; }
+  .finder-share-panel { padding: 16px; grid-template-columns: 102px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .finder-share-preview-frame { width: 96px; }
+  .finder-share-copy > span { font-size: 9px; letter-spacing: 1.3px; }
+  .finder-share-copy h2 { margin-top: 7px; font-size: 23px; }
+  .finder-share-copy p { margin-top: 8px; font-size: 12px; line-height: 1.45; }
+  .finder-share-actions { margin-top: 13px; display: grid; gap: 6px; }
+  .finder-share-primary { width: 100%; min-width: 0; padding-inline: 10px; font-size: 12px; }
+  .finder-link-button { min-height: 38px; padding: 0 6px; justify-content: flex-start; font-size: 11px; }
   .finder-result-workbench { padding: 16px; }
   .finder-workbench-heading h2 { font-size: 27px; }
   .finder-workbench-body { margin-top: 16px; gap: 12px; }

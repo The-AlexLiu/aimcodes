@@ -3,7 +3,7 @@ import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
 import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
 import { parseCrosshairCode, updateCrosshairColor } from '../utils/crosshairCode.js'
-import { getReactionRecommendation, REACTION_RANKS, REACTION_ROUNDS } from '../utils/reactionRecommendation.js'
+import { getReactionRank, getReactionRecommendation, REACTION_RANKS, REACTION_ROUNDS } from '../utils/reactionRecommendation.js'
 import { createResultShareCard } from '../utils/shareResultCard.js'
 import { trackEvent } from '../utils/analytics.js'
 
@@ -43,6 +43,54 @@ function formatRankRange(rank, t) {
   return `${rank.min}–${rank.max} ${unit}`
 }
 
+function readChallengeFromLocation() {
+  if (typeof window === 'undefined') return null
+  const parameters = new URLSearchParams(window.location.search)
+  const score = Number.parseInt(parameters.get('challenge') || '', 10)
+  if (!Number.isInteger(score) || score < 80 || score > 2000) return null
+  const rank = getReactionRank(score)
+  const requestedRank = parameters.get('rank')
+  if (requestedRank && requestedRank !== rank.id) return null
+  return { score, rankId: rank.id }
+}
+
+function createChallengeUrl(result) {
+  if (!result || typeof window === 'undefined') return ''
+  const url = new URL(window.location.pathname, window.location.origin)
+  url.searchParams.set('challenge', String(result.average))
+  url.searchParams.set('rank', result.rank.id)
+  url.searchParams.set('utm_source', 'share')
+  url.searchParams.set('utm_medium', 'challenge')
+  url.searchParams.set('utm_campaign', 'reaction_rank')
+  return url.toString()
+}
+
+function getChallengeComparison(average, target) {
+  const difference = Math.abs(average - target)
+  if (average < target) return { outcome: 'won', difference }
+  if (average > target) return { outcome: 'missed', difference }
+  return { outcome: 'tied', difference: 0 }
+}
+
+function getShareCardOptions({ result, resultCrosshair, challengeUrl, t, format = 'portrait' }) {
+  return {
+    format,
+    title: t('finder.shareCardTitle'),
+    rankName: t(`finder.ranks.${result.rank.id}`),
+    rankRange: formatRankRange(result.rank, t),
+    average: result.average,
+    unit: t('finder.millisecondsShort'),
+    taunt: t(`finder.rankTaunts.${result.rank.id}`),
+    pickLabel: t('finder.shareCardPick'),
+    crosshair: resultCrosshair,
+    footer: t('finder.shareCardFooter'),
+    rankColor: result.rank.color,
+    challengeTitle: t('finder.shareCardChallengeTitle'),
+    challengeHint: t('finder.shareCardChallengeHint', { average: result.average, unit: t('finder.millisecondsShort') }),
+    challengeUrl,
+  }
+}
+
 export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusChange, t }) {
   const [phase, setPhase] = useState('intro')
   const [roundTimes, setRoundTimes] = useState([])
@@ -53,13 +101,25 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   const [resultBackground, setResultBackground] = useState('ascent')
   const [resultCopied, setResultCopied] = useState(false)
   const [shareStatus, setShareStatus] = useState('idle')
+  const [sharePreviewUrl, setSharePreviewUrl] = useState('')
+  const [challengeLinkCopied, setChallengeLinkCopied] = useState(false)
   const readyAt = useRef(0)
   const waitTimer = useRef(null)
   const feedbackTimer = useRef(null)
   const copiedTimer = useRef(null)
   const shareTimer = useRef(null)
+  const challengeLinkTimer = useRef(null)
   const attemptNumber = useRef(0)
+  const challenge = useMemo(() => readChallengeFromLocation(), [])
   const isFocusedTest = ['waiting', 'ready', 'early', 'feedback'].includes(phase)
+
+  useEffect(() => {
+    if (!challenge) return
+    trackEvent('challenge_landing', {
+      challenge_ms: challenge.score,
+      challenge_rank: challenge.rankId,
+    })
+  }, [challenge])
 
   useEffect(() => {
     onFocusChange?.(isFocusedTest)
@@ -72,10 +132,12 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
     if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
+    if (challengeLinkTimer.current) window.clearTimeout(challengeLinkTimer.current)
     waitTimer.current = null
     feedbackTimer.current = null
     copiedTimer.current = null
     shareTimer.current = null
+    challengeLinkTimer.current = null
   }
 
   useEffect(() => () => {
@@ -83,6 +145,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
     if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
+    if (challengeLinkTimer.current) window.clearTimeout(challengeLinkTimer.current)
   }, [])
 
   useEffect(() => {
@@ -117,6 +180,27 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     }
   }, [primaryRecommendation, resultCode])
 
+  const challengeUrl = useMemo(() => createChallengeUrl(result), [result])
+
+  useEffect(() => {
+    let isCancelled = false
+    let objectUrl = ''
+    if (!result || !resultCrosshair || !challengeUrl) return undefined
+
+    createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, t }))
+      .then((blob) => {
+        if (isCancelled) return
+        objectUrl = URL.createObjectURL(blob)
+        setSharePreviewUrl(objectUrl)
+      })
+      .catch((error) => console.error('Unable to prepare the result card preview.', error))
+
+    return () => {
+      isCancelled = true
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
+    }
+  }, [challengeUrl, result, resultCrosshair, t])
+
   const selectedCodeColorKey = useMemo(() => {
     if (!resultCrosshair) return 'custom'
     try {
@@ -137,12 +221,21 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     setResultBackground('ascent')
     setResultCopied(false)
     setShareStatus('idle')
+    setSharePreviewUrl('')
+    setChallengeLinkCopied(false)
     setPhase('waiting')
     trackEvent('finder_start', {
       attempt_number: attemptNumber.current,
       source,
       total_rounds: REACTION_ROUNDS,
     })
+    if (challenge) {
+      trackEvent('challenge_start', {
+        attempt_number: attemptNumber.current,
+        challenge_ms: challenge.score,
+        challenge_rank: challenge.rankId,
+      })
+    }
   }
 
   const queueNextRound = (nextPhase = 'feedback') => {
@@ -192,6 +285,25 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         recommendation_profile: nextResult.profile,
         recommended_crosshair_id: nextResult.id,
       })
+      if (challenge) {
+        const comparison = getChallengeComparison(nextResult.average, challenge.score)
+        trackEvent('challenge_complete', {
+          attempt_number: attemptNumber.current,
+          challenge_ms: challenge.score,
+          challenge_rank: challenge.rankId,
+          reaction_ms: nextResult.average,
+          reaction_rank: nextResult.rank.id,
+          outcome: comparison.outcome,
+          difference_ms: comparison.difference,
+        })
+        if (comparison.outcome === 'won') {
+          trackEvent('challenge_won', {
+            challenge_ms: challenge.score,
+            reaction_ms: nextResult.average,
+            difference_ms: comparison.difference,
+          })
+        }
+      }
       window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }))
       return
     }
@@ -240,20 +352,15 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   const handleShareResult = async () => {
     if (!result || !resultCrosshair || shareStatus === 'working') return
     setShareStatus('working')
+    trackEvent('share_card_open', {
+      content_type: 'reaction_result',
+      reaction_ms: result.average,
+      reaction_rank: result.rank.id,
+      crosshair_id: resultCrosshair.id,
+    })
     try {
       const rankName = t(`finder.ranks.${result.rank.id}`)
-      const blob = await createResultShareCard({
-        title: t('finder.shareCardTitle'),
-        rankName,
-        rankRange: formatRankRange(result.rank, t),
-        average: result.average,
-        unit: t('finder.millisecondsShort'),
-        taunt: t(`finder.rankTaunts.${result.rank.id}`),
-        pickLabel: t('finder.shareCardPick'),
-        crosshair: resultCrosshair,
-        footer: t('finder.shareCardFooter'),
-        rankColor: result.rank.color,
-      })
+      const blob = await createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, t }))
       const fileName = `aimcodes-reaction-${result.rank.id}-${result.average}ms.png`
       let shared = false
       const prefersNativeShare = navigator.maxTouchPoints > 0 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
@@ -265,6 +372,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
             files: [file],
             title: t('finder.shareTitle'),
             text: t('finder.shareText', { rank: rankName, average: result.average, unit: t('finder.millisecondsShort') }),
+            url: challengeUrl,
           })
           shared = true
         }
@@ -280,6 +388,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         link.remove()
         window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
       }
+
+      trackEvent(shared ? 'share_native' : 'share_download', {
+        content_type: 'reaction_result',
+        item_id: result.rank.id,
+        reaction_ms: result.average,
+        crosshair_id: resultCrosshair.id,
+      })
 
       trackEvent('share', {
         method: shared ? 'native_share' : 'image_download',
@@ -305,6 +420,35 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     }
   }
 
+  const copyChallengeLink = async () => {
+    if (!challengeUrl) return
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(challengeUrl)
+      } else {
+        const input = document.createElement('textarea')
+        input.value = challengeUrl
+        input.setAttribute('readonly', '')
+        input.style.position = 'fixed'
+        input.style.opacity = '0'
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand('copy')
+        input.remove()
+      }
+      setChallengeLinkCopied(true)
+      trackEvent('share_link_copy', {
+        content_type: 'reaction_challenge',
+        reaction_ms: result.average,
+        reaction_rank: result.rank.id,
+      })
+      if (challengeLinkTimer.current) window.clearTimeout(challengeLinkTimer.current)
+      challengeLinkTimer.current = window.setTimeout(() => setChallengeLinkCopied(false), 1800)
+    } catch (error) {
+      console.error('Unable to copy the challenge link.', error)
+    }
+  }
+
   const phaseTitle = phase === 'intro'
     ? t('finder.introTitle')
     : phase === 'waiting'
@@ -327,6 +471,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
   if (phase === 'result' && result && resultCrosshair) {
     const displayRanks = [...REACTION_RANKS].reverse()
+    const challengeComparison = challenge ? getChallengeComparison(result.average, challenge.score) : null
     const shareLabel = shareStatus === 'working'
       ? t('finder.sharePreparing')
       : shareStatus === 'shared'
@@ -345,9 +490,6 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
             <p>{t('finder.resultsSubtitle')}</p>
           </div>
           <div className="finder-heading-actions">
-            <button className="finder-secondary-button finder-share-button" type="button" onClick={handleShareResult} disabled={shareStatus === 'working'} aria-live="polite">
-              <Icon name={shareStatus === 'shared' || shareStatus === 'saved' ? 'check' : 'share'} size={17} />{shareLabel}
-            </button>
             <button className="finder-secondary-button" type="button" onClick={() => startTest('retest')}><Icon name="rotate" size={17} />{t('finder.testAgain')}</button>
           </div>
         </div>
@@ -359,10 +501,40 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
             <h2>{t(`finder.ranks.${result.rank.id}`)}</h2>
             <p>{t('finder.rankPlacement', { average: result.average, unit: t('finder.millisecondsShort'), range: formatRankRange(result.rank, t) })}</p>
             <strong className="finder-rank-taunt">{t(`finder.rankTaunts.${result.rank.id}`)}</strong>
+            {challengeComparison && (
+              <strong className={`finder-challenge-outcome is-${challengeComparison.outcome}`}>
+                {t(`finder.challenge${challengeComparison.outcome === 'won' ? 'Won' : challengeComparison.outcome === 'missed' ? 'Missed' : 'Tied'}`, {
+                  difference: challengeComparison.difference,
+                  unit: t('finder.millisecondsShort'),
+                })}
+              </strong>
+            )}
           </div>
           <div className="finder-rank-score">
             <span>{t('finder.average')}</span>
             <strong>{result.average}<small>{t('finder.millisecondsShort')}</small></strong>
+          </div>
+        </section>
+
+        <section className="finder-share-panel" aria-labelledby="finder-share-title">
+          <div className="finder-share-preview-frame" aria-live="polite">
+            {sharePreviewUrl
+              ? <img src={sharePreviewUrl} alt={t('finder.sharePreviewAlt')} />
+              : <span><Icon name="target" size={28} />{t('finder.sharePreparing')}</span>}
+          </div>
+          <div className="finder-share-copy">
+            <span>{t('finder.sharePanelEyebrow')}</span>
+            <h2 id="finder-share-title">{t('finder.sharePanelTitle')}</h2>
+            <p>{t('finder.sharePanelBody', { average: result.average, unit: t('finder.millisecondsShort') })}</p>
+            <div className="finder-share-actions">
+              <button className="primary-button finder-share-primary" type="button" onClick={handleShareResult} disabled={shareStatus === 'working'} aria-live="polite">
+                <Icon name={shareStatus === 'shared' || shareStatus === 'saved' ? 'check' : 'share'} size={18} />{shareLabel}
+              </button>
+              <button className="finder-link-button" type="button" onClick={copyChallengeLink}>
+                <Icon name={challengeLinkCopied ? 'check' : 'copy'} size={17} />
+                {challengeLinkCopied ? t('finder.challengeLinkCopied') : t('finder.copyChallengeLink')}
+              </button>
+            </div>
           </div>
         </section>
 
@@ -452,6 +624,16 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         <div><h1 id="finder-title">{t('finder.title')}</h1><p>{t('finder.subtitle')}</p></div>
         <button className="finder-secondary-button finder-exit-button" type="button" onClick={exitFinder}><Icon name="exit" size={17} />{t('finder.exit')}</button>
       </div>
+
+      {phase === 'intro' && challenge && (
+        <section className="finder-challenge-banner" aria-label={t('finder.challengeLabel')}>
+          <span><Icon name="target" size={22} /></span>
+          <div>
+            <strong>{t('finder.challengeLandingTitle', { score: challenge.score, unit: t('finder.millisecondsShort') })}</strong>
+            <p>{t('finder.challengeLandingBody')}</p>
+          </div>
+        </section>
+      )}
 
       <div className="finder-round-heading"><span />{t('finder.round', { current: roundNumber, total: REACTION_ROUNDS })}<span /></div>
       <button className={`reaction-field is-${phase}`} type="button" onClick={handlePlayArea} data-phase={phase} aria-label={t('finder.playArea')}>
