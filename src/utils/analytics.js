@@ -102,7 +102,7 @@ export function trackPageView(viewName, pageTitle) {
   if (!hasWindow() || lastPageView === viewName) return false
 
   const virtualLocation = new URL(window.location.href)
-  virtualLocation.hash = viewName === 'finder' ? 'finder' : 'explore'
+  virtualLocation.hash = ''
   const tracked = trackEvent('page_view', {
     page_title: pageTitle,
     page_location: virtualLocation.href,

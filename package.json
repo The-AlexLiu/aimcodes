@@ -12,6 +12,7 @@
     "validate:finder": "node scripts/validate-reaction-ranks.mjs",
     "validate:localization": "node scripts/validate-localization.mjs",
     "validate:routing": "node scripts/validate-localized-routes.mjs",
+    "validate:seo": "node scripts/validate-seo-pages.mjs",
     "validate:analytics": "node scripts/validate-analytics.mjs"
   },
   "dependencies": {
@@ -25,7 +26,6 @@
     "@eslint/js": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
-    "globals": "latest",
-    "vite-plugin-singlefile": "latest"
+    "globals": "latest"
   }
 }
