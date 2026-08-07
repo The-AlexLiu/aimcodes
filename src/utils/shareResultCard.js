@@ -7,6 +7,21 @@ const PORTRAIT_WIDTH = 1080
 const PORTRAIT_HEIGHT = 1440
 const DISPLAY_FONT = '"Arial Narrow", "Roboto Condensed", "PingFang SC", "Microsoft YaHei", sans-serif'
 const BODY_FONT = 'Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif'
+const BRAND_LOGO_URL = '/brand/aimcodes-logo-transparent-v2.png'
+let brandLogoPromise
+
+function loadBrandLogo() {
+  if (!brandLogoPromise) {
+    brandLogoPromise = new Promise((resolve, reject) => {
+      const image = new Image()
+      image.decoding = 'async'
+      image.onload = () => resolve(image)
+      image.onerror = () => reject(new Error('brand-logo-load-failed'))
+      image.src = BRAND_LOGO_URL
+    })
+  }
+  return brandLogoPromise
+}
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const safeRadius = Math.min(radius, width / 2, height / 2)
@@ -33,38 +48,15 @@ function drawGrid(ctx, width, height) {
   ctx.restore()
 }
 
-function drawBrand(ctx) {
-  const x = 76
-  const y = 70
-  const markScale = 1.4
-  const axisOuter = 17.5 * markScale
-  const axisInner = 9.5 * markScale
+function drawBrand(ctx, brandLogo) {
   ctx.save()
-  ctx.strokeStyle = '#ff5b57'
-  ctx.lineWidth = 2.4 * markScale
-  ctx.beginPath()
-  ctx.arc(x, y, 8.8 * markScale, 0, Math.PI * 2)
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(x, y - axisOuter)
-  ctx.lineTo(x, y - axisInner)
-  ctx.moveTo(x, y + axisInner)
-  ctx.lineTo(x, y + axisOuter)
-  ctx.moveTo(x - axisOuter, y)
-  ctx.lineTo(x - axisInner, y)
-  ctx.moveTo(x + axisInner, y)
-  ctx.lineTo(x + axisOuter, y)
-  ctx.stroke()
-  ctx.fillStyle = '#ff5b57'
-  ctx.beginPath()
-  ctx.arc(x, y, 2.25 * markScale, 0, Math.PI * 2)
-  ctx.fill()
+  ctx.drawImage(brandLogo, 48, 42, 58, 58)
   ctx.fillStyle = '#f6f8f9'
   ctx.font = `800 30px ${DISPLAY_FONT}`
-  ctx.fillText('Aim', 119, 81)
+  ctx.fillText('Aim', 118, 81)
   const aimWidth = ctx.measureText('Aim').width
   ctx.fillStyle = '#ff5b57'
-  ctx.fillText('Codes', 119 + aimWidth, 81)
+  ctx.fillText('Codes', 118 + aimWidth, 81)
   ctx.restore()
 }
 
@@ -237,6 +229,7 @@ function drawLandscapeCard({
   crosshair,
   footer,
   rankColor,
+  brandLogo,
 }) {
   const { canvas, ctx } = createCardCanvas(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT)
 
@@ -246,7 +239,7 @@ function drawLandscapeCard({
   ctx.stroke()
   ctx.fillStyle = rankColor
   ctx.fillRect(48, 34, 5, 562)
-  drawBrand(ctx)
+  drawBrand(ctx, brandLogo)
 
   ctx.fillStyle = '#85939d'
   ctx.font = `800 18px ${DISPLAY_FONT}`
@@ -323,6 +316,7 @@ async function drawPortraitCard({
   challengeTitle,
   challengeHint,
   challengeUrl,
+  brandLogo,
 }) {
   const { canvas, ctx } = createCardCanvas(PORTRAIT_WIDTH, PORTRAIT_HEIGHT)
 
@@ -332,7 +326,7 @@ async function drawPortraitCard({
   ctx.stroke()
   ctx.fillStyle = rankColor
   ctx.fillRect(42, 34, 6, 1372)
-  drawBrand(ctx)
+  drawBrand(ctx, brandLogo)
 
   ctx.fillStyle = '#85939d'
   ctx.font = `800 20px ${DISPLAY_FONT}`
@@ -409,8 +403,9 @@ async function drawPortraitCard({
 }
 
 export async function createResultShareCard(options) {
+  const brandLogo = await loadBrandLogo()
   const canvas = options.format === 'landscape'
-    ? drawLandscapeCard(options)
-    : await drawPortraitCard(options)
+    ? drawLandscapeCard({ ...options, brandLogo })
+    : await drawPortraitCard({ ...options, brandLogo })
   return canvasToBlob(canvas)
 }

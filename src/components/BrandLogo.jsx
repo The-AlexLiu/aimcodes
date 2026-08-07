@@ -1,16 +1,12 @@
 export function BrandMark({ compact = false }) {
   return (
-    <svg
+    <img
       className={`brand-mark ${compact ? 'is-compact' : ''}`}
-      viewBox="0 0 40 40"
-      fill="none"
+      src="/brand/aimcodes-logo-transparent-v2.png"
+      alt=""
       aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M20 2.5v8M20 29.5v8M2.5 20h8M29.5 20h8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="square" />
-      <circle cx="20" cy="20" r="8.8" stroke="currentColor" strokeWidth="2.4" />
-      <circle cx="20" cy="20" r="2.25" fill="currentColor" />
-    </svg>
+      draggable="false"
+    />
   )
 }
 

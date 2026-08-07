@@ -1,0 +1,14 @@
+---
+description: AimCodes 社媒素材渲染器的单一源与导出规则
+globs: "{public/tools/social-renderer/**,scripts/generate-promo-renderer-data.mjs,scripts/qa/**}"
+alwaysApply: false
+---
+
+- 当前主站发布基准是 `public/tools/social-renderer/index.html`。
+- 不得只修改被 Git 忽略的 `output/promo_assets/source/promo-renderer.html`。
+- 修改后同步独立作品集仓库 `../AimCodes-Social-Creative-Renderer/renderer/index.html`，并比较三个副本校验值。
+- 保持四语种、准星选择、三次成绩、平台安全区、MP4、方形图和竖版封面能力。
+- 成绩必须在每次模拟点击完成后才出现，不能提前显示。
+- 准星尺寸应接近真实游戏观感，不能把装饰准星误当作测试目标。
+- 导出功能优先验证最新 Chrome；不支持的浏览器需要明确回退，不显示假成功状态。
+- 未经明确授权，不得把工具或素材重新发布到 GitHub/Netlify。

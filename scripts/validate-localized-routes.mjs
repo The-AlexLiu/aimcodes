@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises'
+import { access, readFile, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { localeRoutes, normalizeLocale } from '../src/i18n/localeRoutes.js'
@@ -31,7 +31,7 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
         `content="${metadata.description}"`,
         `rel="canonical" href="${metadata.canonical}"`,
         'hreflang="x-default"',
-        'rel="icon" href="https://aimcodes.com/favicon.svg"',
+        'rel="icon" href="https://aimcodes.com/favicon-v2.png"',
         '<meta name="robots" content="index,follow,max-image-preview:large"',
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
@@ -44,9 +44,9 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
 if (normalizeLocale('zh-Hans') !== 'zh-CN') errors.push('zh-Hans alias did not resolve to zh-CN')
 
 const robots = await readFile(resolve(projectRoot, 'dist/robots.txt'), 'utf8')
-const favicon = await readFile(resolve(projectRoot, 'dist/favicon.svg'), 'utf8')
+const favicon = await stat(resolve(projectRoot, 'dist/favicon-v2.png'))
 if (!robots.includes('https://aimcodes.com/sitemap.xml')) errors.push('robots.txt: sitemap URL missing')
-if (!favicon.includes('width="96" height="96"')) errors.push('favicon.svg: expected a square 96×96 icon')
+if (favicon.size < 1000) errors.push('favicon-v2.png: file is unexpectedly small')
 
 if (errors.length) {
   console.error(errors.join('\n'))

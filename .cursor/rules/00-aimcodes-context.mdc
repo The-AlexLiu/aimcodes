@@ -1,0 +1,12 @@
+---
+description: AimCodes 项目总规则与共享上下文入口
+globs:
+alwaysApply: true
+---
+
+- 先读取并遵守 `@AGENTS.md`；它是 GPT/Codex、Cursor 和人工开发者共用的最高项目规则。
+- 开始任务前读取 `@docs/PROJECT_CONTEXT.md`、`@docs/ARCHITECTURE.md`、`@docs/CURRENT_STATE.md`、`@docs/DECISIONS.md` 和 `@docs/HANDOFF.md`。
+- 默认使用中文沟通，先给结论，再给操作与验证结果。
+- 在任何修改前运行 `git status -sb`；现有修改属于用户，不得覆盖、回滚或混入新任务。
+- 未获得明确授权，不得推送 GitHub、合并 PR、发布 Netlify、修改 GA4/GSC/DNS 或外部账号权限。
+- 一个任务只使用一个分支和一个工作树，不与 GPT/Codex 同时编辑相同文件。

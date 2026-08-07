@@ -1,0 +1,13 @@
+---
+description: AimCodes 多语种、SEO、路由和 GA4 规则
+globs: "{src/i18n/**,src/seo/**,src/utils/analytics.js,scripts/generate-localized-routes.mjs,scripts/validate-*.mjs,public/robots.txt,public/sitemap.xml}"
+alwaysApply: false
+---
+
+- 正式语言路径固定为 `/en/`、`/es/`、`/pt-br/`、`/zh-cn/`。
+- 任何用户可见或 SEO 文案改动必须同步英语、西语、巴西葡语和简体中文。
+- 保持 canonical、双向 hreflang、x-default、Open Graph、JSON-LD、robots 和 sitemap 一致。
+- `validate:seo` 与 `validate:routing` 必须在最新一次 `pnpm build` 之后运行。
+- GA4 事件使用小写下划线，不发送原始搜索词、个人信息或敏感数据。
+- 内部验收使用 `?qa=1`；本地 GA4 调试使用 `?ga_debug=1`。
+- 完成后运行 `pnpm validate:localization`、`pnpm validate:analytics`、`pnpm build`、`pnpm validate:seo` 和 `pnpm validate:routing`。
