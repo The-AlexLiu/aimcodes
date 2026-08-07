@@ -13,6 +13,7 @@ import {
   SITE_ORIGIN,
 } from '../src/seo/content.js'
 import { isPriorityCrosshair, routePath, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -35,13 +36,27 @@ function jsonLd(value) {
 
 function structuredData(locale, route, crosshair, localizedCrosshairs) {
   const metadata = routeMetadata(locale, route, crosshair)
-  const graph = [{
-    '@type': 'WebSite',
-    '@id': `${SITE_ORIGIN}/#website`,
-    url: `${SITE_ORIGIN}/`,
-    name: 'AimCodes',
-    inLanguage: localeRoutes[locale].htmlLang,
-  }]
+  const graph = [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_ORIGIN}/#organization`,
+      name: 'AimCodes',
+      url: `${SITE_ORIGIN}/`,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_ORIGIN}/brand/aimcodes-logo.png`,
+      },
+      sameAs: SOCIAL_PROFILE_URLS,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_ORIGIN}/#website`,
+      url: `${SITE_ORIGIN}/`,
+      name: 'AimCodes',
+      inLanguage: localeRoutes[locale].htmlLang,
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+    },
+  ]
 
   if (route.type === 'catalog') {
     graph.push({

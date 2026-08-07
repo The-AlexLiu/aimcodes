@@ -37,7 +37,7 @@ const copy = {
       ],
       cta: 'Browse crosshair codes',
     },
-    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', note: 'Built for faster crosshair testing.' },
+    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
       homeTitle: 'VALORANT Crosshair Codes & Live Preview | AimCodes',
@@ -67,7 +67,7 @@ const copy = {
       eyebrow: 'LISTO EN 60 SEGUNDOS', title: 'Cómo importar un código de mira en VALORANT', intro: 'Copia cualquier código de AimCodes y añádelo a VALORANT en tres pasos.',
       steps: [['Copia un código', 'Abre una mira en AimCodes y pulsa Copiar código.'], ['Abre los ajustes de mira', 'En VALORANT, abre Ajustes → Mira y elige Importar código de perfil.'], ['Pega y prueba', 'Pega el código, ponle un nombre y pruébalo en el campo de tiro antes de jugar.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', note: 'Hecho para probar miras más rápido.' },
+    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', note: 'Hecho para probar miras más rápido.', social: 'Sigue a AimCodes' },
     notFound: { title: 'Esta mira falló el tiro', body: 'La página no existe. Vuelve al catálogo y elige otra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira de VALORANT y vista previa | AimCodes', homeDescription: 'Prueba códigos de mira de VALORANT en mapas reales, cambia colores, copia códigos y encuentra tu próxima mira con una prueba de reacción.',
@@ -90,7 +90,7 @@ const copy = {
       eyebrow: 'PRONTO EM 60 SEGUNDOS', title: 'Como importar um código de mira no VALORANT', intro: 'Copie qualquer código do AimCodes e adicione ao VALORANT em três passos rápidos.',
       steps: [['Copie um código', 'Abra uma mira no AimCodes e toque em Copiar código.'], ['Abra as opções de mira', 'No VALORANT, abra Configurações → Mira e escolha Importar código de perfil.'], ['Cole e teste', 'Cole o código, dê um nome ao perfil e teste no campo de treino antes da partida.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', note: 'Feito para testar miras mais rápido.' },
+    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', note: 'Feito para testar miras mais rápido.', social: 'Siga a AimCodes' },
     notFound: { title: 'Essa mira errou o tiro', body: 'A página não existe. Volte ao catálogo e escolha outra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira do VALORANT e prévia ao vivo | AimCodes', homeDescription: 'Teste códigos de mira do VALORANT em mapas reais, troque cores, copie códigos e encontre sua próxima mira com um teste de reação.',
@@ -113,7 +113,7 @@ const copy = {
       eyebrow: '一分钟完成', title: '无畏契约准星代码怎么导入', intro: '从 AimCodes 复制任意准星代码，三步添加到游戏里。',
       steps: [['复制准星代码', '打开 AimCodes 的准星页面，点击“复制代码”。'], ['进入准星设置', '打开《无畏契约》设置，进入“准星”，选择“导入准星配置代码”。'], ['粘贴并试用', '粘贴代码、保存方案，先去训练场看看是否顺手。']], cta: '浏览准星代码',
     },
-    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', note: '让试准星这件事快一点。' },
+    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', note: '让试准星这件事快一点。', social: '关注 AimCodes' },
     notFound: { title: '这枪空了', body: '这个页面不存在，回准星库再挑一个吧。', action: '返回准星库' },
     meta: {
       homeTitle: '无畏契约准星代码与地图预览 | AimCodes', homeDescription: '在真实地图中预览可用的无畏契约准星代码，自定义颜色，一键复制，还能通过反应测试找到更适合自己的准星。',

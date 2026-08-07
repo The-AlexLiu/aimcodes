@@ -6,6 +6,7 @@ import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SITE_ORIGIN } from '../src/seo/content.js'
 import { isPriorityCrosshair, routePath, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -48,10 +49,15 @@ for (const locale of Object.keys(localeRoutes)) {
         '<meta property="og:image" content="https://aimcodes.com/og-aimcodes.png" />',
         '<meta name="twitter:card" content="summary_large_image" />',
         '<script type="application/ld+json">',
+        '"@type":"Organization"',
+        '"sameAs":',
         '<main class="seo-static-shell"><h1>',
         '<script type="module" crossorigin src="/assets/',
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
+      for (const profileUrl of SOCIAL_PROFILE_URLS) {
+        if (!html.includes(profileUrl)) errors.push(`${path}: missing official social profile ${profileUrl}`)
+      }
       for (const config of Object.values(localeRoutes)) {
         if (!html.includes(`hreflang="${config.hreflang}"`)) errors.push(`${path}: missing hreflang ${config.hreflang}`)
       }

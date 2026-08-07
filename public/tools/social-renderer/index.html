@@ -63,7 +63,8 @@
       }
 
       select,
-      input[type="number"] {
+      input[type="number"],
+      input[type="text"] {
         width: 100%;
         min-height: 48px;
         padding: 0 12px;
@@ -168,6 +169,50 @@
         cursor: pointer;
       }
       .check-row input { margin-top: 3px; accent-color: #ff5b57; }
+      .cover-studio {
+        margin-top: 18px;
+        padding: 14px;
+        border: 1px solid rgba(255, 91, 87, 0.34);
+        border-radius: 14px;
+        background:
+          linear-gradient(145deg, rgba(255, 91, 87, 0.08), transparent 58%),
+          rgba(17, 29, 38, 0.74);
+      }
+      .cover-studio-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .cover-studio-heading strong { color: #f5f7f8; font-size: 15px; }
+      .cover-studio-heading span {
+        display: block;
+        margin-top: 4px;
+        color: #9eabb5;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .cover-studio-badge {
+        flex: 0 0 auto;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 91, 87, 0.14);
+        color: #ff8d89;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .cover-studio label:not(.check-row) { margin-top: 14px; }
+      .cover-title-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .cover-title-actions button {
+        width: auto;
+        min-height: 34px;
+        margin-top: 8px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
       .download-destination {
         margin-top: 16px;
         padding: 12px;
@@ -295,6 +340,32 @@
           <input id="show-safe-zone" type="checkbox" checked />
           <span>预览平台安全区（只显示在预览，不会写入成片）</span>
         </label>
+        <section class="cover-studio" aria-labelledby="cover-studio-title">
+          <div class="cover-studio-heading">
+            <div>
+              <strong id="cover-studio-title">配套封面</strong>
+              <span>专门为 TikTok / Shorts 的封面选择画面制作。</span>
+            </div>
+            <span class="cover-studio-badge">1080 × 1920</span>
+          </div>
+          <label for="cover-style">封面类型</label>
+          <select id="cover-style">
+            <option value="challenge">挑战封面</option>
+            <option value="result">成绩封面</option>
+            <option value="crosshair">准星封面</option>
+          </select>
+          <label for="cover-title">封面标题</label>
+          <input id="cover-title" type="text" maxlength="42" autocomplete="off" />
+          <div class="cover-title-actions">
+            <button id="reset-cover-title" type="button">恢复推荐标题</button>
+          </div>
+          <label class="check-row" for="embed-cover-frame">
+            <input id="embed-cover-frame" type="checkbox" checked />
+            <span>在视频末尾加入 1 秒封面候选帧</span>
+          </label>
+          <span class="field-hint" id="cover-frame-hint">发布时进入“选择封面”，拖到视频最后 1 秒即可。</span>
+          <button id="preview-cover" type="button">预览配套封面</button>
+        </section>
         <div class="download-destination">
           <div class="download-destination-heading">
             <span class="download-destination-title">保存位置</span>
@@ -310,7 +381,7 @@
         <button class="primary" id="render-video">导出可直接发布的 MP4</button>
         <div class="button-row">
           <button id="preview-video">预览竖版视频</button>
-          <button id="download-cover">导出竖版封面</button>
+          <button id="download-cover">导出封面 PNG</button>
         </div>
         <div class="button-row">
           <button id="download-square">导出方形图</button>
@@ -417,6 +488,12 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       const videoFormatSelect = document.querySelector('#video-format')
       const includeAudioInput = document.querySelector('#include-audio')
       const showSafeZoneInput = document.querySelector('#show-safe-zone')
+      const coverStyleSelect = document.querySelector('#cover-style')
+      const coverTitleInput = document.querySelector('#cover-title')
+      const resetCoverTitleButton = document.querySelector('#reset-cover-title')
+      const embedCoverFrameInput = document.querySelector('#embed-cover-frame')
+      const coverFrameHint = document.querySelector('#cover-frame-hint')
+      const previewCoverButton = document.querySelector('#preview-cover')
       const publishReady = document.querySelector('#publish-ready')
       const chooseDownloadFolderButton = document.querySelector('#choose-download-folder')
       const resetDownloadFolderButton = document.querySelector('#reset-download-folder')
@@ -431,9 +508,11 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       const VIDEO_WIDTH = 1080
       const VIDEO_HEIGHT = 1920
       const VIDEO_FPS = 30
-      const VIDEO_DURATION = 12
+      const BASE_VIDEO_DURATION = 12
+      const COVER_FRAME_DURATION = 1
       const supportsDirectoryPicker = typeof window.showDirectoryPicker === 'function'
       let downloadDirectoryHandle = null
+      let currentPreviewMode = 'square'
 
       const PLATFORMS = {
         universal: {
@@ -487,6 +566,17 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           squareTitle: '测 3 轮，马上出段位和准星',
           squareSub: '别只说你反应快，拿成绩来。',
           squareCta: '点击主页链接 · 免费挑战',
+          cover: {
+            eyebrow: 'AIMCODES 反应挑战',
+            challengeTitle: '你能比我快吗？',
+            resultTitle: '这成绩，你敢来比吗？',
+            crosshairTitle: '这套准星，第一枪更稳',
+            challengeLabel: '3 轮测试 · 12 秒出结果',
+            resultLabel: '刚刚测出的反应段位',
+            crosshairLabel: '真实代码渲染 · 可直接导入',
+            scoreToBeat: '等你来破',
+            cta: '点开主页链接 · 免费挑战',
+          },
           video: {
             eyebrow: 'AIMCODES 反应挑战',
             hookLines: ['都说自己', '反应快', '拿成绩说话。'],
@@ -523,6 +613,17 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           squareTitle: '3 rounds. Get your rank + crosshair.',
           squareSub: "Don't call yourself fast. Prove it.",
           squareCta: 'TAP THE LINK IN BIO · PLAY FREE',
+          cover: {
+            eyebrow: 'AIMCODES REACTION CHALLENGE',
+            challengeTitle: 'Can you beat my reaction time?',
+            resultTitle: 'Think you can beat this score?',
+            crosshairTitle: 'A cleaner crosshair for your first shot',
+            challengeLabel: '3 rounds · Result in 12 seconds',
+            resultLabel: 'REACTION RANK UNLOCKED',
+            crosshairLabel: 'Rendered from a valid import code',
+            scoreToBeat: 'SCORE TO BEAT',
+            cta: 'TAP THE LINK IN BIO · PLAY FREE',
+          },
           video: {
             eyebrow: 'AIMCODES REACTION CHALLENGE',
             hookLines: ['Everyone says', "they're fast", 'Prove it.'],
@@ -559,6 +660,17 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           squareTitle: '3 rondas. Obtén rango + mira.',
           squareSub: 'No digas que eres rápido. Demuéstralo.',
           squareCta: 'TOCA EL ENLACE DE LA BIO · JUEGA GRATIS',
+          cover: {
+            eyebrow: 'RETO DE REACCIÓN DE AIMCODES',
+            challengeTitle: '¿Puedes superar mi reacción?',
+            resultTitle: '¿Puedes superar esta marca?',
+            crosshairTitle: 'Una mira más limpia para el primer tiro',
+            challengeLabel: '3 rondas · Resultado en 12 segundos',
+            resultLabel: 'RANGO DE REACCIÓN DESBLOQUEADO',
+            crosshairLabel: 'Generada con un código válido',
+            scoreToBeat: 'MARCA A SUPERAR',
+            cta: 'TOCA EL ENLACE DE LA BIO · JUEGA GRATIS',
+          },
           video: {
             eyebrow: 'RETO DE REACCIÓN DE AIMCODES',
             hookLines: ['Todos dicen', 'que son rápidos', 'Demuéstralo.'],
@@ -595,6 +707,17 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           squareTitle: '3 rodadas. Ganhe rank + mira.',
           squareSub: 'Não diga que é rápido. Prove.',
           squareCta: 'TOQUE NO LINK DA BIO · JOGUE GRÁTIS',
+          cover: {
+            eyebrow: 'DESAFIO DE REAÇÃO AIMCODES',
+            challengeTitle: 'Você supera meu tempo de reação?',
+            resultTitle: 'Consegue superar este resultado?',
+            crosshairTitle: 'Uma mira mais limpa para o primeiro tiro',
+            challengeLabel: '3 rodadas · Resultado em 12 segundos',
+            resultLabel: 'RANK DE REAÇÃO DESBLOQUEADO',
+            crosshairLabel: 'Gerada com um código válido',
+            scoreToBeat: 'RESULTADO A SUPERAR',
+            cta: 'TOQUE NO LINK DA BIO · JOGUE GRÁTIS',
+          },
           video: {
             eyebrow: 'DESAFIO DE REAÇÃO AIMCODES',
             hookLines: ['Todo mundo diz', 'que é rápido', 'Prove.'],
@@ -636,6 +759,14 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       let activePlatformId = PLATFORMS[requestedPlatform] ? requestedPlatform : 'universal'
       platformSelect.value = activePlatformId
 
+      const COVER_STYLES = new Set(['challenge', 'result', 'crosshair'])
+      const requestedCoverStyle = new URLSearchParams(window.location.search).get('cover')
+      let activeCoverStyle = COVER_STYLES.has(requestedCoverStyle) ? requestedCoverStyle : 'challenge'
+      coverStyleSelect.value = activeCoverStyle
+      const requestedCoverTitle = new URLSearchParams(window.location.search).get('coverTitle')
+      let coverTitleIsCustom = Boolean(requestedCoverTitle?.trim())
+      embedCoverFrameInput.checked = new URLSearchParams(window.location.search).get('coverFrame') !== '0'
+
       function copy() {
         return COPY[activeLocale]
       }
@@ -643,6 +774,33 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function activePlatform() {
         return PLATFORMS[activePlatformId]
       }
+
+      function recommendedCoverTitle() {
+        const cover = copy().cover
+        if (activeCoverStyle === 'result') return cover.resultTitle
+        if (activeCoverStyle === 'crosshair') return cover.crosshairTitle
+        return cover.challengeTitle
+      }
+
+      function activeCoverTitle() {
+        return coverTitleInput.value.trim() || recommendedCoverTitle()
+      }
+
+      function updateCoverTitle({ force = false } = {}) {
+        if (force || !coverTitleIsCustom) {
+          coverTitleInput.value = recommendedCoverTitle()
+          coverTitleIsCustom = false
+          const url = new URL(window.location.href)
+          url.searchParams.delete('coverTitle')
+          window.history.replaceState(null, '', url)
+        }
+      }
+
+      function videoDuration() {
+        return BASE_VIDEO_DURATION + (embedCoverFrameInput.checked ? COVER_FRAME_DURATION : 0)
+      }
+
+      coverTitleInput.value = coverTitleIsCustom ? requestedCoverTitle.trim() : recommendedCoverTitle()
 
       function platformCta() {
         const cta = {
@@ -740,6 +898,52 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         ctx.textAlign = align
         ctx.fillText(text, x, y)
         ctx.textAlign = 'left'
+      }
+
+      function wrappedText(text, x, y, maxWidth, {
+        weight = 900,
+        size = 82,
+        min = 42,
+        color = COLORS.white,
+        lineHeight = 1.05,
+        maxLines = 3,
+      } = {}) {
+        const normalized = String(text || '').trim()
+        const containsSpaces = /\s/.test(normalized)
+        const tokens = containsSpaces ? normalized.split(/\s+/) : Array.from(normalized)
+        const separator = containsSpaces ? ' ' : ''
+        let currentSize = size
+        let lines = []
+
+        while (currentSize >= min) {
+          ctx.font = font(weight, currentSize)
+          lines = []
+          let line = ''
+          tokens.forEach((token) => {
+            const candidate = line ? `${line}${separator}${token}` : token
+            if (ctx.measureText(candidate).width <= maxWidth || !line) {
+              line = candidate
+            } else {
+              lines.push(line)
+              line = token
+            }
+          })
+          if (line) lines.push(line)
+          if (lines.length <= maxLines) break
+          currentSize -= 2
+        }
+
+        if (lines.length > maxLines) {
+          lines = lines.slice(0, maxLines)
+          let last = lines[maxLines - 1]
+          while (ctx.measureText(`${last}…`).width > maxWidth && last.length > 1) last = last.slice(0, -1)
+          lines[maxLines - 1] = `${last}…`
+        }
+
+        ctx.fillStyle = color
+        ctx.font = font(weight, currentSize)
+        lines.forEach((line, index) => ctx.fillText(line, x, y + index * currentSize * lineHeight))
+        return y + lines.length * currentSize * lineHeight
       }
 
       function roundedRect(context, x, y, width, height, radius) {
@@ -894,6 +1098,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       }
 
       function drawSquare() {
+        currentPreviewMode = 'square'
         const t = copy()
         canvas.width = 1080
         canvas.height = 1080
@@ -1251,11 +1456,98 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         })
       }
 
+      function drawSocialCover({ showSafeGuide = false } = {}) {
+        currentPreviewMode = 'cover'
+        const root = copy()
+        const t = root.cover
+        if (canvas.width !== VIDEO_WIDTH || canvas.height !== VIDEO_HEIGHT) {
+          canvas.width = VIDEO_WIDTH
+          canvas.height = VIDEO_HEIGHT
+        }
+
+        ctx.fillStyle = COLORS.ink
+        ctx.fillRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT)
+        drawCover(mapImage, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT, 0.52, 0.48)
+        const wash = ctx.createLinearGradient(0, 0, 0, VIDEO_HEIGHT)
+        wash.addColorStop(0, 'rgba(3, 9, 14, 0.78)')
+        wash.addColorStop(0.48, 'rgba(3, 9, 14, 0.62)')
+        wash.addColorStop(1, 'rgba(3, 9, 14, 0.98)')
+        ctx.fillStyle = wash
+        ctx.fillRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT)
+        const sideWash = ctx.createLinearGradient(0, 0, VIDEO_WIDTH, 0)
+        sideWash.addColorStop(0, 'rgba(3, 9, 14, 0.76)')
+        sideWash.addColorStop(0.75, 'rgba(3, 9, 14, 0.14)')
+        sideWash.addColorStop(1, 'rgba(3, 9, 14, 0.58)')
+        ctx.fillStyle = sideWash
+        ctx.fillRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT)
+        drawGrid(VIDEO_WIDTH, VIDEO_HEIGHT, 0.055, 80)
+        ctx.fillStyle = COLORS.red
+        ctx.fillRect(0, 0, VIDEO_WIDTH, 10)
+        drawBrand(82, 148, 1)
+
+        fillRound(72, 242, 604, 60, 30, 'rgba(255, 91, 87, 0.15)', COLORS.red, 2)
+        ctx.textBaseline = 'middle'
+        fittedText(t.eyebrow, 104, 272, 540, { weight: 850, size: 25, min: 17, color: COLORS.red })
+        ctx.textBaseline = 'alphabetic'
+        const titleBottom = wrappedText(activeCoverTitle(), 72, 420, 892, {
+          weight: 950,
+          size: activeLocale === 'zh-cn' ? 96 : 86,
+          min: 48,
+          lineHeight: 1.06,
+          maxLines: 3,
+        })
+
+        const panelY = Math.max(690, titleBottom + 46)
+        const panelHeight = 620
+        fillRound(72, panelY, 936, panelHeight, 34, 'rgba(6, 14, 20, 0.88)', 'rgba(255, 255, 255, 0.24)', 3)
+        drawCornerFrame(104, panelY + 32, 872, panelHeight - 64, COLORS.red, 52, 7)
+
+        if (activeCoverStyle === 'crosshair') {
+          fittedText(t.crosshairLabel, 540, panelY + 92, 790, { weight: 800, size: 29, min: 20, color: COLORS.cyan, align: 'center' })
+          ctx.save()
+          roundedRect(ctx, 132, panelY + 130, 816, 316, 24)
+          ctx.clip()
+          drawCover(mapImage, 132, panelY + 130, 816, 316, 0.52, 0.46)
+          ctx.fillStyle = 'rgba(3, 9, 14, 0.18)'
+          ctx.fillRect(132, panelY + 130, 816, 316)
+          ctx.restore()
+          drawCrosshair(540, panelY + 288, 2.15, activeParsedCrosshair.color, false)
+          fittedText(localizedCrosshair().name, 540, panelY + 515, 770, { weight: 950, size: 52, min: 30, color: activeParsedCrosshair.color, align: 'center' })
+          fittedText(root.rendered, 540, panelY + 560, 760, { weight: 700, size: 26, min: 18, color: COLORS.muted, align: 'center' })
+        } else if (activeCoverStyle === 'result') {
+          fittedText(t.resultLabel, 540, panelY + 96, 790, { weight: 850, size: 30, min: 20, color: COLORS.red, align: 'center' })
+          fittedText(currentRank(), 540, panelY + 278, 820, { weight: 950, size: 142, min: 82, color: COLORS.gold, align: 'center' })
+          fittedText(`${averageScore()} ${root.unit}`, 540, panelY + 402, 820, { weight: 950, size: 88, min: 54, color: COLORS.cyan, align: 'center' })
+          fittedText(rounds.map((round) => round.value).join('  ·  '), 540, panelY + 494, 760, { weight: 750, size: 34, min: 24, color: COLORS.white, align: 'center' })
+          fittedText(localizedCrosshair().shortName, 540, panelY + 555, 760, { weight: 750, size: 27, min: 20, color: COLORS.muted, align: 'center' })
+        } else {
+          fittedText(t.challengeLabel, 540, panelY + 96, 790, { weight: 850, size: 30, min: 20, color: COLORS.red, align: 'center' })
+          fittedText(String(averageScore()), 540, panelY + 338, 820, { weight: 950, size: 214, min: 150, color: COLORS.white, align: 'center' })
+          fittedText(root.unit, 540, panelY + 404, 820, { weight: 900, size: 46, min: 30, color: COLORS.cyan, align: 'center' })
+          fittedText(t.scoreToBeat, 540, panelY + 472, 760, { weight: 900, size: 32, min: 22, color: COLORS.gold, align: 'center' })
+          fittedText(rounds.map((round) => round.value).join('  ·  '), 540, panelY + 545, 760, { weight: 750, size: 32, min: 22, color: COLORS.muted, align: 'center' })
+        }
+
+        fillRound(72, 1470, 936, 116, 58, COLORS.red)
+        ctx.textBaseline = 'middle'
+        fittedText(t.cta, 540, 1528, 840, { weight: 950, size: 35, min: 22, color: COLORS.ink, align: 'center' })
+        ctx.textBaseline = 'alphabetic'
+        fittedText('AIMCODES.COM', 72, 1660, 700, { weight: 950, size: 42, min: 28, color: COLORS.white })
+        fittedText(localizedCrosshair().shortName, 1008, 1660, 280, { weight: 850, size: 28, min: 18, color: activeParsedCrosshair.color, align: 'right' })
+
+        if (showSafeGuide) drawSafeZoneGuide()
+      }
+
       function drawVideoFrame(time, { showSafeGuide = false } = {}) {
         if (canvas.width !== VIDEO_WIDTH || canvas.height !== VIDEO_HEIGHT) {
           canvas.width = VIDEO_WIDTH
           canvas.height = VIDEO_HEIGHT
         }
+        if (embedCoverFrameInput.checked && time >= BASE_VIDEO_DURATION) {
+          drawSocialCover({ showSafeGuide })
+          return
+        }
+        currentPreviewMode = 'video'
         drawVideoBase()
         drawHook(time)
         rounds.forEach((round, index) => drawReactionRound(time, round, index))
@@ -1331,11 +1623,11 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       }
 
       async function downloadCover() {
-        drawVideoFrame(0.9)
+        drawSocialCover()
         const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
         if (!blob) throw new Error('竖版封面生成失败')
-        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${activePlatform().file}-cover-${copy().file}.png`)
-        status.textContent = `${activePlatform().label} 竖版封面已导出，${savedToText(result)}`
+        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${activePlatform().file}-${activeCoverStyle}-cover-${copy().file}.png`)
+        status.textContent = `${activePlatform().label} ${coverStyleSelect.options[coverStyleSelect.selectedIndex].text}已导出，${savedToText(result)}`
       }
 
       let previewAnimationId = 0
@@ -1343,13 +1635,14 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function previewVideo() {
         if (previewAnimationId) cancelAnimationFrame(previewAnimationId)
         const startedAt = performance.now()
+        const duration = videoDuration()
         setControlsDisabled(true)
         status.textContent = `正在预览 ${activePlatform().label} 成片；虚线安全区不会写入视频。`
 
         function frame(now) {
-          const elapsed = Math.min(VIDEO_DURATION, (now - startedAt) / 1000)
+          const elapsed = Math.min(duration, (now - startedAt) / 1000)
           drawVideoFrame(elapsed, { showSafeGuide: showSafeZoneInput.checked })
-          if (elapsed < VIDEO_DURATION) {
+          if (elapsed < duration) {
             previewAnimationId = requestAnimationFrame(frame)
           } else {
             previewAnimationId = 0
@@ -1438,6 +1731,11 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         videoFormatSelect.disabled = disabled
         includeAudioInput.disabled = disabled
         showSafeZoneInput.disabled = disabled
+        coverStyleSelect.disabled = disabled
+        coverTitleInput.disabled = disabled
+        resetCoverTitleButton.disabled = disabled
+        embedCoverFrameInput.disabled = disabled
+        previewCoverButton.disabled = disabled
         randomScoresButton.disabled = disabled
         chooseDownloadFolderButton.disabled = disabled || !supportsDirectoryPicker
         resetDownloadFolderButton.disabled = disabled || !downloadDirectoryHandle
@@ -1452,7 +1750,11 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function updatePlatformUi() {
         platformHint.textContent = activePlatform().hint
         const audioLabel = includeAudioInput.checked ? '提示音轨' : '无音轨'
-        publishReady.textContent = `1080 × 1920 · ${VIDEO_FPS} FPS · ${activeVideoFormat.toUpperCase()} · ${audioLabel} · ${activePlatform().label} 安全区`
+        const coverLabel = embedCoverFrameInput.checked ? '末尾含 1 秒封面候选帧' : '不写入封面候选帧'
+        publishReady.textContent = `1080 × 1920 · ${VIDEO_FPS} FPS · ${activeVideoFormat.toUpperCase()} · ${audioLabel} · ${coverLabel} · ${activePlatform().label} 安全区`
+        coverFrameHint.textContent = embedCoverFrameInput.checked
+          ? `发布到 ${activePlatform().label} 时进入“选择封面”，拖到视频最后 1 秒即可。`
+          : '当前只会导出独立封面 PNG，不会改变视频时长。'
         updateVideoButton()
       }
 
@@ -1468,7 +1770,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         }
 
         setControlsDisabled(true)
-        status.textContent = `正在逐帧渲染 ${VIDEO_DURATION} 秒 ${activePlatform().label} ${format.toUpperCase()} 成片，请稍候…`
+        const duration = videoDuration()
+        status.textContent = `正在逐帧渲染 ${duration} 秒 ${activePlatform().label} ${format.toUpperCase()} 成片，请稍候…`
         canvas.width = VIDEO_WIDTH
         canvas.height = VIDEO_HEIGHT
 
@@ -1502,12 +1805,12 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           const start = performance.now()
 
           if (canRequestFrames) {
-            const totalFrames = Math.ceil(VIDEO_DURATION * VIDEO_FPS)
+            const totalFrames = Math.ceil(duration * VIDEO_FPS)
             for (let frameIndex = 0; frameIndex <= totalFrames; frameIndex += 1) {
-              const elapsed = Math.min(VIDEO_DURATION, frameIndex / VIDEO_FPS)
+              const elapsed = Math.min(duration, frameIndex / VIDEO_FPS)
               drawVideoFrame(elapsed)
               videoTrack.requestFrame()
-              status.textContent = `正在渲染 ${localizedCrosshair().shortName}：${elapsed.toFixed(1)} / ${VIDEO_DURATION.toFixed(1)} 秒`
+              status.textContent = `正在渲染 ${localizedCrosshair().shortName}：${elapsed.toFixed(1)} / ${duration.toFixed(1)} 秒`
               const nextFrameAt = start + ((frameIndex + 1) * 1000) / VIDEO_FPS
               const wait = Math.max(0, nextFrameAt - performance.now())
               await new Promise((resolve) => window.setTimeout(resolve, wait))
@@ -1516,9 +1819,9 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
             await new Promise((resolve) => {
               function frame(now) {
                 const elapsed = (now - start) / 1000
-                drawVideoFrame(Math.min(VIDEO_DURATION, elapsed))
-                status.textContent = `正在渲染 ${localizedCrosshair().shortName}：${Math.min(VIDEO_DURATION, elapsed).toFixed(1)} / ${VIDEO_DURATION.toFixed(1)} 秒`
-                if (elapsed < VIDEO_DURATION) requestAnimationFrame(frame)
+                drawVideoFrame(Math.min(duration, elapsed))
+                status.textContent = `正在渲染 ${localizedCrosshair().shortName}：${Math.min(duration, elapsed).toFixed(1)} / ${duration.toFixed(1)} 秒`
+                if (elapsed < duration) requestAnimationFrame(frame)
                 else resolve()
               }
               requestAnimationFrame(frame)
@@ -1556,6 +1859,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         ])
         renderCrosshairOptions()
         setScores(initialScores, { updateUrl: false, redraw: false })
+        updateCoverTitle()
         updateDownloadFolderUi()
         updatePlatformUi()
         drawSquare()
@@ -1568,6 +1872,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           languageSelect.value = locale
           renderCrosshairOptions()
           updateScoreSummary()
+          updateCoverTitle()
           drawSquare()
           return activeLocale
         }
@@ -1590,6 +1895,26 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           setScores(values)
           return { scores: rounds.map((round) => round.value), average: averageScore(), rank: currentRank() }
         }
+        window.__setPromoCoverStyle = (style) => {
+          if (!COVER_STYLES.has(style)) throw new Error(`Unsupported cover style: ${style}`)
+          activeCoverStyle = style
+          coverStyleSelect.value = style
+          updateCoverTitle({ force: true })
+          drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+          return activeCoverStyle
+        }
+        window.__setPromoCoverTitle = (title = '') => {
+          coverTitleInput.value = String(title).trim()
+          coverTitleIsCustom = Boolean(coverTitleInput.value)
+          if (!coverTitleIsCustom) updateCoverTitle({ force: true })
+          drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+          return activeCoverTitle()
+        }
+        window.__drawPromoCover = (showSafeGuide = false) => {
+          drawSocialCover({ showSafeGuide })
+          return { style: activeCoverStyle, title: activeCoverTitle(), width: canvas.width, height: canvas.height }
+        }
+        window.__promoVideoDuration = () => videoDuration()
         window.__setPromoDownloadDirectory = (handle = null) => {
           if (handle && (typeof handle.getFileHandle !== 'function' || !handle.name)) {
             throw new Error('Invalid directory handle')
@@ -1612,6 +1937,42 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       squareButton.addEventListener('click', downloadSquare)
       videoButton.addEventListener('click', renderVideo)
       previewVideoButton.addEventListener('click', previewVideo)
+      previewCoverButton.addEventListener('click', () => {
+        drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+        status.textContent = `${coverStyleSelect.options[coverStyleSelect.selectedIndex].text}预览已更新；虚线安全区不会写入 PNG 或视频。`
+      })
+      coverStyleSelect.addEventListener('change', () => {
+        activeCoverStyle = coverStyleSelect.value
+        const url = new URL(window.location.href)
+        url.searchParams.set('cover', activeCoverStyle)
+        window.history.replaceState(null, '', url)
+        updateCoverTitle({ force: true })
+        drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+        status.textContent = `已切换为${coverStyleSelect.options[coverStyleSelect.selectedIndex].text}。`
+      })
+      coverTitleInput.addEventListener('input', () => {
+        coverTitleIsCustom = Boolean(coverTitleInput.value.trim())
+        const url = new URL(window.location.href)
+        if (coverTitleIsCustom) url.searchParams.set('coverTitle', coverTitleInput.value.trim())
+        else url.searchParams.delete('coverTitle')
+        window.history.replaceState(null, '', url)
+        drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+        status.textContent = coverTitleIsCustom ? '封面标题已更新。' : '标题为空时会使用推荐文案。'
+      })
+      resetCoverTitleButton.addEventListener('click', () => {
+        updateCoverTitle({ force: true })
+        drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+        status.textContent = '已恢复当前封面类型的推荐标题。'
+      })
+      embedCoverFrameInput.addEventListener('change', () => {
+        const url = new URL(window.location.href)
+        url.searchParams.set('coverFrame', embedCoverFrameInput.checked ? '1' : '0')
+        window.history.replaceState(null, '', url)
+        updatePlatformUi()
+        status.textContent = embedCoverFrameInput.checked
+          ? '导出视频时会在最后加入 1 秒封面候选帧。'
+          : '已关闭视频内封面帧；仍可单独导出封面 PNG。'
+      })
       chooseDownloadFolderButton.addEventListener('click', async () => {
         if (!supportsDirectoryPicker) {
           status.textContent = '当前浏览器不支持选择文件夹，请使用最新版 Chrome；默认下载仍可正常使用。'
@@ -1672,6 +2033,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         window.history.replaceState(null, '', url)
         renderCrosshairOptions()
         updateScoreSummary()
+        updateCoverTitle()
         drawSquare()
         status.textContent = `已切换为${languageSelect.options[languageSelect.selectedIndex].text}。`
       })
@@ -1713,7 +2075,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       })
       showSafeZoneInput.addEventListener('change', () => {
         if (canvas.width === VIDEO_WIDTH && canvas.height === VIDEO_HEIGHT) {
-          drawVideoFrame(0.9, { showSafeGuide: showSafeZoneInput.checked })
+          if (currentPreviewMode === 'cover') drawSocialCover({ showSafeGuide: showSafeZoneInput.checked })
+          else drawVideoFrame(0.9, { showSafeGuide: showSafeZoneInput.checked })
         }
         status.textContent = showSafeZoneInput.checked
           ? '安全区辅助线已显示；它只用于预览。'
