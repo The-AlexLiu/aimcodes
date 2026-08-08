@@ -17,7 +17,7 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前本地分支：`seo/programmatic-pages-v1`
-- 主仓库最近本地提交：`1fc7331 feat(brand): 优化 LOGO、视觉图标、结果分享卡片与构建配置`
+- 主仓库最近功能提交：`9d8155a fix: 同步反应测试修复与协作基线`
 - 主仓库草稿 PR：<https://github.com/The-AlexLiu/aimcodes/pull/2>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
@@ -37,7 +37,7 @@
 
 ## 当前工作树提醒
 
-截至 2026-08-08 最近一次复核，当前分支 `seo/programmatic-pages-v1` 比远端分支多 2 个本地提交；工作树包含尚未提交的交接文档、CI、反应测试超时保护和依赖安全修复。开始任何新任务前必须用 `git status -sb` 和 `git diff --stat` 重新确认实际状态，不得假设文档状态永远有效。
+截至 2026-08-08 GitHub 同步完成时，当前分支 `seo/programmatic-pages-v1` 已推送到远端，工作树干净。开始任何新任务前仍必须用 `git status -sb` 和 `git diff --stat` 重新确认实际状态，不得假设文档状态永远有效。
 
 ## 已确认验证基线
 
@@ -57,7 +57,7 @@
 
 ## 当前已知问题
 
-1. GitHub 最新提交、当前本地工作树和最近一次手动 Netlify 部署不是严格的一一对应关系。
+1. 功能分支与当前 Netlify 生产代码已经同步，但尚未合并到 GitHub `main`。
 2. 两个草稿 PR 尚未合并到 `main`。
 3. 渲染器有三份副本，尚未实现单一源自动同步。
 4. GA4 代码包含 23 个验证事件，但后台尚未创建计划中的自定义维度和指标。
@@ -65,9 +65,8 @@
 
 ## 推荐后续顺序
 
-1. 重新授权 GitHub CLI，并将本地新增提交推送到功能分支。
-2. 合并或关闭现有草稿 PR，建立干净的 `main` 基线。
-3. 把 Netlify 生产部署绑定到 GitHub `main`。
-4. 在 GA4 后台创建已规划的自定义维度和指标。
-5. 将渲染器重构为一个源文件、自动生成主站和作品集副本。
-6. 再开始新的产品功能或 SEO 内容扩展。
+1. 检查并更新主仓库草稿 PR #2，确认后合并到 `main`。
+2. 把 Netlify 生产部署绑定到 GitHub `main`。
+3. 在 GA4 后台创建已规划的自定义维度和指标。
+4. 将渲染器重构为一个源文件、自动生成主站和作品集副本。
+5. 再开始新的产品功能或 SEO 内容扩展。
