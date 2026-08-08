@@ -10,7 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-08 最近一次已确认生产部署：`6a7749e1fe29900008495c3c`
+- 2026-08-08 最近一次已确认产品代码生产部署：`6a7749e1fe29900008495c3c`
 - 最近一次上线内容：修复 GA4 站内事件对渠道归因的污染；此前发布的 5 类四语种 SEO 主题集合、2 类四语种知识指南、扩充后的导入指南、16 个优先索引准星详情、反应测试、素材渲染器和官方社媒入口继续保留。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
@@ -18,7 +18,7 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 主仓库最近合并提交：`ed865db fix(analytics): 避免站内事件污染渠道归因 (#4)`
+- 主仓库最近功能提交：`ed865db fix(analytics): 避免站内事件污染渠道归因 (#4)`
 - 最近已合并 PR：<https://github.com/The-AlexLiu/aimcodes/pull/4>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
