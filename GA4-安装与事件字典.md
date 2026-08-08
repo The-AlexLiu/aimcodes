@@ -27,6 +27,16 @@
 | `search_used` | 搜索框停留 700ms 且至少输入 2 个字符 | `query_length`、`results_count`、`has_results` |
 | `language_change` | 切换语言 | `from_language`、`to_language` |
 | `share` | 成功打开系统分享或下载成绩图 | `method`、`reaction_ms`、`crosshair_id` |
+| `share_card_open` | 开始生成反应成绩分享图 | `reaction_ms`、`reaction_rank`、`crosshair_id` |
+| `share_download` | 分享图通过浏览器下载成功 | `reaction_ms`、`crosshair_id` |
+| `share_native` | 移动端系统分享完成 | `reaction_ms`、`crosshair_id` |
+| `share_link_copy` | 复制队友挑战链接 | `reaction_ms`、`reaction_rank` |
+| `challenge_landing` | 打开带队友成绩的挑战页面 | `challenge_ms`、`challenge_rank` |
+| `challenge_start` | 开始挑战队友成绩 | `attempt_number`、`challenge_ms`、`challenge_rank` |
+| `challenge_complete` | 完成队友挑战 | `reaction_ms`、`challenge_ms`、`outcome`、`difference_ms` |
+| `challenge_won` | 成绩快于挑战目标 | `reaction_ms`、`challenge_ms`、`difference_ms` |
+
+验证脚本当前要求以上 23 个核心漏斗事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
 
 搜索事件不发送用户输入的原始词，只发送长度和结果数量，避免把可能的个人信息写入 GA4。
 

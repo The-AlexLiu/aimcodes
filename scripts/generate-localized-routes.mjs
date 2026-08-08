@@ -1,13 +1,28 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createTranslator } from '../src/i18n/translations.js'
+import { crosshairs } from '../src/data/crosshairs.js'
+import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
+import {
+  alternateUrls,
+  collectionBreadcrumbName,
+  collectionCopy,
+  crosshairBreadcrumbName,
+  detailCopy,
+  routeMetadata,
+  SEO_CONTENT_UPDATED_AT,
+  seoCopy,
+  SITE_ORIGIN,
+} from '../src/seo/content.js'
+import { articleCopy } from '../src/seo/articles.js'
+import { importGuideDetails } from '../src/seo/importGuideDetails.js'
+import { isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
 const sourcePath = resolve(distRoot, 'index.html')
-const origin = 'https://aimcodes.com'
 const seoStart = '<!-- aimcodes:seo:start -->'
 const seoEnd = '<!-- aimcodes:seo:end -->'
 
@@ -19,57 +34,338 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
 }
 
-function seoBlock(locale, title, description) {
-  const config = localeRoutes[locale]
-  const canonicalUrl = `${origin}${config.path}`
-  const alternateLinks = Object.entries(localeRoutes)
-    .map(([, item]) => `    <link rel="alternate" hreflang="${item.hreflang}" href="${origin}${item.path}" />`)
-    .join('\n')
+function jsonLd(value) {
+  return JSON.stringify(value).replaceAll('<', '\\u003c')
+}
 
+function structuredData(locale, route, crosshair, localizedCrosshairs) {
+  const metadata = routeMetadata(locale, route, crosshair)
+  const graph = [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_ORIGIN}/#organization`,
+      name: 'AimCodes',
+      url: `${SITE_ORIGIN}/`,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_ORIGIN}/brand/aimcodes-logo.png`,
+      },
+      sameAs: SOCIAL_PROFILE_URLS,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_ORIGIN}/#website`,
+      url: `${SITE_ORIGIN}/`,
+      name: 'AimCodes',
+      inLanguage: localeRoutes[locale].htmlLang,
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+    },
+  ]
+
+  if (route.type === 'catalog' || route.type === 'collection') {
+    const collectionIds = route.type === 'collection'
+      ? SEO_COLLECTIONS[route.collectionKey].crosshairIds
+      : SEO_CROSSHAIR_IDS
+    graph.push({
+      '@type': 'CollectionPage',
+      '@id': `${metadata.canonical}#collection`,
+      url: metadata.canonical,
+      name: metadata.title,
+      description: metadata.description,
+      isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: collectionIds.map((id, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: id })}`,
+          name: localizedCrosshairs.find((item) => item.id === id)?.shortName || id,
+        })),
+      },
+    })
+
+    if (route.type === 'collection') {
+      const collection = collectionCopy(locale, route.collectionKey)
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+          { '@type': 'ListItem', position: 2, name: seoCopy(locale).catalog.title, item: `${SITE_ORIGIN}${routePath(locale, { type: 'catalog' })}` },
+          { '@type': 'ListItem', position: 3, name: collectionBreadcrumbName(locale, route.collectionKey), item: metadata.canonical },
+        ],
+      })
+      graph.push({
+        '@type': 'FAQPage',
+        mainEntity: collection.faq.map(([name, text]) => ({
+          '@type': 'Question',
+          name,
+          acceptedAnswer: { '@type': 'Answer', text },
+        })),
+      })
+    }
+  }
+
+  if (route.type === 'finder') {
+    graph.push({
+      '@type': 'WebApplication',
+      '@id': `${metadata.canonical}#app`,
+      name: metadata.title,
+      url: metadata.canonical,
+      description: metadata.description,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Any',
+      isAccessibleForFree: true,
+      isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    })
+  }
+
+  if (route.type === 'guide') {
+    const guide = seoCopy(locale).guide
+    const details = importGuideDetails(locale)
+    graph.push({
+      '@type': 'HowTo',
+      '@id': `${metadata.canonical}#howto`,
+      name: guide.title,
+      description: guide.intro,
+      url: metadata.canonical,
+      inLanguage: localeRoutes[locale].htmlLang,
+      step: guide.steps.map(([name, text], index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name,
+        text,
+      })),
+    })
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: details.faq.map(([name, text]) => ({
+        '@type': 'Question',
+        name,
+        acceptedAnswer: { '@type': 'Answer', text },
+      })),
+    })
+  }
+
+  if (route.type === 'article') {
+    const article = articleCopy(locale, route.articleKey)
+    graph.push({
+      '@type': 'Article',
+      '@id': `${metadata.canonical}#article`,
+      headline: article.title,
+      description: article.intro,
+      url: metadata.canonical,
+      dateModified: SEO_CONTENT_UPDATED_AT,
+      inLanguage: localeRoutes[locale].htmlLang,
+      author: { '@id': `${SITE_ORIGIN}/#organization` },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+      isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    })
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+        { '@type': 'ListItem', position: 2, name: article.title, item: metadata.canonical },
+      ],
+    })
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: article.faq.map(([name, text]) => ({
+        '@type': 'Question',
+        name,
+        acceptedAnswer: { '@type': 'Answer', text },
+      })),
+    })
+  }
+
+  if (route.type === 'crosshair' && crosshair) {
+    graph.push({
+      '@type': 'WebPage',
+      '@id': `${metadata.canonical}#webpage`,
+      url: metadata.canonical,
+      name: metadata.title,
+      description: metadata.description,
+      inLanguage: localeRoutes[locale].htmlLang,
+      isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    })
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+        { '@type': 'ListItem', position: 2, name: seoCopy(locale).catalog.title, item: `${SITE_ORIGIN}${routePath(locale, { type: 'catalog' })}` },
+        { '@type': 'ListItem', position: 3, name: crosshairBreadcrumbName(locale, crosshair), item: metadata.canonical },
+      ],
+    })
+  }
+
+  return { '@context': 'https://schema.org', '@graph': graph }
+}
+
+function seoBlock(locale, route, crosshair, localizedCrosshairs, indexed) {
+  const config = localeRoutes[locale]
+  const metadata = routeMetadata(locale, route, crosshair)
+  const alternateLinks = alternateUrls(route)
+    .map((item) => `    <link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
+    .join('\n')
   const alternateLocales = Object.entries(localeRoutes)
     .filter(([alternateLocale]) => alternateLocale !== locale)
     .map(([, item]) => `    <meta property="og:locale:alternate" content="${item.ogLocale}" />`)
     .join('\n')
+  const schema = structuredData(locale, route, crosshair, localizedCrosshairs)
 
   return `${seoStart}
-    <link rel="canonical" href="${canonicalUrl}" />
+    <meta name="robots" content="${indexed ? 'index,follow,max-image-preview:large' : 'noindex,follow'}" />
+    <link rel="canonical" href="${metadata.canonical}" />
 ${alternateLinks}
-    <link rel="alternate" hreflang="x-default" href="${origin}${localeRoutes[DEFAULT_LOCALE].path}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:title" content="${escapeHtml(title)}" />
-    <meta property="og:description" content="${escapeHtml(description)}" />
+    <link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />
+    <meta property="og:type" content="${route.type === 'guide' || route.type === 'article' ? 'article' : 'website'}" />
+    <meta property="og:url" content="${metadata.canonical}" />
+    <meta property="og:title" content="${escapeHtml(metadata.title)}" />
+    <meta property="og:description" content="${escapeHtml(metadata.description)}" />
+    <meta property="og:image" content="${metadata.image}" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
     <meta property="og:locale" content="${config.ogLocale}" />
 ${alternateLocales}
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="${escapeHtml(title)}" />
-    <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(metadata.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(metadata.description)}" />
+    <meta name="twitter:image" content="${metadata.image}" />
+    <script type="application/ld+json">${jsonLd(schema)}</script>
+    <style id="aimcodes-static-seo">.seo-static-shell{max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:system-ui,sans-serif}.seo-static-shell h1{max-width:900px;font-size:48px;line-height:1.05}.seo-static-shell p{max-width:760px;color:#aeb8bf;line-height:1.6}.seo-static-shell a{color:#ff6b65}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}</style>
     ${seoEnd}`
 }
 
 function replaceSeoBlock(html, nextBlock) {
   const startIndex = html.indexOf(seoStart)
   const endIndex = html.indexOf(seoEnd)
-  if (startIndex === -1 || endIndex === -1) {
-    throw new Error('Missing AimCodes SEO markers in built index.html')
-  }
+  if (startIndex === -1 || endIndex === -1) throw new Error('Missing AimCodes SEO markers in built index.html')
   return `${html.slice(0, startIndex)}${nextBlock}${html.slice(endIndex + seoEnd.length)}`
 }
 
-const template = await readFile(sourcePath, 'utf8')
-
-for (const [locale, config] of Object.entries(localeRoutes)) {
-  const t = createTranslator(locale)
-  const title = t('meta.title')
-  const description = t('meta.description')
-  const localizedHtml = replaceSeoBlock(template, seoBlock(locale, title, description))
-    .replace(/<html lang="[^"]*">/, `<html lang="${config.htmlLang}">`)
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
-    .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(description)}" />`)
-
-  const outputPath = resolve(distRoot, config.path.slice(1), 'index.html')
-  await mkdir(dirname(outputPath), { recursive: true })
-  await writeFile(outputPath, localizedHtml)
+function staticLinks(locale, items) {
+  return `<div class="seo-static-links">${items.map((item) => `<a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a>`).join('')}</div>`
 }
 
-console.log(`Generated ${Object.keys(localeRoutes).length} localized routes in dist/.`)
+function staticTopicLinks(locale) {
+  const localized = seoCopy(locale)
+  const collections = SEO_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
+  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}`
+  return `<nav class="seo-static-links">${collections}${resources}</nav>`
+}
+
+function staticBody(locale, route, crosshair, localizedCrosshairs) {
+  const localized = seoCopy(locale)
+  if (route.type === 'home') {
+    const featured = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, featured)}</main>`
+  }
+  if (route.type === 'catalog') {
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, localizedCrosshairs)}</main>`
+  }
+  if (route.type === 'collection') {
+    const collection = collectionCopy(locale, route.collectionKey)
+    const items = SEO_COLLECTIONS[route.collectionKey].crosshairIds
+      .map((id) => localizedCrosshairs.find((item) => item.id === id))
+      .filter(Boolean)
+    const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')
+    const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
+    return `<main class="seo-static-shell"><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, items)}<section>${body}<h2>FAQ</h2>${faq}</section></main>`
+  }
+  if (route.type === 'finder') {
+    return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
+  }
+  if (route.type === 'guide') {
+    const details = importGuideDetails(locale)
+    const steps = localized.guide.steps.map(([title, body]) => `<li><strong>${escapeHtml(title)}</strong><p>${escapeHtml(body)}</p></li>`).join('')
+    const extra = details.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.body)}</p></section>`).join('')
+    const faq = details.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.guide.title)}</h1><p>${escapeHtml(localized.guide.intro)}</p><ol>${steps}</ol><h2>${escapeHtml(details.moreTitle)}</h2>${extra}<h2>FAQ</h2>${faq}<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.guide.cta)}</a></main>`
+  }
+  if (route.type === 'article') {
+    const article = articleCopy(locale, route.articleKey)
+    const sections = article.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}<ul>${section.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul></section>`).join('')
+    const faq = article.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
+    const recommended = article.recommendedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>FAQ</h2>${faq}</main>`
+  }
+  if (route.type === 'crosshair' && crosshair) {
+    const details = detailCopy(locale, crosshair.id)
+    const related = localizedCrosshairs.filter((item) => item.id !== crosshair.id && item.category === crosshair.category).slice(0, 6)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(crosshair.name)}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+  }
+  return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
+}
+
+function replaceRoot(html, body) {
+  return html.replace('<div id="root"></div>', `<div id="root">${body}</div>`)
+}
+
+function localizedHtml(template, locale, route, crosshair, localizedCrosshairs, indexed) {
+  const config = localeRoutes[locale]
+  const metadata = routeMetadata(locale, route, crosshair)
+  return replaceRoot(
+    replaceSeoBlock(template, seoBlock(locale, route, crosshair, localizedCrosshairs, indexed))
+      .replace(/<html lang="[^"]*">/, `<html lang="${config.htmlLang}">`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`)
+      .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(metadata.description)}" />`),
+    staticBody(locale, route, crosshair, localizedCrosshairs),
+  )
+}
+
+const template = await readFile(sourcePath, 'utf8')
+const indexedRoutes = []
+let generatedCount = 0
+
+for (const locale of Object.keys(localeRoutes)) {
+  const t = createTranslator(locale)
+  const localizedCrosshairs = crosshairs.map((item) => localizeCrosshair(item, locale, t))
+  const baseRoutes = [
+    { type: 'home' },
+    { type: 'catalog' },
+    { type: 'finder' },
+    { type: 'guide' },
+    ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
+    ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
+  ]
+  const detailRoutes = localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id }))
+
+  for (const route of [...baseRoutes, ...detailRoutes]) {
+    const crosshair = route.type === 'crosshair'
+      ? localizedCrosshairs.find((item) => item.id === route.crosshairId)
+      : null
+    const indexed = route.type !== 'crosshair' || isPriorityCrosshair(route.crosshairId)
+    if (indexed) indexedRoutes.push({ locale, route })
+
+    const outputPath = resolve(distRoot, routePath(locale, route).slice(1), 'index.html')
+    await mkdir(dirname(outputPath), { recursive: true })
+    await writeFile(outputPath, localizedHtml(template, locale, route, crosshair, localizedCrosshairs, indexed))
+    generatedCount += 1
+  }
+}
+
+const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
+  const alternates = alternateUrls(route)
+    .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
+    .join('\n')
+  return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${SEO_CONTENT_UPDATED_AT}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
+}).join('\n')
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
+await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)
+
+const notFoundCopy = seoCopy('en').notFound
+const notFoundSeo = `${seoStart}
+    <meta name="robots" content="noindex,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${escapeHtml(notFoundCopy.title)} | AimCodes" />
+    <meta property="og:description" content="${escapeHtml(notFoundCopy.body)}" />
+    <meta property="og:image" content="${SITE_ORIGIN}/og-aimcodes.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    ${seoEnd}`
+const notFound = replaceSeoBlock(template, notFoundSeo)
+  .replace(/<html lang="[^"]*">/, '<html lang="en">')
+  .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found | AimCodes</title>')
+  .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, '<meta name="description" content="This AimCodes page does not exist." />')
+  .replace('<div id="root"></div>', '<main class="not-found-page"><span>404</span><h1>That crosshair missed</h1><p>This page does not exist. Head back to the crosshair catalog and pick another one.</p><a class="primary-button" href="/en/crosshairs/">Browse crosshairs</a></main>')
+await writeFile(resolve(distRoot, '404.html'), notFound)
+
+console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml.`)

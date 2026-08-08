@@ -1,0 +1,206 @@
+# AimCodes SEO 策略与竞对研究
+
+最后更新：2026-08-08
+
+## 本轮结论
+
+AimCodes 不需要先批量发布泛用游戏文章。最高效的增长路径是把现有产品能力拆成搜索用户能直接完成任务的页面：主题集合页负责承接宽关键词，准星详情页负责承接选手名和具体造型词，地图预览、改色与复制负责形成区别于普通内容站的原创价值。
+
+当前索引策略：
+
+- 4 个基础页面 × 4 种语言；
+- 5 个主题集合页 × 4 种语言；
+- 2 个准星知识指南 × 4 种语言；
+- 16 个高价值准星详情 × 4 种语言；
+- 合计 108 个 sitemap URL；
+- 其余准星详情继续使用 `noindex,follow`，页面可访问、可被内链发现，但暂不消耗新站索引预算。
+
+## 竞对最佳实践
+
+### VCRDB
+
+- 核心入口是准星库、生成器和不同背景预览；
+- 用职业选手、趣味造型、战队等分类帮助用户从大库中缩小选择；
+- 单个准星页强调真实预览、复制代码和继续编辑；
+- 社群与分享机制帮助持续获得新准星和品牌搜索。
+
+参考：<https://www.vcrdb.net/>
+
+### ValorantCrosshairDB
+
+- 首页把职业选手、战队、形状、工具和 FAQ 做成完整主题网络；
+- 有独立职业准星集合，并为每个玩家建立详情入口；
+- 同时覆盖英语、中文等语言，说明非英语长尾并非空白市场；
+- 通过 Aim Trainer、生成器、灵敏度工具等邻近需求扩大主题权威。
+
+参考：
+
+- <https://www.valorantcrosshairdb.com/>
+- <https://www.valorantcrosshairdb.com/crosshairs/professional/>
+
+### ProSettings
+
+- 用“最佳职业准星”内容页承接榜单型搜索，再把用户导向生成器、数据库和导入教程；
+- 不只罗列代码，还解释颜色、大小、点状与传统十字的取舍；
+- 显示发布日期和实际更新日期，内容发生实质变化时再更新日期；
+- 选手段落、代码和图片形成可扫读结构。
+
+参考：<https://prosettings.net/blog/best-valorant-crosshair-codes/>
+
+### Tracker Network
+
+- 生成器和预览器本身就是主要搜索落地页；
+- 同一页面直接完成调整、预览、复制、导入和随机生成；
+- 工具页继续内链到职业与社区准星库，减少用户回到搜索结果。
+
+参考：<https://tracker.gg/valorant/crosshairs/builder>
+
+## AimCodes 的可复制优势
+
+| 搜索意图 | 竞对常见答案 | AimCodes 应提供的额外价值 |
+|---|---|---|
+| 最佳准星 | 榜单与代码 | 同地图对比、改色、直接复制 |
+| 职业准星 | 玩家列表 | 可视化预览、参数取舍、相关选手 |
+| 小圆点准星 | 代码清单 | 可见度说明、多颜色实测 |
+| 可爱准星 | 图片与代码 | 真实可用性校验、图案与命名一致 |
+| 小准星 | 小型代码清单 | 同场景比较尺寸、可见度与颜色 |
+| 怎么导入 | 三步教程 | 教程到准星页的直接路径 |
+| 参数和颜色 | 参数定义或主观推荐 | 参数解释后立刻试真实代码和地图对比 |
+| 不知道选哪个 | 很少解决 | 三轮反应测试后给一个首选结果 |
+
+## 关键词集群
+
+### 英语
+
+- `valorant crosshair codes`
+- `best valorant crosshair`
+- `valorant pro crosshair codes`
+- `tenz / aspas / demon1 crosshair code`
+- `valorant dot crosshair code`
+- `cute / cat / heart / flower valorant crosshair`
+- `how to import valorant crosshair code`
+- `valorant reaction time test`
+
+### 西班牙语
+
+- `códigos de mira valorant`
+- `mejores miras valorant`
+- `miras de pros valorant`
+- `mira de punto valorant`
+- `miras bonitas valorant`
+- `cómo importar código de mira valorant`
+
+### 巴西葡萄牙语
+
+- `códigos de mira valorant`
+- `melhores miras valorant`
+- `miras de pro valorant`
+- `mira de ponto valorant`
+- `miras fofas valorant`
+- `como importar código de mira valorant`
+
+### 简体中文
+
+- `无畏契约准星代码`
+- `无畏契约最佳准星`
+- `无畏契约职业选手准星代码`
+- `无畏契约小圆点准星`
+- `无畏契约可爱准星 / 猫猫准星 / 爱心准星`
+- `无畏契约准星代码怎么导入`
+
+## 页面架构
+
+```text
+语言首页
+├── 全部准星库
+│   ├── 最佳准星集合
+│   ├── 职业准星集合
+│   ├── 小圆点准星集合
+│   ├── 可爱准星集合
+│   ├── 小准星集合
+│   └── 高价值准星详情
+├── 反应测试
+├── 导入、导出与复制教程
+├── 准星参数说明
+└── 准星颜色指南
+```
+
+每个集合页必须具备：
+
+1. 唯一的本地化 Title、Description 和 H1；
+2. 可见的原创选型说明；
+3. 5 个以上经过验证的准星；
+4. 可见 FAQ；
+5. CollectionPage、ItemList、BreadcrumbList 和 FAQPage JSON-LD；
+6. 自引用 canonical；
+7. 四语种双向 hreflang；
+8. 指向相关集合和可索引详情的 HTML 链接。
+
+## 索引放量规则
+
+不要因为页面能生成就允许索引。新准星详情进入 `SEO_CROSSHAIR_IDS` 前必须满足：
+
+- 代码通过解析、渲染和换色验证；
+- 造型与四语种命名一致；
+- 有明确搜索意图，例如职业选手名或具体造型名；
+- 有独立的“适合谁”和“使用感受”，不能只套默认模板；
+- 至少被一个主题集合页链接；
+- 与已索引页面不是无意义重复造型。
+
+## 技术 SEO 基线
+
+- 每个语言版本使用独立目录 URL；
+- 每页自引用 canonical；
+- 每组语言版本互相声明 hreflang，并包含 `x-default`；
+- sitemap 只包含允许索引的 canonical；
+- sitemap `lastmod` 只在页面内容发生实质变化时更新；
+- 404 和非优先准星页保持 `noindex,follow`；
+- 初始 HTML 中必须出现 H1、正文、代码或集合链接，不能只依赖客户端 JavaScript；
+- 移动端不允许横向溢出；
+- 每轮发布必须运行语言、SEO 和路由验证。
+
+## 30 天执行节奏
+
+### 第 1 周：发现与收录
+
+- 发布本轮 108 URL sitemap；
+- 在 GSC 重新提交现有 sitemap，无需创建多个 sitemap；
+- 分别检查 4 个集合页和 4 个新详情页；
+- 记录 `已发现 - 尚未编入索引`、`已抓取 - 尚未编入索引` 和 Google 选择的 canonical。
+
+### 第 2 周：看查询，不盲目扩页
+
+- 按页面、查询、国家和设备导出 GSC 数据；
+- 优先观察有展示但 CTR 低的标题，以及排名 8–30 的查询；
+- 同一集群出现 3 个以上有效长尾后，再扩充对应集合或详情页。
+
+### 第 3 周：补强已有赢家
+
+- 对有展示的页面补充更具体的参数解释、地图可见度和相关准星；
+- 用社媒短视频链接回最匹配的集合页，而不是统一只发首页；
+- 从导入教程和反应测试增加到实际赢家页面的上下文链接。
+
+### 第 4 周：决定下一批页面
+
+- 若职业选手词有展示，优先补玩家页；
+- 若 cute、cat、heart、flower 有展示，补充可爱造型集合与详情；
+- 若西语或葡语先有增长，优先为该语言优化现有内容，不必等待英语；
+- 没有展示、没有用户价值的页面继续保持 noindex。
+
+## GSC 判断标准
+
+| 情况 | 动作 |
+|---|---|
+| 已发现但未抓取 | 强化首页/集合页内链，等待 7–14 天 |
+| 已抓取但未收录 | 检查内容独特性、页面价值和重复造型 |
+| Google 选择其他 canonical | 检查重定向、canonical、hreflang 和正文是否过度相似 |
+| 有展示、排名 8–30 | 优先补内容和内链 |
+| 有展示、CTR 低 | 优化标题和描述，不改 URL |
+| 0 展示且 30 天未收录 | 不继续批量复制同类页，先确认关键词需求 |
+
+## Google 官方原则
+
+- 内容应优先解决用户问题，不能为了排名大规模制造重复页面：<https://developers.google.com/search/docs/fundamentals/creating-helpful-content>
+- 多语种应使用独立 URL，并通过 hreflang 明确对应版本：<https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites>
+- canonical 应在规范页上自引用，并保持所有信号一致：<https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls>
+- 面包屑结构化数据应反映真实用户路径：<https://developers.google.com/search/docs/appearance/structured-data/breadcrumb>

@@ -42,5 +42,7 @@ jobs:
       - name: Build localized site
         run: pnpm build
 
-      - name: Validate localized routes
-        run: pnpm validate:routing
+      - name: Validate localized routes and SEO
+        run: |
+          pnpm validate:seo
+          pnpm validate:routing

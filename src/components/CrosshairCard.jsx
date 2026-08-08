@@ -1,21 +1,23 @@
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
 
-export default function CrosshairCard({ crosshair, selected, copied, onSelect, onCopy, t }) {
+export default function CrosshairCard({ crosshair, href, selected, copied, onSelect, onCopy, t }) {
   return (
     <article className={`crosshair-card ${selected ? 'is-selected' : ''} ${crosshair.isCute ? 'is-cute' : ''}`}>
       <button
         className="icon-button card-copy"
         type="button"
         aria-label={copied ? t('card.copied', { name: crosshair.name }) : t('card.copy', { name: crosshair.name })}
+        title={copied ? t('actions.copiedShort') : t('actions.copyShort')}
         onClick={(event) => {
           event.stopPropagation()
           onCopy(crosshair, { source: 'catalog_card' })
         }}
       >
         <Icon name={copied ? 'check' : 'copy'} size={18} />
+        <span>{copied ? t('actions.copiedShort') : t('actions.copyShort')}</span>
       </button>
-      <button className="card-select" type="button" onClick={() => onSelect(crosshair, 'catalog_card')} aria-pressed={selected} aria-label={t('card.test', { name: crosshair.name })}>
+      <a className="card-select" href={href} onClick={() => onSelect(crosshair, 'catalog_card')} aria-current={selected ? 'page' : undefined} aria-label={t('card.test', { name: crosshair.name })}>
         {selected && (
           <span className="selected-mark" aria-label={t('card.selected')}>
             <Icon name="check" size={14} strokeWidth={2.4} />
@@ -29,7 +31,7 @@ export default function CrosshairCard({ crosshair, selected, copied, onSelect, o
         </span>
         {crosshair.isPro && <span className="pro-label">{t('badges.pro')}</span>}
         {!crosshair.isPro && crosshair.isCute && <span className={`pro-label cute-label ${crosshair.category === 'fun' ? 'is-fun' : ''}`}>{t(`badges.${crosshair.category === 'fun' ? 'fun' : 'cute'}`)}</span>}
-      </button>
+      </a>
     </article>
   )
 }

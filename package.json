@@ -12,20 +12,26 @@
     "validate:finder": "node scripts/validate-reaction-ranks.mjs",
     "validate:localization": "node scripts/validate-localization.mjs",
     "validate:routing": "node scripts/validate-localized-routes.mjs",
+    "validate:seo": "node scripts/validate-seo-pages.mjs",
     "validate:analytics": "node scripts/validate-analytics.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
+    "qrcode": "^1.5.4",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "vite": "latest"
   },
   "devDependencies": {
-    "eslint": "latest",
     "@eslint/js": "latest",
+    "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
-    "globals": "latest",
-    "vite-plugin-singlefile": "latest"
+    "globals": "latest"
+  },
+  "pnpm": {
+    "overrides": {
+      "nanoid": ">=3.3.17 <4"
+    }
   }
 }

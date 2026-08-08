@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { viteSingleFile } from 'vite-plugin-singlefile'
 
 export default defineConfig({
-  base: './',
-  plugins: [react(), viteSingleFile()],
+  base: '/',
+  plugins: [react()],
   build: {
-    assetsInlineLimit: Infinity,
+    assetsInlineLimit: 4096,
+    sourcemap: false,
   },
 })

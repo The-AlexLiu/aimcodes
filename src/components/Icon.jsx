@@ -24,6 +24,10 @@ export default function Icon({ name, size = 20, strokeWidth = 1.8, className = '
     monitor: <><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></>,
     arrowLeft: <path d="m15 18-6-6 6-6M9 12h11" />,
     exit: <><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9" /></>,
+    instagram: <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><path d="M17.4 6.6h.01" /></>,
+    youtube: <><rect x="2.5" y="5.5" width="19" height="13" rx="4" /><path d="m10 9 5 3-5 3V9Z" /></>,
+    tiktok: <><path d="M15 4v11.2a4.2 4.2 0 1 1-3.4-4.1" /><path d="M15 4c.7 2.5 2.2 4 4.5 4.3" /></>,
+    facebook: <path d="M14 21v-8h3l.5-3H14V8.2c0-1.3.7-2.2 2.3-2.2H18V3.2c-.7-.1-1.6-.2-2.8-.2-2.8 0-4.7 1.7-4.7 4.8V10H8v3h2.5v8" />,
   }
 
   return (

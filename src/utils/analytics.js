@@ -20,10 +20,18 @@ function debugModeEnabled() {
   return new URLSearchParams(window.location.search).get('ga_debug') === '1'
 }
 
+function qaModeEnabled() {
+  if (!hasWindow()) return false
+  return new URLSearchParams(window.location.search).get('qa') === '1'
+}
+
 function analyticsEnabled() {
   if (!hasWindow()) return false
+  if (qaModeEnabled()) return false
   return LIVE_HOSTS.has(window.location.hostname.toLowerCase()) || debugModeEnabled()
 }
+
+if (hasWindow() && qaModeEnabled()) window.__aimcodesQaMode = true
 
 function sanitizeValue(value, key) {
   if (typeof value === 'string') return value.slice(0, PARAMETER_LENGTH_OVERRIDES[key] || MAX_PARAMETER_LENGTH)
@@ -56,7 +64,10 @@ function ensureGoogleTag() {
 }
 
 export function initializeAnalytics() {
-  if (!analyticsEnabled()) return false
+  if (!analyticsEnabled()) {
+    if (hasWindow() && qaModeEnabled()) window.__aimcodesQaMode = true
+    return false
+  }
   if (window.__aimcodesGaInitialized) return true
 
   ensureGoogleTag()
@@ -102,7 +113,7 @@ export function trackPageView(viewName, pageTitle) {
   if (!hasWindow() || lastPageView === viewName) return false
 
   const virtualLocation = new URL(window.location.href)
-  virtualLocation.hash = viewName === 'finder' ? 'finder' : 'explore'
+  virtualLocation.hash = ''
   const tracked = trackEvent('page_view', {
     page_title: pageTitle,
     page_location: virtualLocation.href,
