@@ -46,6 +46,8 @@ src/data + src/i18n + src/seo
 | 单个准星 | `/en/crosshairs/tenz/` | `crosshair` |
 | 反应测试 | `/en/reaction-time-test/` | `finder` |
 | 导入教程 | `/en/how-to-import-valorant-crosshair/` | `guide` |
+| 主题集合 | `/en/small-crosshairs/` | `collection` |
+| 参数/颜色指南 | `/en/valorant-crosshair-settings/` | `article` |
 
 语言前缀：
 
@@ -54,9 +56,9 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先执行 Vite 构建，再运行 `scripts/generate-localized-routes.mjs`。当前基线生成 280 个本地化 HTML 路由，并将 96 个允许索引的 canonical URL 写入 sitemap。
+`pnpm build` 先执行 Vite 构建，再运行 `scripts/generate-localized-routes.mjs`。当前本地 SEO 候选生成 292 个本地化 HTML 路由，并将 108 个允许索引的 canonical URL 写入 sitemap。
 
-除基础页面和准星详情外，当前还有最佳准星、职业选手准星、小圆点准星和可爱准星四类主题集合页。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`。
+除基础页面和准星详情外，当前还有最佳准星、职业选手准星、小圆点准星、可爱准星和小准星五类主题集合页，以及准星参数和颜色两类指南。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级记录在 `docs/CONTENT_ROADMAP.md`。
 
 ## 准星数据流
 

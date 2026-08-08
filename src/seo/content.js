@@ -1,5 +1,6 @@
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { crosshairSlug, routePath } from './routes.js'
+import { articleCopy } from './articles.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
@@ -47,6 +48,12 @@ const copy = {
         faq: [['Do cute VALORANT crosshair codes work in game?', 'Yes. Every code in this collection is parsed and validated by AimCodes before it is published.'], ['Which cute crosshair is the smallest?', 'The heart and flower options are more compact than the cat and pig faces. Preview them on a map to compare the real screen space.'], ['Can I recolor a cat or heart crosshair?', 'Yes. Pick a preset color and the copied code will keep the shape while using the new color.']],
         metaTitle: 'Cute VALORANT Crosshair Codes: Cat, Heart & More | AimCodes', metaDescription: 'Try working cute VALORANT crosshair codes including cat, pig, heart, flower, and bunny shapes. Preview, recolor, and copy each code.',
       },
+      small: {
+        label: 'Small crosshairs', eyebrow: 'LESS SCREEN, CLEAR CENTER', title: 'Small VALORANT crosshair codes', intro: 'Six compact dots and short-line crosshairs for players who want a precise center without covering distant targets.', gridTitle: 'Small crosshairs to compare',
+        body: ['A small crosshair leaves more of the target visible and makes head-level placement easier to judge. The best version is still large enough for your eyes to recover after a fast turn.', 'This collection mixes micro dots, open centers, and tight line-based shapes. Compare them on the same scene before deciding whether you need a thicker point, a wider gap, or stronger color contrast.'],
+        faq: [['Is a small crosshair better in VALORANT?', 'It can improve target visibility and precise placement, but only if you can still find it quickly during movement and utility.'], ['What is the difference between a small crosshair and a dot?', 'A dot uses one central mark. A small crosshair can use short lines around an open or closed center, giving your eyes more shape to track.'], ['How do I make a small crosshair easier to see?', 'Try cyan or green, add a thin outline, or increase thickness by one step before making the whole shape larger.']],
+        metaTitle: 'Small VALORANT Crosshair Codes & Live Preview | AimCodes', metaDescription: 'Try 6 small VALORANT crosshair codes on real map scenes. Compare micro dots, compact pro layouts and short crosses, recolor them, and copy a working code.',
+      },
     },
     detail: {
       code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'What to expect', settings: 'Key settings', import: 'Import in VALORANT', related: 'Try another crosshair', verified: 'Code checked',
@@ -56,8 +63,8 @@ const copy = {
     },
     guide: {
       eyebrow: '60-SECOND SETUP',
-      title: 'How to import a crosshair code in VALORANT',
-      intro: 'Copy any code from AimCodes and add it to VALORANT in three quick steps.',
+      title: 'How to import, copy, and share crosshair codes in VALORANT',
+      intro: 'Add a code in three steps, export your own setup, copy a player while spectating, and fix the most common import problems.',
       steps: [
         ['Copy a code', 'Open a crosshair page on AimCodes and press Copy code.'],
         ['Open Crosshair settings', 'In VALORANT, open Settings → Crosshair and choose Import Profile Code.'],
@@ -65,7 +72,7 @@ const copy = {
       ],
       cta: 'Browse crosshair codes',
     },
-    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', best: 'Best crosshairs', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes' },
+    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', best: 'Best crosshairs', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
       homeTitle: 'VALORANT Crosshair Codes & Live Preview | AimCodes',
@@ -75,7 +82,7 @@ const copy = {
       finderTitle: 'VALORANT Reaction Time Test & Crosshair Picker | AimCodes',
       finderDescription: 'Test your reaction time in three rounds, get a playful VALORANT rank, and receive one crosshair recommendation you can preview and copy.',
       guideTitle: 'How to Import a Crosshair Code in VALORANT | AimCodes',
-      guideDescription: 'Learn how to copy and import a VALORANT crosshair profile code in three simple steps, then test the crosshair before your next match.',
+      guideDescription: 'Learn how to import, export, share, and troubleshoot VALORANT crosshair profile codes, including spectator copy commands and common fixes.',
     },
   },
   es: {
@@ -112,6 +119,12 @@ const copy = {
         faq: [['¿Funcionan en el juego estas miras bonitas?', 'Sí. AimCodes analiza y valida todos los códigos de esta colección antes de publicarlos.'], ['¿Cuál ocupa menos espacio?', 'El corazón y la flor son más compactos que las caras de gato y cerdito. Compáralos sobre un mapa para verlo.'], ['¿Puedo cambiar el color del gato o el corazón?', 'Sí. Elige un color y el código copiado conservará la forma con el nuevo tono.']],
         metaTitle: 'Miras bonitas de VALORANT: gato, corazón y más | AimCodes', metaDescription: 'Prueba miras bonitas de VALORANT con formas de gato, cerdito, corazón, flor y conejo. Cambia el color y copia códigos que funcionan.',
       },
+      small: {
+        label: 'Miras pequeñas', eyebrow: 'MENOS PANTALLA, CENTRO CLARO', title: 'Códigos de miras pequeñas de VALORANT', intro: 'Seis puntos compactos y cruces de líneas cortas para apuntar con precisión sin tapar objetivos lejanos.', gridTitle: 'Miras pequeñas para comparar',
+        body: ['Una mira pequeña deja más visible al rival y facilita mantener la altura de la cabeza. La mejor opción sigue siendo lo bastante grande para recuperarla después de un giro rápido.', 'Esta colección mezcla micropuntos, centros abiertos y líneas muy compactas. Compáralas sobre la misma escena antes de elegir más grosor, hueco o contraste.'],
+        faq: [['¿Es mejor una mira pequeña en VALORANT?', 'Puede mejorar la visibilidad del objetivo y la precisión, siempre que puedas encontrarla rápido entre movimiento y habilidades.'], ['¿Qué diferencia hay entre una mira pequeña y un punto?', 'El punto usa una sola marca central. Una mira pequeña puede usar líneas cortas alrededor de un centro abierto o cerrado.'], ['¿Cómo hago más visible una mira pequeña?', 'Prueba cian o verde, añade un contorno fino o aumenta un nivel el grosor antes de agrandar toda la forma.']],
+        metaTitle: 'Códigos de miras pequeñas de VALORANT | AimCodes', metaDescription: 'Prueba 6 miras pequeñas de VALORANT en mapas reales. Compara micropuntos, configuraciones pro compactas y cruces cortas, cambia el color y copia el código.',
+      },
     },
     detail: {
       code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué puedes esperar', settings: 'Ajustes principales', import: 'Importar en VALORANT', related: 'Prueba otra mira', verified: 'Código revisado',
@@ -119,16 +132,16 @@ const copy = {
       defaultBest: 'Jugadores que buscan una referencia clara y estable sin tapar al rival.', defaultTradeoff: 'Pruébala con tu resolución y el brillo habitual del mapa antes de usarla en competitivo.',
     },
     guide: {
-      eyebrow: 'LISTO EN 60 SEGUNDOS', title: 'Cómo importar un código de mira en VALORANT', intro: 'Copia cualquier código de AimCodes y añádelo a VALORANT en tres pasos.',
+      eyebrow: 'LISTO EN 60 SEGUNDOS', title: 'Cómo importar, copiar y compartir miras en VALORANT', intro: 'Añade un código en tres pasos, exporta tu mira, copia a un jugador mientras observas y corrige los errores más comunes.',
       steps: [['Copia un código', 'Abre una mira en AimCodes y pulsa Copiar código.'], ['Abre los ajustes de mira', 'En VALORANT, abre Ajustes → Mira y elige Importar código de perfil.'], ['Pega y prueba', 'Pega el código, ponle un nombre y pruébalo en el campo de tiro antes de jugar.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Mejores miras', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', note: 'Hecho para probar miras más rápido.', social: 'Sigue a AimCodes' },
+    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Mejores miras', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', small: 'Miras pequeñas', settings: 'Ajustes de mira', colors: 'Colores de mira', note: 'Hecho para probar miras más rápido.', social: 'Sigue a AimCodes' },
     notFound: { title: 'Esta mira falló el tiro', body: 'La página no existe. Vuelve al catálogo y elige otra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira de VALORANT y vista previa | AimCodes', homeDescription: 'Prueba códigos de mira de VALORANT en mapas reales, cambia colores, copia códigos y encuentra tu próxima mira con una prueba de reacción.',
       catalogTitle: 'Códigos de mira de VALORANT: pros, puntos y más | AimCodes', catalogDescription: 'Explora más de 60 códigos de mira de VALORANT que funcionan. Prueba miras de pros, pequeñas, bonitas y originales y copia el código.',
       finderTitle: 'Prueba de reacción y selector de mira de VALORANT | AimCodes', finderDescription: 'Mide tu reacción en tres rondas, consigue un rango divertido de VALORANT y recibe una mira para probar y copiar.',
-      guideTitle: 'Cómo importar un código de mira en VALORANT | AimCodes', guideDescription: 'Aprende a copiar e importar un código de perfil de mira de VALORANT en tres pasos y pruébalo antes de tu próxima partida.',
+      guideTitle: 'Cómo importar un código de mira en VALORANT | AimCodes', guideDescription: 'Aprende a importar, exportar, compartir y corregir códigos de mira de VALORANT, incluido el comando para copiar mientras observas.',
     },
   },
   'pt-BR': {
@@ -162,6 +175,12 @@ const copy = {
         faq: [['Essas miras fofas funcionam no jogo?', 'Sim. O AimCodes analisa e valida todos os códigos desta coleção antes de publicar.'], ['Qual mira fofa ocupa menos espaço?', 'O coração e a flor são mais compactos que os rostos de gato e porquinho. Compare no mapa para ver a diferença.'], ['Posso mudar a cor do gato ou do coração?', 'Sim. Escolha uma cor e o código copiado manterá o formato com o novo tom.']],
         metaTitle: 'Miras fofas do VALORANT: gato, coração e mais | AimCodes', metaDescription: 'Teste miras fofas do VALORANT em formato de gato, porquinho, coração, flor e coelho. Troque a cor e copie códigos que funcionam.',
       },
+      small: {
+        label: 'Miras pequenas', eyebrow: 'MENOS TELA, CENTRO CLARO', title: 'Códigos de miras pequenas do VALORANT', intro: 'Seis pontos compactos e cruzes de linhas curtas para mirar com precisão sem cobrir alvos distantes.', gridTitle: 'Miras pequenas para comparar',
+        body: ['Uma mira pequena deixa o alvo mais visível e facilita manter a linha da cabeça. A melhor opção ainda precisa ser grande o bastante para você reencontrar depois de um giro rápido.', 'Esta coleção mistura micropontos, centros abertos e linhas compactas. Compare na mesma cena antes de escolher mais espessura, espaço ou contraste.'],
+        faq: [['Mira pequena é melhor no VALORANT?', 'Pode melhorar a visibilidade do alvo e a precisão, desde que você ainda encontre o centro rápido durante movimento e habilidades.'], ['Qual é a diferença entre mira pequena e ponto?', 'O ponto usa uma única marca central. A mira pequena pode usar linhas curtas ao redor de um centro aberto ou fechado.'], ['Como deixar uma mira pequena mais visível?', 'Teste ciano ou verde, adicione um contorno fino ou aumente um nível da espessura antes de ampliar todo o formato.']],
+        metaTitle: 'Códigos de Miras Pequenas do VALORANT | AimCodes', metaDescription: 'Teste 6 miras pequenas do VALORANT em mapas reais. Compare micropontos, configurações pro compactas e cruzes curtas, troque a cor e copie o código.',
+      },
     },
     detail: {
       code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'O que esperar', settings: 'Ajustes principais', import: 'Importar no VALORANT', related: 'Teste outra mira', verified: 'Código verificado',
@@ -169,16 +188,16 @@ const copy = {
       defaultBest: 'Jogadores que querem uma referência clara e estável sem esconder o alvo.', defaultTradeoff: 'Teste na sua resolução e no brilho normal dos mapas antes de levar para a ranqueada.',
     },
     guide: {
-      eyebrow: 'PRONTO EM 60 SEGUNDOS', title: 'Como importar um código de mira no VALORANT', intro: 'Copie qualquer código do AimCodes e adicione ao VALORANT em três passos rápidos.',
+      eyebrow: 'PRONTO EM 60 SEGUNDOS', title: 'Como importar, copiar e compartilhar miras no VALORANT', intro: 'Adicione um código em três passos, exporte sua mira, copie outro jogador e resolva os erros mais comuns.',
       steps: [['Copie um código', 'Abra uma mira no AimCodes e toque em Copiar código.'], ['Abra as opções de mira', 'No VALORANT, abra Configurações → Mira e escolha Importar código de perfil.'], ['Cole e teste', 'Cole o código, dê um nome ao perfil e teste no campo de treino antes da partida.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Melhores miras', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', note: 'Feito para testar miras mais rápido.', social: 'Siga a AimCodes' },
+    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Melhores miras', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', small: 'Miras pequenas', settings: 'Configurações de mira', colors: 'Cores de mira', note: 'Feito para testar miras mais rápido.', social: 'Siga a AimCodes' },
     notFound: { title: 'Essa mira errou o tiro', body: 'A página não existe. Volte ao catálogo e escolha outra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira do VALORANT e prévia ao vivo | AimCodes', homeDescription: 'Teste códigos de mira do VALORANT em mapas reais, troque cores, copie códigos e encontre sua próxima mira com um teste de reação.',
       catalogTitle: 'Códigos de mira do VALORANT: pro, ponto e diversão | AimCodes', catalogDescription: 'Explore mais de 60 códigos de mira do VALORANT que funcionam. Teste miras profissionais, pequenas, fofas e divertidas e copie o código.',
       finderTitle: 'Teste de reação e seletor de mira do VALORANT | AimCodes', finderDescription: 'Teste sua reação em três rodadas, receba um rank divertido do VALORANT e ganhe uma indicação de mira para testar e copiar.',
-      guideTitle: 'Como importar um código de mira no VALORANT | AimCodes', guideDescription: 'Aprenda a copiar e importar um código de perfil de mira do VALORANT em três passos e teste antes da próxima partida.',
+      guideTitle: 'Como importar um código de mira no VALORANT | AimCodes', guideDescription: 'Aprenda a importar, exportar, compartilhar e corrigir códigos de mira do VALORANT, incluindo o comando para copiar enquanto assiste.',
     },
   },
   'zh-CN': {
@@ -212,6 +231,12 @@ const copy = {
         faq: [['这些可爱准星真的能在游戏里用吗？', '可以。本页所有代码在发布前都经过 AimCodes 解析和可用性校验。'], ['哪款可爱准星占画面更小？', '爱心和花朵比猫脸、猪脸更紧凑。直接放到地图里预览，最容易看出实际占用范围。'], ['猫猫和爱心准星能换颜色吗？', '可以。选择预设颜色后，复制出的代码会保留原图案并同步使用新颜色。']],
         metaTitle: '无畏契约可爱准星代码：猫猫、爱心与花朵 | AimCodes', metaDescription: '试用可用的无畏契约可爱准星代码，包括猫猫、猪猪、爱心、花朵和兔兔造型，预览、换色并直接复制。',
       },
+      small: {
+        label: '小准星', eyebrow: '少挡画面，中心得看得清', title: '无畏契约小准星代码', intro: '6 款微型圆点和短线准星，适合想要精确中心、又不希望遮挡远距离目标的玩家。', gridTitle: '值得对比的小准星',
+        body: ['小准星能保留更多目标画面，也更容易判断头线位置。但它不能小到快速转身后连自己都找不到。', '这组准星包含微型圆点、中心留空和紧凑短线。固定同一张场景逐个试，再决定需要加粗中心、扩大间距还是换一个更醒目的颜色。'],
+        faq: [['无畏契约小准星一定更好吗？', '它能减少遮挡并提高精确定位，但前提是你在移动和技能特效中仍然能快速找到中心。'], ['小准星和小圆点有什么区别？', '小圆点只用一个中心标记；小准星还可以用几条短线围绕留空或闭合中心，更容易让视线跟住。'], ['小准星看不清怎么调整？', '先试青色或绿色，再开一层细轮廓，或者只把粗细提高一级，不要直接把整个造型放大。']],
+        metaTitle: '无畏契约小准星代码与地图预览 | AimCodes', metaDescription: '在真实地图中试用 6 款无畏契约小准星代码，对比微型圆点、紧凑职业同款和短线十字，换色后直接复制有效代码。',
+      },
     },
     detail: {
       code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '用起来什么感觉', settings: '主要参数', import: '导入无畏契约', related: '再试一个准星', verified: '代码校验',
@@ -219,16 +244,16 @@ const copy = {
       defaultBest: '想要中心明确、容易重复定位，同时不希望准星遮挡目标的玩家。', defaultTradeoff: '正式排位前，建议用自己的分辨率和常玩地图先试一局。',
     },
     guide: {
-      eyebrow: '一分钟完成', title: '无畏契约准星代码怎么导入', intro: '从 AimCodes 复制任意准星代码，三步添加到游戏里。',
+      eyebrow: '一分钟完成', title: '无畏契约准星代码怎么导入、复制和分享', intro: '三步导入代码，还能导出自己的准星、观战复制队友，并排查常见导入问题。',
       steps: [['复制准星代码', '打开 AimCodes 的准星页面，点击“复制代码”。'], ['进入准星设置', '打开《无畏契约》设置，进入“准星”，选择“导入准星配置代码”。'], ['粘贴并试用', '粘贴代码、保存方案，先去训练场看看是否顺手。']], cta: '浏览准星代码',
     },
-    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', best: '最佳准星', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', note: '让试准星这件事快一点。', social: '关注 AimCodes' },
+    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', best: '最佳准星', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', small: '小准星', settings: '准星设置说明', colors: '准星颜色选择', note: '让试准星这件事快一点。', social: '关注 AimCodes' },
     notFound: { title: '这枪空了', body: '这个页面不存在，回准星库再挑一个吧。', action: '返回准星库' },
     meta: {
       homeTitle: '无畏契约准星代码与地图预览 | AimCodes', homeDescription: '在真实地图中预览可用的无畏契约准星代码，自定义颜色，一键复制，还能通过反应测试找到更适合自己的准星。',
       catalogTitle: '无畏契约准星代码大全：职业、小点与趣味准星 | AimCodes', catalogDescription: '浏览 60 多个可用的无畏契约准星代码，预览职业同款、小圆点、小准星、可爱和整活样式，一键复制到游戏。',
       finderTitle: '无畏契约反应速度测试与准星推荐 | AimCodes', finderDescription: '完成三轮反应速度测试，看看自己的无畏契约反应段位，并获得一个可以直接预览和复制的准星推荐。',
-      guideTitle: '无畏契约准星代码怎么导入 | AimCodes', guideDescription: '三步学会复制并导入无畏契约准星配置代码，保存方案后先去训练场测试，再带进下一局。',
+      guideTitle: '无畏契约准星代码怎么导入、导出与复制 | AimCodes', guideDescription: '完整了解无畏契约准星代码的导入、导出、观战复制和常见报错排查，并直接试用有效准星。',
     },
   },
 }
@@ -368,6 +393,10 @@ export function routeMetadata(locale, route, crosshair) {
   } else if (route.type === 'guide') {
     title = localized.meta.guideTitle
     description = localized.meta.guideDescription
+  } else if (route.type === 'article') {
+    const article = articleCopy(locale, route.articleKey)
+    title = article.metaTitle
+    description = article.metaDescription
   } else if (route.type === 'crosshair' && crosshair) {
     const names = {
       en: `${crosshair.shortName} VALORANT Crosshair Code & Preview | AimCodes`,
@@ -417,5 +446,6 @@ export function collectionBreadcrumbName(locale, collectionKey) {
 export function pageSlug(route) {
   if (route.type === 'crosshair') return crosshairSlug(route.crosshairId)
   if (route.type === 'collection') return route.collectionKey
+  if (route.type === 'article') return route.articleKey
   return route.type
 }

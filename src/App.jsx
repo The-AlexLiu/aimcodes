@@ -10,6 +10,7 @@ import ImportGuide from './components/ImportGuide.jsx'
 import SeoCollectionDetails from './components/SeoCollectionDetails.jsx'
 import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
+import SeoArticlePage from './components/SeoArticlePage.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import { crosshairs, filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
@@ -379,7 +380,7 @@ export default function App() {
         </button>
       </header>
 
-      <main id="top" className={showFinder ? 'finder-main' : route.type === 'guide' ? 'guide-main' : ''}>
+      <main id="top" className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -389,6 +390,8 @@ export default function App() {
           </section>
         ) : route.type === 'guide' ? (
           <ImportGuide locale={language} />
+        ) : route.type === 'article' ? (
+          <SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} />
         ) : showFinder ? (
           <CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} />
         ) : (

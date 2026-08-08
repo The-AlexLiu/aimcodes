@@ -21,8 +21,11 @@ export default function SiteFooter({ locale }) {
         <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })}>{content.pro}</a>
         <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })}>{content.dot}</a>
         <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })}>{content.cute}</a>
+        <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>
         <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
         <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
+        <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{content.settings}</a>
+        <a href={routePath(locale, { type: 'article', articleKey: 'colors' })}>{content.colors}</a>
       </nav>
       <div className="site-footer-social-row">
         <span>{content.social}</span>

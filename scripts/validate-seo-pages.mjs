@@ -5,7 +5,8 @@ import { crosshairs } from '../src/data/crosshairs.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SEO_CONTENT_UPDATED_AT, SITE_ORIGIN } from '../src/seo/content.js'
-import { isPriorityCrosshair, routePath, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { articleCopy } from '../src/seo/articles.js'
+import { isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -25,6 +26,7 @@ for (const locale of Object.keys(localeRoutes)) {
     { type: 'finder' },
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
+    ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
     ...localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id })),
   ]
 
@@ -71,6 +73,20 @@ for (const locale of Object.keys(localeRoutes)) {
           if (!item || !html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing collection link for ${id}`)
         }
       }
+      if (route.type === 'guide') {
+        if (!html.includes('"@type":"HowTo"')) errors.push(`${path}: HowTo structured data missing`)
+        if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: guide FAQPage structured data missing`)
+        if (!html.includes('<h2>FAQ</h2>')) errors.push(`${path}: guide FAQ missing from initial HTML`)
+      }
+      if (route.type === 'article') {
+        const article = articleCopy(locale, route.articleKey)
+        if (!html.includes('"@type":"Article"')) errors.push(`${path}: Article structured data missing`)
+        if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: article BreadcrumbList missing`)
+        if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
+        for (const id of article.recommendedCrosshairIds) {
+          if (!html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing recommended crosshair link for ${id}`)
+        }
+      }
       if (indexed) {
         if (indexedCanonicalUrls.has(metadata.canonical)) errors.push(`${path}: duplicate canonical ${metadata.canonical}`)
         if (indexedTitles.has(metadata.title)) errors.push(`${path}: duplicate indexed title ${metadata.title}`)
@@ -85,7 +101,7 @@ for (const locale of Object.keys(localeRoutes)) {
 
 const sitemap = await readFile(resolve(distRoot, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
-const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_CROSSHAIR_IDS.length)
+const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_CROSSHAIR_IDS.length)
 if (sitemapUrls.length !== expectedIndexedCount) errors.push(`sitemap.xml: expected ${expectedIndexedCount} URLs, found ${sitemapUrls.length}`)
 if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: duplicate <loc> entries')
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')

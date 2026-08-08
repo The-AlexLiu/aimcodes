@@ -36,12 +36,27 @@ export const SEO_COLLECTIONS = Object.freeze({
     slug: 'cute-crosshairs',
     crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white']),
   }),
+  small: Object.freeze({
+    slug: 'small-crosshairs',
+    crosshairIds: Object.freeze(['forsaken', 'less', 'jinggg', 'small-dot-thick', 'needle-cyan', 'aspas-dot']),
+  }),
 })
 
 export const SEO_COLLECTION_KEYS = Object.freeze(Object.keys(SEO_COLLECTIONS))
 
+export const SEO_ARTICLES = Object.freeze({
+  settings: Object.freeze({ slug: 'valorant-crosshair-settings' }),
+  colors: Object.freeze({ slug: 'best-valorant-crosshair-colors' }),
+})
+
+export const SEO_ARTICLE_KEYS = Object.freeze(Object.keys(SEO_ARTICLES))
+
 const slugToCollectionKey = Object.fromEntries(
   Object.entries(SEO_COLLECTIONS).map(([key, collection]) => [collection.slug, key]),
+)
+
+const slugToArticleKey = Object.fromEntries(
+  Object.entries(SEO_ARTICLES).map(([key, article]) => [article.slug, key]),
 )
 
 export const CROSSHAIR_SLUGS = Object.freeze({
@@ -74,6 +89,7 @@ export function routePath(locale, route = { type: 'home' }) {
   if (route.type === 'catalog') return `${prefix}/crosshairs/`
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
   if (route.type === 'collection') return `${prefix}/${SEO_COLLECTIONS[route.collectionKey]?.slug || SEO_COLLECTIONS.best.slug}/`
+  if (route.type === 'article') return `${prefix}/${SEO_ARTICLES[route.articleKey]?.slug || SEO_ARTICLES.settings.slug}/`
   if (route.type === 'finder') return `${prefix}/reaction-time-test/`
   if (route.type === 'guide') return `${prefix}/how-to-import-valorant-crosshair/`
   return `${prefix}/`
@@ -89,6 +105,7 @@ export function parseSeoRoute(pathname = '/') {
   if (rest.length === 1 && rest[0] === 'reaction-time-test') return { locale, type: 'finder' }
   if (rest.length === 1 && rest[0] === 'how-to-import-valorant-crosshair') return { locale, type: 'guide' }
   if (rest.length === 1 && slugToCollectionKey[rest[0]]) return { locale, type: 'collection', collectionKey: slugToCollectionKey[rest[0]] }
+  if (rest.length === 1 && slugToArticleKey[rest[0]]) return { locale, type: 'article', articleKey: slugToArticleKey[rest[0]] }
   if (rest.length === 2 && rest[0] === 'crosshairs') {
     return { locale, type: 'crosshair', crosshairId: slugToCrosshairId[rest[1]] || rest[1] }
   }
