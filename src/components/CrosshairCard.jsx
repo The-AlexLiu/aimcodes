@@ -11,7 +11,7 @@ export default function CrosshairCard({ crosshair, href, selected, copied, onSel
         title={copied ? t('actions.copiedShort') : t('actions.copyShort')}
         onClick={(event) => {
           event.stopPropagation()
-          onCopy(crosshair, { source: 'catalog_card' })
+          onCopy(crosshair, { interactionSource: 'catalog_card' })
         }}
       >
         <Icon name={copied ? 'check' : 'copy'} size={18} />

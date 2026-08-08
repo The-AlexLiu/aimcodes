@@ -271,7 +271,7 @@ export default function App() {
         crosshair_id: item.id,
         crosshair_name: item.shortName,
         crosshair_category: item.category,
-        source: options.source || 'explore_preview',
+        interaction_source: options.interactionSource || 'explore_preview',
       })
       copied = true
     } catch {
@@ -282,7 +282,7 @@ export default function App() {
     return copied
   }
 
-  const selectCrosshair = (item, source = 'catalog_grid') => {
+  const selectCrosshair = (item, interactionSource = 'catalog_grid') => {
     setSelectedId(item.id)
     setRecentIds((current) => [item.id, ...current.filter((id) => id !== item.id)].slice(0, 8))
     trackEvent('select_content', {
@@ -291,7 +291,7 @@ export default function App() {
       crosshair_name: item.shortName,
       crosshair_category: item.category,
       is_pro: Boolean(item.isPro),
-      source,
+      interaction_source: interactionSource,
     })
   }
 
@@ -302,7 +302,7 @@ export default function App() {
       trackEvent('crosshair_color_change', {
         crosshair_id: selected.id,
         color_key: option.key,
-        source: 'explore_preview',
+        interaction_source: 'explore_preview',
       })
     } catch {
       notify(t('errors.invalidColor'), 'error')
@@ -311,13 +311,13 @@ export default function App() {
 
   const changeBackground = (nextBackground) => {
     setBackground(nextBackground)
-    trackEvent('map_change', { map_name: nextBackground, source: 'explore_preview' })
+    trackEvent('map_change', { map_name: nextBackground, interaction_source: 'explore_preview' })
   }
 
   const toggleInstructions = () => {
     const willOpen = !showInstructions
     setShowInstructions(willOpen)
-    if (willOpen) trackEvent('import_guide_open', { source: 'explore_preview' })
+    if (willOpen) trackEvent('import_guide_open', { interaction_source: 'explore_preview' })
   }
 
   const changeFilter = (nextFilter) => {
@@ -330,11 +330,11 @@ export default function App() {
     trackEvent('catalog_sort_change', { sort_name: nextSort })
   }
 
-  const openRandomCrosshair = (pool, source) => {
+  const openRandomCrosshair = (pool, interactionSource) => {
     const candidates = (pool?.length ? pool : allCrosshairs).filter((item) => item.id !== selected.id)
     const next = candidates[Math.floor(Math.random() * candidates.length)] || pool?.[0] || allCrosshairs[0]
-    selectCrosshair(next, source)
-    trackEvent('random_crosshair', { crosshair_id: next.id, source })
+    selectCrosshair(next, interactionSource)
+    trackEvent('random_crosshair', { crosshair_id: next.id, interaction_source: interactionSource })
     window.location.assign(routePath(language, { type: 'crosshair', crosshairId: next.id }))
   }
 
@@ -365,7 +365,7 @@ export default function App() {
         </a>
         <nav className={mobileNav ? 'is-open' : ''} aria-label={t('nav.explore')}>
           <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
-          <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { source: 'navigation' })}>{t('nav.finder')}</a>
+          <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { interaction_source: 'navigation' })}>{t('nav.finder')}</a>
         </nav>
         <label className="language-selector" title={t('language.label')}>
           <Icon name="globe" size={17} />
@@ -474,7 +474,7 @@ export default function App() {
             </div>
 
             <div className="action-row">
-              <button className="primary-button" type="button" onClick={() => copyCrosshair(selected, { source: 'explore_preview' })}>
+              <button className="primary-button" type="button" onClick={() => copyCrosshair(selected, { interactionSource: 'explore_preview' })}>
                 <Icon name={copiedId === selected.id ? 'check' : 'copy'} /> {copiedId === selected.id ? t('actions.copied') : t('actions.copy')}
               </button>
               <button className="secondary-button" type="button" onClick={toggleInstructions} aria-expanded={showInstructions}>
