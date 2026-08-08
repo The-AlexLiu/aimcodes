@@ -279,6 +279,8 @@ legend { margin-bottom: 10px; }
 .reaction-field.is-ready .reaction-reticle, .reaction-field.is-ready .reaction-copy small { color: white; }
 .reaction-field.is-early { background-color: #6e282d; border-color: #ff7771; }
 .reaction-field.is-early .reaction-reticle { color: #ffaaa5; }
+.reaction-field.is-timeout { background-color: #503c1e; border-color: #e6bd53; }
+.reaction-field.is-timeout .reaction-reticle { color: #f4d887; }
 .reaction-field.is-feedback { background-color: #123642; border-color: #38bcc7; }
 .reaction-field.is-intro { background-color: #111a21; }
 .finder-corner { position: absolute; width: 27px; height: 27px; pointer-events: none; }

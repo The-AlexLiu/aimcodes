@@ -1,5 +1,11 @@
 import { crosshairs } from '../src/data/crosshairs.js'
-import { getReactionRank, getReactionRecommendation, REACTION_RANKS } from '../src/utils/reactionRecommendation.js'
+import {
+  getReactionRank,
+  getReactionRecommendation,
+  isValidReactionTime,
+  MAX_REACTION_MS,
+  REACTION_RANKS,
+} from '../src/utils/reactionRecommendation.js'
 
 const failures = []
 const catalogIds = new Set(crosshairs.map((item) => item.id))
@@ -19,9 +25,17 @@ for (const rounds of [[150, 160, 170], [251, 270, 285], [401, 520, 800]]) {
   if (!catalogIds.has(result.id)) failures.push(`Missing primary recommendation ${result.id}`)
 }
 
+for (const validTime of [1, 170, MAX_REACTION_MS]) {
+  if (!isValidReactionTime(validTime)) failures.push(`Valid reaction time rejected: ${validTime}`)
+}
+
+for (const invalidTime of [0, -1, MAX_REACTION_MS + 1, Number.NaN, Number.POSITIVE_INFINITY]) {
+  if (isValidReactionTime(invalidTime)) failures.push(`Invalid reaction time accepted: ${invalidTime}`)
+}
+
 if (failures.length) {
   console.error(failures.join('\n'))
   process.exit(1)
 }
 
-console.log(`Validated ${REACTION_RANKS.length} continuous reaction tiers and all primary recommendation IDs.`)
+console.log(`Validated ${REACTION_RANKS.length} continuous reaction tiers, timeout boundaries, and all primary recommendation IDs.`)

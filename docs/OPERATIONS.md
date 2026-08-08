@@ -136,7 +136,7 @@ shasum \
 
 ## 交接格式
 
-每次跨 GPT/Codex、Antigravity 或开发者交接，记录：
+每次跨 GPT/Codex、Cursor 或开发者交接，记录：
 
 ```text
 任务：

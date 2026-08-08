@@ -3,7 +3,14 @@ import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
 import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
 import { parseCrosshairCode, updateCrosshairColor } from '../utils/crosshairCode.js'
-import { getReactionRank, getReactionRecommendation, REACTION_RANKS, REACTION_ROUNDS } from '../utils/reactionRecommendation.js'
+import {
+  getReactionRank,
+  getReactionRecommendation,
+  isValidReactionTime,
+  MAX_REACTION_MS,
+  REACTION_RANKS,
+  REACTION_ROUNDS,
+} from '../utils/reactionRecommendation.js'
 import { createResultShareCard } from '../utils/shareResultCard.js'
 import { trackEvent } from '../utils/analytics.js'
 
@@ -47,7 +54,7 @@ function readChallengeFromLocation() {
   if (typeof window === 'undefined') return null
   const parameters = new URLSearchParams(window.location.search)
   const score = Number.parseInt(parameters.get('challenge') || '', 10)
-  if (!Number.isInteger(score) || score < 80 || score > 2000) return null
+  if (!Number.isInteger(score) || score < 80 || score > MAX_REACTION_MS) return null
   const rank = getReactionRank(score)
   const requestedRank = parameters.get('rank')
   if (requestedRank && requestedRank !== rank.id) return null
@@ -105,13 +112,14 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   const [challengeLinkCopied, setChallengeLinkCopied] = useState(false)
   const readyAt = useRef(0)
   const waitTimer = useRef(null)
+  const readyTimer = useRef(null)
   const feedbackTimer = useRef(null)
   const copiedTimer = useRef(null)
   const shareTimer = useRef(null)
   const challengeLinkTimer = useRef(null)
   const attemptNumber = useRef(0)
   const challenge = useMemo(() => readChallengeFromLocation(), [])
-  const isFocusedTest = ['waiting', 'ready', 'early', 'feedback'].includes(phase)
+  const isFocusedTest = ['waiting', 'ready', 'early', 'timeout', 'feedback'].includes(phase)
 
   useEffect(() => {
     if (!challenge) return
@@ -129,11 +137,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
   const clearTimers = () => {
     if (waitTimer.current) window.clearTimeout(waitTimer.current)
+    if (readyTimer.current) window.clearTimeout(readyTimer.current)
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
     if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
     if (challengeLinkTimer.current) window.clearTimeout(challengeLinkTimer.current)
     waitTimer.current = null
+    readyTimer.current = null
     feedbackTimer.current = null
     copiedTimer.current = null
     shareTimer.current = null
@@ -142,6 +152,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
   useEffect(() => () => {
     if (waitTimer.current) window.clearTimeout(waitTimer.current)
+    if (readyTimer.current) window.clearTimeout(readyTimer.current)
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
     if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
@@ -243,6 +254,24 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     feedbackTimer.current = window.setTimeout(() => setPhase('waiting'), FEEDBACK_MS)
   }
 
+  useEffect(() => {
+    if (phase !== 'ready') return undefined
+    readyTimer.current = window.setTimeout(() => {
+      readyTimer.current = null
+      setLastReaction(null)
+      trackEvent('finder_timeout', {
+        attempt_number: attemptNumber.current,
+        round_number: roundTimes.length + 1,
+        elapsed_ms: MAX_REACTION_MS,
+      })
+      queueNextRound('timeout')
+    }, MAX_REACTION_MS)
+    return () => {
+      if (readyTimer.current) window.clearTimeout(readyTimer.current)
+      readyTimer.current = null
+    }
+  }, [phase, roundTimes.length])
+
   const handlePlayArea = () => {
     if (phase === 'intro') {
       startTest('intro')
@@ -264,7 +293,20 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
     if (phase !== 'ready') return
 
+    if (readyTimer.current) window.clearTimeout(readyTimer.current)
+    readyTimer.current = null
     const reaction = Math.max(1, Math.round(window.performance.now() - readyAt.current))
+    if (!isValidReactionTime(reaction)) {
+      setLastReaction(null)
+      trackEvent('finder_timeout', {
+        attempt_number: attemptNumber.current,
+        round_number: roundTimes.length + 1,
+        elapsed_ms: reaction,
+      })
+      queueNextRound('timeout')
+      return
+    }
+
     const nextRoundTimes = [...roundTimes, reaction]
     setRoundTimes(nextRoundTimes)
     setLastReaction(reaction)
@@ -457,7 +499,9 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         ? t('finder.clickNow')
         : phase === 'early'
           ? t('finder.tooSoon')
-          : t('finder.reactionTime', { time: lastReaction })
+          : phase === 'timeout'
+            ? t('finder.tooSlow')
+            : t('finder.reactionTime', { time: lastReaction })
 
   const phaseHint = phase === 'intro'
     ? t('finder.introHint')
@@ -467,7 +511,9 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         ? t('finder.readyHint')
         : phase === 'early'
           ? t('finder.tooSoonHint')
-          : t('finder.nextHint')
+          : phase === 'timeout'
+            ? t('finder.tooSlowHint')
+            : t('finder.nextHint')
 
   if (phase === 'result' && result && resultCrosshair) {
     const displayRanks = [...REACTION_RANKS].reverse()

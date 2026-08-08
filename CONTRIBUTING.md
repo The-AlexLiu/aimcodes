@@ -1,6 +1,6 @@
 # AimCodes 协作开发流程
 
-AimCodes 使用 GitHub 作为代码、任务和交接的唯一事实来源。GPT/Codex、Antigravity 和人工开发者都遵循同一套分支与 PR 流程。
+AimCodes 使用 GitHub 作为代码、任务和交接的唯一事实来源。GPT/Codex、Cursor 和人工开发者都遵循同一套分支与 PR 流程。
 
 ## 本地准备
 
@@ -21,7 +21,7 @@ pnpm dev
 不要直接在 `main` 开发。
 
 ```text
-antigravity/<简短任务名>
+cursor/<简短任务名>
 codex/<简短任务名>
 feat/<简短任务名>
 fix/<简短任务名>
@@ -31,7 +31,7 @@ docs/<简短任务名>
 示例：
 
 ```text
-antigravity/mobile-filter-layout
+cursor/mobile-filter-layout
 codex/seo-crosshair-pages
 fix/renderer-cover-timing
 ```
@@ -46,7 +46,7 @@ fix/renderer-cover-timing
 4. 提交并推送当前分支。
 5. 下一工具拉取同一分支，从提交点继续。
 
-不要让 GPT/Codex 与 Antigravity 同时编辑同一个工作目录。需要并行工作时使用不同 Git Worktree、不同分支和不重叠的文件范围。
+不要让 GPT/Codex 与 Cursor 同时编辑同一个工作目录。需要并行工作时使用不同 Git Worktree、不同分支和不重叠的文件范围。
 
 ## Pull Request 要求
 

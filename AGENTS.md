@@ -1,6 +1,6 @@
 # AimCodes 共享开发规则
 
-本文件是 AimCodes 在 GPT/Codex、Antigravity 以及其他编程智能体之间共用的项目级规则。打开仓库后，先读取本文件，再读取 `docs/` 中的项目状态与架构说明。
+本文件是 AimCodes 在 GPT/Codex、Cursor 以及其他编程智能体之间共用的项目级规则。打开仓库后，先读取本文件，再读取 `docs/` 中的项目状态与架构说明。
 
 ## 开始任务前
 
@@ -13,7 +13,7 @@
    - `docs/HANDOFF.md`
 2. 运行 `git status -sb`，确认当前分支和已有修改。
 3. 现有未提交修改默认属于用户，不得覆盖、回滚、删除或顺手提交。
-4. 一个任务只使用一个分支和一个工作目录；GPT/Codex 与 Antigravity 不得同时修改同一工作树。
+4. 一个任务只使用一个分支和一个工作目录；GPT/Codex 与 Cursor 不得同时修改同一工作树。
 5. 如果任务目标、线上状态或数据来源不明确，先进行只读检查，再说明“需确认”的内容。
 
 ## 项目事实
@@ -63,7 +63,7 @@
 
 ## Git 与发布
 
-- 禁止直接在 `main` 开发；使用 `antigravity/<task>`、`codex/<task>`、`fix/<task>` 或 `feat/<task>` 分支。
+- 禁止直接在 `main` 开发；使用 `cursor/<task>`、`codex/<task>`、`fix/<task>` 或 `feat/<task>` 分支。
 - 提交前只暂存本任务文件，禁止在混合工作树中使用 `git add -A`。
 - 未经用户明确授权，不得推送 GitHub、合并 PR、修改线上配置或执行生产部署。
 - 生产部署目标是：PR 预览通过后合并 `main`，由 Netlify 自动发布。

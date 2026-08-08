@@ -1,6 +1,6 @@
-# Antigravity / AI Agent 首次接管 Prompt
+# Cursor / AI Agent 首次接管 Prompt
 
-将下面完整内容提供给 AI 智能体（如 Antigravity）。第一次运行建议使用 Ask/只读模式。
+将下面完整内容提供给 Cursor Agent。第一次运行建议使用 Ask/只读模式。
 
 ---
 
@@ -42,13 +42,13 @@
    - 列出当前启用的 MCP/工具及其读写范围
    - 不输出 Token、Cookie、密钥、凭据路径或其他敏感内容
 
-5. 用中文输出一份“Antigravity 接管报告”，必须包含：
+5. 用中文输出一份“Cursor 接管报告”，必须包含：
    - 你对 AimCodes 产品目标的理解；
    - 技术架构和关键文件；
    - 当前 Git/生产状态；
    - 已识别的历史未提交修改；
    - 当前可用和缺失的权限；
-   - GPT/Codex 与 Antigravity 之间的同步边界；
+   - GPT/Codex 与 Cursor 之间的同步边界；
    - 最高风险的 3 个版本漂移点；
    - 建立干净协作基线的具体步骤。
 

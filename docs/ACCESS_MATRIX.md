@@ -6,7 +6,7 @@
 
 ## 权限矩阵
 
-| 服务 | 用途 | 开发者推荐权限 | Antigravity/GPT 同步方式 |
+| 服务 | 用途 | 开发者推荐权限 | Cursor/GPT 同步方式 |
 |---|---|---|---|
 | GitHub `aimcodes` | 代码、Issue、PR、CI | Collaborator；生产 `main` 走 PR | 同一 Git 仓库；每个账号单独登录 |
 | GitHub 渲染器仓库 | 作品集镜像 | Collaborator | 通过提交/PR 同步，不共享 Token |
@@ -16,7 +16,7 @@
 | NameSilo | 域名与 DNS | 仅所有者 | 不接入智能体，不共享账号 |
 | Instagram/YouTube/TikTok/Facebook | 内容分发 | 开发阶段不提供 | 不共享密码；需要时使用平台角色 |
 
-## GPT/Codex 与 Antigravity 的配置差异
+## GPT/Codex 与 Cursor 的配置差异
 
 GPT/Codex 项目级 MCP 可配置在：
 
@@ -24,7 +24,7 @@ GPT/Codex 项目级 MCP 可配置在：
 .codex/config.toml
 ```
 
-Antigravity 项目级 MCP 或环境变量支持在 IDE 中管理。两种工具可以共享“需要哪些 MCP”的清单，但实际 OAuth 和 Token 必须分别完成。
+Cursor 项目级 MCP 可在 `.cursor/mcp.json` 或 IDE 设置中管理。两种工具可以共享“需要哪些 MCP”的清单，但实际 OAuth 和 Token 必须分别完成。
 
 ## 推荐 MCP 清单
 
@@ -37,7 +37,7 @@ Antigravity 项目级 MCP 或环境变量支持在 IDE 中管理。两种工具�
 
 ## 同一台 Mac
 
-Antigravity 终端和 GPT/Codex 本地终端在同一 macOS 用户下运行时，可以复用系统中的 Git 和 CLI 登录状态。开始前只读检查：
+Cursor 终端和 GPT/Codex 本地终端在同一 macOS 用户下运行时，可以复用系统中的 Git 和 CLI 登录状态。开始前只读检查：
 
 ```bash
 gh auth status

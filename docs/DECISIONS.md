@@ -6,7 +6,7 @@
 
 **状态：已接受**
 
-代码、规则、架构、任务和交接结果以 GitHub 中可审查的文件、Issue、提交和 PR 为准。GPT/Codex 与 Antigravity 的聊天记录不能作为唯一依据。
+代码、规则、架构、任务和交接结果以 GitHub 中可审查的文件、Issue、提交和 PR 为准。GPT/Codex 与 Cursor 的聊天记录不能作为唯一依据。
 
 原因：聊天记忆无法可靠跨工具同步，且难以审查、回滚和多人协作。
 
@@ -14,7 +14,7 @@
 
 **状态：已接受**
 
-GPT/Codex 与 Antigravity 都先读取根目录 `AGENTS.md`。项目特定规则记录在 `AGENTS.md` 中，不得相互复制或覆盖核心事实。
+GPT/Codex 与 Cursor 都先读取根目录 `AGENTS.md`。项目特定规则记录在 `AGENTS.md` 中，不得相互复制或覆盖核心事实。
 
 原因：避免两个工具形成两套冲突的项目记忆。
 
@@ -64,7 +64,7 @@ GPT/Codex 与 Antigravity 都先读取根目录 `AGENTS.md`。项目特定规则
 
 长期目标是 PR 预览通过后由人工合并 `main`，Netlify 自动发布。任何工具都不得默认执行手动生产部署。
 
-原因：避免 Antigravity、GPT/Codex 或本地脏工作树直接覆盖正式站。
+原因：避免 Cursor、GPT/Codex 或本地脏工作树直接覆盖正式站。
 
 ## D-009：主站渲染器是当前发布基准
 

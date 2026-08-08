@@ -1,4 +1,9 @@
 export const REACTION_ROUNDS = 3
+export const MAX_REACTION_MS = 2000
+
+export function isValidReactionTime(value) {
+  return Number.isFinite(value) && value >= 1 && value <= MAX_REACTION_MS
+}
 
 // Product-defined reaction tiers. They borrow VALORANT's rank language for
 // familiarity, but describe only this browser reaction test—not a player rank.
