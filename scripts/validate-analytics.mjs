@@ -35,10 +35,14 @@ const requiredEvents = [
 ]
 
 const missingEvents = requiredEvents.filter((eventName) => !source.includes(`'${eventName}'`))
+const reservedTrafficParameters = ['source', 'medium', 'campaign', 'campaign_id', 'term', 'content']
+const leakedTrafficParameters = reservedTrafficParameters.filter((parameter) => new RegExp(`\\b${parameter}\\s*:`).test(source))
 if (!source.includes(measurementId)) throw new Error(`Missing GA4 measurement ID: ${measurementId}`)
 if (!source.includes("'aimcodes.com'")) throw new Error('Missing production analytics host: aimcodes.com')
 if (!source.includes("get('qa') === '1'")) throw new Error('Missing ?qa=1 analytics exclusion guard.')
 if (missingEvents.length) throw new Error(`Missing GA4 events: ${missingEvents.join(', ')}`)
 if (source.includes('search_term: normalizedQuery')) throw new Error('Raw search terms must not be sent to GA4.')
+if (!source.includes('interaction_source')) throw new Error('Missing interaction_source event attribution parameter.')
+if (leakedTrafficParameters.length) throw new Error(`Reserved traffic-source parameters used in product events: ${leakedTrafficParameters.join(', ')}`)
 
-console.log(`GA4 validation passed: ${measurementId}, ${requiredEvents.length} required funnel events, production-only host guard, and no raw search term collection.`)
+console.log(`GA4 validation passed: ${measurementId}, ${requiredEvents.length} required funnel events, interaction_source guard, production-only host guard, and no raw search term collection.`)

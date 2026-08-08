@@ -221,7 +221,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     }
   }, [resultCrosshair])
 
-  const startTest = (source = 'intro') => {
+  const startTest = (interactionSource = 'intro') => {
     clearTimers()
     attemptNumber.current += 1
     setRoundTimes([])
@@ -237,7 +237,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     setPhase('waiting')
     trackEvent('finder_start', {
       attempt_number: attemptNumber.current,
-      source,
+      interaction_source: interactionSource,
       total_rounds: REACTION_ROUNDS,
     })
     if (challenge) {
@@ -361,7 +361,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       trackEvent('crosshair_color_change', {
         crosshair_id: resultCrosshair.id,
         color_key: option.key,
-        source: 'finder_result',
+        interaction_source: 'finder_result',
       })
     } catch {
       // Catalog codes are validated before display; keep the last valid result.
@@ -370,7 +370,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
   const copyResultCode = async () => {
     if (!resultCrosshair) return
-    const copied = await onCopy(resultCrosshair, { source: 'finder_result' })
+    const copied = await onCopy(resultCrosshair, { interactionSource: 'finder_result' })
     if (copied === false) return
     setResultCopied(true)
     if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
@@ -379,7 +379,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
 
   const changeResultBackground = (nextBackground) => {
     setResultBackground(nextBackground)
-    trackEvent('map_change', { map_name: nextBackground, source: 'finder_result' })
+    trackEvent('map_change', { map_name: nextBackground, interaction_source: 'finder_result' })
   }
 
   const exitFinder = () => {

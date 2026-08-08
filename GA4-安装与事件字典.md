@@ -13,16 +13,16 @@
 | 事件名 | 触发时机 | 主要参数 |
 |---|---|---|
 | `page_view` | 打开找准星或帮我选界面 | `app_view`、`app_language` |
-| `finder_open` | 点击帮我选 | `source` |
+| `finder_open` | 点击帮我选 | `interaction_source` |
 | `finder_start` | 开始反应测试或再次测试 | `attempt_number`、`total_rounds` |
 | `finder_false_start` | 绿灯前提前点击 | `round_number`、`false_start_count` |
 | `finder_complete` | 完成测试并生成结果 | `reaction_ms`、`reaction_rank`、`recommended_crosshair_id` |
 | `finder_exit` | 中途或结果页退出测试 | `phase`、`completed_rounds` |
-| `select_content` | 选择一个准星 | `item_id`、`crosshair_category`、`source` |
-| `crosshair_color_change` | 修改准星颜色 | `crosshair_id`、`color_key`、`source` |
-| `map_change` | 修改预览地图 | `map_name`、`source` |
-| `crosshair_code_copy` | 成功复制准星代码 | `crosshair_id`、`crosshair_category`、`source` |
-| `import_guide_open` | 展开怎么导入 | `source` |
+| `select_content` | 选择一个准星 | `item_id`、`crosshair_category`、`interaction_source` |
+| `crosshair_color_change` | 修改准星颜色 | `crosshair_id`、`color_key`、`interaction_source` |
+| `map_change` | 修改预览地图 | `map_name`、`interaction_source` |
+| `crosshair_code_copy` | 成功复制准星代码 | `crosshair_id`、`crosshair_category`、`interaction_source` |
+| `import_guide_open` | 展开怎么导入 | `interaction_source` |
 | `filter_select` | 切换准星分类 | `filter_name` |
 | `search_used` | 搜索框停留 700ms 且至少输入 2 个字符 | `query_length`、`results_count`、`has_results` |
 | `language_change` | 切换语言 | `from_language`、`to_language` |
@@ -49,7 +49,7 @@
 5. 打开“管理 → 数据显示 → 自定义定义”，创建事件范围的自定义维度：
    - `app_view`
    - `app_language`
-   - `source`
+   - `interaction_source`
    - `crosshair_id`
    - `crosshair_category`
    - `color_key`
@@ -64,6 +64,8 @@
    - `results_count`
 7. 打开“管理 → 数据收集和修改 → 数据保留”，将事件数据保留期设为 14 个月。
 8. 在数据流的增强型衡量中保留滚动、出站点击等自动事件；关闭“根据浏览器历史记录变化统计网页浏览”，避免未来单页路由产生重复浏览。
+
+普通站内交互事件不得使用 `source`、`medium`、`campaign`、`term` 或 `content` 作为事件参数，以免污染渠道归因。只有用户分享出去的挑战链接保留标准 UTM，用于识别新会话的传播来源。
 
 ## 上线验证
 
