@@ -6,13 +6,16 @@ import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
 import {
   alternateUrls,
+  collectionBreadcrumbName,
+  collectionCopy,
   crosshairBreadcrumbName,
   detailCopy,
   routeMetadata,
+  SEO_CONTENT_UPDATED_AT,
   seoCopy,
   SITE_ORIGIN,
 } from '../src/seo/content.js'
-import { isPriorityCrosshair, routePath, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { isPriorityCrosshair, routePath, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -20,7 +23,6 @@ const distRoot = resolve(projectRoot, 'dist')
 const sourcePath = resolve(distRoot, 'index.html')
 const seoStart = '<!-- aimcodes:seo:start -->'
 const seoEnd = '<!-- aimcodes:seo:end -->'
-const buildDate = new Date().toISOString().slice(0, 10)
 
 function escapeHtml(value) {
   return String(value)
@@ -58,7 +60,10 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
     },
   ]
 
-  if (route.type === 'catalog') {
+  if (route.type === 'catalog' || route.type === 'collection') {
+    const collectionIds = route.type === 'collection'
+      ? SEO_COLLECTIONS[route.collectionKey].crosshairIds
+      : SEO_CROSSHAIR_IDS
     graph.push({
       '@type': 'CollectionPage',
       '@id': `${metadata.canonical}#collection`,
@@ -68,7 +73,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
       mainEntity: {
         '@type': 'ItemList',
-        itemListElement: SEO_CROSSHAIR_IDS.map((id, index) => ({
+        itemListElement: collectionIds.map((id, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           url: `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: id })}`,
@@ -76,6 +81,26 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
         })),
       },
     })
+
+    if (route.type === 'collection') {
+      const collection = collectionCopy(locale, route.collectionKey)
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+          { '@type': 'ListItem', position: 2, name: seoCopy(locale).catalog.title, item: `${SITE_ORIGIN}${routePath(locale, { type: 'catalog' })}` },
+          { '@type': 'ListItem', position: 3, name: collectionBreadcrumbName(locale, route.collectionKey), item: metadata.canonical },
+        ],
+      })
+      graph.push({
+        '@type': 'FAQPage',
+        mainEntity: collection.faq.map(([name, text]) => ({
+          '@type': 'Question',
+          name,
+          acceptedAnswer: { '@type': 'Answer', text },
+        })),
+      })
+    }
   }
 
   if (route.type === 'finder') {
@@ -179,14 +204,27 @@ function staticLinks(locale, items) {
   return `<div class="seo-static-links">${items.map((item) => `<a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a>`).join('')}</div>`
 }
 
+function staticTopicLinks(locale) {
+  return `<nav class="seo-static-links">${SEO_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')}</nav>`
+}
+
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
   const localized = seoCopy(locale)
   if (route.type === 'home') {
     const featured = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticLinks(locale, featured)}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, featured)}</main>`
   }
   if (route.type === 'catalog') {
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticLinks(locale, localizedCrosshairs)}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, localizedCrosshairs)}</main>`
+  }
+  if (route.type === 'collection') {
+    const collection = collectionCopy(locale, route.collectionKey)
+    const items = SEO_COLLECTIONS[route.collectionKey].crosshairIds
+      .map((id) => localizedCrosshairs.find((item) => item.id === id))
+      .filter(Boolean)
+    const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')
+    const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
+    return `<main class="seo-static-shell"><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, items)}<section>${body}<h2>FAQ</h2>${faq}</section></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
@@ -198,7 +236,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   if (route.type === 'crosshair' && crosshair) {
     const details = detailCopy(locale, crosshair.id)
     const related = localizedCrosshairs.filter((item) => item.id !== crosshair.id && item.category === crosshair.category).slice(0, 6)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(crosshair.name)}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${staticLinks(locale, related)}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(crosshair.name)}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }
@@ -226,7 +264,13 @@ let generatedCount = 0
 for (const locale of Object.keys(localeRoutes)) {
   const t = createTranslator(locale)
   const localizedCrosshairs = crosshairs.map((item) => localizeCrosshair(item, locale, t))
-  const baseRoutes = [{ type: 'home' }, { type: 'catalog' }, { type: 'finder' }, { type: 'guide' }]
+  const baseRoutes = [
+    { type: 'home' },
+    { type: 'catalog' },
+    { type: 'finder' },
+    { type: 'guide' },
+    ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
+  ]
   const detailRoutes = localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id }))
 
   for (const route of [...baseRoutes, ...detailRoutes]) {
@@ -247,7 +291,7 @@ const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
   const alternates = alternateUrls(route)
     .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
     .join('\n')
-  return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${buildDate}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
+  return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${SEO_CONTENT_UPDATED_AT}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
 }).join('\n')
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
 await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)

@@ -1,5 +1,6 @@
 import Icon from './Icon.jsx'
 import { detailCopy, seoCopy } from '../seo/content.js'
+import SeoTopicLinks from './SeoTopicLinks.jsx'
 
 const settingLabels = {
   en: { dot: 'Center dot', outline: 'Outline', inner: 'Inner lines', outer: 'Outer lines', color: 'Color', on: 'On', off: 'Off', copied: 'Copied' },
@@ -54,6 +55,7 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
         </article>
       </div>
       <p className="seo-verified"><Icon name="check" size={14} /> {labels.verified}: {crosshair.sourceCheckedAt || '2026-08-04'}</p>
+      <SeoTopicLinks locale={locale} />
     </section>
   )
 }

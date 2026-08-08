@@ -7,13 +7,15 @@ import CrosshairFinder from './components/CrosshairFinder.jsx'
 import CrosshairSeoDetails from './components/CrosshairSeoDetails.jsx'
 import Icon from './components/Icon.jsx'
 import ImportGuide from './components/ImportGuide.jsx'
+import SeoCollectionDetails from './components/SeoCollectionDetails.jsx'
+import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import { crosshairs, filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
 import { createTranslator, languages, localizeCrosshair } from './i18n/translations.js'
-import { pageSlug, routeMetadata, seoCopy } from './seo/content.js'
-import { localizedRoutePath, parseSeoRoute, routePath, SEO_CROSSHAIR_IDS } from './seo/routes.js'
+import { collectionCopy, pageSlug, routeMetadata, seoCopy } from './seo/content.js'
+import { localizedRoutePath, parseSeoRoute, routePath, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from './seo/routes.js'
 import { parseCrosshairCode, updateCrosshairColor } from './utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from './utils/crosshairSimilarity.js'
 import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytics.js'
@@ -89,6 +91,7 @@ export default function App() {
   const currentLanguage = languages.find((item) => item.code === language) || languages[0]
   const showFinder = route.type === 'finder'
   const currentView = route.type
+  const activeCollection = route.type === 'collection' ? SEO_COLLECTIONS[route.collectionKey] : null
 
   const hydratedCrosshairs = useMemo(
     () => distinctCatalogCrosshairs.map(hydrateCrosshair),
@@ -155,6 +158,9 @@ export default function App() {
     if (route.type === 'home') {
       return SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
     }
+    if (route.type === 'collection') {
+      return activeCollection.crosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    }
     if (route.type === 'crosshair') {
       const sameCategory = allCrosshairs.filter((item) => item.id !== route.crosshairId && item.category === routeCrosshair?.category)
       const priority = SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id))
@@ -164,7 +170,7 @@ export default function App() {
         .slice(0, 6)
     }
     return []
-  }, [allCrosshairs, route.crosshairId, route.type, routeCrosshair?.category, visibleCrosshairs])
+  }, [activeCollection, allCrosshairs, route.crosshairId, route.type, routeCrosshair?.category, visibleCrosshairs])
 
   const selectedBase = route.type !== 'crosshair' && visibleCrosshairs.length && !visibleCrosshairs.some((item) => item.id === storedSelected.id)
     ? visibleCrosshairs[0]
@@ -357,7 +363,7 @@ export default function App() {
           <BrandWordmark />
         </a>
         <nav className={mobileNav ? 'is-open' : ''} aria-label={t('nav.explore')}>
-          <a className={route.type === 'catalog' || route.type === 'crosshair' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
+          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
           <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { source: 'navigation' })}>{t('nav.finder')}</a>
         </nav>
         <label className="language-selector" title={t('language.label')}>
@@ -388,6 +394,7 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
+        {route.type === 'collection' && <SeoCollectionIntro locale={language} collectionKey={route.collectionKey} />}
 
         {route.type === 'catalog' && <div className="search-bar">
           <Icon name="search" size={21} />
@@ -407,7 +414,7 @@ export default function App() {
 
         {(route.type === 'home' || route.type === 'crosshair') && <section className="workspace" aria-label={t('workspace.label')}>
           <div className="preview-frame">
-            <img src={activeBackground.image} alt={t('preview.mapAlt', { map: activeBackgroundName })} />
+            <img src={activeBackground.image} alt={t('preview.mapAlt', { map: activeBackgroundName })} width="914" height="514" loading="eager" decoding="async" fetchPriority="high" />
             <CrosshairCanvas crosshair={selected} scale={MAIN_PREVIEW_SCALE} label={t('card.test', { name: selected.name })} />
             <div className="hud-map" aria-hidden="true"><strong>{activeBackgroundName.toLocaleUpperCase(language)}</strong></div>
             <span className="hud-ticks" aria-hidden="true" />
@@ -434,7 +441,7 @@ export default function App() {
                 <div className="background-options">
                   {backgroundOptions.map((option) => (
                     <button key={option.value} className={`background-option ${background === option.value ? 'is-selected' : ''}`} type="button" onClick={() => changeBackground(option.value)} aria-pressed={background === option.value}>
-                      <span className="background-swatch"><img src={option.image} alt="" /></span>
+                      <span className="background-swatch"><img src={option.image} alt="" width="914" height="514" loading="lazy" decoding="async" /></span>
                       <span>{t(`maps.${option.value}`)}</span>
                       {background === option.value && <i><Icon name="check" size={12} strokeWidth={2.6} /></i>}
                     </button>
@@ -485,12 +492,12 @@ export default function App() {
           <CrosshairSeoDetails crosshair={selected} locale={language} />
         )}
 
-        {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair') && <section className="collection-section" id="collection">
-          {route.type === 'catalog' ? (
+        {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && <section className="collection-section" id="collection">
+          {route.type === 'catalog' || route.type === 'collection' ? (
             <div className="catalog-summary">
-              <h2 className="visually-hidden">{t('collection.title')}</h2>
+              <h2 className={route.type === 'catalog' ? 'visually-hidden' : ''}>{route.type === 'collection' ? collectionCopy(language, route.collectionKey).gridTitle : t('collection.title')}</h2>
               <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
-              <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, 'catalog_random')}>
+              <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, route.type === 'collection' ? 'collection_random' : 'catalog_random')}>
                 <Icon name="rotate" size={16} /> {t('actions.random')}
               </button>
             </div>
@@ -535,7 +542,7 @@ export default function App() {
           {displayedCrosshairs.length > 0 ? (
             <div className="crosshair-grid">
               {displayedCrosshairs.map((item) => (
-                <CrosshairCard key={item.id} crosshair={item} href={routePath(language, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && selected.id === item.id} copied={copiedId === item.id} onSelect={selectCrosshair} onCopy={copyCrosshair} t={t} />
+                <CrosshairCard key={item.id} crosshair={item} href={routePath(language, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && route.type !== 'collection' && selected.id === item.id} copied={copiedId === item.id} onSelect={selectCrosshair} onCopy={copyCrosshair} t={t} />
               ))}
             </div>
           ) : (
@@ -547,6 +554,7 @@ export default function App() {
             </div>
           )}
         </section>}
+        {route.type === 'collection' && <SeoCollectionDetails locale={language} collectionKey={route.collectionKey} />}
           </>
         )}
       </main>

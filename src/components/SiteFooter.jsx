@@ -17,6 +17,10 @@ export default function SiteFooter({ locale }) {
       </div>
       <nav className="site-footer-nav" aria-label="AimCodes">
         <a href={routePath(locale, { type: 'catalog' })}>{content.browse}</a>
+        <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.best}</a>
+        <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })}>{content.pro}</a>
+        <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })}>{content.dot}</a>
+        <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })}>{content.cute}</a>
         <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
         <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
       </nav>

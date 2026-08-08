@@ -7,9 +7,42 @@ export const SEO_CROSSHAIR_IDS = Object.freeze([
   'demon1',
   'scream-dot',
   'less',
+  'boaster',
+  'cned',
+  'jinggg',
   'cat-pink',
   'pig-pink',
+  'heart-pink',
+  'flower-pink',
+  'bunny-white',
+  'small-dot-thick',
+  'needle-cyan',
 ])
+
+export const SEO_COLLECTIONS = Object.freeze({
+  best: Object.freeze({
+    slug: 'best-valorant-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned']),
+  }),
+  pro: Object.freeze({
+    slug: 'pro-player-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned', 'jinggg']),
+  }),
+  dot: Object.freeze({
+    slug: 'dot-crosshairs',
+    crosshairIds: Object.freeze(['aspas-dot', 'demon1', 'scream-dot', 'small-dot-thick', 'needle-cyan']),
+  }),
+  cute: Object.freeze({
+    slug: 'cute-crosshairs',
+    crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white']),
+  }),
+})
+
+export const SEO_COLLECTION_KEYS = Object.freeze(Object.keys(SEO_COLLECTIONS))
+
+const slugToCollectionKey = Object.fromEntries(
+  Object.entries(SEO_COLLECTIONS).map(([key, collection]) => [collection.slug, key]),
+)
 
 export const CROSSHAIR_SLUGS = Object.freeze({
   'aspas-dot': 'aspas',
@@ -40,6 +73,7 @@ export function routePath(locale, route = { type: 'home' }) {
   const prefix = localePath(locale).replace(/\/$/, '')
   if (route.type === 'catalog') return `${prefix}/crosshairs/`
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
+  if (route.type === 'collection') return `${prefix}/${SEO_COLLECTIONS[route.collectionKey]?.slug || SEO_COLLECTIONS.best.slug}/`
   if (route.type === 'finder') return `${prefix}/reaction-time-test/`
   if (route.type === 'guide') return `${prefix}/how-to-import-valorant-crosshair/`
   return `${prefix}/`
@@ -54,6 +88,7 @@ export function parseSeoRoute(pathname = '/') {
   if (rest.length === 1 && rest[0] === 'crosshairs') return { locale, type: 'catalog' }
   if (rest.length === 1 && rest[0] === 'reaction-time-test') return { locale, type: 'finder' }
   if (rest.length === 1 && rest[0] === 'how-to-import-valorant-crosshair') return { locale, type: 'guide' }
+  if (rest.length === 1 && slugToCollectionKey[rest[0]]) return { locale, type: 'collection', collectionKey: slugToCollectionKey[rest[0]] }
   if (rest.length === 2 && rest[0] === 'crosshairs') {
     return { locale, type: 'crosshair', crosshairId: slugToCrosshairId[rest[1]] || rest[1] }
   }

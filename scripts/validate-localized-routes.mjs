@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { localeRoutes, normalizeLocale } from '../src/i18n/localeRoutes.js'
 import { routeMetadata } from '../src/seo/content.js'
-import { parseSeoRoute, routePath } from '../src/seo/routes.js'
+import { parseSeoRoute, routePath, SEO_COLLECTION_KEYS } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const errors = []
@@ -15,11 +15,12 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
     { type: 'catalog' },
     { type: 'finder' },
     { type: 'guide' },
+    ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
   ]
   for (const route of cases) {
     const path = routePath(locale, route)
     const parsed = parseSeoRoute(path)
-    if (parsed.locale !== locale || parsed.type !== route.type) errors.push(`${path}: route parser mismatch`)
+    if (parsed.locale !== locale || parsed.type !== route.type || parsed.collectionKey !== route.collectionKey) errors.push(`${path}: route parser mismatch`)
     const filePath = resolve(projectRoot, 'dist', path.slice(1), 'index.html')
     try {
       await access(filePath)
@@ -53,4 +54,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log('Validated localized home, catalog, finder and guide routes for all four languages.')
+console.log('Validated localized home, catalog, collection, finder and guide routes for all four languages.')

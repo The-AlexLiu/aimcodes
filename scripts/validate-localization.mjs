@@ -1,5 +1,7 @@
 import { crosshairs } from '../src/data/crosshairs.js'
 import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
+import { seoCopy } from '../src/seo/content.js'
+import { SEO_COLLECTION_KEYS } from '../src/seo/routes.js'
 
 const locales = ['en', 'es', 'zh-CN', 'pt-BR']
 const failures = []
@@ -41,6 +43,21 @@ for (const crosshair of crosshairs) {
   for (const locale of locales) {
     const copy = crosshairCopy[crosshair.id]?.[locale]
     if (!copy || copy.length !== 3 || copy.some((value) => !value.trim())) failures.push(`${crosshair.id} is missing ${locale} card copy`)
+  }
+}
+
+for (const locale of locales) {
+  for (const collectionKey of SEO_COLLECTION_KEYS) {
+    const collection = seoCopy(locale).collections?.[collectionKey]
+    if (!collection) {
+      failures.push(`${locale} is missing SEO collection ${collectionKey}`)
+      continue
+    }
+    for (const field of ['label', 'eyebrow', 'title', 'intro', 'gridTitle', 'metaTitle', 'metaDescription']) {
+      if (!String(collection[field] || '').trim()) failures.push(`${locale} ${collectionKey} is missing ${field}`)
+    }
+    if (collection.body?.length !== 2 || collection.body.some((value) => !value.trim())) failures.push(`${locale} ${collectionKey} needs two body paragraphs`)
+    if (collection.faq?.length !== 3 || collection.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${collectionKey} needs three complete FAQs`)
   }
 }
 

@@ -1,5 +1,6 @@
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
+import SeoTopicLinks from './SeoTopicLinks.jsx'
 
 export default function SeoPageIntro({ locale, type = 'home' }) {
   const content = seoCopy(locale)[type]
@@ -16,6 +17,7 @@ export default function SeoPageIntro({ locale, type = 'home' }) {
           <a className="secondary-button" href={routePath(locale, { type: 'finder' })}>{content.secondary}</a>
         </div>
       )}
+      <SeoTopicLinks locale={locale} />
     </section>
   )
 }

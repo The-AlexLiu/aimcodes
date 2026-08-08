@@ -35,9 +35,17 @@
 - 48 个 sitemap canonical URL；
 - 社媒视频、方形图和配套封面生成工具。
 
+## 本地待发布 SEO 候选
+
+- 4 类四语种 SEO 主题集合页；
+- 可索引高价值准星详情由 8 个增加到 16 个；
+- 生产构建生成 280 个本地化 HTML 路由；
+- sitemap 由 48 个 canonical URL 增加到 96 个；
+- 当前仅在本地完成，尚未推送 GitHub、合并 PR 或发布 Netlify。
+
 ## 当前工作树提醒
 
-截至 2026-08-08 GitHub 同步完成时，当前分支 `seo/programmatic-pages-v1` 已推送到远端，工作树干净。开始任何新任务前仍必须用 `git status -sb` 和 `git diff --stat` 重新确认实际状态，不得假设文档状态永远有效。
+2026-08-08 已在 `seo/programmatic-pages-v1` 完成本轮 SEO 候选修改。该修改尚未推送远端或发布生产；开始后续任务前必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认实际状态。
 
 ## 已确认验证基线
 
@@ -47,7 +55,7 @@
 - Vite 生产构建通过；
 - 四语种词条验证通过；
 - 多语种路由验证通过；
-- 264 个生成路由和 48 个 sitemap URL 验证通过；
+- 280 个生成路由和 96 个 sitemap URL 验证通过；
 - 四个官方社媒链接出现在结构化数据和前端资源中；
 - 线上 `/en/`、`/es/`、`/pt-br/`、`/zh-cn/` 和渲染器均返回 200；
 - 三份渲染器副本 SHA-1 相同：`361c61af9ab91f965939ef7f36b05033fe1bb04f`。
