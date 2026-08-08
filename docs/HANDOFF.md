@@ -16,9 +16,9 @@
 
 ## 当前分支与提交
 
-- 主仓库当前分支：`seo/programmatic-pages-v1`
-- 最近功能提交：`9d8155a`
-- 当前功能分支已经推送到 GitHub；同步完成时本地与远端功能分支一致。
+- 当前生产基线分支：`main`
+- 最近合并提交：`ef11256`
+- PR #2 已合并，GitHub `main`、本地生产构建和 Netlify 线上内容一致。
 
 ## Cursor 接手时第一步
 
@@ -31,12 +31,10 @@
 
 ## 尚未完成
 
-- 当前功能分支尚未合并到 GitHub `main`；
-- 两个草稿 PR 尚未合并；
 - Netlify 尚未确认改为 GitHub `main` 自动生产部署；
 - 渲染器尚未完成单一源自动同步；
 - GA4 后台尚未创建计划中的自定义维度和指标。
-- 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已在本地验证，但尚未推送 GitHub 或部署 Netlify。
+- 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
 
 ## 本次验证结果
 
@@ -60,18 +58,19 @@
 ## 最近生产发布
 
 - 发布时间：2026-08-08；
-- Netlify Deploy ID：`6a76add812930ae0a8e8666e`；
+- Netlify Deploy ID：`6a772215b2499cf1f8e8bf66`；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认四语种入口、Sitemap、robots、渲染器和反应测试超时保护正常。
+- 发布后已确认四语种入口、新知识页、主题集合、108 URL Sitemap、robots、canonical、JSON-LD、渲染器和反应测试入口正常。
 
 ## 下一任务推荐
 
-先完成 `main` 基线收口，再开始新的大型功能：
+先收集发布后的搜索数据，再选择下一批内容：
 
-1. 检查并更新主仓库草稿 PR #2；
-2. 确认后合并到 `main`；
-3. 将 Netlify 生产部署绑定到 GitHub `main`；
-4. 再开始 Cursor 与 GPT/Codex 的后续协作。
+1. 在 GSC 重新提交 sitemap 并抽查四语种代表 URL；
+2. 观察 7–14 天的收录、展示、查询和平均排名；
+3. 优先补强排名 8–30 或已有展示的主题；
+4. 将 Netlify 生产部署绑定到 GitHub `main`；
+5. 再按 `docs/CONTENT_ROADMAP.md` 的触发条件实现 P1。
 
 ## 交接原则
 

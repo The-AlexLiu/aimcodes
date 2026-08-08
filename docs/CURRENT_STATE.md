@@ -10,15 +10,15 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-08 最近一次已确认生产部署：`6a76add812930ae0a8e8666e`
-- 最近一次上线内容：反应测试超时保护、四语种超时文案、构建依赖安全修复，以及此前的配套封面和官方社媒入口。
+- 2026-08-08 最近一次已确认生产部署：`6a772215b2499cf1f8e8bf66`
+- 最近一次上线内容：5 类四语种 SEO 主题集合、2 类四语种知识指南、扩充后的导入指南、16 个优先索引准星详情，以及此前的反应测试、素材渲染器和官方社媒入口。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
-- 当前本地分支：`seo/programmatic-pages-v1`
-- 主仓库最近功能提交：`9d8155a fix: 同步反应测试修复与协作基线`
-- 主仓库草稿 PR：<https://github.com/The-AlexLiu/aimcodes/pull/2>
+- 当前生产基线分支：`main`
+- 主仓库最近合并提交：`ef11256 Merge pull request #2 from The-AlexLiu/seo/programmatic-pages-v1`
+- 已合并 PR：<https://github.com/The-AlexLiu/aimcodes/pull/2>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -31,11 +31,11 @@
 - 3 轮反应测试；
 - 9 个反应段位；
 - 23 个 GA4 验证事件；
-- 264 个生成 HTML 路由；
-- 48 个 sitemap canonical URL；
+- 292 个生成 HTML 路由；
+- 108 个 sitemap canonical URL；
 - 社媒视频、方形图和配套封面生成工具。
 
-## 本地待发布 SEO 候选
+## 已发布 SEO 基线
 
 - 5 类四语种 SEO 主题集合页；
 - 新增四语种准星参数说明和准星颜色指南；
@@ -43,11 +43,11 @@
 - 可索引高价值准星详情由 8 个增加到 16 个；
 - 生产构建生成 292 个本地化 HTML 路由；
 - sitemap 由 48 个 canonical URL 增加到 108 个；
-- 当前仅在本地完成，尚未推送 GitHub、合并 PR 或发布 Netlify。
+- 已推送 GitHub、合并到 `main` 并发布 Netlify；四语种代表页面、robots、sitemap、canonical 和 JSON-LD 已在线验证。
 
 ## 当前工作树提醒
 
-2026-08-08 已在 `seo/programmatic-pages-v1` 完成本轮 SEO 候选修改。该修改尚未推送远端或发布生产；开始后续任务前必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认实际状态。
+2026-08-08 SEO 功能已合并并发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地是否与 `origin/main` 一致，并从 `main` 创建新任务分支。
 
 ## 已确认验证基线
 
@@ -67,16 +67,15 @@
 
 ## 当前已知问题
 
-1. 功能分支与当前 Netlify 生产代码已经同步，但尚未合并到 GitHub `main`。
-2. 两个草稿 PR 尚未合并到 `main`。
-3. 渲染器有三份副本，尚未实现单一源自动同步。
-4. GA4 代码包含 23 个验证事件，但后台尚未创建计划中的自定义维度和指标。
-5. Netlify 应改为 GitHub `main` 自动生产部署，减少本地手动发布产生的版本漂移。
+1. 渲染器有三份副本，尚未实现单一源自动同步。
+2. GA4 代码包含 23 个验证事件，但后台尚未创建计划中的自定义维度和指标。
+3. Netlify 仍依赖手动上传生产构建，应改为 GitHub `main` 自动生产部署，减少版本漂移。
+4. 新 SEO 页面刚上线，GSC 尚未形成足够查询和收录数据，不应立即批量扩页。
 
 ## 推荐后续顺序
 
-1. 检查并更新主仓库草稿 PR #2，确认后合并到 `main`。
-2. 把 Netlify 生产部署绑定到 GitHub `main`。
-3. 在 GA4 后台创建已规划的自定义维度和指标。
-4. 将渲染器重构为一个源文件、自动生成主站和作品集副本。
-5. 再开始新的产品功能或 SEO 内容扩展。
+1. 在 GSC 重新提交现有 sitemap，并检查四语种代表页面的抓取与 canonical。
+2. 观察 7–14 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面。
+3. 把 Netlify 生产部署绑定到 GitHub `main`。
+4. 在 GA4 后台创建已规划的自定义维度和指标。
+5. 依据 GSC 触发条件选择准星生成器、十字/圆形集合或职业选手页，不批量扩展泛游戏内容。
