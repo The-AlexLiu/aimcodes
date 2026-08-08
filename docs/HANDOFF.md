@@ -17,8 +17,8 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近合并提交：`ef11256`
-- PR #2 已合并，GitHub `main`、本地生产构建和 Netlify 线上内容一致。
+- 最近合并提交：`ed865db`
+- PR #4 已合并，GitHub `main`、本地生产构建和 Netlify 线上内容一致。
 
 ## Cursor 接手时第一步
 
@@ -31,9 +31,8 @@
 
 ## 尚未完成
 
-- Netlify 尚未确认改为 GitHub `main` 自动生产部署；
 - 渲染器尚未完成单一源自动同步；
-- GA4 后台尚未创建计划中的自定义维度和指标。
+- GA4 后台尚未创建计划中的自定义维度和指标，需包含 `interaction_source`。
 - 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
 
 ## 本次验证结果
@@ -48,6 +47,7 @@
 - 9 个连续反应段位和推荐 ID 验证通过；
 - 4 语种词典和 62 条准星本地化验证通过；
 - 23 个 GA4 漏斗事件验证通过，未采集原始搜索词；
+- 站内分析事件已避免使用保留渠道字段，统一改用 `interaction_source`；
 - Vite 生产构建通过；
 - 生成 292 个本地化 HTML 路由和 108 个 sitemap URL；
 - SEO 与四语种路由验证通过。
@@ -58,7 +58,9 @@
 ## 最近生产发布
 
 - 发布时间：2026-08-08；
-- Netlify Deploy ID：`6a772215b2499cf1f8e8bf66`；
+- Netlify Deploy ID：`6a7749e1fe29900008495c3c`；
+- 对应 Git 提交：`ed865dba9b50c7f2adf39addb90b3b48b543297d`；
+- 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
 - 发布后已确认四语种入口、新知识页、主题集合、108 URL Sitemap、robots、canonical、JSON-LD、渲染器和反应测试入口正常。
 
@@ -69,7 +71,7 @@
 1. 在 GSC 重新提交 sitemap 并抽查四语种代表 URL；
 2. 观察 7–14 天的收录、展示、查询和平均排名；
 3. 优先补强排名 8–30 或已有展示的主题；
-4. 将 Netlify 生产部署绑定到 GitHub `main`；
+4. 在 GA4 后台创建 `interaction_source` 等自定义定义；
 5. 再按 `docs/CONTENT_ROADMAP.md` 的触发条件实现 P1。
 
 ## 交接原则
