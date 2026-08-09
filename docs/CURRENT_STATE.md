@@ -53,6 +53,8 @@
 
 2026-08-10 分享增长闭环已通过 PR #9 合并并发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地与 `origin/main` 一致，并从 `main` 创建新任务分支。
 
+当前本地功能分支 `feat/adsense-readiness-20260810` 已完成一轮 AdSense 审核准备，但尚未推送、合并或发布。该分支新增四语种关于/审核方法、隐私、条款、联系页，首页与目录页原创选型说明，未来广告页面白名单，以及 `validate:adsense` 自动检查。构建结果为 308 个本地化 HTML 路由、112 个 sitemap canonical URL；生产环境仍保持上方所列 292/108 基线，直至获得明确发布授权。
+
 ## 已确认验证基线
 
 2026-08-10 最近一次本地与线上复核已经确认：
@@ -70,16 +72,20 @@
 - `pnpm audit --prod` 无已知漏洞，构建链中的 `nanoid` 已锁定到修复版本。
 - PR #4 的 GitHub CI、Netlify Deploy Preview 和 `main` 自动生产部署均通过；线上构建包含 `interaction_source`，四语种入口、robots.txt、sitemap.xml 与 108 个 canonical URL 已复核。
 - 本轮分享增长功能已通过桌面端、390px 手机端、四语种准星详情、地图与颜色还原、语言切换保参和反应挑战结果页的真实浏览器验收；自动检查覆盖 24 个 GA4 事件和四语种分享链接。
+- AdSense 准备分支已通过 ESLint、全量产品验证、生产构建、SEO/路由验证和新增 `validate:adsense`；真实浏览器在 1440px 桌面与 390px 手机宽度下无横向溢出，四语种信任页、页脚入口、robots 和广告禁用标记均符合预期。
 
 ## 当前已知问题
 
 1. 渲染器有三份副本，尚未实现单一源自动同步。
 2. 当前功能分支的 GA4 代码包含 24 个验证事件，但后台尚未创建计划中的自定义维度和指标；`interaction_source` 与 `shared_entry` 建议注册为事件范围自定义维度。
 3. 新 SEO 页面刚上线，GSC 尚未形成足够查询和收录数据，不应立即批量扩页。
+4. AdSense 账号、真实发布商 ID、站点验证码、付款资料和 Google 认证 CMP 尚未配置；不得在仓库中使用占位 `ca-pub-` 或占位 `ads.txt`。
+5. 当前联系入口为 GitHub Issue 与官方社媒；提交 AdSense 前建议补充长期可用的域名邮箱。
 
 ## 推荐后续顺序
 
-1. 在 GSC 重新提交现有 sitemap，并检查四语种代表页面的抓取与 canonical。
-2. 观察 7–14 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面。
-3. 分享增长功能发布后，在 GA4 后台创建已规划的自定义维度和指标，优先注册 `interaction_source` 与 `shared_entry`，观察分享发起和分享落地。
-4. 依据 GSC 触发条件选择准星生成器、十字/圆形集合或职业选手页，不批量扩展泛游戏内容。
+1. 审查并发布 `feat/adsense-readiness-20260810`，在线复核四语种信任页、112 URL sitemap 与移动端排版。
+2. 创建/进入 AdSense 账号，添加根域 `aimcodes.com`，再把 Google 提供的真实站点验证代码交给开发者安装并提交审核。
+3. 在 GSC 重新提交发布后的 sitemap，并检查四语种代表页面的抓取与 canonical。
+4. 观察 7–14 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面。
+5. 通过 AdSense 审核后再配置真实 `ads.txt`、Google 认证 CMP 和少量手动广告位；禁止在反应测试与复制按钮附近投放。

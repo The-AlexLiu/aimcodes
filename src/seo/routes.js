@@ -51,12 +51,25 @@ export const SEO_ARTICLES = Object.freeze({
 
 export const SEO_ARTICLE_KEYS = Object.freeze(Object.keys(SEO_ARTICLES))
 
+export const TRUST_PAGES = Object.freeze({
+  about: Object.freeze({ slug: 'about', indexable: true }),
+  privacy: Object.freeze({ slug: 'privacy', indexable: false }),
+  terms: Object.freeze({ slug: 'terms', indexable: false }),
+  contact: Object.freeze({ slug: 'contact', indexable: false }),
+})
+
+export const TRUST_PAGE_KEYS = Object.freeze(Object.keys(TRUST_PAGES))
+
 const slugToCollectionKey = Object.fromEntries(
   Object.entries(SEO_COLLECTIONS).map(([key, collection]) => [collection.slug, key]),
 )
 
 const slugToArticleKey = Object.fromEntries(
   Object.entries(SEO_ARTICLES).map(([key, article]) => [article.slug, key]),
+)
+
+const slugToTrustPageKey = Object.fromEntries(
+  Object.entries(TRUST_PAGES).map(([key, page]) => [page.slug, key]),
 )
 
 export const CROSSHAIR_SLUGS = Object.freeze({
@@ -90,6 +103,7 @@ export function routePath(locale, route = { type: 'home' }) {
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
   if (route.type === 'collection') return `${prefix}/${SEO_COLLECTIONS[route.collectionKey]?.slug || SEO_COLLECTIONS.best.slug}/`
   if (route.type === 'article') return `${prefix}/${SEO_ARTICLES[route.articleKey]?.slug || SEO_ARTICLES.settings.slug}/`
+  if (route.type === 'trust') return `${prefix}/${TRUST_PAGES[route.pageKey]?.slug || TRUST_PAGES.about.slug}/`
   if (route.type === 'finder') return `${prefix}/reaction-time-test/`
   if (route.type === 'guide') return `${prefix}/how-to-import-valorant-crosshair/`
   return `${prefix}/`
@@ -106,6 +120,7 @@ export function parseSeoRoute(pathname = '/') {
   if (rest.length === 1 && rest[0] === 'how-to-import-valorant-crosshair') return { locale, type: 'guide' }
   if (rest.length === 1 && slugToCollectionKey[rest[0]]) return { locale, type: 'collection', collectionKey: slugToCollectionKey[rest[0]] }
   if (rest.length === 1 && slugToArticleKey[rest[0]]) return { locale, type: 'article', articleKey: slugToArticleKey[rest[0]] }
+  if (rest.length === 1 && slugToTrustPageKey[rest[0]]) return { locale, type: 'trust', pageKey: slugToTrustPageKey[rest[0]] }
   if (rest.length === 2 && rest[0] === 'crosshairs') {
     return { locale, type: 'crosshair', crosshairId: slugToCrosshairId[rest[1]] || rest[1] }
   }
@@ -118,6 +133,13 @@ export function localizedRoutePath(locale, route) {
 
 export function isPriorityCrosshair(id) {
   return SEO_CROSSHAIR_IDS.includes(id)
+}
+
+export function isIndexableRoute(route) {
+  if (route.type === 'crosshair') return isPriorityCrosshair(route.crosshairId)
+  if (route.type === 'trust') return TRUST_PAGES[route.pageKey]?.indexable === true
+  if (route.type === 'notFound') return false
+  return true
 }
 
 export function redirectLegacyAppUrl(locationLike = window.location) {

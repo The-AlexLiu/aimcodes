@@ -6,8 +6,9 @@ import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SEO_CONTENT_UPDATED_AT, SITE_ORIGIN } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
-import { isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
+import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -27,6 +28,7 @@ for (const locale of Object.keys(localeRoutes)) {
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
+    ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
     ...localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id })),
   ]
 
@@ -34,7 +36,7 @@ for (const locale of Object.keys(localeRoutes)) {
     const crosshair = route.type === 'crosshair'
       ? localizedCrosshairs.find((item) => item.id === route.crosshairId)
       : null
-    const indexed = route.type !== 'crosshair' || isPriorityCrosshair(route.crosshairId)
+    const indexed = isIndexableRoute(route)
     const path = routePath(locale, route)
     const filePath = resolve(distRoot, path.slice(1), 'index.html')
     generatedRoutes += 1
@@ -87,6 +89,14 @@ for (const locale of Object.keys(localeRoutes)) {
           if (!html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing recommended crosshair link for ${id}`)
         }
       }
+      if (route.type === 'trust') {
+        const page = trustCopy(locale, route.pageKey)
+        if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: trust BreadcrumbList missing`)
+        if (!html.includes(TRUST_UPDATED_AT)) errors.push(`${path}: trust updated date missing`)
+        for (const section of page.sections) {
+          if (!html.includes(escapeHtml(section.title))) errors.push(`${path}: missing trust section ${section.title}`)
+        }
+      }
       if (indexed) {
         if (indexedCanonicalUrls.has(metadata.canonical)) errors.push(`${path}: duplicate canonical ${metadata.canonical}`)
         if (indexedTitles.has(metadata.title)) errors.push(`${path}: duplicate indexed title ${metadata.title}`)
@@ -101,7 +111,8 @@ for (const locale of Object.keys(localeRoutes)) {
 
 const sitemap = await readFile(resolve(distRoot, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
-const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_CROSSHAIR_IDS.length)
+const indexableTrustPages = Object.values(TRUST_PAGES).filter((page) => page.indexable).length
+const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_CROSSHAIR_IDS.length + indexableTrustPages)
 if (sitemapUrls.length !== expectedIndexedCount) errors.push(`sitemap.xml: expected ${expectedIndexedCount} URLs, found ${sitemapUrls.length}`)
 if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: duplicate <loc> entries')
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
@@ -113,6 +124,10 @@ for (const locale of Object.keys(localeRoutes)) {
   for (const item of crosshairs.filter((crosshair) => !isPriorityCrosshair(crosshair.id))) {
     const url = `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: item.id })}`
     if (sitemapUrls.includes(url)) errors.push(`sitemap.xml: noindex URL included ${url}`)
+  }
+  for (const pageKey of TRUST_PAGE_KEYS.filter((key) => !TRUST_PAGES[key].indexable)) {
+    const url = `${SITE_ORIGIN}${routePath(locale, { type: 'trust', pageKey })}`
+    if (sitemapUrls.includes(url)) errors.push(`sitemap.xml: noindex trust URL included ${url}`)
   }
 }
 
