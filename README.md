@@ -20,9 +20,10 @@ AimCodes 将核心流程压缩为“预览 → 调整 → 复制”，并增加�
 - 6 种颜色预设，预览和最终复制代码同步更新
 - 三轮反应速度测试和 9 个无畏契约风格的反应段位
 - 测试结束后只推荐一个首选准星，并可直接预览、调色和复制
+- 一键把当前准星、地图和颜色发给队友，对方打开后可直接继续预览和复制
 - 英语、西班牙语、巴西葡萄牙语和简体中文界面
 - 桌面端与移动端响应式适配
-- GA4 漏斗埋点，共验证 23 个关键事件，不采集用户输入的具体搜索词
+- GA4 漏斗埋点，共验证 24 个关键事件，不采集用户输入的具体搜索词
 
 ## 产品差异化
 
@@ -85,11 +86,12 @@ pnpm validate:crosshairs
 pnpm validate:finder
 pnpm validate:localization
 pnpm validate:analytics
+pnpm validate:sharing
 pnpm build
 pnpm validate:routing
 ```
 
-验证脚本覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、GA4 事件、语言路由、canonical、`hreflang`、robots 和 sitemap。
+验证脚本覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、分享链接与预览还原、GA4 事件、语言路由、canonical、`hreflang`、robots 和 sitemap。
 
 ## 项目结构
 

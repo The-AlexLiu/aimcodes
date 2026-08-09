@@ -106,8 +106,10 @@ src/data + src/i18n + src/seo
 - 正式主机：`aimcodes.com`、`www.aimcodes.com`
 - 本地默认不上报；`?ga_debug=1` 可开启调试。
 - `?qa=1` 阻止内部验收流量进入 GA4。
-- `scripts/validate-analytics.mjs` 当前要求 23 个漏斗事件。
+- `scripts/validate-analytics.mjs` 当前要求 24 个漏斗事件。
 - 搜索事件只上报长度、结果数量和是否有结果，不上报原始搜索词。
+
+普通准星详情页的分享链接通过 `src/utils/shareLinks.js` 生成，保留语言、准星、地图和颜色，并使用 `utm_source=share`、`utm_medium=crosshair` 识别分享带来的访问。浏览器支持系统分享时直接打开分享面板，不支持时复制“准星名称 + 可用代码 + 深层链接”。`share_landing` 用于识别接收方落地，`scripts/validate-sharing.mjs` 负责校验四语种路径、预览还原和归因参数。
 
 事件实现以代码和 `validate-analytics.mjs` 为准；`GA4-安装与事件字典.md` 若与验证脚本不一致，需要同步更新。
 

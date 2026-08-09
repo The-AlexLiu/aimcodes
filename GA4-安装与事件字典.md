@@ -26,7 +26,8 @@
 | `filter_select` | 切换准星分类 | `filter_name` |
 | `search_used` | 搜索框停留 700ms 且至少输入 2 个字符 | `query_length`、`results_count`、`has_results` |
 | `language_change` | 切换语言 | `from_language`、`to_language` |
-| `share` | 成功打开系统分享或下载成绩图 | `method`、`reaction_ms`、`crosshair_id` |
+| `share` | 成功发起准星分享、系统分享或下载成绩图 | `method`、`content_type`、`reaction_ms`、`crosshair_id`、`interaction_source` |
+| `share_landing` | 打开队友分享的准星详情 | `crosshair_id`、`crosshair_category`、`color_key`、`map_name` |
 | `share_card_open` | 开始生成反应成绩分享图 | `reaction_ms`、`reaction_rank`、`crosshair_id` |
 | `share_download` | 分享图通过浏览器下载成功 | `reaction_ms`、`crosshair_id` |
 | `share_native` | 移动端系统分享完成 | `reaction_ms`、`crosshair_id` |
@@ -36,7 +37,7 @@
 | `challenge_complete` | 完成队友挑战 | `reaction_ms`、`challenge_ms`、`outcome`、`difference_ms` |
 | `challenge_won` | 成绩快于挑战目标 | `reaction_ms`、`challenge_ms`、`difference_ms` |
 
-验证脚本当前要求以上 23 个核心漏斗事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
+验证脚本当前要求以上 24 个核心漏斗事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
 
 搜索事件不发送用户输入的原始词，只发送长度和结果数量，避免把可能的个人信息写入 GA4。
 
@@ -50,6 +51,7 @@
    - `app_view`
    - `app_language`
    - `interaction_source`
+   - `shared_entry`
    - `crosshair_id`
    - `crosshair_category`
    - `color_key`
@@ -65,11 +67,11 @@
 7. 打开“管理 → 数据收集和修改 → 数据保留”，将事件数据保留期设为 14 个月。
 8. 在数据流的增强型衡量中保留滚动、出站点击等自动事件；关闭“根据浏览器历史记录变化统计网页浏览”，避免未来单页路由产生重复浏览。
 
-普通站内交互事件不得使用 `source`、`medium`、`campaign`、`term` 或 `content` 作为事件参数，以免污染渠道归因。只有用户分享出去的挑战链接保留标准 UTM，用于识别新会话的传播来源。
+普通站内交互事件不得使用 `source`、`medium`、`campaign`、`term` 或 `content` 作为事件参数，以免污染渠道归因。只有用户分享出去的准星链接和挑战链接保留标准 UTM，用于识别新会话的传播来源。
 
 ## 上线验证
 
 1. 部署到 `https://aimcodes.com` 后打开网站。
-2. 依次执行：找准星 → 换颜色 → 复制代码 → 帮我选 → 完成测试 → 分享成绩。
-3. 在 GA4“报告 → 实时”检查 `page_view`、`crosshair_code_copy`、`finder_complete`、`share`。
+2. 依次执行：找准星 → 换颜色 → 复制代码 → 分享准星 → 打开分享链接 → 帮我选 → 完成测试 → 分享成绩。
+3. 在 GA4“报告 → 实时”检查 `page_view`、`crosshair_code_copy`、`share`、`share_landing`、`finder_complete`。
 4. 如需逐项看参数，使用带 `?ga_debug=1` 的地址，并在“管理 → 数据显示 → DebugView”检查。
