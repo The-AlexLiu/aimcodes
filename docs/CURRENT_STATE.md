@@ -10,16 +10,16 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-08 最近一次已确认产品代码生产部署：`6a7749e1fe29900008495c3c`
-- 最近一次上线内容：修复 GA4 站内事件对渠道归因的污染；此前发布的 5 类四语种 SEO 主题集合、2 类四语种知识指南、扩充后的导入指南、16 个优先索引准星详情、反应测试、素材渲染器和官方社媒入口继续保留。
+- 2026-08-10 最近一次已确认产品代码生产提交：`fd93604e94eb40eaf70611eccdda171f5fba0561`
+- 最近一次上线内容：准星分享增长闭环、四语种分享与挑战文案、地图和颜色深层链接还原、`share_landing` 埋点及自动验证；此前发布的 SEO 页面、反应测试、素材渲染器和官方社媒入口继续保留。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 主仓库最近功能提交：`ed865db fix(analytics): 避免站内事件污染渠道归因 (#4)`
-- 最近已合并 PR：<https://github.com/The-AlexLiu/aimcodes/pull/4>
+- 主仓库最近功能提交：`fd93604 feat: 建立准星分享增长闭环 (#9)`
+- 最近已合并 PR：<https://github.com/The-AlexLiu/aimcodes/pull/9>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -51,11 +51,11 @@
 
 ## 当前工作树提醒
 
-2026-08-10 分享增长闭环正在功能分支 `feat/share-growth-loop-20260809` 验收，尚未提交、合并或发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认当前工作树，避免覆盖本轮修改。
+2026-08-10 分享增长闭环已通过 PR #9 合并并发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地与 `origin/main` 一致，并从 `main` 创建新任务分支。
 
 ## 已确认验证基线
 
-2026-08-08 最近一次本地复核已经确认：
+2026-08-10 最近一次本地与线上复核已经确认：
 
 - ESLint 通过；
 - Vite 生产构建通过；
