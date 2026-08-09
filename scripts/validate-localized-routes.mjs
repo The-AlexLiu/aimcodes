@@ -45,6 +45,42 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
 
 if (normalizeLocale('zh-Hans') !== 'zh-CN') errors.push('zh-Hans alias did not resolve to zh-CN')
 
+const netlifyConfig = await readFile(resolve(projectRoot, 'netlify.toml'), 'utf8')
+const expectedLanguageRedirects = [
+  `[[redirects]]
+  from = "/"
+  to = "/zh-cn/"
+  status = 302
+  force = true
+  conditions = { Language = ["zh", "zh-cn", "zh-hans"] }`,
+  `[[redirects]]
+  from = "/"
+  to = "/es/"
+  status = 302
+  force = true
+  conditions = { Language = ["es"] }`,
+  `[[redirects]]
+  from = "/"
+  to = "/pt-br/"
+  status = 302
+  force = true
+  conditions = { Language = ["pt", "pt-br"] }`,
+  `[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 302
+  force = true`,
+]
+
+for (const redirect of expectedLanguageRedirects) {
+  if (!netlifyConfig.includes(redirect)) errors.push(`netlify.toml: missing device-language redirect to ${redirect.match(/to = "([^"]+)"/)?.[1]}`)
+}
+
+const redirectPositions = expectedLanguageRedirects.map((redirect) => netlifyConfig.indexOf(redirect))
+if (redirectPositions.some((position) => position < 0) || redirectPositions.some((position, index) => index > 0 && position <= redirectPositions[index - 1])) {
+  errors.push('netlify.toml: device-language redirects must run before the English fallback')
+}
+
 const robots = await readFile(resolve(projectRoot, 'dist/robots.txt'), 'utf8')
 const favicon = await stat(resolve(projectRoot, 'dist/favicon-v2.png'))
 if (!robots.includes('https://aimcodes.com/sitemap.xml')) errors.push('robots.txt: sitemap URL missing')
@@ -55,4 +91,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log('Validated localized home, catalog, collection, finder, guide and article routes for all four languages.')
+console.log('Validated localized routes for all four languages, including Netlify device-language redirects and the English fallback.')

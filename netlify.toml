@@ -7,8 +7,29 @@
 
 [[redirects]]
   from = "/"
+  to = "/zh-cn/"
+  status = 302
+  force = true
+  conditions = { Language = ["zh", "zh-cn", "zh-hans"] }
+
+[[redirects]]
+  from = "/"
+  to = "/es/"
+  status = 302
+  force = true
+  conditions = { Language = ["es"] }
+
+[[redirects]]
+  from = "/"
+  to = "/pt-br/"
+  status = 302
+  force = true
+  conditions = { Language = ["pt", "pt-br"] }
+
+[[redirects]]
+  from = "/"
   to = "/en/"
-  status = 301
+  status = 302
   force = true
 
 [[redirects]]
