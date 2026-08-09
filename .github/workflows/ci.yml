@@ -38,6 +38,7 @@ jobs:
           pnpm validate:finder
           pnpm validate:localization
           pnpm validate:analytics
+          pnpm validate:sharing
 
       - name: Build localized site
         run: pnpm build

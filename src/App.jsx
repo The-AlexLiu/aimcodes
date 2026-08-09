@@ -20,6 +20,7 @@ import { localizedRoutePath, parseSeoRoute, routePath, SEO_COLLECTIONS, SEO_CROS
 import { parseCrosshairCode, updateCrosshairColor } from './utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from './utils/crosshairSimilarity.js'
 import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytics.js'
+import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from './utils/shareLinks.js'
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const utilityFilters = ['recent']
@@ -67,6 +68,31 @@ function hydrateCrosshair(item) {
   }
 }
 
+function readSharedColorOverride(colorKey, routeType, crosshairId) {
+  if (routeType !== 'crosshair') return {}
+  const color = crosshairColorPresets.find((option) => option.key === colorKey)
+  const crosshair = crosshairs.find((item) => item.id === crosshairId)
+  if (!color || !crosshair) return {}
+
+  try {
+    return { [crosshair.id]: updateCrosshairColor(crosshair.code, { preset: color.preset }) }
+  } catch {
+    return {}
+  }
+}
+
+function updatePageMetadata(language, metadata) {
+  document.documentElement.lang = language
+  document.title = metadata.title
+  document.querySelector('meta[name="description"]')?.setAttribute('content', metadata.description)
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', metadata.title)
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', metadata.description)
+  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', metadata.title)
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', metadata.description)
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', metadata.canonical)
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', metadata.canonical)
+}
+
 export default function App() {
   const initialParams = useMemo(() => new URLSearchParams(window.location.search), [])
   const route = useMemo(() => parseSeoRoute(window.location.pathname), [])
@@ -76,10 +102,11 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('all')
   const [catalogSort, setCatalogSort] = useState('recommended')
-  const [background, setBackground] = useState(() => backgroundOptions.some((item) => item.value === initialParams.get('mapa')) ? initialParams.get('mapa') : 'ascent')
-  const [colorOverrides, setColorOverrides] = useState({})
+  const [background, setBackground] = useState(() => readSharedPreviewOptions(initialParams).background)
+  const [colorOverrides, setColorOverrides] = useState(() => readSharedColorOverride(readSharedPreviewOptions(initialParams).colorKey, route.type, route.crosshairId))
   const [toast, setToast] = useState(null)
   const [copiedId, setCopiedId] = useState(null)
+  const [crosshairShareStatus, setCrosshairShareStatus] = useState('idle')
   const [showInstructions, setShowInstructions] = useState(false)
   const [showPreviewSettings, setShowPreviewSettings] = useState(true)
   const [mobileNav, setMobileNav] = useState(false)
@@ -87,12 +114,14 @@ export default function App() {
   const [codeDialogItem, setCodeDialogItem] = useState(null)
   const toastTimer = useRef(null)
   const copiedTimer = useRef(null)
+  const crosshairShareTimer = useRef(null)
   const searchAnalyticsTimer = useRef(null)
   const t = useMemo(() => createTranslator(language), [language])
   const currentLanguage = languages.find((item) => item.code === language) || languages[0]
   const showFinder = route.type === 'finder'
   const currentView = route.type
   const activeCollection = route.type === 'collection' ? SEO_COLLECTIONS[route.collectionKey] : null
+  const sharedCrosshairEntry = isSharedCrosshairEntry(initialParams, route.type)
 
   const hydratedCrosshairs = useMemo(
     () => distinctCatalogCrosshairs.map(hydrateCrosshair),
@@ -117,6 +146,7 @@ export default function App() {
   const routeCrosshair = route.type === 'crosshair'
     ? allSourceCrosshairs.find((item) => item.id === route.crosshairId)
     : null
+  const routeCrosshairCategory = routeCrosshair?.category || ''
 
   const storedSelected = routeCrosshair || allCrosshairs.find((item) => item.id === selectedId) || allCrosshairs[0]
   const activeBackground = backgroundOptions.find((option) => option.value === background) || backgroundOptions[0]
@@ -154,7 +184,7 @@ export default function App() {
     })
   }, [activeFilter, allCrosshairs, catalogSort, language, query, recentIds, t])
 
-  const displayedCrosshairs = useMemo(() => {
+  const displayedCrosshairs = (() => {
     if (route.type === 'catalog') return visibleCrosshairs
     if (route.type === 'home') {
       return SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
@@ -163,7 +193,7 @@ export default function App() {
       return activeCollection.crosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
     }
     if (route.type === 'crosshair') {
-      const sameCategory = allCrosshairs.filter((item) => item.id !== route.crosshairId && item.category === routeCrosshair?.category)
+      const sameCategory = allCrosshairs.filter((item) => item.id !== route.crosshairId && item.category === routeCrosshairCategory)
       const priority = SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id))
         .filter((item) => item && item.id !== route.crosshairId)
       return [...sameCategory, ...priority]
@@ -171,7 +201,7 @@ export default function App() {
         .slice(0, 6)
     }
     return []
-  }, [activeCollection, allCrosshairs, route.crosshairId, route.type, routeCrosshair?.category, visibleCrosshairs])
+  })()
 
   const selectedBase = route.type !== 'crosshair' && visibleCrosshairs.length && !visibleCrosshairs.some((item) => item.id === storedSelected.id)
     ? visibleCrosshairs[0]
@@ -206,15 +236,7 @@ export default function App() {
 
   useEffect(() => {
     const metadata = routeMetadata(language, route, routeCrosshair)
-    document.documentElement.lang = language
-    document.title = metadata.title
-    document.querySelector('meta[name="description"]')?.setAttribute('content', metadata.description)
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', metadata.title)
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', metadata.description)
-    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', metadata.title)
-    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', metadata.description)
-    document.querySelector('link[rel="canonical"]')?.setAttribute('href', metadata.canonical)
-    document.querySelector('meta[property="og:url"]')?.setAttribute('content', metadata.canonical)
+    updatePageMetadata(language, metadata)
   }, [language, route, routeCrosshair])
 
   useEffect(() => {
@@ -225,9 +247,20 @@ export default function App() {
       page_type: route.type,
       page_slug: pageSlug(route),
       crosshair_id: route.crosshairId || '',
+      shared_entry: sharedCrosshairEntry,
     })
     trackPageView(window.location.pathname, metadata.title)
-  }, [currentView, language, route, routeCrosshair])
+  }, [currentView, language, route, routeCrosshair, sharedCrosshairEntry])
+
+  useEffect(() => {
+    if (!sharedCrosshairEntry || !route.crosshairId) return
+    trackEvent('share_landing', {
+      content_type: 'crosshair',
+      item_id: route.crosshairId,
+      shared_color: initialParams.get('color') || 'original',
+      shared_map: initialParams.get('mapa') || 'ascent',
+    })
+  }, [initialParams, route.crosshairId, sharedCrosshairEntry])
 
   useEffect(() => {
     if (searchAnalyticsTimer.current) window.clearTimeout(searchAnalyticsTimer.current)
@@ -280,6 +313,64 @@ export default function App() {
     }
     if (!options.keepDialogOpen && options.closeDialog) setCodeDialogItem(null)
     return copied
+  }
+
+  const shareCrosshair = async () => {
+    if (crosshairShareStatus === 'working') return
+    const shareUrl = createCrosshairShareUrl({
+      origin: window.location.origin,
+      locale: language,
+      crosshairId: selected.id,
+      background,
+      colorKey: selectedCodeColorKey,
+    })
+
+    setCrosshairShareStatus('working')
+    try {
+      let method = 'link_code_copy'
+      if (navigator.share) {
+        await navigator.share({
+          title: t('share.crosshairTitle', { name: selected.shortName }),
+          text: t('share.crosshairText', { name: selected.shortName }),
+          url: shareUrl,
+        })
+        method = 'native_share'
+        setCrosshairShareStatus('shared')
+        notify(t('toast.shared'))
+      } else {
+        await copyToClipboard(t('share.crosshairBundle', {
+          name: selected.name,
+          code: selected.code,
+          url: shareUrl,
+        }))
+        setCrosshairShareStatus('copied')
+        notify(t('toast.linkCopied'))
+      }
+
+      trackEvent('share', {
+        method,
+        content_type: 'crosshair',
+        item_id: selected.id,
+        crosshair_category: selected.category,
+        shared_color: selectedCodeColorKey,
+        shared_map: background,
+        interaction_source: 'explore_preview',
+      })
+      if (crosshairShareTimer.current) window.clearTimeout(crosshairShareTimer.current)
+      crosshairShareTimer.current = window.setTimeout(() => setCrosshairShareStatus('idle'), 2400)
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        trackEvent('share_cancel', { content_type: 'crosshair', item_id: selected.id })
+        setCrosshairShareStatus('idle')
+        return
+      }
+      console.error('Unable to share the crosshair.', error)
+      trackEvent('share_error', { content_type: 'crosshair', item_id: selected.id })
+      setCrosshairShareStatus('error')
+      notify(t('toast.shareFailed'), 'error')
+      if (crosshairShareTimer.current) window.clearTimeout(crosshairShareTimer.current)
+      crosshairShareTimer.current = window.setTimeout(() => setCrosshairShareStatus('idle'), 2400)
+    }
   }
 
   const selectCrosshair = (item, interactionSource = 'catalog_grid') => {
@@ -348,6 +439,11 @@ export default function App() {
     setMobileNav(false)
     const params = new URLSearchParams()
     if (background !== 'ascent' && (route.type === 'home' || route.type === 'crosshair')) params.set('mapa', background)
+    if (route.type === 'crosshair' && crosshairColorPresets.some((option) => option.key === selectedCodeColorKey)) params.set('color', selectedCodeColorKey)
+    for (const key of ['challenge', 'rank', 'utm_source', 'utm_medium', 'utm_campaign', 'qa', 'ga_debug']) {
+      const value = initialParams.get(key)
+      if (value) params.set(key, value)
+    }
     const queryString = params.toString()
     window.location.assign(`${localizedRoutePath(nextLanguage, route)}${queryString ? `?${queryString}` : ''}`)
   }
@@ -473,12 +569,24 @@ export default function App() {
               </fieldset>
             </div>
 
-            <div className="action-row">
+            <div className="action-row is-shareable">
               <button className="primary-button" type="button" onClick={() => copyCrosshair(selected, { interactionSource: 'explore_preview' })}>
                 <Icon name={copiedId === selected.id ? 'check' : 'copy'} /> {copiedId === selected.id ? t('actions.copied') : t('actions.copy')}
               </button>
               <button className="secondary-button" type="button" onClick={toggleInstructions} aria-expanded={showInstructions}>
                 <Icon name="gamepad" /> {t('actions.import')}
+              </button>
+              <button className="secondary-button share-crosshair-button" type="button" onClick={shareCrosshair} disabled={crosshairShareStatus === 'working'} aria-live="polite">
+                <Icon name={crosshairShareStatus === 'shared' || crosshairShareStatus === 'copied' ? 'check' : 'share'} />
+                {crosshairShareStatus === 'working'
+                  ? t('share.crosshairWorking')
+                  : crosshairShareStatus === 'shared'
+                    ? t('share.crosshairShared')
+                    : crosshairShareStatus === 'copied'
+                      ? t('share.crosshairCopied')
+                      : crosshairShareStatus === 'error'
+                        ? t('share.crosshairError')
+                        : t('share.crosshairAction')}
               </button>
             </div>
             {showInstructions && (

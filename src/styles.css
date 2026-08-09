@@ -138,6 +138,8 @@ main { width: min(1488px, calc(100% - (var(--page-gutter) * 2))); margin: 0 auto
 .detail-heading h1, .detail-heading h2 { margin: 0 0 8px; font: 800 clamp(25px, 2.2vw, 34px)/1.12 var(--display-font); letter-spacing: -.8px; }
 .detail-heading p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
 .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+.action-row.is-shareable .share-crosshair-button { grid-column: 1 / -1; }
+.share-crosshair-button:disabled { opacity: .68; cursor: wait; }
 .primary-button, .secondary-button { min-height: 52px; padding: 10px 16px; border-radius: 6px; font-size: 15px; font-weight: 720; line-height: 1.25; text-align: center; display: inline-flex; justify-content: center; align-items: center; gap: 9px; cursor: pointer; transition: transform 150ms ease, background 150ms ease, border-color 150ms ease; }
 .primary-button { background: var(--accent); border: 1px solid var(--accent); color: white; }
 .primary-button:hover { background: #ff6d67; transform: translateY(-1px); }

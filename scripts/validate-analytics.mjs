@@ -28,6 +28,7 @@ const requiredEvents = [
   'share_download',
   'share_native',
   'share_link_copy',
+  'share_landing',
   'challenge_landing',
   'challenge_start',
   'challenge_complete',

@@ -13,7 +13,8 @@
     "validate:localization": "node scripts/validate-localization.mjs",
     "validate:routing": "node scripts/validate-localized-routes.mjs",
     "validate:seo": "node scripts/validate-seo-pages.mjs",
-    "validate:analytics": "node scripts/validate-analytics.mjs"
+    "validate:analytics": "node scripts/validate-analytics.mjs",
+    "validate:sharing": "node scripts/validate-sharing.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
