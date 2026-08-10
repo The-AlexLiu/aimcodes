@@ -8,6 +8,7 @@ import CrosshairSeoDetails from './components/CrosshairSeoDetails.jsx'
 import CrosshairToolsPage from './components/CrosshairToolsPage.jsx'
 import Icon from './components/Icon.jsx'
 import ImportGuide from './components/ImportGuide.jsx'
+import HomeResourceDirectory from './components/HomeResourceDirectory.jsx'
 import SeoCollectionDetails from './components/SeoCollectionDetails.jsx'
 import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
@@ -464,8 +465,9 @@ export default function App() {
           <BrandWordmark />
         </a>
         <nav className={mobileNav ? 'is-open' : ''} aria-label={t('nav.explore')}>
-          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'tool' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
+          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
           <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { interaction_source: 'navigation' })}>{t('nav.finder')}</a>
+          <a className={route.type === 'guide' || route.type === 'article' || route.type === 'tool' ? 'is-active' : ''} href={`${routePath(language, { type: 'home' })}#guides-and-tools`} onClick={() => setMobileNav(false)}>{t('nav.resources')}</a>
         </nav>
         <label className="language-selector" title={t('language.label')}>
           <Icon name="globe" size={17} />
@@ -501,6 +503,7 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
+        {route.type === 'home' && <HomeResourceDirectory locale={language} />}
         {route.type === 'collection' && <SeoCollectionIntro locale={language} collectionKey={route.collectionKey} />}
 
         {route.type === 'catalog' && <div className="search-bar">

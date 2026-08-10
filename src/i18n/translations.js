@@ -8,7 +8,7 @@ export const languages = [
 export const dictionaries = {
   en: {
     meta: { title: 'AimCodes — find a crosshair that feels right', description: 'Try VALORANT crosshairs on real maps and copy a code in seconds.' },
-    nav: { explore: 'Browse', finder: 'Pick for me', mine: 'My crosshairs' },
+    nav: { explore: 'Browse', finder: 'Pick for me', resources: 'Guides & tools', mine: 'My crosshairs' },
     language: { label: 'Choose language' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Search crosshairs', placeholder: 'Search by player, color, or style…', clear: 'Clear search' },
@@ -52,7 +52,7 @@ export const dictionaries = {
   },
   es: {
     meta: { title: 'AimCodes — encuentra una mira que te guste', description: 'Prueba miras de VALORANT en mapas reales y copia el código en segundos.' },
-    nav: { explore: 'Ver miras', finder: 'Elige por mí', mine: 'Mis miras' },
+    nav: { explore: 'Ver miras', finder: 'Elige por mí', resources: 'Guías y herramientas', mine: 'Mis miras' },
     language: { label: 'Cambiar idioma' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Buscar miras', placeholder: 'Busca por jugador, color o estilo…', clear: 'Borrar búsqueda' },
@@ -96,7 +96,7 @@ export const dictionaries = {
   },
   'zh-CN': {
     meta: { title: 'AimCodes — 找到顺手的准星', description: '在真实地图里试准星，喜欢就直接复制代码。' },
-    nav: { explore: '找准星', finder: '帮我选', mine: '我的准星' },
+    nav: { explore: '找准星', finder: '帮我选', resources: '教程与工具', mine: '我的准星' },
     language: { label: '选择语言' },
     maps: { ascent: '亚海悬城', haven: '隐世修所', bind: '源工重镇' },
     search: { label: '搜索准星', placeholder: '搜选手、颜色或样式…', clear: '清空搜索' },
@@ -140,7 +140,7 @@ export const dictionaries = {
   },
   'pt-BR': {
     meta: { title: 'AimCodes — encontre uma mira que combine com você', description: 'Teste miras de VALORANT em mapas reais e copie o código em segundos.' },
-    nav: { explore: 'Ver miras', finder: 'Escolha por mim', mine: 'Minhas miras' },
+    nav: { explore: 'Ver miras', finder: 'Escolha por mim', resources: 'Guias e ferramentas', mine: 'Minhas miras' },
     language: { label: 'Trocar idioma' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Buscar miras', placeholder: 'Busque por jogador, cor ou estilo…', clear: 'Limpar busca' },
