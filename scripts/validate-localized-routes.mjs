@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { localeRoutes, normalizeLocale } from '../src/i18n/localeRoutes.js'
 import { routeMetadata } from '../src/seo/content.js'
-import { parseSeoRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS } from '../src/seo/routes.js'
+import { isIndexableRoute, parseSeoRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const errors = []
@@ -17,11 +17,12 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
+    ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
   ]
   for (const route of cases) {
     const path = routePath(locale, route)
     const parsed = parseSeoRoute(path)
-    if (parsed.locale !== locale || parsed.type !== route.type || parsed.collectionKey !== route.collectionKey || parsed.articleKey !== route.articleKey) errors.push(`${path}: route parser mismatch`)
+    if (parsed.locale !== locale || parsed.type !== route.type || parsed.collectionKey !== route.collectionKey || parsed.articleKey !== route.articleKey || parsed.pageKey !== route.pageKey) errors.push(`${path}: route parser mismatch`)
     const filePath = resolve(projectRoot, 'dist', path.slice(1), 'index.html')
     try {
       await access(filePath)
@@ -34,7 +35,7 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
         `rel="canonical" href="${metadata.canonical}"`,
         'hreflang="x-default"',
         'rel="icon" href="https://aimcodes.com/favicon-v2.png"',
-        '<meta name="robots" content="index,follow,max-image-preview:large"',
+        `<meta name="robots" content="${isIndexableRoute(route) ? 'index,follow,max-image-preview:large' : 'noindex,follow'}"`,
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
     } catch (error) {

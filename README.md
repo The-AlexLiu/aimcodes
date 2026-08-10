@@ -24,6 +24,8 @@ AimCodes 将核心流程压缩为“预览 → 调整 → 复制”，并增加�
 - 英语、西班牙语、巴西葡萄牙语和简体中文界面
 - 桌面端与移动端响应式适配
 - GA4 漏斗埋点，共验证 24 个关键事件，不采集用户输入的具体搜索词
+- 四语种关于、代码检查方法、隐私、条款和联系页面
+- AdSense 页面投放白名单，默认排除反应测试、政策页、错误页与薄内容页
 
 ## 产品差异化
 
@@ -88,10 +90,14 @@ pnpm validate:localization
 pnpm validate:analytics
 pnpm validate:sharing
 pnpm build
+pnpm validate:seo
 pnpm validate:routing
+pnpm validate:adsense
 ```
 
-验证脚本覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、分享链接与预览还原、GA4 事件、语言路由、canonical、`hreflang`、robots 和 sitemap。
+验证脚本覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、分享链接与预览还原、GA4 事件、语言路由、canonical、`hreflang`、robots、sitemap、信任页面和未来广告安全边界。
+
+AdSense 账号侧提交、真实发布商 ID、CMP 与 `ads.txt` 的执行顺序见 [`docs/ADSENSE_SUBMISSION.md`](docs/ADSENSE_SUBMISSION.md)。
 
 ## 项目结构
 

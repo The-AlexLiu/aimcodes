@@ -12,6 +12,9 @@ import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
 import SeoArticlePage from './components/SeoArticlePage.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
+import PublisherValueSection from './components/PublisherValueSection.jsx'
+import TrustPage from './components/TrustPage.jsx'
+import { isAdEligibleRoute } from './config/adPolicy.js'
 import { crosshairs, filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
 import { createTranslator, languages, localizeCrosshair } from './i18n/translations.js'
@@ -476,7 +479,7 @@ export default function App() {
         </button>
       </header>
 
-      <main id="top" className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' ? 'guide-main' : ''}>
+      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -488,6 +491,8 @@ export default function App() {
           <ImportGuide locale={language} />
         ) : route.type === 'article' ? (
           <SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} />
+        ) : route.type === 'trust' ? (
+          <TrustPage locale={language} pageKey={route.pageKey} />
         ) : showFinder ? (
           <CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} />
         ) : (
@@ -666,6 +671,7 @@ export default function App() {
           )}
         </section>}
         {route.type === 'collection' && <SeoCollectionDetails locale={language} collectionKey={route.collectionKey} />}
+        {(route.type === 'home' || route.type === 'catalog') && <PublisherValueSection locale={language} type={route.type} />}
           </>
         )}
       </main>

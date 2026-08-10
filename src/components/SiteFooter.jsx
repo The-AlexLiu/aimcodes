@@ -15,18 +15,27 @@ export default function SiteFooter({ locale }) {
         </a>
         <p>{content.note}</p>
       </div>
-      <nav className="site-footer-nav" aria-label="AimCodes">
-        <a href={routePath(locale, { type: 'catalog' })}>{content.browse}</a>
-        <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.best}</a>
-        <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })}>{content.pro}</a>
-        <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })}>{content.dot}</a>
-        <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })}>{content.cute}</a>
-        <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>
-        <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
-        <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
-        <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{content.settings}</a>
-        <a href={routePath(locale, { type: 'article', articleKey: 'colors' })}>{content.colors}</a>
-      </nav>
+      <div className="site-footer-menus">
+        <nav className="site-footer-nav" aria-label={content.browse}>
+          <a href={routePath(locale, { type: 'catalog' })}>{content.browse}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.best}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })}>{content.pro}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })}>{content.dot}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })}>{content.cute}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>
+          <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
+          <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
+          <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{content.settings}</a>
+          <a href={routePath(locale, { type: 'article', articleKey: 'colors' })}>{content.colors}</a>
+        </nav>
+        <nav className="site-footer-trust" aria-label={content.trust}>
+          <span>{content.trust}</span>
+          <a href={routePath(locale, { type: 'trust', pageKey: 'about' })}>{content.about}</a>
+          <a href={routePath(locale, { type: 'trust', pageKey: 'privacy' })}>{content.privacy}</a>
+          <a href={routePath(locale, { type: 'trust', pageKey: 'terms' })}>{content.terms}</a>
+          <a href={routePath(locale, { type: 'trust', pageKey: 'contact' })}>{content.contact}</a>
+        </nav>
+      </div>
       <div className="site-footer-social-row">
         <span>{content.social}</span>
         <nav className="site-footer-socials" aria-label={content.social}>
@@ -45,6 +54,7 @@ export default function SiteFooter({ locale }) {
           ))}
         </nav>
       </div>
+      <p className="site-footer-disclosure">{content.independent}</p>
     </footer>
   )
 }
