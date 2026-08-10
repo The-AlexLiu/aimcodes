@@ -17,9 +17,8 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近产品代码提交：`fd93604`
-- PR #9 已合并，GitHub `main`、本地生产构建和 Netlify 线上内容一致。
-- 当前本地任务分支：`feat/adsense-readiness-20260810`；分支改动尚未推送、合并或发布。
+- 本轮发布功能提交：`552261b`
+- PR #11 已通过生产发布流程，GitHub `main`、本地生产构建和 Netlify 线上内容一致。
 
 ## Cursor 接手时第一步
 
@@ -35,7 +34,7 @@
 - 渲染器尚未完成单一源自动同步；
 - GA4 后台尚未创建计划中的自定义维度和指标，需包含 `interaction_source` 和 `shared_entry`。
 - 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
-- AdSense 准备分支需要人工审查后推送 PR 并发布；发布后还需账号所有者在 Google 后台完成年龄/身份/付款信息、添加根域，并提供真实站点验证代码。
+- AdSense 代码层准备已通过 PR #11 发布；还需账号所有者在 Google 后台完成年龄/身份/付款信息、添加根域，并提供真实站点验证代码。
 - Google 认证 CMP 与真实 `ads.txt` 必须等到获得 AdSense 账号和发布商 ID 后配置，不能使用占位值。
 - 提交 AdSense 前建议创建域名邮箱；当前可用联系渠道为 GitHub Issue 和四个官方社媒账号。
 
@@ -54,7 +53,7 @@
 - 四语种准星分享链接、地图与颜色还原、UTM 归因和不支持系统分享时的复制保护验证通过；
 - 站内分析事件已避免使用保留渠道字段，统一改用 `interaction_source`；
 - Vite 生产构建通过；
-- 生成 292 个本地化 HTML 路由和 108 个 sitemap URL；
+- 生成 308 个本地化 HTML 路由和 112 个 sitemap URL；
 - SEO 与四语种路由验证通过。
 - 反应测试的超长等待不会再生成异常成绩，超过 2 秒会重开当前轮；
 - 渲染器的 MP4、封面 PNG、方形 PNG 已通过真实浏览器导出测试；
@@ -66,11 +65,11 @@
 ## 最近产品代码生产发布
 
 - 发布时间：2026-08-10；
-- 对应 Git 提交：`fd93604e94eb40eaf70611eccdda171f5fba0561`；
-- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/9>；
+- 对应功能提交：`552261b`；
+- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/11>；
 - 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认新生产资源、四语种准星分享入口、中文地图与颜色还原、“发给队友”按钮和页面宽度正常。
+- 发布后已确认四语种信任页、112 URL sitemap、广告页面白名单、页面宽度与既有分享功能正常。
 
 ## 已发布的分享增长功能
 
@@ -84,13 +83,11 @@
 
 ## 下一任务推荐
 
-先完成 AdSense 审核准备分支的审查与发布，再收集数据：
+代码层与生产发布完成后，继续账号侧提交与数据观察：
 
-1. 审查 `feat/adsense-readiness-20260810`，运行完整验证并通过 PR 发布；
-2. 在线抽查 `/en/about/`、`/es/terms/`、`/pt-br/contact/`、`/zh-cn/privacy/` 和 sitemap；
-3. 在 AdSense 中添加 `aimcodes.com`，取得真实站点验证码后单独安装并提交审核；
-4. 审核通过后配置真实 `ads.txt`、Google CMP 和手动广告位；
-5. 继续观察 7–14 天的 GSC 与 GA4 数据，再按 `docs/CONTENT_ROADMAP.md` 的触发条件实现 P1。
+1. 在 AdSense 中添加 `aimcodes.com`，取得真实站点验证码后单独安装并提交审核；
+2. 审核通过后配置真实 `ads.txt`、Google CMP 和手动广告位；
+3. 继续观察 7–14 天的 GSC 与 GA4 数据，再按 `docs/CONTENT_ROADMAP.md` 的触发条件实现 P1。
 
 ## 交接原则
 
