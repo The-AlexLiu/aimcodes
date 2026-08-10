@@ -1,3 +1,5 @@
+import { expansionArticleCopy } from './guideExpansionContent.js'
+
 const articles = {
   en: {
     settings: {
@@ -199,5 +201,8 @@ const articles = {
 }
 
 export function articleCopy(locale, articleKey) {
-  return articles[locale]?.[articleKey] || articles.en[articleKey] || articles.en.settings
+  return articles[locale]?.[articleKey]
+    || expansionArticleCopy(locale, articleKey)
+    || articles.en[articleKey]
+    || articles.en.settings
 }

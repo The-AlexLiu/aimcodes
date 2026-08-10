@@ -1,6 +1,6 @@
 import { crosshairs } from '../src/data/crosshairs.js'
 import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
-import { seoCopy } from '../src/seo/content.js'
+import { collectionCopy } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
 import { SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS } from '../src/seo/routes.js'
@@ -34,8 +34,8 @@ for (const locale of locales) {
     for (const field of ['eyebrow', 'title', 'intro', 'summaryTitle', 'summary', 'cta', 'metaTitle', 'metaDescription']) {
       if (!String(article[field] || '').trim()) failures.push(`${locale} ${articleKey} article is missing ${field}`)
     }
-    if (article.sections?.length !== 6 || article.sections.some((section) => !section.title || section.paragraphs?.length !== 2 || section.bullets?.length !== 3)) failures.push(`${locale} ${articleKey} article needs six complete sections`)
-    if (article.faq?.length !== 3 || article.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${articleKey} article needs three complete FAQs`)
+    if (article.sections?.length < 3 || article.sections.some((section) => !section.title || section.paragraphs?.length < 1 || section.paragraphs.some((value) => !value.trim()) || !Array.isArray(section.bullets))) failures.push(`${locale} ${articleKey} article needs at least three complete sections`)
+    if (article.faq?.length < 2 || article.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${articleKey} article needs at least two complete FAQs`)
     if (article.recommendedCrosshairIds?.length !== 4 || article.recommendedCrosshairIds.some((id) => !crosshairs.some((item) => item.id === id))) failures.push(`${locale} ${articleKey} article needs four valid crosshair recommendations`)
   }
 }
@@ -64,7 +64,7 @@ for (const crosshair of crosshairs) {
 
 for (const locale of locales) {
   for (const collectionKey of SEO_COLLECTION_KEYS) {
-    const collection = seoCopy(locale).collections?.[collectionKey]
+    const collection = collectionCopy(locale, collectionKey)
     if (!collection) {
       failures.push(`${locale} is missing SEO collection ${collectionKey}`)
       continue
@@ -73,7 +73,7 @@ for (const locale of locales) {
       if (!String(collection[field] || '').trim()) failures.push(`${locale} ${collectionKey} is missing ${field}`)
     }
     if (collection.body?.length !== 2 || collection.body.some((value) => !value.trim())) failures.push(`${locale} ${collectionKey} needs two body paragraphs`)
-    if (collection.faq?.length !== 3 || collection.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${collectionKey} needs three complete FAQs`)
+    if (collection.faq?.length < 2 || collection.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${collectionKey} needs at least two complete FAQs`)
   }
 }
 

@@ -56,9 +56,9 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先执行 Vite 构建，再运行 `scripts/generate-localized-routes.mjs`。当前本地 SEO 候选生成 292 个本地化 HTML 路由，并将 108 个允许索引的 canonical URL 写入 sitemap。
+`pnpm build` 先执行 Vite 构建，再运行 `scripts/generate-localized-routes.mjs`。当前生产候选生成 404 个本地化 HTML 路由，并将 208 个允许索引的 canonical URL 写入 sitemap。
 
-除基础页面和准星详情外，当前还有最佳准星、职业选手准星、小圆点准星、可爱准星和小准星五类主题集合页，以及准星参数和颜色两类指南。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级记录在 `docs/CONTENT_ROADMAP.md`。
+除基础页面和准星详情外，当前新增 10 个高意图主题集合、10 个操作/选型指南，以及 4 个可实际使用的准星工具。新增搜索意图均同步为四语种页面；未经验证的选手数据和未完成工具不会进入 sitemap。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级与 100 URL 状态记录在 `docs/CONTENT_ROADMAP.md` 和 `docs/SEO_EXPANSION_REPORT_2026-08-10.md`。
 
 ## 准星数据流
 
