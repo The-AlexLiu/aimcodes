@@ -40,6 +40,66 @@ export const SEO_COLLECTIONS = Object.freeze({
     slug: 'small-crosshairs',
     crosshairIds: Object.freeze(['forsaken', 'less', 'jinggg', 'small-dot-thick', 'needle-cyan', 'aspas-dot']),
   }),
+  circle: Object.freeze({
+    slug: 'circle-crosshairs',
+    keyword: 'valorant circle crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['circle-dot-cyan', 'small-circle-cyan', 'hollow-mint', 'circle-diamond-green', 'bullseye-red', 'ripple-white']),
+  }),
+  pink: Object.freeze({
+    slug: 'pink-crosshairs',
+    keyword: 'pink valorant crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'sakura-pink', 'spark-pink', 'petal-pink', 'bow-pink']),
+  }),
+  cyan: Object.freeze({
+    slug: 'cyan-crosshairs',
+    keyword: 'cyan valorant crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['aspas-dot', 'tenz', 'boaster', 'recoil-c', 'circle-dot-cyan', 'flower-cyan', 'star-cyan', 'needle-cyan', 'micro-gap-cyan', 'tall-axis-cyan']),
+  }),
+  green: Object.freeze({
+    slug: 'green-crosshairs',
+    keyword: 'green valorant crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['jinggg', 'square-green', 'circle-diamond-green', 'dual-layer-green', 'have-fun-green', 'compact-green', 'wing-dot-green', 'stagger-green', 'clover-green']),
+  }),
+  minimalist: Object.freeze({
+    slug: 'minimalist-crosshairs',
+    keyword: 'minimalist valorant crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['aspas-dot', 'tenz', 'forsaken', 'demon1', 'less', 'needle-cyan', 'pin-white', 'micro-gap-cyan']),
+  }),
+  headshot: Object.freeze({
+    slug: 'headshot-crosshairs',
+    keyword: 'best valorant crosshair for headshots',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'less', 'jinggg', 'needle-cyan', 'micro-gap-cyan']),
+  }),
+  beginner: Object.freeze({
+    slug: 'beginner-crosshairs',
+    keyword: 'best valorant crosshair for beginners',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['tenz', 'boaster', 'jinggg', 'compact-green', 'micro-gap-cyan', 'recoil-c', 'short-wings-white', 'open-four-white']),
+  }),
+  oneTap: Object.freeze({
+    slug: 'one-tap-crosshairs',
+    keyword: 'valorant one tap crosshair',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['aspas-dot', 'demon1', 'scream-dot', 'forsaken', 'less', 'needle-cyan', 'pin-white', 'vcrdb-dot']),
+  }),
+  vandal: Object.freeze({
+    slug: 'vandal-crosshairs',
+    keyword: 'best crosshair for vandal',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'less', 'jinggg', 'cned', 'micro-gap-cyan']),
+  }),
+  phantom: Object.freeze({
+    slug: 'phantom-crosshairs',
+    keyword: 'best crosshair for phantom',
+    priority: 'P0',
+    crosshairIds: Object.freeze(['tenz', 'boaster', 'jinggg', 'compact-green', 'recoil-c', 'short-wings-white', 'dual-layer-green', 'less']),
+  }),
 })
 
 export const SEO_COLLECTION_KEYS = Object.freeze(Object.keys(SEO_COLLECTIONS))
@@ -51,9 +111,28 @@ export function collectionKeysForCrosshair(crosshairId) {
 export const SEO_ARTICLES = Object.freeze({
   settings: Object.freeze({ slug: 'valorant-crosshair-settings' }),
   colors: Object.freeze({ slug: 'best-valorant-crosshair-colors' }),
+  copy: Object.freeze({ slug: 'how-to-copy-crosshair-in-valorant', keyword: 'how to copy crosshair in valorant', priority: 'P0' }),
+  notWorking: Object.freeze({ slug: 'valorant-crosshair-code-not-working', keyword: 'valorant crosshair code not working', priority: 'P0' }),
+  makeDot: Object.freeze({ slug: 'how-to-make-dot-crosshair-valorant', keyword: 'how to make dot crosshair valorant', priority: 'P0' }),
+  makeCircle: Object.freeze({ slug: 'how-to-make-circle-crosshair-valorant', keyword: 'how to make circle crosshair valorant', priority: 'P0' }),
+  movementError: Object.freeze({ slug: 'valorant-movement-error-crosshair', keyword: 'valorant movement error', priority: 'P0' }),
+  firingError: Object.freeze({ slug: 'valorant-firing-error-crosshair', keyword: 'valorant firing error', priority: 'P0' }),
+  movementVsFiring: Object.freeze({ slug: 'movement-error-vs-firing-error-valorant', keyword: 'movement error vs firing error valorant', priority: 'P0' }),
+  staticVsDynamic: Object.freeze({ slug: 'static-vs-dynamic-crosshair-valorant', keyword: 'static vs dynamic crosshair valorant', priority: 'P0' }),
+  dotVsCross: Object.freeze({ slug: 'dot-vs-cross-crosshair-valorant', keyword: 'dot vs cross crosshair valorant', priority: 'P0' }),
+  placement: Object.freeze({ slug: 'valorant-crosshair-placement-guide', keyword: 'valorant crosshair placement', priority: 'P0' }),
 })
 
 export const SEO_ARTICLE_KEYS = Object.freeze(Object.keys(SEO_ARTICLES))
+
+export const SEO_TOOLS = Object.freeze({
+  generator: Object.freeze({ slug: 'valorant-crosshair-generator', keyword: 'valorant crosshair generator', priority: 'P0', indexable: true }),
+  decoder: Object.freeze({ slug: 'valorant-crosshair-code-decoder', keyword: 'valorant crosshair code decoder', priority: 'P0', indexable: true }),
+  preview: Object.freeze({ slug: 'valorant-crosshair-preview', keyword: 'valorant crosshair preview', priority: 'P0', indexable: true }),
+  comparison: Object.freeze({ slug: 'valorant-crosshair-comparison', keyword: 'compare valorant crosshairs', priority: 'P1', indexable: true }),
+})
+
+export const SEO_TOOL_KEYS = Object.freeze(Object.keys(SEO_TOOLS))
 
 export const TRUST_PAGES = Object.freeze({
   about: Object.freeze({ slug: 'about', indexable: true }),
@@ -70,6 +149,10 @@ const slugToCollectionKey = Object.fromEntries(
 
 const slugToArticleKey = Object.fromEntries(
   Object.entries(SEO_ARTICLES).map(([key, article]) => [article.slug, key]),
+)
+
+const slugToToolKey = Object.fromEntries(
+  Object.entries(SEO_TOOLS).map(([key, tool]) => [tool.slug, key]),
 )
 
 const slugToTrustPageKey = Object.fromEntries(
@@ -107,6 +190,7 @@ export function routePath(locale, route = { type: 'home' }) {
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
   if (route.type === 'collection') return `${prefix}/${SEO_COLLECTIONS[route.collectionKey]?.slug || SEO_COLLECTIONS.best.slug}/`
   if (route.type === 'article') return `${prefix}/${SEO_ARTICLES[route.articleKey]?.slug || SEO_ARTICLES.settings.slug}/`
+  if (route.type === 'tool') return `${prefix}/tools/${SEO_TOOLS[route.toolKey]?.slug || SEO_TOOLS.generator.slug}/`
   if (route.type === 'trust') return `${prefix}/${TRUST_PAGES[route.pageKey]?.slug || TRUST_PAGES.about.slug}/`
   if (route.type === 'finder') return `${prefix}/reaction-time-test/`
   if (route.type === 'guide') return `${prefix}/how-to-import-valorant-crosshair/`
@@ -128,6 +212,9 @@ export function parseSeoRoute(pathname = '/') {
   if (rest.length === 2 && rest[0] === 'crosshairs') {
     return { locale, type: 'crosshair', crosshairId: slugToCrosshairId[rest[1]] || rest[1] }
   }
+  if (rest.length === 2 && rest[0] === 'tools' && slugToToolKey[rest[1]]) {
+    return { locale, type: 'tool', toolKey: slugToToolKey[rest[1]] }
+  }
   return { locale, type: 'notFound' }
 }
 
@@ -142,6 +229,7 @@ export function isPriorityCrosshair(id) {
 export function isIndexableRoute(route) {
   if (route.type === 'crosshair') return isPriorityCrosshair(route.crosshairId)
   if (route.type === 'trust') return TRUST_PAGES[route.pageKey]?.indexable === true
+  if (route.type === 'tool') return SEO_TOOLS[route.toolKey]?.indexable === true
   if (route.type === 'notFound') return false
   return true
 }

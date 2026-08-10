@@ -5,6 +5,7 @@ import CrosshairCanvas from './components/CrosshairCanvas.jsx'
 import CrosshairCard from './components/CrosshairCard.jsx'
 import CrosshairFinder from './components/CrosshairFinder.jsx'
 import CrosshairSeoDetails from './components/CrosshairSeoDetails.jsx'
+import CrosshairToolsPage from './components/CrosshairToolsPage.jsx'
 import Icon from './components/Icon.jsx'
 import ImportGuide from './components/ImportGuide.jsx'
 import SeoCollectionDetails from './components/SeoCollectionDetails.jsx'
@@ -463,7 +464,7 @@ export default function App() {
           <BrandWordmark />
         </a>
         <nav className={mobileNav ? 'is-open' : ''} aria-label={t('nav.explore')}>
-          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
+          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'tool' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
           <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { interaction_source: 'navigation' })}>{t('nav.finder')}</a>
         </nav>
         <label className="language-selector" title={t('language.label')}>
@@ -479,7 +480,7 @@ export default function App() {
         </button>
       </header>
 
-      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' ? 'guide-main' : ''}>
+      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -491,6 +492,8 @@ export default function App() {
           <ImportGuide locale={language} />
         ) : route.type === 'article' ? (
           <SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} />
+        ) : route.type === 'tool' ? (
+          <CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} />
         ) : route.type === 'trust' ? (
           <TrustPage locale={language} pageKey={route.pageKey} />
         ) : showFinder ? (

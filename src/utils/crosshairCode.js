@@ -132,6 +132,8 @@ export function parseCrosshairCode(value, { fallbackColor } = {}) {
     },
     inner: lineSettings(values, '0', { length: 6, thickness: 2, offset: 3, opacity: 0.8 }),
     outer: lineSettings(values, '1', { length: 2, thickness: 2, offset: 10, opacity: 0.35 }),
+    movementError: { enabled: booleanValue(values, '0m', false) },
+    firingError: { enabled: booleanValue(values, '0f', false) },
   }
 
   return {
@@ -141,6 +143,52 @@ export function parseCrosshairCode(value, { fallbackColor } = {}) {
     settings,
     approximate: Boolean(color.approximate),
   }
+}
+
+function safeNumber(value, fallback, min, max) {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return fallback
+  return Math.min(max, Math.max(min, parsed))
+}
+
+export function generateCrosshairCode(options = {}) {
+  const colorPreset = String(options.colorPreset ?? 5)
+  const customHex = String(options.customColor || '').replace(/^#/, '').slice(0, 6).toUpperCase()
+  const useCustomColor = colorPreset === '8' && /^[0-9A-F]{6}$/.test(customHex)
+  const tokens = ['0', 'P', 'c', useCustomColor ? '8' : /^[0-7]$/.test(colorPreset) ? colorPreset : '5']
+
+  if (useCustomColor) tokens.push('u', `${customHex}FF`)
+
+  const outline = options.outline || {}
+  const dot = options.dot || {}
+  const inner = options.inner || {}
+  const outer = options.outer || {}
+  tokens.push(
+    'h', outline.enabled ? '1' : '0',
+    'o', String(safeNumber(outline.opacity, 1, 0, 1)),
+    't', String(safeNumber(outline.thickness, 1, 1, 6)),
+    'd', dot.enabled ? '1' : '0',
+    'a', String(safeNumber(dot.opacity, 1, 0, 1)),
+    'z', String(safeNumber(dot.size, 2, 1, 6)),
+    '0b', inner.enabled === false ? '0' : '1',
+    '0a', String(safeNumber(inner.opacity, 1, 0, 1)),
+    '0l', String(safeNumber(inner.length, 4, 0, 20)),
+    '0t', String(safeNumber(inner.thickness, 2, 0, 10)),
+    '0o', String(safeNumber(inner.offset, 2, 0, 20)),
+    '0m', options.movementError ? '1' : '0',
+    '0f', options.firingError ? '1' : '0',
+    '1b', outer.enabled ? '1' : '0',
+    '1a', String(safeNumber(outer.opacity, 1, 0, 1)),
+    '1l', String(safeNumber(outer.length, 2, 0, 20)),
+    '1t', String(safeNumber(outer.thickness, 2, 0, 10)),
+    '1o', String(safeNumber(outer.offset, 10, 0, 20)),
+    '1m', '0',
+    '1f', '0',
+  )
+
+  const code = tokens.join(';')
+  parseCrosshairCode(code)
+  return code
 }
 
 export function inferCrosshairCategory(parsed) {

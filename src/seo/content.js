@@ -1,7 +1,9 @@
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { crosshairSlug, routePath } from './routes.js'
 import { articleCopy } from './articles.js'
+import { expansionCollectionCopy } from './collectionExpansionContent.js'
 import { trustCopy } from './trustContent.js'
+import { seoToolCopy } from './toolContent.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
@@ -368,7 +370,9 @@ export function seoCopy(locale) {
 }
 
 export function collectionCopy(locale, collectionKey) {
-  return seoCopy(locale).collections?.[collectionKey] || seoCopy(locale).collections.best
+  return seoCopy(locale).collections?.[collectionKey]
+    || expansionCollectionCopy(locale, collectionKey)
+    || seoCopy(locale).collections.best
 }
 
 export function detailCopy(locale, crosshairId) {
@@ -403,6 +407,10 @@ export function routeMetadata(locale, route, crosshair) {
     const article = articleCopy(locale, route.articleKey)
     title = article.metaTitle
     description = article.metaDescription
+  } else if (route.type === 'tool') {
+    const tool = seoToolCopy(locale, route.toolKey)
+    title = tool.metaTitle
+    description = tool.metaDescription
   } else if (route.type === 'trust') {
     const page = trustCopy(locale, route.pageKey)
     title = `${page.title} | AimCodes`
@@ -458,5 +466,6 @@ export function pageSlug(route) {
   if (route.type === 'crosshair') return crosshairSlug(route.crosshairId)
   if (route.type === 'collection') return route.collectionKey
   if (route.type === 'article') return route.articleKey
+  if (route.type === 'tool') return route.toolKey
   return route.type
 }

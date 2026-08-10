@@ -16,8 +16,9 @@ import {
   SITE_ORIGIN,
 } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
+import { seoToolCopy } from '../src/seo/toolContent.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
-import { collectionKeysForCrosshair, isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
+import { collectionKeysForCrosshair, isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 import { publisherCopy } from '../src/seo/publisherContent.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
@@ -118,6 +119,30 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       operatingSystem: 'Any',
       isAccessibleForFree: true,
       isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    })
+  }
+
+  if (route.type === 'tool') {
+    const tool = seoToolCopy(locale, route.toolKey)
+    graph.push({
+      '@type': 'WebApplication',
+      '@id': `${metadata.canonical}#app`,
+      name: tool.title,
+      url: metadata.canonical,
+      description: tool.intro,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Any',
+      browserRequirements: 'Requires JavaScript',
+      isAccessibleForFree: true,
+      inLanguage: localeRoutes[locale].htmlLang,
+      isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    })
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+        { '@type': 'ListItem', position: 2, name: tool.title, item: metadata.canonical },
+      ],
     })
   }
 
@@ -273,7 +298,7 @@ function staticLinks(locale, items) {
 function staticTopicLinks(locale) {
   const localized = seoCopy(locale)
   const collections = SEO_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
-  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
+  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
   return `<nav class="seo-static-links">${collections}${resources}</nav>`
 }
 
@@ -281,6 +306,10 @@ function staticPublisherValue(locale, type) {
   const content = publisherCopy(locale, type)
   const cards = content.cards.map(([title, body]) => `<article><h2>${escapeHtml(title)}</h2><p>${escapeHtml(body)}</p></article>`).join('')
   return `<section><h2>${escapeHtml(content.title)}</h2><p>${escapeHtml(content.intro)}</p>${cards}</section>`
+}
+
+function staticReferenceLabel(locale) {
+  return { en: 'Official references', es: 'Referencias oficiales', 'pt-BR': 'Referências oficiais', 'zh-CN': '官方参考资料' }[locale] || 'Official references'
 }
 
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
@@ -298,8 +327,14 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter(Boolean)
     const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')
+    const selectionContent = Array.isArray(collection.selection)
+      ? `<ul>${collection.selection.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+      : `<p>${escapeHtml(collection.selection || '')}</p>`
+    const selection = collection.selection?.length ? `<section><h2>${escapeHtml(collection.selectionTitle)}</h2>${selectionContent}</section>` : ''
+    const settings = collection.settings?.length ? `<section><h2>${escapeHtml(collection.settingsTitle)}</h2><ul>${collection.settings.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>` : ''
+    const related = `${(collection.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(collection.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, items)}<section>${body}<h2>FAQ</h2>${faq}</section></main>`
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticLinks(locale, items)}<section>${body}</section>${selection}${settings}<section><h2>FAQ</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
@@ -313,10 +348,17 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
-    const sections = article.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}<ul>${section.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul></section>`).join('')
+    const sections = article.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}${section.bullets?.length ? `<ul>${section.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul>` : ''}</section>`).join('')
     const faq = article.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
     const recommended = article.recommendedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>FAQ</h2>${faq}</main>`
+    const related = `${(article.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(article.relatedCollectionKeys || []).map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).title)}</a>`).join('')}${(article.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
+    const sources = article.sources?.length ? `<section><h2>${escapeHtml(staticReferenceLabel(locale))}</h2>${article.sources.map((source) => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join('')}</section>` : ''
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>FAQ</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
+  }
+  if (route.type === 'tool') {
+    const tool = seoToolCopy(locale, route.toolKey)
+    const related = SEO_TOOL_KEYS.filter((toolKey) => toolKey !== route.toolKey).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(tool.title)}</span></nav><h1>${escapeHtml(tool.title)}</h1><p>${escapeHtml(tool.intro)}</p><section><h2>${escapeHtml(tool.eyebrow)}</h2><p>${escapeHtml(tool.metaDescription)}</p></section><nav class="seo-static-links">${related}<a href="${routePath(locale, { type: 'finder' })}">${escapeHtml(localized.meta.finderTitle)}</a></nav></main>`
   }
   if (route.type === 'trust') {
     const page = trustCopy(locale, route.pageKey)
@@ -370,6 +412,7 @@ for (const locale of Object.keys(localeRoutes)) {
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
+    ...SEO_TOOL_KEYS.map((toolKey) => ({ type: 'tool', toolKey })),
     ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
   ]
   const detailRoutes = localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id }))

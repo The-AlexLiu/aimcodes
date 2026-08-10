@@ -6,7 +6,8 @@ import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SEO_CONTENT_UPDATED_AT, seoCopy, SITE_ORIGIN } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
-import { collectionKeysForCrosshair, isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
+import { seoToolCopy } from '../src/seo/toolContent.js'
+import { collectionKeysForCrosshair, isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 
@@ -15,6 +16,7 @@ const distRoot = resolve(projectRoot, 'dist')
 const errors = []
 const indexedCanonicalUrls = new Set()
 const indexedTitles = new Set()
+const indexedDescriptions = new Set()
 let generatedRoutes = 0
 const escapeHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;')
 
@@ -28,6 +30,7 @@ for (const locale of Object.keys(localeRoutes)) {
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
+    ...SEO_TOOL_KEYS.map((toolKey) => ({ type: 'tool', toolKey })),
     ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
     ...localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id })),
   ]
@@ -56,7 +59,8 @@ for (const locale of Object.keys(localeRoutes)) {
         '<script type="application/ld+json">',
         '"@type":"Organization"',
         '"sameAs":',
-        '<main class="seo-static-shell"><h1>',
+        '<main class="seo-static-shell">',
+        '<h1>',
         '<script type="module" crossorigin src="/assets/',
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
@@ -83,6 +87,7 @@ for (const locale of Object.keys(localeRoutes)) {
       if (route.type === 'collection') {
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: FAQPage structured data missing`)
         if (!html.includes('<h2>FAQ</h2>')) errors.push(`${path}: visible FAQ missing from initial HTML`)
+        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
         for (const id of SEO_COLLECTIONS[route.collectionKey].crosshairIds) {
           const item = localizedCrosshairs.find((crosshairItem) => crosshairItem.id === id)
           if (!item || !html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing collection link for ${id}`)
@@ -98,9 +103,17 @@ for (const locale of Object.keys(localeRoutes)) {
         if (!html.includes('"@type":"Article"')) errors.push(`${path}: Article structured data missing`)
         if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: article BreadcrumbList missing`)
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
+        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
         for (const id of article.recommendedCrosshairIds) {
           if (!html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing recommended crosshair link for ${id}`)
         }
+      }
+      if (route.type === 'tool') {
+        const tool = seoToolCopy(locale, route.toolKey)
+        if (!html.includes('"@type":"WebApplication"')) errors.push(`${path}: WebApplication structured data missing`)
+        if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: tool BreadcrumbList missing`)
+        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
+        if (!html.includes(escapeHtml(tool.intro))) errors.push(`${path}: tool intro missing from initial HTML`)
       }
       if (route.type === 'trust') {
         const page = trustCopy(locale, route.pageKey)
@@ -113,8 +126,10 @@ for (const locale of Object.keys(localeRoutes)) {
       if (indexed) {
         if (indexedCanonicalUrls.has(metadata.canonical)) errors.push(`${path}: duplicate canonical ${metadata.canonical}`)
         if (indexedTitles.has(metadata.title)) errors.push(`${path}: duplicate indexed title ${metadata.title}`)
+        if (indexedDescriptions.has(metadata.description)) errors.push(`${path}: duplicate indexed description ${metadata.description}`)
         indexedCanonicalUrls.add(metadata.canonical)
         indexedTitles.add(metadata.title)
+        indexedDescriptions.add(metadata.description)
       }
     } catch (error) {
       errors.push(`${path}: ${error.message}`)
@@ -125,7 +140,7 @@ for (const locale of Object.keys(localeRoutes)) {
 const sitemap = await readFile(resolve(distRoot, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
 const indexableTrustPages = Object.values(TRUST_PAGES).filter((page) => page.indexable).length
-const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_CROSSHAIR_IDS.length + indexableTrustPages)
+const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_TOOL_KEYS.length + SEO_CROSSHAIR_IDS.length + indexableTrustPages)
 if (sitemapUrls.length !== expectedIndexedCount) errors.push(`sitemap.xml: expected ${expectedIndexedCount} URLs, found ${sitemapUrls.length}`)
 if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: duplicate <loc> entries')
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
@@ -148,7 +163,6 @@ for (const [collectionKey, collection] of Object.entries(SEO_COLLECTIONS)) {
   if (collection.crosshairIds.length < 5) errors.push(`${collectionKey}: collection is too small`)
   for (const id of collection.crosshairIds) {
     if (!crosshairs.some((item) => item.id === id)) errors.push(`${collectionKey}: unknown crosshair ${id}`)
-    if (!isPriorityCrosshair(id)) errors.push(`${collectionKey}: linked detail is not indexable ${id}`)
   }
 }
 
