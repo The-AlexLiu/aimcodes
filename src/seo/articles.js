@@ -1,8 +1,8 @@
 const articles = {
   en: {
     settings: {
-      eyebrow: 'SETTINGS WITHOUT THE GUESSWORK',
-      title: 'VALORANT crosshair settings explained',
+      eyebrow: 'STOP COPYING RANDOM NUMBERS',
+      title: 'What should you change in your crosshair?',
       intro: 'Understand what every important crosshair option changes, then use the settings that match how you aim instead of copying numbers blindly.',
       summaryTitle: 'A reliable starting setup',
       summary: 'Start with cyan or green, a compact inner-line cross, a small open center, and movement and firing error turned off. Keep outlines on only if the crosshair disappears against bright walls.',
@@ -50,7 +50,7 @@ const articles = {
     },
     colors: {
       eyebrow: 'SEE THE CENTER FASTER',
-      title: 'Best VALORANT crosshair colors and when to use them',
+      title: 'Which VALORANT crosshair color should you use?',
       intro: 'There is no magic color for every map. Choose a color that separates from both the environment and your enemy outline, then test it on the scenes you actually play.',
       summaryTitle: 'The short answer',
       summary: 'Cyan and green are the safest all-round starting points. White works best with a thin outline. Yellow and red can be excellent on some maps but disappear into similarly colored walls and effects.',
@@ -99,8 +99,8 @@ const articles = {
   },
   es: {
     settings: {
-      eyebrow: 'AJUSTES SIN ADIVINAR',
-      title: 'Todos los ajustes de la mira de VALORANT explicados',
+      eyebrow: 'DEJA DE COPIAR NÚMEROS AL AZAR',
+      title: '¿Qué deberías cambiar en tu mira?',
       intro: 'Entiende qué cambia cada opción importante y elige una mira que encaje con tu forma de apuntar en lugar de copiar números a ciegas.',
       summaryTitle: 'Un punto de partida fiable',
       summary: 'Empieza con cian o verde, líneas interiores cortas, un pequeño hueco central y los errores de movimiento y disparo desactivados. Usa contorno solo si la mira se pierde en paredes claras.',
@@ -117,7 +117,7 @@ const articles = {
       metaTitle: 'Ajustes de Mira de VALORANT Explicados | AimCodes', metaDescription: 'Aprende para qué sirven el color, contorno, punto central, líneas, error de movimiento y error de disparo en VALORANT y prueba miras reales.',
     },
     colors: {
-      eyebrow: 'ENCUENTRA EL CENTRO ANTES', title: 'Los mejores colores de mira de VALORANT y cuándo usarlos', intro: 'No existe un color mágico para todos los mapas. Busca contraste con el escenario y el contorno de los enemigos, y pruébalo en las zonas donde juegas.',
+      eyebrow: 'ENCUENTRA EL CENTRO ANTES', title: '¿Qué color de mira deberías usar en VALORANT?', intro: 'No existe un color mágico para todos los mapas. Busca contraste con el escenario y el contorno de los enemigos, y pruébalo en las zonas donde juegas.',
       summaryTitle: 'La respuesta corta', summary: 'Cian y verde son los puntos de partida más seguros. El blanco funciona mejor con un contorno fino. Amarillo y rojo pueden destacar mucho, pero se pierden en paredes y efectos del mismo tono.',
       sections: [
         { title: 'Cian: la primera prueba más segura', paragraphs: ['Es brillante, poco común en muchas superficies y se separa bien de contornos enemigos rojos o amarillos.', 'Puede mezclarse con zonas azuladas, así que guarda verde o blanco como alternativa.'], bullets: ['Bueno para: juego general y miras compactas.', 'Cuidado con: iluminación azul y paredes frías.', 'Pruébalo con: TenZ, aspas o Boaster.'] },
@@ -134,7 +134,7 @@ const articles = {
   },
   'pt-BR': {
     settings: {
-      eyebrow: 'CONFIGURAÇÃO SEM CHUTE', title: 'Todas as configurações de mira do VALORANT explicadas', intro: 'Entenda o que cada opção importante muda e escolha uma mira que combine com seu jeito de jogar, sem copiar números no escuro.',
+      eyebrow: 'PARE DE COPIAR NÚMEROS NO ESCURO', title: 'O que vale mudar na sua mira?', intro: 'Entenda o que cada opção importante muda e escolha uma mira que combine com seu jeito de jogar, sem copiar números no escuro.',
       summaryTitle: 'Um ponto de partida confiável', summary: 'Comece com ciano ou verde, linhas internas curtas, um pequeno espaço no centro e erro de movimento e disparo desligados. Use contorno apenas se a mira sumir em paredes claras.',
       sections: [
         { title: 'Cor e contorno controlam a visibilidade', paragraphs: ['A cor precisa ajudar você a reencontrar o centro depois de uma habilidade, giro rápido ou troca de alvo. Ciano e verde funcionam em muitas superfícies.', 'O contorno cria uma borda escura. Deixe fino quando a mira sumir e desligue se começar a cobrir cabeças distantes.'], bullets: ['Cor: teste ciano, verde, branco ou amarelo.', 'Opacidade: só o suficiente para separar a mira do mapa.', 'Espessura: mantenha fina, salvo um problema real de visibilidade.'] },
@@ -149,7 +149,7 @@ const articles = {
       metaTitle: 'Configurações de Mira do VALORANT Explicadas | AimCodes', metaDescription: 'Entenda cor, contorno, ponto central, linhas, erro de movimento e erro de disparo no VALORANT e teste miras que funcionam.',
     },
     colors: {
-      eyebrow: 'ACHE O CENTRO MAIS RÁPIDO', title: 'Melhores cores de mira do VALORANT e quando usar cada uma', intro: 'Não existe uma cor mágica para todos os mapas. Busque contraste com o cenário e o contorno dos inimigos, depois teste nas cenas em que você joga.',
+      eyebrow: 'ACHE O CENTRO MAIS RÁPIDO', title: 'Qual cor de mira você deveria usar no VALORANT?', intro: 'Não existe uma cor mágica para todos os mapas. Busque contraste com o cenário e o contorno dos inimigos, depois teste nas cenas em que você joga.',
       summaryTitle: 'Resposta curta', summary: 'Ciano e verde são os pontos de partida mais seguros. Branco funciona melhor com contorno fino. Amarelo e vermelho podem destacar bastante, mas somem em paredes e efeitos parecidos.',
       sections: [
         { title: 'Ciano: o primeiro teste mais seguro', paragraphs: ['É brilhante, pouco comum em muitas superfícies e separa bem de contornos inimigos vermelhos ou amarelos.', 'Pode se misturar com áreas azuladas, então mantenha verde ou branco como alternativa.'], bullets: ['Bom para: uso geral e miras compactas.', 'Cuidado com: luz azul e paredes frias.', 'Teste com: TenZ, aspas ou Boaster.'] },
@@ -166,7 +166,7 @@ const articles = {
   },
   'zh-CN': {
     settings: {
-      eyebrow: '别再照抄参数', title: '无畏契约准星设置完整说明', intro: '弄懂颜色、轮廓、中心点、内外线和移动误差分别会改变什么，再按自己的瞄准习惯选参数。',
+      eyebrow: '别再照抄参数', title: '准星怎么调才顺手？', intro: '颜色、轮廓、中心点、内外线和移动误差分别改了什么？看懂之后，再按自己的瞄准习惯动手。',
       summaryTitle: '一套稳妥的起步设置', summary: '先试青色或绿色、短内线、小幅中心留空，并关闭移动误差和射击误差。只有准星经常消失在亮色墙面时，才加一层细轮廓。',
       sections: [
         { title: '颜色和轮廓决定你能不能看见准星', paragraphs: ['好的颜色能让你在快速转身、技能特效和切换目标后立刻找回中心。青色和绿色在多数地图表面都比较稳定。', '轮廓会给准星加一圈深色边缘。亮墙上容易丢准星时开细轮廓；如果远距离开始挡头，就关掉或调薄。'], bullets: ['颜色：优先试青、绿、白、黄。', '轮廓透明度：够把准星和地图分开就行。', '轮廓粗细：没有明显可见度问题就不要加粗。'] },
@@ -201,4 +201,3 @@ const articles = {
 export function articleCopy(locale, articleKey) {
   return articles[locale]?.[articleKey] || articles.en[articleKey] || articles.en.settings
 }
-

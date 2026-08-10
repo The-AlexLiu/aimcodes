@@ -54,7 +54,7 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
           <ol>{labels.importSteps.map((step) => <li key={step}>{step}</li>)}</ol>
         </article>
       </div>
-      <p className="seo-verified"><Icon name="check" size={14} /> {labels.verified}: {crosshair.sourceCheckedAt || '2026-08-04'}</p>
+      <p className="seo-verified"><Icon name="check" size={14} /> {labels.verified} · {crosshair.sourceCheckedAt || '2026-08-04'}</p>
       <SeoTopicLinks locale={locale} />
     </section>
   )

@@ -3,13 +3,13 @@ export const TRUST_UPDATED_AT = '2026-08-10'
 const content = {
   en: {
     about: {
-      eyebrow: 'ABOUT AIMCODES',
-      title: 'A clearer way to test VALORANT crosshairs',
-      intro: 'AimCodes is an independent fan-made tool for previewing, comparing, and copying VALORANT crosshair profile codes before you open the game.',
+      eyebrow: 'BUILT FOR PLAYERS',
+      title: 'See the crosshair before you commit',
+      intro: 'AimCodes is an independent player-made tool. Put a crosshair on a real map, compare it, and copy the code without opening VALORANT first.',
       sections: [
-        { title: 'Why this site exists', paragraphs: ['A code alone does not show how much screen space a crosshair uses or whether its color disappears into a map. AimCodes puts each shape on the same set of scenes so players can compare like with like.'] },
-        { title: 'How codes are reviewed', paragraphs: ['Every published code must pass the site parser and produce visible, supported crosshair components. Priority pages also receive a name-and-shape review and carry a code-check date.'], bullets: ['Profile syntax is parsed before publication.', 'Duplicate-looking entries are checked so the catalog stays useful.', 'Color changes are written back into the copied profile code, not only the preview.', 'Player-labelled codes are starting points because professional settings can change.'] },
-        { title: 'Editorial standard', paragraphs: ['We write the explanations on AimCodes for this product and update them when the game, the code format, or a verified source changes. We do not publish cheats, account tools, or software that connects to the game client.'] },
+        { title: 'Why we built it', paragraphs: ['A code tells you nothing about screen space or whether the color disappears into a wall. AimCodes puts every shape on the same scenes so your eyes can make a fair call.'] },
+        { title: 'How a code earns its spot', paragraphs: ['The site must be able to read the code and draw a real crosshair from it. Key pages also get a name-and-shape check, so a “cat” should not turn into a pig.'], bullets: ['The profile format gets checked first.', 'Lookalikes do not keep filling up the catalog.', 'Changing color updates the code you copy, not just the preview.', 'Pro settings change, so player names are a starting point — not a promise.'] },
+        { title: 'What we will not put here', paragraphs: ['We update guides when the game, code format, or a reliable source changes. AimCodes does not offer cheats, account tools, or anything that connects to or changes your game client.'] },
       ],
     },
     privacy: {
@@ -31,10 +31,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: 'CONTACT', title: 'Contact AimCodes', intro: 'Send a correction, code update, privacy question, rights request, or product suggestion through an official AimCodes channel.',
+      eyebrow: 'FOUND A BAD CODE?', title: 'Tell us what looks off', intro: 'Wrong shape, dead code, confusing name, or a better idea? Send it over through an official AimCodes channel.',
       sections: [
-        { title: 'Product and code corrections', paragraphs: ['For the clearest report, include the page URL, the crosshair name, what looks wrong, and a current source when one is available.'], links: [{ label: 'Open a GitHub issue', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Official social accounts', paragraphs: ['You can also message AimCodes through an official profile. Do not send passwords, account credentials, or other sensitive information.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Crosshair and product fixes', paragraphs: ['Send the page link, crosshair name, what went wrong, and a recent source if you have one. That gives us enough to check it quickly.'], links: [{ label: 'Report it on GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
+        { title: 'Message us on social', paragraphs: ['You can also DM an official AimCodes account. Never send a password, account login, or other sensitive information.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
         { title: 'Rights and privacy requests', paragraphs: ['Identify the material or data concerned and the outcome you are requesting. We will use the information only to review and respond to the request.'] },
       ],
     },
@@ -42,11 +42,11 @@ const content = {
   },
   es: {
     about: {
-      eyebrow: 'SOBRE AIMCODES', title: 'Una forma más clara de probar miras de VALORANT', intro: 'AimCodes es una herramienta independiente creada por fans para probar, comparar y copiar códigos de perfil de mira antes de abrir el juego.',
+      eyebrow: 'HECHO POR JUGADORES', title: 'Mira cómo queda antes de copiarla', intro: 'AimCodes es una herramienta independiente creada por jugadores. Pon la mira sobre un mapa, compárala y copia el código sin abrir VALORANT.',
       sections: [
-        { title: 'Por qué existe esta web', paragraphs: ['Un código no muestra cuánto espacio ocupa una mira ni si su color se pierde en el mapa. AimCodes coloca cada forma sobre las mismas escenas para compararlas en igualdad de condiciones.'] },
-        { title: 'Cómo revisamos los códigos', paragraphs: ['Cada código publicado debe pasar el analizador del sitio y generar componentes de mira visibles y compatibles. Las páginas prioritarias también reciben una revisión de nombre y forma y muestran la fecha de comprobación.'], bullets: ['Analizamos la sintaxis antes de publicar.', 'Revisamos formas repetidas para mantener un catálogo útil.', 'El color elegido se escribe en el código copiado, no solo en la vista previa.', 'Los códigos con nombre de jugador son un punto de partida porque los ajustes profesionales cambian.'] },
-        { title: 'Criterio editorial', paragraphs: ['Los textos de AimCodes se escriben para este producto y se actualizan cuando cambia el juego, el formato del código o una fuente verificada. No publicamos trampas, herramientas de cuentas ni software que se conecte al cliente del juego.'] },
+        { title: 'Por qué la hicimos', paragraphs: ['Un código no dice cuánto ocupa la mira ni si su color desaparece contra una pared. AimCodes pone cada forma en las mismas escenas para que tus ojos decidan en igualdad de condiciones.'] },
+        { title: 'Cómo se gana un hueco en el catálogo', paragraphs: ['La web tiene que leer el código y dibujar una mira real. En las páginas clave también comprobamos nombre y forma, para que una mira “de gato” no termine pareciendo un cerdo.'], bullets: ['Primero comprobamos el formato del perfil.', 'Las formas idénticas no llenan el catálogo una y otra vez.', 'Cambiar el color modifica el código copiado, no solo la vista previa.', 'Los pros cambian de ajustes: sus nombres son un punto de partida, no una promesa.'] },
+        { title: 'Lo que no vas a encontrar aquí', paragraphs: ['Actualizamos las guías cuando cambia el juego, el formato o una fuente fiable. AimCodes no ofrece trampas, herramientas de cuentas ni nada que se conecte o modifique el cliente del juego.'] },
       ],
     },
     privacy: {
@@ -68,10 +68,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: 'CONTACTO', title: 'Contacta con AimCodes', intro: 'Envía correcciones, actualizaciones de códigos, preguntas de privacidad, solicitudes de derechos o sugerencias por un canal oficial.',
+      eyebrow: '¿HAS VISTO ALGO RARO?', title: 'Cuéntanos qué falla', intro: '¿Forma incorrecta, código roto, nombre confuso o una idea mejor? Envíala por un canal oficial de AimCodes.',
       sections: [
-        { title: 'Correcciones de producto y códigos', paragraphs: ['Incluye la URL, el nombre de la mira, el error y una fuente actual cuando exista.'], links: [{ label: 'Abrir una incidencia en GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Cuentas sociales oficiales', paragraphs: ['También puedes escribir a un perfil oficial. No envíes contraseñas, credenciales ni información sensible.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Arreglos de miras y producto', paragraphs: ['Manda la URL, el nombre de la mira, lo que falla y una fuente reciente si la tienes. Así podremos comprobarlo rápido.'], links: [{ label: 'Avisar en GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
+        { title: 'Escríbenos por redes', paragraphs: ['También puedes mandar un mensaje a una cuenta oficial. Nunca envíes contraseñas, accesos ni información sensible.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
         { title: 'Solicitudes de derechos y privacidad', paragraphs: ['Identifica el material o dato y el resultado que solicitas. Solo usaremos esa información para revisar y responder.'] },
       ],
     },
@@ -79,11 +79,11 @@ const content = {
   },
   'pt-BR': {
     about: {
-      eyebrow: 'SOBRE O AIMCODES', title: 'Uma forma mais clara de testar miras do VALORANT', intro: 'O AimCodes é uma ferramenta independente feita por fãs para visualizar, comparar e copiar códigos de perfil antes de abrir o jogo.',
+      eyebrow: 'FEITO POR JOGADORES', title: 'Veja a mira antes de levar para o jogo', intro: 'O AimCodes é uma ferramenta independente feita por jogadores. Coloque a mira no mapa, compare e copie o código sem abrir o VALORANT.',
       sections: [
-        { title: 'Por que este site existe', paragraphs: ['Um código sozinho não mostra quanto espaço a mira ocupa nem se a cor desaparece no mapa. O AimCodes coloca cada formato nas mesmas cenas para uma comparação justa.'] },
-        { title: 'Como revisamos os códigos', paragraphs: ['Todo código publicado precisa passar pelo analisador do site e gerar componentes visíveis e compatíveis. Páginas prioritárias também recebem revisão de nome e formato e exibem a data da verificação.'], bullets: ['A sintaxe é analisada antes da publicação.', 'Formatos duplicados são conferidos para manter o catálogo útil.', 'A cor escolhida é gravada no código copiado, não apenas na prévia.', 'Códigos com nome de jogador são pontos de partida, pois configurações profissionais mudam.'] },
-        { title: 'Padrão editorial', paragraphs: ['Os textos do AimCodes são escritos para este produto e atualizados quando o jogo, o formato do código ou uma fonte verificada muda. Não publicamos trapaças, ferramentas de conta ou software que se conecte ao cliente do jogo.'] },
+        { title: 'Por que a gente criou o site', paragraphs: ['Um código não mostra quanto espaço a mira ocupa nem se a cor some na parede. O AimCodes coloca cada formato nas mesmas cenas para seus olhos decidirem em condições iguais.'] },
+        { title: 'Como uma mira entra no catálogo', paragraphs: ['O site precisa ler o código e desenhar uma mira de verdade. Nas páginas principais, a gente também confere nome e formato para uma mira “de gato” não virar um porquinho.'], bullets: ['Primeiro, o formato do perfil é conferido.', 'Formatos iguais não ficam lotando o catálogo.', 'Trocar a cor muda o código copiado, não só a prévia.', 'Pros mudam de configuração: o nome do jogador é um ponto de partida, não uma promessa.'] },
+        { title: 'O que você não vai encontrar aqui', paragraphs: ['Atualizamos os guias quando o jogo, o formato ou uma fonte confiável muda. O AimCodes não oferece trapaças, ferramentas de conta nem nada que conecte ou altere o cliente do jogo.'] },
       ],
     },
     privacy: {
@@ -105,10 +105,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: 'CONTATO', title: 'Fale com o AimCodes', intro: 'Envie correções, atualizações de código, dúvidas de privacidade, pedidos de direitos ou sugestões por um canal oficial.',
+      eyebrow: 'ACHOU ALGO ERRADO?', title: 'Conta para a gente', intro: 'Formato errado, código quebrado, nome confuso ou uma ideia melhor? Mande por um canal oficial do AimCodes.',
       sections: [
-        { title: 'Correções de produto e códigos', paragraphs: ['Inclua a URL, o nome da mira, o erro e uma fonte atual quando houver.'], links: [{ label: 'Abrir uma issue no GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Contas sociais oficiais', paragraphs: ['Você também pode enviar mensagem para um perfil oficial. Não envie senhas, credenciais ou dados sensíveis.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Ajustes de mira e produto', paragraphs: ['Mande a URL, o nome da mira, o que deu errado e uma fonte recente se tiver. Assim a gente consegue conferir mais rápido.'], links: [{ label: 'Avisar pelo GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
+        { title: 'Chame nas redes', paragraphs: ['Você também pode mandar mensagem para uma conta oficial. Nunca envie senha, acesso da conta ou outros dados sensíveis.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
         { title: 'Pedidos de direitos e privacidade', paragraphs: ['Identifique o material ou dado e o resultado solicitado. Usaremos essas informações apenas para analisar e responder.'] },
       ],
     },
@@ -116,11 +116,11 @@ const content = {
   },
   'zh-CN': {
     about: {
-      eyebrow: '关于 AIMCODES', title: '先看清效果，再决定用哪款准星', intro: 'AimCodes 是由玩家独立制作的准星工具，帮助你在打开游戏前预览、对比并复制无畏契约准星代码。',
+      eyebrow: '玩家做给玩家用', title: '先看清效果，再把准星带进游戏', intro: 'AimCodes 是玩家独立制作的准星工具。不用打开游戏，先放到地图里试、对比，再复制代码。',
       sections: [
-        { title: '为什么要做这个网站', paragraphs: ['只有一串代码，很难判断准星会占多大画面、颜色会不会融进地图。AimCodes 把不同准星放到同一组场景中，让你能用相同条件直接比较。'] },
-        { title: '准星代码如何检查', paragraphs: ['每条公开代码都必须通过站内解析，并能生成游戏支持、肉眼可见的准星组件。重点详情页还会检查名称和形状是否匹配，并标记代码检查日期。'], bullets: ['发布前检查配置代码语法。', '检查外观重复，避免目录里充斥相同准星。', '换色后会同步修改复制代码，不是只改预览颜色。', '职业选手可能随版本或比赛调整设置，选手同款应作为试用起点。'] },
-        { title: '内容标准', paragraphs: ['AimCodes 的说明文字均围绕本产品编写；游戏、代码格式或可靠来源发生变化时，我们会更新对应页面。本站不提供外挂、账号工具，也不会连接或修改游戏客户端。'] },
+        { title: '为什么做这个网站', paragraphs: ['光看一串代码，根本不知道它有多大、会不会融进墙里。AimCodes 把准星放到同一组场景中，让眼睛自己做判断。'] },
+        { title: '一款准星怎么进入目录', paragraphs: ['代码先得能被站内读懂，还得确实画得出准星。重点页面还会核对名字和造型，避免名字写着“猫猫”，画出来却像只猪。'], bullets: ['先检查代码格式。', '长得一样的，不反复塞进目录。', '换颜色会改最终代码，不只是网页上变色。', '选手会换设置，所以“职业同款”只当试用起点。'] },
+        { title: '这里不会出现什么', paragraphs: ['游戏、代码格式或可靠来源发生变化时，我们会更新对应内容。AimCodes 不提供外挂、账号工具，也不会连接或修改你的游戏客户端。'] },
       ],
     },
     privacy: {
@@ -142,10 +142,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: '联系 AIMCODES', title: '联系 AimCodes', intro: '准星纠错、代码更新、隐私咨询、权利申请或产品建议，都可以通过 AimCodes 官方渠道提交。',
+      eyebrow: '发现哪里不对？', title: '来告诉我们', intro: '准星长错了、代码失效、名字看不懂，或者你有更好用的方案，都可以发过来。',
       sections: [
-        { title: '产品与代码纠错', paragraphs: ['请尽量提供页面地址、准星名称、具体问题，以及可供核对的最新来源。'], links: [{ label: '在 GitHub 提交问题', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: '官方社媒账号', paragraphs: ['也可以私信 AimCodes 官方账号。请勿发送密码、账号凭据或其他敏感信息。'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: '准星和产品纠错', paragraphs: ['把页面地址、准星名称、哪里不对，以及方便核对的最新来源发给我们，处理起来会更快。'], links: [{ label: '去 GitHub 报个问题', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
+        { title: '也可以直接私信', paragraphs: ['通过 AimCodes 官方社媒账号就能找到我们。密码、账号凭据和其他敏感信息不要发。'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
         { title: '权利与隐私申请', paragraphs: ['请说明涉及的内容或数据，以及希望如何处理。相关信息只会用于核查和回复该申请。'] },
       ],
     },

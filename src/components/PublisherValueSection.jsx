@@ -4,10 +4,10 @@ import { routePath } from '../seo/routes.js'
 export default function PublisherValueSection({ locale, type }) {
   const content = publisherCopy(locale, type)
   const links = {
-    en: ['Read how AimCodes reviews codes', 'Open the import guide'],
-    es: ['Cómo revisa AimCodes los códigos', 'Abrir la guía de importación'],
-    'pt-BR': ['Como o AimCodes revisa códigos', 'Abrir o guia de importação'],
-    'zh-CN': ['查看 AimCodes 如何检查代码', '打开准星导入教程'],
+    en: ['See how we check the codes', 'How to import a code'],
+    es: ['Mira cómo comprobamos los códigos', 'Cómo importar un código'],
+    'pt-BR': ['Veja como a gente confere os códigos', 'Como importar um código'],
+    'zh-CN': ['看看我们怎么筛代码', '准星代码怎么导入'],
   }[locale]
 
   return (

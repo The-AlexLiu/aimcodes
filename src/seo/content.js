@@ -26,7 +26,7 @@ const copy = {
     topics: { title: 'Start with a collection' },
     collections: {
       best: {
-        label: 'Best crosshairs', eyebrow: 'CURATED STARTING POINTS', title: 'Best VALORANT crosshairs to try first', intro: 'Eight reliable shapes for ranked, first-shot precision, and fast target switching—each ready to preview and copy.', gridTitle: '8 crosshairs worth testing',
+        label: 'Start here', eyebrow: 'NOT SURE WHAT TO PICK?', title: '8 VALORANT crosshairs worth trying first', intro: 'A quick mix for ranked, clean first shots, and fast target switches — ready to preview and copy.', gridTitle: 'Try these 8 first',
         body: ['There is no single crosshair that fits every player. The best starting point is a clean shape that stays visible without covering the head.', 'This shortlist mixes open-center classics, compact dots, and tight pro layouts. Preview each one on the same map, then keep the shape that your eyes find fastest.'],
         faq: [['What makes a VALORANT crosshair good?', 'A useful crosshair stays visible, marks the center clearly, and does not hide the target. Size and gap should match how you aim.'], ['Should beginners use a dot or a cross?', 'A small cross with an open center is usually easier to track. A dot can feel more precise, but it is also easier to lose during movement.'], ['What color should I use?', 'Cyan and green are popular because they stand out on many maps. AimCodes lets you test six colors before copying the final code.']],
         metaTitle: 'Best VALORANT Crosshair Codes to Try | AimCodes', metaDescription: 'Try 8 of the best VALORANT crosshair codes on real map scenes. Compare pro layouts, dots, and compact shapes, change color, and copy a working code.',
@@ -57,7 +57,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'What to expect', settings: 'Key settings', import: 'Import in VALORANT', related: 'Try another crosshair', verified: 'Code checked',
+      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'How it feels', settings: 'Key settings', import: 'Take it into VALORANT', related: 'Try another crosshair', verified: 'Checked',
       importSteps: ['Open Settings in VALORANT.', 'Choose Crosshair, then Import Profile Code.', 'Paste the code and save the new profile.'],
       defaultBest: 'Players who want a clear, repeatable reference point without covering the target.',
       defaultTradeoff: 'Test it on your usual resolution and map brightness before taking it into ranked.',
@@ -73,7 +73,7 @@ const copy = {
       ],
       cta: 'Browse crosshair codes',
     },
-    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', best: 'Best crosshairs', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes', trust: 'Site information', about: 'About & review method', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Contact', independent: 'Independent fan project. Not affiliated with Riot Games.' },
+    footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', best: 'Start here', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
       homeTitle: 'VALORANT Crosshair Codes & Live Preview | AimCodes',
@@ -97,7 +97,7 @@ const copy = {
     topics: { title: 'Empieza por una colección' },
     collections: {
       best: {
-        label: 'Mejores miras', eyebrow: 'UNA SELECCIÓN PARA EMPEZAR', title: 'Las mejores miras de VALORANT para probar primero', intro: 'Ocho formas fiables para competitivo, precisión en la primera bala y cambios rápidos de objetivo, listas para probar y copiar.', gridTitle: '8 miras que merece la pena probar',
+        label: 'Empieza aquí', eyebrow: '¿NO SABES CUÁL ELEGIR?', title: '8 miras de VALORANT que vale la pena probar', intro: 'Una selección rápida para competitivo, primeras balas limpias y cambios de objetivo, lista para probar y copiar.', gridTitle: 'Prueba primero estas 8',
         body: ['No existe una única mira perfecta para todos. El mejor punto de partida es una forma limpia que se vea bien sin tapar la cabeza.', 'Esta selección mezcla centros abiertos, puntos compactos y configuraciones de pros. Pruébalas en el mismo mapa y quédate con la que tus ojos encuentren más rápido.'],
         faq: [['¿Qué hace que una mira de VALORANT sea buena?', 'Debe verse con claridad, marcar bien el centro y no ocultar al rival. El tamaño y el hueco dependen de tu forma de apuntar.'], ['¿Es mejor empezar con punto o con cruz?', 'Una cruz pequeña con centro abierto suele ser más fácil de seguir. El punto puede sentirse más preciso, pero también se pierde con más facilidad.'], ['¿Qué color de mira funciona mejor?', 'El cian y el verde destacan en muchos mapas. En AimCodes puedes probar seis colores antes de copiar el código final.']],
         metaTitle: 'Mejores códigos de mira de VALORANT | AimCodes', metaDescription: 'Prueba 8 de las mejores miras de VALORANT en mapas reales. Compara configuraciones pro, puntos y formas compactas, cambia el color y copia el código.',
@@ -128,7 +128,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué puedes esperar', settings: 'Ajustes principales', import: 'Importar en VALORANT', related: 'Prueba otra mira', verified: 'Código revisado',
+      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué sensación da', settings: 'Ajustes principales', import: 'Llévala a VALORANT', related: 'Prueba otra mira', verified: 'Revisado',
       importSteps: ['Abre los ajustes de VALORANT.', 'Entra en Mira y elige Importar código de perfil.', 'Pega el código y guarda el perfil.'],
       defaultBest: 'Jugadores que buscan una referencia clara y estable sin tapar al rival.', defaultTradeoff: 'Pruébala con tu resolución y el brillo habitual del mapa antes de usarla en competitivo.',
     },
@@ -136,7 +136,7 @@ const copy = {
       eyebrow: 'LISTO EN 60 SEGUNDOS', title: 'Cómo importar, copiar y compartir miras en VALORANT', intro: 'Añade un código en tres pasos, exporta tu mira, copia a un jugador mientras observas y corrige los errores más comunes.',
       steps: [['Copia un código', 'Abre una mira en AimCodes y pulsa Copiar código.'], ['Abre los ajustes de mira', 'En VALORANT, abre Ajustes → Mira y elige Importar código de perfil.'], ['Pega y prueba', 'Pega el código, ponle un nombre y pruébalo en el campo de tiro antes de jugar.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Mejores miras', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', small: 'Miras pequeñas', settings: 'Ajustes de mira', colors: 'Colores de mira', note: 'Hecho para probar miras más rápido.', social: 'Sigue a AimCodes', trust: 'Información del sitio', about: 'Sobre AimCodes y revisión', privacy: 'Privacidad y cookies', terms: 'Términos y contenido de fans', contact: 'Contacto', independent: 'Proyecto independiente de fans. No afiliado a Riot Games.' },
+    footer: { browse: 'Códigos de mira', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Empieza aquí', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', small: 'Miras pequeñas', settings: 'Ajustes de mira', colors: 'Colores de mira', note: 'Hecho para probar miras más rápido.', social: 'Sigue a AimCodes', trust: 'Información del sitio', about: 'Cómo comprobamos los códigos', privacy: 'Privacidad y cookies', terms: 'Términos y contenido de fans', contact: 'Avisar de un problema', independent: 'Proyecto independiente de fans. No afiliado a Riot Games.' },
     notFound: { title: 'Esta mira falló el tiro', body: 'La página no existe. Vuelve al catálogo y elige otra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira de VALORANT y vista previa | AimCodes', homeDescription: 'Prueba códigos de mira de VALORANT en mapas reales, cambia colores, copia códigos y encuentra tu próxima mira con una prueba de reacción.',
@@ -153,7 +153,7 @@ const copy = {
     topics: { title: 'Comece por uma coleção' },
     collections: {
       best: {
-        label: 'Melhores miras', eyebrow: 'UMA SELEÇÃO PARA COMEÇAR', title: 'As melhores miras do VALORANT para testar primeiro', intro: 'Oito formatos confiáveis para ranqueada, precisão no primeiro tiro e trocas rápidas de alvo, prontos para testar e copiar.', gridTitle: '8 miras que valem o teste',
+        label: 'Comece aqui', eyebrow: 'NÃO SABE QUAL ESCOLHER?', title: '8 miras do VALORANT que valem o teste', intro: 'Uma seleção rápida para ranqueada, primeiro tiro limpo e troca de alvo, pronta para testar e copiar.', gridTitle: 'Teste estas 8 primeiro',
         body: ['Não existe uma mira perfeita para todo mundo. O melhor ponto de partida é um formato limpo, visível e que não esconda a cabeça do alvo.', 'Esta seleção mistura centros abertos, pontos compactos e configurações de profissionais. Teste todas no mesmo mapa e escolha a que seus olhos encontram mais rápido.'],
         faq: [['O que faz uma mira do VALORANT ser boa?', 'Ela precisa aparecer com clareza, marcar o centro e não esconder o alvo. O tamanho e o espaço central dependem do seu jeito de mirar.'], ['É melhor começar com ponto ou cruz?', 'Uma cruz pequena com centro aberto costuma ser mais fácil de acompanhar. O ponto pode ser mais preciso, mas também some com mais facilidade.'], ['Qual cor de mira funciona melhor?', 'Ciano e verde se destacam em muitos mapas. No AimCodes você testa seis cores antes de copiar o código final.']],
         metaTitle: 'Melhores códigos de mira do VALORANT | AimCodes', metaDescription: 'Teste 8 das melhores miras do VALORANT em mapas reais. Compare miras pro, pontos e formatos compactos, troque a cor e copie o código.',
@@ -184,7 +184,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'O que esperar', settings: 'Ajustes principais', import: 'Importar no VALORANT', related: 'Teste outra mira', verified: 'Código verificado',
+      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Como ela se sente', settings: 'Ajustes principais', import: 'Leve para o VALORANT', related: 'Teste outra mira', verified: 'Conferido',
       importSteps: ['Abra as Configurações do VALORANT.', 'Entre em Mira e escolha Importar código de perfil.', 'Cole o código e salve o perfil.'],
       defaultBest: 'Jogadores que querem uma referência clara e estável sem esconder o alvo.', defaultTradeoff: 'Teste na sua resolução e no brilho normal dos mapas antes de levar para a ranqueada.',
     },
@@ -192,7 +192,7 @@ const copy = {
       eyebrow: 'PRONTO EM 60 SEGUNDOS', title: 'Como importar, copiar e compartilhar miras no VALORANT', intro: 'Adicione um código em três passos, exporte sua mira, copie outro jogador e resolva os erros mais comuns.',
       steps: [['Copie um código', 'Abra uma mira no AimCodes e toque em Copiar código.'], ['Abra as opções de mira', 'No VALORANT, abra Configurações → Mira e escolha Importar código de perfil.'], ['Cole e teste', 'Cole o código, dê um nome ao perfil e teste no campo de treino antes da partida.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Melhores miras', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', small: 'Miras pequenas', settings: 'Configurações de mira', colors: 'Cores de mira', note: 'Feito para testar miras mais rápido.', social: 'Siga a AimCodes', trust: 'Informações do site', about: 'Sobre e método de revisão', privacy: 'Privacidade e cookies', terms: 'Termos e conteúdo de fãs', contact: 'Contato', independent: 'Projeto independente de fãs. Sem afiliação com a Riot Games.' },
+    footer: { browse: 'Códigos de mira', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Comece aqui', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', small: 'Miras pequenas', settings: 'Configurações de mira', colors: 'Cores de mira', note: 'Feito para testar miras mais rápido.', social: 'Siga a AimCodes', trust: 'Informações do site', about: 'Como a gente confere os códigos', privacy: 'Privacidade e cookies', terms: 'Termos e conteúdo de fãs', contact: 'Avisar de um problema', independent: 'Projeto independente de fãs. Sem afiliação com a Riot Games.' },
     notFound: { title: 'Essa mira errou o tiro', body: 'A página não existe. Volte ao catálogo e escolha outra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira do VALORANT e prévia ao vivo | AimCodes', homeDescription: 'Teste códigos de mira do VALORANT em mapas reais, troque cores, copie códigos e encontre sua próxima mira com um teste de reação.',
@@ -209,7 +209,7 @@ const copy = {
     topics: { title: '按类型直接开选' },
     collections: {
       best: {
-        label: '最佳准星', eyebrow: '不知道选谁就从这里开始', title: '值得优先试的无畏契约准星', intro: '8 款适合排位、第一枪定位和快速转移目标的可靠准星，都能直接预览和复制。', gridTitle: '先试这 8 款准星',
+        label: '先从这里挑', eyebrow: '不知道选谁？', title: '这 8 款准星值得先试', intro: '想打排位、稳第一枪或者快速切目标，都可以先从这组里找手感。', gridTitle: '先试这 8 款',
         body: ['准星没有唯一答案。更稳妥的起点，是一个看得清、找得快、又不会挡住头线的简单造型。', '这组准星包含中心留空的十字、小圆点和紧凑职业同款。固定一张地图逐个试，留下你第一眼最容易找到中心的那款。'],
         faq: [['什么样的无畏契约准星算好用？', '中心明确、在多数场景中看得见，同时不遮挡目标。线长、间距和大小要配合你自己的瞄准习惯。'], ['新手更适合小圆点还是十字？', '多数人会更容易跟住中心留空的小十字。小圆点更利于精确单点，但在移动和技能特效里也更容易丢。'], ['准星用什么颜色更显眼？', '青色和绿色在多数地图中比较醒目。AimCodes 可以先试 6 种颜色，再复制最终代码。']],
         metaTitle: '无畏契约最佳准星代码推荐 | AimCodes', metaDescription: '在真实地图中试用 8 款值得优先尝试的无畏契约准星，对比职业同款、小圆点和紧凑造型，换色后直接复制代码。',
@@ -240,7 +240,7 @@ const copy = {
       },
     },
     detail: {
-      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '用起来什么感觉', settings: '主要参数', import: '导入无畏契约', related: '再试一个准星', verified: '代码校验',
+      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '手感怎么样', settings: '主要参数', import: '带进无畏契约', related: '再试一个准星', verified: '代码已检查',
       importSteps: ['打开《无畏契约》设置。', '进入“准星”，点击“导入准星配置代码”。', '粘贴代码并保存新的准星方案。'],
       defaultBest: '想要中心明确、容易重复定位，同时不希望准星遮挡目标的玩家。', defaultTradeoff: '正式排位前，建议用自己的分辨率和常玩地图先试一局。',
     },
@@ -248,7 +248,7 @@ const copy = {
       eyebrow: '一分钟完成', title: '无畏契约准星代码怎么导入、复制和分享', intro: '三步导入代码，还能导出自己的准星、观战复制队友，并排查常见导入问题。',
       steps: [['复制准星代码', '打开 AimCodes 的准星页面，点击“复制代码”。'], ['进入准星设置', '打开《无畏契约》设置，进入“准星”，选择“导入准星配置代码”。'], ['粘贴并试用', '粘贴代码、保存方案，先去训练场看看是否顺手。']], cta: '浏览准星代码',
     },
-    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', best: '最佳准星', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', small: '小准星', settings: '准星设置说明', colors: '准星颜色选择', note: '让试准星这件事快一点。', social: '关注 AimCodes', trust: '站点信息', about: '关于与代码检查方法', privacy: '隐私与 Cookie', terms: '条款与玩家内容', contact: '联系我们', independent: '玩家独立项目，与 Riot Games 无隶属关系。' },
+    footer: { browse: '准星代码', finder: '反应测试', guide: '导入教程', best: '先从这里挑', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', small: '小准星', settings: '准星设置说明', colors: '准星颜色选择', note: '让试准星这件事快一点。', social: '关注 AimCodes', trust: '站点信息', about: '看看我们怎么筛代码', privacy: '隐私与 Cookie', terms: '条款与玩家内容', contact: '反馈问题', independent: '玩家独立项目，与 Riot Games 无隶属关系。' },
     notFound: { title: '这枪空了', body: '这个页面不存在，回准星库再挑一个吧。', action: '返回准星库' },
     meta: {
       homeTitle: '无畏契约准星代码与地图预览 | AimCodes', homeDescription: '在真实地图中预览可用的无畏契约准星代码，自定义颜色，一键复制，还能通过反应测试找到更适合自己的准星。',
