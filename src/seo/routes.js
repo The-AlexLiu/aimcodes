@@ -44,6 +44,10 @@ export const SEO_COLLECTIONS = Object.freeze({
 
 export const SEO_COLLECTION_KEYS = Object.freeze(Object.keys(SEO_COLLECTIONS))
 
+export function collectionKeysForCrosshair(crosshairId) {
+  return SEO_COLLECTION_KEYS.filter((collectionKey) => SEO_COLLECTIONS[collectionKey].crosshairIds.includes(crosshairId))
+}
+
 export const SEO_ARTICLES = Object.freeze({
   settings: Object.freeze({ slug: 'valorant-crosshair-settings' }),
   colors: Object.freeze({ slug: 'best-valorant-crosshair-colors' }),

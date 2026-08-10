@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url'
 import { crosshairs } from '../src/data/crosshairs.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
-import { routeMetadata, SEO_CONTENT_UPDATED_AT, SITE_ORIGIN } from '../src/seo/content.js'
+import { routeMetadata, SEO_CONTENT_UPDATED_AT, seoCopy, SITE_ORIGIN } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
-import { isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
+import { collectionKeysForCrosshair, isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
 import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 
@@ -66,7 +66,20 @@ for (const locale of Object.keys(localeRoutes)) {
       for (const config of Object.values(localeRoutes)) {
         if (!html.includes(`hreflang="${config.hreflang}"`)) errors.push(`${path}: missing hreflang ${config.hreflang}`)
       }
-      if (route.type === 'crosshair' && !html.includes(crosshair.code)) errors.push(`${path}: crosshair code missing from initial HTML`)
+      if (route.type === 'crosshair') {
+        if (!html.includes(crosshair.code)) errors.push(`${path}: crosshair code missing from initial HTML`)
+        const contextualCollections = collectionKeysForCrosshair(crosshair.id)
+        if (contextualCollections.length) {
+          const contextualLabel = escapeHtml(seoCopy(locale).detail.compareStyle)
+          if (!html.includes(`<nav class="seo-static-links" aria-label="${contextualLabel}">`)) {
+            errors.push(`${path}: contextual collection navigation missing from initial HTML`)
+          }
+        }
+        for (const collectionKey of contextualCollections) {
+          const collectionPath = routePath(locale, { type: 'collection', collectionKey })
+          if (!html.includes(collectionPath)) errors.push(`${path}: missing contextual collection link ${collectionPath}`)
+        }
+      }
       if (route.type === 'collection') {
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: FAQPage structured data missing`)
         if (!html.includes('<h2>FAQ</h2>')) errors.push(`${path}: visible FAQ missing from initial HTML`)

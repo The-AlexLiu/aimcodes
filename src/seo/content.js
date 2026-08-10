@@ -7,12 +7,17 @@ export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
 export const SEO_CONTENT_UPDATED_AT = '2026-08-10'
 
+const searchDisplayNames = Object.freeze({
+  'cat-pink': Object.freeze({ en: 'Cat / Kitty', es: 'Gato', 'pt-BR': 'Gato', 'zh-CN': '猫猫' }),
+  'pig-pink': Object.freeze({ en: 'Pig', es: 'Cerdito', 'pt-BR': 'Porquinho', 'zh-CN': '猪猪' }),
+})
+
 const copy = {
   en: {
     home: {
       eyebrow: 'VALORANT CROSSHAIR LAB',
       title: 'VALORANT crosshair codes you can try before you copy',
-      intro: 'Preview working crosshair codes on real map scenes, change the color, and copy the one that feels right.',
+      intro: 'Start with working VALORANT aim and crosshair codes, preview them on real maps, then recolor and copy the one that feels right.',
       primary: 'Browse all crosshairs',
       secondary: 'Take the reaction test',
       popular: 'Popular crosshair codes',
@@ -45,7 +50,7 @@ const copy = {
       },
       cute: {
         label: 'Cute crosshairs', eyebrow: 'CUTE, BUT STILL AIMABLE', title: 'Cute VALORANT crosshair codes', intro: 'Cat, pig, heart, flower, and bunny crosshairs that are playful on screen and still keep a clear aiming center.', gridTitle: 'Cute crosshairs in this collection',
-        body: ['Cute crosshairs are built from the same valid profile settings as competitive layouts. The difference is how the lines and dots combine into a recognizable shape.', 'They are larger than most pro crosshairs, so preview them before queueing. Use them for clips, casual matches, or whenever a tiny flower is better for your mental.'],
+        body: ['Cute crosshairs are built from the same valid profile settings as competitive layouts. The difference is how the lines and dots combine into a recognizable shape.', 'Open Cat, Pig, Heart, Flower, and Bunny on the same map before queueing. The faces are bolder, while Heart and Flower keep more of the target visible.'],
         faq: [['Do cute VALORANT crosshair codes work in game?', 'Yes. Every code in this collection is parsed and validated by AimCodes before it is published.'], ['Which cute crosshair is the smallest?', 'The heart and flower options are more compact than the cat and pig faces. Preview them on a map to compare the real screen space.'], ['Can I recolor a cat or heart crosshair?', 'Yes. Pick a preset color and the copied code will keep the shape while using the new color.']],
         metaTitle: 'Cute VALORANT Crosshair Codes: Cat, Heart & More | AimCodes', metaDescription: 'Try working cute VALORANT crosshair codes including cat, pig, heart, flower, and bunny shapes. Preview, recolor, and copy each code.',
       },
@@ -57,7 +62,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'How it feels', settings: 'Key settings', import: 'Take it into VALORANT', related: 'Try another crosshair', verified: 'Checked',
+      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'How it feels', settings: 'Key settings', import: 'Take it into VALORANT', related: 'Try another crosshair', compareStyle: 'Compare this style', verified: 'Checked',
       importSteps: ['Open Settings in VALORANT.', 'Choose Crosshair, then Import Profile Code.', 'Paste the code and save the new profile.'],
       defaultBest: 'Players who want a clear, repeatable reference point without covering the target.',
       defaultTradeoff: 'Test it on your usual resolution and map brightness before taking it into ranked.',
@@ -76,8 +81,8 @@ const copy = {
     footer: { browse: 'Crosshair codes', finder: 'Reaction test', guide: 'Import guide', best: 'Start here', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', social: 'Follow AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
-      homeTitle: 'VALORANT Crosshair Codes & Live Preview | AimCodes',
-      homeDescription: 'Preview working VALORANT crosshair codes on real maps, change colors, copy codes, and use a reaction test to find your next crosshair.',
+      homeTitle: 'VALORANT Aim Codes & Crosshair Codes | AimCodes',
+      homeDescription: 'Try working VALORANT aim and crosshair codes on real maps, change colors, copy a profile code, or take the reaction test to find your next crosshair.',
       catalogTitle: 'VALORANT Crosshair Codes: Pro, Dot & Fun Picks | AimCodes',
       catalogDescription: 'Browse 60+ working VALORANT crosshair codes. Preview pro, dot, small, cute, and fun crosshairs, then copy any code in one click.',
       finderTitle: 'VALORANT Reaction Time Test & Crosshair Picker | AimCodes',
@@ -90,7 +95,7 @@ const copy = {
     home: {
       eyebrow: 'LABORATORIO DE MIRAS DE VALORANT',
       title: 'Códigos de mira de VALORANT para probar antes de copiar',
-      intro: 'Prueba códigos que funcionan sobre mapas reales, cambia el color y copia la mira que más te guste.',
+      intro: 'Empieza con códigos de mira que funcionan, pruébalos sobre mapas reales, cambia el color y copia el que más te guste.',
       primary: 'Ver todas las miras', secondary: 'Hacer la prueba de reacción', popular: 'Miras populares', popularBody: 'Empieza por miras de estilo profesional y algunas opciones divertidas.',
     },
     catalog: { eyebrow: 'MÁS DE 60 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.' },
@@ -116,7 +121,7 @@ const copy = {
       },
       cute: {
         label: 'Miras bonitas', eyebrow: 'BONITAS Y TODAVÍA APUNTAN', title: 'Códigos de miras bonitas de VALORANT', intro: 'Miras de gato, cerdito, corazón, flor y conejo con un centro reconocible para seguir apuntando.', gridTitle: 'Miras bonitas de esta colección',
-        body: ['Estas miras usan los mismos ajustes válidos que una configuración competitiva. La diferencia está en cómo las líneas y los puntos forman una figura reconocible.', 'Son más grandes que la mayoría de miras pro, así que pruébalas antes de entrar en cola. Van perfectas para clips, partidas casuales o mejorar el mental.'],
+        body: ['Estas miras usan los mismos ajustes válidos que una configuración competitiva. La diferencia está en cómo las líneas y los puntos forman una figura reconocible.', 'Prueba Gato, Cerdito, Corazón, Flor y Conejo sobre el mismo mapa antes de jugar. Las caras son más grandes; Corazón y Flor dejan ver mejor al rival.'],
         faq: [['¿Funcionan en el juego estas miras bonitas?', 'Sí. AimCodes analiza y valida todos los códigos de esta colección antes de publicarlos.'], ['¿Cuál ocupa menos espacio?', 'El corazón y la flor son más compactos que las caras de gato y cerdito. Compáralos sobre un mapa para verlo.'], ['¿Puedo cambiar el color del gato o el corazón?', 'Sí. Elige un color y el código copiado conservará la forma con el nuevo tono.']],
         metaTitle: 'Miras bonitas de VALORANT: gato, corazón y más | AimCodes', metaDescription: 'Prueba miras bonitas de VALORANT con formas de gato, cerdito, corazón, flor y conejo. Cambia el color y copia códigos que funcionan.',
       },
@@ -128,7 +133,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué sensación da', settings: 'Ajustes principales', import: 'Llévala a VALORANT', related: 'Prueba otra mira', verified: 'Revisado',
+      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué sensación da', settings: 'Ajustes principales', import: 'Llévala a VALORANT', related: 'Prueba otra mira', compareStyle: 'Compara este estilo', verified: 'Revisado',
       importSteps: ['Abre los ajustes de VALORANT.', 'Entra en Mira y elige Importar código de perfil.', 'Pega el código y guarda el perfil.'],
       defaultBest: 'Jugadores que buscan una referencia clara y estable sin tapar al rival.', defaultTradeoff: 'Pruébala con tu resolución y el brillo habitual del mapa antes de usarla en competitivo.',
     },
@@ -147,7 +152,7 @@ const copy = {
   },
   'pt-BR': {
     home: {
-      eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Teste códigos que funcionam em mapas reais, troque a cor e copie a mira que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras populares', popularBody: 'Comece por opções de estilo profissional e algumas escolhas divertidas.',
+      eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Comece com códigos de mira que funcionam, teste em mapas reais, troque a cor e copie o que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras populares', popularBody: 'Comece por opções de estilo profissional e algumas escolhas divertidas.',
     },
     catalog: { eyebrow: 'MAIS DE 60 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.' },
     topics: { title: 'Comece por uma coleção' },
@@ -172,7 +177,7 @@ const copy = {
       },
       cute: {
         label: 'Miras fofas', eyebrow: 'FOFAS E AINDA DÁ PARA MIRAR', title: 'Códigos de miras fofas do VALORANT', intro: 'Miras de gato, porquinho, coração, flor e coelho com um centro claro para continuar acertando.', gridTitle: 'Miras fofas desta coleção',
-        body: ['Essas miras usam os mesmos ajustes válidos de uma configuração competitiva. A diferença está em como linhas e pontos formam um desenho reconhecível.', 'Elas são maiores que a maioria das miras pro, então teste antes da fila. Funcionam bem para clipes, partidas casuais ou para dar uma força ao mental.'],
+        body: ['Essas miras usam os mesmos ajustes válidos de uma configuração competitiva. A diferença está em como linhas e pontos formam um desenho reconhecível.', 'Teste Gato, Porquinho, Coração, Flor e Coelho no mesmo mapa antes da partida. Os rostos são maiores; Coração e Flor deixam mais do alvo visível.'],
         faq: [['Essas miras fofas funcionam no jogo?', 'Sim. O AimCodes analisa e valida todos os códigos desta coleção antes de publicar.'], ['Qual mira fofa ocupa menos espaço?', 'O coração e a flor são mais compactos que os rostos de gato e porquinho. Compare no mapa para ver a diferença.'], ['Posso mudar a cor do gato ou do coração?', 'Sim. Escolha uma cor e o código copiado manterá o formato com o novo tom.']],
         metaTitle: 'Miras fofas do VALORANT: gato, coração e mais | AimCodes', metaDescription: 'Teste miras fofas do VALORANT em formato de gato, porquinho, coração, flor e coelho. Troque a cor e copie códigos que funcionam.',
       },
@@ -184,7 +189,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Como ela se sente', settings: 'Ajustes principais', import: 'Leve para o VALORANT', related: 'Teste outra mira', verified: 'Conferido',
+      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Como ela se sente', settings: 'Ajustes principais', import: 'Leve para o VALORANT', related: 'Teste outra mira', compareStyle: 'Compare este estilo', verified: 'Conferido',
       importSteps: ['Abra as Configurações do VALORANT.', 'Entre em Mira e escolha Importar código de perfil.', 'Cole o código e salve o perfil.'],
       defaultBest: 'Jogadores que querem uma referência clara e estável sem esconder o alvo.', defaultTradeoff: 'Teste na sua resolução e no brilho normal dos mapas antes de levar para a ranqueada.',
     },
@@ -203,7 +208,7 @@ const copy = {
   },
   'zh-CN': {
     home: {
-      eyebrow: '无畏契约准星试用站', title: '先试效果，再复制无畏契约准星代码', intro: '把准星放进真实地图里看效果，换个顺眼的颜色，满意后直接复制代码。', primary: '查看全部准星', secondary: '测试反应速度', popular: '热门准星代码', popularBody: '先从职业选手风格和几款有趣准星开始试。',
+      eyebrow: '无畏契约准星试用站', title: '先试效果，再复制无畏契约准星代码', intro: '先挑一个可用的无畏契约准星代码，在真实地图里试效果、换颜色，再复制顺眼的那一个。', primary: '查看全部准星', secondary: '测试反应速度', popular: '热门准星代码', popularBody: '先从职业选手风格和几款有趣准星开始试。',
     },
     catalog: { eyebrow: '60+ 个可用代码', title: '浏览无畏契约准星代码', intro: '按选手或样式搜索，在地图里试过效果后，直接复制到游戏。' },
     topics: { title: '按类型直接开选' },
@@ -228,7 +233,7 @@ const copy = {
       },
       cute: {
         label: '可爱准星', eyebrow: '可爱归可爱，中心也得能瞄', title: '无畏契约可爱准星代码', intro: '猫猫、猪猪、爱心、花朵和兔兔准星，造型够有趣，正中心也仍然看得清。', gridTitle: '本页可爱准星',
-        body: ['可爱准星同样由游戏支持的配置参数拼出来，只是线条和中心点组合成了更容易辨认的图案。', '它们普遍比职业准星更大，排位前最好先在地图里看看。娱乐局、录素材，或者单纯想给心态加点 Buff，都很合适。'],
+        body: ['可爱准星同样由游戏支持的配置参数拼出来，只是线条和中心点组合成了更容易辨认的图案。', '开局前把猫猫、猪猪、爱心、花朵和兔兔放到同一张地图里比一下。猫脸和猪脸更醒目，爱心和花朵则更少遮挡目标。'],
         faq: [['这些可爱准星真的能在游戏里用吗？', '可以。本页所有代码在发布前都经过 AimCodes 解析和可用性校验。'], ['哪款可爱准星占画面更小？', '爱心和花朵比猫脸、猪脸更紧凑。直接放到地图里预览，最容易看出实际占用范围。'], ['猫猫和爱心准星能换颜色吗？', '可以。选择预设颜色后，复制出的代码会保留原图案并同步使用新颜色。']],
         metaTitle: '无畏契约可爱准星代码：猫猫、爱心与花朵 | AimCodes', metaDescription: '试用可用的无畏契约可爱准星代码，包括猫猫、猪猪、爱心、花朵和兔兔造型，预览、换色并直接复制。',
       },
@@ -240,7 +245,7 @@ const copy = {
       },
     },
     detail: {
-      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '手感怎么样', settings: '主要参数', import: '带进无畏契约', related: '再试一个准星', verified: '代码已检查',
+      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '手感怎么样', settings: '主要参数', import: '带进无畏契约', related: '再试一个准星', compareStyle: '对比同类准星', verified: '代码已检查',
       importSteps: ['打开《无畏契约》设置。', '进入“准星”，点击“导入准星配置代码”。', '粘贴代码并保存新的准星方案。'],
       defaultBest: '想要中心明确、容易重复定位，同时不希望准星遮挡目标的玩家。', defaultTradeoff: '正式排位前，建议用自己的分辨率和常玩地图先试一局。',
     },
@@ -273,10 +278,10 @@ const priorityDetails = {
     'zh-CN': ['适合重视第一枪、喜欢紧凑中心点的玩家。', '小巧的中心点几乎不遮挡目标，很适合贴着头线移动。'],
   },
   forsaken: {
-    en: ['Players who want a tiny sight and plenty of space around the target.', 'Minimal marks create a precise center without adding much visual noise.'],
-    es: ['Jugadores que quieren una mira mínima y mucho espacio alrededor del objetivo.', 'Las pequeñas marcas señalan el centro sin añadir ruido visual.'],
-    'pt-BR': ['Quem quer uma mira mínima e bastante espaço ao redor do alvo.', 'Marcas pequenas definem o centro sem adicionar ruído visual.'],
-    'zh-CN': ['适合喜欢极小准星、希望目标周围保持干净的玩家。', '几条极短的线标出中心，不会给画面增加太多干扰。'],
+    en: ['Players who want a tiny sight and plenty of space around the target. It suits calm head-level taps more than long sprays.', 'Minimal marks keep the screen clean. If the white lines disappear in utility or bright walls, try cyan before choosing a larger shape.'],
+    es: ['Para quien quiere una mira mínima y mucho espacio alrededor del rival. Va mejor con taps tranquilos a la cabeza que con sprays largos.', 'Las marcas pequeñas limpian la pantalla. Si el blanco se pierde entre habilidades o paredes claras, prueba el cian antes de agrandarla.'],
+    'pt-BR': ['Para quem quer uma mira mínima e bastante espaço ao redor do alvo. Combina mais com taps calmos na cabeça do que com sprays longos.', 'As marcas pequenas deixam a tela limpa. Se o branco sumir nas habilidades ou paredes claras, teste ciano antes de aumentar a mira.'],
+    'zh-CN': ['适合喜欢极小准星、希望目标周围保持干净的玩家，更偏向稳准的头线单点，不太照顾长扫射。', '几条极短的白线几乎不挡画面；如果在技能和亮墙里容易丢，先换成青色，不必急着放大准星。'],
   },
   demon1: {
     en: ['Calm crosshair placement and players who trust a simple center point.', 'A clean dot makes the exact center obvious with almost no extra shape.'],
@@ -297,16 +302,16 @@ const priorityDetails = {
     'zh-CN': ['适合控制短点射，以及喜欢紧凑闭合中心的玩家。', '造型体积很小，移动时容易跟住，也不会占太多画面。'],
   },
   'cat-pink': {
-    en: ['Casual games, clips, and players who want a playful crosshair that still has a center.', 'The blocks form a recognizable cat face while keeping the aiming point in the middle.'],
-    es: ['Partidas casuales, clips y jugadores que quieren una mira divertida con un centro útil.', 'Los bloques forman una cara de gato reconocible y mantienen el punto de mira en el centro.'],
-    'pt-BR': ['Partidas casuais, clipes e quem quer uma mira divertida sem perder o centro.', 'Os blocos formam um rosto de gato reconhecível e mantêm o ponto de mira no meio.'],
-    'zh-CN': ['适合娱乐局、录制视频，以及想要有趣造型又不想丢掉中心点的玩家。', '线块能看出猫脸和耳朵，正中心仍然保留了瞄准位置。'],
+    en: ['Casual games, clips, and players who want the most recognizable animal crosshair. The center is still usable, so the joke does not completely take over your aim.', 'The ears and face are larger than a normal crosshair and can cover distant heads. Switch to Heart if you want a playful shape with less screen coverage.'],
+    es: ['Partidas casuales, clips y quien quiere la mira de animal más reconocible. El centro sigue siendo útil, así que la broma no se come toda la puntería.', 'Las orejas y la cara ocupan más que una mira normal y pueden tapar cabezas lejanas. Prueba Corazón si quieres algo divertido y más compacto.'],
+    'pt-BR': ['Partidas casuais, clipes e quem quer a mira de animal mais fácil de reconhecer. O centro ainda funciona, então a brincadeira não toma conta da mira.', 'As orelhas e o rosto ocupam mais espaço e podem cobrir cabeças distantes. Teste Coração se quiser um formato divertido e mais compacto.'],
+    'zh-CN': ['适合娱乐局、录素材，以及想要一眼就能认出的动物准星。中心点仍然能用，不会为了猫脸彻底放弃瞄准。', '猫耳和脸型会比常规准星更占画面，远距离可能遮头；如果想整活但更紧凑，可以接着试爱心准星。'],
   },
   'pig-pink': {
-    en: ['Fun matches and players who want a bigger novelty crosshair with a clear middle.', 'Wide blocks create a pig face and snout, making it intentionally bold on screen.'],
-    es: ['Partidas divertidas y jugadores que quieren una mira grande y original con un centro claro.', 'Los bloques forman la cara y el hocico de un cerdito y se ven muy marcados en pantalla.'],
-    'pt-BR': ['Partidas divertidas e quem quer uma mira grande e diferente com centro claro.', 'Os blocos formam o rosto e o focinho de um porquinho e ficam bem marcantes na tela.'],
-    'zh-CN': ['适合娱乐局，以及想要醒目整活造型、同时保留明确中心的玩家。', '宽大的线块拼出猪脸和猪鼻，画面存在感会比常规准星更强。'],
+    en: ['Fun matches and players who want a bold pig crosshair with a clear middle. It is easier to spot than a micro dot when the screen gets busy.', 'The wide face and snout take more space than Cat, Heart, or Flower. Keep it for close fights and clips rather than tiny long-range targets.'],
+    es: ['Partidas divertidas y quien quiere una mira de cerdito grande con el centro claro. Se encuentra más rápido que un micropunto cuando la pantalla se llena.', 'La cara y el hocico ocupan más que Gato, Corazón o Flor. Va mejor en peleas cercanas y clips que contra objetivos lejanos.'],
+    'pt-BR': ['Partidas divertidas e quem quer uma mira de porquinho marcante com centro claro. É mais fácil de achar que um microponto quando a tela fica cheia.', 'O rosto e o focinho ocupam mais que Gato, Coração ou Flor. Use mais em lutas próximas e clipes do que em alvos distantes.'],
+    'zh-CN': ['适合娱乐局，以及想要醒目猪猪造型、同时保留明确中心的玩家。画面一乱，它会比微型小点更容易找回来。', '猪脸和猪鼻比猫猫、爱心和花朵更占画面，近距离整活很合适，远距离小目标就不一定舒服。'],
   },
   boaster: {
     en: ['Players who want a compact cross with no empty gap at the center.', 'Connected cyan lines are easy to locate, but cover slightly more of a distant target.'],
@@ -327,22 +332,22 @@ const priorityDetails = {
     'zh-CN': ['适合快节奏突破，以及想要紧凑留空中心的玩家。', '短绿线对比度高，中心又不会挡住目标，转移视线时比较容易找回。'],
   },
   'heart-pink': {
-    en: ['Clips and casual matches where you want a compact playful shape.', 'The heart is smaller than the character faces, but still busier than a competitive dot.'],
-    es: ['Clips y partidas casuales donde quieres una forma divertida y compacta.', 'El corazón ocupa menos que las caras, pero sigue siendo más llamativo que un punto competitivo.'],
-    'pt-BR': ['Clipes e partidas casuais para quem quer um formato divertido e compacto.', 'O coração ocupa menos que os rostos, mas ainda chama mais atenção que um ponto competitivo.'],
-    'zh-CN': ['适合娱乐局和录素材，想整活但又不希望图案太大的玩家。', '爱心比猫脸、猪脸更紧凑，不过视觉信息仍会比竞技小圆点更多。'],
+    en: ['Clips and casual matches where you want a compact playful shape. It is the easiest step down from the larger Cat and Pig faces.', 'The heart leaves more of a distant target visible, but still has more visual detail than a competitive dot.'],
+    es: ['Clips y partidas casuales donde quieres una forma divertida y compacta. Es el cambio más fácil si Gato o Cerdito te parecen demasiado grandes.', 'El corazón deja más visible al rival lejano, aunque sigue teniendo más detalle que un punto competitivo.'],
+    'pt-BR': ['Clipes e partidas casuais para quem quer um formato divertido e compacto. É a troca mais fácil se Gato ou Porquinho parecerem grandes demais.', 'O coração deixa mais do alvo distante visível, mas ainda tem mais detalhe que um ponto competitivo.'],
+    'zh-CN': ['适合娱乐局和录素材，想整活但又不希望图案太大的玩家；如果猫猫、猪猪太挡，这款最容易接着试。', '爱心会给远距离目标留下更多空间，不过视觉信息仍然比竞技小圆点多。'],
   },
   'flower-pink': {
-    en: ['Players who want a recognizable flower without losing the center completely.', 'The petal shape is balanced around the middle, but it is intentionally larger than a pro crosshair.'],
-    es: ['Jugadores que quieren una flor reconocible sin perder por completo el centro.', 'Los pétalos rodean bien el centro, pero la mira es más grande que una configuración pro.'],
-    'pt-BR': ['Quem quer uma flor reconhecível sem perder totalmente o centro.', 'As pétalas ficam equilibradas ao redor do meio, mas a mira é maior que uma configuração pro.'],
-    'zh-CN': ['适合想要明显花朵造型、同时仍能辨认中心位置的玩家。', '花瓣围绕中心分布得比较均衡，但整体尺寸会明显大于职业准星。'],
+    en: ['Players who want a recognizable flower without losing the center completely. The balanced petals make it less face-heavy than Cat or Pig.', 'It stays readable around the middle, but is still larger than a pro crosshair. Try cyan if pink blends into warm map areas.'],
+    es: ['Para quien quiere una flor reconocible sin perder el centro. Los pétalos equilibrados pesan menos en pantalla que las caras de Gato o Cerdito.', 'El centro se lee bien, pero sigue siendo mayor que una mira pro. Prueba el cian si el rosa se mezcla con zonas cálidas.'],
+    'pt-BR': ['Para quem quer uma flor reconhecível sem perder o centro. As pétalas equilibradas pesam menos na tela que os rostos de Gato ou Porquinho.', 'O centro continua legível, mas a mira é maior que uma configuração pro. Teste ciano se o rosa sumir em áreas quentes.'],
+    'zh-CN': ['适合想要明显花朵造型、同时仍能辨认中心的玩家。花瓣分布比较均衡，不会像猫脸和猪脸那样把视觉重量压在一块。', '整体仍然大于职业准星；如果粉色在暖色地图区域里不够明显，可以直接换成青色。'],
   },
   'bunny-white': {
-    en: ['Casual games and players who want a light-colored novelty crosshair.', 'The bunny silhouette is easy to recognize, but bright walls can reduce the contrast of the white lines.'],
-    es: ['Partidas casuales y jugadores que quieren una mira original de color claro.', 'La silueta de conejo se reconoce bien, pero las paredes claras reducen el contraste.'],
-    'pt-BR': ['Partidas casuais e quem quer uma mira diferente de cor clara.', 'A silhueta de coelho é fácil de reconhecer, mas paredes claras reduzem o contraste.'],
-    'zh-CN': ['适合娱乐局，以及喜欢浅色兔兔造型的玩家。', '兔子轮廓辨识度很高，但白色线条在明亮墙面上会更容易丢失。'],
+    en: ['Casual games and players who want a lighter animal shape than the full Cat or Pig faces. The tall ears stay recognizable without filling the whole center.', 'White looks clean on darker walls but can disappear in bright areas. Recolor it cyan or green before making the shape larger.'],
+    es: ['Partidas casuales y quien quiere una forma de animal más ligera que las caras de Gato o Cerdito. Las orejas se reconocen sin llenar todo el centro.', 'El blanco queda limpio sobre paredes oscuras, pero se pierde en zonas claras. Cámbialo a cian o verde antes de agrandarlo.'],
+    'pt-BR': ['Partidas casuais e quem quer um formato de animal mais leve que os rostos de Gato ou Porquinho. As orelhas aparecem sem preencher todo o centro.', 'O branco fica limpo em paredes escuras, mas some em áreas claras. Troque para ciano ou verde antes de aumentar a mira.'],
+    'zh-CN': ['适合娱乐局，以及想要比猫脸、猪脸更轻一点的动物造型。高高的兔耳很好认，又不会把整个中心塞满。', '白色在暗墙上很干净，但亮区容易丢；先换成青色或绿色，不必为了可见度把图案继续放大。'],
   },
   'small-dot-thick': {
     en: ['Precise tapping with a dot that is small but easier to keep visible.', 'The thicker pixel is easier to reacquire than a micro dot, while covering a little more of the head.'],
@@ -403,17 +408,18 @@ export function routeMetadata(locale, route, crosshair) {
     title = `${page.title} | AimCodes`
     description = page.intro
   } else if (route.type === 'crosshair' && crosshair) {
+    const searchName = searchDisplayNames[crosshair.id]?.[locale] || crosshair.shortName
     const names = {
-      en: `${crosshair.shortName} VALORANT Crosshair Code & Preview | AimCodes`,
-      es: `${crosshair.shortName}: código de mira de VALORANT | AimCodes`,
-      'pt-BR': `${crosshair.shortName}: código de mira do VALORANT | AimCodes`,
-      'zh-CN': `${crosshair.shortName} 无畏契约准星代码与预览 | AimCodes`,
+      en: `${searchName} VALORANT Crosshair Code & Preview | AimCodes`,
+      es: `${searchName}: código de mira de VALORANT | AimCodes`,
+      'pt-BR': `${searchName}: código de mira do VALORANT | AimCodes`,
+      'zh-CN': `${searchName} 无畏契约准星代码与预览 | AimCodes`,
     }
     const descriptions = {
-      en: `Preview the ${crosshair.shortName} VALORANT crosshair on real maps, change its color, and copy the working profile code in one click.`,
-      es: `Prueba la mira ${crosshair.shortName} de VALORANT en mapas reales, cambia el color y copia el código de perfil en un clic.`,
-      'pt-BR': `Teste a mira ${crosshair.shortName} do VALORANT em mapas reais, troque a cor e copie o código de perfil em um clique.`,
-      'zh-CN': `在真实地图中预览 ${crosshair.shortName} 无畏契约准星，切换颜色并一键复制可用的准星配置代码。`,
+      en: `Preview the ${searchName} VALORANT crosshair on real maps, change its color, and copy the working profile code in one click.`,
+      es: `Prueba la mira ${searchName} de VALORANT en mapas reales, cambia el color y copia el código de perfil en un clic.`,
+      'pt-BR': `Teste a mira ${searchName} do VALORANT em mapas reais, troque a cor e copie o código de perfil em um clique.`,
+      'zh-CN': `在真实地图中预览 ${searchName} 无畏契约准星，切换颜色并一键复制可用的准星配置代码。`,
     }
     title = names[locale] || names.en
     description = descriptions[locale] || descriptions.en

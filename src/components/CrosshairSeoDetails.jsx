@@ -1,5 +1,6 @@
 import Icon from './Icon.jsx'
-import { detailCopy, seoCopy } from '../seo/content.js'
+import { collectionCopy, detailCopy, seoCopy } from '../seo/content.js'
+import { collectionKeysForCrosshair, routePath } from '../seo/routes.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 
 const settingLabels = {
@@ -24,6 +25,7 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
   const labels = seoCopy(locale).detail
   const details = detailCopy(locale, crosshair.id)
   const rows = settingRows(crosshair, locale)
+  const relatedCollections = collectionKeysForCrosshair(crosshair.id)
 
   return (
     <section className="seo-detail-content" aria-label={labels.code}>
@@ -55,6 +57,18 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
         </article>
       </div>
       <p className="seo-verified"><Icon name="check" size={14} /> {labels.verified} · {crosshair.sourceCheckedAt || '2026-08-04'}</p>
+      {relatedCollections.length > 0 && (
+        <nav className="seo-detail-context" aria-label={labels.compareStyle}>
+          <span>{labels.compareStyle}</span>
+          <div>
+            {relatedCollections.map((collectionKey) => (
+              <a href={routePath(locale, { type: 'collection', collectionKey })} key={collectionKey}>
+                {collectionCopy(locale, collectionKey).label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
       <SeoTopicLinks locale={locale} />
     </section>
   )
