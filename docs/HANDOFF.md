@@ -17,9 +17,9 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 当前开发分支：`feat/seo-knowledge-base-phase1`
-- 本轮内容：10 个集合、10 个指南、4 个真实工具，以及可持续扩展的 SEO 路由、站内链接和验证架构。
-- 发布完成后应确认 GitHub `main`、Netlify 生产构建和 208 URL sitemap 一致。
+- 最近生产提交：`8d4450f`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>
+- 本轮内容：10 个集合、10 个指南、4 个真实工具，以及可持续扩展的 SEO 路由、站内链接和验证架构；GitHub `main`、Netlify 生产构建和 208 URL sitemap 已确认一致。
 
 ## Cursor 接手时第一步
 
@@ -70,11 +70,11 @@
 ## 最近产品代码生产发布
 
 - 发布时间：2026-08-10；
-- 对应功能提交：`552261b`；
-- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/11>；
+- 对应功能提交：`8d4450f`；
+- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>；
 - 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认四语种信任页、112 URL sitemap、广告页面白名单、页面宽度与既有分享功能正常。
+- 发布后已确认四语种代表页、10 个新增集合、10 个新增指南、4 个新增工具、208 URL sitemap、robots 和 canonical 正常。
 
 ## 已发布的分享增长功能
 
