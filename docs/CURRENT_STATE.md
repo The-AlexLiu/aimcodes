@@ -10,16 +10,16 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-10 当前待发布版本：SEO Knowledge Base Phase 1，位于 `feat/seo-knowledge-base-phase1`。
-- 本轮内容：10 个主题集合、10 个操作/选型指南、4 个可实际使用的准星工具，全部同步四语种；此前发布的 AdSense 审核准备、分享增长、反应测试、素材渲染器和官方社媒入口继续保留。
+- 2026-08-10 最近一次产品发布：SEO Knowledge Base Phase 1，对应生产提交 `8d4450f`、PR #12。
+- 最近一次上线内容：10 个主题集合、10 个操作/选型指南、4 个可实际使用的准星工具，全部同步四语种；此前发布的 AdSense 审核准备、分享增长、反应测试、素材渲染器和官方社媒入口继续保留。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 本轮发布功能提交：`552261b feat: 完善 AdSense 审核准备`
-- 本轮发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/11>
+- 本轮发布功能提交：`8d4450f feat(seo): add phase 1 knowledge base and tools (#12)`
+- 本轮发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -60,7 +60,7 @@
 
 ## 当前工作树提醒
 
-2026-08-10 AdSense 审核准备已通过 PR #11 发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地与 `origin/main` 一致，并从 `main` 创建新任务分支。
+2026-08-10 SEO Knowledge Base Phase 1 已通过 PR #12 发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地与 `origin/main` 一致，并从 `main` 创建新任务分支。
 
 ## 已确认验证基线
 
