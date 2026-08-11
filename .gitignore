@@ -11,6 +11,8 @@ dist/
 
 # Local Netlify folder
 .netlify/
+.aimcodes-reports/
+.cache/aimcodes/
 
 # Local prototypes, backups and visual test artifacts
 backups/

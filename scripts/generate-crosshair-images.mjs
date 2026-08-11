@@ -1,4 +1,5 @@
-import { mkdir, readFile } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -11,12 +12,15 @@ const publicRoot = resolve(projectRoot, 'public')
 const crosshairImageRoot = resolve(publicRoot, 'images/crosshairs')
 const crosshairOgRoot = resolve(publicRoot, 'images/og/crosshairs')
 const collectionOgRoot = resolve(publicRoot, 'images/og/collections')
+const cacheRoot = resolve(projectRoot, '.cache/aimcodes')
+const manifestPath = resolve(cacheRoot, 'image-generation-manifest.json')
 const backgroundPath = resolve(projectRoot, 'src/assets/maps/ascent.jpg')
 const brandMarkPath = resolve(publicRoot, 'brand/aimcodes-logo-transparent-v2.png')
 
-const [backgroundBuffer, brandMarkBuffer] = await Promise.all([
+const [backgroundBuffer, brandMarkBuffer, generatorSource] = await Promise.all([
   readFile(backgroundPath),
   readFile(brandMarkPath),
+  readFile(fileURLToPath(import.meta.url)),
 ])
 const backgroundDataUrl = `data:image/jpeg;base64,${backgroundBuffer.toString('base64')}`
 const brandMarkDataUrl = `data:image/png;base64,${brandMarkBuffer.toString('base64')}`
@@ -25,7 +29,37 @@ await Promise.all([
   mkdir(crosshairImageRoot, { recursive: true }),
   mkdir(crosshairOgRoot, { recursive: true }),
   mkdir(collectionOgRoot, { recursive: true }),
+  mkdir(cacheRoot, { recursive: true }),
 ])
+
+const rendererHash = createHash('sha256')
+  .update(generatorSource)
+  .update(backgroundBuffer)
+  .update(brandMarkBuffer)
+  .digest('hex')
+
+let previousManifest = { version: 1, items: {} }
+try {
+  previousManifest = JSON.parse(await readFile(manifestPath, 'utf8'))
+} catch {
+  // A missing or invalid cache is safe: this build regenerates every required image.
+}
+const nextManifest = { version: 1, rendererHash, items: {} }
+let generatedCount = 0
+let reusedCount = 0
+
+function contentHash(value) {
+  return createHash('sha256').update(JSON.stringify(value)).digest('hex')
+}
+
+async function filesExist(paths) {
+  try {
+    await Promise.all(paths.map((path) => access(path)))
+    return true
+  } catch {
+    return false
+  }
+}
 
 const round = (value) => Number(Number(value).toFixed(2))
 
@@ -136,13 +170,32 @@ function previewSvg(crosshair, width, height, { square = false } = {}) {
 
 async function createCrosshairImages(crosshair) {
   const slug = crosshairSlug(crosshair.id)
+  const cacheId = `crosshair:${crosshair.id}`
+  const outputPaths = [
+    resolve(crosshairImageRoot, `${slug}.webp`),
+    resolve(crosshairOgRoot, `${slug}.jpg`),
+  ]
+  const cacheKey = contentHash({
+    rendererHash,
+    kind: 'crosshair',
+    id: crosshair.id,
+    code: crosshair.code,
+    color: crosshair.color,
+    previewScale: crosshair.previewScale || 1,
+  })
+  nextManifest.items[cacheId] = cacheKey
+  if (previousManifest.items?.[cacheId] === cacheKey && await filesExist(outputPaths)) {
+    reusedCount += 2
+    return
+  }
   const squareSvg = previewSvg(crosshair, 1080, 1080, { square: true })
   const ogSvg = previewSvg(crosshair, 1200, 630)
 
   await Promise.all([
-    sharp(squareSvg).webp({ quality: 86, effort: 5 }).toFile(resolve(crosshairImageRoot, `${slug}.webp`)),
-    sharp(ogSvg).jpeg({ quality: 88, chromaSubsampling: '4:4:4', mozjpeg: true }).toFile(resolve(crosshairOgRoot, `${slug}.jpg`)),
+    sharp(squareSvg).webp({ quality: 86, effort: 5 }).toFile(outputPaths[0]),
+    sharp(ogSvg).jpeg({ quality: 88, chromaSubsampling: '4:4:4', mozjpeg: true }).toFile(outputPaths[1]),
   ])
+  generatedCount += 2
 }
 
 function collectionTileSvg(crosshair, x, y, width, height) {
@@ -190,9 +243,24 @@ if (imageCrosshairs.length !== SEO_CROSSHAIR_IDS.length) {
 for (const crosshair of imageCrosshairs) await createCrosshairImages(crosshair)
 
 for (const collection of Object.values(SEO_COLLECTIONS)) {
+  const cacheId = `collection:${collection.slug}`
+  const outputPath = resolve(collectionOgRoot, `${collection.slug}.jpg`)
+  const relatedCrosshairs = collection.crosshairIds
+    .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
+    .filter(Boolean)
+    .slice(0, 4)
+    .map(({ id, code, color, previewScale }) => ({ id, code, color, previewScale: previewScale || 1 }))
+  const cacheKey = contentHash({ rendererHash, kind: 'collection', slug: collection.slug, relatedCrosshairs })
+  nextManifest.items[cacheId] = cacheKey
+  if (previousManifest.items?.[cacheId] === cacheKey && await filesExist([outputPath])) {
+    reusedCount += 1
+    continue
+  }
   await sharp(collectionSvg(collection))
     .jpeg({ quality: 88, chromaSubsampling: '4:4:4', mozjpeg: true })
-    .toFile(resolve(collectionOgRoot, `${collection.slug}.jpg`))
+    .toFile(outputPath)
+  generatedCount += 1
 }
 
-console.log(`Generated ${imageCrosshairs.length} indexable standalone crosshair images, ${imageCrosshairs.length} crosshair OG images, and ${Object.keys(SEO_COLLECTIONS).length} collection OG images.`)
+await writeFile(manifestPath, `${JSON.stringify(nextManifest, null, 2)}\n`)
+console.log(`Image generation complete: ${generatedCount} generated, ${reusedCount} reused from verified content hashes.`)

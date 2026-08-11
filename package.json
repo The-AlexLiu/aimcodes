@@ -19,7 +19,15 @@
     "validate:analytics": "node scripts/validate-analytics.mjs",
     "validate:sharing": "node scripts/validate-sharing.mjs",
     "validate:adsense": "node scripts/validate-adsense-readiness.mjs",
-    "validate:images": "node scripts/validate-image-seo.mjs"
+    "validate:images": "node scripts/validate-image-seo.mjs",
+    "validate:diff": "node scripts/validate-task-diff.mjs",
+    "validate:workflow": "node scripts/validate-development-workflow.mjs",
+    "task:context": "node scripts/task-context.mjs",
+    "check:auto": "node scripts/run-check-suite.mjs auto",
+    "check:quick": "node scripts/run-check-suite.mjs quick",
+    "check:data": "node scripts/run-check-suite.mjs data",
+    "check:seo": "node scripts/run-check-suite.mjs seo",
+    "check:release": "node scripts/run-check-suite.mjs release"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",

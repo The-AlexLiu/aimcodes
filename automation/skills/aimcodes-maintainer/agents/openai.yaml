@@ -1,0 +1,4 @@
+interface:
+  display_name: "AimCodes 维护流程"
+  short_description: "标准化 AimCodes 开发、验证、发布与 GPT 风险审核"
+  default_prompt: "Use $aimcodes-maintainer to plan, implement, verify, and safely release this AimCodes change."

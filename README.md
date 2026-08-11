@@ -86,19 +86,14 @@ pnpm preview
 ## 自动验证
 
 ```bash
-pnpm lint
-pnpm validate:crosshairs
-pnpm validate:finder
-pnpm validate:localization
-pnpm validate:analytics
-pnpm validate:sharing
-pnpm build
-pnpm validate:seo
-pnpm validate:routing
-pnpm validate:adsense
+pnpm task:context
+pnpm check:auto
+pnpm check:release
 ```
 
-验证脚本覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、分享链接与预览还原、GA4 事件、语言路由、canonical、`hreflang`、robots、sitemap、信任页面和未来广告安全边界。
+`check:auto` 按本次变更选择 quick、data、SEO 或 release 检查；PR 与生产发布前始终运行 `check:release`。结构化结果写入被 Git 忽略的 `.aimcodes-reports/current/`，供 GPT/Cursor 审核。完整说明见 [开发流程](docs/DEVELOPMENT_WORKFLOW.md)。
+
+验证覆盖：准星代码解析与调色、重复样式识别、推荐结果完整性、四语种词条一致性、分享链接与预览还原、GA4 事件、语言路由、canonical、`hreflang`、robots、sitemap、信任页面、图片和未来广告安全边界。
 
 AdSense 账号侧提交、真实发布商 ID、CMP 与 `ads.txt` 的执行顺序见 [`docs/ADSENSE_SUBMISSION.md`](docs/ADSENSE_SUBMISSION.md)。
 
@@ -110,6 +105,7 @@ src/data/             准星和预览数据
 src/i18n/             四语种词典与语言路由
 src/utils/            代码解析、推荐算法和数据分析逻辑
 scripts/              可复现的构建与验证脚本
+automation/skills/    可由 Codex 调用、由 GitHub 共享的项目 Skill 源文件
 public/               品牌、SEO 和公开素材
 netlify.toml          生产构建、跳转规则和安全响应头
 ```

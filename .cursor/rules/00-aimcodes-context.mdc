@@ -5,7 +5,8 @@ alwaysApply: true
 ---
 
 - 先读取并遵守 `@AGENTS.md`；它是 GPT/Codex、Cursor 和人工开发者共用的最高项目规则。
-- 开始任务前读取 `@docs/PROJECT_CONTEXT.md`、`@docs/ARCHITECTURE.md`、`@docs/CURRENT_STATE.md`、`@docs/DECISIONS.md` 和 `@docs/HANDOFF.md`。
+- 开始任务前读取 `@docs/CURRENT_STATE.md` 并运行 `pnpm task:context`；根据结构化 Scope 再按需读取产品、架构、决策或交接文档，不要默认加载全部文档。
+- 自动脚本只提供证据。每次任务仍需由 GPT/Cursor 审核计划、语义差异、QA、发布范围和线上结果。
 - 默认使用中文沟通，先给结论，再给操作与验证结果。
 - 在任何修改前运行 `git status -sb`；现有修改属于用户，不得覆盖、回滚或混入新任务。
 - 未获得明确授权，不得推送 GitHub、合并 PR、发布 Netlify、修改 GA4/GSC/DNS 或外部账号权限。

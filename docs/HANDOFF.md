@@ -17,17 +17,18 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近生产提交：`4756f97`
-- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/15>
+- 最近生产提交：`f66d032`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/16>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
-- 当前 `feat/scale-crosshair-catalog` 分支通过 PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
+- PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
+- 当前 `feat/development-efficiency` 分支正在加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
 
 ## Cursor 接手时第一步
 
 1. 先只读，不修改文件。
-2. 阅读 `AGENTS.md` 和 `docs/` 中所有 Markdown 文件。
+2. 阅读 `AGENTS.md` 和 `docs/CURRENT_STATE.md`，运行 `pnpm task:context`，再按 Scope 读取相关文档。
 3. 运行 `git status -sb`、`git diff --stat` 和 `git log --oneline -8`。
-4. 对照 `docs/CURRENT_STATE.md` 报告差异。
+4. 阅读 `.aimcodes-reports/current/scope.md`，由 GPT/Cursor 复核自动风险判断。
 5. 识别本地新增提交与远端分支、生产部署之间的差异。
 6. 未获得明确授权前，不提交、不推送、不合并、不部署。
 

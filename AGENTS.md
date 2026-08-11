@@ -4,17 +4,12 @@
 
 ## 开始任务前
 
-1. 依次阅读：
-   - `README.md`
-   - `docs/PROJECT_CONTEXT.md`
-   - `docs/ARCHITECTURE.md`
-   - `docs/CURRENT_STATE.md`
-   - `docs/DECISIONS.md`
-   - `docs/HANDOFF.md`
-2. 运行 `git status -sb`，确认当前分支和已有修改。
-3. 现有未提交修改默认属于用户，不得覆盖、回滚、删除或顺手提交。
-4. 一个任务只使用一个分支和一个工作目录；GPT/Codex 与 Cursor 不得同时修改同一工作树。
-5. 如果任务目标、线上状态或数据来源不明确，先进行只读检查，再说明“需确认”的内容。
+1. 始终阅读本文件和 `docs/CURRENT_STATE.md`，然后运行 `pnpm task:context`，由 `.aimcodes-reports/current/scope.md` 确定本次需要继续读取的文件。
+2. 产品定位任务再读 `docs/PROJECT_CONTEXT.md`；架构任务读 `docs/ARCHITECTURE.md`；历史决策读 `docs/DECISIONS.md`；跨工具接手读 `docs/HANDOFF.md`。不要为普通局部任务无差别加载全部文档。
+3. 运行 `git status -sb`，确认当前分支和已有修改。
+4. 现有未提交修改默认属于用户，不得覆盖、回滚、删除或顺手提交。
+5. 一个任务只使用一个分支和一个工作目录；GPT/Codex 与 Cursor 不得同时修改同一工作树。
+6. 如果任务目标、线上状态或数据来源不明确，先进行只读检查，再说明“需确认”的内容。
 
 ## 项目事实
 
@@ -23,7 +18,7 @@
 - 社媒渲染器镜像：`https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer`
 - 技术栈：React、Vite、Canvas、原生 CSS、Netlify、GA4。
 - 支持语言：英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`。
-- 当前产品基线包含 62 条准星源数据，经外观去重后展示约 60 种样式；数量变化必须以验证脚本结果为准。
+- 当前产品基线包含 302 条准星源数据，经外观去重后展示 300 种样式；数量变化必须以验证脚本结果为准。
 - 反应测试固定三轮，使用 9 个无畏契约风格反应段位，只代表浏览器反应测试结果。
 
 ## 代码边界
@@ -103,15 +98,10 @@ pnpm validate:analytics
 提交或交接前优先运行完整检查：
 
 ```bash
-pnpm lint
-pnpm validate:crosshairs
-pnpm validate:finder
-pnpm validate:localization
-pnpm validate:analytics
-pnpm build
-pnpm validate:seo
-pnpm validate:routing
+pnpm check:release
 ```
+
+日常任务先运行 `pnpm check:auto`。它只负责推荐和执行机械验证，并在 `.aimcodes-reports/current/` 输出结构化报告；GPT/Codex 仍必须审核任务范围、语义差异、浏览器体验、发布文件和线上结果，不得把脚本通过等同于产品正确。
 
 ## 完成与交接
 
