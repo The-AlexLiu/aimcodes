@@ -21,7 +21,7 @@
 - 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/16>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
-- 当前 `feat/development-efficiency` 分支正在加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
+- PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
 
 ## Cursor 接手时第一步
 

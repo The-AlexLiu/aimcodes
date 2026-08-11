@@ -11,7 +11,7 @@
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
 - 2026-08-11 最近一次产品发布：准星库规模化，对应生产提交 `f66d032`、PR #16。
-- 当前开发版本：开发效率基础设施，包含分级检查、结构化报告、图片增量生成和共享 Skill。
+- 开发效率候选版本通过 PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 引入分级检查、结构化报告、图片增量生成和共享 Skill。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
