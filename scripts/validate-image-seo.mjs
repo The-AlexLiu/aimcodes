@@ -26,7 +26,12 @@ async function validateImage(filePath, expected) {
   }
 }
 
-for (const crosshair of crosshairs) {
+const imageCrosshairs = SEO_CROSSHAIR_IDS
+  .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
+  .filter(Boolean)
+if (imageCrosshairs.length !== SEO_CROSSHAIR_IDS.length) errors.push(`indexable crosshair image source mismatch: expected ${SEO_CROSSHAIR_IDS.length}`)
+
+for (const crosshair of imageCrosshairs) {
   const slug = crosshairSlug(crosshair.id)
   await validateImage(resolve(publicRoot, `images/crosshairs/${slug}.webp`), { width: 1080, height: 1080, format: 'webp' })
   await validateImage(resolve(publicRoot, `images/og/crosshairs/${slug}.jpg`), { width: 1200, height: 630, format: 'jpeg' })
@@ -41,8 +46,8 @@ const [standaloneFiles, crosshairOgFiles, collectionOgFiles] = await Promise.all
   readdir(resolve(publicRoot, 'images/og/crosshairs')),
   readdir(resolve(publicRoot, 'images/og/collections')),
 ])
-if (standaloneFiles.filter((name) => name.endsWith('.webp')).length !== crosshairs.length) errors.push(`standalone image count mismatch: expected ${crosshairs.length}`)
-if (crosshairOgFiles.filter((name) => name.endsWith('.jpg')).length !== crosshairs.length) errors.push(`crosshair OG image count mismatch: expected ${crosshairs.length}`)
+if (standaloneFiles.filter((name) => name.endsWith('.webp')).length < imageCrosshairs.length) errors.push(`standalone image count mismatch: expected at least ${imageCrosshairs.length}`)
+if (crosshairOgFiles.filter((name) => name.endsWith('.jpg')).length < imageCrosshairs.length) errors.push(`crosshair OG image count mismatch: expected at least ${imageCrosshairs.length}`)
 if (collectionOgFiles.filter((name) => name.endsWith('.jpg')).length !== SEO_COLLECTION_KEYS.length) errors.push(`collection OG image count mismatch: expected ${SEO_COLLECTION_KEYS.length}`)
 
 const imageSitemapPath = resolve(distRoot, 'sitemap-images.xml')
@@ -96,4 +101,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log(`Validated ${crosshairs.length} standalone images, ${crosshairs.length + SEO_COLLECTION_KEYS.length} OG images, ${expectedSitemapCount} localized image sitemap pages, and ${expectedSitemapImageCount} image references.`)
+console.log(`Validated ${imageCrosshairs.length} indexable standalone images, ${imageCrosshairs.length + SEO_COLLECTION_KEYS.length} required OG images, ${expectedSitemapCount} localized image sitemap pages, and ${expectedSitemapImageCount} image references.`)

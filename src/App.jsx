@@ -31,10 +31,15 @@ import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptio
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const CATALOG_SESSION_KEY = 'aimcodes-catalog-session-v1'
+const CATALOG_PAGE_SIZE = 48
 const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(crosshairs)
 const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
 const recommendedOrder = new Map(SEO_CROSSHAIR_IDS.map((id, index) => [id, index]))
 const MAIN_PREVIEW_SCALE = 2.25
+
+function randomItem(items) {
+  return items[Math.floor(Math.random() * items.length)]
+}
 
 function readStoredValue(key, fallback) {
   try {
@@ -80,10 +85,19 @@ async function copyToClipboard(value) {
 function hydrateCrosshair(item) {
   try {
     const parsed = parseCrosshairCode(item.code, { fallbackColor: item.color })
+    const parsedSettings = {
+      outline: parsed.settings.outline.enabled,
+      inner: { ...parsed.settings.inner },
+      outer: { ...parsed.settings.outer },
+      dot: { ...parsed.settings.dot },
+      movementError: { ...parsed.settings.movementError },
+      firingError: { ...parsed.settings.firingError },
+    }
     return {
       ...item,
       color: parsed.color,
       colorKey: item.colorKey || parsed.colorKey,
+      settings: item.settings || parsedSettings,
       previewApproximate: parsed.approximate,
     }
   } catch {
@@ -126,6 +140,7 @@ export default function App() {
   const [query, setQuery] = useState(() => catalogSession.query || '')
   const [activeFilter, setActiveFilter] = useState(() => catalogSession.activeFilter || 'all')
   const [catalogSort, setCatalogSort] = useState(() => catalogSession.catalogSort || 'recommended')
+  const [catalogLimit, setCatalogLimit] = useState(() => Math.max(CATALOG_PAGE_SIZE, Number(catalogSession.catalogLimit) || CATALOG_PAGE_SIZE))
   const [background, setBackground] = useState(() => readSharedPreviewOptions(initialParams).background)
   const [colorOverrides, setColorOverrides] = useState(() => readSharedColorOverride(readSharedPreviewOptions(initialParams).colorKey, route.type, route.crosshairId))
   const [toast, setToast] = useState(null)
@@ -208,7 +223,7 @@ export default function App() {
   }, [activeFilter, allCrosshairs, catalogSort, language, query, recentIds, t])
 
   const displayedCrosshairs = (() => {
-    if (route.type === 'catalog') return visibleCrosshairs
+    if (route.type === 'catalog') return visibleCrosshairs.slice(0, catalogLimit)
     if (route.type === 'home') {
       return SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
     }
@@ -216,10 +231,10 @@ export default function App() {
       return activeCollection.crosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
     }
     if (route.type === 'crosshair') {
-      const sameCategory = allCrosshairs.filter((item) => item.id !== route.crosshairId && item.category === routeCrosshairCategory)
-      const priority = SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id))
+      const indexed = SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id))
         .filter((item) => item && item.id !== route.crosshairId)
-      return [...sameCategory, ...priority]
+      const sameCategory = indexed.filter((item) => item.category === routeCrosshairCategory)
+      return [...sameCategory, ...indexed]
         .filter((item, index, items) => items.findIndex((candidate) => candidate.id === item.id) === index)
         .slice(0, 6)
     }
@@ -260,8 +275,8 @@ export default function App() {
   useEffect(() => {
     if (route.type !== 'catalog') return
     const current = readCatalogSession()
-    writeCatalogSession({ ...current, query, activeFilter, catalogSort })
-  }, [activeFilter, catalogSort, query, route.type])
+    writeCatalogSession({ ...current, query, activeFilter, catalogSort, catalogLimit })
+  }, [activeFilter, catalogLimit, catalogSort, query, route.type])
 
   useEffect(() => {
     if (route.type !== 'catalog' || !catalogSession.restore || !catalogSession.scrollY) return
@@ -413,7 +428,7 @@ export default function App() {
 
   const selectCrosshair = (item, interactionSource = 'catalog_grid') => {
     if (route.type === 'catalog') {
-      writeCatalogSession({ query, activeFilter, catalogSort, scrollY: window.scrollY, restore: true })
+      writeCatalogSession({ query, activeFilter, catalogSort, catalogLimit, scrollY: window.scrollY, restore: true })
     }
     setSelectedId(item.id)
     setRecentIds((current) => [item.id, ...current.filter((id) => id !== item.id)].slice(0, 8))
@@ -454,17 +469,19 @@ export default function App() {
 
   const changeFilter = (nextFilter) => {
     setActiveFilter(nextFilter)
+    setCatalogLimit(CATALOG_PAGE_SIZE)
     trackEvent('filter_select', { filter_name: nextFilter })
   }
 
   const changeSort = (nextSort) => {
     setCatalogSort(nextSort)
+    setCatalogLimit(CATALOG_PAGE_SIZE)
     trackEvent('catalog_sort_change', { sort_name: nextSort })
   }
 
   const openRandomCrosshair = (pool, interactionSource) => {
     const candidates = (pool?.length ? pool : allCrosshairs).filter((item) => item.id !== selected.id)
-    const next = candidates[Math.floor(Math.random() * candidates.length)] || pool?.[0] || allCrosshairs[0]
+    const next = randomItem(candidates) || pool?.[0] || allCrosshairs[0]
     selectCrosshair(next, interactionSource)
     trackEvent('random_crosshair', { crosshair_id: next.id, interaction_source: interactionSource })
     window.location.assign(routePath(language, { type: 'crosshair', crosshairId: next.id }))
@@ -544,14 +561,14 @@ export default function App() {
             <input
               aria-label={t('search.label')}
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => { setQuery(event.target.value); setCatalogLimit(CATALOG_PAGE_SIZE) }}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' && visibleCrosshairs[0]) selectCrosshair(visibleCrosshairs[0], 'search_enter')
-                if (event.key === 'Escape') setQuery('')
+                if (event.key === 'Escape') { setQuery(''); setCatalogLimit(CATALOG_PAGE_SIZE) }
               }}
               placeholder={t('search.placeholder')}
             />
-            {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
+            {query && <button type="button" className="clear-search" onClick={() => { setQuery(''); setCatalogLimit(CATALOG_PAGE_SIZE) }} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
             <span className="search-shortcut" aria-hidden="true">/</span>
           </div>
         </div>}
@@ -675,7 +692,7 @@ export default function App() {
                 </div>
               </div>
               <div className="collection-meta">
-                <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
+                <span>{t((route.type === 'catalog' ? visibleCrosshairs.length : displayedCrosshairs.length) === 1 ? 'collection.countOne' : 'collection.countMany', { count: route.type === 'catalog' ? visibleCrosshairs.length : displayedCrosshairs.length })}</span>
                 {route.type === 'home' && (
                   <a className="collection-view-all" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).home.primary}</a>
                 )}
@@ -694,26 +711,34 @@ export default function App() {
               recentIds={recentIds}
               activeFilter={activeFilter}
               catalogSort={catalogSort}
-              resultCount={displayedCrosshairs.length}
+              resultCount={visibleCrosshairs.length}
               onFilterChange={changeFilter}
               onSortChange={changeSort}
-              onRandom={() => openRandomCrosshair(displayedCrosshairs, 'catalog_random')}
+              onRandom={() => openRandomCrosshair(visibleCrosshairs, 'catalog_random')}
               t={t}
             />
           )}
 
           {displayedCrosshairs.length > 0 ? (
-            <div className="crosshair-grid">
-              {displayedCrosshairs.map((item) => (
-                <CrosshairCard key={item.id} crosshair={item} href={routePath(language, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && route.type !== 'collection' && selected.id === item.id} copied={copiedId === item.id} onSelect={selectCrosshair} onCopy={copyCrosshair} t={t} />
-              ))}
-            </div>
+            <>
+              <div className="crosshair-grid">
+                {displayedCrosshairs.map((item) => (
+                  <CrosshairCard key={item.id} crosshair={item} href={routePath(language, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && route.type !== 'collection' && selected.id === item.id} copied={copiedId === item.id} onSelect={selectCrosshair} onCopy={copyCrosshair} t={t} />
+                ))}
+              </div>
+              {route.type === 'catalog' && displayedCrosshairs.length < visibleCrosshairs.length && (
+                <div className="catalog-load-more">
+                  <span>{t('catalogUx.showing', { shown: displayedCrosshairs.length, total: visibleCrosshairs.length })}</span>
+                  <button type="button" onClick={() => setCatalogLimit((current) => current + CATALOG_PAGE_SIZE)}>{t('catalogUx.loadMore')}</button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="empty-state">
               <span className="empty-crosshair">+</span>
               <h3>{t('empty.filteredTitle')}</h3>
               <p>{t('empty.filteredBody')}</p>
-              <button type="button" onClick={() => { setQuery(''); changeFilter('all') }}>{t('actions.clear')}</button>
+              <button type="button" onClick={() => { setQuery(''); setCatalogLimit(CATALOG_PAGE_SIZE); changeFilter('all') }}>{t('actions.clear')}</button>
             </div>
           )}
         </section>}

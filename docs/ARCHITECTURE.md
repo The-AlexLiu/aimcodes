@@ -1,6 +1,6 @@
 # AimCodes 架构说明
 
-最后更新：2026-08-07
+最后更新：2026-08-11
 
 ## 总体结构
 
@@ -56,13 +56,13 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先执行 Vite 构建，再运行 `scripts/generate-localized-routes.mjs`。当前生产候选生成 404 个本地化 HTML 路由，并将 208 个允许索引的 canonical URL 写入 sitemap。
+`pnpm build` 先生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。当前生产候选生成 1,364 个本地化 HTML 路由，将 544 个允许索引的 canonical URL 写入主 Sitemap，并将其中 400 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 除基础页面和准星详情外，当前新增 10 个高意图主题集合、10 个操作/选型指南，以及 4 个可实际使用的准星工具。新增搜索意图均同步为四语种页面；未经验证的选手数据和未完成工具不会进入 sitemap。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级与 100 URL 状态记录在 `docs/CONTENT_ROADMAP.md` 和 `docs/SEO_EXPANSION_REPORT_2026-08-10.md`。
 
 ## 准星数据流
 
-1. `src/data/crosshairs.js` 汇总基础准星和 `expandedCrosshairs`。
+1. `src/data/crosshairs.js` 汇总基础准星和 `catalogExpansionCrosshairs`；后者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成。
 2. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
 3. `src/utils/crosshairSimilarity.js` 根据外观去重。
 4. `src/i18n/translations.js` 为准星名称和描述提供本地化。
@@ -77,6 +77,8 @@ src/data + src/i18n + src/seo
 - 与已有样式不构成无意义重复；
 - 四语种显示正常；
 - `pnpm validate:crosshairs` 通过。
+
+目录规模与索引规模分开管理：前端目录加载完整去重数据，默认每批展示 48 项；`SEO_CROSSHAIR_IDS` 只列出具备独立说明、集合内链和图片资产的索引子集。构建脚本只为该子集生成图片和 Sitemap，其他详情使用 `noindex,follow`。
 
 ## 反应测试数据流
 
@@ -120,7 +122,7 @@ src/data + src/i18n + src/seo
 主要能力：
 
 - 四语种；
-- 62 个准星；
+- 302 条源代码、300 种可见样式；
 - TikTok、Reels、Shorts 和通用平台预设；
 - 自定义三次反应成绩；
 - MP4、1080×1080 方形图和 1080×1920 竖版封面；

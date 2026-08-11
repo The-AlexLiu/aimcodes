@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://aimcodes.com/sitemap.xml
+Sitemap: https://aimcodes.com/sitemap-crosshairs.xml
 Sitemap: https://aimcodes.com/sitemap-images.xml

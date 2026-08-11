@@ -85,8 +85,12 @@ for (const item of hiddenDuplicates) {
   if (!allowedLegacyDuplicateIds.has(item.id)) addError(item, 'unexpected visual duplicate is hidden by the catalog')
 }
 
-if (visibleCrosshairs.length < 60) {
-  errors.push(`catalog: expected at least 60 distinct visible styles, found ${visibleCrosshairs.length}`)
+if (crosshairs.length < 302) {
+  errors.push(`catalog: expected at least 302 source codes, found ${crosshairs.length}`)
+}
+
+if (visibleCrosshairs.length < 300) {
+  errors.push(`catalog: expected at least 300 distinct visible styles, found ${visibleCrosshairs.length}`)
 }
 
 if (errors.length) {

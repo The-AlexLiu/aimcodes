@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { crosshairs } from '../src/data/crosshairs.js'
 import { parseCrosshairCode } from '../src/utils/crosshairCode.js'
-import { crosshairSlug, SEO_COLLECTIONS } from '../src/seo/routes.js'
+import { crosshairSlug, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const publicRoot = resolve(projectRoot, 'public')
@@ -179,7 +179,15 @@ function collectionSvg(collection) {
   </svg>`)
 }
 
-for (const crosshair of crosshairs) await createCrosshairImages(crosshair)
+const imageCrosshairs = SEO_CROSSHAIR_IDS
+  .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
+  .filter(Boolean)
+
+if (imageCrosshairs.length !== SEO_CROSSHAIR_IDS.length) {
+  throw new Error(`Expected ${SEO_CROSSHAIR_IDS.length} indexable crosshairs, found ${imageCrosshairs.length}`)
+}
+
+for (const crosshair of imageCrosshairs) await createCrosshairImages(crosshair)
 
 for (const collection of Object.values(SEO_COLLECTIONS)) {
   await sharp(collectionSvg(collection))
@@ -187,4 +195,4 @@ for (const collection of Object.values(SEO_COLLECTIONS)) {
     .toFile(resolve(collectionOgRoot, `${collection.slug}.jpg`))
 }
 
-console.log(`Generated ${crosshairs.length} standalone crosshair images, ${crosshairs.length} crosshair OG images, and ${Object.keys(SEO_COLLECTIONS).length} collection OG images.`)
+console.log(`Generated ${imageCrosshairs.length} indexable standalone crosshair images, ${imageCrosshairs.length} crosshair OG images, and ${Object.keys(SEO_COLLECTIONS).length} collection OG images.`)
