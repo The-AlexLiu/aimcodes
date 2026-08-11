@@ -22,7 +22,7 @@ import { isAdEligibleRoute } from './config/adPolicy.js'
 import { crosshairs, filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
 import { createTranslator, languages, localizeCrosshair } from './i18n/translations.js'
-import { collectionCopy, pageSlug, routeMetadata, seoCopy } from './seo/content.js'
+import { collectionCopy, detailHeading, pageSlug, routeMetadata, seoCopy } from './seo/content.js'
 import { localizedRoutePath, parseSeoRoute, routePath, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from './seo/routes.js'
 import { parseCrosshairCode, updateCrosshairColor } from './utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from './utils/crosshairSimilarity.js'
@@ -579,7 +579,7 @@ export default function App() {
           <aside className={`detail-panel ${selected.isCute ? 'is-cute' : ''}`}>
             <span className="panel-cut" aria-hidden="true" />
             <div className="detail-heading">
-              {route.type === 'crosshair' ? <h1>{selected.name}</h1> : <h2>{selected.name}</h2>}
+              {route.type === 'crosshair' ? <h1>{detailHeading(language, selected)}</h1> : <h2>{selected.name}</h2>}
               <p>{selected.description}</p>
             </div>
 

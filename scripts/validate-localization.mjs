@@ -27,8 +27,9 @@ for (const locale of locales) {
   }
 
   const guide = importGuideDetails(locale)
+  if (!guide.quickLabel?.trim() || !guide.quickAnswer?.trim()) failures.push(`${locale} import guide needs a complete quick answer`)
   if (!guide.moreTitle || guide.sections?.length !== 4 || guide.sections.some((section) => !section.title || !section.body)) failures.push(`${locale} needs four complete import guide sections`)
-  if (guide.faq?.length !== 3 || guide.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} import guide needs three complete FAQs`)
+  if (guide.faq?.length < 3 || guide.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} import guide needs at least three complete FAQs`)
 
   for (const toolKey of SEO_TOOL_KEYS) {
     const tool = seoToolCopy(locale, toolKey)

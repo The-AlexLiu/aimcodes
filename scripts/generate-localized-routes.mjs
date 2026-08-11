@@ -10,6 +10,7 @@ import {
   collectionCopy,
   crosshairBreadcrumbName,
   detailCopy,
+  detailHeading,
   routeMetadata,
   SEO_CONTENT_UPDATED_AT,
   seoCopy,
@@ -348,7 +349,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const steps = localized.guide.steps.map(([title, body]) => `<li><strong>${escapeHtml(title)}</strong><p>${escapeHtml(body)}</p></li>`).join('')
     const extra = details.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.body)}</p></section>`).join('')
     const faq = details.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.guide.title)}</h1><p>${escapeHtml(localized.guide.intro)}</p><ol>${steps}</ol><h2>${escapeHtml(details.moreTitle)}</h2>${extra}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.guide.cta)}</a></main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.guide.title)}</h1><p>${escapeHtml(localized.guide.intro)}</p><section><h2>${escapeHtml(details.quickLabel)}</h2><p>${escapeHtml(details.quickAnswer)}</p></section><ol>${steps}</ol><h2>${escapeHtml(details.moreTitle)}</h2>${extra}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.guide.cta)}</a></main>`
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
@@ -383,7 +384,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
     const contextualLinks = relatedCollections ? `<nav class="seo-static-links" aria-label="${escapeHtml(localized.detail.compareStyle)}">${relatedCollections}</nav>` : ''
-    return `<main class="seo-static-shell"><h1>${escapeHtml(crosshair.name)}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }

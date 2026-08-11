@@ -13,6 +13,10 @@ export default function ImportGuide({ locale }) {
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
       </header>
+      <section className="guide-quick-answer" aria-labelledby="guide-quick-answer-title">
+        <span>{details.quickLabel}</span>
+        <p id="guide-quick-answer-title">{details.quickAnswer}</p>
+      </section>
       <ol className="guide-steps">
         {content.steps.map(([title, body], index) => (
           <li key={title}>
