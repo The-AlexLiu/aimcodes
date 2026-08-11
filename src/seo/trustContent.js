@@ -1,6 +1,6 @@
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 
-export const TRUST_UPDATED_AT = '2026-08-10'
+export const TRUST_UPDATED_AT = '2026-08-11'
 
 const content = {
   en: {
@@ -35,8 +35,8 @@ const content = {
     contact: {
       eyebrow: 'FOUND A BAD CODE?', title: 'Tell us what looks off', intro: `Wrong shape, dead code, confusing name, or a better idea? Email us at ${CONTACT_EMAIL}.`,
       sections: [
-        { title: 'Crosshair and product fixes', paragraphs: ['Send the page link, crosshair name, what went wrong, and a recent source if you have one. That gives us enough to check it quickly.'], links: [{ label: 'Report it on GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Email AimCodes', paragraphs: ['Include the page URL and enough detail for us to reproduce the issue. Never send a password, account login, or other sensitive information.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
+        { title: 'Crosshair and product fixes', paragraphs: ['Send the page link, crosshair name, what went wrong, and a recent source if you have one. That gives us enough to check it quickly.'], links: [{ label: 'Email the fix', url: CONTACT_MAILTO }] },
+        { title: 'What to include', paragraphs: [`Add the page URL and enough detail for us to reproduce the issue. Send it to ${CONTACT_EMAIL}, and never include a password, account login, or other sensitive information.`] },
         { title: 'Rights and privacy requests', paragraphs: ['Identify the material or data concerned and the outcome you are requesting. We will use the information only to review and respond to the request.'] },
       ],
     },
@@ -72,8 +72,8 @@ const content = {
     contact: {
       eyebrow: '¿HAS VISTO ALGO RARO?', title: 'Cuéntanos qué falla', intro: `¿Forma incorrecta, código roto, nombre confuso o una idea mejor? Escríbenos a ${CONTACT_EMAIL}.`,
       sections: [
-        { title: 'Arreglos de miras y producto', paragraphs: ['Manda la URL, el nombre de la mira, lo que falla y una fuente reciente si la tienes. Así podremos comprobarlo rápido.'], links: [{ label: 'Avisar en GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Escribe a AimCodes', paragraphs: ['Incluye la URL de la página y detalles suficientes para reproducir el problema. Nunca envíes contraseñas, accesos ni información sensible.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
+        { title: 'Arreglos de miras y producto', paragraphs: ['Manda la URL, el nombre de la mira, lo que falla y una fuente reciente si la tienes. Así podremos comprobarlo rápido.'], links: [{ label: 'Enviar la corrección', url: CONTACT_MAILTO }] },
+        { title: 'Qué debes incluir', paragraphs: [`Añade la URL y los detalles necesarios para reproducir el problema. Envíalo a ${CONTACT_EMAIL} y nunca incluyas contraseñas, accesos ni información sensible.`] },
         { title: 'Solicitudes de derechos y privacidad', paragraphs: ['Identifica el material o dato y el resultado que solicitas. Solo usaremos esa información para revisar y responder.'] },
       ],
     },
@@ -109,8 +109,8 @@ const content = {
     contact: {
       eyebrow: 'ACHOU ALGO ERRADO?', title: 'Conta para a gente', intro: `Formato errado, código quebrado, nome confuso ou uma ideia melhor? Escreva para ${CONTACT_EMAIL}.`,
       sections: [
-        { title: 'Ajustes de mira e produto', paragraphs: ['Mande a URL, o nome da mira, o que deu errado e uma fonte recente se tiver. Assim a gente consegue conferir mais rápido.'], links: [{ label: 'Avisar pelo GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Fale com o AimCodes', paragraphs: ['Inclua a URL da página e detalhes suficientes para reproduzir o problema. Nunca envie senha, acesso da conta ou outros dados sensíveis.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
+        { title: 'Ajustes de mira e produto', paragraphs: ['Mande a URL, o nome da mira, o que deu errado e uma fonte recente se tiver. Assim a gente consegue conferir mais rápido.'], links: [{ label: 'Enviar a correção', url: CONTACT_MAILTO }] },
+        { title: 'O que incluir', paragraphs: [`Inclua a URL e detalhes suficientes para reproduzir o problema. Envie para ${CONTACT_EMAIL} e nunca mande senha, acesso da conta ou outros dados sensíveis.`] },
         { title: 'Pedidos de direitos e privacidade', paragraphs: ['Identifique o material ou dado e o resultado solicitado. Usaremos essas informações apenas para analisar e responder.'] },
       ],
     },
@@ -146,8 +146,8 @@ const content = {
     contact: {
       eyebrow: '发现哪里不对？', title: '来告诉我们', intro: `准星长错了、代码失效、名字看不懂，或者你有更好用的方案，都可以发到 ${CONTACT_EMAIL}。`,
       sections: [
-        { title: '准星和产品纠错', paragraphs: ['把页面地址、准星名称、哪里不对，以及方便核对的最新来源发给我们，处理起来会更快。'], links: [{ label: '去 GitHub 报个问题', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: '发邮件给 AimCodes', paragraphs: ['请附上页面地址和足够复现问题的信息。密码、账号凭据和其他敏感信息不要发。'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
+        { title: '准星和产品纠错', paragraphs: ['把页面地址、准星名称、哪里不对，以及方便核对的最新来源发给我们，处理起来会更快。'], links: [{ label: '发邮件反馈', url: CONTACT_MAILTO }] },
+        { title: '邮件里带上这些', paragraphs: [`写清页面地址和复现方式，发到 ${CONTACT_EMAIL}。密码、账号凭据和其他敏感信息不要发。`] },
         { title: '权利与隐私申请', paragraphs: ['请说明涉及的内容或数据，以及希望如何处理。相关信息只会用于核查和回复该申请。'] },
       ],
     },

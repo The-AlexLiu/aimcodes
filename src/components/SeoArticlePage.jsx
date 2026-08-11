@@ -7,10 +7,10 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
   const content = articleCopy(locale, articleKey)
   const labels = {
-    en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references' },
-    es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales' },
-    'pt-BR': { quick: 'Resposta rápida', related: 'Guias relacionados do AimCodes', import: 'Guia para importar e copiar miras', sources: 'Referências oficiais' },
-    'zh-CN': { quick: '快速结论', related: 'AimCodes 相关指南', import: '准星代码导入与复制指南', sources: '官方参考资料' },
+    en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions' },
+    es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales', faq: 'Preguntas habituales' },
+    'pt-BR': { quick: 'Resposta rápida', related: 'Guias relacionados do AimCodes', import: 'Guia para importar e copiar miras', sources: 'Referências oficiais', faq: 'Dúvidas comuns' },
+    'zh-CN': { quick: '先说结论', related: '接着看这些', import: '准星代码怎么导入和复制', sources: '官方资料', faq: '大家常问' },
   }[locale]
   const recommended = content.recommendedCrosshairIds
     .map((id) => crosshairs.find((item) => item.id === id))
@@ -67,7 +67,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
       </section>
 
       <section className="seo-article-faq">
-        <span>FAQ</span>
+        <span>{labels.faq}</span>
         <div>
           {content.faq.map(([question, answer]) => (
             <details key={question}>

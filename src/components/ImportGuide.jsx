@@ -5,6 +5,7 @@ import { importGuideDetails } from '../seo/importGuideDetails.js'
 export default function ImportGuide({ locale }) {
   const content = seoCopy(locale).guide
   const details = importGuideDetails(locale)
+  const faqLabel = { en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale] || 'Common questions'
   return (
     <article className="guide-page">
       <header>
@@ -32,7 +33,7 @@ export default function ImportGuide({ locale }) {
         </div>
       </section>
       <section className="guide-faq">
-        <span>FAQ</span>
+        <span>{faqLabel}</span>
         {details.faq.map(([question, answer]) => (
           <details key={question}>
             <summary>{question}</summary>

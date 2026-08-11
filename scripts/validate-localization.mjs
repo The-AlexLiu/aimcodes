@@ -3,7 +3,8 @@ import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
 import { collectionCopy } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
-import { SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS } from '../src/seo/routes.js'
+import { seoToolCopy } from '../src/seo/toolContent.js'
+import { SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_TOOL_KEYS } from '../src/seo/routes.js'
 
 const locales = ['en', 'es', 'zh-CN', 'pt-BR']
 const failures = []
@@ -28,6 +29,15 @@ for (const locale of locales) {
   const guide = importGuideDetails(locale)
   if (!guide.moreTitle || guide.sections?.length !== 4 || guide.sections.some((section) => !section.title || !section.body)) failures.push(`${locale} needs four complete import guide sections`)
   if (guide.faq?.length !== 3 || guide.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} import guide needs three complete FAQs`)
+
+  for (const toolKey of SEO_TOOL_KEYS) {
+    const tool = seoToolCopy(locale, toolKey)
+    for (const field of ['eyebrow', 'title', 'intro', 'guideTitle', 'guideIntro', 'metaTitle', 'metaDescription']) {
+      if (!String(tool[field] || '').trim()) failures.push(`${locale} ${toolKey} tool is missing ${field}`)
+    }
+    if (tool.tips?.length !== 3 || tool.tips.some((tip) => !tip.title || !tip.body)) failures.push(`${locale} ${toolKey} tool needs three complete tips`)
+    if (tool.faq?.length < 2 || tool.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${toolKey} tool needs at least two complete FAQs`)
+  }
 
   for (const articleKey of SEO_ARTICLE_KEYS) {
     const article = articleCopy(locale, articleKey)

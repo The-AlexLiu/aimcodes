@@ -53,11 +53,13 @@ const sourceFiles = await Promise.all([
   readFile(resolve(projectRoot, 'src/App.jsx'), 'utf8'),
   readFile(resolve(projectRoot, 'src/components/SiteFooter.jsx'), 'utf8'),
   readFile(resolve(projectRoot, 'src/seo/trustContent.js'), 'utf8'),
+  readFile(resolve(projectRoot, 'src/config/contact.js'), 'utf8'),
 ])
 const source = sourceFiles.join('\n')
 if (!source.includes('data-ad-eligible')) errors.push('App: future ad-eligibility marker is missing')
 if (!source.includes('https://www.riotgames.com/en/legal')) errors.push('Terms: Riot fan-content policy link is missing')
-if (!source.includes('https://github.com/The-AlexLiu/aimcodes/issues/new')) errors.push('Contact: working correction channel is missing')
+if (!source.includes('contact@aimcodes.com') || !source.includes('mailto:')) errors.push('Contact: public email correction channel is missing')
+if (/github\.com\/The-AlexLiu/i.test(source)) errors.push('Contact: a private project GitHub address is exposed in public site copy')
 if (/ca-pub-(?:0+|x+|your|example)/i.test(source)) errors.push('Source contains a placeholder AdSense publisher ID')
 if (/\b(?:TODO|TBD)\b|example\.com/.test(sourceFiles[2])) errors.push('Trust content contains unfinished placeholder copy')
 

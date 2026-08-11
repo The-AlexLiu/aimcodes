@@ -84,7 +84,7 @@ for (const locale of Object.keys(localeRoutes)) {
       }
       if (route.type === 'collection') {
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: FAQPage structured data missing`)
-        if (!html.includes('<h2>FAQ</h2>')) errors.push(`${path}: visible FAQ missing from initial HTML`)
+        if (!html.includes(`<h2>${escapeHtml({ en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale])}</h2>`)) errors.push(`${path}: localized FAQ heading missing from initial HTML`)
         if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
         for (const id of SEO_COLLECTIONS[route.collectionKey].crosshairIds) {
           const item = localizedCrosshairs.find((crosshairItem) => crosshairItem.id === id)
@@ -94,7 +94,7 @@ for (const locale of Object.keys(localeRoutes)) {
       if (route.type === 'guide') {
         if (!html.includes('"@type":"HowTo"')) errors.push(`${path}: HowTo structured data missing`)
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: guide FAQPage structured data missing`)
-        if (!html.includes('<h2>FAQ</h2>')) errors.push(`${path}: guide FAQ missing from initial HTML`)
+        if (!html.includes(`<h2>${escapeHtml({ en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale])}</h2>`)) errors.push(`${path}: localized guide FAQ missing from initial HTML`)
       }
       if (route.type === 'article') {
         const article = articleCopy(locale, route.articleKey)
