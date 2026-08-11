@@ -1,5 +1,5 @@
 import { localeRoutes } from '../i18n/localeRoutes.js'
-import { crosshairSlug, routePath } from './routes.js'
+import { crosshairSlug, routePath, SEO_COLLECTIONS } from './routes.js'
 import { articleCopy } from './articles.js'
 import { expansionCollectionCopy } from './collectionExpansionContent.js'
 import { trustCopy } from './trustContent.js'
@@ -490,7 +490,50 @@ export function routeMetadata(locale, route, crosshair) {
     description = localized.notFound.body
   }
 
-  return { title, description, canonical, image: `${SITE_ORIGIN}${OG_IMAGE_PATH}` }
+  let imagePath = OG_IMAGE_PATH
+  let standaloneImagePath = null
+  let imageAlt = title
+
+  if (route.type === 'crosshair' && crosshair) {
+    const searchName = searchDisplayNames[crosshair.id]?.[locale] || crosshair.shortName
+    imagePath = `/images/og/crosshairs/${crosshairSlug(crosshair.id)}.jpg`
+    standaloneImagePath = `/images/crosshairs/${crosshairSlug(crosshair.id)}.webp`
+    imageAlt = {
+      en: `${searchName} VALORANT crosshair preview on Ascent`,
+      es: `Vista previa de la mira ${searchName} de VALORANT en Ascent`,
+      'pt-BR': `Prévia da mira ${searchName} do VALORANT na Ascent`,
+      'zh-CN': `${searchName} 无畏契约准星在亚海悬城中的预览效果`,
+    }[locale] || `${searchName} VALORANT crosshair preview`
+  } else if (route.type === 'collection') {
+    const collection = collectionCopy(locale, route.collectionKey)
+    imagePath = `/images/og/collections/${SEO_COLLECTIONS[route.collectionKey].slug}.jpg`
+    imageAlt = {
+      en: `${collection.label} shown in VALORANT map previews`,
+      es: `${collection.label} mostradas en mapas de VALORANT`,
+      'pt-BR': `${collection.label} mostradas em mapas do VALORANT`,
+      'zh-CN': `${collection.label}在无畏契约地图中的预览合集`,
+    }[locale] || collection.title
+  } else if (route.type === 'catalog') {
+    imagePath = `/images/og/collections/${SEO_COLLECTIONS.best.slug}.jpg`
+    imageAlt = {
+      en: 'AimCodes VALORANT crosshair library preview',
+      es: 'Vista previa de la biblioteca de miras de VALORANT de AimCodes',
+      'pt-BR': 'Prévia da biblioteca de miras do VALORANT do AimCodes',
+      'zh-CN': 'AimCodes 无畏契约准星库预览',
+    }[locale] || title
+  }
+
+  return {
+    title,
+    description,
+    canonical,
+    image: `${SITE_ORIGIN}${imagePath}`,
+    imagePath,
+    standaloneImage: standaloneImagePath ? `${SITE_ORIGIN}${standaloneImagePath}` : null,
+    imageAlt,
+    imageWidth: 1200,
+    imageHeight: 630,
+  }
 }
 
 export function alternateUrls(route) {
