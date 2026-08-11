@@ -17,12 +17,12 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近生产提交：`f66d032`
-- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/16>
+- 最近产品代码生产提交：`9dbfdf1`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/18>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
-- 架构效率版本新增 `src/data/catalogManifest.js` 与 `pnpm validate:manifest`，图片、Sitemap、集合和索引详情从同一清单派生；`App.jsx` 只保留全局编排，目录视图模型和主要展示区域已拆分。
+- PR <https://github.com/The-AlexLiu/aimcodes/pull/18> 新增 `src/data/catalogManifest.js` 与 `pnpm validate:manifest`，图片、Sitemap、集合和索引详情从同一清单派生；`App.jsx` 只保留全局编排，目录视图模型和主要展示区域已拆分。
 
 ## Cursor 接手时第一步
 
@@ -75,12 +75,12 @@
 
 ## 最近产品代码生产发布
 
-- 发布时间：2026-08-10；
-- 对应功能提交：`8d4450f`；
-- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>；
+- 发布时间：2026-08-11；
+- 对应功能提交：`9dbfdf1`；
+- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/18>；
 - 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认四语种代表页、10 个新增集合、10 个新增指南、4 个新增工具、208 URL sitemap、robots 和 canonical 正常。
+- 发布后已确认英、中、西、葡代表页、目录搜索、准星详情、合集与生成器正常；主 Sitemap 544 条、准星 Sitemap 400 条、图片 Sitemap 460 个页面与 860 个图片引用均可访问。
 
 ## 已发布的分享增长功能
 
