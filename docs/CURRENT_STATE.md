@@ -1,6 +1,6 @@
 # AimCodes 当前状态
 
-状态日期：2026-08-10
+状态日期：2026-08-11
 
 本文件用于 GPT/Codex、Cursor 和人工开发者快速恢复项目上下文。发生生产发布、重要合并、路由变化或权限变化后必须更新。
 
@@ -36,7 +36,18 @@
 - 站内交互来源统一使用 `interaction_source`，标准 `source` 只用于对外链接的渠道归因；
 - 404 个生成 HTML 路由；
 - 208 个 sitemap canonical URL；
+- 62 张独立准星预览图、62 张准星详情 OG 图和 15 张集合页 OG 图；
+- 独立图片 Sitemap 覆盖 124 个四语种集合/详情页，共声明 188 个图片引用；
 - 社媒视频、方形图和配套封面生成工具。
+
+## 图片 SEO 基线
+
+- `pnpm build` 会先从真实准星代码和现有地图素材确定性生成图片，不依赖手工导出或外部图片服务；
+- 独立准星图位于 `public/images/crosshairs/`，尺寸为 1080 × 1080 WebP；
+- 页面分享图位于 `public/images/og/crosshairs/` 与 `public/images/og/collections/`，尺寸为 1200 × 630 JPG；
+- 准星详情页和集合页使用独立 OG 图片、图片替代文本、宽高属性和 `ImageObject` 结构化数据；
+- 构建产物包含 `sitemap-images.xml`，并由 `robots.txt` 同时声明网页 Sitemap 与图片 Sitemap；
+- `pnpm validate:images` 会检查文件数量、格式、尺寸、页面元数据、图片 Sitemap 覆盖率和 robots 声明。
 
 ## 已发布 SEO 基线
 
@@ -72,6 +83,7 @@
 - 多语种路由验证通过；
 - 404 个生成路由和 208 个 sitemap URL 验证通过；
 - 12,699 条生成页面站内链接验证通过，无断链；
+- 139 张图片 SEO 资产与图片 Sitemap 通过自动验证；
 - 4 个新增工具的代码生成、解析、无效代码拒绝与数据库代码兼容验证通过；
 - 四个官方社媒链接出现在结构化数据和前端资源中；
 - 线上 `/en/`、`/es/`、`/pt-br/`、`/zh-cn/` 和渲染器均返回 200；

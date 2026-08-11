@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-localized-routes.mjs",
+    "build": "node scripts/generate-crosshair-images.mjs && vite build && node scripts/generate-localized-routes.mjs",
+    "generate:images": "node scripts/generate-crosshair-images.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "validate:crosshairs": "node scripts/validate-crosshairs.mjs",
@@ -17,7 +18,8 @@
     "validate:tools": "node scripts/validate-seo-tools.mjs",
     "validate:analytics": "node scripts/validate-analytics.mjs",
     "validate:sharing": "node scripts/validate-sharing.mjs",
-    "validate:adsense": "node scripts/validate-adsense-readiness.mjs"
+    "validate:adsense": "node scripts/validate-adsense-readiness.mjs",
+    "validate:images": "node scripts/validate-image-seo.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -31,7 +33,8 @@
     "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
-    "globals": "latest"
+    "globals": "latest",
+    "sharp": "0.34.3"
   },
   "pnpm": {
     "overrides": {

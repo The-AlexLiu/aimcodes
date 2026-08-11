@@ -10,6 +10,7 @@ import {
   collectionCopy,
   crosshairBreadcrumbName,
   detailCopy,
+  detailHeading,
   routeMetadata,
   SEO_CONTENT_UPDATED_AT,
   seoCopy,
@@ -37,6 +38,10 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
 }
 
+function escapeXml(value) {
+  return escapeHtml(value).replaceAll("'", '&apos;')
+}
+
 function jsonLd(value) {
   return JSON.stringify(value).replaceAll('<', '\\u003c')
 }
@@ -48,10 +53,16 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       '@type': 'Organization',
       '@id': `${SITE_ORIGIN}/#organization`,
       name: 'AimCodes',
+      alternateName: 'Aim Codes',
       url: `${SITE_ORIGIN}/`,
       logo: {
         '@type': 'ImageObject',
+        '@id': `${SITE_ORIGIN}/#logo`,
         url: `${SITE_ORIGIN}/brand/aimcodes-logo.png`,
+        contentUrl: `${SITE_ORIGIN}/brand/aimcodes-logo.png`,
+        width: 512,
+        height: 512,
+        caption: 'AimCodes',
       },
       email: CONTACT_EMAIL,
     },
@@ -246,6 +257,22 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
     })
   }
 
+  const primaryImageId = `${metadata.canonical}#primaryimage`
+  const primaryEntity = graph.find((item) => typeof item['@id'] === 'string' && item['@id'].startsWith(metadata.canonical))
+  if (primaryEntity) {
+    primaryEntity.image = { '@id': primaryImageId }
+    primaryEntity.primaryImageOfPage = { '@id': primaryImageId }
+  }
+  graph.push({
+    '@type': 'ImageObject',
+    '@id': primaryImageId,
+    url: metadata.image,
+    contentUrl: metadata.image,
+    width: metadata.imageWidth,
+    height: metadata.imageHeight,
+    caption: metadata.imageAlt,
+  })
+
   return { '@context': 'https://schema.org', '@graph': graph }
 }
 
@@ -271,16 +298,18 @@ ${alternateLinks}
     <meta property="og:title" content="${escapeHtml(metadata.title)}" />
     <meta property="og:description" content="${escapeHtml(metadata.description)}" />
     <meta property="og:image" content="${metadata.image}" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="720" />
+    <meta property="og:image:width" content="${metadata.imageWidth}" />
+    <meta property="og:image:height" content="${metadata.imageHeight}" />
+    <meta property="og:image:alt" content="${escapeHtml(metadata.imageAlt)}" />
     <meta property="og:locale" content="${config.ogLocale}" />
 ${alternateLocales}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(metadata.title)}" />
     <meta name="twitter:description" content="${escapeHtml(metadata.description)}" />
     <meta name="twitter:image" content="${metadata.image}" />
+    <meta name="twitter:image:alt" content="${escapeHtml(metadata.imageAlt)}" />
     <script type="application/ld+json">${jsonLd(schema)}</script>
-    <style id="aimcodes-static-seo">.seo-static-shell{max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}.seo-static-shell h1{max-width:900px;font-size:52px;line-height:1.1}.seo-static-shell p{max-width:760px;color:#aeb8bf;font-size:16px;line-height:1.65}.seo-static-shell a{color:#ff6b65}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}@media(max-width:680px){.seo-static-shell{padding:36px 18px}.seo-static-shell h1{font-size:36px;line-height:1.12}}</style>
+    <style id="aimcodes-static-seo">.seo-static-shell{max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}.seo-static-shell h1{max-width:900px;font-size:52px;line-height:1.1}.seo-static-shell p{max-width:760px;color:#aeb8bf;font-size:16px;line-height:1.65}.seo-static-shell a{color:#ff6b65}.seo-static-hero-image{display:block;width:min(100%,960px);height:auto;margin:26px 0;border:1px solid #36434d;border-radius:8px}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}@media(max-width:680px){.seo-static-shell{padding:36px 18px}.seo-static-shell h1{font-size:36px;line-height:1.12}}</style>
     ${seoEnd}`
 }
 
@@ -312,11 +341,23 @@ function staticReferenceLabel(locale) {
   return { en: 'Official references', es: 'Referencias oficiales', 'pt-BR': 'Referências oficiais', 'zh-CN': '官方参考资料' }[locale] || 'Official references'
 }
 
+function staticFaqLabel(locale) {
+  return { en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale] || 'Common questions'
+}
+
+function staticHeroImage(locale, route, crosshair) {
+  const metadata = routeMetadata(locale, route, crosshair)
+  const image = metadata.standaloneImage || metadata.image
+  const width = metadata.standaloneImage ? 1080 : metadata.imageWidth
+  const height = metadata.standaloneImage ? 1080 : metadata.imageHeight
+  return `<img class="seo-static-hero-image" src="${image}" width="${width}" height="${height}" alt="${escapeHtml(metadata.imageAlt)}" />`
+}
+
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
   const localized = seoCopy(locale)
   if (route.type === 'home') {
-    const featured = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, featured)}${staticPublisherValue(locale, 'home')}</main>`
+    const featured = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticLinks(locale, featured)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
   }
   if (route.type === 'catalog') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, localizedCrosshairs)}${staticPublisherValue(locale, 'catalog')}</main>`
@@ -334,7 +375,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const settings = collection.settings?.length ? `<section><h2>${escapeHtml(collection.settingsTitle)}</h2><ul>${collection.settings.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>` : ''
     const related = `${(collection.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(collection.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticLinks(locale, items)}<section>${body}</section>${selection}${settings}<section><h2>FAQ</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${staticHeroImage(locale, route, null)}${staticLinks(locale, items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
@@ -344,7 +385,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const steps = localized.guide.steps.map(([title, body]) => `<li><strong>${escapeHtml(title)}</strong><p>${escapeHtml(body)}</p></li>`).join('')
     const extra = details.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.body)}</p></section>`).join('')
     const faq = details.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.guide.title)}</h1><p>${escapeHtml(localized.guide.intro)}</p><ol>${steps}</ol><h2>${escapeHtml(details.moreTitle)}</h2>${extra}<h2>FAQ</h2>${faq}<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.guide.cta)}</a></main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.guide.title)}</h1><p>${escapeHtml(localized.guide.intro)}</p><section><h2>${escapeHtml(details.quickLabel)}</h2><p>${escapeHtml(details.quickAnswer)}</p></section><ol>${steps}</ol><h2>${escapeHtml(details.moreTitle)}</h2>${extra}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.guide.cta)}</a></main>`
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
@@ -353,12 +394,14 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const recommended = article.recommendedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
     const related = `${(article.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(article.relatedCollectionKeys || []).map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).title)}</a>`).join('')}${(article.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const sources = article.sources?.length ? `<section><h2>${escapeHtml(staticReferenceLabel(locale))}</h2>${article.sources.map((source) => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join('')}</section>` : ''
-    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>FAQ</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'tool') {
     const tool = seoToolCopy(locale, route.toolKey)
     const related = SEO_TOOL_KEYS.filter((toolKey) => toolKey !== route.toolKey).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')
-    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(tool.title)}</span></nav><h1>${escapeHtml(tool.title)}</h1><p>${escapeHtml(tool.intro)}</p><section><h2>${escapeHtml(tool.eyebrow)}</h2><p>${escapeHtml(tool.metaDescription)}</p></section><nav class="seo-static-links">${related}<a href="${routePath(locale, { type: 'finder' })}">${escapeHtml(localized.meta.finderTitle)}</a></nav></main>`
+    const tips = tool.tips.map((tip) => `<article><h3>${escapeHtml(tip.title)}</h3><p>${escapeHtml(tip.body)}</p></article>`).join('')
+    const faq = tool.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(tool.title)}</span></nav><h1>${escapeHtml(tool.title)}</h1><p>${escapeHtml(tool.intro)}</p><section><h2>${escapeHtml(tool.guideTitle)}</h2><p>${escapeHtml(tool.guideIntro)}</p>${tips}</section><section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}<a href="${routePath(locale, { type: 'finder' })}">${escapeHtml(localized.meta.finderTitle)}</a></nav></main>`
   }
   if (route.type === 'trust') {
     const page = trustCopy(locale, route.pageKey)
@@ -377,7 +420,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
     const contextualLinks = relatedCollections ? `<nav class="seo-static-links" aria-label="${escapeHtml(localized.detail.compareStyle)}">${relatedCollections}</nav>` : ''
-    return `<main class="seo-static-shell"><h1>${escapeHtml(crosshair.name)}</h1><p>${escapeHtml(crosshair.description)}</p><code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}<code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }
@@ -422,7 +465,7 @@ for (const locale of Object.keys(localeRoutes)) {
       ? localizedCrosshairs.find((item) => item.id === route.crosshairId)
       : null
     const indexed = isIndexableRoute(route)
-    if (indexed) indexedRoutes.push({ locale, route })
+    if (indexed) indexedRoutes.push({ locale, route, crosshair })
 
     const outputPath = resolve(distRoot, routePath(locale, route).slice(1), 'index.html')
     await mkdir(dirname(outputPath), { recursive: true })
@@ -440,6 +483,20 @@ const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
 await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)
 
+const imageSitemapEntries = indexedRoutes
+  .filter(({ route }) => route.type === 'crosshair' || route.type === 'collection')
+  .map(({ locale, route, crosshair }) => {
+    const metadata = routeMetadata(locale, route, crosshair)
+    const images = [metadata.standaloneImage, metadata.image]
+      .filter(Boolean)
+      .map((image) => `    <image:image>\n      <image:loc>${escapeXml(image)}</image:loc>\n      <image:title>${escapeXml(metadata.imageAlt)}</image:title>\n      <image:caption>${escapeXml(metadata.description)}</image:caption>\n    </image:image>`)
+      .join('\n')
+    return `  <url>\n    <loc>${escapeXml(metadata.canonical)}</loc>\n${images}\n  </url>`
+  })
+  .join('\n')
+const imageSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${imageSitemapEntries}\n</urlset>\n`
+await writeFile(resolve(distRoot, 'sitemap-images.xml'), imageSitemap)
+
 const notFoundCopy = seoCopy('en').notFound
 const notFoundSeo = `${seoStart}
     <meta name="robots" content="noindex,follow" />
@@ -456,4 +513,6 @@ const notFound = replaceSeoBlock(template, notFoundSeo)
   .replace('<div id="root"></div>', '<main class="not-found-page"><span>404</span><h1>That crosshair missed</h1><p>This page does not exist. Head back to the crosshair catalog and pick another one.</p><a class="primary-button" href="/en/crosshairs/">Browse crosshairs</a></main>')
 await writeFile(resolve(distRoot, '404.html'), notFound)
 
-console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml.`)
+const imageSitemapPageCount = indexedRoutes.filter(({ route }) => route.type === 'crosshair' || route.type === 'collection').length
+const imageSitemapImageCount = indexedRoutes.reduce((count, { route }) => count + (route.type === 'crosshair' ? 2 : route.type === 'collection' ? 1 : 0), 0)
+console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml; ${imageSitemapPageCount} pages and ${imageSitemapImageCount} image references added to sitemap-images.xml.`)

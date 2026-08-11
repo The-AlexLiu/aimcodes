@@ -18,6 +18,9 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
   const relatedLabel = {
     en: 'Keep exploring', es: 'Sigue explorando', 'pt-BR': 'Continue explorando', 'zh-CN': '继续试准星',
   }[locale] || 'Keep exploring'
+  const faqLabel = {
+    en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问',
+  }[locale] || 'Common questions'
 
   return (
     <section className="seo-collection-details">
@@ -39,7 +42,7 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
         </section>
       )}
       <div className="seo-faq">
-        <h2>FAQ</h2>
+        <h2>{faqLabel}</h2>
         {content.faq.map(([question, answer]) => (
           <details key={question}>
             <summary>{question}</summary>

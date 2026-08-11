@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import CodeDialog from './components/CodeDialog.jsx'
-import { BrandMark, BrandWordmark } from './components/BrandLogo.jsx'
+import { BrandMark } from './components/BrandLogo.jsx'
+import CatalogControls from './components/CatalogControls.jsx'
 import CrosshairCanvas from './components/CrosshairCanvas.jsx'
 import CrosshairCard from './components/CrosshairCard.jsx'
 import CrosshairFinder from './components/CrosshairFinder.jsx'
@@ -14,13 +15,14 @@ import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
 import SeoArticlePage from './components/SeoArticlePage.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
+import SiteHeader from './components/SiteHeader.jsx'
 import PublisherValueSection from './components/PublisherValueSection.jsx'
 import TrustPage from './components/TrustPage.jsx'
 import { isAdEligibleRoute } from './config/adPolicy.js'
 import { crosshairs, filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
 import { createTranslator, languages, localizeCrosshair } from './i18n/translations.js'
-import { collectionCopy, pageSlug, routeMetadata, seoCopy } from './seo/content.js'
+import { collectionCopy, detailHeading, pageSlug, routeMetadata, seoCopy } from './seo/content.js'
 import { localizedRoutePath, parseSeoRoute, routePath, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from './seo/routes.js'
 import { parseCrosshairCode, updateCrosshairColor } from './utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from './utils/crosshairSimilarity.js'
@@ -28,7 +30,7 @@ import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytic
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from './utils/shareLinks.js'
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
-const utilityFilters = ['recent']
+const CATALOG_SESSION_KEY = 'aimcodes-catalog-session-v1'
 const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(crosshairs)
 const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
 const recommendedOrder = new Map(SEO_CROSSHAIR_IDS.map((id, index) => [id, index]))
@@ -40,6 +42,22 @@ function readStoredValue(key, fallback) {
     return value ?? fallback
   } catch {
     return fallback
+  }
+}
+
+function readCatalogSession() {
+  try {
+    return JSON.parse(sessionStorage.getItem(CATALOG_SESSION_KEY) || '{}')
+  } catch {
+    return {}
+  }
+}
+
+function writeCatalogSession(value) {
+  try {
+    sessionStorage.setItem(CATALOG_SESSION_KEY, JSON.stringify(value))
+  } catch {
+    // Browsing and copying still work when session storage is unavailable.
   }
 }
 
@@ -101,20 +119,20 @@ function updatePageMetadata(language, metadata) {
 export default function App() {
   const initialParams = useMemo(() => new URLSearchParams(window.location.search), [])
   const route = useMemo(() => parseSeoRoute(window.location.pathname), [])
+  const catalogSession = useMemo(() => route.type === 'catalog' ? readCatalogSession() : {}, [route.type])
   const [language] = useState(route.locale)
   const [recentIds, setRecentIds] = useState(() => readStoredValue(RECENT_STORAGE_KEY, []))
   const [selectedId, setSelectedId] = useState(() => route.crosshairId || crosshairs[0].id)
-  const [query, setQuery] = useState('')
-  const [activeFilter, setActiveFilter] = useState('all')
-  const [catalogSort, setCatalogSort] = useState('recommended')
+  const [query, setQuery] = useState(() => catalogSession.query || '')
+  const [activeFilter, setActiveFilter] = useState(() => catalogSession.activeFilter || 'all')
+  const [catalogSort, setCatalogSort] = useState(() => catalogSession.catalogSort || 'recommended')
   const [background, setBackground] = useState(() => readSharedPreviewOptions(initialParams).background)
   const [colorOverrides, setColorOverrides] = useState(() => readSharedColorOverride(readSharedPreviewOptions(initialParams).colorKey, route.type, route.crosshairId))
   const [toast, setToast] = useState(null)
   const [copiedId, setCopiedId] = useState(null)
   const [crosshairShareStatus, setCrosshairShareStatus] = useState('idle')
   const [showInstructions, setShowInstructions] = useState(false)
-  const [showPreviewSettings, setShowPreviewSettings] = useState(true)
-  const [mobileNav, setMobileNav] = useState(false)
+  const [showPreviewSettings, setShowPreviewSettings] = useState(() => route.type === 'crosshair' && !window.matchMedia('(max-width: 680px)').matches)
   const [finderFocus, setFinderFocus] = useState(false)
   const [codeDialogItem, setCodeDialogItem] = useState(null)
   const toastTimer = useRef(null)
@@ -192,7 +210,7 @@ export default function App() {
   const displayedCrosshairs = (() => {
     if (route.type === 'catalog') return visibleCrosshairs
     if (route.type === 'home') {
-      return SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
+      return SEO_CROSSHAIR_IDS.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
     }
     if (route.type === 'collection') {
       return activeCollection.crosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
@@ -238,6 +256,21 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(recentIds))
   }, [recentIds])
+
+  useEffect(() => {
+    if (route.type !== 'catalog') return
+    const current = readCatalogSession()
+    writeCatalogSession({ ...current, query, activeFilter, catalogSort })
+  }, [activeFilter, catalogSort, query, route.type])
+
+  useEffect(() => {
+    if (route.type !== 'catalog' || !catalogSession.restore || !catalogSession.scrollY) return
+    const timer = window.setTimeout(() => {
+      window.scrollTo(0, catalogSession.scrollY)
+      writeCatalogSession({ ...catalogSession, restore: false })
+    }, 0)
+    return () => window.clearTimeout(timer)
+  }, [catalogSession, route.type])
 
   useEffect(() => {
     const metadata = routeMetadata(language, route, routeCrosshair)
@@ -379,6 +412,9 @@ export default function App() {
   }
 
   const selectCrosshair = (item, interactionSource = 'catalog_grid') => {
+    if (route.type === 'catalog') {
+      writeCatalogSession({ query, activeFilter, catalogSort, scrollY: window.scrollY, restore: true })
+    }
     setSelectedId(item.id)
     setRecentIds((current) => [item.id, ...current.filter((id) => id !== item.id)].slice(0, 8))
     trackEvent('select_content', {
@@ -436,12 +472,10 @@ export default function App() {
 
   const handleFinderFocusChange = useCallback((isFocused) => {
     setFinderFocus(isFocused)
-    if (isFocused) setMobileNav(false)
   }, [])
 
   const changeLanguage = (nextLanguage) => {
     trackEvent('language_change', { from_language: language, to_language: nextLanguage })
-    setMobileNav(false)
     const params = new URLSearchParams()
     if (background !== 'ascent' && (route.type === 'home' || route.type === 'crosshair')) params.set('mapa', background)
     if (route.type === 'crosshair' && crosshairColorPresets.some((option) => option.key === selectedCodeColorKey)) params.set('color', selectedCodeColorKey)
@@ -457,30 +491,29 @@ export default function App() {
     window.location.assign(routePath(language, { type: 'catalog' }))
   }
 
+  const returnToCatalog = (event) => {
+    try {
+      const previous = new URL(document.referrer)
+      if (previous.origin === window.location.origin && previous.pathname !== window.location.pathname) {
+        event.preventDefault()
+        window.history.back()
+      }
+    } catch {
+      // The regular catalog link remains the fallback for direct visits.
+    }
+  }
+
   return (
     <div className={`app-shell ${finderFocus ? 'is-finder-focus' : ''}`} data-locale={language}>
-      <header className="topbar">
-        <a className="brand" href={routePath(language, { type: 'home' })} aria-label={`AimCodes · ${t('nav.explore')}`}>
-          <BrandMark />
-          <BrandWordmark />
-        </a>
-        <nav className={mobileNav ? 'is-open' : ''} aria-label={t('nav.explore')}>
-          <a className={route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' ? 'is-active' : ''} href={routePath(language, { type: 'catalog' })}>{t('nav.explore')}</a>
-          <a className={showFinder ? 'is-active' : ''} href={routePath(language, { type: 'finder' })} onClick={() => trackEvent('finder_open', { interaction_source: 'navigation' })}>{t('nav.finder')}</a>
-          <a className={route.type === 'guide' || route.type === 'article' || route.type === 'tool' ? 'is-active' : ''} href={`${routePath(language, { type: 'home' })}#guides-and-tools`} onClick={() => setMobileNav(false)}>{t('nav.resources')}</a>
-        </nav>
-        <label className="language-selector" title={t('language.label')}>
-          <Icon name="globe" size={17} />
-          <span className="language-value"><b>{currentLanguage.short}</b><em>{currentLanguage.label}</em></span>
-          <Icon name="chevronDown" size={14} />
-          <select value={language} onChange={(event) => changeLanguage(event.target.value)} aria-label={t('language.label')}>
-            {languages.map((item) => <option value={item.code} key={item.code}>{item.label}</option>)}
-          </select>
-        </label>
-        <button className="mobile-menu" type="button" aria-label={t('nav.explore')} aria-expanded={mobileNav} onClick={() => setMobileNav(!mobileNav)}>
-          <Icon name="menu" />
-        </button>
-      </header>
+      <SiteHeader
+        locale={language}
+        route={route}
+        languages={languages}
+        currentLanguage={currentLanguage}
+        onLanguageChange={changeLanguage}
+        onFinderOpen={() => trackEvent('finder_open', { interaction_source: 'navigation' })}
+        t={t}
+      />
 
       <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
@@ -503,26 +536,35 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
-        {route.type === 'home' && <HomeResourceDirectory locale={language} />}
         {route.type === 'collection' && <SeoCollectionIntro locale={language} collectionKey={route.collectionKey} />}
 
-        {route.type === 'catalog' && <div className="search-bar">
-          <Icon name="search" size={21} />
-          <input
-            aria-label={t('search.label')}
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' && visibleCrosshairs[0]) selectCrosshair(visibleCrosshairs[0], 'search_enter')
-              if (event.key === 'Escape') setQuery('')
-            }}
-            placeholder={t('search.placeholder')}
-          />
-          {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
-          <span className="search-shortcut" aria-hidden="true">/</span>
+        {route.type === 'catalog' && <div className="catalog-search-shell">
+          <div className="search-bar">
+            <Icon name="search" size={21} />
+            <input
+              aria-label={t('search.label')}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' && visibleCrosshairs[0]) selectCrosshair(visibleCrosshairs[0], 'search_enter')
+                if (event.key === 'Escape') setQuery('')
+              }}
+              placeholder={t('search.placeholder')}
+            />
+            {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
+            <span className="search-shortcut" aria-hidden="true">/</span>
+          </div>
         </div>}
 
-        {(route.type === 'home' || route.type === 'crosshair') && <section className="workspace" aria-label={t('workspace.label')}>
+        {route.type === 'crosshair' && (
+          <div className="crosshair-return-row">
+            <a href={routePath(language, { type: 'catalog' })} onClick={returnToCatalog}>
+              <Icon name="arrowLeft" size={17} /> {t('catalogUx.backToResults')}
+            </a>
+          </div>
+        )}
+
+        {(route.type === 'home' || route.type === 'crosshair') && <section className="workspace" id="preview" aria-label={t('workspace.label')}>
           <div className="preview-frame">
             <img src={activeBackground.image} alt={t('preview.mapAlt', { map: activeBackgroundName })} width="914" height="514" loading="eager" decoding="async" fetchPriority="high" />
             <CrosshairCanvas crosshair={selected} scale={MAIN_PREVIEW_SCALE} label={t('card.test', { name: selected.name })} />
@@ -537,7 +579,7 @@ export default function App() {
           <aside className={`detail-panel ${selected.isCute ? 'is-cute' : ''}`}>
             <span className="panel-cut" aria-hidden="true" />
             <div className="detail-heading">
-              {route.type === 'crosshair' ? <h1>{selected.name}</h1> : <h2>{selected.name}</h2>}
+              {route.type === 'crosshair' ? <h1>{detailHeading(language, selected)}</h1> : <h2>{selected.name}</h2>}
               <p>{selected.description}</p>
             </div>
 
@@ -614,12 +656,12 @@ export default function App() {
           <CrosshairSeoDetails crosshair={selected} locale={language} />
         )}
 
-        {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && <section className="collection-section" id="collection">
-          {route.type === 'catalog' || route.type === 'collection' ? (
+        {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && <section className={`collection-section ${route.type === 'home' ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection">
+          {route.type === 'collection' ? (
             <div className="catalog-summary">
-              <h2 className={route.type === 'catalog' ? 'visually-hidden' : ''}>{route.type === 'collection' ? collectionCopy(language, route.collectionKey).gridTitle : t('collection.title')}</h2>
+              <h2>{collectionCopy(language, route.collectionKey).gridTitle}</h2>
               <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
-              <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, route.type === 'collection' ? 'collection_random' : 'catalog_random')}>
+              <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, 'collection_random')}>
                 <Icon name="rotate" size={16} /> {t('actions.random')}
               </button>
             </div>
@@ -628,12 +670,15 @@ export default function App() {
               <div className="collection-title-block">
                 <BrandMark compact />
                 <div>
-                  <h2>{route.type === 'home' ? seoCopy(language).home.popular : seoCopy(language).detail.related}</h2>
-                  <p>{route.type === 'home' ? seoCopy(language).home.popularBody : t('collection.subtitle')}</p>
+                  <h2>{route.type === 'home' ? seoCopy(language).home.popular : route.type === 'catalog' ? seoCopy(language).catalog.gridTitle : seoCopy(language).detail.related}</h2>
+                  <p>{route.type === 'home' ? seoCopy(language).home.popularBody : route.type === 'catalog' ? seoCopy(language).catalog.gridBody : t('collection.subtitle')}</p>
                 </div>
               </div>
               <div className="collection-meta">
                 <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
+                {route.type === 'home' && (
+                  <a className="collection-view-all" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).home.primary}</a>
+                )}
                 {route.type === 'crosshair' && (
                   <button type="button" onClick={() => openRandomCrosshair(displayedCrosshairs, 'related_random')}>
                     <Icon name="rotate" size={15} /> {t('actions.random')}
@@ -642,24 +687,20 @@ export default function App() {
               </div>
             </div>
           )}
-          {route.type === 'catalog' && <div className="filters" aria-label={t('filters.label')}>
-            <div className="filter-tabs">
-              {[...filters, ...(recentIds.length >= 2 ? utilityFilters : [])].map((filter) => (
-                <button key={filter} type="button" className={activeFilter === filter ? 'is-active' : ''} onClick={() => changeFilter(filter)}>
-                  {t(`filters.${filter}`)}
-                </button>
-              ))}
-            </div>
-            <label className="catalog-sort">
-              <span>{t('sort.label')}</span>
-              <select value={catalogSort} onChange={(event) => changeSort(event.target.value)}>
-                <option value="recommended">{t('sort.recommended')}</option>
-                <option value="name">{t('sort.name')}</option>
-                <option value="updated">{t('sort.updated')}</option>
-              </select>
-              <Icon name="chevronDown" size={14} />
-            </label>
-          </div>}
+          {route.type === 'catalog' && (
+            <CatalogControls
+              locale={language}
+              filters={filters}
+              recentIds={recentIds}
+              activeFilter={activeFilter}
+              catalogSort={catalogSort}
+              resultCount={displayedCrosshairs.length}
+              onFilterChange={changeFilter}
+              onSortChange={changeSort}
+              onRandom={() => openRandomCrosshair(displayedCrosshairs, 'catalog_random')}
+              t={t}
+            />
+          )}
 
           {displayedCrosshairs.length > 0 ? (
             <div className="crosshair-grid">
@@ -672,11 +713,12 @@ export default function App() {
               <span className="empty-crosshair">+</span>
               <h3>{t('empty.filteredTitle')}</h3>
               <p>{t('empty.filteredBody')}</p>
-              <button type="button" onClick={() => setQuery('')}>{t('actions.clear')}</button>
+              <button type="button" onClick={() => { setQuery(''); changeFilter('all') }}>{t('actions.clear')}</button>
             </div>
           )}
         </section>}
         {route.type === 'collection' && <SeoCollectionDetails locale={language} collectionKey={route.collectionKey} />}
+        {route.type === 'home' && <HomeResourceDirectory locale={language} />}
         {(route.type === 'home' || route.type === 'catalog') && <PublisherValueSection locale={language} type={route.type} />}
           </>
         )}

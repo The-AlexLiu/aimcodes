@@ -8,7 +8,7 @@ export const languages = [
 export const dictionaries = {
   en: {
     meta: { title: 'AimCodes — find a crosshair that feels right', description: 'Try VALORANT crosshairs on real maps and copy a code in seconds.' },
-    nav: { explore: 'Browse', finder: 'Pick for me', resources: 'Guides & tools', mine: 'My crosshairs' },
+    nav: { explore: 'Browse', finder: 'Pick for me', resources: 'Guides & tools', mine: 'My crosshairs', more: 'More', close: 'Close menu', primary: 'Main navigation', collections: 'Crosshair styles', learn: 'Guides and tools', generator: 'Crosshair generator' },
     language: { label: 'Choose language' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Search crosshairs', placeholder: 'Search by player, color, or style…', clear: 'Clear search' },
@@ -23,6 +23,7 @@ export const dictionaries = {
     collection: { title: 'More crosshairs', subtitle: 'Pick one, try it, and copy the code.', countOne: '{count} crosshair', countMany: '{count} crosshairs' },
     filters: { label: 'Browse crosshairs', all: 'All', pro: 'Pro picks', dot: 'Dots', small: 'Small', classic: 'Classic', cute: 'Cute', fun: 'Fun', favorites: 'Saved', recent: 'Recently viewed', mine: 'Mine' },
     sort: { label: 'Sort', recommended: 'Recommended', name: 'Name A–Z', updated: 'Recently updated' },
+    catalogUx: { filters: 'Filters', closeFilters: 'Close filters', backToResults: 'Back to crosshairs' },
     colors: { label: 'Color', filter: 'Choose a color', white: 'White', green: 'Green', lime: 'Lime', chartreuse: 'Yellow green', yellow: 'Yellow', cyan: 'Cyan', pink: 'Pink', red: 'Red', custom: 'Original color' },
     badges: { pro: 'Pro', cute: 'Cute', fun: 'Fun' },
     empty: { filteredTitle: 'Nothing here yet', filteredBody: 'Try a different search or category.' },
@@ -52,7 +53,7 @@ export const dictionaries = {
   },
   es: {
     meta: { title: 'AimCodes — encuentra una mira que te guste', description: 'Prueba miras de VALORANT en mapas reales y copia el código en segundos.' },
-    nav: { explore: 'Ver miras', finder: 'Elige por mí', resources: 'Guías y herramientas', mine: 'Mis miras' },
+    nav: { explore: 'Ver miras', finder: 'Elige por mí', resources: 'Guías y herramientas', mine: 'Mis miras', more: 'Más', close: 'Cerrar menú', primary: 'Navegación principal', collections: 'Estilos de mira', learn: 'Guías y herramientas', generator: 'Generador de miras' },
     language: { label: 'Cambiar idioma' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Buscar miras', placeholder: 'Busca por jugador, color o estilo…', clear: 'Borrar búsqueda' },
@@ -67,6 +68,7 @@ export const dictionaries = {
     collection: { title: 'Más miras', subtitle: 'Elige una, pruébala y copia el código.', countOne: '{count} mira', countMany: '{count} miras' },
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pros', dot: 'Puntos', small: 'Pequeñas', classic: 'Clásicas', cute: 'Bonitas', fun: 'Originales', favorites: 'Guardadas', recent: 'Vistas', mine: 'Mías' },
     sort: { label: 'Orden', recommended: 'Recomendadas', name: 'Nombre A–Z', updated: 'Actualizadas' },
+    catalogUx: { filters: 'Filtros', closeFilters: 'Cerrar filtros', backToResults: 'Volver a las miras' },
     colors: { label: 'Color', filter: 'Elegir color', white: 'Blanco', green: 'Verde', lime: 'Verde lima', chartreuse: 'Verde amarillo', yellow: 'Amarillo', cyan: 'Cian', pink: 'Rosa', red: 'Rojo', custom: 'Color original' },
     badges: { pro: 'De pro', cute: 'Bonita', fun: 'Original' },
     empty: { filteredTitle: 'No hay ninguna por aquí', filteredBody: 'Prueba otra búsqueda o categoría.' },
@@ -96,7 +98,7 @@ export const dictionaries = {
   },
   'zh-CN': {
     meta: { title: 'AimCodes — 找到顺手的准星', description: '在真实地图里试准星，喜欢就直接复制代码。' },
-    nav: { explore: '找准星', finder: '帮我选', resources: '教程与工具', mine: '我的准星' },
+    nav: { explore: '找准星', finder: '帮我选', resources: '教程与工具', mine: '我的准星', more: '更多', close: '关闭菜单', primary: '主导航', collections: '按样式找', learn: '教程和工具', generator: '准星生成器' },
     language: { label: '选择语言' },
     maps: { ascent: '亚海悬城', haven: '隐世修所', bind: '源工重镇' },
     search: { label: '搜索准星', placeholder: '搜选手、颜色或样式…', clear: '清空搜索' },
@@ -111,6 +113,7 @@ export const dictionaries = {
     collection: { title: '更多准星', subtitle: '挑一个，试试看，喜欢就复制。', countOne: '{count} 个准星', countMany: '{count} 个准星' },
     filters: { label: '按类型找准星', all: '全部', pro: '职业同款', dot: '小圆点', small: '小准星', classic: '十字', cute: '可爱', fun: '整活', favorites: '已保存', recent: '最近看过', mine: '我的' },
     sort: { label: '排序', recommended: '推荐优先', name: '名称顺序', updated: '最近更新' },
+    catalogUx: { filters: '筛选', closeFilters: '关闭筛选', backToResults: '返回准星列表' },
     colors: { label: '颜色', filter: '选择颜色', white: '白色', green: '绿色', lime: '黄绿色', chartreuse: '嫩黄色', yellow: '黄色', cyan: '青色', pink: '粉色', red: '红色', custom: '特殊颜色' },
     badges: { pro: '职业同款', cute: '可爱', fun: '整活' },
     empty: { filteredTitle: '这里还没有合适的准星', filteredBody: '换个关键词或分类试试。' },
@@ -140,7 +143,7 @@ export const dictionaries = {
   },
   'pt-BR': {
     meta: { title: 'AimCodes — encontre uma mira que combine com você', description: 'Teste miras de VALORANT em mapas reais e copie o código em segundos.' },
-    nav: { explore: 'Ver miras', finder: 'Escolha por mim', resources: 'Guias e ferramentas', mine: 'Minhas miras' },
+    nav: { explore: 'Ver miras', finder: 'Escolha por mim', resources: 'Guias e ferramentas', mine: 'Minhas miras', more: 'Mais', close: 'Fechar menu', primary: 'Navegação principal', collections: 'Estilos de mira', learn: 'Guias e ferramentas', generator: 'Gerador de mira' },
     language: { label: 'Trocar idioma' },
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' },
     search: { label: 'Buscar miras', placeholder: 'Busque por jogador, cor ou estilo…', clear: 'Limpar busca' },
@@ -155,6 +158,7 @@ export const dictionaries = {
     collection: { title: 'Mais miras', subtitle: 'Escolha uma, teste e copie o código.', countOne: '{count} mira', countMany: '{count} miras' },
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pro', dot: 'Pontos', small: 'Pequenas', classic: 'Clássicas', cute: 'Fofas', fun: 'Diferentes', favorites: 'Salvas', recent: 'Vistas', mine: 'Minhas' },
     sort: { label: 'Ordem', recommended: 'Recomendadas', name: 'Nome A–Z', updated: 'Atualizadas' },
+    catalogUx: { filters: 'Filtros', closeFilters: 'Fechar filtros', backToResults: 'Voltar para as miras' },
     colors: { label: 'Cor', filter: 'Escolher cor', white: 'Branco', green: 'Verde', lime: 'Verde-limão', chartreuse: 'Verde-amarelo', yellow: 'Amarelo', cyan: 'Ciano', pink: 'Rosa', red: 'Vermelho', custom: 'Cor original' },
     badges: { pro: 'De pro', cute: 'Fofa', fun: 'Diferente' },
     empty: { filteredTitle: 'Não tem nenhuma por aqui', filteredBody: 'Tente outra busca ou categoria.' },

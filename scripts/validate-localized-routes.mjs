@@ -34,7 +34,11 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
         `content="${metadata.description}"`,
         `rel="canonical" href="${metadata.canonical}"`,
         'hreflang="x-default"',
+        'rel="icon" href="https://aimcodes.com/favicon.ico"',
+        'rel="icon" href="https://aimcodes.com/favicon-48x48.png"',
         'rel="icon" href="https://aimcodes.com/favicon-v2.png"',
+        'rel="icon" href="https://aimcodes.com/favicon-192x192.png"',
+        'rel="manifest" href="https://aimcodes.com/site.webmanifest"',
         `<meta name="robots" content="${isIndexableRoute(route) ? 'index,follow,max-image-preview:large' : 'noindex,follow'}"`,
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
@@ -83,9 +87,18 @@ if (redirectPositions.some((position) => position < 0) || redirectPositions.some
 }
 
 const robots = await readFile(resolve(projectRoot, 'dist/robots.txt'), 'utf8')
-const favicon = await stat(resolve(projectRoot, 'dist/favicon-v2.png'))
+const faviconIco = await stat(resolve(projectRoot, 'dist/favicon.ico'))
+const favicon48 = await stat(resolve(projectRoot, 'dist/favicon-48x48.png'))
+const favicon96 = await stat(resolve(projectRoot, 'dist/favicon-v2.png'))
+const favicon192 = await stat(resolve(projectRoot, 'dist/favicon-192x192.png'))
+const manifest = await readFile(resolve(projectRoot, 'dist/site.webmanifest'), 'utf8')
 if (!robots.includes('https://aimcodes.com/sitemap.xml')) errors.push('robots.txt: sitemap URL missing')
-if (favicon.size < 1000) errors.push('favicon-v2.png: file is unexpectedly small')
+if (!robots.includes('https://aimcodes.com/sitemap-images.xml')) errors.push('robots.txt: image sitemap URL missing')
+if (faviconIco.size < 1000) errors.push('favicon.ico: file is unexpectedly small')
+if (favicon48.size < 500) errors.push('favicon-48x48.png: file is unexpectedly small')
+if (favicon96.size < 1000) errors.push('favicon-v2.png: file is unexpectedly small')
+if (favicon192.size < 1000) errors.push('favicon-192x192.png: file is unexpectedly small')
+if (!manifest.includes('"name": "AimCodes"') || !manifest.includes('/favicon-192x192.png')) errors.push('site.webmanifest: AimCodes icon metadata missing')
 
 if (errors.length) {
   console.error(errors.join('\n'))
