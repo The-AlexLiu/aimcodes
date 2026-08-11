@@ -17,6 +17,7 @@ const searchDisplayNames = Object.freeze({
 const copy = {
   en: {
     home: {
+      tryNow: 'Try this crosshair',
       eyebrow: 'VALORANT CROSSHAIR LAB',
       title: 'VALORANT crosshair codes you can try before you copy',
       intro: 'Start with working VALORANT aim and crosshair codes, preview them on real maps, then recolor and copy the one that feels right.',
@@ -29,6 +30,8 @@ const copy = {
       eyebrow: '60+ WORKING CODES',
       title: 'Browse VALORANT crosshair codes',
       intro: 'Search by player or style, preview every shape, and copy a code straight into VALORANT.',
+      gridTitle: 'Crosshair library',
+      gridBody: 'Pick a style, preview it, then copy the code.',
     },
     topics: { title: 'Start with a collection' },
     collections: {
@@ -80,7 +83,7 @@ const copy = {
       ],
       cta: 'Browse crosshair codes',
     },
-    footer: { browse: 'Crosshair codes', resources: 'Guides & tools', finder: 'Reaction test', guide: 'Import guide', best: 'Start here', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', email: 'Email AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
+    footer: { browse: 'Crosshair codes', resources: 'Guides & tools', finder: 'Reaction test', guide: 'Import guide', best: 'Popular picks', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', email: 'Email AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
       homeTitle: 'VALORANT Aim Codes & Crosshair Codes | AimCodes',
@@ -95,12 +98,13 @@ const copy = {
   },
   es: {
     home: {
+      tryNow: 'Probar esta mira',
       eyebrow: 'LABORATORIO DE MIRAS DE VALORANT',
       title: 'Códigos de mira de VALORANT para probar antes de copiar',
       intro: 'Empieza con códigos de mira que funcionan, pruébalos sobre mapas reales, cambia el color y copia el que más te guste.',
       primary: 'Ver todas las miras', secondary: 'Hacer la prueba de reacción', popular: 'Miras populares', popularBody: 'Empieza por miras de estilo profesional y algunas opciones divertidas.',
     },
-    catalog: { eyebrow: 'MÁS DE 60 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.' },
+    catalog: { eyebrow: 'MÁS DE 60 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Elige un estilo, pruébalo y copia el código.' },
     topics: { title: 'Empieza por una colección' },
     collections: {
       best: {
@@ -143,7 +147,7 @@ const copy = {
       eyebrow: 'LISTO EN 60 SEGUNDOS', title: 'Cómo importar, copiar y compartir miras en VALORANT', intro: 'Añade un código en tres pasos, exporta tu mira, copia a un jugador mientras observas y corrige los errores más comunes.',
       steps: [['Copia un código', 'Abre una mira en AimCodes y pulsa Copiar código.'], ['Abre los ajustes de mira', 'En VALORANT, abre Ajustes → Mira y elige Importar código de perfil.'], ['Pega y prueba', 'Pega el código, ponle un nombre y pruébalo en el campo de tiro antes de jugar.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', resources: 'Guías y herramientas', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Empieza aquí', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', small: 'Miras pequeñas', settings: 'Ajustes de mira', colors: 'Colores de mira', note: 'Hecho para probar miras más rápido.', email: 'Escribe a AimCodes', trust: 'Información del sitio', about: 'Cómo comprobamos los códigos', privacy: 'Privacidad y cookies', terms: 'Términos y contenido de fans', contact: 'Avisar de un problema', independent: 'Proyecto independiente de fans. No afiliado a Riot Games.' },
+    footer: { browse: 'Códigos de mira', resources: 'Guías y herramientas', finder: 'Prueba de reacción', guide: 'Guía de importación', best: 'Recomendadas', pro: 'Miras de pros', cute: 'Miras bonitas', dot: 'Miras de punto', small: 'Miras pequeñas', settings: 'Ajustes de mira', colors: 'Colores de mira', note: 'Hecho para probar miras más rápido.', email: 'Escribe a AimCodes', trust: 'Información del sitio', about: 'Cómo comprobamos los códigos', privacy: 'Privacidad y cookies', terms: 'Términos y contenido de fans', contact: 'Avisar de un problema', independent: 'Proyecto independiente de fans. No afiliado a Riot Games.' },
     notFound: { title: 'Esta mira falló el tiro', body: 'La página no existe. Vuelve al catálogo y elige otra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira de VALORANT y vista previa | AimCodes', homeDescription: 'Prueba códigos de mira de VALORANT en mapas reales, cambia colores, copia códigos y encuentra tu próxima mira con una prueba de reacción.',
@@ -154,9 +158,10 @@ const copy = {
   },
   'pt-BR': {
     home: {
+      tryNow: 'Testar esta mira',
       eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Comece com códigos de mira que funcionam, teste em mapas reais, troque a cor e copie o que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras populares', popularBody: 'Comece por opções de estilo profissional e algumas escolhas divertidas.',
     },
-    catalog: { eyebrow: 'MAIS DE 60 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.' },
+    catalog: { eyebrow: 'MAIS DE 60 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Escolha um estilo, teste e copie o código.' },
     topics: { title: 'Comece por uma coleção' },
     collections: {
       best: {
@@ -199,7 +204,7 @@ const copy = {
       eyebrow: 'PRONTO EM 60 SEGUNDOS', title: 'Como importar, copiar e compartilhar miras no VALORANT', intro: 'Adicione um código em três passos, exporte sua mira, copie outro jogador e resolva os erros mais comuns.',
       steps: [['Copie um código', 'Abra uma mira no AimCodes e toque em Copiar código.'], ['Abra as opções de mira', 'No VALORANT, abra Configurações → Mira e escolha Importar código de perfil.'], ['Cole e teste', 'Cole o código, dê um nome ao perfil e teste no campo de treino antes da partida.']], cta: 'Ver códigos de mira',
     },
-    footer: { browse: 'Códigos de mira', resources: 'Guias e ferramentas', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Comece aqui', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', small: 'Miras pequenas', settings: 'Configurações de mira', colors: 'Cores de mira', note: 'Feito para testar miras mais rápido.', email: 'Fale com o AimCodes', trust: 'Informações do site', about: 'Como a gente confere os códigos', privacy: 'Privacidade e cookies', terms: 'Termos e conteúdo de fãs', contact: 'Avisar de um problema', independent: 'Projeto independente de fãs. Sem afiliação com a Riot Games.' },
+    footer: { browse: 'Códigos de mira', resources: 'Guias e ferramentas', finder: 'Teste de reação', guide: 'Guia de importação', best: 'Mais populares', pro: 'Miras de pro', cute: 'Miras fofas', dot: 'Miras de ponto', small: 'Miras pequenas', settings: 'Configurações de mira', colors: 'Cores de mira', note: 'Feito para testar miras mais rápido.', email: 'Fale com o AimCodes', trust: 'Informações do site', about: 'Como a gente confere os códigos', privacy: 'Privacidade e cookies', terms: 'Termos e conteúdo de fãs', contact: 'Avisar de um problema', independent: 'Projeto independente de fãs. Sem afiliação com a Riot Games.' },
     notFound: { title: 'Essa mira errou o tiro', body: 'A página não existe. Volte ao catálogo e escolha outra mira.', action: 'Ver miras' },
     meta: {
       homeTitle: 'Códigos de mira do VALORANT e prévia ao vivo | AimCodes', homeDescription: 'Teste códigos de mira do VALORANT em mapas reais, troque cores, copie códigos e encontre sua próxima mira com um teste de reação.',
@@ -210,9 +215,10 @@ const copy = {
   },
   'zh-CN': {
     home: {
+      tryNow: '立即试用这个准星',
       eyebrow: '无畏契约准星试用站', title: '先试效果，再复制无畏契约准星代码', intro: '先挑一个可用的无畏契约准星代码，在真实地图里试效果、换颜色，再复制顺眼的那一个。', primary: '查看全部准星', secondary: '测试反应速度', popular: '热门准星代码', popularBody: '先从职业选手风格和几款有趣准星开始试。',
     },
-    catalog: { eyebrow: '60+ 个可用代码', title: '浏览无畏契约准星代码', intro: '按选手或样式搜索，在地图里试过效果后，直接复制到游戏。' },
+    catalog: { eyebrow: '60+ 个可用代码', title: '浏览无畏契约准星代码', intro: '按选手或样式搜索，在地图里试过效果后，直接复制到游戏。', gridTitle: '准星库', gridBody: '挑一个样式，先试效果，再复制代码。' },
     topics: { title: '按类型直接开选' },
     collections: {
       best: {
@@ -255,7 +261,7 @@ const copy = {
       eyebrow: '一分钟完成', title: '无畏契约准星代码怎么导入、复制和分享', intro: '三步导入代码，还能导出自己的准星、观战复制队友，并排查常见导入问题。',
       steps: [['复制准星代码', '打开 AimCodes 的准星页面，点击“复制代码”。'], ['进入准星设置', '打开《无畏契约》设置，进入“准星”，选择“导入准星配置代码”。'], ['粘贴并试用', '粘贴代码、保存方案，先去训练场看看是否顺手。']], cta: '浏览准星代码',
     },
-    footer: { browse: '准星代码', resources: '教程与工具', finder: '反应测试', guide: '导入教程', best: '先从这里挑', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', small: '小准星', settings: '准星设置说明', colors: '准星颜色选择', note: '让试准星这件事快一点。', email: '联系 AimCodes', trust: '站点信息', about: '看看我们怎么筛代码', privacy: '隐私与 Cookie', terms: '条款与玩家内容', contact: '反馈问题', independent: '玩家独立项目，与 Riot Games 无隶属关系。' },
+    footer: { browse: '准星代码', resources: '教程与工具', finder: '反应测试', guide: '导入教程', best: '热门推荐', pro: '职业准星', cute: '可爱准星', dot: '小圆点准星', small: '小准星', settings: '准星设置说明', colors: '准星颜色选择', note: '让试准星这件事快一点。', email: '联系 AimCodes', trust: '站点信息', about: '看看我们怎么筛代码', privacy: '隐私与 Cookie', terms: '条款与玩家内容', contact: '反馈问题', independent: '玩家独立项目，与 Riot Games 无隶属关系。' },
     notFound: { title: '这枪空了', body: '这个页面不存在，回准星库再挑一个吧。', action: '返回准星库' },
     meta: {
       homeTitle: '无畏契约准星代码与地图预览 | AimCodes', homeDescription: '在真实地图中预览可用的无畏契约准星代码，自定义颜色，一键复制，还能通过反应测试找到更适合自己的准星。',

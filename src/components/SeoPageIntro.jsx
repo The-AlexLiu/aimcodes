@@ -13,11 +13,11 @@ export default function SeoPageIntro({ locale, type = 'home' }) {
       <p>{content.intro}</p>
       {type === 'home' && (
         <div className="seo-intro-actions">
-          <a className="primary-button" href={routePath(locale, { type: 'catalog' })}>{content.primary}</a>
-          <a className="secondary-button" href={routePath(locale, { type: 'finder' })}>{content.secondary}</a>
+          <a className="primary-button" href="#preview">{content.tryNow}</a>
+          <a className="secondary-button" href={routePath(locale, { type: 'catalog' })}>{content.primary}</a>
         </div>
       )}
-      {type !== 'home' && <SeoTopicLinks locale={locale} />}
+      {type !== 'home' && type !== 'catalog' && <SeoTopicLinks locale={locale} />}
     </section>
   )
 }
