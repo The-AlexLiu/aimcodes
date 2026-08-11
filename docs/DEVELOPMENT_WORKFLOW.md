@@ -54,3 +54,5 @@ pnpm task:context
 5. 线上：代表 URL、交互、Metadata、资源、robots 与相关 Sitemap。
 
 Skill 源文件位于 `automation/skills/aimcodes-maintainer/`；Cursor 命令位于 `.cursor/commands/`。两者必须调用仓库中的同一套脚本，不能维护两套产品事实。
+
+GitHub CI 在 PR 上并行运行产品数据检查与构建/SEO 检查；功能分支不再额外触发重复的 push 检查。合并到 `main` 后再运行一次生产基线检查。
