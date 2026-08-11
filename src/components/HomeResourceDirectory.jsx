@@ -1,6 +1,8 @@
 import { articleCopy } from '../seo/articles.js'
-import { routePath } from '../seo/routes.js'
+import { collectionCopy } from '../seo/content.js'
+import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
 import { seoToolCopy } from '../seo/toolContent.js'
+import Icon from './Icon.jsx'
 
 const guideKeys = Object.freeze([
   'copy',
@@ -19,33 +21,60 @@ const toolKeys = Object.freeze(['generator', 'decoder', 'preview', 'comparison']
 
 const directoryCopy = {
   en: {
-    eyebrow: 'GUIDES + TOOLS',
-    title: 'Fix it, learn it, or build your own',
-    intro: 'Jump straight to the answer you need, or open a tool and test the result on a map.',
+    title: 'More ways to find the right crosshair',
+    intro: 'Open only the section you need. Everything else stays out of the way.',
+    collections: 'Browse by style',
+    collectionsHint: 'Curated collections for different looks and play styles',
     guides: 'Crosshair guides',
+    guidesHint: 'Quick answers for settings, errors, and aiming habits',
     tools: 'Tools you can use now',
+    toolsHint: 'Build, decode, preview, or compare a crosshair',
   },
   es: {
-    eyebrow: 'GUÍAS + HERRAMIENTAS',
-    title: 'Arréglalo, apréndelo o crea el tuyo',
-    intro: 'Ve directo a la respuesta que buscas o abre una herramienta y prueba el resultado sobre un mapa.',
+    title: 'Más formas de encontrar tu mira',
+    intro: 'Abre solo la sección que necesitas. Lo demás no estorba.',
+    collections: 'Explorar por estilo',
+    collectionsHint: 'Colecciones para distintos estilos de juego y diseño',
     guides: 'Guías de miras',
+    guidesHint: 'Respuestas rápidas sobre ajustes, errores y puntería',
     tools: 'Herramientas listas para usar',
+    toolsHint: 'Crea, decodifica, prueba o compara una mira',
   },
   'pt-BR': {
-    eyebrow: 'GUIAS + FERRAMENTAS',
-    title: 'Resolva, aprenda ou crie a sua',
-    intro: 'Vá direto para a resposta ou abra uma ferramenta e teste o resultado no mapa.',
+    title: 'Mais caminhos para encontrar sua mira',
+    intro: 'Abra só a seção que você precisa. O resto fica fora do caminho.',
+    collections: 'Buscar por estilo',
+    collectionsHint: 'Coleções para diferentes visuais e jeitos de jogar',
     guides: 'Guias de mira',
+    guidesHint: 'Respostas rápidas sobre ajustes, erros e mira',
     tools: 'Ferramentas prontas para usar',
+    toolsHint: 'Crie, decodifique, teste ou compare uma mira',
   },
   'zh-CN': {
-    eyebrow: '准星不只靠抄代码',
-    title: '看教程，或者直接用工具解决',
-    intro: '代码报错、想练预瞄，还是想自己捏一个准星，都可以从这里直接进去。',
+    title: '还想继续找？按需要展开',
+    intro: '只打开现在用得上的内容，其他入口先收起来。',
+    collections: '按样式找准星',
+    collectionsHint: '不同外观和打法的准星合集',
     guides: '先看教程',
+    guidesHint: '解决设置、报错和瞄准习惯问题',
     tools: '直接上手',
+    toolsHint: '生成、解析、预览或对比准星',
   },
+}
+
+function ResourceDisclosure({ label, hint, children }) {
+  return (
+    <details className="home-resource-disclosure">
+      <summary>
+        <span>
+          <strong>{label}</strong>
+          <small>{hint}</small>
+        </span>
+        <Icon name="chevronDown" size={18} />
+      </summary>
+      {children}
+    </details>
+  )
 }
 
 export default function HomeResourceDirectory({ locale }) {
@@ -54,31 +83,37 @@ export default function HomeResourceDirectory({ locale }) {
   return (
     <section className="home-resource-directory" id="guides-and-tools" aria-labelledby="home-resource-title">
       <header>
-        <span>{copy.eyebrow}</span>
         <h2 id="home-resource-title">{copy.title}</h2>
         <p>{copy.intro}</p>
       </header>
-      <div className="home-resource-columns">
-        <nav aria-label={copy.guides} id="guides">
-          <h3>{copy.guides}</h3>
-          <div>
+      <div className="home-resource-disclosures">
+        <ResourceDisclosure label={copy.collections} hint={copy.collectionsHint}>
+          <nav className="home-resource-link-grid" aria-label={copy.collections}>
+            {SEO_COLLECTION_KEYS.map((collectionKey) => (
+              <a href={routePath(locale, { type: 'collection', collectionKey })} key={collectionKey}>
+                {collectionCopy(locale, collectionKey).label}
+              </a>
+            ))}
+          </nav>
+        </ResourceDisclosure>
+        <ResourceDisclosure label={copy.guides} hint={copy.guidesHint}>
+          <nav className="home-resource-link-grid" aria-label={copy.guides} id="guides">
             {guideKeys.map((articleKey) => (
               <a href={routePath(locale, { type: 'article', articleKey })} key={articleKey}>
                 {articleCopy(locale, articleKey).title}
               </a>
             ))}
-          </div>
-        </nav>
-        <nav aria-label={copy.tools} id="tools">
-          <h3>{copy.tools}</h3>
-          <div>
+          </nav>
+        </ResourceDisclosure>
+        <ResourceDisclosure label={copy.tools} hint={copy.toolsHint}>
+          <nav className="home-resource-link-grid" aria-label={copy.tools} id="tools">
             {toolKeys.map((toolKey) => (
               <a href={routePath(locale, { type: 'tool', toolKey })} key={toolKey}>
                 {seoToolCopy(locale, toolKey).title}
               </a>
             ))}
-          </div>
-        </nav>
+          </nav>
+        </ResourceDisclosure>
       </div>
     </section>
   )

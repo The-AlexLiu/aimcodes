@@ -8,7 +8,7 @@ export default function SeoPageIntro({ locale, type = 'home' }) {
 
   return (
     <section className={`seo-page-intro is-${type}`}>
-      <span>{content.eyebrow}</span>
+      {type !== 'home' && <span>{content.eyebrow}</span>}
       <h1>{content.title}</h1>
       <p>{content.intro}</p>
       {type === 'home' && (
@@ -17,7 +17,7 @@ export default function SeoPageIntro({ locale, type = 'home' }) {
           <a className="secondary-button" href={routePath(locale, { type: 'finder' })}>{content.secondary}</a>
         </div>
       )}
-      <SeoTopicLinks locale={locale} />
+      {type !== 'home' && <SeoTopicLinks locale={locale} />}
     </section>
   )
 }
