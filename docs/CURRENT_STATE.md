@@ -73,7 +73,7 @@
 
 ## 当前工作树提醒
 
-2026-08-11 准星库规模化版本当前位于 `feat/scale-crosshair-catalog`，发布完成后需在此处回填 PR、提交和线上验证结果。
+2026-08-11 准星库规模化版本当前位于 `feat/scale-crosshair-catalog`，功能提交为 `b1dc73a`，发布 PR 为 <https://github.com/The-AlexLiu/aimcodes/pull/16>；合并后需确认 Netlify 生产构建和线上 Sitemap。
 
 ## Catalog Scale Phase 1
 

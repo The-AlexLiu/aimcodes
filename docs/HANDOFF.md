@@ -20,7 +20,7 @@
 - 最近生产提交：`4756f97`
 - 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/15>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
-- 当前 `feat/scale-crosshair-catalog` 分支将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
+- 当前 `feat/scale-crosshair-catalog` 分支通过 PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 
 ## Cursor 接手时第一步
 
