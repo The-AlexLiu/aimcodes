@@ -21,7 +21,7 @@ import { importGuideDetails } from '../src/seo/importGuideDetails.js'
 import { collectionKeysForCrosshair, isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 import { publisherCopy } from '../src/seo/publisherContent.js'
-import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
+import { CONTACT_EMAIL } from '../src/config/contact.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -53,7 +53,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
         '@type': 'ImageObject',
         url: `${SITE_ORIGIN}/brand/aimcodes-logo.png`,
       },
-      sameAs: SOCIAL_PROFILE_URLS,
+      email: CONTACT_EMAIL,
     },
     {
       '@type': 'WebSite',
@@ -280,7 +280,7 @@ ${alternateLocales}
     <meta name="twitter:description" content="${escapeHtml(metadata.description)}" />
     <meta name="twitter:image" content="${metadata.image}" />
     <script type="application/ld+json">${jsonLd(schema)}</script>
-    <style id="aimcodes-static-seo">.seo-static-shell{max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:system-ui,sans-serif}.seo-static-shell h1{max-width:900px;font-size:48px;line-height:1.05}.seo-static-shell p{max-width:760px;color:#aeb8bf;line-height:1.6}.seo-static-shell a{color:#ff6b65}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}</style>
+    <style id="aimcodes-static-seo">.seo-static-shell{max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}.seo-static-shell h1{max-width:900px;font-size:52px;line-height:1.1}.seo-static-shell p{max-width:760px;color:#aeb8bf;font-size:16px;line-height:1.65}.seo-static-shell a{color:#ff6b65}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}@media(max-width:680px){.seo-static-shell{padding:36px 18px}.seo-static-shell h1{font-size:36px;line-height:1.12}}</style>
     ${seoEnd}`
 }
 

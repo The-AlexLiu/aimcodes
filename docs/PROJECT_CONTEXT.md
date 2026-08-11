@@ -76,10 +76,7 @@ AimCodes 是面向全球《无畏契约》玩家的多语种准星发现、实�
 - 正式网站：<https://aimcodes.com>
 - GitHub 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 社媒素材渲染器：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
-- Instagram：<https://www.instagram.com/aimcodes/>
-- YouTube：<https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA>
-- TikTok：<https://www.tiktok.com/@aimcodes>
-- Facebook：<https://www.facebook.com/profile.php?id=61579049940186>
+- 联系邮箱：<contact@aimcodes.com>
 
 ## 非目标
 

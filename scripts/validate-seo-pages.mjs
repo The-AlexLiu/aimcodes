@@ -8,7 +8,7 @@ import { routeMetadata, SEO_CONTENT_UPDATED_AT, seoCopy, SITE_ORIGIN } from '../
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { collectionKeysForCrosshair, isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
-import { SOCIAL_PROFILE_URLS } from '../src/config/socialLinks.js'
+import { CONTACT_EMAIL } from '../src/config/contact.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -58,15 +58,13 @@ for (const locale of Object.keys(localeRoutes)) {
         '<meta name="twitter:card" content="summary_large_image" />',
         '<script type="application/ld+json">',
         '"@type":"Organization"',
-        '"sameAs":',
+        `"email":"${CONTACT_EMAIL}"`,
         '<main class="seo-static-shell">',
         '<h1>',
         '<script type="module" crossorigin src="/assets/',
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
-      for (const profileUrl of SOCIAL_PROFILE_URLS) {
-        if (!html.includes(profileUrl)) errors.push(`${path}: missing official social profile ${profileUrl}`)
-      }
+      if (html.includes('"sameAs":')) errors.push(`${path}: obsolete social profile schema found`)
       for (const config of Object.values(localeRoutes)) {
         if (!html.includes(`hreflang="${config.hreflang}"`)) errors.push(`${path}: missing hreflang ${config.hreflang}`)
       }

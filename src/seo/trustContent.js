@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
+
 export const TRUST_UPDATED_AT = '2026-08-10'
 
 const content = {
@@ -31,10 +33,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: 'FOUND A BAD CODE?', title: 'Tell us what looks off', intro: 'Wrong shape, dead code, confusing name, or a better idea? Send it over through an official AimCodes channel.',
+      eyebrow: 'FOUND A BAD CODE?', title: 'Tell us what looks off', intro: `Wrong shape, dead code, confusing name, or a better idea? Email us at ${CONTACT_EMAIL}.`,
       sections: [
         { title: 'Crosshair and product fixes', paragraphs: ['Send the page link, crosshair name, what went wrong, and a recent source if you have one. That gives us enough to check it quickly.'], links: [{ label: 'Report it on GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Message us on social', paragraphs: ['You can also DM an official AimCodes account. Never send a password, account login, or other sensitive information.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Email AimCodes', paragraphs: ['Include the page URL and enough detail for us to reproduce the issue. Never send a password, account login, or other sensitive information.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
         { title: 'Rights and privacy requests', paragraphs: ['Identify the material or data concerned and the outcome you are requesting. We will use the information only to review and respond to the request.'] },
       ],
     },
@@ -68,10 +70,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: '¿HAS VISTO ALGO RARO?', title: 'Cuéntanos qué falla', intro: '¿Forma incorrecta, código roto, nombre confuso o una idea mejor? Envíala por un canal oficial de AimCodes.',
+      eyebrow: '¿HAS VISTO ALGO RARO?', title: 'Cuéntanos qué falla', intro: `¿Forma incorrecta, código roto, nombre confuso o una idea mejor? Escríbenos a ${CONTACT_EMAIL}.`,
       sections: [
         { title: 'Arreglos de miras y producto', paragraphs: ['Manda la URL, el nombre de la mira, lo que falla y una fuente reciente si la tienes. Así podremos comprobarlo rápido.'], links: [{ label: 'Avisar en GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Escríbenos por redes', paragraphs: ['También puedes mandar un mensaje a una cuenta oficial. Nunca envíes contraseñas, accesos ni información sensible.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Escribe a AimCodes', paragraphs: ['Incluye la URL de la página y detalles suficientes para reproducir el problema. Nunca envíes contraseñas, accesos ni información sensible.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
         { title: 'Solicitudes de derechos y privacidad', paragraphs: ['Identifica el material o dato y el resultado que solicitas. Solo usaremos esa información para revisar y responder.'] },
       ],
     },
@@ -105,10 +107,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: 'ACHOU ALGO ERRADO?', title: 'Conta para a gente', intro: 'Formato errado, código quebrado, nome confuso ou uma ideia melhor? Mande por um canal oficial do AimCodes.',
+      eyebrow: 'ACHOU ALGO ERRADO?', title: 'Conta para a gente', intro: `Formato errado, código quebrado, nome confuso ou uma ideia melhor? Escreva para ${CONTACT_EMAIL}.`,
       sections: [
         { title: 'Ajustes de mira e produto', paragraphs: ['Mande a URL, o nome da mira, o que deu errado e uma fonte recente se tiver. Assim a gente consegue conferir mais rápido.'], links: [{ label: 'Avisar pelo GitHub', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: 'Chame nas redes', paragraphs: ['Você também pode mandar mensagem para uma conta oficial. Nunca envie senha, acesso da conta ou outros dados sensíveis.'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: 'Fale com o AimCodes', paragraphs: ['Inclua a URL da página e detalhes suficientes para reproduzir o problema. Nunca envie senha, acesso da conta ou outros dados sensíveis.'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
         { title: 'Pedidos de direitos e privacidade', paragraphs: ['Identifique o material ou dado e o resultado solicitado. Usaremos essas informações apenas para analisar e responder.'] },
       ],
     },
@@ -142,10 +144,10 @@ const content = {
       ],
     },
     contact: {
-      eyebrow: '发现哪里不对？', title: '来告诉我们', intro: '准星长错了、代码失效、名字看不懂，或者你有更好用的方案，都可以发过来。',
+      eyebrow: '发现哪里不对？', title: '来告诉我们', intro: `准星长错了、代码失效、名字看不懂，或者你有更好用的方案，都可以发到 ${CONTACT_EMAIL}。`,
       sections: [
         { title: '准星和产品纠错', paragraphs: ['把页面地址、准星名称、哪里不对，以及方便核对的最新来源发给我们，处理起来会更快。'], links: [{ label: '去 GitHub 报个问题', url: 'https://github.com/The-AlexLiu/aimcodes/issues/new' }] },
-        { title: '也可以直接私信', paragraphs: ['通过 AimCodes 官方社媒账号就能找到我们。密码、账号凭据和其他敏感信息不要发。'], links: [{ label: 'Instagram', url: 'https://www.instagram.com/aimcodes/' }, { label: 'YouTube', url: 'https://www.youtube.com/channel/UCw76cLVNk46p8kzUUIhYNSA' }, { label: 'TikTok', url: 'https://www.tiktok.com/@aimcodes' }, { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61579049940186' }] },
+        { title: '发邮件给 AimCodes', paragraphs: ['请附上页面地址和足够复现问题的信息。密码、账号凭据和其他敏感信息不要发。'], links: [{ label: CONTACT_EMAIL, url: CONTACT_MAILTO }] },
         { title: '权利与隐私申请', paragraphs: ['请说明涉及的内容或数据，以及希望如何处理。相关信息只会用于核查和回复该申请。'] },
       ],
     },
