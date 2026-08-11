@@ -2,14 +2,14 @@ name: CI
 
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  validate:
+  product-data:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -32,7 +32,10 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Validate product data
+      - name: Validate development workflow routing
+        run: pnpm validate:workflow
+
+      - name: Validate product data and tracking
         run: |
           pnpm validate:crosshairs
           pnpm validate:finder
@@ -40,11 +43,45 @@ jobs:
           pnpm validate:analytics
           pnpm validate:sharing
 
+  build-and-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Restore incremental image manifest
+        uses: actions/cache@v4
+        with:
+          path: .cache/aimcodes
+          key: aimcodes-images-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            aimcodes-images-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Build localized site
         run: pnpm build
 
-      - name: Validate localized routes and SEO
+      - name: Validate SEO, routes, tools, links, and images
         run: |
           pnpm validate:seo
           pnpm validate:routing
+          pnpm validate:links
+          pnpm validate:tools
           pnpm validate:adsense
+          pnpm validate:images
+
+      - name: Audit production dependencies
+        run: pnpm audit --prod

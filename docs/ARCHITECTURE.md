@@ -31,6 +31,7 @@ src/data + src/i18n + src/seo
 | `src/seo/` | SEO 文案、页面元数据和路由解析 |
 | `src/utils/` | 准星解析、相似度、推荐、分享图和 GA4 |
 | `scripts/` | 数据、埋点、语言、SEO 和路由验证 |
+| `automation/skills/` | Codex 项目维护 Skill 的可共享源文件 |
 | `public/` | Logo、favicon、OG 图、robots、sitemap 和静态工具 |
 | `.github/workflows/ci.yml` | GitHub Push/PR 自动验证 |
 | `netlify.toml` | 构建、发布目录、重定向、缓存和安全响应头 |
@@ -56,7 +57,9 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。当前生产候选生成 1,364 个本地化 HTML 路由，将 544 个允许索引的 canonical URL 写入主 Sitemap，并将其中 400 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前生产版本生成 1,364 个本地化 HTML 路由，将 544 个允许索引的 canonical URL 写入主 Sitemap，并将其中 400 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+
+任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
 除基础页面和准星详情外，当前新增 10 个高意图主题集合、10 个操作/选型指南，以及 4 个可实际使用的准星工具。新增搜索意图均同步为四语种页面；未经验证的选手数据和未完成工具不会进入 sitemap。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级与 100 URL 状态记录在 `docs/CONTENT_ROADMAP.md` 和 `docs/SEO_EXPANSION_REPORT_2026-08-10.md`。
 

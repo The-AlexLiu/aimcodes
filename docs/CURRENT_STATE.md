@@ -10,16 +10,16 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-11 最近一次产品发布：准星浏览体验与图片 SEO 优化，对应生产提交 `4756f97`、PR #15。
-- 当前待发布版本：准星库扩展到 302 条源代码与 300 种可见造型；新增 12 个原创形态家族、目录分批加载、100 个可索引详情、独立准星 Sitemap 与对应图片资产。
+- 2026-08-11 最近一次产品发布：准星库规模化，对应生产提交 `f66d032`、PR #16。
+- 开发效率候选版本通过 PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 引入分级检查、结构化报告、图片增量生成和共享 Skill。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近生产提交：`4756f97 feat: improve crosshair UX and image SEO (#15)`
-- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/15>
+- 最近生产提交：`f66d032 feat(seo): scale crosshair catalog to 300 styles (#16)`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/16>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -71,9 +71,14 @@
 - 25 个待补职业选手页因缺少可验证代码、来源和日期而未发布；
 - 完整 100 URL 状态见 `docs/SEO_EXPANSION_REPORT_2026-08-10.md`。
 
-## 当前工作树提醒
+## 开发效率基线
 
-2026-08-11 准星库规模化版本当前位于 `feat/scale-crosshair-catalog`，功能提交为 `b1dc73a`，发布 PR 为 <https://github.com/The-AlexLiu/aimcodes/pull/16>；合并后需确认 Netlify 生产构建和线上 Sitemap。
+- `pnpm task:context` 输出本次变更 Scope、风险等级和推荐检查；
+- `check:quick`、`check:data`、`check:seo` 与 `check:release` 提供四档验证；
+- 检查报告位于 `.aimcodes-reports/current/`，只在本地和 CI 使用，不提交 Git；
+- 图片生成使用内容 Hash，缓存命中只跳过重新渲染，不跳过最终图片验证；
+- `automation/skills/aimcodes-maintainer/` 是 Codex Skill 的仓库内单一来源；Cursor 使用相同脚本；
+- 计划、差异、QA、发布和线上结果始终需要 GPT/Cursor 审核。
 
 ## Catalog Scale Phase 1
 
