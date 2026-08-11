@@ -1,7 +1,13 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { crosshairs } from '../src/data/crosshairs.js'
+import {
+  catalogCrosshairs,
+  collectionKeysForCatalogCrosshair,
+  crosshairCollectionKeys,
+  crosshairCollections,
+  indexableCrosshairIds,
+} from '../src/data/catalogManifest.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
 import {
@@ -19,7 +25,7 @@ import {
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
-import { collectionKeysForCrosshair, isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
+import { isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 import { publisherCopy } from '../src/seo/publisherContent.js'
 import { CONTACT_EMAIL } from '../src/config/contact.js'
@@ -78,8 +84,8 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
 
   if (route.type === 'catalog' || route.type === 'collection') {
     const collectionIds = route.type === 'collection'
-      ? SEO_COLLECTIONS[route.collectionKey].crosshairIds
-      : SEO_CROSSHAIR_IDS
+      ? crosshairCollections[route.collectionKey].crosshairIds
+      : indexableCrosshairIds
     graph.push({
       '@type': 'CollectionPage',
       '@id': `${metadata.canonical}#collection`,
@@ -326,7 +332,7 @@ function staticLinks(locale, items) {
 
 function staticTopicLinks(locale) {
   const localized = seoCopy(locale)
-  const collections = SEO_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
+  const collections = crosshairCollectionKeys.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
   const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
   return `<nav class="seo-static-links">${collections}${resources}</nav>`
 }
@@ -356,16 +362,16 @@ function staticHeroImage(locale, route, crosshair) {
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
   const localized = seoCopy(locale)
   if (route.type === 'home') {
-    const featured = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
+    const featured = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
     return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticLinks(locale, featured)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
   }
   if (route.type === 'catalog') {
-    const indexableItems = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
     return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
   }
   if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)
-    const items = SEO_COLLECTIONS[route.collectionKey].crosshairIds
+    const items = crosshairCollections[route.collectionKey].crosshairIds
       .map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter(Boolean)
     const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')
@@ -416,13 +422,13 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'crosshair' && crosshair) {
     const details = detailCopy(locale, crosshair)
-    const indexableItems = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id))
+    const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter((item) => item && item.id !== crosshair.id)
     const related = [
       ...indexableItems.filter((item) => item.category === crosshair.category),
       ...indexableItems,
     ].filter((item, index, items) => items.findIndex((candidate) => candidate.id === item.id) === index).slice(0, 6)
-    const relatedCollections = collectionKeysForCrosshair(crosshair.id)
+    const relatedCollections = collectionKeysForCatalogCrosshair(crosshair.id)
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
     const contextualLinks = relatedCollections ? `<nav class="seo-static-links" aria-label="${escapeHtml(localized.detail.compareStyle)}">${relatedCollections}</nav>` : ''
@@ -453,13 +459,13 @@ let generatedCount = 0
 
 for (const locale of Object.keys(localeRoutes)) {
   const t = createTranslator(locale)
-  const localizedCrosshairs = crosshairs.map((item) => localizeCrosshair(item, locale, t))
+  const localizedCrosshairs = catalogCrosshairs.map((item) => localizeCrosshair(item, locale, t))
   const baseRoutes = [
     { type: 'home' },
     { type: 'catalog' },
     { type: 'finder' },
     { type: 'guide' },
-    ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
+    ...crosshairCollectionKeys.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
     ...SEO_TOOL_KEYS.map((toolKey) => ({ type: 'tool', toolKey })),
     ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
@@ -533,4 +539,4 @@ await writeFile(resolve(distRoot, '404.html'), notFound)
 
 const imageSitemapPageCount = indexedRoutes.filter(({ route }) => route.type === 'crosshair' || route.type === 'collection').length
 const imageSitemapImageCount = indexedRoutes.reduce((count, { route }) => count + (route.type === 'crosshair' ? 2 : route.type === 'collection' ? 1 : 0), 0)
-console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml; ${SEO_CROSSHAIR_IDS.length * Object.keys(localeRoutes).length} crosshair URLs added to sitemap-crosshairs.xml; ${imageSitemapPageCount} pages and ${imageSitemapImageCount} image references added to sitemap-images.xml.`)
+console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml; ${indexableCrosshairIds.length * Object.keys(localeRoutes).length} crosshair URLs added to sitemap-crosshairs.xml; ${imageSitemapPageCount} pages and ${imageSitemapImageCount} image references added to sitemap-images.xml.`)

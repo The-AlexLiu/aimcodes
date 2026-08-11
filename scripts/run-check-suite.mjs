@@ -11,6 +11,7 @@ const steps = {
   lint: ['pnpm', ['lint']],
   build: ['pnpm', ['build']],
   crosshairs: ['pnpm', ['validate:crosshairs']],
+  manifest: ['pnpm', ['validate:manifest']],
   finder: ['pnpm', ['validate:finder']],
   localization: ['pnpm', ['validate:localization']],
   analytics: ['pnpm', ['validate:analytics']],
@@ -28,9 +29,9 @@ const steps = {
 
 const suites = {
   quick: ['lint', 'workflow', 'build'],
-  data: ['lint', 'crosshairs', 'finder', 'localization', 'build', 'seo', 'routing', 'tools', 'images'],
-  seo: ['lint', 'localization', 'build', 'seo', 'routing', 'links', 'adsense', 'images'],
-  release: ['lint', 'workflow', 'crosshairs', 'finder', 'localization', 'analytics', 'sharing', 'build', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
+  data: ['lint', 'manifest', 'crosshairs', 'finder', 'localization', 'build', 'seo', 'routing', 'tools', 'images'],
+  seo: ['lint', 'manifest', 'localization', 'build', 'seo', 'routing', 'links', 'adsense', 'images'],
+  release: ['lint', 'workflow', 'manifest', 'crosshairs', 'finder', 'localization', 'analytics', 'sharing', 'build', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
 }
 
 function tail(value, maxLines = 35) {

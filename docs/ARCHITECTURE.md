@@ -24,9 +24,11 @@ src/data + src/i18n + src/seo
 
 | 路径 | 作用 |
 |---|---|
-| `src/App.jsx` | 页面路由解释、准星选择、筛选、调色和主要交互 |
+| `src/App.jsx` | 页面路由解释、全局交互状态和业务动作编排 |
 | `src/components/` | 预览、准星卡片、反应测试、导入教程和页脚 |
-| `src/data/` | 准星代码、分类和地图预览配置 |
+| `src/hooks/useCrosshairCatalog.js` | 目录去重、本地化、搜索、排序、集合选择和当前准星视图模型 |
+| `src/data/catalogManifest.js` | 准星目录、索引子集、集合关系、图片与 Sitemap 的共享清单 |
+| `src/data/` | 准星代码、目录清单、分类和地图预览配置 |
 | `src/i18n/` | 四语种词典、准星本地化和语言路径 |
 | `src/seo/` | SEO 文案、页面元数据和路由解析 |
 | `src/utils/` | 准星解析、相似度、推荐、分享图和 GA4 |
@@ -66,9 +68,9 @@ src/data + src/i18n + src/seo
 ## 准星数据流
 
 1. `src/data/crosshairs.js` 汇总基础准星和 `catalogExpansionCrosshairs`；后者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成。
-2. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
-3. `src/utils/crosshairSimilarity.js` 根据外观去重。
-4. `src/i18n/translations.js` 为准星名称和描述提供本地化。
+2. `src/data/catalogManifest.js` 从完整目录统一派生 100 个索引详情、15 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
+3. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
+4. `src/hooks/useCrosshairCatalog.js` 根据外观去重、本地化并计算搜索、排序、相关推荐和当前选择。
 5. `CrosshairCanvas` 在地图图片上渲染当前形状和颜色。
 6. 用户调整颜色时，预览与最终复制代码同步更新。
 
@@ -81,7 +83,9 @@ src/data + src/i18n + src/seo
 - 四语种显示正常；
 - `pnpm validate:crosshairs` 通过。
 
-目录规模与索引规模分开管理：前端目录加载完整去重数据，默认每批展示 48 项；`SEO_CROSSHAIR_IDS` 只列出具备独立说明、集合内链和图片资产的索引子集。构建脚本只为该子集生成图片和 Sitemap，其他详情使用 `noindex,follow`。
+目录规模与索引规模分开管理：前端目录加载完整去重数据，默认每批展示 48 项；`catalogManifest.indexableIds` 只列出具备独立说明、集合内链和图片资产的索引子集。`src/seo/routes.js` 保留旧导出名作为兼容层，但新的构建与验证脚本直接读取 Manifest。其他详情使用 `noindex,follow`。
+
+`pnpm validate:manifest` 会阻止缺失 ID、重复 ID、重复集合 Slug 和索引记录缺失。集合页允许链接到完整目录中的 `noindex,follow` 详情，这些引用会计数但不会擅自扩大索引。
 
 ## 反应测试数据流
 

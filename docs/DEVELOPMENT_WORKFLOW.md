@@ -27,6 +27,8 @@ pnpm task:context
 | `pnpm check:seo` | SEO 内容、语言、路由、内链、图片与 Sitemap |
 | `pnpm check:release` | PR 或生产发布前的完整检查 |
 
+准星、集合、图片或 Sitemap 相关任务还会运行 `pnpm validate:manifest`，确认所有索引 ID、集合 ID 与 Slug 都来自同一个目录清单。集合中的 `noindex,follow` 详情会单独计数，验证不会擅自扩大索引。
+
 检查结果写入：
 
 - `.aimcodes-reports/current/verification.json`

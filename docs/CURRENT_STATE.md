@@ -10,16 +10,16 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-11 最近一次产品发布：准星库规模化，对应生产提交 `f66d032`、PR #16。
-- 开发效率候选版本通过 PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 引入分级检查、结构化报告、图片增量生成和共享 Skill。
+- 2026-08-11 最近一次生产发布：开发效率标准化，对应生产提交 `cfbdc88`、PR #17。
+- 当前架构效率版本把索引详情、集合关系、图片和 Sitemap 统一到 `src/data/catalogManifest.js`，并将 `App.jsx` 的目录视图模型和主要页面区域拆分为独立 Hook/组件。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近生产提交：`f66d032 feat(seo): scale crosshair catalog to 300 styles (#16)`
-- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/16>
+- 最近生产提交：`cfbdc88 build: standardize AimCodes development workflow (#17)`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/17>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -75,6 +75,7 @@
 
 - `pnpm task:context` 输出本次变更 Scope、风险等级和推荐检查；
 - `check:quick`、`check:data`、`check:seo` 与 `check:release` 提供四档验证；
+- `pnpm validate:manifest` 统一检查完整目录、100 个索引记录和 15 个集合之间的关系；
 - 检查报告位于 `.aimcodes-reports/current/`，只在本地和 CI 使用，不提交 Git；
 - 图片生成使用内容 Hash，缓存命中只跳过重新渲染，不跳过最终图片验证；
 - `automation/skills/aimcodes-maintainer/` 是 Codex Skill 的仓库内单一来源；Cursor 使用相同脚本；
@@ -119,6 +120,7 @@
 3. 本轮扩展后应观察 21–30 天的抓取、收录、展示和长尾词分布；未验证信号前不继续开放剩余 202 个详情索引。
 4. AdSense 账号、真实发布商 ID、站点验证码、付款资料和 Google 认证 CMP 尚未配置；不得在仓库中使用占位 `ca-pub-` 或占位 `ads.txt`。
 5. 联系入口已统一为域名邮箱 `contact@aimcodes.com`；邮箱实际收件与回复流程需由站点所有者持续维护。
+6. 主应用 JavaScript 仍约 649 kB（gzip 约 214 kB），构建会提示超过 500 kB；下一轮工程优化应优先按页面类型做懒加载与代码分包。
 
 ## 推荐后续顺序
 

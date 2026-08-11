@@ -1,13 +1,19 @@
 import { access, readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { crosshairs } from '../src/data/crosshairs.js'
+import {
+  catalogCrosshairs,
+  collectionKeysForCatalogCrosshair,
+  crosshairCollectionKeys,
+  crosshairCollections,
+  indexableCrosshairIds,
+} from '../src/data/catalogManifest.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SEO_CONTENT_UPDATED_AT, seoCopy, SITE_ORIGIN } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
-import { collectionKeysForCrosshair, isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
+import { isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
 import { CONTACT_EMAIL } from '../src/config/contact.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 
@@ -22,13 +28,13 @@ const escapeHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll(
 
 for (const locale of Object.keys(localeRoutes)) {
   const t = createTranslator(locale)
-  const localizedCrosshairs = crosshairs.map((item) => localizeCrosshair(item, locale, t))
+  const localizedCrosshairs = catalogCrosshairs.map((item) => localizeCrosshair(item, locale, t))
   const routes = [
     { type: 'home' },
     { type: 'catalog' },
     { type: 'finder' },
     { type: 'guide' },
-    ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
+    ...crosshairCollectionKeys.map((collectionKey) => ({ type: 'collection', collectionKey })),
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
     ...SEO_TOOL_KEYS.map((toolKey) => ({ type: 'tool', toolKey })),
     ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
@@ -81,7 +87,7 @@ for (const locale of Object.keys(localeRoutes)) {
       }
       if (route.type === 'crosshair') {
         if (!html.includes(crosshair.code)) errors.push(`${path}: crosshair code missing from initial HTML`)
-        const contextualCollections = collectionKeysForCrosshair(crosshair.id)
+        const contextualCollections = collectionKeysForCatalogCrosshair(crosshair.id)
         if (contextualCollections.length) {
           const contextualLabel = escapeHtml(seoCopy(locale).detail.compareStyle)
           if (!html.includes(`<nav class="seo-static-links" aria-label="${contextualLabel}">`)) {
@@ -97,7 +103,7 @@ for (const locale of Object.keys(localeRoutes)) {
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: FAQPage structured data missing`)
         if (!html.includes(`<h2>${escapeHtml({ en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale])}</h2>`)) errors.push(`${path}: localized FAQ heading missing from initial HTML`)
         if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
-        for (const id of SEO_COLLECTIONS[route.collectionKey].crosshairIds) {
+        for (const id of crosshairCollections[route.collectionKey].crosshairIds) {
           const item = localizedCrosshairs.find((crosshairItem) => crosshairItem.id === id)
           if (!item || !html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing collection link for ${id}`)
         }
@@ -149,7 +155,7 @@ for (const locale of Object.keys(localeRoutes)) {
 const sitemap = await readFile(resolve(distRoot, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
 const indexableTrustPages = Object.values(TRUST_PAGES).filter((page) => page.indexable).length
-const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + SEO_COLLECTION_KEYS.length + SEO_ARTICLE_KEYS.length + SEO_TOOL_KEYS.length + SEO_CROSSHAIR_IDS.length + indexableTrustPages)
+const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + crosshairCollectionKeys.length + SEO_ARTICLE_KEYS.length + SEO_TOOL_KEYS.length + indexableCrosshairIds.length + indexableTrustPages)
 if (sitemapUrls.length !== expectedIndexedCount) errors.push(`sitemap.xml: expected ${expectedIndexedCount} URLs, found ${sitemapUrls.length}`)
 if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: duplicate <loc> entries')
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
@@ -160,17 +166,17 @@ for (const canonical of indexedCanonicalUrls) if (!sitemapUrls.includes(canonica
 
 const crosshairSitemap = await readFile(resolve(distRoot, 'sitemap-crosshairs.xml'), 'utf8')
 const crosshairSitemapUrls = [...crosshairSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
-const expectedCrosshairSitemapCount = Object.keys(localeRoutes).length * SEO_CROSSHAIR_IDS.length
+const expectedCrosshairSitemapCount = Object.keys(localeRoutes).length * indexableCrosshairIds.length
 if (crosshairSitemapUrls.length !== expectedCrosshairSitemapCount) errors.push(`sitemap-crosshairs.xml: expected ${expectedCrosshairSitemapCount} URLs, found ${crosshairSitemapUrls.length}`)
 if (new Set(crosshairSitemapUrls).size !== crosshairSitemapUrls.length) errors.push('sitemap-crosshairs.xml: duplicate <loc> entries')
 for (const locale of Object.keys(localeRoutes)) {
-  for (const id of SEO_CROSSHAIR_IDS) {
+  for (const id of indexableCrosshairIds) {
     const url = `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: id })}`
     if (!crosshairSitemapUrls.includes(url)) errors.push(`sitemap-crosshairs.xml: missing ${url}`)
   }
 }
 for (const locale of Object.keys(localeRoutes)) {
-  for (const item of crosshairs.filter((crosshair) => !isPriorityCrosshair(crosshair.id))) {
+  for (const item of catalogCrosshairs.filter((crosshair) => !isPriorityCrosshair(crosshair.id))) {
     const url = `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: item.id })}`
     if (sitemapUrls.includes(url)) errors.push(`sitemap.xml: noindex URL included ${url}`)
   }
@@ -180,10 +186,10 @@ for (const locale of Object.keys(localeRoutes)) {
   }
 }
 
-for (const [collectionKey, collection] of Object.entries(SEO_COLLECTIONS)) {
+for (const [collectionKey, collection] of Object.entries(crosshairCollections)) {
   if (collection.crosshairIds.length < 5) errors.push(`${collectionKey}: collection is too small`)
   for (const id of collection.crosshairIds) {
-    if (!crosshairs.some((item) => item.id === id)) errors.push(`${collectionKey}: unknown crosshair ${id}`)
+    if (!catalogCrosshairs.some((item) => item.id === id)) errors.push(`${collectionKey}: unknown crosshair ${id}`)
   }
 }
 

@@ -2,11 +2,17 @@ import { access, readFile, readdir, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { crosshairs } from '../src/data/crosshairs.js'
+import {
+  catalogCrosshairs,
+  crosshairCollectionKeys,
+  crosshairCollections,
+  indexableCrosshairIds,
+  indexableCrosshairs,
+} from '../src/data/catalogManifest.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SITE_ORIGIN } from '../src/seo/content.js'
-import { crosshairSlug, routePath, SEO_COLLECTION_KEYS, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { crosshairSlug, routePath } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const publicRoot = resolve(projectRoot, 'public')
@@ -26,10 +32,8 @@ async function validateImage(filePath, expected) {
   }
 }
 
-const imageCrosshairs = SEO_CROSSHAIR_IDS
-  .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
-  .filter(Boolean)
-if (imageCrosshairs.length !== SEO_CROSSHAIR_IDS.length) errors.push(`indexable crosshair image source mismatch: expected ${SEO_CROSSHAIR_IDS.length}`)
+const imageCrosshairs = indexableCrosshairs
+if (imageCrosshairs.length !== indexableCrosshairIds.length) errors.push(`indexable crosshair image source mismatch: expected ${indexableCrosshairIds.length}`)
 
 for (const crosshair of imageCrosshairs) {
   const slug = crosshairSlug(crosshair.id)
@@ -37,7 +41,7 @@ for (const crosshair of imageCrosshairs) {
   await validateImage(resolve(publicRoot, `images/og/crosshairs/${slug}.jpg`), { width: 1200, height: 630, format: 'jpeg' })
 }
 
-for (const collection of Object.values(SEO_COLLECTIONS)) {
+for (const collection of Object.values(crosshairCollections)) {
   await validateImage(resolve(publicRoot, `images/og/collections/${collection.slug}.jpg`), { width: 1200, height: 630, format: 'jpeg' })
 }
 
@@ -48,15 +52,15 @@ const [standaloneFiles, crosshairOgFiles, collectionOgFiles] = await Promise.all
 ])
 if (standaloneFiles.filter((name) => name.endsWith('.webp')).length < imageCrosshairs.length) errors.push(`standalone image count mismatch: expected at least ${imageCrosshairs.length}`)
 if (crosshairOgFiles.filter((name) => name.endsWith('.jpg')).length < imageCrosshairs.length) errors.push(`crosshair OG image count mismatch: expected at least ${imageCrosshairs.length}`)
-if (collectionOgFiles.filter((name) => name.endsWith('.jpg')).length !== SEO_COLLECTION_KEYS.length) errors.push(`collection OG image count mismatch: expected ${SEO_COLLECTION_KEYS.length}`)
+if (collectionOgFiles.filter((name) => name.endsWith('.jpg')).length !== crosshairCollectionKeys.length) errors.push(`collection OG image count mismatch: expected ${crosshairCollectionKeys.length}`)
 
 const imageSitemapPath = resolve(distRoot, 'sitemap-images.xml')
 await access(imageSitemapPath).catch((error) => errors.push(`${imageSitemapPath}: ${error.message}`))
 const imageSitemap = await readFile(imageSitemapPath, 'utf8').catch(() => '')
 const sitemapPages = [...imageSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
 const sitemapImages = [...imageSitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((match) => match[1])
-const expectedSitemapCount = Object.keys(localeRoutes).length * (SEO_COLLECTION_KEYS.length + SEO_CROSSHAIR_IDS.length)
-const expectedSitemapImageCount = Object.keys(localeRoutes).length * (SEO_COLLECTION_KEYS.length + SEO_CROSSHAIR_IDS.length * 2)
+const expectedSitemapCount = Object.keys(localeRoutes).length * (crosshairCollectionKeys.length + indexableCrosshairIds.length)
+const expectedSitemapImageCount = Object.keys(localeRoutes).length * (crosshairCollectionKeys.length + indexableCrosshairIds.length * 2)
 if (sitemapPages.length !== expectedSitemapCount) errors.push(`sitemap-images.xml: expected ${expectedSitemapCount} page URLs, found ${sitemapPages.length}`)
 if (sitemapImages.length !== expectedSitemapImageCount) errors.push(`sitemap-images.xml: expected ${expectedSitemapImageCount} image URLs, found ${sitemapImages.length}`)
 if (new Set(sitemapPages).size !== sitemapPages.length) errors.push('sitemap-images.xml: duplicate page URLs found')
@@ -64,9 +68,9 @@ if (sitemapImages.some((url) => !url.startsWith(`${SITE_ORIGIN}/images/`))) erro
 
 for (const locale of Object.keys(localeRoutes)) {
   const t = createTranslator(locale)
-  const localizedCrosshairs = crosshairs.map((item) => localizeCrosshair(item, locale, t))
+  const localizedCrosshairs = catalogCrosshairs.map((item) => localizeCrosshair(item, locale, t))
 
-  for (const crosshairId of SEO_CROSSHAIR_IDS) {
+  for (const crosshairId of indexableCrosshairIds) {
     const crosshair = localizedCrosshairs.find((item) => item.id === crosshairId)
     const route = { type: 'crosshair', crosshairId }
     const metadata = routeMetadata(locale, route, crosshair)
@@ -84,7 +88,7 @@ for (const locale of Object.keys(localeRoutes)) {
     ]) if (!html.includes(expected)) errors.push(`${pageUrl}: missing ${expected}`)
   }
 
-  for (const collectionKey of SEO_COLLECTION_KEYS) {
+  for (const collectionKey of crosshairCollectionKeys) {
     const route = { type: 'collection', collectionKey }
     const metadata = routeMetadata(locale, route)
     const pageUrl = `${SITE_ORIGIN}${routePath(locale, route)}`
@@ -101,4 +105,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log(`Validated ${imageCrosshairs.length} indexable standalone images, ${imageCrosshairs.length + SEO_COLLECTION_KEYS.length} required OG images, ${expectedSitemapCount} localized image sitemap pages, and ${expectedSitemapImageCount} image references.`)
+console.log(`Validated ${imageCrosshairs.length} indexable standalone images, ${imageCrosshairs.length + crosshairCollectionKeys.length} required OG images, ${expectedSitemapCount} localized image sitemap pages, and ${expectedSitemapImageCount} image references.`)

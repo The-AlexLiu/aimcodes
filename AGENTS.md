@@ -26,7 +26,7 @@
 - React 源码位于 `src/`；不要直接编辑构建产物 `dist/`。
 - 多语种词条位于 `src/i18n/` 与 `src/seo/content.js`。任何用户可见文案改动必须同步四种语言。
 - 多语种路径规则位于 `src/i18n/localeRoutes.js` 与 `src/seo/routes.js`。
-- 准星源数据位于 `src/data/crosshairs.js` 与 `src/data/expandedCrosshairs.js`。
+- 准星源数据位于 `src/data/crosshairs.js` 与 `src/data/expandedCrosshairs.js`；索引子集和集合关系统一位于 `src/data/catalogManifest.js`，不要在图片、Sitemap 或路由脚本中另建列表。
 - 准星代码必须可以被 `src/utils/crosshairCode.js` 解析；不要编造未经验证的代码。
 - GA4 事件统一通过 `src/utils/analytics.js` 发送。事件名使用小写下划线，不发送搜索原词、个人信息或敏感值。
 - `?qa=1` 用于内部验收并阻止 GA4 上报；`?ga_debug=1` 用于本地 DebugView 调试。
@@ -77,6 +77,7 @@ pnpm build
 
 ```bash
 pnpm validate:crosshairs
+pnpm validate:manifest
 pnpm validate:finder
 ```
 
