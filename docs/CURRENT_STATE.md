@@ -10,16 +10,16 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-10 最近一次产品发布：SEO Knowledge Base Phase 1，对应生产提交 `8d4450f`、PR #12。
-- 最近一次上线内容：10 个主题集合、10 个操作/选型指南、4 个可实际使用的准星工具，全部同步四语种；此前发布的 AdSense 审核准备、分享增长、反应测试、素材渲染器和官方社媒入口继续保留。
+- 2026-08-11 最近一次产品发布：准星浏览体验与图片 SEO 优化，对应生产提交 `4756f97`、PR #15。
+- 当前待发布版本：准星库扩展到 302 条源代码与 300 种可见造型；新增 12 个原创形态家族、目录分批加载、100 个可索引详情、独立准星 Sitemap 与对应图片资产。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
 
 ## GitHub
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 本轮发布功能提交：`8d4450f feat(seo): add phase 1 knowledge base and tools (#12)`
-- 本轮发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>
+- 最近生产提交：`4756f97 feat: improve crosshair UX and image SEO (#15)`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/15>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
@@ -27,17 +27,19 @@
 ## 当前产品基线
 
 - 4 种语言；
-- 62 条准星源数据，去重后约 60 种可见样式；
+- 302 条准星源数据，去重后 300 种可见样式；
 - 3 张地图预览；
 - 3 轮反应测试；
 - 9 个反应段位；
 - 24 个 GA4 验证事件；
 - 准星详情可一键分享当前语言、地图和颜色；接收方打开后直接还原预览并可复制最终代码；
 - 站内交互来源统一使用 `interaction_source`，标准 `source` 只用于对外链接的渠道归因；
-- 404 个生成 HTML 路由；
-- 208 个 sitemap canonical URL；
-- 62 张独立准星预览图、62 张准星详情 OG 图和 15 张集合页 OG 图；
-- 独立图片 Sitemap 覆盖 124 个四语种集合/详情页，共声明 188 个图片引用；
+- 1,364 个生成 HTML 路由；
+- 544 个 sitemap canonical URL；
+- 100 个可索引准星详情，另有 202 个可访问但保持 `noindex,follow` 的目录详情；
+- 100 张索引准星独立预览图、100 张对应 OG 图和 15 张集合页 OG 图；
+- 独立准星 Sitemap 覆盖 400 个四语种准星详情 URL；
+- 图片 Sitemap 覆盖 460 个四语种集合/详情页，共声明 860 个图片引用；
 - 社媒视频、方形图和配套封面生成工具。
 
 ## 图片 SEO 基线
@@ -71,21 +73,31 @@
 
 ## 当前工作树提醒
 
-2026-08-10 SEO Knowledge Base Phase 1 已通过 PR #12 发布。开始后续任务前仍必须用 `git status -sb`、`git log` 和 `git diff --stat` 确认本地与 `origin/main` 一致，并从 `main` 创建新任务分支。
+2026-08-11 准星库规模化版本当前位于 `feat/scale-crosshair-catalog`，发布完成后需在此处回填 PR、提交和线上验证结果。
+
+## Catalog Scale Phase 1
+
+- 新增 240 条原创有效代码，分布在 Micro Gap、Tap Dot、Compact Cross、Open Cross、Tracker、Twin Line、Pinpoint、Outer Mark、Tall Axis、Wide Axis、Burst Ring 与 Guard Frame 12 个家族；
+- 不冒充职业选手代码，不通过同一形状换颜色凑数量；
+- 目录首屏显示 48 项，用户可继续加载；搜索、分类、排序和随机选择仍使用全部 300 种可见造型；
+- 每个家族先开放 7 个详情索引，共新增 84 个可索引准星详情；剩余页面保留 `noindex,follow`；
+- 现有集合页承接新增详情，并让索引详情只推荐其他可索引详情，控制爬虫进入低价值路径；
+- `sitemap-crosshairs.xml` 单独管理 400 个四语种准星详情 URL，主 Sitemap 继续汇总全部 544 个规范 URL。
 
 ## 已确认验证基线
 
-2026-08-10 最近一次本地与线上复核已经确认：
+2026-08-11 最近一次本地复核已经确认：
 
 - ESLint 通过；
 - Vite 生产构建通过；
 - 四语种词条验证通过；
 - 多语种路由验证通过；
-- 404 个生成路由和 208 个 sitemap URL 验证通过；
-- 12,699 条生成页面站内链接验证通过，无断链；
-- 139 张图片 SEO 资产与图片 Sitemap 通过自动验证；
+- 1,364 个生成路由和 544 个主 Sitemap URL 验证通过；
+- 400 个独立准星 Sitemap URL 验证通过；
+- 54,723 条生成页面站内链接验证通过，无断链；
+- 100 张索引准星图、115 张必需 OG 图、460 个图片 Sitemap 页面和 860 个图片引用通过自动验证；
 - 4 个新增工具的代码生成、解析、无效代码拒绝与数据库代码兼容验证通过；
-- 四个官方社媒链接出现在结构化数据和前端资源中；
+- 网站公开联系入口统一为 `contact@aimcodes.com`，不暴露开发者 GitHub 地址；
 - 线上 `/en/`、`/es/`、`/pt-br/`、`/zh-cn/` 和渲染器均返回 200；
 - 三份渲染器副本 SHA-1 相同：`361c61af9ab91f965939ef7f36b05033fe1bb04f`。
 - 反应测试超过 2 秒会判定为本轮超时，不计入成绩并自动重开当前轮；真实浏览器验证进度仍为 `0 / 3`；
@@ -99,13 +111,13 @@
 
 1. 渲染器有三份副本，尚未实现单一源自动同步。
 2. 当前产品代码包含 24 个验证事件，但 GA4 后台尚未创建计划中的自定义维度和指标；`interaction_source` 与 `shared_entry` 建议注册为事件范围自定义维度。
-3. 新 SEO 页面刚上线，GSC 尚未形成足够查询和收录数据，不应立即批量扩页。
+3. 本轮扩展后应观察 21–30 天的抓取、收录、展示和长尾词分布；未验证信号前不继续开放剩余 202 个详情索引。
 4. AdSense 账号、真实发布商 ID、站点验证码、付款资料和 Google 认证 CMP 尚未配置；不得在仓库中使用占位 `ca-pub-` 或占位 `ads.txt`。
-5. 当前联系入口为 GitHub Issue 与官方社媒；提交 AdSense 前建议补充长期可用的域名邮箱。
+5. 联系入口已统一为域名邮箱 `contact@aimcodes.com`；邮箱实际收件与回复流程需由站点所有者持续维护。
 
 ## 推荐后续顺序
 
 1. 创建/进入 AdSense 账号，添加根域 `aimcodes.com`，再把 Google 提供的真实站点验证代码交给开发者安装并提交审核。
-2. 在 GSC 重新提交发布后的 sitemap，并检查四语种代表页面的抓取与 canonical。
-3. 观察 7–14 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面。
+2. 在 GSC 重新提交发布后的 `sitemap.xml` 与 `sitemap-crosshairs.xml`，并检查四语种代表页面的抓取与 canonical。
+3. 观察 21–30 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面，并根据家族表现决定第二批索引。
 4. 通过 AdSense 审核后再配置真实 `ads.txt`、Google 认证 CMP 和少量手动广告位；禁止在反应测试与复制按钮附近投放。

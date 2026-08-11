@@ -157,6 +157,18 @@ const sitemapLastmods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].ma
 if (sitemapLastmods.length !== sitemapUrls.length) errors.push('sitemap.xml: every URL must have one lastmod')
 if (sitemapLastmods.some((value) => value !== SEO_CONTENT_UPDATED_AT)) errors.push(`sitemap.xml: unexpected lastmod; expected ${SEO_CONTENT_UPDATED_AT}`)
 for (const canonical of indexedCanonicalUrls) if (!sitemapUrls.includes(canonical)) errors.push(`sitemap.xml: missing ${canonical}`)
+
+const crosshairSitemap = await readFile(resolve(distRoot, 'sitemap-crosshairs.xml'), 'utf8')
+const crosshairSitemapUrls = [...crosshairSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
+const expectedCrosshairSitemapCount = Object.keys(localeRoutes).length * SEO_CROSSHAIR_IDS.length
+if (crosshairSitemapUrls.length !== expectedCrosshairSitemapCount) errors.push(`sitemap-crosshairs.xml: expected ${expectedCrosshairSitemapCount} URLs, found ${crosshairSitemapUrls.length}`)
+if (new Set(crosshairSitemapUrls).size !== crosshairSitemapUrls.length) errors.push('sitemap-crosshairs.xml: duplicate <loc> entries')
+for (const locale of Object.keys(localeRoutes)) {
+  for (const id of SEO_CROSSHAIR_IDS) {
+    const url = `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: id })}`
+    if (!crosshairSitemapUrls.includes(url)) errors.push(`sitemap-crosshairs.xml: missing ${url}`)
+  }
+}
 for (const locale of Object.keys(localeRoutes)) {
   for (const item of crosshairs.filter((crosshair) => !isPriorityCrosshair(crosshair.id))) {
     const url = `${SITE_ORIGIN}${routePath(locale, { type: 'crosshair', crosshairId: item.id })}`

@@ -163,6 +163,10 @@ export function generateCrosshairCode(options = {}) {
   const dot = options.dot || {}
   const inner = options.inner || {}
   const outer = options.outer || {}
+  const innerHorizontalLength = safeNumber(inner.horizontalLength ?? inner.length, 4, 0, 20)
+  const innerVerticalLength = safeNumber(inner.verticalLength ?? inner.length, innerHorizontalLength, 0, 20)
+  const outerHorizontalLength = safeNumber(outer.horizontalLength ?? outer.length, 2, 0, 20)
+  const outerVerticalLength = safeNumber(outer.verticalLength ?? outer.length, outerHorizontalLength, 0, 20)
   tokens.push(
     'h', outline.enabled ? '1' : '0',
     'o', String(safeNumber(outline.opacity, 1, 0, 1)),
@@ -172,19 +176,22 @@ export function generateCrosshairCode(options = {}) {
     'z', String(safeNumber(dot.size, 2, 1, 6)),
     '0b', inner.enabled === false ? '0' : '1',
     '0a', String(safeNumber(inner.opacity, 1, 0, 1)),
-    '0l', String(safeNumber(inner.length, 4, 0, 20)),
+    '0l', String(innerHorizontalLength),
     '0t', String(safeNumber(inner.thickness, 2, 0, 10)),
     '0o', String(safeNumber(inner.offset, 2, 0, 20)),
     '0m', options.movementError ? '1' : '0',
     '0f', options.firingError ? '1' : '0',
     '1b', outer.enabled ? '1' : '0',
     '1a', String(safeNumber(outer.opacity, 1, 0, 1)),
-    '1l', String(safeNumber(outer.length, 2, 0, 20)),
+    '1l', String(outerHorizontalLength),
     '1t', String(safeNumber(outer.thickness, 2, 0, 10)),
     '1o', String(safeNumber(outer.offset, 10, 0, 20)),
     '1m', '0',
     '1f', '0',
   )
+
+  if (innerVerticalLength !== innerHorizontalLength) tokens.push('0g', '1', '0v', String(innerVerticalLength))
+  if (outerVerticalLength !== outerHorizontalLength) tokens.push('1g', '1', '1v', String(outerVerticalLength))
 
   const code = tokens.join(';')
   parseCrosshairCode(code)

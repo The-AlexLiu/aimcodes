@@ -1,10 +1,11 @@
 import { expandedCrosshairs } from './expandedCrosshairs.js'
+import { buildCatalogExpansion } from './catalogExpansion.js'
 
 const sourceCheckedAt = '2026-08-03'
 const cuteSourceCheckedAt = '2026-08-04'
 const expandedSourceCheckedAt = '2026-08-04'
 
-export const crosshairs = [
+const coreCrosshairs = [
   {
     id: 'aspas-dot',
     name: 'Aspas — ponto ciano',
@@ -584,6 +585,9 @@ export const crosshairs = [
   },
   ...expandedCrosshairs,
 ]
+
+export const catalogExpansionCrosshairs = buildCatalogExpansion(coreCrosshairs)
+export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs]
 
 export const filters = [
   'all',

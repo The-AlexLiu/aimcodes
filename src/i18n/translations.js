@@ -1,3 +1,5 @@
+import { catalogExpansionCrosshairs } from '../data/crosshairs.js'
+
 export const languages = [
   { code: 'en', short: 'EN', label: 'English' },
   { code: 'es', short: 'ES', label: 'Español' },
@@ -23,7 +25,7 @@ export const dictionaries = {
     collection: { title: 'More crosshairs', subtitle: 'Pick one, try it, and copy the code.', countOne: '{count} crosshair', countMany: '{count} crosshairs' },
     filters: { label: 'Browse crosshairs', all: 'All', pro: 'Pro picks', dot: 'Dots', small: 'Small', classic: 'Classic', cute: 'Cute', fun: 'Fun', favorites: 'Saved', recent: 'Recently viewed', mine: 'Mine' },
     sort: { label: 'Sort', recommended: 'Recommended', name: 'Name A–Z', updated: 'Recently updated' },
-    catalogUx: { filters: 'Filters', closeFilters: 'Close filters', backToResults: 'Back to crosshairs' },
+    catalogUx: { filters: 'Filters', closeFilters: 'Close filters', backToResults: 'Back to crosshairs', loadMore: 'Show more crosshairs', showing: 'Showing {shown} of {total}' },
     colors: { label: 'Color', filter: 'Choose a color', white: 'White', green: 'Green', lime: 'Lime', chartreuse: 'Yellow green', yellow: 'Yellow', cyan: 'Cyan', pink: 'Pink', red: 'Red', custom: 'Original color' },
     badges: { pro: 'Pro', cute: 'Cute', fun: 'Fun' },
     empty: { filteredTitle: 'Nothing here yet', filteredBody: 'Try a different search or category.' },
@@ -68,7 +70,7 @@ export const dictionaries = {
     collection: { title: 'Más miras', subtitle: 'Elige una, pruébala y copia el código.', countOne: '{count} mira', countMany: '{count} miras' },
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pros', dot: 'Puntos', small: 'Pequeñas', classic: 'Clásicas', cute: 'Bonitas', fun: 'Originales', favorites: 'Guardadas', recent: 'Vistas', mine: 'Mías' },
     sort: { label: 'Orden', recommended: 'Recomendadas', name: 'Nombre A–Z', updated: 'Actualizadas' },
-    catalogUx: { filters: 'Filtros', closeFilters: 'Cerrar filtros', backToResults: 'Volver a las miras' },
+    catalogUx: { filters: 'Filtros', closeFilters: 'Cerrar filtros', backToResults: 'Volver a las miras', loadMore: 'Ver más miras', showing: 'Mostrando {shown} de {total}' },
     colors: { label: 'Color', filter: 'Elegir color', white: 'Blanco', green: 'Verde', lime: 'Verde lima', chartreuse: 'Verde amarillo', yellow: 'Amarillo', cyan: 'Cian', pink: 'Rosa', red: 'Rojo', custom: 'Color original' },
     badges: { pro: 'De pro', cute: 'Bonita', fun: 'Original' },
     empty: { filteredTitle: 'No hay ninguna por aquí', filteredBody: 'Prueba otra búsqueda o categoría.' },
@@ -113,7 +115,7 @@ export const dictionaries = {
     collection: { title: '更多准星', subtitle: '挑一个，试试看，喜欢就复制。', countOne: '{count} 个准星', countMany: '{count} 个准星' },
     filters: { label: '按类型找准星', all: '全部', pro: '职业同款', dot: '小圆点', small: '小准星', classic: '十字', cute: '可爱', fun: '整活', favorites: '已保存', recent: '最近看过', mine: '我的' },
     sort: { label: '排序', recommended: '推荐优先', name: '名称顺序', updated: '最近更新' },
-    catalogUx: { filters: '筛选', closeFilters: '关闭筛选', backToResults: '返回准星列表' },
+    catalogUx: { filters: '筛选', closeFilters: '关闭筛选', backToResults: '返回准星列表', loadMore: '继续加载准星', showing: '已显示 {shown} / {total}' },
     colors: { label: '颜色', filter: '选择颜色', white: '白色', green: '绿色', lime: '黄绿色', chartreuse: '嫩黄色', yellow: '黄色', cyan: '青色', pink: '粉色', red: '红色', custom: '特殊颜色' },
     badges: { pro: '职业同款', cute: '可爱', fun: '整活' },
     empty: { filteredTitle: '这里还没有合适的准星', filteredBody: '换个关键词或分类试试。' },
@@ -158,7 +160,7 @@ export const dictionaries = {
     collection: { title: 'Mais miras', subtitle: 'Escolha uma, teste e copie o código.', countOne: '{count} mira', countMany: '{count} miras' },
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pro', dot: 'Pontos', small: 'Pequenas', classic: 'Clássicas', cute: 'Fofas', fun: 'Diferentes', favorites: 'Salvas', recent: 'Vistas', mine: 'Minhas' },
     sort: { label: 'Ordem', recommended: 'Recomendadas', name: 'Nome A–Z', updated: 'Atualizadas' },
-    catalogUx: { filters: 'Filtros', closeFilters: 'Fechar filtros', backToResults: 'Voltar para as miras' },
+    catalogUx: { filters: 'Filtros', closeFilters: 'Fechar filtros', backToResults: 'Voltar para as miras', loadMore: 'Ver mais miras', showing: 'Mostrando {shown} de {total}' },
     colors: { label: 'Cor', filter: 'Escolher cor', white: 'Branco', green: 'Verde', lime: 'Verde-limão', chartreuse: 'Verde-amarelo', yellow: 'Amarelo', cyan: 'Ciano', pink: 'Rosa', red: 'Vermelho', custom: 'Cor original' },
     badges: { pro: 'De pro', cute: 'Fofa', fun: 'Diferente' },
     empty: { filteredTitle: 'Não tem nenhuma por aqui', filteredBody: 'Tente outra busca ou categoria.' },
@@ -188,7 +190,12 @@ export const dictionaries = {
   },
 }
 
+const catalogExpansionCopy = Object.fromEntries(
+  catalogExpansionCrosshairs.map((item) => [item.id, item.localizedCopy]),
+)
+
 export const crosshairCopy = {
+  ...catalogExpansionCopy,
   'aspas-dot': {
     en: ['Aspas — cyan dot', 'Aspas', 'Compact cyan dot with outline'], es: ['Aspas — punto cian', 'Aspas', 'Punto cian compacto con contorno'], 'zh-CN': ['Aspas — 青色点状准星', 'Aspas', '带描边的紧凑青色点'], 'pt-BR': ['Aspas — ponto ciano', 'Aspas', 'Ponto ciano compacto com contorno'],
   },

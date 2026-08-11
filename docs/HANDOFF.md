@@ -17,10 +17,10 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近生产提交：`8d4450f`
-- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/12>
-- 本轮内容：10 个集合、10 个指南、4 个真实工具，以及可持续扩展的 SEO 路由、站内链接和验证架构；GitHub `main`、Netlify 生产构建和 208 URL sitemap 已确认一致。
-- 当前图片 SEO 分支补充了 62 张独立准星图、77 张独立 OG 图和 `sitemap-images.xml`；合并前以本文件后续提交记录和 PR 状态为准。
+- 最近生产提交：`4756f97`
+- 最近发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/15>
+- 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
+- 当前 `feat/scale-crosshair-catalog` 分支将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 
 ## Cursor 接手时第一步
 
@@ -38,7 +38,7 @@
 - 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
 - AdSense 代码层准备已通过 PR #11 发布；还需账号所有者在 Google 后台完成年龄/身份/付款信息、添加根域，并提供真实站点验证代码。
 - Google 认证 CMP 与真实 `ads.txt` 必须等到获得 AdSense 账号和发布商 ID 后配置，不能使用占位值。
-- 提交 AdSense 前建议创建域名邮箱；当前可用联系渠道为 GitHub Issue 和四个官方社媒账号。
+- 公开联系渠道统一为 `contact@aimcodes.com`，不得向普通用户暴露开发者 GitHub 地址。
 - 25 个新增职业选手页仍缺少可验证代码、来源与日期，保持未发布状态；不得为了页面数量编造数据。
 - 随机准星、颜色选择器、灵敏度转换器和 eDPI 计算器尚未达到真实工具上线标准，继续保持 Draft。
 
@@ -68,6 +68,7 @@
 - SEO Knowledge Base Phase 1 构建生成 404 个本地化 HTML 路由和 208 个 sitemap URL；12,699 条站内链接无断链。
 - 新增生成器、代码解析器、预览器和对比器均为真实可操作工具；无效准星代码不会渲染伪造结果。
 - 图片生成与 SEO 验证脚本通过：62 张 1080 × 1080 WebP、77 张 1200 × 630 JPG、124 个图片 Sitemap 页面和 188 个图片引用；桌面与手机代表页面保持原有布局。
+- 准星规模化候选版本验证通过：302 条代码、300 种样式、1,364 个本地化路由、544 个规范 URL、400 个准星 Sitemap URL、54,723 条无断链内部链接、100 张索引准星图、115 张必需 OG 图、460 个图片 Sitemap 页面与 860 个图片引用。
 
 ## 最近产品代码生产发布
 

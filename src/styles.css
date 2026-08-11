@@ -221,6 +221,10 @@ legend { margin-bottom: 10px; }
 .catalog-topic-links { display: none; }
 .crosshair-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
 .collection-section.is-home .crosshair-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.catalog-load-more { margin: 22px auto 0; display: grid; justify-items: center; gap: 10px; }
+.catalog-load-more span { color: var(--muted-2); font-size: 12px; font-weight: 700; }
+.catalog-load-more button { min-width: 220px; min-height: 44px; padding: 0 20px; border: 1px solid #52616c; border-radius: 7px; background: #111b22; color: #eef2f4; font-size: 13px; font-weight: 760; cursor: pointer; }
+.catalog-load-more button:hover { border-color: var(--accent); background: rgba(255, 91, 85, .08); }
 .crosshair-card { min-height: 170px; padding: 12px; border: 1px solid #3b4852; background: rgba(16, 25, 32, .9); border-radius: 6px; position: relative; overflow: visible; cursor: pointer; transition: transform 160ms ease, border-color 160ms ease, background 160ms ease; }
 .crosshair-card::after { content: ''; position: absolute; right: -1px; bottom: -1px; width: 17px; height: 17px; border-right: 1px solid #65727b; border-bottom: 1px solid #65727b; pointer-events: none; }
 .crosshair-card:hover { transform: translateY(-3px); border-color: #66737d; background: #15202a; }
@@ -796,6 +800,7 @@ legend { margin-bottom: 10px; }
   .catalog-topic-links .seo-topic-links a { min-height: 44px; }
   .crosshair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
   .collection-section.is-home .crosshair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .catalog-load-more button { width: 100%; min-height: 48px; }
   .crosshair-card { min-height: 150px; }
   .card-copy { min-width: 44px; height: 44px; top: 2px; right: 2px; }
   .card-preview { height: 78px; }

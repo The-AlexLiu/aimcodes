@@ -23,7 +23,7 @@ function settingRows(crosshair, locale) {
 
 export default function CrosshairSeoDetails({ crosshair, locale }) {
   const labels = seoCopy(locale).detail
-  const details = detailCopy(locale, crosshair.id)
+  const details = detailCopy(locale, crosshair)
   const rows = settingRows(crosshair, locale)
   const relatedCollections = collectionKeysForCrosshair(crosshair.id)
 

@@ -360,7 +360,8 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticLinks(locale, featured)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
   }
   if (route.type === 'catalog') {
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, localizedCrosshairs)}${staticPublisherValue(locale, 'catalog')}</main>`
+    const indexableItems = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
   }
   if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)
@@ -414,8 +415,13 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     return `<main class="seo-static-shell"><h1>${escapeHtml(page.title)}</h1><p>${escapeHtml(page.intro)}</p><p>${escapeHtml(page.updated)}: ${TRUST_UPDATED_AT}</p>${sections}</main>`
   }
   if (route.type === 'crosshair' && crosshair) {
-    const details = detailCopy(locale, crosshair.id)
-    const related = localizedCrosshairs.filter((item) => item.id !== crosshair.id && item.category === crosshair.category).slice(0, 6)
+    const details = detailCopy(locale, crosshair)
+    const indexableItems = SEO_CROSSHAIR_IDS.map((id) => localizedCrosshairs.find((item) => item.id === id))
+      .filter((item) => item && item.id !== crosshair.id)
+    const related = [
+      ...indexableItems.filter((item) => item.category === crosshair.category),
+      ...indexableItems,
+    ].filter((item, index, items) => items.findIndex((candidate) => candidate.id === item.id) === index).slice(0, 6)
     const relatedCollections = collectionKeysForCrosshair(crosshair.id)
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
@@ -483,6 +489,18 @@ const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
 await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)
 
+const crosshairSitemapEntries = indexedRoutes
+  .filter(({ route }) => route.type === 'crosshair')
+  .map(({ locale, route }) => {
+    const alternates = alternateUrls(route)
+      .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
+      .join('\n')
+    return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${SEO_CONTENT_UPDATED_AT}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
+  })
+  .join('\n')
+const crosshairSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${crosshairSitemapEntries}\n</urlset>\n`
+await writeFile(resolve(distRoot, 'sitemap-crosshairs.xml'), crosshairSitemap)
+
 const imageSitemapEntries = indexedRoutes
   .filter(({ route }) => route.type === 'crosshair' || route.type === 'collection')
   .map(({ locale, route, crosshair }) => {
@@ -515,4 +533,4 @@ await writeFile(resolve(distRoot, '404.html'), notFound)
 
 const imageSitemapPageCount = indexedRoutes.filter(({ route }) => route.type === 'crosshair' || route.type === 'collection').length
 const imageSitemapImageCount = indexedRoutes.reduce((count, { route }) => count + (route.type === 'crosshair' ? 2 : route.type === 'collection' ? 1 : 0), 0)
-console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml; ${imageSitemapPageCount} pages and ${imageSitemapImageCount} image references added to sitemap-images.xml.`)
+console.log(`Generated ${generatedCount} localized HTML routes; ${indexedRoutes.length} canonical URLs added to sitemap.xml; ${SEO_CROSSHAIR_IDS.length * Object.keys(localeRoutes).length} crosshair URLs added to sitemap-crosshairs.xml; ${imageSitemapPageCount} pages and ${imageSitemapImageCount} image references added to sitemap-images.xml.`)
