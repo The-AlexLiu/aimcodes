@@ -951,7 +951,7 @@ legend { margin-bottom: 10px; }
   .action-row { gap: 8px; }
   .background-options { gap: 7px; }
   .background-option > span:nth-child(2) { font-size: 12px; }
-  .crosshair-grid { grid-template-columns: 1fr 1fr; }
+  .crosshair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brand { gap: 8px; }
   .brand-wordmark { font-size: 19px; }
   .language-selector { width: 62px; }

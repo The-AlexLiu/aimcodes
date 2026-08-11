@@ -3,9 +3,9 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
-import { crosshairs } from '../src/data/crosshairs.js'
+import { catalogCrosshairs, crosshairCollections, indexableCrosshairIds, indexableCrosshairs } from '../src/data/catalogManifest.js'
 import { parseCrosshairCode } from '../src/utils/crosshairCode.js'
-import { crosshairSlug, SEO_COLLECTIONS, SEO_CROSSHAIR_IDS } from '../src/seo/routes.js'
+import { crosshairSlug } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const publicRoot = resolve(projectRoot, 'public')
@@ -214,7 +214,7 @@ function collectionTileSvg(crosshair, x, y, width, height) {
 
 function collectionSvg(collection) {
   const items = collection.crosshairIds
-    .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
+    .map((id) => catalogCrosshairs.find((crosshair) => crosshair.id === id))
     .filter(Boolean)
     .slice(0, 4)
   const positions = [
@@ -232,21 +232,19 @@ function collectionSvg(collection) {
   </svg>`)
 }
 
-const imageCrosshairs = SEO_CROSSHAIR_IDS
-  .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
-  .filter(Boolean)
+const imageCrosshairs = indexableCrosshairs
 
-if (imageCrosshairs.length !== SEO_CROSSHAIR_IDS.length) {
-  throw new Error(`Expected ${SEO_CROSSHAIR_IDS.length} indexable crosshairs, found ${imageCrosshairs.length}`)
+if (imageCrosshairs.length !== indexableCrosshairIds.length) {
+  throw new Error(`Expected ${indexableCrosshairIds.length} indexable crosshairs, found ${imageCrosshairs.length}`)
 }
 
 for (const crosshair of imageCrosshairs) await createCrosshairImages(crosshair)
 
-for (const collection of Object.values(SEO_COLLECTIONS)) {
+for (const collection of Object.values(crosshairCollections)) {
   const cacheId = `collection:${collection.slug}`
   const outputPath = resolve(collectionOgRoot, `${collection.slug}.jpg`)
   const relatedCrosshairs = collection.crosshairIds
-    .map((id) => crosshairs.find((crosshair) => crosshair.id === id))
+    .map((id) => catalogCrosshairs.find((crosshair) => crosshair.id === id))
     .filter(Boolean)
     .slice(0, 4)
     .map(({ id, code, color, previewScale }) => ({ id, code, color, previewScale: previewScale || 1 }))
