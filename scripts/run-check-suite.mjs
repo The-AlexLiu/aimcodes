@@ -28,13 +28,15 @@ const steps = {
   audit: ['pnpm', ['audit', '--prod']],
   whitespace: ['pnpm', ['validate:diff']],
   workflow: ['pnpm', ['validate:workflow']],
+  social: ['pnpm', ['social:test']],
+  socialMedia: ['pnpm', ['social:validate-media']],
 }
 
 const suites = {
-  quick: ['lint', 'workflow', 'build', 'performance'],
+  quick: ['lint', 'workflow', 'social', 'socialMedia', 'build', 'performance'],
   data: ['lint', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'build', 'performance', 'seo', 'routing', 'tools', 'images'],
   seo: ['lint', 'manifest', 'localization', 'build', 'performance', 'seo', 'routing', 'links', 'adsense', 'images'],
-  release: ['lint', 'workflow', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'analytics', 'sharing', 'build', 'performance', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
+  release: ['lint', 'workflow', 'social', 'socialMedia', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'analytics', 'sharing', 'build', 'performance', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
 }
 
 if (process.env.AIMCODES_SKIP_NETWORK_AUDIT === '1') {
