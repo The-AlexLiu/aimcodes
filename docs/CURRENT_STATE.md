@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-08-12 页面加载与玩家文案修复：准星详情不再展示“代码已检查/检查日期”，生成器移除检查式提示；正常加载时隐藏静态 SEO 兜底，避免进入语言首页时闪现整页链接，生产提交 `2d01a4f`、PR #22。
 - 2026-08-12 P0 搜索增长发布：英语高展示页与葡语小圆点集合完成搜索意图优化，内部验收流量支持浏览器级持久排除；生产提交 `2b8eaf7`、PR #20。
 - 2026-08-11 最近一次产品代码生产发布：目录架构统一，对应生产提交 `9dbfdf1`、PR #18。
 - 当前架构效率版本把索引详情、集合关系、图片和 Sitemap 统一到 `src/data/catalogManifest.js`，并将 `App.jsx` 的目录视图模型和主要页面区域拆分为独立 Hook/组件。
@@ -19,8 +20,8 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`2b8eaf7 Merge pull request #20 from The-AlexLiu/codex/p0-search-growth-20260812`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
+- 最近产品代码生产提交：`2d01a4f fix: remove verification labels and loading flash (#22)`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/22>
 - P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
@@ -107,6 +108,8 @@
 - 4 个新增工具的代码生成、解析、无效代码拒绝与数据库代码兼容验证通过；
 - 网站公开联系入口统一为 `contact@aimcodes.com`，不暴露开发者 GitHub 地址；
 - 线上 `/en/`、`/es/`、`/pt-br/`、`/zh-cn/` 和渲染器均返回 200；
+- 根域语言识别仍由 Netlify 直接返回 302；正式语言页正常加载时不再显示静态 SEO 兜底，脚本禁用或长时间失败时仍可回退；
+- 四语种准星详情已移除用户可见的检查标签和日期，中文 Aspas 详情在桌面与 390px 手机端无横向溢出、无控制台错误；
 - 三份渲染器副本 SHA-1 相同：`361c61af9ab91f965939ef7f36b05033fe1bb04f`。
 - 反应测试超过 2 秒会判定为本轮超时，不计入成绩并自动重开当前轮；真实浏览器验证进度仍为 `0 / 3`；
 - 渲染器可实际导出英文 Bunny 准星的 MP4、封面 PNG 和方形 PNG，手机宽度下控制项可用；
