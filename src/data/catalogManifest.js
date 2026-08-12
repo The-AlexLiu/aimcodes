@@ -1,10 +1,10 @@
 import { catalogExpansionCrosshairs, crosshairs } from './crosshairs.js'
-import { expansionIdsForFamily, indexableExpansionIds } from './catalogExpansion.js'
+import { expansionIdsForFamily, indexableExpansionIds, indexableLimitForFamily } from './catalogExpansion.js'
 
 const INDEXABLE_EXPANSION_IDS = Object.freeze(indexableExpansionIds(catalogExpansionCrosshairs))
 const INDEXABLE_EXPANSION_SET = new Set(INDEXABLE_EXPANSION_IDS)
 
-const indexedFamilyIds = (familyKey, limit = 7) => expansionIdsForFamily(catalogExpansionCrosshairs, familyKey, limit)
+const indexedFamilyIds = (familyKey, limit = indexableLimitForFamily(familyKey)) => expansionIdsForFamily(catalogExpansionCrosshairs, familyKey, limit)
   .filter((id) => INDEXABLE_EXPANSION_SET.has(id))
 
 const indexedColorIds = (colorKey, limit = 6) => catalogExpansionCrosshairs

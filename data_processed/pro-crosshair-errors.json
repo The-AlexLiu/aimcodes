@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-12T06:34:19.551Z",
+  "count": 16,
+  "errorRows": [
+    {
+      "playerId": "boo",
+      "displayName": "Boo",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/boo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "cyvoph",
+      "displayName": "Cyvoph",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cyvoph/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "dantedeu5",
+      "displayName": "Dantedeu5",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/dantedeu5/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "frttt",
+      "displayName": "frttt",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/frttt/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "icy",
+      "displayName": "ICY",
+      "code": "CSGO-WudSh-UtCKr-pAsp4-BJxKV-7T8SA",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/icy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: missingPrimary"
+      ]
+    },
+    {
+      "playerId": "invy",
+      "displayName": "Invy",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/invy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "izu",
+      "displayName": "iZu",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/izu/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "lukxo",
+      "displayName": "Lukxo",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/lukxo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "marved",
+      "displayName": "Marved",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/marved/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "nozwerr",
+      "displayName": "nozwerr",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/nozwerr/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "s0m",
+      "displayName": "s0m",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/s0m/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "silentzz",
+      "displayName": "silentzz",
+      "code": "0;s;1;P;c;8;u;000000FF;o;1;b;1;f;0;0t;1;0l;1;0a;0;0f;0;1t;1;1l;1;1o;4;1a;0;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/silentzz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: no visible primary component"
+      ]
+    },
+    {
+      "playerId": "spikezin",
+      "displayName": "spikeziN",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/spikezin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "victor",
+      "displayName": "Victor",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/victor/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "wayne",
+      "displayName": "Wayne",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/wayne/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "xeus",
+      "displayName": "xeus",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/xeus/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    }
+  ]
+}

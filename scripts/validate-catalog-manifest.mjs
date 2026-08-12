@@ -10,10 +10,15 @@ const errors = []
 const allIds = catalogCrosshairs.map((item) => item.id)
 const allIdSet = new Set(allIds)
 const indexableIdSet = new Set(indexableCrosshairIds)
+const EXPECTED_INDEXABLE_COUNT = 150
 let collectionNoindexReferences = 0
+const collectionMembership = new Map()
 
 if (allIds.length !== allIdSet.size) errors.push('catalog contains duplicate crosshair IDs')
 if (indexableCrosshairIds.length !== indexableIdSet.size) errors.push('indexable list contains duplicate crosshair IDs')
+if (indexableCrosshairIds.length !== EXPECTED_INDEXABLE_COUNT) {
+  errors.push(`expected ${EXPECTED_INDEXABLE_COUNT} indexable crosshairs, received ${indexableCrosshairIds.length}`)
+}
 if (indexableCrosshairs.length !== indexableCrosshairIds.length) {
   errors.push(`indexable records mismatch: expected ${indexableCrosshairIds.length}, found ${indexableCrosshairs.length}`)
 }
@@ -35,7 +40,12 @@ for (const key of crosshairCollectionKeys) {
   for (const id of ids) {
     if (!allIdSet.has(id)) errors.push(`collection ${key} references missing crosshair: ${id}`)
     if (!indexableIdSet.has(id)) collectionNoindexReferences += 1
+    if (indexableIdSet.has(id)) collectionMembership.set(id, (collectionMembership.get(id) || 0) + 1)
   }
+}
+
+for (const id of indexableCrosshairIds) {
+  if (!collectionMembership.has(id)) errors.push(`indexable crosshair has no collection link: ${id}`)
 }
 
 if (errors.length) {

@@ -1,0 +1,15 @@
+{
+  "sources": [
+    {
+      "id": "proconfig",
+      "name": "Pro Config",
+      "baseUrl": "https://proconfig.net",
+      "robotsUrl": "https://proconfig.net/robots.txt",
+      "sitemapUrl": "https://proconfig.net/sitemap.xml",
+      "playerPathPrefix": "/valorant/",
+      "sourceClass": "secondary_editorial",
+      "defaultStatus": "needs_primary_source",
+      "enabled": true
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # AimCodes 架构说明
 
-最后更新：2026-08-11
+最后更新：2026-08-12
 
 ## 总体结构
 
@@ -59,7 +59,7 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前生产版本生成 1,364 个本地化 HTML 路由，将 544 个允许索引的 canonical URL 写入主 Sitemap，并将其中 400 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 1,364 个本地化 HTML 路由，将 744 个允许索引的 canonical URL 写入主 Sitemap，并将其中 600 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
@@ -68,7 +68,7 @@ src/data + src/i18n + src/seo
 ## 准星数据流
 
 1. `src/data/crosshairs.js` 汇总基础准星和 `catalogExpansionCrosshairs`；后者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成。
-2. `src/data/catalogManifest.js` 从完整目录统一派生 100 个索引详情、15 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
+2. `src/data/catalogManifest.js` 从完整目录统一派生 150 个索引详情、15 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
 3. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
 4. `src/hooks/useCrosshairCatalog.js` 根据外观去重、本地化并计算搜索、排序、相关推荐和当前选择。
 5. `CrosshairCanvas` 在地图图片上渲染当前形状和颜色。
@@ -85,7 +85,15 @@ src/data + src/i18n + src/seo
 
 目录规模与索引规模分开管理：前端目录加载完整去重数据，默认每批展示 48 项；`catalogManifest.indexableIds` 只列出具备独立说明、集合内链和图片资产的索引子集。`src/seo/routes.js` 保留旧导出名作为兼容层，但新的构建与验证脚本直接读取 Manifest。其他详情使用 `noindex,follow`。
 
-`pnpm validate:manifest` 会阻止缺失 ID、重复 ID、重复集合 Slug 和索引记录缺失。集合页允许链接到完整目录中的 `noindex,follow` 详情，这些引用会计数但不会擅自扩大索引。
+`pnpm validate:manifest` 会阻止缺失 ID、重复 ID、索引数量漂移、索引详情没有集合入口和重复集合 Slug。集合页允许链接到完整目录中的 `noindex,follow` 详情，这些引用会计数但不会擅自扩大索引。
+
+## 职业选手候选数据流
+
+1. `data_raw/pro-crosshair-sources.json` 只登记允许访问的公开来源和来源等级；
+2. `pnpm collect:pro-candidates` 先读取来源 robots 与 Sitemap，再抓取公开选手页；
+3. 候选代码必须通过 AimCodes 解析器和可见性检查，处理结果写入 `data_processed/`，异常行单独写入 `pro-crosshair-errors.json`；
+4. 自动采集结果始终保持 `needs_primary_source`，不会进入正式目录、可索引页面或 Sitemap；
+5. 只有补充选手本人、战队、Riot/VCT、直播命令或可定位 VOD 等一手来源，并经人工/GPT 语义审核后，才能进入正式数据。
 
 ## 反应测试数据流
 

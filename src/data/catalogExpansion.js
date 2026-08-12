@@ -3,7 +3,12 @@ import { haveSameVisibleShape } from '../utils/crosshairSimilarity.js'
 
 const SOURCE_CHECKED_AT = '2026-08-11'
 const TARGET_PER_FAMILY = 20
-const INDEXABLE_PER_FAMILY = 7
+// Release index coverage in measured batches. Phase 2 raises the original
+// seven-per-family baseline to 11, with two search-led families receiving one
+// additional representative. This adds exactly 50 indexable shapes without
+// making every generated variant indexable at once.
+const INDEXABLE_PER_FAMILY = 11
+const INDEXABLE_FAMILY_OVERRIDES = Object.freeze({ microGap: 12, tapDot: 12 })
 
 const palette = [
   { key: 'cyan', preset: '5', hex: '#00ffff' },
@@ -278,5 +283,13 @@ export function expansionIdsForColor(items, colorKey, limit = 8) {
 }
 
 export function indexableExpansionIds(items) {
-  return familyDefinitions.flatMap((family) => expansionIdsForFamily(items, family.key, INDEXABLE_PER_FAMILY))
+  return familyDefinitions.flatMap((family) => expansionIdsForFamily(
+    items,
+    family.key,
+    INDEXABLE_FAMILY_OVERRIDES[family.key] || INDEXABLE_PER_FAMILY,
+  ))
+}
+
+export function indexableLimitForFamily(familyKey) {
+  return INDEXABLE_FAMILY_OVERRIDES[familyKey] || INDEXABLE_PER_FAMILY
 }
