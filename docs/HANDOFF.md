@@ -25,6 +25,7 @@
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/18> 新增 `src/data/catalogManifest.js` 与 `pnpm validate:manifest`，图片、Sitemap、集合和索引详情从同一清单派生；`App.jsx` 只保留全局编排，目录视图模型和主要展示区域已拆分。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/22> 移除四语种准星详情的检查标签与日期，生成器改用玩家试枪提示，并让静态 SEO 兜底只在脚本禁用或加载长时间失败时显示，消除语言首页加载闪屏。
 - 2026-08-12 第二批目录索引把可索引详情由 100 个提升到 150 个；主 Sitemap 为 744 条、准星 Sitemap 为 600 条、图片 Sitemap 为 660 个页面和 1,260 个图片引用。
+- 2026-08-12 首批一手来源职业配置新增 Sacy、Saadhak、mwzera、Cortezia、Sato、Tteuw，并更新 Aspas；构建基线为 308 条源代码、300 种普通目录可见样式、156 个索引详情、768 条主 Sitemap URL、624 条准星 Sitemap URL、684 个图片 Sitemap 页面和 1,308 个图片引用。
 - 职业候选管线共发现 121 条公开线索，105 条可解析，16 条异常单独保留；全部等待一手来源，尚未发布职业玩家页。
 
 ## Cursor 接手时第一步

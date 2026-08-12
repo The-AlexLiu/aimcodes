@@ -82,7 +82,9 @@ const duplicatePairs = hiddenDuplicates.map((item) => {
 })
 
 for (const item of hiddenDuplicates) {
-  if (!allowedLegacyDuplicateIds.has(item.id)) addError(item, 'unexpected visual duplicate is hidden by the catalog')
+  if (!allowedLegacyDuplicateIds.has(item.id) && item.verificationStatus !== 'player_source') {
+    addError(item, 'unexpected visual duplicate is hidden by the catalog')
+  }
 }
 
 if (crosshairs.length < 302) {
@@ -100,5 +102,5 @@ if (errors.length) {
 } else {
   console.log(`Crosshair validation passed: ${crosshairs.length} source codes, ${visibleCrosshairs.length} distinct visible styles.`)
   console.log(`Intentional legacy duplicates hidden by the UI: ${duplicatePairs.join(', ') || 'none'}.`)
-  console.log('Every code parses, renders a visible primary component, keeps its geometry after preset/custom recoloring, and has EN/ES/ZH/PT copy.')
+  console.log('Every code parses, renders a visible primary component, keeps its geometry after preset/custom recoloring, and has EN/ES/ZH/PT copy. Verified player profiles may share a visible setup while retaining distinct player detail pages.')
 }

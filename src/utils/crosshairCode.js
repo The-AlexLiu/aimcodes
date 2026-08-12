@@ -45,12 +45,17 @@ function parsePrimaryValues(tokens) {
 }
 
 function customColor(values, fallbackColor) {
-  const preset = COLOR_PRESETS[values.get('c') ?? 0]
-  if (values.get('c') !== '8') return preset || COLOR_PRESETS[0]
-
+  const colorMode = values.get('c')
   const raw = values.get('u') || ''
+  const usesCustomColor = colorMode === '8' || (!values.has('c') && Boolean(raw))
+  const preset = COLOR_PRESETS[colorMode ?? 0]
+  if (!usesCustomColor) return preset || COLOR_PRESETS[0]
+
   const rgb = raw.replace(/^#/, '').slice(0, 6)
-  if (/^[0-9a-f]{6}$/i.test(rgb)) return { hex: `#${rgb}`, key: 'custom' }
+  if (/^[0-9a-f]{6}$/i.test(rgb)) {
+    const normalized = rgb.toLowerCase()
+    return { hex: `#${normalized}`, key: normalized === '000000' ? 'black' : 'custom' }
+  }
   return { hex: fallbackColor || '#ffffff', key: 'custom', approximate: true }
 }
 

@@ -59,7 +59,7 @@ src/data + src/i18n + src/seo
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
 
-`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 1,364 个本地化 HTML 路由，将 744 个允许索引的 canonical URL 写入主 Sitemap，并将其中 600 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 1,388 个本地化 HTML 路由，将 768 个允许索引的 canonical URL 写入主 Sitemap，并将其中 624 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
@@ -68,7 +68,7 @@ src/data + src/i18n + src/seo
 ## 准星数据流
 
 1. `src/data/crosshairs.js` 汇总基础准星和 `catalogExpansionCrosshairs`；后者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成。
-2. `src/data/catalogManifest.js` 从完整目录统一派生 150 个索引详情、15 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
+2. `src/data/catalogManifest.js` 从完整目录统一派生 156 个索引详情、15 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
 3. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
 4. `src/hooks/useCrosshairCatalog.js` 根据外观去重、本地化并计算搜索、排序、相关推荐和当前选择。
 5. `CrosshairCanvas` 在地图图片上渲染当前形状和颜色。
@@ -94,6 +94,8 @@ src/data + src/i18n + src/seo
 3. 候选代码必须通过 AimCodes 解析器和可见性检查，处理结果写入 `data_processed/`，异常行单独写入 `pro-crosshair-errors.json`；
 4. 自动采集结果始终保持 `needs_primary_source`，不会进入正式目录、可索引页面或 Sitemap；
 5. 只有补充选手本人、战队、Riot/VCT、直播命令或可定位 VOD 等一手来源，并经人工/GPT 语义审核后，才能进入正式数据。
+6. 已发布职业配置保存在 `src/data/verifiedProCrosshairs.js`，对应来源快照保存在 `data_raw/verified-pro-crosshair-sources.json`；`pnpm validate:verified-pros` 会校验代码、玩家频道、直播指令、索引与职业集合关系。
+7. 职业选手可以使用相同外观。普通目录继续按外观去重，职业选手集合和独立详情页则按玩家保留配置档案，避免把相同十字重复展示为普通样式。
 
 ## 反应测试数据流
 
@@ -137,7 +139,7 @@ src/data + src/i18n + src/seo
 主要能力：
 
 - 四语种；
-- 302 条源代码、300 种可见样式；
+- 308 条源代码、300 种可见样式，另保留 7 个具有玩家控制来源的职业配置快照；
 - TikTok、Reels、Shorts 和通用平台预设；
 - 自定义三次反应成绩；
 - MP4、1080×1080 方形图和 1080×1920 竖版封面；

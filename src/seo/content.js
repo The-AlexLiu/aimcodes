@@ -35,10 +35,10 @@ const copy = {
         metaTitle: '8 Working VALORANT Crosshair Codes for Ranked | AimCodes', metaDescription: 'Try 8 working VALORANT crosshair codes for ranked, headshots, beginners and one-taps. Preview every pick on a map and copy the code.',
       },
       pro: {
-        label: 'Pro crosshairs', eyebrow: 'PRO PLAYER CODES', title: 'VALORANT pro player crosshair codes', intro: 'Preview crosshairs inspired by TenZ, aspas, f0rsakeN, Demon1, ScreaM, Less, Boaster, cNed, and Jinggg.', gridTitle: 'Pro crosshairs in this collection',
+        label: 'Pro crosshairs', eyebrow: 'PRO PLAYER CODES', title: 'VALORANT pro player crosshair codes', intro: 'Preview and copy setups associated with TenZ, aspas, f0rsakeN, Demon1, Sacy, Saadhak, mwzera, Cortezia, Sato, and more.', gridTitle: 'Pro crosshairs in this collection',
         body: ['Pro players often switch settings, so a player name is a strong starting point rather than a permanent rule. The useful part is the shape: gap, line length, dot size, and visibility.', 'Open every code on the same map scene, compare how quickly you reacquire the center, and copy the version that fits your own screen.'],
         faq: [['Do pro players always use the same crosshair?', 'No. Pros can change crosshairs between patches, maps, or even matches. Treat each code as a tested starting point.'], ['Which pro crosshair is easiest to start with?', 'TenZ and Jinggg use compact line-based shapes that are easier to track than a very small dot for many players.'], ['Can I change a pro crosshair color?', 'Yes. Changing the color keeps the original shape, and AimCodes updates the copied profile code to match your choice.']],
-        metaTitle: 'VALORANT Pro Player Crosshair Codes | AimCodes', metaDescription: 'Preview and copy VALORANT pro player crosshair codes for TenZ, aspas, Demon1, f0rsakeN, ScreaM, Less, Boaster, cNed, and Jinggg.',
+        metaTitle: 'VALORANT Pro Player Crosshair Codes | AimCodes', metaDescription: 'Preview and copy VALORANT pro player crosshair codes for TenZ, aspas, Sacy, Saadhak, mwzera, Demon1, f0rsakeN, and more.',
       },
       dot: {
         label: 'Dot crosshairs', eyebrow: 'SMALL CENTER, CLEAN SCREEN', title: 'VALORANT dot crosshair codes', intro: 'Compact dots and micro-cross options for players who want a precise center with minimal screen clutter.', gridTitle: 'Dot crosshairs to compare',
@@ -112,10 +112,10 @@ const copy = {
         metaTitle: 'Mejores códigos de mira de VALORANT | AimCodes', metaDescription: 'Prueba 8 de las mejores miras de VALORANT en mapas reales. Compara configuraciones pro, puntos y formas compactas, cambia el color y copia el código.',
       },
       pro: {
-        label: 'Miras de pros', eyebrow: 'CÓDIGOS DE JUGADORES PRO', title: 'Códigos de mira de jugadores profesionales de VALORANT', intro: 'Prueba las miras de TenZ, aspas, f0rsakeN, Demon1, ScreaM, Less, Boaster, cNed y Jinggg.', gridTitle: 'Miras profesionales de esta colección',
+        label: 'Miras de pros', eyebrow: 'CÓDIGOS DE JUGADORES PRO', title: 'Códigos de mira de jugadores profesionales de VALORANT', intro: 'Prueba y copia las configuraciones de TenZ, aspas, f0rsakeN, Demon1, Sacy, Saadhak, mwzera, Cortezia, Sato y más.', gridTitle: 'Miras profesionales de esta colección',
         body: ['Los profesionales cambian sus ajustes con frecuencia, así que el nombre del jugador es un buen punto de partida, no una regla permanente. Lo importante es la forma, el hueco y la visibilidad.', 'Abre cada código sobre el mismo mapa, compara cuánto tardas en recuperar el centro y copia la opción que mejor encaje con tu pantalla.'],
         faq: [['¿Los profesionales usan siempre la misma mira?', 'No. Pueden cambiarla entre parches, mapas o partidas. Usa cada código como un punto de partida ya probado.'], ['¿Qué mira profesional es más fácil para empezar?', 'Las formas compactas con líneas de TenZ y Jinggg suelen ser más fáciles de seguir que un punto muy pequeño.'], ['¿Puedo cambiar el color de una mira profesional?', 'Sí. AimCodes conserva la forma y actualiza el código copiado con el color que elijas.']],
-        metaTitle: 'Códigos de mira de pros de VALORANT | AimCodes', metaDescription: 'Prueba y copia miras de pros de VALORANT como TenZ, aspas, Demon1, f0rsakeN, ScreaM, Less, Boaster, cNed y Jinggg.',
+        metaTitle: 'Códigos de mira de pros de VALORANT | AimCodes', metaDescription: 'Prueba y copia miras de pros de VALORANT como TenZ, aspas, Sacy, Saadhak, mwzera, Demon1, f0rsakeN y más.',
       },
       dot: {
         label: 'Miras de punto', eyebrow: 'CENTRO PEQUEÑO, PANTALLA LIMPIA', title: 'Códigos de mira de punto de VALORANT', intro: 'Puntos compactos y microcruces para quienes buscan un centro preciso con el mínimo ruido en pantalla.', gridTitle: 'Miras de punto para comparar',
@@ -174,10 +174,10 @@ const copy = {
         metaTitle: 'Melhores códigos de mira do VALORANT | AimCodes', metaDescription: 'Teste 8 das melhores miras do VALORANT em mapas reais. Compare miras pro, pontos e formatos compactos, troque a cor e copie o código.',
       },
       pro: {
-        label: 'Miras de pro', eyebrow: 'CÓDIGOS DE JOGADORES PRO', title: 'Códigos de mira de jogadores profissionais do VALORANT', intro: 'Teste as miras de TenZ, aspas, f0rsakeN, Demon1, ScreaM, Less, Boaster, cNed e Jinggg.', gridTitle: 'Miras profissionais desta coleção',
+        label: 'Miras de pro', eyebrow: 'CÓDIGOS DE JOGADORES PRO', title: 'Códigos de mira de jogadores profissionais do VALORANT', intro: 'Teste e copie as configurações de TenZ, aspas, f0rsakeN, Demon1, Sacy, Saadhak, mwzera, Cortezia, Sato e mais.', gridTitle: 'Miras profissionais desta coleção',
         body: ['Jogadores profissionais trocam ajustes com frequência, então o nome do jogador é um bom ponto de partida, não uma regra permanente. O que importa é o formato, o espaço e a visibilidade.', 'Abra cada código no mesmo mapa, compare quanto tempo leva para reencontrar o centro e copie a opção que combina com a sua tela.'],
         faq: [['Os profissionais usam sempre a mesma mira?', 'Não. Eles podem mudar entre patches, mapas ou partidas. Use cada código como um ponto de partida já testado.'], ['Qual mira profissional é mais fácil para começar?', 'Os formatos compactos com linhas de TenZ e Jinggg costumam ser mais fáceis de acompanhar do que um ponto muito pequeno.'], ['Posso mudar a cor de uma mira profissional?', 'Sim. O AimCodes mantém o formato e atualiza o código copiado com a cor escolhida.']],
-        metaTitle: 'Códigos de mira de pro do VALORANT | AimCodes', metaDescription: 'Teste e copie miras de pros do VALORANT como TenZ, aspas, Demon1, f0rsakeN, ScreaM, Less, Boaster, cNed e Jinggg.',
+        metaTitle: 'Códigos de mira de pro do VALORANT | AimCodes', metaDescription: 'Teste e copie miras de pros do VALORANT como TenZ, aspas, Sacy, Saadhak, mwzera, Demon1, f0rsakeN e mais.',
       },
       dot: {
         label: 'Miras de ponto', eyebrow: 'MIRA PONTINHO, TELA LIMPA', title: 'Códigos de mira de ponto do VALORANT', intro: 'Teste miras de ponto, pontinhos compactos e microcruzes sem precisar importar cada código no jogo.', gridTitle: 'Miras de ponto para testar e copiar',
@@ -236,10 +236,10 @@ const copy = {
         metaTitle: '无畏契约最佳准星代码推荐 | AimCodes', metaDescription: '在真实地图中试用值得优先尝试的无畏契约准星，对比职业同款、小圆点和紧凑造型，换色后直接复制代码。',
       },
       pro: {
-        label: '职业准星', eyebrow: '职业选手同款代码', title: '无畏契约职业选手准星代码', intro: '直接试 TenZ、aspas、f0rsakeN、Demon1、ScreaM、Less、Boaster、cNed 和 Jinggg 的准星。', gridTitle: '本页职业选手准星',
+        label: '职业准星', eyebrow: '职业选手同款代码', title: '无畏契约职业选手准星代码', intro: '直接试 TenZ、aspas、f0rsakeN、Demon1、Sacy、Saadhak、mwzera、Cortezia、Sato 等选手的准星。', gridTitle: '本页职业选手准星',
         body: ['职业选手也会频繁更换设置，所以选手名字更适合作为起点，而不是永远不变的标准答案。真正值得比较的是形状、间距、线长和可见度。', '把不同准星放在同一张地图里试，观察自己能多快找回中心，再复制最适合自己屏幕和习惯的那款。'],
         faq: [['职业选手会一直用同一个准星吗？', '不会。选手可能随版本、地图甚至单场比赛更换准星，所以这里的代码更适合作为经过实战验证的起点。'], ['哪款职业准星更适合新手？', 'TenZ 和 Jinggg 的紧凑线条更容易跟住，通常比极小圆点更适合刚开始寻找手感的玩家。'], ['职业准星可以换颜色吗？', '可以。AimCodes 会保留原有形状，同时把你选择的颜色写进最终复制代码。']],
-        metaTitle: '无畏契约职业选手准星代码大全 | AimCodes', metaDescription: '预览并复制 TenZ、aspas、Demon1、f0rsakeN、ScreaM、Less、Boaster、cNed 和 Jinggg 的无畏契约职业准星代码。',
+        metaTitle: '无畏契约职业选手准星代码大全 | AimCodes', metaDescription: '预览并复制 TenZ、aspas、Sacy、Saadhak、mwzera、Demon1、f0rsakeN 等职业选手的无畏契约准星代码。',
       },
       dot: {
         label: '小圆点准星', eyebrow: '中心更小，画面更干净', title: '无畏契约小圆点准星代码', intro: '紧凑小圆点和微型十字，适合想要明确中心、又不想让准星遮挡画面的玩家。', gridTitle: '值得对比的小圆点准星',
@@ -292,10 +292,10 @@ const priorityDetails = {
     'zh-CN': ['适合喜欢中心留空、需要快速切换目标的玩家。', '四条短线不会挡住头线，同时又能给出明确的中心参照。'],
   },
   'aspas-dot': {
-    en: ['Precise first shots and players who prefer a compact center dot.', 'The small dot leaves most of the target visible and is easy to place on a head line.'],
-    es: ['Primeros disparos precisos y jugadores que prefieren un punto compacto.', 'El pequeño punto deja visible casi todo el objetivo y se coloca bien a la altura de la cabeza.'],
-    'pt-BR': ['Primeiros tiros precisos e quem prefere um ponto compacto.', 'O pequeno ponto deixa quase todo o alvo visível e encaixa bem na linha da cabeça.'],
-    'zh-CN': ['适合重视第一枪、喜欢紧凑中心点的玩家。', '小巧的中心点几乎不遮挡目标，很适合贴着头线移动。'],
+    en: ['Precise first shots and players who prefer a compact, closed center.', 'The short cyan lines meet in the middle, making the exact center easy to reacquire without covering much of the target.'],
+    es: ['Primeros disparos precisos y jugadores que prefieren un centro compacto y cerrado.', 'Las líneas cian cortas se unen en el centro y ayudan a recuperarlo sin tapar demasiado al rival.'],
+    'pt-BR': ['Primeiros tiros precisos e quem prefere um centro compacto e fechado.', 'As linhas ciano curtas se encontram no meio e ajudam a reencontrar o centro sem cobrir muito o alvo.'],
+    'zh-CN': ['适合重视第一枪、喜欢紧凑闭合中心的玩家。', '四条青色短线在中心闭合，容易快速找回准星，又不会遮住太多目标。'],
   },
   forsaken: {
     en: ['Players who want a tiny sight and plenty of space around the target. It suits calm head-level taps more than long sprays.', 'Minimal marks keep the screen clean. If the white lines disappear in utility or bright walls, try cyan before choosing a larger shape.'],
@@ -350,6 +350,42 @@ const priorityDetails = {
     es: ['Entradas rápidas y jugadores que quieren un centro abierto pequeño y visible.', 'Las líneas verdes cortas se ven bien y dejan visible al rival en el centro.'],
     'pt-BR': ['Entradas rápidas e quem quer um centro aberto pequeno e visível.', 'As linhas verdes curtas aparecem bem e deixam o alvo visível no meio.'],
     'zh-CN': ['适合快节奏突破，以及想要紧凑留空中心的玩家。', '短绿线对比度高，中心又不会挡住目标，转移视线时比较容易找回。'],
+  },
+  sacy: {
+    en: ['Players who want a familiar 1-4-2-2 setup for clean first bullets and quick target switches.', 'The open cyan center stays readable on most maps, but the four-line shape takes more room than a dot.'],
+    es: ['Jugadores que quieren la clásica 1-4-2-2 para primeras balas limpias y cambios rápidos de objetivo.', 'El centro cian abierto se ve bien en la mayoría de mapas, aunque ocupa más que un punto.'],
+    'pt-BR': ['Quem quer a clássica 1-4-2-2 para primeiras balas limpas e trocas rápidas de alvo.', 'O centro ciano aberto aparece bem na maioria dos mapas, mas ocupa mais espaço que um ponto.'],
+    'zh-CN': ['适合喜欢经典 1-4-2-2 参数、重视第一枪和快速转移目标的玩家。', '青色留空中心在大多数地图都很醒目，但四线造型会比小圆点多占一点画面。'],
+  },
+  saadhak: {
+    en: ['Players who want several reference points around a tiny center for bursts and corrections.', 'The inner and outer layers are easy to track, but add more visual detail than a minimalist crosshair.'],
+    es: ['Jugadores que quieren varias referencias alrededor de un centro pequeño para ráfagas y correcciones.', 'Las capas interiores y exteriores se siguen bien, pero añaden más detalle que una mira minimalista.'],
+    'pt-BR': ['Quem quer várias referências ao redor de um centro pequeno para rajadas e correções.', 'As camadas internas e externas são fáceis de acompanhar, mas têm mais informação que uma mira minimalista.'],
+    'zh-CN': ['适合短点射时需要多层参照、方便修正枪线的玩家。', '中心点和内外线条都容易跟住，但视觉信息会比极简准星更多。'],
+  },
+  mwzera: {
+    en: ['Players who want a very compact closed cross and do not mind testing a dark color.', 'The black center is precise on bright walls but can disappear in shadows; recolor it before changing the shape.'],
+    es: ['Jugadores que quieren una cruz cerrada muy compacta y no les importa probar un color oscuro.', 'El centro negro es preciso en paredes claras, pero se pierde en sombras; cambia el color antes que la forma.'],
+    'pt-BR': ['Quem quer uma cruz fechada bem compacta e topa testar uma cor escura.', 'O centro preto fica preciso em paredes claras, mas pode sumir nas sombras; troque a cor antes do formato.'],
+    'zh-CN': ['适合喜欢极紧凑闭合十字、愿意尝试深色准星的玩家。', '黑色中心在亮墙上很精准，暗处却容易丢；先换颜色，不必急着换造型。'],
+  },
+  cortezia: {
+    en: ['Players who want the exact center marked by a simple outlined dot.', 'The outline keeps the black dot readable on dark areas, though it covers slightly more than an unoutlined micro dot.'],
+    es: ['Jugadores que quieren marcar el centro exacto con un punto sencillo y contorneado.', 'El contorno mantiene visible el punto negro en zonas oscuras, aunque tapa algo más que un micropunto sin borde.'],
+    'pt-BR': ['Quem quer marcar o centro exato com um ponto simples e contornado.', 'O contorno mantém o ponto preto visível nas áreas escuras, mas cobre um pouco mais que um microponto sem borda.'],
+    'zh-CN': ['适合想用一个带轮廓小点直接标记准星中心的玩家。', '轮廓能让黑点在暗处更容易看见，代价是会比无轮廓微型点多遮一点目标。'],
+  },
+  sato: {
+    en: ['Players who want a compact cross with a narrow gap for controlled taps and bursts.', 'The black lines feel clean against bright scenery but need a brighter color on darker corners.'],
+    es: ['Jugadores que quieren una cruz compacta con un hueco estrecho para taps y ráfagas controladas.', 'Las líneas negras quedan limpias sobre zonas claras, pero necesitan otro color en esquinas oscuras.'],
+    'pt-BR': ['Quem quer uma cruz compacta com espaço estreito para taps e rajadas controladas.', 'As linhas pretas ficam limpas em áreas claras, mas pedem uma cor mais viva nos cantos escuros.'],
+    'zh-CN': ['适合喜欢窄间距紧凑十字、以控制单点和短点射为主的玩家。', '黑色短线在亮区很干净，但打暗角时最好换成更亮的颜色。'],
+  },
+  tteuw: {
+    en: ['Players who want a visible center dot with tiny line references around it.', 'The extra inner and outer pixels make the center easy to follow, but movement error can add motion while you move.'],
+    es: ['Jugadores que quieren un punto visible con pequeñas referencias alrededor.', 'Los píxeles interiores y exteriores ayudan a seguir el centro, pero el error de movimiento puede añadir movimiento al desplazarte.'],
+    'pt-BR': ['Quem quer um ponto visível com pequenas referências ao redor.', 'Os pixels internos e externos ajudam a acompanhar o centro, mas o erro de movimento pode mexer a mira enquanto você anda.'],
+    'zh-CN': ['适合想要醒目中心点、又希望周围有极短线条辅助定位的玩家。', '内外小线条更容易跟住中心，但开启移动误差后，走动时准星会发生变化。'],
   },
   'heart-pink': {
     en: ['Clips and casual matches where you want a compact playful shape. It is the easiest step down from the larger Cat and Pig faces.', 'The heart leaves more of a distant target visible, but still has more visual detail than a competitive dot.'],
