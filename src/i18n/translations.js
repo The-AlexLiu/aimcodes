@@ -26,7 +26,7 @@ export const dictionaries = {
     filters: { label: 'Browse crosshairs', all: 'All', pro: 'Pro picks', dot: 'Dots', small: 'Small', classic: 'Classic', cute: 'Cute', fun: 'Fun', favorites: 'Saved', recent: 'Recently viewed', mine: 'Mine' },
     sort: { label: 'Sort', recommended: 'Recommended', name: 'Name A–Z', updated: 'Recently updated' },
     catalogUx: { filters: 'Filters', closeFilters: 'Close filters', backToResults: 'Back to crosshairs', loadMore: 'Show more crosshairs', showing: 'Showing {shown} of {total}' },
-    colors: { label: 'Color', filter: 'Choose a color', white: 'White', green: 'Green', lime: 'Lime', chartreuse: 'Yellow green', yellow: 'Yellow', cyan: 'Cyan', pink: 'Pink', red: 'Red', custom: 'Original color' },
+    colors: { label: 'Color', filter: 'Choose a color', white: 'White', black: 'Black', green: 'Green', lime: 'Lime', chartreuse: 'Yellow green', yellow: 'Yellow', cyan: 'Cyan', pink: 'Pink', red: 'Red', custom: 'Original color' },
     badges: { pro: 'Pro', cute: 'Cute', fun: 'Fun' },
     empty: { filteredTitle: 'Nothing here yet', filteredBody: 'Try a different search or category.' },
     toast: { copied: 'Copied the code for “{name}”', copyBlocked: 'Copy didn’t work, so we opened the code for you.', shared: 'Shared', linkCopied: 'Link and code copied', textCopied: 'Name and code copied', shareFailed: 'Sharing didn’t work. Try again.', deleted: 'Crosshair removed' },
@@ -71,7 +71,7 @@ export const dictionaries = {
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pros', dot: 'Puntos', small: 'Pequeñas', classic: 'Clásicas', cute: 'Bonitas', fun: 'Originales', favorites: 'Guardadas', recent: 'Vistas', mine: 'Mías' },
     sort: { label: 'Orden', recommended: 'Recomendadas', name: 'Nombre A–Z', updated: 'Actualizadas' },
     catalogUx: { filters: 'Filtros', closeFilters: 'Cerrar filtros', backToResults: 'Volver a las miras', loadMore: 'Ver más miras', showing: 'Mostrando {shown} de {total}' },
-    colors: { label: 'Color', filter: 'Elegir color', white: 'Blanco', green: 'Verde', lime: 'Verde lima', chartreuse: 'Verde amarillo', yellow: 'Amarillo', cyan: 'Cian', pink: 'Rosa', red: 'Rojo', custom: 'Color original' },
+    colors: { label: 'Color', filter: 'Elegir color', white: 'Blanco', black: 'Negro', green: 'Verde', lime: 'Verde lima', chartreuse: 'Verde amarillo', yellow: 'Amarillo', cyan: 'Cian', pink: 'Rosa', red: 'Rojo', custom: 'Color original' },
     badges: { pro: 'De pro', cute: 'Bonita', fun: 'Original' },
     empty: { filteredTitle: 'No hay ninguna por aquí', filteredBody: 'Prueba otra búsqueda o categoría.' },
     toast: { copied: 'Código de “{name}” copiado', copyBlocked: 'No se pudo copiar, así que abrimos el código para ti.', shared: 'Compartida', linkCopied: 'Enlace y código copiados', textCopied: 'Nombre y código copiados', shareFailed: 'No se pudo compartir. Inténtalo de nuevo.', deleted: 'Mira eliminada' },
@@ -116,7 +116,7 @@ export const dictionaries = {
     filters: { label: '按类型找准星', all: '全部', pro: '职业同款', dot: '小圆点', small: '小准星', classic: '十字', cute: '可爱', fun: '整活', favorites: '已保存', recent: '最近看过', mine: '我的' },
     sort: { label: '排序', recommended: '推荐优先', name: '名称顺序', updated: '最近更新' },
     catalogUx: { filters: '筛选', closeFilters: '关闭筛选', backToResults: '返回准星列表', loadMore: '继续加载准星', showing: '已显示 {shown} / {total}' },
-    colors: { label: '颜色', filter: '选择颜色', white: '白色', green: '绿色', lime: '黄绿色', chartreuse: '嫩黄色', yellow: '黄色', cyan: '青色', pink: '粉色', red: '红色', custom: '特殊颜色' },
+    colors: { label: '颜色', filter: '选择颜色', white: '白色', black: '黑色', green: '绿色', lime: '黄绿色', chartreuse: '嫩黄色', yellow: '黄色', cyan: '青色', pink: '粉色', red: '红色', custom: '特殊颜色' },
     badges: { pro: '职业同款', cute: '可爱', fun: '整活' },
     empty: { filteredTitle: '这里还没有合适的准星', filteredBody: '换个关键词或分类试试。' },
     toast: { copied: '“{name}”的代码已复制', copyBlocked: '没能自动复制，代码已经打开，可以手动复制。', shared: '已经分享', linkCopied: '链接和代码已复制', textCopied: '名称和代码已复制', shareFailed: '分享失败，再试一次吧。', deleted: '准星已移除' },
@@ -161,7 +161,7 @@ export const dictionaries = {
     filters: { label: 'Buscar por tipo', all: 'Todas', pro: 'De pro', dot: 'Pontos', small: 'Pequenas', classic: 'Clássicas', cute: 'Fofas', fun: 'Diferentes', favorites: 'Salvas', recent: 'Vistas', mine: 'Minhas' },
     sort: { label: 'Ordem', recommended: 'Recomendadas', name: 'Nome A–Z', updated: 'Atualizadas' },
     catalogUx: { filters: 'Filtros', closeFilters: 'Fechar filtros', backToResults: 'Voltar para as miras', loadMore: 'Ver mais miras', showing: 'Mostrando {shown} de {total}' },
-    colors: { label: 'Cor', filter: 'Escolher cor', white: 'Branco', green: 'Verde', lime: 'Verde-limão', chartreuse: 'Verde-amarelo', yellow: 'Amarelo', cyan: 'Ciano', pink: 'Rosa', red: 'Vermelho', custom: 'Cor original' },
+    colors: { label: 'Cor', filter: 'Escolher cor', white: 'Branco', black: 'Preto', green: 'Verde', lime: 'Verde-limão', chartreuse: 'Verde-amarelo', yellow: 'Amarelo', cyan: 'Ciano', pink: 'Rosa', red: 'Vermelho', custom: 'Cor original' },
     badges: { pro: 'De pro', cute: 'Fofa', fun: 'Diferente' },
     empty: { filteredTitle: 'Não tem nenhuma por aqui', filteredBody: 'Tente outra busca ou categoria.' },
     toast: { copied: 'Código da “{name}” copiado', copyBlocked: 'Não deu para copiar, então abrimos o código para você.', shared: 'Compartilhada', linkCopied: 'Link e código copiados', textCopied: 'Nome e código copiados', shareFailed: 'Não deu para compartilhar. Tente de novo.', deleted: 'Mira removida' },
@@ -197,7 +197,7 @@ const catalogExpansionCopy = Object.fromEntries(
 export const crosshairCopy = {
   ...catalogExpansionCopy,
   'aspas-dot': {
-    en: ['Aspas — cyan dot', 'Aspas', 'Compact cyan dot with outline'], es: ['Aspas — punto cian', 'Aspas', 'Punto cian compacto con contorno'], 'zh-CN': ['Aspas — 青色点状准星', 'Aspas', '带描边的紧凑青色点'], 'pt-BR': ['Aspas — ponto ciano', 'Aspas', 'Ponto ciano compacto com contorno'],
+    en: ['Aspas — closed cyan cross', 'Aspas', 'Short cyan lines connected at the center'], es: ['Aspas — cruz cian cerrada', 'Aspas', 'Líneas cian cortas unidas en el centro'], 'zh-CN': ['Aspas — 青色闭合十字', 'Aspas', '四条青色短线连接在中心'], 'pt-BR': ['Aspas — cruz ciano fechada', 'Aspas', 'Linhas ciano curtas conectadas no centro'],
   },
   tenz: {
     en: ['TenZ — classic cyan', 'TenZ', 'Four short lines with an open center'], es: ['TenZ — clásica cian', 'TenZ', 'Cuatro líneas cortas con centro abierto'], 'zh-CN': ['TenZ — 经典青色准星', 'TenZ', '四条短线，中间留空'], 'pt-BR': ['TenZ — clássica ciano', 'TenZ', 'Quatro linhas curtas com centro aberto'],
@@ -222,6 +222,24 @@ export const crosshairCopy = {
   },
   jinggg: {
     en: ['Jinggg — compact green', 'Jinggg', 'Small green crosshair with open center'], es: ['Jinggg — verde compacta', 'Jinggg', 'Pequeña, verde y con centro abierto'], 'zh-CN': ['Jinggg — 绿色紧凑准星', 'Jinggg', '小巧绿色，中间留空'], 'pt-BR': ['Jinggg — verde compacta', 'Jinggg', 'Pequena, verde e com centro aberto'],
+  },
+  sacy: {
+    en: ['Sacy — classic cyan', 'Sacy', 'Four short cyan lines with an open center'], es: ['Sacy — clásica cian', 'Sacy', 'Cuatro líneas cian cortas con centro abierto'], 'zh-CN': ['Sacy — 经典青色准星', 'Sacy', '四条青色短线，中间留空'], 'pt-BR': ['Sacy — clássica ciano', 'Sacy', 'Quatro linhas ciano curtas com centro aberto'],
+  },
+  saadhak: {
+    en: ['Saadhak — layered white', 'Saadhak', 'A fine dot with inner and outer support lines'], es: ['Saadhak — blanca en capas', 'Saadhak', 'Punto fino con líneas interiores y exteriores'], 'zh-CN': ['Saadhak — 白色分层准星', 'Saadhak', '细小中心点配合内外两层线条'], 'pt-BR': ['Saadhak — branca em camadas', 'Saadhak', 'Ponto fino com linhas internas e externas de apoio'],
+  },
+  mwzera: {
+    en: ['mwzera — closed black cross', 'mwzera', 'Short black lines connected at the center'], es: ['mwzera — cruz negra cerrada', 'mwzera', 'Líneas negras cortas unidas en el centro'], 'zh-CN': ['mwzera — 黑色闭合十字', 'mwzera', '四条黑色短线连接在中心'], 'pt-BR': ['mwzera — cruz preta fechada', 'mwzera', 'Linhas pretas curtas conectadas no centro'],
+  },
+  cortezia: {
+    en: ['Cortezia — black dot', 'Cortezia', 'A black center dot with an outline'], es: ['Cortezia — punto negro', 'Cortezia', 'Punto negro central con contorno'], 'zh-CN': ['Cortezia — 黑色点状准星', 'Cortezia', '带轮廓的黑色中心点'], 'pt-BR': ['Cortezia — ponto preto', 'Cortezia', 'Ponto preto central com contorno'],
+  },
+  sato: {
+    en: ['Sato — compact black', 'Sato', 'Short black lines with a narrow center'], es: ['Sato — negra compacta', 'Sato', 'Líneas negras cortas con un centro estrecho'], 'zh-CN': ['Sato — 黑色紧凑准星', 'Sato', '四条黑色短线，中间留出窄缝'], 'pt-BR': ['Sato — preta compacta', 'Sato', 'Linhas pretas curtas com centro estreito'],
+  },
+  tteuw: {
+    en: ['Tteuw — layered white dot', 'Tteuw', 'A dot with minimal inner and outer lines'], es: ['Tteuw — punto blanco en capas', 'Tteuw', 'Punto con líneas interiores y exteriores mínimas'], 'zh-CN': ['Tteuw — 白色分层点', 'Tteuw', '中心点配合极短的内外线条'], 'pt-BR': ['Tteuw — ponto branco em camadas', 'Tteuw', 'Ponto com linhas internas e externas mínimas'],
   },
   yay: {
     en: ['yay — white cross', 'yay', 'Four continuous white lines'], es: ['yay — cruz blanca', 'yay', 'Cuatro líneas blancas continuas'], 'zh-CN': ['yay — 白色十字', 'yay', '四条连续白线'], 'pt-BR': ['yay — cruz branca', 'yay', 'Cruz branca de quatro linhas contínuas'],

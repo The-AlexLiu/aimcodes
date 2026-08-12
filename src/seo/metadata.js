@@ -14,7 +14,25 @@ const detailMetadata = Object.freeze({
     en: Object.freeze({ title: 'TenZ VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Preview the TenZ VALORANT crosshair on real map scenes, check its key settings, change the color, and copy the verified profile code.' }),
   }),
   'aspas-dot': Object.freeze({
-    en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Try the compact aspas VALORANT crosshair on real map scenes, review its settings, recolor it, and copy the verified profile code.' }),
+    en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Try the current aspas VALORANT crosshair from his player-channel command, preview the compact closed center, and copy the profile code.' }),
+  }),
+  sacy: Object.freeze({
+    en: Object.freeze({ title: 'Sacy VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Sacy’s 1-4-2-2 cyan VALORANT crosshair on real map scenes and copy the code listed in his player-owned crosshair document.' }),
+  }),
+  saadhak: Object.freeze({
+    en: Object.freeze({ title: 'Saadhak VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Saadhak’s layered white VALORANT crosshair, review the dot and line settings, and copy the code from his player-owned crosshair list.' }),
+  }),
+  mwzera: Object.freeze({
+    en: Object.freeze({ title: 'mwzera VALORANT Crosshair Code & Preview | AimCodes', description: 'Preview the mwzera compact black VALORANT crosshair from his Twitch command, change the color for visibility, and copy the profile code.' }),
+  }),
+  cortezia: Object.freeze({
+    en: Object.freeze({ title: 'Cortezia VALORANT Crosshair Code & Settings | AimCodes', description: 'Try Cortezia’s outlined black dot crosshair from his player-channel command on real VALORANT map scenes and copy the code.' }),
+  }),
+  sato: Object.freeze({
+    en: Object.freeze({ title: 'Sato VALORANT Crosshair Code & Preview | AimCodes', description: 'Preview Sato’s compact black VALORANT crosshair from his player-channel command, test clearer colors, and copy the profile code.' }),
+  }),
+  tteuw: Object.freeze({
+    en: Object.freeze({ title: 'Tteuw VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Tteuw’s layered white dot crosshair from his player-channel command, review its movement setting, and copy the VALORANT code.' }),
   }),
   forsaken: Object.freeze({
     en: Object.freeze({ title: 'f0rsakeN Crosshair Code for VALORANT | AimCodes', description: 'Copy the working f0rsakeN VALORANT crosshair code, preview its compact white center on real maps, and check the settings before you import it.' }),

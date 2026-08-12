@@ -24,6 +24,7 @@
     "validate:performance": "node scripts/validate-performance-budget.mjs",
     "collect:pro-candidates": "node scripts/collect-pro-crosshair-candidates.mjs",
     "validate:pro-candidates": "node scripts/validate-pro-crosshair-candidates.mjs",
+    "validate:verified-pros": "node scripts/validate-verified-pro-crosshairs.mjs",
     "validate:diff": "node scripts/validate-task-diff.mjs",
     "validate:workflow": "node scripts/validate-development-workflow.mjs",
     "task:context": "node scripts/task-context.mjs",

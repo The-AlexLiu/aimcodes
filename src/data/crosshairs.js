@@ -1,27 +1,12 @@
 import { expandedCrosshairs } from './expandedCrosshairs.js'
 import { buildCatalogExpansion } from './catalogExpansion.js'
+import { verifiedProCrosshairs } from './verifiedProCrosshairs.js'
 
 const sourceCheckedAt = '2026-08-03'
 const cuteSourceCheckedAt = '2026-08-04'
 const expandedSourceCheckedAt = '2026-08-04'
 
 const coreCrosshairs = [
-  {
-    id: 'aspas-dot',
-    name: 'Aspas — ponto ciano',
-    shortName: 'Aspas',
-    description: 'Ponto ciano compacto com contorno',
-    player: 'Aspas',
-    category: 'dot',
-    colorName: 'Ciano',
-    color: '#25e6e6',
-    isPro: true,
-    code: '0;P;c;5;o;1;d;1;z;3;f;0;0b;0;1b;0',
-    sourceName: 'VCRDB #91',
-    sourceUrl: 'https://www.vcrdb.net/crosshair/91',
-    sourceCheckedAt,
-    settings: { outline: true, inner: { enabled: false }, outer: { enabled: false }, dot: { enabled: true, size: 3 } },
-  },
   {
     id: 'tenz',
     name: 'TenZ — clássica ciano',
@@ -587,7 +572,7 @@ const coreCrosshairs = [
 ]
 
 export const catalogExpansionCrosshairs = buildCatalogExpansion(coreCrosshairs)
-export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs]
+export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs, ...verifiedProCrosshairs]
 
 export const filters = [
   'all',

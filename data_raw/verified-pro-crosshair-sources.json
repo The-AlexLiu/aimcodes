@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-08-12T07:06:19.000Z",
+  "publicationPolicy": "Only player-controlled Twitch commands and documents linked by those commands may enter the published catalog. Secondary research leads remain unpublished.",
+  "records": [
+    {
+      "crosshairId": "aspas-dot",
+      "player": "Aspas",
+      "channelUrl": "https://www.twitch.tv/aspaszin",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5d26741721dea3ec1a994149/public",
+      "command": "mira",
+      "sourceUpdatedAt": "2026-08-06T18:42:03.567Z",
+      "code": "0;P;c;5;h;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0"
+    },
+    {
+      "crosshairId": "sacy",
+      "player": "Sacy",
+      "channelUrl": "https://www.twitch.tv/sacy",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5e764805fe795268aef8586a/public",
+      "documentUrl": "https://docs.google.com/document/d/1YS4F0qVbNNIqJwT8qKmX6-pYws2bh_2UFAgALDQMGuk/edit",
+      "command": "listamiras",
+      "sourceUpdatedAt": "2026-08-05T18:55:30.647Z",
+      "code": "0;s;1;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0;S;o;1"
+    },
+    {
+      "crosshairId": "saadhak",
+      "player": "Saadhak",
+      "channelUrl": "https://www.twitch.tv/saadhak",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5a571cb37b9942000199cb65/public",
+      "documentUrl": "https://docs.google.com/document/d/18WLBhCeAuF8XdUfV3BP_zG1Y69aJcfhNb6nHmyre-9M/edit",
+      "command": "mira",
+      "sourceUpdatedAt": "2026-03-14T01:09:15.610Z",
+      "code": "0;P;h;0;d;1;z;1;a;0.751;0t;1;0l;2;0v;2;0a;1;0f;0;1t;3;1o;1;1a;0.7;1m;0;1f;0"
+    },
+    {
+      "crosshairId": "mwzera",
+      "player": "mwzera",
+      "channelUrl": "https://www.twitch.tv/mwzera",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5eedd3f5e99a8d7ed0033f8e/public",
+      "command": "mira",
+      "sourceUpdatedAt": "2026-01-17T18:11:22.159Z",
+      "code": "0;P;u;000000FF;h;0;f;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0"
+    },
+    {
+      "crosshairId": "cortezia",
+      "player": "Cortezia",
+      "channelUrl": "https://www.twitch.tv/corteziafps",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5cb97dc5f2ad2cfc4a43f4e8/public",
+      "command": "mira",
+      "sourceUpdatedAt": "2026-02-19T05:06:28.313Z",
+      "code": "0;c;1;s;1;P;u;000000FF;o;1;d;1;f;0;m;1;0b;0;1b;0;S;s;1.118;o;1"
+    },
+    {
+      "crosshairId": "sato",
+      "player": "Sato",
+      "channelUrl": "https://www.twitch.tv/anao_sato",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5f72269b542c6f180234e9a5/public",
+      "command": "mira",
+      "sourceUpdatedAt": "2026-05-20T02:22:53.077Z",
+      "code": "0;s;1;P;u;000000FF;h;0;f;0;m;1;0l;4;0v;4;0o;1;0a;1;0f;0;1b;0;S;c;0;o;1"
+    },
+    {
+      "crosshairId": "tteuw",
+      "player": "Tteuw",
+      "channelUrl": "https://www.twitch.tv/tteuw",
+      "evidenceUrl": "https://api.streamelements.com/kappa/v2/bot/commands/5df021e041c07d614af44bcb/public",
+      "command": "mira",
+      "sourceUpdatedAt": "2025-09-06T00:15:47.975Z",
+      "code": "0;c;1;P;o;1;d;1;f;0;m;1;0t;0;0l;1;0v;1;0o;0;0a;1;0m;1;1t;0;1l;1;1v;1;1o;0;1a;1"
+    }
+  ]
+}

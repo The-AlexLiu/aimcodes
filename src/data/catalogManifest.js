@@ -39,6 +39,12 @@ export const indexableCrosshairIds = Object.freeze([
   'boaster',
   'cned',
   'jinggg',
+  'sacy',
+  'saadhak',
+  'mwzera',
+  'cortezia',
+  'sato',
+  'tteuw',
   'cat-pink',
   'pig-pink',
   'heart-pink',
@@ -52,11 +58,11 @@ export const indexableCrosshairIds = Object.freeze([
 export const crosshairCollections = Object.freeze({
   best: Object.freeze({
     slug: 'best-valorant-crosshairs',
-    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned', ...expansionHighlights]),
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned', 'sacy', 'saadhak', ...expansionHighlights]),
   }),
   pro: Object.freeze({
     slug: 'pro-player-crosshairs',
-    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned', 'jinggg']),
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'forsaken', 'demon1', 'scream-dot', 'less', 'boaster', 'cned', 'jinggg', 'sacy', 'saadhak', 'mwzera', 'cortezia', 'sato', 'tteuw']),
   }),
   dot: Object.freeze({
     slug: 'dot-crosshairs',

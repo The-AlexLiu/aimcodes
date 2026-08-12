@@ -97,7 +97,8 @@ export function useCrosshairCatalog({
     displayedCrosshairs = indexableCrosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
   }
   if (route.type === 'collection') {
-    displayedCrosshairs = crosshairCollections[route.collectionKey].crosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    const collectionCatalog = route.collectionKey === 'pro' ? allSourceCrosshairs : allCrosshairs
+    displayedCrosshairs = crosshairCollections[route.collectionKey].crosshairIds.map((id) => collectionCatalog.find((item) => item.id === id)).filter(Boolean)
   }
   if (route.type === 'crosshair') {
     const indexed = indexableCrosshairIds.map((id) => allCrosshairs.find((item) => item.id === id))
