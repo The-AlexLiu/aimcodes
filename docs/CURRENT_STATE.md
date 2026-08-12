@@ -10,7 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-12 P0 搜索增长发布：英语高展示页与葡语小圆点集合完成搜索意图优化，内部验收流量支持浏览器级持久排除；发布 PR #20。
+- 2026-08-12 P0 搜索增长发布：英语高展示页与葡语小圆点集合完成搜索意图优化，内部验收流量支持浏览器级持久排除；生产提交 `2b8eaf7`、PR #20。
 - 2026-08-11 最近一次产品代码生产发布：目录架构统一，对应生产提交 `9dbfdf1`、PR #18。
 - 当前架构效率版本把索引详情、集合关系、图片和 Sitemap 统一到 `src/data/catalogManifest.js`，并将 `App.jsx` 的目录视图模型和主要页面区域拆分为独立 Hook/组件。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
@@ -19,8 +19,8 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`9dbfdf1 refactor: unify AimCodes catalog architecture (#18)`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/18>
+- 最近产品代码生产提交：`2b8eaf7 Merge pull request #20 from The-AlexLiu/codex/p0-search-growth-20260812`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
@@ -118,7 +118,7 @@
 ## 当前已知问题
 
 1. 渲染器有三份副本，尚未实现单一源自动同步。
-2. 当前产品代码包含 24 个验证事件，但 GA4 后台尚未创建计划中的自定义维度和指标；`interaction_source` 与 `shared_entry` 建议注册为事件范围自定义维度。正式站支持用 `?analytics_optout=1` 将当前内部测试浏览器永久排除，访问 `?analytics_optin=1` 可恢复。
+2. GA4 已于 2026-08-12 创建事件范围自定义维度 `interaction_source` 与 `shared_entry`；自创建时起采集，预计约 24 小时后可用于标准报表。正式站支持用 `?analytics_optout=1` 将当前内部测试浏览器永久排除，访问 `?analytics_optin=1` 可恢复。
 3. 本轮扩展后应观察 21–30 天的抓取、收录、展示和长尾词分布；未验证信号前不继续开放剩余 202 个详情索引。
 4. AdSense 账号、真实发布商 ID、站点验证码、付款资料和 Google 认证 CMP 尚未配置；不得在仓库中使用占位 `ca-pub-` 或占位 `ads.txt`。
 5. 联系入口已统一为域名邮箱 `contact@aimcodes.com`；邮箱实际收件与回复流程需由站点所有者持续维护。
@@ -127,6 +127,6 @@
 ## 推荐后续顺序
 
 1. 创建/进入 AdSense 账号，添加根域 `aimcodes.com`，再把 Google 提供的真实站点验证代码交给开发者安装并提交审核。
-2. 在 GSC 重新提交发布后的 `sitemap.xml` 与 `sitemap-crosshairs.xml`，并检查四语种代表页面的抓取与 canonical。
+2. GSC 已于 2026-08-12 成功提交 `sitemap.xml`（544）、`sitemap-crosshairs.xml`（400）与 `sitemap-images.xml`（460）；下一步检查四语种代表页面的抓取与 canonical。
 3. 观察 21–30 天的查询、展示、排名和收录状态，优先强化排名 8–30 的页面，并根据家族表现决定第二批索引。
 4. 通过 AdSense 审核后再配置真实 `ads.txt`、Google 认证 CMP 和少量手动广告位；禁止在反应测试与复制按钮附近投放。
