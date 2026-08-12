@@ -1,4 +1,3 @@
-import Icon from './Icon.jsx'
 import { collectionCopy, detailCopy, seoCopy } from '../seo/content.js'
 import { collectionKeysForCrosshair, routePath } from '../seo/routes.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
@@ -56,7 +55,6 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
           <ol>{labels.importSteps.map((step) => <li key={step}>{step}</li>)}</ol>
         </article>
       </div>
-      <p className="seo-verified"><Icon name="check" size={14} /> {labels.verified} · {crosshair.sourceCheckedAt || '2026-08-04'}</p>
       {relatedCollections.length > 0 && (
         <nav className="seo-detail-context" aria-label={labels.compareStyle}>
           <span>{labels.compareStyle}</span>

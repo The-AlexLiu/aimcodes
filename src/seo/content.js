@@ -96,7 +96,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'How it feels', settings: 'Key settings', import: 'Take it into VALORANT', related: 'Try another crosshair', compareStyle: 'Compare this style', verified: 'Checked',
+      code: 'Crosshair code', copy: 'Copy code', bestFor: 'Best for', tradeoff: 'How it feels', settings: 'Key settings', import: 'Take it into VALORANT', related: 'Try another crosshair', compareStyle: 'Compare this style',
       importSteps: ['Open Settings in VALORANT.', 'Choose Crosshair, then Import Profile Code.', 'Paste the code and save the new profile.'],
       defaultBest: 'Players who want a clear, repeatable reference point without covering the target.',
       defaultTradeoff: 'Test it on your usual resolution and map brightness before taking it into ranked.',
@@ -173,7 +173,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué sensación da', settings: 'Ajustes principales', import: 'Llévala a VALORANT', related: 'Prueba otra mira', compareStyle: 'Compara este estilo', verified: 'Revisado',
+      code: 'Código de mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Qué sensación da', settings: 'Ajustes principales', import: 'Llévala a VALORANT', related: 'Prueba otra mira', compareStyle: 'Compara este estilo',
       importSteps: ['Abre los ajustes de VALORANT.', 'Entra en Mira y elige Importar código de perfil.', 'Pega el código y guarda el perfil.'],
       defaultBest: 'Jugadores que buscan una referencia clara y estable sin tapar al rival.', defaultTradeoff: 'Pruébala con tu resolución y el brillo habitual del mapa antes de usarla en competitivo.',
     },
@@ -235,7 +235,7 @@ const copy = {
       },
     },
     detail: {
-      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Como ela se sente', settings: 'Ajustes principais', import: 'Leve para o VALORANT', related: 'Teste outra mira', compareStyle: 'Compare este estilo', verified: 'Conferido',
+      code: 'Código da mira', copy: 'Copiar código', bestFor: 'Ideal para', tradeoff: 'Como ela se sente', settings: 'Ajustes principais', import: 'Leve para o VALORANT', related: 'Teste outra mira', compareStyle: 'Compare este estilo',
       importSteps: ['Abra as Configurações do VALORANT.', 'Entre em Mira e escolha Importar código de perfil.', 'Cole o código e salve o perfil.'],
       defaultBest: 'Jogadores que querem uma referência clara e estável sem esconder o alvo.', defaultTradeoff: 'Teste na sua resolução e no brilho normal dos mapas antes de levar para a ranqueada.',
     },
@@ -297,7 +297,7 @@ const copy = {
       },
     },
     detail: {
-      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '手感怎么样', settings: '主要参数', import: '带进无畏契约', related: '再试一个准星', compareStyle: '对比同类准星', verified: '代码已检查',
+      code: '准星代码', copy: '复制代码', bestFor: '适合谁', tradeoff: '手感怎么样', settings: '主要参数', import: '带进无畏契约', related: '再试一个准星', compareStyle: '对比同类准星',
       importSteps: ['打开《无畏契约》设置。', '进入“准星”，点击“导入准星配置代码”。', '粘贴代码并保存新的准星方案。'],
       defaultBest: '想要中心明确、容易重复定位，同时不希望准星遮挡目标的玩家。', defaultTradeoff: '正式排位前，建议用自己的分辨率和常玩地图先试一局。',
     },

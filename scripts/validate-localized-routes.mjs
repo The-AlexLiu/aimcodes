@@ -39,6 +39,8 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
         'rel="icon" href="https://aimcodes.com/favicon-v2.png"',
         'rel="icon" href="https://aimcodes.com/favicon-192x192.png"',
         'rel="manifest" href="https://aimcodes.com/site.webmanifest"',
+        '.seo-static-shell{visibility:hidden;animation:aimcodes-show-static-fallback 0s 6s forwards;',
+        '<noscript><style>.seo-static-shell{visibility:visible;animation:none}</style></noscript>',
         `<meta name="robots" content="${isIndexableRoute(route) ? 'index,follow,max-image-preview:large' : 'noindex,follow'}"`,
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
