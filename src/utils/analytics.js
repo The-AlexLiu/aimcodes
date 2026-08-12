@@ -1,6 +1,7 @@
 export const GA_MEASUREMENT_ID = 'G-2VMCECN5S6'
 
 const LIVE_HOSTS = new Set(['aimcodes.com', 'www.aimcodes.com'])
+const ANALYTICS_EXCLUSION_STORAGE_KEY = 'aimcodes-analytics-excluded-v1'
 const MAX_PARAMETER_LENGTH = 100
 const PARAMETER_LENGTH_OVERRIDES = {
   page_location: 1000,
@@ -25,9 +26,22 @@ function qaModeEnabled() {
   return new URLSearchParams(window.location.search).get('qa') === '1'
 }
 
+function analyticsExclusionEnabled() {
+  if (!hasWindow()) return false
+  const parameters = new URLSearchParams(window.location.search)
+  try {
+    if (parameters.get('analytics_optout') === '1') localStorage.setItem(ANALYTICS_EXCLUSION_STORAGE_KEY, '1')
+    if (parameters.get('analytics_optin') === '1') localStorage.removeItem(ANALYTICS_EXCLUSION_STORAGE_KEY)
+    return localStorage.getItem(ANALYTICS_EXCLUSION_STORAGE_KEY) === '1'
+  } catch {
+    return parameters.get('analytics_optout') === '1'
+  }
+}
+
 function analyticsEnabled() {
   if (!hasWindow()) return false
   if (qaModeEnabled()) return false
+  if (analyticsExclusionEnabled()) return false
   return LIVE_HOSTS.has(window.location.hostname.toLowerCase()) || debugModeEnabled()
 }
 

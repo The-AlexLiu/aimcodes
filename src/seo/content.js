@@ -7,7 +7,7 @@ import { seoToolCopy } from './toolContent.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
-export const SEO_CONTENT_UPDATED_AT = '2026-08-11'
+export const SEO_CONTENT_UPDATED_AT = '2026-08-12'
 
 const searchDisplayNames = Object.freeze({
   'cat-pink': Object.freeze({ en: 'Cat / Kitty', es: 'Gato', 'pt-BR': 'Gato', 'zh-CN': '猫猫' }),
@@ -22,7 +22,7 @@ const detailMetadata = Object.freeze({
     en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Try the compact aspas VALORANT crosshair on real map scenes, review its settings, recolor it, and copy the verified profile code.' }),
   }),
   forsaken: Object.freeze({
-    en: Object.freeze({ title: 'f0rsakeN VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview the f0rsakeN VALORANT crosshair, see how its small center reads on real maps, and copy the verified profile code.' }),
+    en: Object.freeze({ title: 'f0rsakeN Crosshair Code for VALORANT | AimCodes', description: 'Copy the working f0rsakeN VALORANT crosshair code, preview its compact white center on real maps, and check the settings before you import it.' }),
   }),
   'scream-dot': Object.freeze({
     en: Object.freeze({ title: 'ScreaM Dot Crosshair Code & Settings | AimCodes', description: 'Test the ScreaM dot crosshair on real VALORANT map scenes, check its compact settings, and copy the verified profile code.' }),
@@ -31,7 +31,7 @@ const detailMetadata = Object.freeze({
     en: Object.freeze({ title: 'Cat / Kitty VALORANT Crosshair Code | AimCodes', description: 'Preview a working Cat or Kitty VALORANT crosshair on real maps, switch its color, and copy the full profile code.' }),
   }),
   'pig-pink': Object.freeze({
-    en: Object.freeze({ title: 'Pig VALORANT Crosshair Code to Copy | AimCodes', description: 'Try a working Pig VALORANT crosshair on real map scenes, compare its size, recolor it, and copy the profile code.' }),
+    en: Object.freeze({ title: 'Pig Crosshair Code for VALORANT (Working) | AimCodes', description: 'Copy a working Pig VALORANT crosshair code, preview the pig face at normal scale, switch its color, and see how much of the target it covers.' }),
   }),
   'bunny-white': Object.freeze({
     en: Object.freeze({ title: 'Bunny VALORANT Crosshair Code & Preview | AimCodes', description: 'Preview a working Bunny VALORANT crosshair on real maps, test clearer colors, and copy the full profile code.' }),
@@ -43,7 +43,7 @@ const copy = {
     home: {
       tryNow: 'Try this crosshair',
       eyebrow: 'VALORANT CROSSHAIR LAB',
-      title: 'VALORANT Aim Codes & Crosshair Codes',
+      title: '300+ VALORANT Aim Codes & Crosshair Codes',
       intro: 'Preview 300+ working crosshair profiles on real map scenes, switch colors, and copy the code that feels easiest to track.',
       primary: 'Browse all crosshairs',
       secondary: 'Take the reaction test',
@@ -64,7 +64,7 @@ const copy = {
         body: ['The best VALORANT crosshair is not automatically the smallest or the one used by the biggest pro. It should stay visible during a fight, mark the center quickly, and leave enough of the enemy head uncovered.', 'This shortlist mixes open-center classics, compact dots, and tight pro layouts. Test every pick on the same map scene, then keep the one you can find fastest after looking away from the center.'],
         faq: [['What is the best VALORANT crosshair?', 'A compact, static crosshair that stays visible without covering the target is the safest starting point. The right size and gap still depend on your screen and aim style.'], ['What crosshair is best for beginners?', 'A short four-line cross with a small open center is usually easier to track than a micro dot. Start visible, then reduce the size only if it still feels clear.'], ['What crosshair is best for headshots?', 'Use a compact dot or short cross that leaves the head visible. The crosshair gives you a reference; head-level placement and stopping before the shot do the real work.'], ['What color should I use?', 'Cyan and green are reliable first tests because they stand out on many maps. Compare the same shape in both colors before copying it.']],
         relatedArticleKeys: ['placement', 'dotVsCross', 'settings'], relatedToolKeys: ['comparison', 'preview'],
-        metaTitle: 'Best VALORANT Crosshair Codes: 8 Picks to Try | AimCodes', metaDescription: 'Compare 8 of the best VALORANT crosshair codes for ranked, headshots, beginners and one-taps. Preview each profile and copy a working code.',
+        metaTitle: '8 Working VALORANT Crosshair Codes for Ranked | AimCodes', metaDescription: 'Try 8 working VALORANT crosshair codes for ranked, headshots, beginners and one-taps. Preview every pick on a map and copy the code.',
       },
       pro: {
         label: 'Pro crosshairs', eyebrow: 'PRO PLAYER CODES', title: 'VALORANT pro player crosshair codes', intro: 'Preview crosshairs inspired by TenZ, aspas, f0rsakeN, Demon1, ScreaM, Less, Boaster, cNed, and Jinggg.', gridTitle: 'Pro crosshairs in this collection',
@@ -75,6 +75,8 @@ const copy = {
       dot: {
         label: 'Dot crosshairs', eyebrow: 'SMALL CENTER, CLEAN SCREEN', title: 'VALORANT dot crosshair codes', intro: 'Compact dots and micro-cross options for players who want a precise center with minimal screen clutter.', gridTitle: 'Dot crosshairs to compare',
         body: ['Dot crosshairs keep the target visible and make the exact center obvious. They work well for calm first shots and head-level placement.', 'The tradeoff is visibility: the smaller the dot, the easier it is to lose in utility or bright scenery. Test the same shape in cyan, green, yellow, and red before deciding.'],
+        selectionTitle: 'Choose the dot you can still find in a fight', selection: ['Start with a thicker dot or micro cross before trying a one-pixel point.', 'Use the same map and color when comparing shapes.', 'Look away from the center, snap back, and keep the dot you find first.'],
+        settingsTitle: 'A reliable dot starting point', settings: ['Center dot: on; inner and outer lines: off for a pure dot.', 'Opacity: full; size: small but still visible at your resolution.', 'Outline: thin and optional; cyan or green if the dot blends into the map.'],
         faq: [['Is a dot crosshair good in VALORANT?', 'It can be excellent for precise taps and disciplined placement. Players who spray often may prefer short lines around the center.'], ['What dot size should I use?', 'Start small but clearly visible at your resolution. If you lose it during movement, use a thicker dot or add short inner lines.'], ['Can a dot crosshair have an outline?', 'Yes. An outline improves contrast on bright backgrounds, although a heavy outline can make the dot look larger.']],
         relatedArticleKeys: ['makeDot', 'dotVsCross'], relatedToolKeys: ['preview', 'generator'],
         metaTitle: 'VALORANT Dot Crosshair Codes & Preview | AimCodes', metaDescription: 'Compare working VALORANT dot crosshair codes on real map scenes. Test compact dots and micro crosses, change color, and copy the final code.',
@@ -113,8 +115,8 @@ const copy = {
     footer: { browse: 'Crosshair codes', resources: 'Guides & tools', finder: 'Reaction test', guide: 'Import guide', best: 'Popular picks', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', email: 'Email AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
-      homeTitle: 'VALORANT Aim Codes & Crosshair Codes | AimCodes',
-      homeDescription: 'Preview 300+ working VALORANT aim and crosshair codes on real maps. Compare pro, dot, small and fun profiles, change colors, and copy a code.',
+      homeTitle: '300+ VALORANT Aim Codes & Crosshair Codes | AimCodes',
+      homeDescription: 'Copy 300+ working VALORANT aim and crosshair codes. Preview pro, dot, small and fun profiles on real maps, change colors, and pick your next code.',
       catalogTitle: '300+ Working VALORANT Crosshair Codes | AimCodes',
       catalogDescription: 'Browse 300+ working VALORANT crosshair codes by style and use case. Preview each profile on a map, change its color, and copy the code.',
       finderTitle: 'VALORANT Reaction Time Test & Crosshair Picker | AimCodes',
@@ -150,6 +152,8 @@ const copy = {
       dot: {
         label: 'Miras de punto', eyebrow: 'CENTRO PEQUEÑO, PANTALLA LIMPIA', title: 'Códigos de mira de punto de VALORANT', intro: 'Puntos compactos y microcruces para quienes buscan un centro preciso con el mínimo ruido en pantalla.', gridTitle: 'Miras de punto para comparar',
         body: ['Las miras de punto dejan visible al rival y muestran el centro exacto. Funcionan bien para primeras balas tranquilas y una colocación disciplinada.', 'El riesgo es perderlas entre habilidades o fondos claros. Prueba la misma forma en cian, verde, amarillo y rojo antes de decidir.'],
+        selectionTitle: 'Elige el punto que no desaparece en el duelo', selection: ['Empieza con un punto grueso o una microcruz antes de bajar a un solo píxel.', 'Compara todas las formas en el mismo mapa y con el mismo color.', 'Aparta la vista, vuelve al centro y quédate con la que encuentres primero.'],
+        settingsTitle: 'Una base fiable para empezar', settings: ['Punto central: activado; líneas interiores y exteriores: desactivadas para un punto puro.', 'Opacidad: completa; tamaño: pequeño, pero visible en tu resolución.', 'Contorno: fino y opcional; prueba cian o verde si el punto se pierde en el mapa.'],
         faq: [['¿Es buena una mira de punto en VALORANT?', 'Puede ser excelente para taps precisos. Si disparas muchas ráfagas, quizá prefieras líneas cortas alrededor del centro.'], ['¿Qué tamaño de punto debería usar?', 'Empieza con uno pequeño pero visible en tu resolución. Si lo pierdes al moverte, usa un punto más grueso o añade líneas cortas.'], ['¿Puede llevar contorno una mira de punto?', 'Sí. El contorno mejora el contraste en fondos claros, aunque uno muy grueso hará que el punto parezca mayor.']],
         relatedArticleKeys: ['makeDot', 'dotVsCross'], relatedToolKeys: ['preview', 'generator'],
         metaTitle: 'Códigos de mira de punto de VALORANT | AimCodes', metaDescription: 'Compara códigos de mira de punto de VALORANT en mapas reales. Prueba puntos compactos y microcruces, cambia el color y copia el código.',
@@ -208,11 +212,13 @@ const copy = {
         metaTitle: 'Códigos de mira de pro do VALORANT | AimCodes', metaDescription: 'Teste e copie miras de pros do VALORANT como TenZ, aspas, Demon1, f0rsakeN, ScreaM, Less, Boaster, cNed e Jinggg.',
       },
       dot: {
-        label: 'Miras de ponto', eyebrow: 'CENTRO PEQUENO, TELA LIMPA', title: 'Códigos de mira ponto do VALORANT', intro: 'Miras de ponto compactas e microcruzes para quem quer um centro preciso sem encher a tela.', gridTitle: 'Miras de ponto para comparar',
+        label: 'Miras de ponto', eyebrow: 'MIRA PONTINHO, TELA LIMPA', title: 'Códigos de mira de ponto do VALORANT', intro: 'Teste miras de ponto, pontinhos compactos e microcruzes sem precisar importar cada código no jogo.', gridTitle: 'Miras de ponto para testar e copiar',
         body: ['A mira ponto deixa o alvo visível e mostra o centro exato. É uma boa escolha para primeiro tiro controlado, one tap e posicionamento na linha da cabeça.', 'O risco é perder o ponto entre habilidades ou cenários claros. Teste o mesmo formato em ciano, verde, amarelo e vermelho; se ainda sumir, aumente a espessura antes de trocar toda a mira.'],
+        selectionTitle: 'Escolha o ponto que não some na trocação', selection: ['Comece com um ponto mais grosso ou microcruz antes de testar um único pixel.', 'Compare todas as opções no mesmo mapa e com a mesma cor.', 'Desvie o olhar, volte ao centro e fique com a mira que você reencontra primeiro.'],
+        settingsTitle: 'Uma configuração de ponto para começar', settings: ['Ponto central: ligado; linhas internas e externas: desligadas para um ponto puro.', 'Opacidade: total; tamanho: pequeno, mas ainda visível na sua resolução.', 'Contorno: fino e opcional; use ciano ou verde quando o ponto sumir no cenário.'],
         faq: [['Mira ponto é boa no VALORANT?', 'Pode ser ótima para taps precisos e para treinar a linha da cabeça. Se você usa rajadas longas, talvez prefira uma microcruz com linhas curtas.'], ['Como fazer uma mira de ponto no VALORANT?', 'Você pode ativar apenas o ponto central ou usar linhas internas muito curtas. Abra o guia ligado abaixo para copiar uma base que funciona e ajustar o tamanho.'], ['Qual tamanho de ponto devo usar?', 'Comece pequeno, mas visível na sua resolução. Se perder durante o movimento, aumente a espessura ou use linhas curtas.'], ['Uma mira de ponto pode ter contorno?', 'Sim. O contorno melhora o contraste em fundos claros, mas um contorno pesado faz o ponto parecer maior.']],
         relatedArticleKeys: ['makeDot', 'dotVsCross'], relatedToolKeys: ['preview', 'generator'],
-        metaTitle: 'Códigos de Mira Ponto do VALORANT para Copiar | AimCodes', metaDescription: 'Compare códigos de mira ponto do VALORANT em mapas reais. Teste pontos compactos e microcruzes, troque a cor e copie o código.',
+        metaTitle: 'Mira Ponto VALORANT: Códigos de Pontinho | AimCodes', metaDescription: 'Teste códigos de mira ponto e mira pontinho do VALORANT em mapas reais. Compare formatos, troque a cor e copie uma configuração que funciona.',
       },
       cute: {
         label: 'Miras fofas', eyebrow: 'FOFAS E AINDA DÁ PARA MIRAR', title: 'Códigos de miras fofas do VALORANT', intro: 'Miras de gato, porquinho, coração, flor e coelho com um centro claro para continuar acertando.', gridTitle: 'Miras fofas desta coleção',
@@ -270,6 +276,8 @@ const copy = {
       dot: {
         label: '小圆点准星', eyebrow: '中心更小，画面更干净', title: '无畏契约小圆点准星代码', intro: '紧凑小圆点和微型十字，适合想要明确中心、又不想让准星遮挡画面的玩家。', gridTitle: '值得对比的小圆点准星',
         body: ['小圆点不会挡住太多目标，也能直接标出精确中心，适合重视第一枪和头线预瞄的玩家。', '代价是容易在技能特效或明亮背景里丢失。确定形状后，再用青、绿、黄、红几种颜色试一遍，差别会很明显。'],
+        selectionTitle: '别选一打架就消失的圆点', selection: ['先从较粗圆点或微型十字开始，再尝试单像素圆点。', '固定同一张地图和颜色，只比较造型。', '视线离开中心再移回来，留下第一眼能找回的那款。'],
+        settingsTitle: '一套稳妥的圆点起步参数', settings: ['纯圆点：开启中心点，关闭内线和外线。', '透明度拉满；尺寸尽量小，但必须能在当前分辨率下看清。', '轮廓保持细且按需开启；融进背景时优先试青色或绿色。'],
         faq: [['无畏契约小圆点准星好用吗？', '它很适合精确单点和稳定预瞄。习惯连续扫射的玩家，可能会更喜欢中心周围带短线的造型。'], ['小圆点应该设多大？', '先从小而清楚的尺寸开始。如果移动时经常找不到，就增加点的厚度，或者在周围加几条短线。'], ['小圆点可以加轮廓吗？', '可以。轮廓能提高亮色背景下的对比度，但太粗也会让圆点看起来更大。']],
         relatedArticleKeys: ['makeDot', 'dotVsCross'], relatedToolKeys: ['preview', 'generator'],
         metaTitle: '无畏契约小圆点准星代码与预览 | AimCodes', metaDescription: '在真实地图中对比可用的无畏契约小圆点准星代码，试用紧凑圆点和微型十字，换色后直接复制。',

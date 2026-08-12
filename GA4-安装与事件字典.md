@@ -6,6 +6,7 @@
 - 正式域名：`aimcodes.com`、`www.aimcodes.com`
 - 本地预览：默认不发送数据，避免污染正式报表
 - 调试方式：在本地预览地址后加入 `?ga_debug=1`，事件会进入 GA4 DebugView
+- 内部测试隔离：在正式站访问一次 `?analytics_optout=1`，该浏览器之后不再上报；需要恢复时访问 `?analytics_optin=1`
 - 页面浏览：采用单页应用手动 `page_view`，区分 `explore` 与 `finder`
 
 ## 已安装事件
@@ -66,6 +67,8 @@
    - `results_count`
 7. 打开“管理 → 数据收集和修改 → 数据保留”，将事件数据保留期设为 14 个月。
 8. 在数据流的增强型衡量中保留滚动、出站点击等自动事件；关闭“根据浏览器历史记录变化统计网页浏览”，避免未来单页路由产生重复浏览。
+
+团队成员在正式站验收前，应先用同一浏览器访问一次 `https://aimcodes.com/en/?analytics_optout=1`。这项设置只保存在当前浏览器，不影响真实访客，也不会写入 URL 的 canonical。
 
 普通站内交互事件不得使用 `source`、`medium`、`campaign`、`term` 或 `content` 作为事件参数，以免污染渠道归因。只有用户分享出去的准星链接和挑战链接保留标准 UTM，用于识别新会话的传播来源。
 
