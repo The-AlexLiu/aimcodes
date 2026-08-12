@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "brand": "AimCodes",
+  "approvalPolicy": "buffer_draft_requires_human_review",
+  "campaigns": [
+    {
+      "id": "reaction-test-en-v1",
+      "status": "approved_for_draft",
+      "language": "en",
+      "campaign": "reaction_test",
+      "destinationUrl": "https://aimcodes.com/en/reaction-test/",
+      "asset": {
+        "kind": "video",
+        "rendererPath": "public/tools/social-renderer/index.html",
+        "rendererQuery": "lang=en&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-en.mp4",
+        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-en.png",
+        "thumbnailOffsetMs": 4700
+      },
+      "platforms": {
+        "instagram": {
+          "caption": "How fast is your first click? Three rounds, one reaction rank — then AimCodes picks a crosshair you can test on real VALORANT maps. Try it from the link in bio.\n\n#VALORANT #ValorantCrosshair #AimTraining #Gaming",
+          "type": "reel",
+          "shareToFeed": true
+        },
+        "tiktok": {
+          "caption": "Three clicks. One reaction rank. Which VALORANT crosshair will you get? #VALORANT #ValorantCrosshair #AimTraining",
+          "isAiGenerated": false
+        },
+        "youtube": {
+          "title": "Test Your VALORANT Reaction Time in 3 Clicks",
+          "description": "Three quick clicks reveal your reaction rank and a VALORANT crosshair to test on real map scenes.\n\n#VALORANT #ValorantCrosshair #Shorts",
+          "privacy": "private",
+          "categoryId": "20",
+          "madeForKids": false
+        },
+        "facebook": {
+          "caption": "Three clicks reveal your reaction rank — and a VALORANT crosshair worth testing.",
+          "type": "reel"
+        }
+      }
+    },
+    {
+      "id": "reaction-test-es-v1",
+      "status": "approved_for_draft",
+      "language": "es",
+      "campaign": "reaction_test",
+      "destinationUrl": "https://aimcodes.com/es/reaction-test/",
+      "asset": {
+        "kind": "video",
+        "rendererPath": "public/tools/social-renderer/index.html",
+        "rendererQuery": "lang=es&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-es.mp4",
+        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-es.png",
+        "thumbnailOffsetMs": 4700
+      },
+      "platforms": {
+        "instagram": {
+          "caption": "¿Qué tan rápido haces el primer clic? Tres rondas, un rango de reacción y una mira de VALORANT para probar en mapas reales. Pruébalo desde el enlace de la bio.\n\n#VALORANT #MiraValorant #AimTraining #Gaming",
+          "type": "reel",
+          "shareToFeed": true
+        },
+        "tiktok": {
+          "caption": "Tres clics, un rango de reacción. ¿Qué mira de VALORANT te tocará? #VALORANT #MiraValorant",
+          "isAiGenerated": false
+        },
+        "youtube": {
+          "title": "Mide tu reacción en VALORANT con 3 clics",
+          "description": "Tres clics rápidos revelan tu rango de reacción y una mira de VALORANT para probar.\n\n#VALORANT #MiraValorant #Shorts",
+          "privacy": "private",
+          "categoryId": "20",
+          "madeForKids": false
+        },
+        "facebook": {
+          "caption": "Tres clics revelan tu rango de reacción y una mira de VALORANT que merece una partida de prueba.",
+          "type": "reel"
+        }
+      }
+    },
+    {
+      "id": "reaction-test-pt-br-v1",
+      "status": "approved_for_draft",
+      "language": "pt-br",
+      "campaign": "reaction_test",
+      "destinationUrl": "https://aimcodes.com/pt-br/reaction-test/",
+      "asset": {
+        "kind": "video",
+        "rendererPath": "public/tools/social-renderer/index.html",
+        "rendererQuery": "lang=pt-br&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-pt-br.mp4",
+        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-pt-br.png",
+        "thumbnailOffsetMs": 4700
+      },
+      "platforms": {
+        "instagram": {
+          "caption": "Quão rápido sai o seu primeiro clique? São três rodadas, um ranking de reação e uma mira de VALORANT para testar em mapas reais. Acesse pelo link da bio.\n\n#VALORANT #MiraValorant #AimTraining #Gaming",
+          "type": "reel",
+          "shareToFeed": true
+        },
+        "tiktok": {
+          "caption": "Três cliques, um ranking de reação. Qual mira de VALORANT combina com você? #VALORANT #MiraValorant",
+          "isAiGenerated": false
+        },
+        "youtube": {
+          "title": "Teste sua reação no VALORANT em 3 cliques",
+          "description": "Três cliques rápidos mostram seu ranking de reação e uma mira de VALORANT para testar.\n\n#VALORANT #MiraValorant #Shorts",
+          "privacy": "private",
+          "categoryId": "20",
+          "madeForKids": false
+        },
+        "facebook": {
+          "caption": "Três cliques mostram seu ranking de reação e uma mira de VALORANT que vale testar em partida.",
+          "type": "reel"
+        }
+      }
+    },
+    {
+      "id": "reaction-test-zh-cn-v1",
+      "status": "approved_for_draft",
+      "language": "zh-cn",
+      "campaign": "reaction_test",
+      "destinationUrl": "https://aimcodes.com/zh-cn/reaction-test/",
+      "asset": {
+        "kind": "video",
+        "rendererPath": "public/tools/social-renderer/index.html",
+        "rendererQuery": "lang=zh-cn&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-zh-cn.mp4",
+        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-zh-cn.png",
+        "thumbnailOffsetMs": 4700
+      },
+      "platforms": {
+        "instagram": {
+          "caption": "第一枪到底有多快？点 3 次，拿到你的反应段位，再试一枚适合你的无畏契约准星。测试入口在主页链接。\n\n#无畏契约 #VALORANT #准星代码 #反应测试",
+          "type": "reel",
+          "shareToFeed": true
+        },
+        "tiktok": {
+          "caption": "点 3 次，看看你的反应是什么段位。还能直接试一枚无畏契约准星。#无畏契约 #VALORANT #准星",
+          "isAiGenerated": false
+        },
+        "youtube": {
+          "title": "点 3 次，测出你的无畏契约反应段位",
+          "description": "三次点击测出反应段位，再拿一枚无畏契约准星去真实地图里试。\n\n#无畏契约 #VALORANT #Shorts",
+          "privacy": "private",
+          "categoryId": "20",
+          "madeForKids": false
+        },
+        "facebook": {
+          "caption": "点 3 次看看你的反应段位，再拿一枚无畏契约准星去实战里试。",
+          "type": "reel"
+        }
+      }
+    }
+  ]
+}

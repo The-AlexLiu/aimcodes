@@ -1,0 +1,10 @@
+{
+  "organizationId": "BUFFER_ORGANIZATION_ID",
+  "activePlatforms": ["instagram", "tiktok", "youtube"],
+  "channels": {
+    "instagram": "BUFFER_INSTAGRAM_CHANNEL_ID",
+    "tiktok": "BUFFER_TIKTOK_CHANNEL_ID",
+    "youtube": "BUFFER_YOUTUBE_CHANNEL_ID",
+    "facebook": "BUFFER_FACEBOOK_CHANNEL_ID"
+  }
+}
