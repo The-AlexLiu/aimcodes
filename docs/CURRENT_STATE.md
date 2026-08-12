@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-08-12 P0 搜索增长发布：英语高展示页与葡语小圆点集合完成搜索意图优化，内部验收流量支持浏览器级持久排除；发布 PR #20。
 - 2026-08-11 最近一次产品代码生产发布：目录架构统一，对应生产提交 `9dbfdf1`、PR #18。
 - 当前架构效率版本把索引详情、集合关系、图片和 Sitemap 统一到 `src/data/catalogManifest.js`，并将 `App.jsx` 的目录视图模型和主要页面区域拆分为独立 Hook/组件。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
@@ -20,6 +21,7 @@
 - 当前生产基线分支：`main`
 - 最近产品代码生产提交：`9dbfdf1 refactor: unify AimCodes catalog architecture (#18)`
 - 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/18>
+- P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
 - 渲染器草稿 PR：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer/pull/1>
