@@ -5,13 +5,18 @@ import { routePath } from '../seo/routes.js'
 
 export default function SeoCollectionDetails({ locale, collectionKey }) {
   const content = collectionCopy(locale, collectionKey)
+  const relatedCollections = (content.relatedCollectionKeys || []).map((relatedCollectionKey) => ({
+    key: `collection-${relatedCollectionKey}`,
+    href: routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey }),
+    label: collectionCopy(locale, relatedCollectionKey).title,
+  }))
   const relatedGuides = (content.relatedArticleKeys || []).map((articleKey) => ({
-    key: articleKey,
+    key: `article-${articleKey}`,
     href: routePath(locale, { type: 'article', articleKey }),
     label: articleCopy(locale, articleKey).title,
   }))
   const relatedTools = (content.relatedToolKeys || []).map((toolKey) => ({
-    key: toolKey,
+    key: `tool-${toolKey}`,
     href: routePath(locale, { type: 'tool', toolKey }),
     label: seoToolCopy(locale, toolKey).title,
   }))
@@ -50,11 +55,11 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
           </details>
         ))}
       </div>
-      {(relatedGuides.length > 0 || relatedTools.length > 0) && (
+      {(relatedCollections.length > 0 || relatedGuides.length > 0 || relatedTools.length > 0) && (
         <nav className="seo-context-links" aria-label={relatedLabel}>
           <h2>{relatedLabel}</h2>
           <div>
-            {[...relatedGuides, ...relatedTools].map((item) => <a key={item.key} href={item.href}>{item.label}</a>)}
+            {[...relatedCollections, ...relatedGuides, ...relatedTools].map((item) => <a key={item.key} href={item.href}>{item.label}</a>)}
           </div>
         </nav>
       )}
