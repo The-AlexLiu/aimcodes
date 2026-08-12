@@ -1,5 +1,4 @@
 import { parseCrosshairCode } from './crosshairCode.js'
-import QRCode from 'qrcode'
 
 const LANDSCAPE_WIDTH = 1200
 const LANDSCAPE_HEIGHT = 630
@@ -204,6 +203,7 @@ function createCardCanvas(width, height) {
 }
 
 async function drawQrCode(ctx, value, x, y, size) {
+  const { default: QRCode } = await import('qrcode')
   if (!value) return
   const qrCanvas = document.createElement('canvas')
   await QRCode.toCanvas(qrCanvas, value, {

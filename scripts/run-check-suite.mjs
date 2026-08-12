@@ -22,16 +22,21 @@ const steps = {
   tools: ['pnpm', ['validate:tools']],
   adsense: ['pnpm', ['validate:adsense']],
   images: ['pnpm', ['validate:images']],
+  performance: ['pnpm', ['validate:performance']],
   audit: ['pnpm', ['audit', '--prod']],
   whitespace: ['pnpm', ['validate:diff']],
   workflow: ['pnpm', ['validate:workflow']],
 }
 
 const suites = {
-  quick: ['lint', 'workflow', 'build'],
-  data: ['lint', 'manifest', 'crosshairs', 'finder', 'localization', 'build', 'seo', 'routing', 'tools', 'images'],
-  seo: ['lint', 'manifest', 'localization', 'build', 'seo', 'routing', 'links', 'adsense', 'images'],
-  release: ['lint', 'workflow', 'manifest', 'crosshairs', 'finder', 'localization', 'analytics', 'sharing', 'build', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
+  quick: ['lint', 'workflow', 'build', 'performance'],
+  data: ['lint', 'manifest', 'crosshairs', 'finder', 'localization', 'build', 'performance', 'seo', 'routing', 'tools', 'images'],
+  seo: ['lint', 'manifest', 'localization', 'build', 'performance', 'seo', 'routing', 'links', 'adsense', 'images'],
+  release: ['lint', 'workflow', 'manifest', 'crosshairs', 'finder', 'localization', 'analytics', 'sharing', 'build', 'performance', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
+}
+
+if (process.env.AIMCODES_SKIP_NETWORK_AUDIT === '1') {
+  suites.release = suites.release.filter((name) => name !== 'audit')
 }
 
 function tail(value, maxLines = 35) {

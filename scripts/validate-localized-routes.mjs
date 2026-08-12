@@ -2,7 +2,7 @@ import { access, readFile, stat } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { localeRoutes, normalizeLocale } from '../src/i18n/localeRoutes.js'
-import { routeMetadata } from '../src/seo/content.js'
+import { routeMetadata } from '../src/seo/metadata.js'
 import { isIndexableRoute, parseSeoRoute, routePath, SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, TRUST_PAGE_KEYS } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')

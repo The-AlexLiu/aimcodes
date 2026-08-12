@@ -11,17 +11,19 @@ import {
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
 import {
-  alternateUrls,
-  collectionBreadcrumbName,
   collectionCopy,
-  crosshairBreadcrumbName,
   detailCopy,
   detailHeading,
+  seoCopy,
+} from '../src/seo/content.js'
+import {
+  alternateUrls,
+  collectionBreadcrumbName,
+  crosshairBreadcrumbName,
   routeMetadata,
   SEO_CONTENT_UPDATED_AT,
-  seoCopy,
   SITE_ORIGIN,
-} from '../src/seo/content.js'
+} from '../src/seo/metadata.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
