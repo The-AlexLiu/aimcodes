@@ -3,6 +3,7 @@ import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
 import { collectionCopy } from '../src/seo/content.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
+import { articleResourceLabel, toolResourceLabel } from '../src/seo/resourceLabels.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_TOOL_KEYS } from '../src/seo/routes.js'
 
@@ -40,6 +41,10 @@ for (const locale of locales) {
     if (tool.faq?.length < 2 || tool.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${toolKey} tool needs at least two complete FAQs`)
   }
 
+  for (const toolKey of ['generator', 'decoder', 'preview', 'comparison']) {
+    if (toolResourceLabel(locale, toolKey) !== seoToolCopy(locale, toolKey).title) failures.push(`${locale} ${toolKey} home resource label does not match its tool title`)
+  }
+
   for (const articleKey of SEO_ARTICLE_KEYS) {
     const article = articleCopy(locale, articleKey)
     for (const field of ['eyebrow', 'title', 'intro', 'summaryTitle', 'summary', 'cta', 'metaTitle', 'metaDescription']) {
@@ -48,6 +53,10 @@ for (const locale of locales) {
     if (article.sections?.length < 3 || article.sections.some((section) => !section.title || section.paragraphs?.length < 1 || section.paragraphs.some((value) => !value.trim()) || !Array.isArray(section.bullets))) failures.push(`${locale} ${articleKey} article needs at least three complete sections`)
     if (article.faq?.length < 2 || article.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${articleKey} article needs at least two complete FAQs`)
     if (article.recommendedCrosshairIds?.length !== 4 || article.recommendedCrosshairIds.some((id) => !crosshairs.some((item) => item.id === id))) failures.push(`${locale} ${articleKey} article needs four valid crosshair recommendations`)
+  }
+
+  for (const articleKey of ['copy', 'notWorking', 'makeDot', 'makeCircle', 'movementError', 'firingError', 'movementVsFiring', 'staticVsDynamic', 'dotVsCross', 'placement']) {
+    if (articleResourceLabel(locale, articleKey) !== articleCopy(locale, articleKey).title) failures.push(`${locale} ${articleKey} home resource label does not match its article title`)
   }
 }
 

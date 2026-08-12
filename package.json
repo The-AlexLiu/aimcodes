@@ -21,6 +21,7 @@
     "validate:sharing": "node scripts/validate-sharing.mjs",
     "validate:adsense": "node scripts/validate-adsense-readiness.mjs",
     "validate:images": "node scripts/validate-image-seo.mjs",
+    "validate:performance": "node scripts/validate-performance-budget.mjs",
     "validate:diff": "node scripts/validate-task-diff.mjs",
     "validate:workflow": "node scripts/validate-development-workflow.mjs",
     "task:context": "node scripts/task-context.mjs",

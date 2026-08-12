@@ -957,3 +957,50 @@ legend { margin-bottom: 10px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+.route-loading {
+  width: min(1180px, calc(100% - 32px));
+  min-height: 280px;
+  margin: 32px auto;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.route-loading__line,
+.route-loading__panel {
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(119, 144, 158, .08), rgba(119, 144, 158, .18), rgba(119, 144, 158, .08));
+  background-size: 220% 100%;
+  animation: route-loading-pulse 1.25s ease-in-out infinite;
+}
+
+.route-loading__line {
+  width: min(520px, 72%);
+  height: 16px;
+  margin-top: 14px;
+}
+
+.route-loading__line.is-title {
+  width: min(360px, 54%);
+  height: 32px;
+  margin-top: 0;
+}
+
+.route-loading__panel {
+  width: 100%;
+  height: 140px;
+  margin-top: 26px;
+}
+
+@keyframes route-loading-pulse {
+  from { background-position: 100% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loading__line,
+  .route-loading__panel { animation: none; }
+}

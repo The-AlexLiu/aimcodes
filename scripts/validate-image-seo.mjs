@@ -11,7 +11,7 @@ import {
 } from '../src/data/catalogManifest.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
-import { routeMetadata, SITE_ORIGIN } from '../src/seo/content.js'
+import { routeMetadata, SITE_ORIGIN } from '../src/seo/metadata.js'
 import { crosshairSlug, routePath } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')

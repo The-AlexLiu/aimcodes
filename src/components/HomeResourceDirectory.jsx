@@ -1,7 +1,6 @@
-import { articleCopy } from '../seo/articles.js'
 import { collectionCopy } from '../seo/content.js'
+import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
 import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
-import { seoToolCopy } from '../seo/toolContent.js'
 import Icon from './Icon.jsx'
 
 const guideKeys = Object.freeze([
@@ -100,7 +99,7 @@ export default function HomeResourceDirectory({ locale }) {
           <nav className="home-resource-link-grid" aria-label={copy.guides} id="guides">
             {guideKeys.map((articleKey) => (
               <a href={routePath(locale, { type: 'article', articleKey })} key={articleKey}>
-                {articleCopy(locale, articleKey).title}
+                {articleResourceLabel(locale, articleKey)}
               </a>
             ))}
           </nav>
@@ -109,7 +108,7 @@ export default function HomeResourceDirectory({ locale }) {
           <nav className="home-resource-link-grid" aria-label={copy.tools} id="tools">
             {toolKeys.map((toolKey) => (
               <a href={routePath(locale, { type: 'tool', toolKey })} key={toolKey}>
-                {seoToolCopy(locale, toolKey).title}
+                {toolResourceLabel(locale, toolKey)}
               </a>
             ))}
           </nav>

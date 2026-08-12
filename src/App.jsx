@@ -1,29 +1,20 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import CodeDialog from './components/CodeDialog.jsx'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import CatalogSearch from './components/CatalogSearch.jsx'
 import CrosshairCollectionSection from './components/CrosshairCollectionSection.jsx'
-import CrosshairFinder from './components/CrosshairFinder.jsx'
 import CrosshairPreviewWorkspace from './components/CrosshairPreviewWorkspace.jsx'
-import CrosshairSeoDetails from './components/CrosshairSeoDetails.jsx'
-import CrosshairToolsPage from './components/CrosshairToolsPage.jsx'
 import Icon from './components/Icon.jsx'
-import ImportGuide from './components/ImportGuide.jsx'
-import HomeResourceDirectory from './components/HomeResourceDirectory.jsx'
-import SeoCollectionDetails from './components/SeoCollectionDetails.jsx'
 import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
-import SeoArticlePage from './components/SeoArticlePage.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
 import PublisherValueSection from './components/PublisherValueSection.jsx'
-import TrustPage from './components/TrustPage.jsx'
 import { isAdEligibleRoute } from './config/adPolicy.js'
 import { catalogCrosshairs } from './data/catalogManifest.js'
 import { filters } from './data/crosshairs.js'
 import { crosshairColorPresets, previewBackgroundOptions as backgroundOptions } from './data/previewOptions.js'
 import { createTranslator, languages } from './i18n/translations.js'
 import { useCrosshairCatalog } from './hooks/useCrosshairCatalog.js'
-import { pageSlug, routeMetadata, seoCopy } from './seo/content.js'
+import { pageSlug, seoCopy } from './seo/content.js'
 import { localizedRoutePath, parseSeoRoute, routePath } from './seo/routes.js'
 import { updateCrosshairColor } from './utils/crosshairCode.js'
 import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytics.js'
@@ -33,6 +24,16 @@ const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const CATALOG_SESSION_KEY = 'aimcodes-catalog-session-v1'
 const CATALOG_PAGE_SIZE = 48
 const MAIN_PREVIEW_SCALE = 2.25
+
+const CodeDialog = lazy(() => import('./components/CodeDialog.jsx'))
+const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
+const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
+const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.jsx'))
+const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
+const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
+const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
+const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
+const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
 
 function randomItem(items) {
   return items[Math.floor(Math.random() * items.length)]
@@ -92,16 +93,14 @@ function readSharedColorOverride(colorKey, routeType, crosshairId) {
   }
 }
 
-function updatePageMetadata(language, metadata) {
-  document.documentElement.lang = language
-  document.title = metadata.title
-  document.querySelector('meta[name="description"]')?.setAttribute('content', metadata.description)
-  document.querySelector('meta[property="og:title"]')?.setAttribute('content', metadata.title)
-  document.querySelector('meta[property="og:description"]')?.setAttribute('content', metadata.description)
-  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', metadata.title)
-  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', metadata.description)
-  document.querySelector('link[rel="canonical"]')?.setAttribute('href', metadata.canonical)
-  document.querySelector('meta[property="og:url"]')?.setAttribute('content', metadata.canonical)
+function RouteLoading() {
+  return (
+    <section className="route-loading" aria-busy="true" aria-live="polite">
+      <span className="route-loading__line is-title" />
+      <span className="route-loading__line" />
+      <span className="route-loading__panel" />
+    </section>
+  )
 }
 
 export default function App() {
@@ -137,7 +136,6 @@ export default function App() {
   const activeBackgroundName = t(`maps.${activeBackground.value}`)
   const {
     allCrosshairs,
-    routeCrosshair,
     visibleCrosshairs,
     displayedCrosshairs,
     selected,
@@ -179,12 +177,6 @@ export default function App() {
   }, [catalogSession, route.type])
 
   useEffect(() => {
-    const metadata = routeMetadata(language, route, routeCrosshair)
-    updatePageMetadata(language, metadata)
-  }, [language, route, routeCrosshair])
-
-  useEffect(() => {
-    const metadata = routeMetadata(language, route, routeCrosshair)
     setAnalyticsContext({
       app_language: language,
       app_view: currentView,
@@ -193,8 +185,8 @@ export default function App() {
       crosshair_id: route.crosshairId || '',
       shared_entry: sharedCrosshairEntry,
     })
-    trackPageView(window.location.pathname, metadata.title)
-  }, [currentView, language, route, routeCrosshair, sharedCrosshairEntry])
+    trackPageView(window.location.pathname, document.title)
+  }, [currentView, language, route, sharedCrosshairEntry])
 
   useEffect(() => {
     if (!sharedCrosshairEntry || !route.crosshairId) return
@@ -432,15 +424,15 @@ export default function App() {
             <a className="primary-button" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).notFound.action}</a>
           </section>
         ) : route.type === 'guide' ? (
-          <ImportGuide locale={language} />
+          <Suspense fallback={<RouteLoading />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
-          <SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} />
+          <Suspense fallback={<RouteLoading />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} /></Suspense>
         ) : route.type === 'tool' ? (
-          <CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} />
+          <Suspense fallback={<RouteLoading />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'trust' ? (
-          <TrustPage locale={language} pageKey={route.pageKey} />
+          <Suspense fallback={<RouteLoading />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (
-          <CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} />
+          <Suspense fallback={<RouteLoading />}><CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
@@ -490,7 +482,7 @@ export default function App() {
         )}
 
         {route.type === 'crosshair' && (
-          <CrosshairSeoDetails crosshair={selected} locale={language} />
+          <Suspense fallback={<RouteLoading />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
         )}
 
         {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && (
@@ -516,8 +508,8 @@ export default function App() {
             t={t}
           />
         )}
-        {route.type === 'collection' && <SeoCollectionDetails locale={language} collectionKey={route.collectionKey} />}
-        {route.type === 'home' && <HomeResourceDirectory locale={language} />}
+        {route.type === 'collection' && <Suspense fallback={<RouteLoading />}><SeoCollectionDetails locale={language} collectionKey={route.collectionKey} /></Suspense>}
+        {route.type === 'home' && <Suspense fallback={<RouteLoading />}><HomeResourceDirectory locale={language} /></Suspense>}
         {(route.type === 'home' || route.type === 'catalog') && <PublisherValueSection locale={language} type={route.type} />}
           </>
         )}
@@ -526,7 +518,11 @@ export default function App() {
       <SiteFooter locale={language} />
 
       {toast && <div className={`toast ${toast.type === 'error' ? 'is-error' : ''}`} role="status"><span><Icon name={toast.type === 'error' ? 'x' : 'check'} size={15} strokeWidth={2.5} /></span>{toast.message}</div>}
-      {activeCodeDialogItem && <CodeDialog crosshair={activeCodeDialogItem} onClose={() => setCodeDialogItem(null)} onCopy={copyCrosshair} t={t} />}
+      {activeCodeDialogItem && (
+        <Suspense fallback={null}>
+          <CodeDialog crosshair={activeCodeDialogItem} onClose={() => setCodeDialogItem(null)} onCopy={copyCrosshair} t={t} />
+        </Suspense>
+      )}
     </div>
   )
 }
