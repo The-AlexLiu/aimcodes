@@ -140,6 +140,15 @@
 5. 联系入口已统一为域名邮箱 `contact@aimcodes.com`；邮箱实际收件与回复流程需由站点所有者持续维护。
 6. 职业候选库仍以二手公开来源为研究入口；只有 `data_raw/verified-pro-crosshair-sources.json` 中具备玩家频道控制证据的记录可以发布，候选日期不得描述为 AimCodes 已核验日期。
 
+## GSC 赢家集群优化（2026-08-12）
+
+- 英语 Small 页已从泛“小准星”说明升级为 small / tiny / smallest 统一搜索任务，补充可见度判断、尺寸选择与相关 FAQ；URL、canonical 和索引状态保持不变。
+- 英语 Dot 页明确“纯中心点”与“微型十字替代方案”的边界，避免与 Small 页完全重叠。
+- Circle 集合负责直接预览和复制现成代码；How to Make Circle 教程负责自行调整参数，二者互相链接但不争抢同一任务。
+- Dot、Small、One-Tap、Circle 在四语种页面均新增相关合集入口，且相同链接已经写入预生成 HTML，搜索引擎无需等待客户端脚本即可抓取。
+- 葡语 Dot 页面继续保留 `mira ponto` / `mira pontinho` 表达，并新增到 Small、One-Tap 与 Circle 集合的下一步入口。
+- 自动发布门槛复核通过：1,388 个生成路由、768 个主 Sitemap URL、624 个准星 Sitemap URL、60,553 条内部链接、684 个图片 Sitemap 页面均无异常；桌面与 390px 手机端无横向溢出、无控制台错误。
+
 ## 推荐后续顺序
 
 1. 创建/进入 AdSense 账号，添加根域 `aimcodes.com`，再把 Google 提供的真实站点验证代码交给开发者安装并提交审核。

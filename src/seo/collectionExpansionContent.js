@@ -1,12 +1,12 @@
 const collectionExpansionContent = {
   en: {
     circle: {
-      label: 'Circle crosshairs', eyebrow: 'ROUND CENTER, CLEAR REFERENCE', title: 'VALORANT circle crosshair codes', intro: 'Compare working ring, halo, and bullseye-style crosshairs without guessing what the code looks like.', gridTitle: 'Circle crosshairs to preview',
-      body: ['Circle crosshairs frame the exact center instead of filling it. A small hollow center can keep a distant head visible while giving your eyes more shape to follow than a single pixel.', 'These codes use different ring sizes and supporting marks. Preview them on the same wall before deciding whether you want a clean halo or a heavier bullseye.'],
+      label: 'Circle crosshairs', eyebrow: 'COPY A CIRCLE CODE', title: 'VALORANT circle crosshair codes', intro: 'Browse working ring, halo, and bullseye-style codes you can preview and copy immediately.', gridTitle: 'Circle crosshairs to preview',
+      body: ['This page is for choosing a ready-made circle crosshair code. Each option frames the exact center instead of filling it, so a small hollow center can keep a distant head visible while giving your eyes more shape to follow than a single pixel.', 'Preview the different ring sizes on the same wall, then copy the one that stays recognizable at normal scale. If you want to build or edit the shape yourself, use the linked circle settings guide.'],
       selectionTitle: 'How these circle crosshairs were selected', selection: 'Every item renders a visible round or ring-like center from a working AimCodes profile code. We excluded square frames and shapes that only look circular at an oversized preview scale.',
       settingsTitle: 'Circle crosshair starting settings', settings: ['Use a small center dot only when the ring feels empty.', 'Keep the ring compact enough to leave the head visible.', 'Try cyan or green before adding a thicker outline.'],
       faq: [['Is a circle crosshair accurate?', 'The shape does not change weapon accuracy. It can make centering easier if the ring stays small enough for your target.'], ['How do I make a circle crosshair?', 'Use short inner and outer lines with a closed offset, then check the result in the preview instead of relying on numbers alone.']],
-      relatedArticleKeys: ['makeCircle', 'dotVsCross'], relatedToolKeys: ['generator', 'preview'],
+      relatedCollectionKeys: ['dot', 'small', 'minimalist'], relatedArticleKeys: ['makeCircle', 'dotVsCross'], relatedToolKeys: ['generator', 'preview'],
       metaTitle: 'VALORANT Circle Crosshair Codes & Preview | AimCodes', metaDescription: 'Try working VALORANT circle crosshair codes. Compare rings, halos and bullseyes on real map scenes, then copy the code you prefer.',
     },
     pink: {
@@ -69,7 +69,7 @@ const collectionExpansionContent = {
       selectionTitle: 'How we selected one-tap crosshairs', selection: 'The list uses verified dots and minimal line layouts with a precise center. Larger spray-oriented and decorative profiles were left out.',
       settingsTitle: 'One-tap setup checks', settings: ['Turn firing and movement error off for a stable center.', 'Keep the dot or gap visible at your normal resolution.', 'Practice stop timing instead of chasing an even smaller sight.'],
       faq: [['Is a dot best for one taps?', 'A dot marks the center clearly, but a micro cross can be easier to recover after movement.'], ['Does a one-tap crosshair reduce recoil?', 'No. It is only a visual reference and does not change weapon behavior.']],
-      relatedArticleKeys: ['placement', 'dotVsCross'], relatedToolKeys: ['comparison', 'preview'],
+      relatedCollectionKeys: ['small', 'dot', 'vandal'], relatedArticleKeys: ['placement', 'dotVsCross'], relatedToolKeys: ['comparison', 'preview'],
       metaTitle: 'VALORANT One-Tap Crosshair Codes | AimCodes', metaDescription: 'Compare working VALORANT one-tap crosshair codes for clean first shots. Preview compact dots and micro crosses, then copy one.',
     },
     vandal: {
@@ -137,7 +137,7 @@ const localizedShells = {
 
 const localizedBody = {
   es: {
-    circle: ['Una mira circular enmarca el centro sin llenarlo. El hueco puede dejar visible una cabeza lejana y dar más forma que un solo píxel.', 'Estas opciones cambian el tamaño del aro y las marcas de apoyo. Compáralas a escala normal.'],
+    circle: ['Esta página sirve para elegir un código circular ya listo. El aro enmarca el centro sin llenarlo y puede dejar visible una cabeza lejana.', 'Compara los tamaños a escala normal y copia el que mejor veas. Si quieres construir o editar la forma, abre la guía de ajustes enlazada.'],
     pink: ['El rosa destaca sobre muchas superficies verdes, marrones y grises. También puede ayudar a recuperar un centro compacto.', 'La lista mezcla siluetas distintas; no repite el mismo corazón con varios tonos.'],
     cyan: ['El cian funciona bien sobre muchas superficies cálidas y suele separarse de contornos enemigos rojos o amarillos.', 'Compara un punto, una cruz abierta y líneas más gruesas antes de culpar solo al color.'],
     green: ['El verde se recupera rápido tras un giro y combina bien con contorno enemigo rojo.', 'Comprueba vegetación y habilidades verdes antes de entrar en ranked.'],
@@ -149,7 +149,7 @@ const localizedBody = {
     phantom: ['La Phantom se usa a menudo en peleas cercanas y ráfagas más largas. Una cruz corta da más forma para seguir el centro.', 'La misma mira puede servir en ambos rifles; aquí priorizamos visibilidad durante la ráfaga.'],
   },
   'pt-BR': {
-    circle: ['Uma mira circular enquadra o centro sem preenchê-lo. O espaço pode deixar uma cabeça distante visível e dar mais forma que um único pixel.', 'As opções mudam o tamanho do anel e as marcas de apoio. Compare em escala normal.'],
+    circle: ['Esta página é para escolher um código circular pronto. O anel enquadra o centro sem preenchê-lo e pode deixar a cabeça distante visível.', 'Compare os tamanhos em escala normal e copie o que continuar nítido. Para montar ou editar o formato, abra o guia de ajustes ligado.'],
     pink: ['Rosa destaca em muitas superfícies verdes, marrons e cinzas e pode ajudar a reencontrar um centro compacto.', 'A lista mistura silhuetas diferentes, sem repetir o mesmo coração em vários tons.'],
     cyan: ['Ciano funciona bem em superfícies quentes e costuma separar de contornos inimigos vermelhos ou amarelos.', 'Compare ponto, cruz aberta e linhas mais grossas antes de culpar só a cor.'],
     green: ['Verde é fácil de reencontrar depois de uma virada e combina bem com contorno inimigo vermelho.', 'Confira vegetação e habilidades verdes antes da ranked.'],
@@ -161,7 +161,7 @@ const localizedBody = {
     phantom: ['A Phantom aparece muito em lutas próximas e rajadas mais longas. Uma cruz curta dá mais forma para acompanhar.', 'A mesma mira funciona nos dois rifles; aqui priorizamos visibilidade durante a rajada.'],
   },
   'zh-CN': {
-    circle: ['圆形准星用轮廓框住正中心，而不是把中心填满。小圆环既能留下远处头部，也比单像素更容易跟住。', '这些代码的圆环大小和辅助标记不同，请用正常比例放到同一面墙上比较。'],
+    circle: ['这个页面用来直接挑选可复制的圆形准星代码。圆环框住正中心但不把它填满，既能留下远处头部，也比单像素更容易跟住。', '用正常比例比较不同大小，找到后直接复制；如果想自己调造型，再打开下方的圆形准星设置教程。'],
     pink: ['粉色和洋红色在绿色、棕色和灰色地图表面上通常很容易区分，也能帮助视线找回紧凑中心。', '本页保留多种不同轮廓，不会把同一个爱心换几个色号就当成多款准星。'],
     cyan: ['青色在暖色和中性地图表面上通常很醒目，也容易和红色、黄色敌人轮廓分开。', '先对比圆点、留空十字和稍粗线条，再判断到底是颜色还是造型不适合你。'],
     green: ['快速转身后，绿色通常很容易被重新找到，也适合搭配红色敌人轮廓。', '正式排位前要检查植被、Viper 技能和其他绿色特效。'],
@@ -188,6 +188,7 @@ for (const locale of ['es', 'pt-BR', 'zh-CN']) {
       ...localeCommon[locale],
       label, eyebrow, title, intro, gridTitle,
       body: localizedBody[locale][key],
+      relatedCollectionKeys: english.relatedCollectionKeys,
       relatedArticleKeys: english.relatedArticleKeys,
       relatedToolKeys: english.relatedToolKeys,
       metaTitle: `${title} | AimCodes`,
