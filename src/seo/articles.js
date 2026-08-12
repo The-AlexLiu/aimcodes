@@ -95,8 +95,8 @@ const articles = {
       ],
       recommendedCrosshairIds: ['tenz', 'jinggg', 'forsaken', 'heart-pink'],
       cta: 'Test colors on a map',
-      metaTitle: 'Best VALORANT Crosshair Colors: Cyan, Green or White? | AimCodes',
-      metaDescription: 'Compare cyan, green, white, yellow, red and pink VALORANT crosshair colors. Learn how map contrast, outlines and enemy colors affect visibility.',
+      metaTitle: 'Best VALORANT Crosshair Color for Visibility | AimCodes',
+      metaDescription: 'Choose a VALORANT crosshair color for your map and enemy outline. Compare cyan, green, white, yellow, red and pink without changing the shape.',
     },
   },
   es: {
