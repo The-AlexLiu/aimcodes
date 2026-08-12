@@ -24,6 +24,8 @@
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/18> 新增 `src/data/catalogManifest.js` 与 `pnpm validate:manifest`，图片、Sitemap、集合和索引详情从同一清单派生；`App.jsx` 只保留全局编排，目录视图模型和主要展示区域已拆分。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/22> 移除四语种准星详情的检查标签与日期，生成器改用玩家试枪提示，并让静态 SEO 兜底只在脚本禁用或加载长时间失败时显示，消除语言首页加载闪屏。
+- 2026-08-12 第二批目录索引把可索引详情由 100 个提升到 150 个；主 Sitemap 为 744 条、准星 Sitemap 为 600 条、图片 Sitemap 为 660 个页面和 1,260 个图片引用。
+- 职业候选管线共发现 121 条公开线索，105 条可解析，16 条异常单独保留；全部等待一手来源，尚未发布职业玩家页。
 
 ## Cursor 接手时第一步
 
@@ -37,7 +39,7 @@
 ## 尚未完成
 
 - 渲染器尚未完成单一源自动同步；
-- 主应用仍需要按页面类型做懒加载和代码分包，当前构建包约 649 kB（gzip 约 214 kB）；
+- 页面类型懒加载和代码分包已完成第一轮；当前入口包约 382 kB（gzip 约 124 kB），后续继续以性能预算防止回退；
 - GA4 后台尚未创建计划中的自定义维度和指标，需包含 `interaction_source` 和 `shared_entry`。
 - 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
 - AdSense 代码层准备已通过 PR #11 发布；还需账号所有者在 Google 后台完成年龄/身份/付款信息、添加根域，并提供真实站点验证代码。

@@ -1,0 +1,2846 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-12T06:34:19.551Z",
+  "publicationPolicy": "Candidates are research leads only. No record may become indexable until a primary source is attached and reviewed.",
+  "sources": [
+    {
+      "sourceId": "proconfig",
+      "discovered": 121
+    }
+  ],
+  "summary": {
+    "discovered": 121,
+    "parserAccepted": 105,
+    "needsPrimarySource": 105,
+    "parserRejected": 16,
+    "missingCode": 0,
+    "fetchFailed": 0,
+    "alreadyInCatalog": 1
+  },
+  "candidates": [
+    {
+      "playerId": "aceu",
+      "displayName": "aceu",
+      "code": "0;P;d;1;z;1;0t;1;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/aceu/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tap-dot-orbit"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "alfajer",
+      "displayName": "Alfajer",
+      "code": "0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0;A;c;5;o;1;d;1;0b;0;1b;0;S;s;0.628;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/alfajer/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-jolt"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "aspas",
+      "displayName": "aspas",
+      "code": "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/aspas/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "asuna",
+      "displayName": "Asuna",
+      "code": "0;P;o;1;m;1;0t;1;0l;2;0o;2;0a;1;0f;0;1t;1;1o;3;1a;1;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/asuna/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "bang",
+      "displayName": "bang",
+      "code": "0;P;h;0;0l;4;0v;4;0g;1;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/bang/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "benjyfishy",
+      "displayName": "benjyfishy",
+      "code": "0;c;1;s;1;P;c;7;h;0;f;0;m;1;0l;2;0o;1;0a;1;0f;0;1b;0;S;s;1.001",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/benjyfishy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green",
+        "micro-gap-ghost"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "beyn",
+      "displayName": "BeYN",
+      "code": "0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/beyn/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "blowz",
+      "displayName": "Blowz",
+      "code": "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;2;s;0.984;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/blowz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "boaster",
+      "displayName": "Boaster",
+      "code": "0;s;1;P;c;1;o;1;d;1;0l;0;0o;2;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;S;c;1;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/boaster/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "boo",
+      "displayName": "Boo",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/boo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "brawk",
+      "displayName": "brawk",
+      "code": "0;s;1;P;c;1;o;1;0l;5;0a;1;0f;0;1b;0;S;s;1.002",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/brawk/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-cross-slate"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "buzz",
+      "displayName": "BuZz",
+      "code": "0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0;A;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/buzz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-jolt"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cauanzin",
+      "displayName": "cauanzin",
+      "code": "0;s;1;P;h;0;m;1;0l;3;0o;2;0a;1;0f;0;1b;0;S;c;0;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cauanzin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-03",
+      "sourceClaimedVerifiedAt": "2026-06-03",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cb",
+      "displayName": "CB",
+      "code": "0;s;1;P;c;5;h;0;f;0;0l;3;0o;1;0a;1;0f;0;1b;0;S;c;5;s;0.6;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cb/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "cgrs",
+      "displayName": "cgrs",
+      "code": "0;P;c;1;o;1;0l;4;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cgrs/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-wave"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "chichoo",
+      "displayName": "CHICHOO",
+      "code": "0;s;1;P;c;5;h;0;f;0;s;0;0l;3;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/chichoo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "yay",
+        "circle-dot-cyan"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "chronicle",
+      "displayName": "Chronicle",
+      "code": "0;P;h;0;f;0;0t;1;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/chronicle/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cned",
+      "displayName": "cNed",
+      "code": "0;P;h;0;0l;5;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cned/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cortezia",
+      "displayName": "cortezia",
+      "code": "0;P;c;5;h;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cortezia/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-03",
+      "sourceClaimedVerifiedAt": "2026-06-03",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "crashies",
+      "displayName": "crashies",
+      "code": "0;P;h;0;0l;3;0v;3;0g;1;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/crashies/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cryocells",
+      "displayName": "Cryocells",
+      "code": "0;P;h;0;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cryocells/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "cyvoph",
+      "displayName": "Cyvoph",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/cyvoph/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "d4v41",
+      "displayName": "d4v41",
+      "code": "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;s;0.415;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/d4v41/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "dantedeu5",
+      "displayName": "Dantedeu5",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/dantedeu5/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "demon1",
+      "displayName": "Demon1",
+      "code": "0;p;0;s;1;P;o;1;f;0;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0;A;o;1;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0;S;c;1;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/demon1/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "derke",
+      "displayName": "Derke",
+      "code": "0;P;o;1;0t;1;0l;4;0o;2;0a;1;0f;0;1t;0;1l;1;1o;0;1a;1;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/derke/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "ethan",
+      "displayName": "Ethan",
+      "code": "0;P;o;0.503;0t;1;0g;1;0o;1;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/ethan/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "f0rsaken",
+      "displayName": "f0rsakeN",
+      "code": "0;p;0;c;1;s;1;P;h;0;f;0;s;0;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0;A;o;1;d;1;0b;0;1b;0;S;d;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/f0rsaken/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "yay",
+        "circle-dot-cyan"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "flicker",
+      "displayName": "Flicker",
+      "code": "0;s;1;P;c;5;u;000000FF;h;0;f;0;0l;4;0v;0;0o;0;0a;1;0f;0;1b;0;S;c;0;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/flicker/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "fns",
+      "displayName": "FNS",
+      "code": "0;P;c;1;h;0;0l;3;0v;3;0g;1;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/fns/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "free1ng",
+      "displayName": "free1ng",
+      "code": "0;p;0;P;c;1;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/free1ng/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "frttt",
+      "displayName": "frttt",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/frttt/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "hfmi0dzjc9z7",
+      "displayName": "hfmi0dzjc9z7",
+      "code": "0;p;0;s;1;P;c;5;h;0;f;0;0l;3;0o;1;0a;1;0f;0;1b;0;A;h;0;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/hfmi0dzjc9z7/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "hiko",
+      "displayName": "Hiko",
+      "code": "0;P;c;5;h;0;0l;4;0o;2;0a;1;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/hiko/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "hyunmin",
+      "displayName": "HYUNMIN",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/hyunmin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "icy",
+      "displayName": "ICY",
+      "code": "CSGO-WudSh-UtCKr-pAsp4-BJxKV-7T8SA",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/icy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: missingPrimary"
+      ]
+    },
+    {
+      "playerId": "invy",
+      "displayName": "Invy",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/invy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "izu",
+      "displayName": "iZu",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/izu/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "jamppi",
+      "displayName": "Jamppi",
+      "code": "0;s;1;P;h;0;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/jamppi/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "jawgemo",
+      "displayName": "jawgemo",
+      "code": "0;s;1;P;o;1;d;1;f;0;m;1;0l;2;0v;1;0g;1;0o;0;0a;1;0f;0;1b;0;S;s;0.652;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/jawgemo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "less"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "jerrwin",
+      "displayName": "Jerrwin",
+      "code": "0;c;1;s;1;P;o;1;d;1;0b;0;1b;0;S;s;1.002",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/jerrwin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "jinggg",
+      "displayName": "Jinggg",
+      "code": "0;s;1;P;c;8;u;FF99FFFF;o;1;b;1;f;0;0l;3;0o;2;0a;1;0f;0;1b;0;S;c;5;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/jinggg/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-wave"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#FF99FF",
+      "colorKey": "custom"
+    },
+    {
+      "playerId": "johnqt",
+      "displayName": "johnqt",
+      "code": "0;p;0;s;1;P;c;5;h;0;0l;4;0o;1;0a;1;0f;0;1b;0;A;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/johnqt/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green",
+        "tracker-apex",
+        "wide-axis-tide"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "jonahp",
+      "displayName": "JonahP",
+      "code": "0;P;c;4;h;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/jonahp/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tracker-tide"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffff00",
+      "colorKey": "yellow"
+    },
+    {
+      "playerId": "kaajak",
+      "displayName": "kaajak",
+      "code": "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;s;0.603;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/kaajak/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "kamo_val",
+      "displayName": "kamo_val",
+      "code": "0;s;1;P;o;1;d;1;f;0;m;1;0b;0;1b;0;S;c;0;s;0.885;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/kamo_val/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "karon",
+      "displayName": "Karon",
+      "code": "0;s;1;P;o;1;d;1;0b;0;1b;0;S;d;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/karon/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "keiko",
+      "displayName": "Keiko",
+      "code": "0;s;1;P;o;1;d;1;z;1;0b;0;1l;0;1a;0;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/keiko/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "kingg",
+      "displayName": "kiNgg",
+      "code": "0;P;c;8;u;000000FF;h;0;b;1;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/kingg/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#000000",
+      "colorKey": "custom"
+    },
+    {
+      "playerId": "knight",
+      "displayName": "Knight",
+      "code": "0;P;o;1;d;1;z;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/knight/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "koshmaras",
+      "displayName": "Koshmaras",
+      "code": "0;s;1;P;h;0;f;0;m;1;0l;4;0v;4;0g;1;0o;2;0a;1;0f;0;1b;0;S;s;1.4;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/koshmaras/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "lakia",
+      "displayName": "Lakia",
+      "code": "0;P;h;0;0t;5;0l;1;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/lakia/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-03",
+      "sourceClaimedVerifiedAt": "2026-06-03",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "laz",
+      "displayName": "Laz",
+      "code": "0;p;0;c;1;s;1;P;o;1;f;0;0t;1;0l;3;0a;1;0f;0;1b;0;A;c;7;h;0;d;1;z;3;m;1;0t;3;0l;2;0o;0;0a;0.5;0f;0;1b;0;S;s;0.5;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/laz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-rift"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "leaf",
+      "displayName": "leaf",
+      "code": "0;P;c;8;u;FF99FFFF;h;0;b;1;0l;8;0o;1;0a;1;0f;0;1t;4;1l;0;1o;3;1a;1;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/leaf/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tracker-rift"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#FF99FF",
+      "colorKey": "custom"
+    },
+    {
+      "playerId": "leo",
+      "displayName": "Leo",
+      "code": "0;P;h;0;0l;3;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/leo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "yay",
+        "circle-dot-cyan"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "less",
+      "displayName": "Less",
+      "code": "0;s;1;P;o;1;d;1;f;0;0l;2;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/less/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "less"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "levius",
+      "displayName": "Levius",
+      "code": "0;p;0;P;h;0;f;0;m;1;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/levius/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "lewn",
+      "displayName": "LêwN",
+      "code": "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;0;s;1.001;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/lewn/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "lukxo",
+      "displayName": "Lukxo",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/lukxo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "mada",
+      "displayName": "mada",
+      "code": "0;s;1;P;o;1;d;1;f;0;m;1;0l;2;0o;0;0a;1;0f;0;1b;0;S;b;1;c;8;t;00FF66FF;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mada/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "less"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "mako",
+      "displayName": "MaKo",
+      "code": "0;P;o;1;d;1;f;0;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mako/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "marved",
+      "displayName": "Marved",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/marved/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "mazino",
+      "displayName": "Mazino",
+      "code": "0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mazino/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "meteor",
+      "displayName": "Meteor",
+      "code": "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/meteor/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "mimi",
+      "displayName": "mimi",
+      "code": "0;s;1;P;c;1;m;1;0l;4;0o;0;0f;0;1b;0;S;c;5;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mimi/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "boaster"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "mindfreak",
+      "displayName": "mindfreak",
+      "code": "0;P;c;1;o;1;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mindfreak/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "boaster"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "miniboo",
+      "displayName": "MiniBoo",
+      "code": "0;p;0;s;1;P;c;7;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0;A;o;1;d;1;z;3;0b;0;1b;0;S;c;1;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/miniboo/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "munchkin",
+      "displayName": "Munchkin",
+      "code": "0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/munchkin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "mwzera",
+      "displayName": "mwzera",
+      "code": "0;P;c;4;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/mwzera/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-jolt"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffff00",
+      "colorKey": "yellow"
+    },
+    {
+      "playerId": "n4rrate",
+      "displayName": "N4RRATE",
+      "code": "0;P;c;8;u;00000000;h;0;b;1;0l;4;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/n4rrate/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#000000",
+      "colorKey": "custom"
+    },
+    {
+      "playerId": "nats",
+      "displayName": "nAts",
+      "code": "0;P;c;1;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/nats/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "neon",
+      "displayName": "Neon",
+      "code": "0;s;1;P;c;7;o;1;f;0;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0;S;c;0;s;0.7;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/neon/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "nephh",
+      "displayName": "nephh",
+      "code": "0;s;1;P;c;5;h;0;0l;3;0o;0;0a;1;0f;0;1b;0;S;s;0.8;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/nephh/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "yay",
+        "circle-dot-cyan"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "nobody",
+      "displayName": "nobody",
+      "code": "0;s;1;P;o;1;m;1;0t;1;0l;2;0v;2;0g;1;0o;2;0a;1;0f;0;1b;0;S;c;5;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/nobody/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "nozwerr",
+      "displayName": "nozwerr",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/nozwerr/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "pancada",
+      "displayName": "pANcada",
+      "code": "0;c;1;s;1;P;c;4;h;0;f;0;s;0;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/pancada/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffff00",
+      "colorKey": "yellow"
+    },
+    {
+      "playerId": "prod",
+      "displayName": "PROD",
+      "code": "0;s;1;P;c;5;h;0;0l;4;0o;0;0a;1;0f;0;1b;0;S;c;1;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/prod/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "purp0",
+      "displayName": "purp0",
+      "code": "0;s;1;P;c;5;h;0;f;0;s;0;0b;0;1l;3;1o;0;1a;1;1m;0;1f;0;S;c;6;s;0.619;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/purp0/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "reduxx",
+      "displayName": "reduxx",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/reduxx/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "riens",
+      "displayName": "RieNs",
+      "code": "0;c;1;s;1;P;o;1;d;1;f;0;0l;2;0v;0;0g;1;0o;0;0a;1;0f;0;1b;0;S;d;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/riens/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "rushia",
+      "displayName": "rushia",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/rushia/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "s0m",
+      "displayName": "s0m",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/s0m/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "saadhak",
+      "displayName": "Saadhak",
+      "code": "0;s;1;P;c;3;h;0;d;1;z;1;a;0.7;0t;1;0l;2;0a;1;0f;0;1t;3;1o;1;1a;0.7;1m;0;1f;0;S;c;5;s;0;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/saadhak/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "diamond-white"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#dfff00",
+      "colorKey": "chartreuse"
+    },
+    {
+      "playerId": "sacy",
+      "displayName": "Sacy",
+      "code": "0;P;c;5;o;1;0t;1;0l;4;0o;1;0a;1;0f;0;1t;3;1o;2;1a;1;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sacy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "sato",
+      "displayName": "Sato",
+      "code": "0;s;1;P;h;0;f;0;m;1;0l;5;0o;1;0a;1;0f;0;1b;0;S;c;0;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sato/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tracker-apex"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "sayf",
+      "displayName": "Sayf",
+      "code": "0;P;c;7;h;0;d;1;z;3;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sayf/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [
+        "pulse-red"
+      ],
+      "appearanceCatalogMatches": [
+        "pulse-red"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "scream",
+      "displayName": "ScreaM",
+      "code": "0;s;1;P;c;5;o;1;d;1;f;0;0t;6;0l;0;0a;1;0f;0;1b;0;S;c;6;s;0.949;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/scream/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "shanks",
+      "displayName": "Shanks",
+      "code": "0;p;0;c;1;s;1;P;c;5;h;0;f;0;m;1;0l;4;0o;1;0a;0.317;0f;0;1l;3;1o;1;1a;0.616;1m;0;1f;0;A;c;4;o;0.515;m;1;0t;1;0l;3;0o;1;0a;1;0f;0;1b;0;S;c;1;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/shanks/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "silentzz",
+      "displayName": "silentzz",
+      "code": "0;s;1;P;c;8;u;000000FF;o;1;b;1;f;0;0t;1;0l;1;0a;0;0f;0;1t;1;1l;1;1o;4;1a;0;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/silentzz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: no visible primary component"
+      ]
+    },
+    {
+      "playerId": "sirmaza",
+      "displayName": "SirMaza",
+      "code": "0;P;h;0;0t;1;0l;4;0o;1;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sirmaza/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "wide-axis-nova"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "skuba",
+      "displayName": "Skuba",
+      "code": "0;p;0;c;1;s;1;P;o;0.6;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0;A;h;0;0b;0;1l;3;1o;0;1a;0.93;1m;0;1f;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/skuba/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "smoggy",
+      "displayName": "Smoggy",
+      "code": "0;p;0;s;1;P;o;0.3;f;0;0l;3;0o;2;0a;1;0f;0;1b;0;A;o;0.3;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/smoggy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-wave"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "sociablee",
+      "displayName": "sociablEE",
+      "code": "0;s;1;P;o;1;d;1;z;1;f;0;0b;0;1b;0;S;b;1;c;8;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sociablee/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-03",
+      "sourceClaimedVerifiedAt": "2026-06-03",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "something",
+      "displayName": "something",
+      "code": "0;s;1;P;h;0;0l;2;0o;1;0a;1;0f;0;1b;0;S;c;0;s;0.713;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/something/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green",
+        "micro-gap-ghost"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "spikezin",
+      "displayName": "spikeziN",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/spikezin/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "stax",
+      "displayName": "stax",
+      "code": "0;p;0;P;h;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/stax/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "sugarz3ro",
+      "displayName": "SugarZ3ro",
+      "code": "0;P;c;1;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/sugarz3ro/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "suygetsu",
+      "displayName": "Suygetsu",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/suygetsu/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "syouta",
+      "displayName": "SyouTa",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/syouta/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "t3xture",
+      "displayName": "t3xture",
+      "code": "0;s;1;P;o;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0;S;o;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/t3xture/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tenz",
+        "recoil-c"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "tenz",
+      "displayName": "TenZ",
+      "code": "0;s;1;P;c;5;o;0;f;0;0l;2;0v;2;0g;1;0o;1;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/tenz/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-27",
+      "sourceClaimedVerifiedAt": "2026-05-27",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "compact-green",
+        "micro-gap-ghost"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "tex",
+      "displayName": "tex",
+      "code": "0;s;1;P;h;0;d;1;z;1;m;1;0t;1;0l;3;0v;2;0g;1;0o;2;0a;1;0e;0.319;1t;0;1l;0;1o;0;1a;0;1m;0;1e;3;S;s;0.677;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/tex/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tap-dot-prism"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "timotino",
+      "displayName": "timotino",
+      "code": "0;c;1;s;1;P;o;0.622;d;1;0t;0;0l;0;0o;0;0a;0;1t;0;1l;0;1o;0;S;s;0.75",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/timotino/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-25",
+      "sourceClaimedVerifiedAt": "2026-05-25",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "trent",
+      "displayName": "trent",
+      "code": "0;P;o;1;0l;3;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/trent/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-wave"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "tteuw",
+      "displayName": "tteuw",
+      "code": "0;s;1;P;h;0;f;0;0l;5;0o;0;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/tteuw/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-29",
+      "sourceClaimedVerifiedAt": "2026-05-29",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "cned",
+        "yay"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "valyn",
+      "displayName": "valyn",
+      "code": "0;p;0;s;1;P;c;7;o;1;0t;1;0l;2;0v;2;0o;2;0a;1;0f;0;1b;0;A;c;7;h;0;0l;4;0v;4;0o;0;0a;1;0f;0;1b;0;S;s;1.019",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/valyn/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "jinggg"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "verno",
+      "displayName": "Verno",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/verno/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "victor",
+      "displayName": "Victor",
+      "code": "Unknown",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/victor/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "virtyy",
+      "displayName": "Virtyy",
+      "code": "0;P;o;1;d;1;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/virtyy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-28",
+      "sourceClaimedVerifiedAt": "2026-05-28",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "wayne",
+      "displayName": "Wayne",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/wayne/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "whzy",
+      "displayName": "whzy",
+      "code": "0;P;h;0;d;1;z;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/whzy/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-31",
+      "sourceClaimedVerifiedAt": "2026-05-31",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "tap-dot-bolt",
+        "tap-dot-prism"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "wo0t",
+      "displayName": "Wo0t",
+      "code": "0;P;c;7;o;1;d;1;0l;0;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/wo0t/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-30",
+      "sourceClaimedVerifiedAt": "2026-05-30",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ff0000",
+      "colorKey": "red"
+    },
+    {
+      "playerId": "xdll",
+      "displayName": "Xdll",
+      "code": "0;P;h;0;0t;1;0l;2;0o;1;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/xdll/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-26",
+      "sourceClaimedVerifiedAt": "2026-05-26",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "micro-gap-cyan"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "xeus",
+      "displayName": "xeus",
+      "code": "0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/xeus/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-02",
+      "sourceClaimedVerifiedAt": "2026-06-02",
+      "capturedAt": "2026-08-12",
+      "status": "parser_rejected",
+      "parserStatus": "rejected",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "AimCodes parser rejected the code: tooShort"
+      ]
+    },
+    {
+      "playerId": "yay",
+      "displayName": "yay",
+      "code": "0;s;1;P;o;1;d;1;z;1;0b;0;1b;0;S;o;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/yay/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "yetujey",
+      "displayName": "yetujey",
+      "code": "0;P;0t;1;0l;3;0o;2;0a;1",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/yetujey/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-24",
+      "sourceClaimedVerifiedAt": "2026-05-24",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "yong",
+      "displayName": "yong",
+      "code": "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/yong/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-01",
+      "sourceClaimedVerifiedAt": "2026-06-01",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "zekken",
+      "displayName": "Zekken",
+      "code": "0;s;1;P;c;1;t;2;o;1;d;1;0b;0;1b;0;S;b;1;c;8;s;0.823",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/zekken/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-22",
+      "sourceClaimedVerifiedAt": "2026-05-22",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ff00",
+      "colorKey": "green"
+    },
+    {
+      "playerId": "zellsis",
+      "displayName": "Zellsis",
+      "code": "0;P;c;5;h;0;0t;5;0l;1;0o;2;0a;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/zellsis/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-06-03",
+      "sourceClaimedVerifiedAt": "2026-06-03",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#00ffff",
+      "colorKey": "cyan"
+    },
+    {
+      "playerId": "zmjjkk",
+      "displayName": "ZmjjKK",
+      "code": "0;P;h;0;d;1;f;0;0l;2;0v;2;0g;1;0o;1;0f;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/zmjjkk/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-23",
+      "sourceClaimedVerifiedAt": "2026-05-23",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    },
+    {
+      "playerId": "zynx",
+      "displayName": "ZynX",
+      "code": "0;P;o;1;d;1;f;0;0b;0;1b;0",
+      "sourceId": "proconfig",
+      "sourceName": "Pro Config",
+      "sourceUrl": "https://proconfig.net/valorant/zynx/",
+      "sourceClass": "secondary_editorial",
+      "sourcePublishedAt": "2026-05-21",
+      "sourceClaimedVerifiedAt": "2026-05-21",
+      "capturedAt": "2026-08-12",
+      "status": "needs_primary_source",
+      "parserStatus": "accepted",
+      "exactCatalogMatches": [],
+      "appearanceCatalogMatches": [
+        "demon1"
+      ],
+      "reviewNotes": [
+        "Code parses and renders in AimCodes.",
+        "A primary player, team, Riot, stream, or VOD source is still required before publication."
+      ],
+      "color": "#ffffff",
+      "colorKey": "white"
+    }
+  ]
+}
