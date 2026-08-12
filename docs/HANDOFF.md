@@ -17,8 +17,8 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`2d01a4f`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/22>
+- 最近产品代码生产提交：`06eebb6`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
@@ -79,11 +79,11 @@
 ## 最近产品代码生产发布
 
 - 发布时间：2026-08-12；
-- 对应功能提交：`2d01a4f`；
-- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/22>；
+- 对应功能提交：`06eebb6`；
+- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>；
 - 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认英、中、西、葡根域语言跳转、代表准星详情、检查标签移除和静态兜底策略正常；主 Sitemap 544 条、准星 Sitemap 400 条、图片 Sitemap 460 个页面与 860 个图片引用均可访问。
+- 发布后已确认英、中代表新详情与既有 TenZ 详情、独立图片、OG 图、robots 和 canonical 正常；主 Sitemap 744 条、准星 Sitemap 600 条、图片 Sitemap 660 个页面与 1,260 个图片引用均可访问。
 
 ## 已发布的分享增长功能
 

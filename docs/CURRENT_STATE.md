@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-08-12 第二批目录索引与职业候选管线：开放 50 个既有高质量详情，索引总数提升至 150；职业候选只保存研究线索并强制等待一手来源，生产提交 `06eebb6`、PR #25。
 - 2026-08-12 页面加载与玩家文案修复：准星详情不再展示“代码已检查/检查日期”，生成器移除检查式提示；正常加载时隐藏静态 SEO 兜底，避免进入语言首页时闪现整页链接，生产提交 `2d01a4f`、PR #22。
 - 2026-08-12 P0 搜索增长发布：英语高展示页与葡语小圆点集合完成搜索意图优化，内部验收流量支持浏览器级持久排除；生产提交 `2b8eaf7`、PR #20。
 - 2026-08-11 最近一次产品代码生产发布：目录架构统一，对应生产提交 `9dbfdf1`、PR #18。
@@ -20,8 +21,8 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`2d01a4f fix: remove verification labels and loading flash (#22)`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/22>
+- 最近产品代码生产提交：`06eebb6 feat: expand indexed catalog and add pro candidate pipeline (#25)`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>
 - P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
@@ -100,6 +101,8 @@
 - 每个原创家族开放 11 个代表，Micro Gap 与 Tap Dot 各开放 12 个，形成总计 150 个索引详情的固定验证护栏；
 - 主 Sitemap 增至 744 个 URL，准星 Sitemap 增至 600 个 URL；图片 Sitemap 增至 660 个页面和 1,260 个图片引用；
 - 职业选手采集管线发现 121 条公开候选，其中 105 条能被 AimCodes 解析，16 条进入异常清单；全部仍需一手来源，不自动发布、不进入 Sitemap。
+- PR #25 的 GitHub `product-data`、`build-and-seo` 与 Netlify Deploy Preview 均通过；生产 Netlify 已确认构建提交 `06eebb6`。
+- 正式站英/中代表新详情、既有 TenZ 详情、独立图片、OG 图和 robots 均返回 200；线上 Sitemap 实测为 744 / 600 / 660 页面与 1,260 个图片引用。
 
 ## 已确认验证基线
 
