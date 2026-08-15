@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-08-15 GA4 + GSC 联合优化：指南页快速结论新增“试现成代码”和“打开工具”入口，四语种同步；英语 Best 页面和四语种颜色指南按现有查询意图调整标题、摘要与内容承接，不新增 URL，也不继续开放剩余 `noindex` 详情。数据口径与观察指标见 `docs/SEO_DATA_REVIEW_2026-08-15.md`。
 - 2026-08-12 社媒发布流水线：新增 Instagram、TikTok、YouTube、Facebook 的 Buffer 草稿生成与校验，默认禁止排期和公开发布；账号映射、素材 URL、草稿包与台账只保存在 Git 忽略的 `output/social-publishing/`。
 - 2026-08-12 第二批目录索引与职业候选管线：开放 50 个既有高质量详情，索引总数提升至 150；职业候选只保存研究线索并强制等待一手来源，生产提交 `06eebb6`、PR #25。
 - 2026-08-12 首批玩家来源职业配置：新增 Sacy、Saadhak、mwzera、Cortezia、Sato、Tteuw，并把 Aspas 更新为玩家频道指令中的配置；所有记录均保存直播命令或命令链接文档快照，普通目录保持外观去重。
