@@ -7,10 +7,10 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
   const content = articleCopy(locale, articleKey)
   const labels = {
-    en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions' },
-    es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales', faq: 'Preguntas habituales' },
-    'pt-BR': { quick: 'Resposta rápida', related: 'Guias relacionados do AimCodes', import: 'Guia para importar e copiar miras', sources: 'Referências oficiais', faq: 'Dúvidas comuns' },
-    'zh-CN': { quick: '先说结论', related: '接着看这些', import: '准星代码怎么导入和复制', sources: '官方资料', faq: '大家常问' },
+    en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions', tryCodes: 'Try working codes', openTool: 'Open the tool' },
+    es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales', faq: 'Preguntas habituales', tryCodes: 'Probar códigos', openTool: 'Abrir la herramienta' },
+    'pt-BR': { quick: 'Resposta rápida', related: 'Guias relacionados do AimCodes', import: 'Guia para importar e copiar miras', sources: 'Referências oficiais', faq: 'Dúvidas comuns', tryCodes: 'Testar códigos', openTool: 'Abrir a ferramenta' },
+    'zh-CN': { quick: '先说结论', related: '接着看这些', import: '准星代码怎么导入和复制', sources: '官方资料', faq: '大家常问', tryCodes: '直接试代码', openTool: '打开工具' },
   }[locale]
   const recommended = content.recommendedCrosshairIds
     .map((id) => crosshairs.find((item) => item.id === id))
@@ -19,6 +19,8 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
   const relatedArticleKeys = content.relatedArticleKeys || fallbackArticleKeys
   const relatedCollectionKeys = content.relatedCollectionKeys || ['small']
   const relatedToolKeys = content.relatedToolKeys || []
+  const quickCollectionKey = relatedCollectionKeys[0]
+  const quickToolKey = relatedToolKeys[0]
 
   return (
     <article className="seo-article-page">
@@ -34,6 +36,20 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
         <div>
           <h2>{content.summaryTitle}</h2>
           <p>{content.summary}</p>
+          {(quickCollectionKey || quickToolKey) && (
+            <nav className="seo-article-quick-actions" aria-label={labels.quick}>
+              {quickCollectionKey && (
+                <a className="primary-button" href={routePath(locale, { type: 'collection', collectionKey: quickCollectionKey })}>
+                  {labels.tryCodes}
+                </a>
+              )}
+              {quickToolKey && (
+                <a className="secondary-button" href={routePath(locale, { type: 'tool', toolKey: quickToolKey })}>
+                  {labels.openTool}
+                </a>
+              )}
+            </nav>
+          )}
         </div>
       </aside>
 
