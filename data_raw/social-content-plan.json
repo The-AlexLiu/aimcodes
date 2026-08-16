@@ -8,13 +8,13 @@
       "status": "approved_for_draft",
       "language": "en",
       "campaign": "reaction_test",
-      "destinationUrl": "https://aimcodes.com/en/reaction-test/",
+      "destinationUrl": "https://aimcodes.com/en/reaction-time-test/",
       "asset": {
         "kind": "video",
         "rendererPath": "public/tools/social-renderer/index.html",
-        "rendererQuery": "lang=en&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "rendererQuery": "lang=en&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191&coverFrame=0&seed=launch-en-v2",
         "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-en.mp4",
-        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-en.png",
+        "localCoverPath": "output/promo_assets/aimcodes-bunny-white-universal-challenge-cover-en.png",
         "thumbnailOffsetMs": 4700
       },
       "platforms": {
@@ -45,13 +45,13 @@
       "status": "approved_for_draft",
       "language": "es",
       "campaign": "reaction_test",
-      "destinationUrl": "https://aimcodes.com/es/reaction-test/",
+      "destinationUrl": "https://aimcodes.com/es/reaction-time-test/",
       "asset": {
         "kind": "video",
         "rendererPath": "public/tools/social-renderer/index.html",
-        "rendererQuery": "lang=es&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "rendererQuery": "lang=es&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191&coverFrame=0&seed=launch-es-v2",
         "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-es.mp4",
-        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-es.png",
+        "localCoverPath": "output/promo_assets/aimcodes-bunny-white-universal-challenge-cover-es.png",
         "thumbnailOffsetMs": 4700
       },
       "platforms": {
@@ -82,13 +82,13 @@
       "status": "approved_for_draft",
       "language": "pt-br",
       "campaign": "reaction_test",
-      "destinationUrl": "https://aimcodes.com/pt-br/reaction-test/",
+      "destinationUrl": "https://aimcodes.com/pt-br/reaction-time-test/",
       "asset": {
         "kind": "video",
         "rendererPath": "public/tools/social-renderer/index.html",
-        "rendererQuery": "lang=pt-br&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "rendererQuery": "lang=pt-br&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191&coverFrame=0&seed=launch-pt-br-v2",
         "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-pt-br.mp4",
-        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-pt-br.png",
+        "localCoverPath": "output/promo_assets/aimcodes-bunny-white-universal-challenge-cover-pt-br.png",
         "thumbnailOffsetMs": 4700
       },
       "platforms": {
@@ -119,13 +119,13 @@
       "status": "approved_for_draft",
       "language": "zh-cn",
       "campaign": "reaction_test",
-      "destinationUrl": "https://aimcodes.com/zh-cn/reaction-test/",
+      "destinationUrl": "https://aimcodes.com/zh-cn/reaction-time-test/",
       "asset": {
         "kind": "video",
         "rendererPath": "public/tools/social-renderer/index.html",
-        "rendererQuery": "lang=zh-cn&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191",
+        "rendererQuery": "lang=zh-cn&platform=universal&crosshair=bunny-white&scores=218%2C203%2C191&coverFrame=0&seed=launch-zh-cn-v2",
         "localVideoPath": "output/promo_assets/aimcodes-reaction-challenge-vertical-zh-cn.mp4",
-        "localCoverPath": "output/promo_assets/aimcodes-reaction-challenge-square-zh-cn.png",
+        "localCoverPath": "output/promo_assets/aimcodes-bunny-white-universal-challenge-cover-zh-cn.png",
         "thumbnailOffsetMs": 4700
       },
       "platforms": {

@@ -2,6 +2,7 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { constants } from 'node:fs'
 import { dirname, isAbsolute, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { validateCampaignMedia } from './media-inspector.mjs'
 
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
 export const defaultPlanPath = 'data_raw/social-content-plan.json'
@@ -130,6 +131,7 @@ export async function validatePlan(plan, { checkLocalAssets = true } = {}) {
     if (!campaign.asset?.rendererPath) errors.push(`${campaign.id}: rendererPath is required`)
     if (!campaign.asset?.rendererQuery) errors.push(`${campaign.id}: rendererQuery is required`)
     if (!campaign.asset?.localVideoPath?.endsWith('.mp4')) errors.push(`${campaign.id}: localVideoPath must be an MP4`)
+    if (!campaign.asset?.localCoverPath?.endsWith('.png')) errors.push(`${campaign.id}: localCoverPath must be a PNG`)
     if (!Number.isInteger(campaign.asset?.thumbnailOffsetMs) || campaign.asset.thumbnailOffsetMs < 0) {
       errors.push(`${campaign.id}: thumbnailOffsetMs must be a non-negative integer`)
     }
@@ -141,6 +143,11 @@ export async function validatePlan(plan, { checkLocalAssets = true } = {}) {
     }
     if (checkLocalAssets && campaign.asset?.localCoverPath && !(await pathExists(campaign.asset.localCoverPath))) {
       warnings.push(`${campaign.id}: local cover is not present; regenerate it before upload`)
+    }
+    if (checkLocalAssets && campaign.asset?.localVideoPath && campaign.asset?.localCoverPath
+      && await pathExists(campaign.asset.localVideoPath) && await pathExists(campaign.asset.localCoverPath)) {
+      const mediaValidation = await validateCampaignMedia(campaign)
+      errors.push(...mediaValidation.errors)
     }
 
     const platforms = Object.keys(campaign.platforms || {})
@@ -213,8 +220,13 @@ export function buildBundle(plan, channelMap, mediaMap) {
 
   for (const campaign of plan.campaigns.filter((item) => item.status === 'approved_for_draft')) {
     const videoUrl = mediaMap[campaign.id]?.videoUrl
+    const coverUrl = mediaMap[campaign.id]?.coverUrl
     if (!isHttpsUrl(videoUrl) || new URL(videoUrl).hostname === 'media.example.com') {
       errors.push(`${campaign.id}: public HTTPS videoUrl is not configured`)
+      continue
+    }
+    if (!isHttpsUrl(coverUrl) || new URL(coverUrl).hostname === 'media.example.com') {
+      errors.push(`${campaign.id}: public HTTPS coverUrl is not configured`)
       continue
     }
     for (const platform of Object.keys(campaign.platforms).filter((item) => activePlatforms.includes(item))) {
@@ -230,6 +242,8 @@ export function buildBundle(plan, channelMap, mediaMap) {
         platform,
         localVideoPath: campaign.asset.localVideoPath,
         localCoverPath: campaign.asset.localCoverPath,
+        coverUrl,
+        coverRequired: true,
         destinationUrl: campaign.destinationUrl,
         payload: platformPayload(campaign, platform, channelId, videoUrl),
       })
@@ -254,5 +268,5 @@ export function reviewMarkdown(bundle) {
     const title = post.payload.metadata?.youtube?.title || post.payload.text.split('\n')[0]
     return `| ${post.key} | ${post.language} | ${post.platform} | ${title.replaceAll('|', '\\|')} | 草稿待审 |`
   }).join('\n')
-  return `# AimCodes 社媒草稿审核单\n\n- 生成时间：${bundle.createdAt}\n- 安全策略：只创建 Buffer 草稿；不排期、不公开。\n- 草稿数量：${bundle.posts.length}\n\n| 草稿 | 语言 | 平台 | 标题 / 首行 | 状态 |\n| --- | --- | --- | --- | --- |\n${rows}\n\n## 人工审核清单\n\n- [ ] 视频前 2 秒能看懂主题，画面无黑帧或错误文字\n- [ ] 文案语言与素材语言一致，玩家口吻自然\n- [ ] 目标链接、语言路径和 UTM 正确\n- [ ] YouTube 保持 Private，其他平台保持 Buffer Draft\n- [ ] 音乐、游戏画面和素材版权允许发布\n- [ ] 在 Buffer 内逐条预览后，才允许人工设置发布时间\n`
+  return `# AimCodes 社媒草稿审核单\n\n- 生成时间：${bundle.createdAt}\n- 安全策略：只创建 Buffer 草稿；不排期、不公开。\n- 草稿数量：${bundle.posts.length}\n\n| 草稿 | 语言 | 平台 | 标题 / 首行 | 状态 |\n| --- | --- | --- | --- | --- |\n${rows}\n\n## 人工审核清单\n\n- [ ] 视频前 2 秒能看懂主题，画面无黑帧或错误文字\n- [ ] 视频包含原创背景节拍和测试反馈音，非静音\n- [ ] 1080 × 1920 PNG 封面已生成并检查安全区\n- [ ] 文案语言与素材语言一致，玩家口吻自然\n- [ ] 目标链接、语言路径和 UTM 正确\n- [ ] YouTube 保持 Private，其他平台保持 Buffer Draft\n- [ ] 音轨为 AimCodes 自制提示音 / 原创节拍，游戏画面和素材版权允许发布\n- [ ] 在 Buffer 内逐条预览后，才允许人工设置发布时间\n`
 }

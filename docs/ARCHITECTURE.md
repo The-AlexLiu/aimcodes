@@ -1,6 +1,6 @@
 # AimCodes 架构说明
 
-最后更新：2026-08-12
+最后更新：2026-08-16
 
 ## 总体结构
 
@@ -36,6 +36,7 @@ src/data + src/i18n + src/seo
 | `automation/skills/` | Codex 项目维护 Skill 的可共享源文件 |
 | `public/` | Logo、favicon、OG 图、robots、sitemap 和静态工具 |
 | `.github/workflows/ci.yml` | GitHub Push/PR 自动验证 |
+| `.github/workflows/social-daily.yml` | 每日生成、AI 质检、R2 上传与 Buffer 定时发布 |
 | `netlify.toml` | 构建、发布目录、重定向、缓存和安全响应头 |
 
 ## 页面与路由
@@ -147,6 +148,18 @@ src/data + src/i18n + src/seo
 - 可选择本地下载目录。
 
 当前存在三份文件副本，详见 `AGENTS.md`。在单一源自动同步完成前，每次修改后必须核对三份文件校验值。
+
+## 每日社媒发布数据流
+
+1. GitHub Actions 每天北京时间 01:30 启动；
+2. 三个平台使用不同确定性种子渲染 MP4、封面和五个关键帧；
+3. 本地脚本验证视频轨、音轨、时长、封面规格和文案事实；
+4. AIHubMix 分别生成平台文案并检查封面与关键帧，低于 90 分直接阻止；
+5. 通过的 MP4 与封面上传 Cloudflare R2；
+6. Buffer 为 TikTok、Instagram、YouTube 创建独立定时帖；
+7. R2 Manifest 记录日期与平台，GitHub Artifact 保存私有生产报告，避免重复发布并方便追溯。
+
+Instagram 与 TikTok 正文不放裸链接；YouTube 说明允许一个干净的 AimCodes 链接。凭据只通过 GitHub Secrets 注入，不进入仓库或前端构建。
 
 ## 构建与部署
 

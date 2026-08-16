@@ -129,7 +129,7 @@ function doctor() {
   const version = runBuffer(['--version'], { allowFailure: true })
   if (version.status !== 0) fail('Buffer CLI is not available')
   console.log(`Buffer CLI ${version.stdout.trim()}`)
-  const result = runBuffer(['doctor', '--json'], { allowFailure: true })
+  const result = runBuffer(['doctor', '--output', 'json', '--no-color'], { allowFailure: true })
   console.log((result.stdout || result.stderr).trim())
   if (result.status !== 0) process.exit(result.status || 1)
 }
