@@ -28,6 +28,10 @@
     "social:test": "node scripts/social-publishing/self-test.mjs",
     "social:seed-media": "node scripts/social-publishing/seed-public-media.mjs",
     "social:validate-media": "node scripts/social-publishing/validate-public-media.mjs",
+    "social:validate-assets": "node scripts/social-publishing/validate-release-assets.mjs",
+    "social:render-assets": "node scripts/social-publishing/render-release-assets.mjs",
+    "social:creative-batch": "node scripts/social-publishing/generate-creative-batch.mjs",
+    "social:schedule-daily": "node scripts/social-publishing/scheduled-daily.mjs",
     "social:prepare": "node scripts/social-publishing/cli.mjs prepare",
     "social:drafts": "node scripts/social-publishing/cli.mjs drafts",
     "collect:pro-candidates": "node scripts/collect-pro-crosshair-candidates.mjs",
@@ -55,6 +59,7 @@
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
     "globals": "latest",
+    "playwright-core": "1.62.1",
     "sharp": "0.34.3"
   },
   "pnpm": {

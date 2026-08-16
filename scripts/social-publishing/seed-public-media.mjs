@@ -8,6 +8,7 @@ const mediaMap = {}
 for (const campaign of plan.campaigns.filter((item) => item.status === 'approved_for_draft')) {
   const source = absolutePath(campaign.asset.localVideoPath)
   const destinationPath = `public/media/social/${campaign.id}.mp4`
+  const coverDestinationPath = `public/media/social/${campaign.id}-cover.png`
   const destination = absolutePath(destinationPath)
   const sourceInfo = await stat(source)
   if (sourceInfo.size > 25 * 1024 * 1024) {
@@ -15,8 +16,14 @@ for (const campaign of plan.campaigns.filter((item) => item.status === 'approved
   }
   await mkdir(dirname(destination), { recursive: true })
   await copyFile(source, destination)
-  mediaMap[campaign.id] = { videoUrl: `https://aimcodes.com/media/social/${campaign.id}.mp4` }
+  await mkdir(dirname(absolutePath(coverDestinationPath)), { recursive: true })
+  await copyFile(absolutePath(campaign.asset.localCoverPath), absolutePath(coverDestinationPath))
+  mediaMap[campaign.id] = {
+    videoUrl: `https://aimcodes.com/media/social/${campaign.id}.mp4`,
+    coverUrl: `https://aimcodes.com/media/social/${campaign.id}-cover.png`,
+  }
   console.log(`SEEDED ${destinationPath} (${(sourceInfo.size / 1024 / 1024).toFixed(1)} MB)`)
+  console.log(`SEEDED ${coverDestinationPath}`)
 }
 
 if (await (async () => {

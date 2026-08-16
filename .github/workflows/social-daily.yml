@@ -1,0 +1,85 @@
+name: Daily Social Publishing
+
+on:
+  schedule:
+    # 01:30 Asia/Shanghai. The job prepares all three posts for the day.
+    - cron: '30 17 * * *'
+  workflow_dispatch:
+    inputs:
+      schedule_date:
+        description: Optional Beijing date (YYYY-MM-DD); leave blank for the next available slots
+        required: false
+        type: string
+      dry_run:
+        description: Validate everything without creating Buffer posts
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aimcodes-social-daily
+  cancel-in-progress: false
+
+jobs:
+  generate-review-and-schedule:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      AIHUBMIX_API_KEY: ${{ secrets.AIHUBMIX_API_KEY }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_ENDPOINT: ${{ vars.R2_ENDPOINT }}
+      R2_BUCKET: ${{ vars.R2_BUCKET }}
+      R2_PUBLIC_BASE_URL: ${{ vars.R2_PUBLIC_BASE_URL }}
+      BUFFER_ORGANIZATION_ID: ${{ vars.BUFFER_ORGANIZATION_ID }}
+      BUFFER_INSTAGRAM_CHANNEL_ID: ${{ vars.BUFFER_INSTAGRAM_CHANNEL_ID }}
+      BUFFER_TIKTOK_CHANNEL_ID: ${{ vars.BUFFER_TIKTOK_CHANNEL_ID }}
+      BUFFER_YOUTUBE_CHANNEL_ID: ${{ vars.BUFFER_YOUTUBE_CHANNEL_ID }}
+      SOCIAL_SCHEDULE_DATE: ${{ inputs.schedule_date }}
+      AIMCODES_SOCIAL_ALLOW_SCHEDULE: ${{ (github.event_name == 'schedule' || inputs.dry_run == false) && 'YES' || 'NO' }}
+      BUFFER_DISABLE_UPDATE_CHECK: '1'
+      NO_COLOR: '1'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install project and Buffer CLI
+        run: |
+          pnpm install --frozen-lockfile
+          npm install --global @bufferapp/cli@1.2.0
+
+      - name: Verify connected services
+        run: |
+          buffer doctor --output json --no-color
+          curl --fail --silent --show-error --head "${R2_PUBLIC_BASE_URL}/health/github-actions-ready.txt"
+
+      - name: Generate, review, upload, and schedule
+        run: pnpm social:schedule-daily
+
+      - name: Upload private production report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: social-production-${{ github.run_id }}
+          path: output/social-publishing/scheduled/
+          if-no-files-found: warn
+          retention-days: 30

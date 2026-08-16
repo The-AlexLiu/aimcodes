@@ -268,6 +268,19 @@
         font-size: 12px;
         line-height: 1.55;
       }
+      .copy-studio {
+        margin-top: 16px;
+        padding: 16px;
+        border: 1px solid rgba(37, 230, 230, 0.28);
+        border-radius: 12px;
+        background: rgba(37, 230, 230, 0.055);
+      }
+      .copy-studio textarea {
+        min-height: 118px;
+        resize: vertical;
+        line-height: 1.55;
+      }
+      .copy-studio button { margin-top: 10px; }
       #status { margin-top: 18px; min-height: 48px; font-size: 14px; color: #82e8e8; }
 
       @media (max-width: 820px) {
@@ -291,6 +304,7 @@
         <label for="crosshair">选择准星</label>
         <select id="crosshair" aria-label="选择要渲染的准星"></select>
         <span class="field-hint" id="crosshair-count"></span>
+        <button id="random-creative" type="button">换一套视频与文案</button>
         <div class="score-editor">
           <div class="score-heading">
             <label for="score-1">测试成绩（毫秒）</label>
@@ -326,6 +340,11 @@
           <option value="youtube">YouTube Shorts</option>
         </select>
         <span class="field-hint" id="platform-hint"></span>
+        <section class="copy-studio" aria-labelledby="copy-studio-title">
+          <strong id="copy-studio-title">配套发布文案</strong>
+          <textarea id="social-copy" aria-label="配套发布文案" readonly></textarea>
+          <button id="copy-social-copy" type="button">复制当前文案</button>
+        </section>
         <label for="video-format">视频格式</label>
         <select id="video-format">
           <option value="mp4">MP4（推荐，手机直接发布）</option>
@@ -334,7 +353,7 @@
         <span class="field-hint">MP4 优先使用 H.264；若浏览器不支持，会提示改用 WebM。</span>
         <label class="check-row" for="include-audio">
           <input id="include-audio" type="checkbox" checked />
-          <span>加入轻量提示音轨，上传社媒后无需另外补音轨</span>
+          <span>加入原创背景音乐与同步提示音</span>
         </label>
         <label class="check-row" for="show-safe-zone">
           <input id="show-safe-zone" type="checkbox" checked />
@@ -485,6 +504,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       const crosshairCount = document.querySelector('#crosshair-count')
       const platformSelect = document.querySelector('#platform')
       const platformHint = document.querySelector('#platform-hint')
+      const socialCopyOutput = document.querySelector('#social-copy')
+      const copySocialCopyButton = document.querySelector('#copy-social-copy')
       const videoFormatSelect = document.querySelector('#video-format')
       const includeAudioInput = document.querySelector('#include-audio')
       const showSafeZoneInput = document.querySelector('#show-safe-zone')
@@ -502,6 +523,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       const downloadFolderHint = document.querySelector('#download-folder-hint')
       const scoreInputs = [1, 2, 3].map((value) => document.querySelector(`#score-${value}`))
       const randomScoresButton = document.querySelector('#random-scores')
+      const randomCreativeButton = document.querySelector('#random-creative')
       const scoreAverage = document.querySelector('#score-average')
       const scoreRank = document.querySelector('#score-rank')
 
@@ -744,12 +766,115 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         },
       }
 
-      const requestedLocale = new URLSearchParams(window.location.search).get('lang')
+      const CREATIVE_VARIANTS = {
+        'zh-cn': [
+          {
+            video: { hookLines: ['都说自己', '反应快', '拿成绩说话。'], hookMeta: '3 轮测试 · 12 秒出结果', next: '命中，下一轮。', finish: '三枪打完，结算。', taunt: '这枪，轮到你接了。', benefit: '清楚、稳定，第一枪更好找。', ctaQuestion: '你能赢吗？', ctaSub: '测 3 轮，马上出段位和准星', tagline: '先晒成绩，再聊枪法。' },
+            cover: { challengeTitle: '你能比我快吗？', resultTitle: '这成绩，你敢来比吗？', crosshairTitle: '这套准星，第一枪更稳' },
+          },
+          {
+            video: { hookLines: ['别眨眼', '绿了就点', '看看你第几段。'], hookMeta: '只要 3 次点击', next: '有点东西，继续。', finish: '手速收下，准备结算。', taunt: '这速度，够你接吗？', benefit: '中心干净，拉枪时不挡目标。', ctaQuestion: '敢不敢来测？', ctaSub: '三次点击，准星直接给你', tagline: '别嘴硬，成绩会说话。' },
+            cover: { challengeTitle: '绿了你点得上吗？', resultTitle: '这手速算哪一档？', crosshairTitle: '你的手速配哪枚准星？' },
+          },
+          {
+            video: { hookLines: ['第一枪快不快', '别靠感觉', '现在测。'], hookMeta: '12 秒拿反应段位', next: '收下，再来一枪。', finish: '三枪结束，看看段位。', taunt: '能破这个成绩吗？', benefit: '轮廓醒目，急停后更快找到中心。', ctaQuestion: '你能快多少？', ctaSub: '测完就能试推荐准星', tagline: '先测反应，再进训练场。' },
+            cover: { challengeTitle: '第一枪，你到底多快？', resultTitle: '能破这个反应成绩吗？', crosshairTitle: '反应测完，准星也配好了' },
+          },
+        ],
+        en: [
+          {
+            video: { hookLines: ['Everyone says', "they're fast", 'Prove it.'], hookMeta: '3 rounds · Result in 12 seconds', next: 'Hit. Next round.', finish: 'Three shots. Time to rank you.', taunt: 'Your turn. Beat this.', benefit: 'Clear, steady, easy to track.', ctaQuestion: 'Can you beat it?', ctaSub: '3 rounds. Get your rank + crosshair.', tagline: 'Post the score. Then talk aim.' },
+            cover: { challengeTitle: 'Can you beat my reaction time?', resultTitle: 'Think you can beat this score?', crosshairTitle: 'A cleaner crosshair for your first shot' },
+          },
+          {
+            video: { hookLines: ["Don't blink", 'Tap on green', 'Find your rank.'], hookMeta: 'Only 3 taps', next: 'Clean hit. Go again.', finish: 'Three taps down. Ranking time.', taunt: 'Fast enough to beat it?', benefit: 'A clean center that stays out of your way.', ctaQuestion: 'Ready to test it?', ctaSub: 'Three taps. One crosshair match.', tagline: 'No excuses. Let the score talk.' },
+            cover: { challengeTitle: 'Can you catch the green screen?', resultTitle: 'What rank is this reaction time?', crosshairTitle: 'Which crosshair matches your speed?' },
+          },
+          {
+            video: { hookLines: ['Fast first shot?', "Don't guess", 'Test it now.'], hookMeta: 'Reaction rank in 12 seconds', next: 'Locked in. One more.', finish: 'Three shots. Reveal the rank.', taunt: 'Think you can break this?', benefit: 'Easy to reacquire after every flick.', ctaQuestion: 'How much faster are you?', ctaSub: 'Finish the test. Try your match.', tagline: 'Test first. Queue after.' },
+            cover: { challengeTitle: 'How fast is your first click?', resultTitle: 'Can you break this reaction score?', crosshairTitle: 'Your reaction match is ready' },
+          },
+        ],
+        es: [
+          {
+            video: { hookLines: ['Todos dicen', 'que son rápidos', 'Demuéstralo.'], hookMeta: '3 rondas · Resultado en 12 segundos', next: 'Impacto. Siguiente ronda.', finish: 'Tres tiros. Veamos tu rango.', taunt: 'Tu turno. Supéralo.', benefit: 'Clara, estable y fácil de seguir.', ctaQuestion: '¿Puedes superarlo?', ctaSub: '3 rondas. Obtén rango + mira.', tagline: 'Publica tu marca. Luego presume.' },
+            cover: { challengeTitle: '¿Puedes superar mi reacción?', resultTitle: '¿Puedes superar esta marca?', crosshairTitle: 'Una mira más limpia para el primer tiro' },
+          },
+          {
+            video: { hookLines: ['No parpadees', 'Toca en verde', 'Descubre tu rango.'], hookMeta: 'Solo 3 toques', next: 'Buen impacto. Otra vez.', finish: 'Tres toques. Hora del rango.', taunt: '¿Eres lo bastante rápido?', benefit: 'Centro limpio, sin tapar el objetivo.', ctaQuestion: '¿Te atreves a medirlo?', ctaSub: 'Tres toques y una mira para ti.', tagline: 'Sin excusas. Que hable la marca.' },
+            cover: { challengeTitle: '¿Llegas a tocar en verde?', resultTitle: '¿Qué rango merece este tiempo?', crosshairTitle: '¿Qué mira combina con tu velocidad?' },
+          },
+          {
+            video: { hookLines: ['¿Primer tiro rápido?', 'No lo adivines', 'Mídelo ahora.'], hookMeta: 'Tu rango en 12 segundos', next: 'Listo. Falta una.', finish: 'Tres tiros. Revelamos el rango.', taunt: '¿Puedes romper esta marca?', benefit: 'Fácil de encontrar después de cada flick.', ctaQuestion: '¿Cuánto más rápido eres?', ctaSub: 'Termina y prueba tu mira.', tagline: 'Primero mide. Luego juega.' },
+            cover: { challengeTitle: '¿Qué tan rápido es tu primer clic?', resultTitle: '¿Puedes romper este tiempo?', crosshairTitle: 'Tu mira recomendada está lista' },
+          },
+        ],
+        'pt-br': [
+          {
+            video: { hookLines: ['Todo mundo diz', 'que é rápido', 'Prove.'], hookMeta: '3 rodadas · Resultado em 12 segundos', next: 'Acertou. Próxima rodada.', finish: 'Três tiros. Hora do rank.', taunt: 'Sua vez. Supere isso.', benefit: 'Clara, estável e fácil de acompanhar.', ctaQuestion: 'Você consegue superar?', ctaSub: '3 rodadas. Ganhe rank + mira.', tagline: 'Poste o resultado. Depois fale de mira.' },
+            cover: { challengeTitle: 'Você supera meu tempo de reação?', resultTitle: 'Consegue superar este resultado?', crosshairTitle: 'Uma mira mais limpa para o primeiro tiro' },
+          },
+          {
+            video: { hookLines: ['Não pisque', 'Toque no verde', 'Descubra seu rank.'], hookMeta: 'Só 3 toques', next: 'Boa. Mais uma rodada.', finish: 'Três toques. Hora do resultado.', taunt: 'Rápido o bastante?', benefit: 'Centro limpo sem esconder o alvo.', ctaQuestion: 'Vai encarar o teste?', ctaSub: 'Três toques e uma mira para você.', tagline: 'Sem desculpa. Deixe o tempo falar.' },
+            cover: { challengeTitle: 'Você consegue tocar no verde?', resultTitle: 'Que rank merece este tempo?', crosshairTitle: 'Qual mira combina com sua velocidade?' },
+          },
+          {
+            video: { hookLines: ['Primeiro tiro rápido?', 'Não chute', 'Teste agora.'], hookMeta: 'Seu rank em 12 segundos', next: 'Na mira. Falta mais uma.', finish: 'Três tiros. Revelando o rank.', taunt: 'Consegue quebrar esta marca?', benefit: 'Fácil de reencontrar depois de cada flick.', ctaQuestion: 'Quanto mais rápido você é?', ctaSub: 'Termine e teste sua mira.', tagline: 'Teste primeiro. Jogue depois.' },
+            cover: { challengeTitle: 'Quão rápido é seu primeiro clique?', resultTitle: 'Consegue quebrar este tempo?', crosshairTitle: 'Sua mira recomendada está pronta' },
+          },
+        ],
+      }
+
+      const MUSIC_PROFILES = [
+        { id: 'neon-pulse', bpm: 104, root: 55, notes: [220, 261.63, 329.63, 392] },
+        { id: 'clutch-drive', bpm: 112, root: 61.74, notes: [246.94, 293.66, 369.99, 440] },
+        { id: 'night-queue', bpm: 96, root: 49, notes: [196, 246.94, 293.66, 369.99] },
+      ]
+
+      function hashSeed(value) {
+        let hash = 2166136261
+        for (const character of String(value)) {
+          hash ^= character.codePointAt(0)
+          hash = Math.imul(hash, 16777619)
+        }
+        return hash >>> 0
+      }
+
+      function newCreativeSeed() {
+        if (window.crypto?.getRandomValues) {
+          const values = new Uint32Array(2)
+          window.crypto.getRandomValues(values)
+          return `${values[0].toString(36)}-${values[1].toString(36)}`
+        }
+        return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`
+      }
+
+      const initialUrl = new URL(window.location.href)
+      let activeCreativeSeed = initialUrl.searchParams.get('seed') || newCreativeSeed()
+      if (!initialUrl.searchParams.has('seed')) {
+        initialUrl.searchParams.set('seed', activeCreativeSeed)
+        window.history.replaceState(null, '', initialUrl)
+      }
+
+      function creativeIndex() {
+        return hashSeed(activeCreativeSeed) % CREATIVE_VARIANTS[activeLocale].length
+      }
+
+      function musicProfile() {
+        return MUSIC_PROFILES[hashSeed(`${activeCreativeSeed}:music`) % MUSIC_PROFILES.length]
+      }
+
+      const requestedParams = new URLSearchParams(window.location.search)
+      const autoCreative = requestedParams.get('auto') === '1'
+      const requestedLocale = requestedParams.get('lang')
       let activeLocale = COPY[requestedLocale] ? requestedLocale : 'zh-cn'
       languageSelect.value = activeLocale
 
-      const requestedCrosshair = new URLSearchParams(window.location.search).get('crosshair')
-      let activeCrosshairId = crosshairs.some((item) => item.id === requestedCrosshair) ? requestedCrosshair : 'tenz'
+      const requestedCrosshair = requestedParams.get('crosshair')
+      const autoCrosshair = crosshairs[hashSeed(`${activeCreativeSeed}:crosshair`) % crosshairs.length]?.id
+      let activeCrosshairId = crosshairs.some((item) => item.id === requestedCrosshair)
+        ? requestedCrosshair
+        : autoCreative ? autoCrosshair : 'tenz'
 
       const requestedVideoFormat = new URLSearchParams(window.location.search).get('format')
       let activeVideoFormat = requestedVideoFormat === 'webm' ? 'webm' : 'mp4'
@@ -760,15 +885,22 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       platformSelect.value = activePlatformId
 
       const COVER_STYLES = new Set(['challenge', 'result', 'crosshair'])
-      const requestedCoverStyle = new URLSearchParams(window.location.search).get('cover')
-      let activeCoverStyle = COVER_STYLES.has(requestedCoverStyle) ? requestedCoverStyle : 'challenge'
+      const requestedCoverStyle = requestedParams.get('cover')
+      const autoCoverStyle = ['challenge', 'result', 'crosshair'][hashSeed(`${activeCreativeSeed}:cover`) % 3]
+      let activeCoverStyle = COVER_STYLES.has(requestedCoverStyle) ? requestedCoverStyle : autoCreative ? autoCoverStyle : 'challenge'
       coverStyleSelect.value = activeCoverStyle
       const requestedCoverTitle = new URLSearchParams(window.location.search).get('coverTitle')
       let coverTitleIsCustom = Boolean(requestedCoverTitle?.trim())
       embedCoverFrameInput.checked = new URLSearchParams(window.location.search).get('coverFrame') !== '0'
 
       function copy() {
-        return COPY[activeLocale]
+        const base = COPY[activeLocale]
+        const variant = CREATIVE_VARIANTS[activeLocale][creativeIndex()]
+        return {
+          ...base,
+          video: { ...base.video, ...variant.video },
+          cover: { ...base.cover, ...variant.cover },
+        }
       }
 
       function activePlatform() {
@@ -832,6 +964,51 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         return cta[activeLocale][activePlatformId]
       }
 
+      const SOCIAL_COPY_VARIANTS = {
+        'zh-cn': [
+          '绿了就点。三次点击测出你的反应段位，再拿一枚准星去游戏里试。你能到哪一档？\n\n#无畏契约 #VALORANT #准星代码 #反应测试',
+          '别凭感觉说自己反应快。来点 3 次，晒出成绩，再看看系统会给你配哪枚准星。\n\n#无畏契约 #VALORANT #准星 #玩家挑战',
+          '第一枪到底有多快？12 秒测完反应段位，还能直接试一枚推荐准星。\n\n#无畏契约 #VALORANT #反应速度 #AimCodes',
+        ],
+        en: [
+          'Tap on green three times. Get your reaction rank, then test a crosshair matched to your result. What rank are you?\n\n#VALORANT #ValorantCrosshair #ReactionTime #AimCodes',
+          "Don't guess your reaction time. Prove it in three taps and see which crosshair the test picks for you.\n\n#VALORANT #AimTraining #ValorantCrosshair #Gaming",
+          'How fast is your first click? Twelve seconds gets you a reaction rank and a crosshair to try in game.\n\n#VALORANT #ReactionTest #CrosshairCode #AimCodes',
+        ],
+        es: [
+          'Toca en verde tres veces. Descubre tu rango de reacción y prueba una mira elegida para tu resultado. ¿Qué rango consigues?\n\n#VALORANT #MiraValorant #TiempoDeReaccion #AimCodes',
+          'No adivines tu reacción. Demuéstrala con tres toques y mira qué mira te recomienda la prueba.\n\n#VALORANT #AimTraining #MiraValorant #Gaming',
+          '¿Qué tan rápido sale tu primer clic? Doce segundos para obtener rango y una mira para probar.\n\n#VALORANT #TestDeReaccion #CodigoDeMira #AimCodes',
+        ],
+        'pt-br': [
+          'Toque no verde três vezes. Descubra seu rank de reação e teste uma mira escolhida para o seu resultado. Qual rank você pega?\n\n#VALORANT #MiraValorant #TempoDeReacao #AimCodes',
+          'Não chute seu tempo de reação. Prove em três toques e veja qual mira o teste recomenda.\n\n#VALORANT #AimTraining #MiraValorant #Gaming',
+          'Quão rápido sai seu primeiro clique? Doze segundos para ganhar um rank e uma mira para testar.\n\n#VALORANT #TesteDeReacao #CodigoDeMira #AimCodes',
+        ],
+      }
+
+      function generatedSocialCopy() {
+        const variants = SOCIAL_COPY_VARIANTS[activeLocale]
+        const index = hashSeed(`${activeCreativeSeed}:${activePlatformId}:copy`) % variants.length
+        const link = activePlatformId === 'youtube' ? 'aimcodes.com' : ''
+        const crosshairName = localizedCrosshair().shortName
+        const scoreLine = {
+          'zh-cn': `本轮 ${rounds.map((round) => round.value).join(' / ')} 毫秒，平均 ${averageScore()} 毫秒（${currentRank()}）。这次配到的是 ${crosshairName}。`,
+          en: `This run: ${rounds.map((round) => round.value).join(' / ')} ms, ${averageScore()} ms average (${currentRank()}). The matched crosshair is ${crosshairName}.`,
+          es: `Esta ronda: ${rounds.map((round) => round.value).join(' / ')} ms, ${averageScore()} ms de media (${currentRank()}). La mira elegida es ${crosshairName}.`,
+          'pt-br': `Nesta rodada: ${rounds.map((round) => round.value).join(' / ')} ms, média de ${averageScore()} ms (${currentRank()}). A mira escolhida é ${crosshairName}.`,
+        }[activeLocale]
+        return `${variants[index]}\n\n${scoreLine}${link ? `\n\n${link}` : ''}`
+      }
+
+      function creativeFileToken() {
+        return activeCreativeSeed.replace(/[^a-z0-9-]/gi, '-').replace(/-+/g, '-').slice(0, 24) || 'creative'
+      }
+
+      function updateGeneratedCopy() {
+        socialCopyOutput.value = generatedSocialCopy()
+      }
+
       function selectedCrosshair() {
         return crosshairs.find((item) => item.id === activeCrosshairId) || crosshairs[0]
       }
@@ -871,6 +1048,15 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         activeCrosshairId = id
         activeParsedCrosshair = parseSelectedCrosshair()
         crosshairSelect.value = id
+      }
+
+      function syncCreativeUrl() {
+        const url = new URL(window.location.href)
+        url.searchParams.set('seed', activeCreativeSeed)
+        url.searchParams.set('crosshair', activeCrosshairId)
+        url.searchParams.set('scores', rounds.map((round) => round.value).join(','))
+        url.searchParams.set('cover', activeCoverStyle)
+        window.history.replaceState(null, '', url)
       }
 
       const FONT = 'Inter, "PingFang SC", "Microsoft YaHei", sans-serif'
@@ -1238,18 +1424,49 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       const SCORE_MIN = 100
       const SCORE_MAX = 999
       const DEFAULT_SCORES = [224, 211, 219]
-      const requestedScores = (new URLSearchParams(window.location.search).get('scores') || '')
+      const autoScoreBase = 180 + (hashSeed(`${activeCreativeSeed}:scores`) % 150)
+      const autoScores = [0, 1, 2].map((index) => Math.max(SCORE_MIN, Math.min(SCORE_MAX,
+        autoScoreBase + (hashSeed(`${activeCreativeSeed}:score:${index}`) % 37) - 18)))
+      const requestedScores = (requestedParams.get('scores') || '')
         .split(',')
         .map((value) => Number(value))
       const initialScores = requestedScores.length === 3 && requestedScores.every((value) => Number.isFinite(value))
         ? requestedScores.map((value) => Math.min(SCORE_MAX, Math.max(SCORE_MIN, Math.round(value))))
-        : DEFAULT_SCORES
+        : autoCreative ? autoScores : DEFAULT_SCORES
 
       const rounds = [
         { start: 1.72, value: initialScores[0] },
         { start: 3.18, value: initialScores[1] },
         { start: 4.64, value: initialScores[2] },
       ]
+
+      const PROMO_TIMELINE = Object.freeze({
+        hookStart: 0.08,
+        roundGoOffset: 0.56,
+        roundResultOffset: 0.95,
+        resultStart: 6.05,
+        recommendationStart: 8.45,
+        ctaStart: 10.55,
+      })
+
+      function socialAudioTimeline() {
+        return {
+          duration: videoDuration(),
+          seed: activeCreativeSeed,
+          music: musicProfile(),
+          events: [
+            { kind: 'hook', at: PROMO_TIMELINE.hookStart },
+            ...rounds.flatMap((round, index) => [
+              { kind: 'round_ready', at: round.start, round: index + 1 },
+              { kind: 'round_go', at: round.start + PROMO_TIMELINE.roundGoOffset, round: index + 1 },
+              { kind: 'round_result', at: round.start + PROMO_TIMELINE.roundResultOffset, round: index + 1 },
+            ]),
+            { kind: 'final_result', at: PROMO_TIMELINE.resultStart },
+            { kind: 'recommendation', at: PROMO_TIMELINE.recommendationStart },
+            { kind: 'cta', at: PROMO_TIMELINE.ctaStart },
+          ],
+        }
+      }
 
       const REACTION_RANKS = [
         { max: 170, labels: { 'zh-cn': '无畏战魂', en: 'Radiant', es: 'Radiante', 'pt-br': 'Radiante' } },
@@ -1317,8 +1534,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           fittedText(t.round(index + 1), 72, 314, 920, { weight: 900, size: 56, min: 40 })
           fittedText(t.instruction, 72, 366, 920, { weight: 650, size: 28, min: 20, color: COLORS.muted })
 
-          const isGo = relative >= 0.56 && relative < 0.95
-          const hasResult = relative >= 0.95
+          const isGo = relative >= PROMO_TIMELINE.roundGoOffset && relative < PROMO_TIMELINE.roundResultOffset
+          const hasResult = relative >= PROMO_TIMELINE.roundResultOffset
           const panelFill = isGo ? '#19c96c' : 'rgba(7, 16, 22, 0.89)'
           const panelStroke = isGo ? '#8affbd' : 'rgba(98, 124, 140, 0.8)'
           fillRound(72, 430, 936, 980, 30, panelFill, panelStroke, 3)
@@ -1370,7 +1587,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function drawResult(time) {
         const root = copy()
         const t = root.video
-        const start = 6.05
+        const start = PROMO_TIMELINE.resultStart
         const end = 8.55
         const alpha = fadeWindow(time, start, end, 0.28)
         withAlpha(alpha, () => {
@@ -1405,7 +1622,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function drawRecommendation(time) {
         const root = copy()
         const t = root.video
-        const start = 8.45
+        const start = PROMO_TIMELINE.recommendationStart
         const end = 10.65
         const alpha = fadeWindow(time, start, end, 0.24)
         withAlpha(alpha, () => {
@@ -1432,7 +1649,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       function drawCta(time) {
         const root = copy()
         const t = root.video
-        const start = 10.55
+        const start = PROMO_TIMELINE.ctaStart
         const end = 12.35
         const alpha = fadeWindow(time, start, end, 0.24)
         withAlpha(alpha, () => {
@@ -1618,7 +1835,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
       async function downloadSquare() {
         drawSquare()
         const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
-        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-reaction-challenge-square-${copy().file}.png`)
+        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${creativeFileToken()}-reaction-square-${copy().file}.png`)
         status.textContent = `${localizedCrosshair().shortName} · ${languageSelect.options[languageSelect.selectedIndex].text}方形图已导出，${savedToText(result)}`
       }
 
@@ -1626,7 +1843,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         drawSocialCover()
         const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
         if (!blob) throw new Error('竖版封面生成失败')
-        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${activePlatform().file}-${activeCoverStyle}-cover-${copy().file}.png`)
+        const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${creativeFileToken()}-${activePlatform().file}-${activeCoverStyle}-cover-${copy().file}.png`)
         status.textContent = `${activePlatform().label} ${coverStyleSelect.options[coverStyleSelect.selectedIndex].text}已导出，${savedToText(result)}`
       }
 
@@ -1669,6 +1886,63 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         oscillator.stop(start + duration + 0.02)
       }
 
+      function scheduleBackgroundMusic(audioContext, target, timeline) {
+        const duration = timeline.duration
+        const profile = timeline.music || musicProfile()
+        const start = audioContext.currentTime
+        const end = start + duration
+
+        // Original synth bed: low kick, closed hat and a short neon arpeggio.
+        // The arrangement is generated from the creative seed and stays below the UI cues.
+        const secondsPerBeat = 60 / profile.bpm
+        const beatCount = Math.ceil(duration / secondsPerBeat)
+        for (let beat = 0; beat < beatCount; beat += 1) {
+          const at = beat * secondsPerBeat
+          scheduleTone(audioContext, target, at, Math.max(42, profile.root * (beat % 4 === 0 ? 0.82 : 0.72)), 0.18, beat % 4 === 0 ? 0.035 : 0.022, 'sine')
+          scheduleTone(audioContext, target, at + secondsPerBeat / 2, 3600, 0.035, 0.008, 'square')
+          if (beat % 2 === 0) {
+            const note = profile.notes[(beat / 2) % profile.notes.length]
+            scheduleTone(audioContext, target, at + secondsPerBeat * 0.12, note, secondsPerBeat * 0.62, 0.018, 'triangle')
+          }
+        }
+
+        for (const [frequency, volume] of [[profile.root, 0.009], [profile.root * 1.5, 0.004]]) {
+          const oscillator = audioContext.createOscillator()
+          const gain = audioContext.createGain()
+          oscillator.type = 'sine'
+          oscillator.frequency.setValueAtTime(frequency, start)
+          gain.gain.setValueAtTime(0.0001, start)
+          gain.gain.linearRampToValueAtTime(volume, start + 0.35)
+          gain.gain.setValueAtTime(volume, Math.max(start + 0.35, end - 0.45))
+          gain.gain.linearRampToValueAtTime(0.0001, end)
+          oscillator.connect(gain)
+          gain.connect(target)
+          oscillator.start(start)
+          oscillator.stop(end + 0.02)
+        }
+      }
+
+      function scheduleAudioCue(audioContext, target, event) {
+        if (event.kind === 'hook') {
+          scheduleTone(audioContext, target, event.at, 440, 0.16, 0.09, 'triangle')
+          scheduleTone(audioContext, target, event.at + 0.12, 660, 0.20, 0.07, 'triangle')
+        } else if (event.kind === 'round_ready') {
+          scheduleTone(audioContext, target, event.at, 280, 0.08, 0.035, 'sine')
+        } else if (event.kind === 'round_go') {
+          scheduleTone(audioContext, target, event.at, 880, 0.13, 0.12, 'square')
+        } else if (event.kind === 'round_result') {
+          scheduleTone(audioContext, target, event.at, 520, 0.10, 0.075, 'triangle')
+        } else if (event.kind === 'final_result') {
+          scheduleTone(audioContext, target, event.at, 392, 0.34, 0.07, 'triangle')
+          scheduleTone(audioContext, target, event.at + 0.12, 588, 0.38, 0.07, 'triangle')
+        } else if (event.kind === 'recommendation') {
+          scheduleTone(audioContext, target, event.at, 740, 0.20, 0.07, 'sine')
+        } else if (event.kind === 'cta') {
+          scheduleTone(audioContext, target, event.at, 494, 0.26, 0.08, 'triangle')
+          scheduleTone(audioContext, target, event.at + 0.16, 740, 0.32, 0.075, 'triangle')
+        }
+      }
+
       async function createSocialAudio() {
         if (!includeAudioInput.checked) return null
         const AudioContextClass = window.AudioContext || window.webkitAudioContext
@@ -1677,20 +1951,13 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         await audioContext.resume()
         const destination = audioContext.createMediaStreamDestination()
 
-        scheduleTone(audioContext, destination, 0.08, 440, 0.16, 0.10, 'triangle')
-        scheduleTone(audioContext, destination, 0.20, 660, 0.20, 0.08, 'triangle')
-        rounds.forEach((round) => {
-          scheduleTone(audioContext, destination, round.start + 0.56, 880, 0.13, 0.13, 'square')
-          scheduleTone(audioContext, destination, round.start + 0.95, 520, 0.10, 0.08, 'triangle')
-        })
-        scheduleTone(audioContext, destination, 6.08, 392, 0.34, 0.08, 'triangle')
-        scheduleTone(audioContext, destination, 6.20, 588, 0.38, 0.08, 'triangle')
-        scheduleTone(audioContext, destination, 8.52, 740, 0.20, 0.08, 'sine')
-        scheduleTone(audioContext, destination, 10.62, 494, 0.26, 0.09, 'triangle')
-        scheduleTone(audioContext, destination, 10.78, 740, 0.32, 0.08, 'triangle')
-
         return {
           track: destination.stream.getAudioTracks()[0],
+          start: () => {
+            const timeline = socialAudioTimeline()
+            scheduleBackgroundMusic(audioContext, destination, timeline)
+            timeline.events.forEach((event) => scheduleAudioCue(audioContext, destination, event))
+          },
           close: () => audioContext.close(),
         }
       }
@@ -1737,6 +2004,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         embedCoverFrameInput.disabled = disabled
         previewCoverButton.disabled = disabled
         randomScoresButton.disabled = disabled
+        randomCreativeButton.disabled = disabled
+        copySocialCopyButton.disabled = disabled
         chooseDownloadFolderButton.disabled = disabled || !supportsDirectoryPicker
         resetDownloadFolderButton.disabled = disabled || !downloadDirectoryHandle
         scoreInputs.forEach((input) => { input.disabled = disabled })
@@ -1749,13 +2018,14 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
 
       function updatePlatformUi() {
         platformHint.textContent = activePlatform().hint
-        const audioLabel = includeAudioInput.checked ? '提示音轨' : '无音轨'
+        const audioLabel = includeAudioInput.checked ? `原创背景音乐 · ${musicProfile().id}` : '无音轨'
         const coverLabel = embedCoverFrameInput.checked ? '末尾含 1 秒封面候选帧' : '不写入封面候选帧'
         publishReady.textContent = `1080 × 1920 · ${VIDEO_FPS} FPS · ${activeVideoFormat.toUpperCase()} · ${audioLabel} · ${coverLabel} · ${activePlatform().label} 安全区`
         coverFrameHint.textContent = embedCoverFrameInput.checked
           ? `发布到 ${activePlatform().label} 时进入“选择封面”，拖到视频最后 1 秒即可。`
           : '当前只会导出独立封面 PNG，不会改变视频时长。'
         updateVideoButton()
+        updateGeneratedCopy()
       }
 
       async function renderVideo() {
@@ -1802,6 +2072,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
             recorder.addEventListener('error', (event) => reject(event.error || new Error('视频编码失败')), { once: true })
           })
           recorder.start()
+          audioSession?.start()
           const start = performance.now()
 
           if (canRequestFrames) {
@@ -1835,7 +2106,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           const extension = format
           const blob = new Blob(chunks, { type: actualType })
           if (!blob.size) throw new Error('导出的视频文件为空')
-          const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${activePlatform().file}-${copy().file}.${extension}`)
+          const result = await downloadBlob(blob, `aimcodes-${selectedCrosshair().id}-${creativeFileToken()}-${activePlatform().file}-${copy().file}.${extension}`)
           window.__videoMime = actualType
           window.__videoExtension = extension
           window.__videoBlobSize = blob.size
@@ -1914,7 +2185,24 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
           drawSocialCover({ showSafeGuide })
           return { style: activeCoverStyle, title: activeCoverTitle(), width: canvas.width, height: canvas.height }
         }
+        window.__drawPromoVideoFrame = (time, showSafeGuide = false) => {
+          const normalized = Math.max(0, Math.min(videoDuration(), Number(time) || 0))
+          drawVideoFrame(normalized, { showSafeGuide })
+          return { time: normalized, width: canvas.width, height: canvas.height }
+        }
         window.__promoVideoDuration = () => videoDuration()
+        window.__promoAudioTimeline = () => socialAudioTimeline()
+        window.__promoCreative = () => ({
+          seed: activeCreativeSeed,
+          variant: creativeIndex(),
+          music: musicProfile().id,
+          crosshair: activeCrosshairId,
+          scores: rounds.map((round) => round.value),
+          average: averageScore(),
+          rank: currentRank(),
+          coverStyle: activeCoverStyle,
+          socialCopy: generatedSocialCopy(),
+        })
         window.__setPromoDownloadDirectory = (handle = null) => {
           if (handle && (typeof handle.getFileHandle !== 'function' || !handle.name)) {
             throw new Error('Invalid directory handle')
@@ -2005,6 +2293,40 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         setScores(values)
         status.textContent = `已生成 ${values.join(' / ')} ${copy().unit}，平均 ${averageScore()} ${copy().unit}（${currentRank()}）。`
       })
+
+      randomCreativeButton.addEventListener('click', () => {
+        activeCreativeSeed = newCreativeSeed()
+        const url = new URL(window.location.href)
+        url.searchParams.set('seed', activeCreativeSeed)
+        window.history.replaceState(null, '', url)
+        const availableCrosshairs = crosshairs.filter((item) => item.id !== activeCrosshairId)
+        if (availableCrosshairs.length) {
+          const selected = availableCrosshairs[hashSeed(`${activeCreativeSeed}:crosshair`) % availableCrosshairs.length]
+          setActiveCrosshair(selected.id)
+        }
+        const base = 180 + (hashSeed(`${activeCreativeSeed}:scores`) % 150)
+        const jitter = [0, 1, 2].map((index) => (hashSeed(`${activeCreativeSeed}:score:${index}`) % 37) - 18)
+        setScores(jitter.map((value) => Math.max(SCORE_MIN, Math.min(SCORE_MAX, base + value))), { updateUrl: true, redraw: false })
+        activeCoverStyle = ['challenge', 'result', 'crosshair'][hashSeed(`${activeCreativeSeed}:cover`) % 3]
+        coverStyleSelect.value = activeCoverStyle
+        updateCoverTitle({ force: true })
+        updatePlatformUi()
+        syncCreativeUrl()
+        drawSquare()
+        status.textContent = `已生成一套新素材：${localizedCrosshair().shortName} · ${musicProfile().id}。`
+      })
+
+      copySocialCopyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(generatedSocialCopy())
+          status.textContent = '配套发布文案已复制。'
+        } catch {
+          socialCopyOutput.focus()
+          socialCopyOutput.select()
+          document.execCommand('copy')
+          status.textContent = '配套发布文案已复制。'
+        }
+      })
       scoreInputs.forEach((input) => {
         input.addEventListener('input', () => {
           if (applyScoreInputs()) {
@@ -2034,6 +2356,7 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         renderCrosshairOptions()
         updateScoreSummary()
         updateCoverTitle()
+        updatePlatformUi()
         drawSquare()
         status.textContent = `已切换为${languageSelect.options[languageSelect.selectedIndex].text}。`
       })
@@ -2070,8 +2393,8 @@ window.AIMCODES_PROMO_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAA
         updatePlatformUi()
         const mimeType = supportedVideoType(activeVideoFormat, includeAudioInput.checked)
         status.textContent = includeAudioInput.checked
-          ? (mimeType ? '提示音轨已开启，导出时会自动写入视频。' : '当前格式不支持带音轨，请切换格式或关闭音轨。')
-          : '已关闭提示音轨，将导出静音视频。'
+          ? (mimeType ? '原创背景音乐与同步提示音已开启。' : '当前格式不支持带音轨，请切换格式或关闭音轨。')
+          : '已关闭音乐与提示音，将导出静音视频。'
       })
       showSafeZoneInput.addEventListener('change', () => {
         if (canvas.width === VIDEO_WIDTH && canvas.height === VIDEO_HEIGHT) {

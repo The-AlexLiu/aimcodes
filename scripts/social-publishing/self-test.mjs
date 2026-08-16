@@ -17,7 +17,10 @@ const channelMap = {
 }
 const mediaMap = Object.fromEntries(plan.campaigns.map((campaign) => [
   campaign.id,
-  { videoUrl: `https://cdn.aimcodes.com/social/${campaign.id}.mp4` },
+  {
+    videoUrl: `https://cdn.aimcodes.com/social/${campaign.id}.mp4`,
+    coverUrl: `https://cdn.aimcodes.com/social/${campaign.id}-cover.png`,
+  },
 ]))
 
 const { errors, bundle } = buildBundle(plan, channelMap, mediaMap)
@@ -26,6 +29,7 @@ assert.equal(bundle.posts.length, plan.campaigns.length * 4)
 assert.deepEqual(bundle.posts.flatMap(assertDraftOnlyPayload), [])
 assert.ok(bundle.posts.every((post) => post.payload.saveToDraft === true))
 assert.ok(bundle.posts.every((post) => !post.payload.dueAt))
+assert.ok(bundle.posts.every((post) => post.coverRequired === true && post.coverUrl.endsWith('-cover.png')))
 assert.ok(bundle.posts.filter((post) => post.platform === 'youtube')
   .every((post) => post.payload.metadata.youtube.privacy === 'private'))
 

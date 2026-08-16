@@ -1,6 +1,18 @@
 {
-  "reaction-test-en-v1": { "videoUrl": "https://media.example.com/aimcodes/reaction-test-en-v1.mp4" },
-  "reaction-test-es-v1": { "videoUrl": "https://media.example.com/aimcodes/reaction-test-es-v1.mp4" },
-  "reaction-test-pt-br-v1": { "videoUrl": "https://media.example.com/aimcodes/reaction-test-pt-br-v1.mp4" },
-  "reaction-test-zh-cn-v1": { "videoUrl": "https://media.example.com/aimcodes/reaction-test-zh-cn-v1.mp4" }
+  "reaction-test-en-v1": {
+    "videoUrl": "https://media.example.com/aimcodes/reaction-test-en-v1.mp4",
+    "coverUrl": "https://media.example.com/aimcodes/reaction-test-en-v1-cover.png"
+  },
+  "reaction-test-es-v1": {
+    "videoUrl": "https://media.example.com/aimcodes/reaction-test-es-v1.mp4",
+    "coverUrl": "https://media.example.com/aimcodes/reaction-test-es-v1-cover.png"
+  },
+  "reaction-test-pt-br-v1": {
+    "videoUrl": "https://media.example.com/aimcodes/reaction-test-pt-br-v1.mp4",
+    "coverUrl": "https://media.example.com/aimcodes/reaction-test-pt-br-v1-cover.png"
+  },
+  "reaction-test-zh-cn-v1": {
+    "videoUrl": "https://media.example.com/aimcodes/reaction-test-zh-cn-v1.mp4",
+    "coverUrl": "https://media.example.com/aimcodes/reaction-test-zh-cn-v1-cover.png"
+  }
 }
