@@ -21,6 +21,7 @@
    - `@docs/OPERATIONS.md`
    - `@docs/ACCESS_MATRIX.md`
    - `@docs/HANDOFF.md`
+   - `@docs/LOCAL_ENVIRONMENT.md`
 
 2. 运行只读检查：
    - `git status -sb`
@@ -56,7 +57,7 @@
 
 今后每个任务都遵循以下固定协议：
 
-- 开始前：读取 `AGENTS.md`、`docs/CURRENT_STATE.md` 和 `docs/HANDOFF.md`。
+- 开始前：读取 `AGENTS.md`、`docs/CURRENT_STATE.md`、`docs/LOCAL_ENVIRONMENT.md` 和 `docs/HANDOFF.md`。
 - 开发时：一个任务一个分支，一个工具一个工作树；不得与 GPT/Codex 同时编辑同一分支或同一文件夹。
 - 完成后：运行对应验证，更新长期文档和 `docs/HANDOFF.md`。
 - 交接时：只在可验证的 Git 提交点交接，不依赖聊天摘要。
