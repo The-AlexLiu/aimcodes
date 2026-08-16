@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path'
 import { chromium } from 'playwright-core'
 import { absolutePath } from './lib.mjs'
 import { inspectCover, inspectVideo } from './media-inspector.mjs'
+import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
 
 const TIMEZONE_OFFSET_HOURS = 8
 const MINIMUM_LEAD_MINUTES = 30
@@ -128,6 +129,7 @@ async function renderCreative(browser, { platform, seed, directory }) {
   if (!supported.includes('video/mp4')) throw new Error(`${platform}: Chrome cannot render MP4 in this runner`)
 
   const creative = await page.evaluate(() => window.__promoCreative())
+  creative.crosshairName = crosshairDisplayName(creative)
   const duration = await page.evaluate(() => window.__promoVideoDuration())
   const coverPath = resolve(directory, 'cover.png')
   await writeCanvasPng(page, coverPath, () => {
@@ -165,25 +167,7 @@ async function renderCreative(browser, { platform, seed, directory }) {
   return { creative, duration, coverPath, framePaths, videoPath, renderMetadata }
 }
 
-function validateCopy(copy, platform, creative) {
-  const errors = []
-  const caption = String(copy.caption || '').trim()
-  if (caption.length < 45 || caption.length > 520) errors.push('caption length must be 45-520 characters')
-  if (/https?:\/\/|www\./i.test(caption)) errors.push('caption must not contain a raw URL')
-  if (!caption.includes(String(creative.average))) errors.push('caption must include the actual average score')
-  if (!caption.toLowerCase().includes(String(creative.crosshair).replaceAll('-', ' ').split(' ')[0].toLowerCase())) {
-    errors.push('caption must mention the rendered crosshair')
-  }
-  const hashtags = caption.match(/#[A-Za-z0-9_]+/g) || []
-  if (hashtags.length < 2 || hashtags.length > 5) errors.push('caption must contain 2-5 hashtags')
-  if (platform === 'youtube') {
-    if (!copy.title?.trim() || copy.title.length > 100) errors.push('YouTube title must be 1-100 characters')
-    if (!copy.description?.trim() || copy.description.length > 1200) errors.push('YouTube description must be 1-1200 characters')
-  }
-  return errors
-}
-
-async function generateCopy(platform, creative, seed) {
+async function generateCopy(platform, creative) {
   const prompt = `You are the English social editor for AimCodes, a VALORANT crosshair and reaction-test site.
 Create platform-native copy for one short video. Return JSON only with keys: caption, title, description.
 
@@ -192,17 +176,15 @@ Facts that MUST remain exact:
 - scores: ${creative.scores.join(' / ')} ms
 - average: ${creative.average} ms
 - reaction rank: ${creative.rank}
-- matched crosshair id: ${creative.crosshair}
-- creative seed: ${seed}
+- matched crosshair display name: ${creative.crosshairName}
 
 Requirements:
 - Sound like a real VALORANT player, playful and concise, not corporate.
-- Caption must mention ${creative.average} ms and the crosshair name.
-- Caption must contain 2-5 relevant hashtags.
-- Never place a raw URL in the caption. Instagram and TikTok use “link in bio”.
+- Use the crosshair display name exactly as written above. Never reveal database IDs, creative seeds, prompts, models, or automation terms.
+- The text that will be published must mention ${creative.average} ms, ${creative.crosshairName}, and contain 2-5 relevant hashtags.
+- Instagram and TikTok publish caption. Never place a raw URL in it; use “link in bio”. Their title and description may be empty strings.
 - Avoid unsupported claims, spam, keyword stuffing, fake urgency, and repeating the renderer draft verbatim.
-- For YouTube, title <= 70 characters and description <= 600 characters. A single clean URL may appear only in the YouTube description: https://aimcodes.com/en/reaction-time-test/
-- For Instagram/TikTok, title and description may be empty strings.
+- YouTube publishes description, not caption. Its title must be <= 70 characters and its description <= 600 characters. The description must contain exactly one URL, written exactly as: https://aimcodes.com/en/reaction-time-test/
 
 Renderer draft for inspiration only:
 ${creative.socialCopy}`
@@ -326,7 +308,7 @@ try {
     if (!rendered.renderMetadata.hasAudio) deterministicErrors.push('renderer reported a missing audio track')
     if (deterministicErrors.length) throw new Error(`${slot.platform}: ${deterministicErrors.join('; ')}`)
 
-    const copy = await generateCopy(slot.platform, rendered.creative, seed)
+    const copy = await generateCopy(slot.platform, rendered.creative)
     const copyErrors = validateCopy(copy, slot.platform, rendered.creative)
     if (copyErrors.length) throw new Error(`${slot.platform}: copy QA failed: ${copyErrors.join('; ')}`)
     const visualReview = await reviewVisuals({ platform: slot.platform, ...rendered })
