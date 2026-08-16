@@ -145,17 +145,23 @@ async function renderCreative(browser, { platform, seed, directory }) {
     await writeFile(framePaths[index], Buffer.from(dataUrl.split(',')[1], 'base64'))
   }
 
+  const sourceVideoPath = resolve(directory, 'video-source.mp4')
   const videoPath = resolve(directory, 'video.mp4')
   const downloadPromise = page.waitForEvent('download', { timeout: 90_000 })
   await page.click('#render-video')
   const download = await downloadPromise
-  await download.saveAs(videoPath)
+  await download.saveAs(sourceVideoPath)
   const renderMetadata = await page.evaluate(() => ({
     mime: window.__videoMime,
     bytes: window.__videoBlobSize,
     hasAudio: window.__videoHasAudio,
   }))
   await page.close()
+  run('ffmpeg', [
+    '-hide_banner', '-loglevel', 'error', '-y', '-i', sourceVideoPath,
+    '-c:v', 'libx264', '-preset', 'fast', '-crf', '20', '-pix_fmt', 'yuv420p',
+    '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', videoPath,
+  ])
   return { creative, duration, coverPath, framePaths, videoPath, renderMetadata }
 }
 
