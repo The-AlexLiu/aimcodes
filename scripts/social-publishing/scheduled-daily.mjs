@@ -16,9 +16,18 @@ const writeEnabled = process.env.AIMCODES_SOCIAL_ALLOW_SCHEDULE === 'YES'
 const requestedDate = process.env.SOCIAL_SCHEDULE_DATE?.trim()
 
 const slots = [
-  { platform: 'tiktok', hour: 12, minute: 30, channelVariable: 'BUFFER_TIKTOK_CHANNEL_ID' },
-  { platform: 'instagram', hour: 19, minute: 30, channelVariable: 'BUFFER_INSTAGRAM_CHANNEL_ID' },
-  { platform: 'youtube', hour: 22, minute: 30, channelVariable: 'BUFFER_YOUTUBE_CHANNEL_ID' },
+  // Three daily waves cover North America evening, Europe midday, and North
+  // America late morning. Platforms are staggered by 20 minutes so Buffer and
+  // the destination APIs do not ingest nine videos at exactly the same time.
+  { id: 'wave-1', platform: 'tiktok', hour: 8, minute: 10, channelVariable: 'BUFFER_TIKTOK_CHANNEL_ID' },
+  { id: 'wave-1', platform: 'instagram', hour: 8, minute: 30, channelVariable: 'BUFFER_INSTAGRAM_CHANNEL_ID' },
+  { id: 'wave-1', platform: 'youtube', hour: 8, minute: 50, channelVariable: 'BUFFER_YOUTUBE_CHANNEL_ID' },
+  { id: 'wave-2', platform: 'tiktok', hour: 18, minute: 10, channelVariable: 'BUFFER_TIKTOK_CHANNEL_ID' },
+  { id: 'wave-2', platform: 'instagram', hour: 18, minute: 30, channelVariable: 'BUFFER_INSTAGRAM_CHANNEL_ID' },
+  { id: 'wave-2', platform: 'youtube', hour: 18, minute: 50, channelVariable: 'BUFFER_YOUTUBE_CHANNEL_ID' },
+  { id: 'wave-3', platform: 'tiktok', hour: 23, minute: 10, channelVariable: 'BUFFER_TIKTOK_CHANNEL_ID' },
+  { id: 'wave-3', platform: 'instagram', hour: 23, minute: 30, channelVariable: 'BUFFER_INSTAGRAM_CHANNEL_ID' },
+  { id: 'wave-3', platform: 'youtube', hour: 23, minute: 50, channelVariable: 'BUFFER_YOUTUBE_CHANNEL_ID' },
 ]
 
 function required(name) {
@@ -105,7 +114,12 @@ async function callModel({ model, prompt, images = [] }) {
   const payload = JSON.parse(raw)
   const message = payload.choices?.[0]?.message?.content
   const text = Array.isArray(message) ? message.map((item) => item.text || '').join('') : message
-  return extractJson(text)
+  return {
+    result: extractJson(text),
+    // Keep the provider's raw usage data so monthly costs can be calculated
+    // from production runs without exposing credentials.
+    usage: payload.usage || null,
+  }
 }
 
 async function writeCanvasPng(page, path, drawExpression) {
@@ -188,7 +202,8 @@ Requirements:
 
 Renderer draft for inspiration only:
 ${creative.socialCopy}`
-  return callModel({ model: COPY_MODEL, prompt })
+  const response = await callModel({ model: COPY_MODEL, prompt })
+  return { copy: response.result, usage: response.usage }
 }
 
 async function reviewVisuals({ platform, creative, coverPath, framePaths, renderMetadata }) {
@@ -199,11 +214,12 @@ Return JSON only with keys: pass (boolean), score (integer 0-100), issues (array
 
 Rendered facts: platform=${platform}; scores=${creative.scores.join('/')}; average=${creative.average}; rank=${creative.rank}; crosshair=${creative.crosshair}; audio=${renderMetadata.hasAudio}.
 Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, scores appear before a click result, the cover is weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between frames. Passing requires a score of at least ${QUALITY_THRESHOLD}.`
-  const review = await callModel({ model: VISION_MODEL, prompt, images })
+  const response = await callModel({ model: VISION_MODEL, prompt, images })
+  const review = response.result
   review.score = Number(review.score)
   review.pass = review.pass === true && Number.isFinite(review.score) && review.score >= QUALITY_THRESHOLD
   review.issues = Array.isArray(review.issues) ? review.issues : ['Vision model returned malformed issues']
-  return review
+  return { review, usage: response.usage }
 }
 
 function run(command, args, options = {}) {
@@ -287,18 +303,18 @@ const summary = { generatedAt: new Date().toISOString(), writeEnabled, copyModel
 try {
   for (const slot of slots) {
     const schedule = dueAtFor(slot)
-    const prefix = `social/${schedule.localDate}/${slot.platform}`
+    const prefix = `social/${schedule.localDate}/${slot.platform}/${slot.id}`
     const manifestUrl = `${required('R2_PUBLIC_BASE_URL').replace(/\/$/, '')}/${prefix}/manifest.json`
     if (await alreadyCompleted(manifestUrl)) {
-      console.log(`SKIP ${slot.platform}: ${schedule.localDate} is already scheduled`)
-      summary.posts.push({ platform: slot.platform, status: 'already_scheduled', dueAt: schedule.dueAt, manifestUrl })
+      console.log(`SKIP ${slot.platform}/${slot.id}: ${schedule.localDate} is already scheduled`)
+      summary.posts.push({ platform: slot.platform, slot: slot.id, status: 'already_scheduled', dueAt: schedule.dueAt, manifestUrl })
       continue
     }
 
-    const seed = safeToken(`${schedule.localDate}-${slot.platform}-daily`)
-    const directory = absolutePath(`output/social-publishing/scheduled/${schedule.localDate}/${slot.platform}`)
+    const seed = safeToken(`${schedule.localDate}-${slot.platform}-${slot.id}-daily`)
+    const directory = absolutePath(`output/social-publishing/scheduled/${schedule.localDate}/${slot.platform}/${slot.id}`)
     await mkdir(directory, { recursive: true })
-    console.log(`RENDER ${slot.platform} -> ${schedule.dueAt}`)
+    console.log(`RENDER ${slot.platform}/${slot.id} -> ${schedule.dueAt}`)
     const rendered = await renderCreative(browser, { platform: slot.platform, seed, directory })
     const [video, cover] = await Promise.all([inspectVideo(rendered.videoPath), inspectCover(rendered.coverPath)])
     const deterministicErrors = []
@@ -308,11 +324,14 @@ try {
     if (!rendered.renderMetadata.hasAudio) deterministicErrors.push('renderer reported a missing audio track')
     if (deterministicErrors.length) throw new Error(`${slot.platform}: ${deterministicErrors.join('; ')}`)
 
-    const copy = await generateCopy(slot.platform, rendered.creative)
+    const copyResult = await generateCopy(slot.platform, rendered.creative)
+    const copy = copyResult.copy
     const copyErrors = validateCopy(copy, slot.platform, rendered.creative)
     if (copyErrors.length) throw new Error(`${slot.platform}: copy QA failed: ${copyErrors.join('; ')}`)
-    const visualReview = await reviewVisuals({ platform: slot.platform, ...rendered })
-    await writeFile(resolve(directory, 'quality-review.json'), `${JSON.stringify({ deterministicErrors, copyErrors, visualReview }, null, 2)}\n`)
+    const visualResult = await reviewVisuals({ platform: slot.platform, ...rendered })
+    const visualReview = visualResult.review
+    const aiUsage = { copy: copyResult.usage, visual: visualResult.usage }
+    await writeFile(resolve(directory, 'quality-review.json'), `${JSON.stringify({ deterministicErrors, copyErrors, visualReview, aiUsage }, null, 2)}\n`)
     if (!visualReview.pass) throw new Error(`${slot.platform}: visual QA blocked scheduling (${visualReview.score}/100): ${visualReview.issues.join('; ')}`)
 
     const fingerprint = createHash('sha256').update(await readFile(rendered.videoPath)).digest('hex').slice(0, 16)
@@ -327,6 +346,7 @@ try {
     const manifest = {
       version: 1,
       platform: slot.platform,
+      slot: slot.id,
       dueAt: schedule.dueAt,
       seed,
       fingerprint,
@@ -335,6 +355,7 @@ try {
       creative: rendered.creative,
       copy,
       quality: visualReview,
+      aiUsage,
       bufferResult,
       scheduled: writeEnabled,
       createdAt: new Date().toISOString(),
@@ -342,8 +363,8 @@ try {
     const manifestPath = resolve(directory, 'manifest.json')
     await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
     if (writeEnabled) await uploadR2(manifestPath, `${prefix}/manifest.json`, 'application/json')
-    summary.posts.push({ platform: slot.platform, status: writeEnabled ? 'scheduled' : 'dry_run', dueAt: schedule.dueAt, qualityScore: visualReview.score, videoUrl, coverUrl })
-    console.log(`PASS ${slot.platform}: quality ${visualReview.score}/100 · ${writeEnabled ? 'scheduled' : 'dry-run'}`)
+    summary.posts.push({ platform: slot.platform, slot: slot.id, status: writeEnabled ? 'scheduled' : 'dry_run', dueAt: schedule.dueAt, qualityScore: visualReview.score, aiUsage, videoUrl, coverUrl })
+    console.log(`PASS ${slot.platform}/${slot.id}: quality ${visualReview.score}/100 · ${writeEnabled ? 'scheduled' : 'dry-run'}`)
   }
 } finally {
   await browser.close()

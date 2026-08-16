@@ -2,7 +2,7 @@ name: Daily Social Publishing
 
 on:
   schedule:
-    # 01:30 Asia/Shanghai. The job prepares all three posts for the day.
+    # 01:30 Asia/Shanghai. The job prepares three posts per platform (nine total).
     - cron: '30 17 * * *'
   workflow_dispatch:
     inputs:
@@ -83,6 +83,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: social-production-${{ github.run_id }}
-          path: output/social-publishing/scheduled/
+          path: |
+            output/social-publishing/scheduled/**/manifest.json
+            output/social-publishing/scheduled/**/quality-review.json
+            output/social-publishing/scheduled/**/buffer-payload.json
+            output/social-publishing/scheduled/latest-summary.json
           if-no-files-found: warn
-          retention-days: 30
+          # Videos, covers, and manifests already live in R2. Keep only compact
+          # audit reports here so nine daily renders stay inside the free quota.
+          retention-days: 7

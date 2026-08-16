@@ -152,12 +152,12 @@ src/data + src/i18n + src/seo
 ## 每日社媒发布数据流
 
 1. GitHub Actions 每天北京时间 01:30 启动；
-2. 三个平台使用不同确定性种子渲染 MP4、封面和五个关键帧；
+2. 三个平台各使用 3 个不同确定性种子，共渲染 9 组 MP4、封面和五个关键帧；
 3. 本地脚本验证视频轨、音轨、时长、封面规格和文案事实；
 4. AIHubMix 分别生成平台文案并检查封面与关键帧，低于 90 分直接阻止；
 5. 通过的 MP4 与封面上传 Cloudflare R2；
 6. Buffer 为 TikTok、Instagram、YouTube 创建独立定时帖；
-7. R2 Manifest 记录日期与平台，GitHub Artifact 保存私有生产报告，避免重复发布并方便追溯。
+7. R2 Manifest 按日期、平台与波次记录，GitHub Artifact 只保留 7 天的轻量生产报告；视频、封面和抽检帧不重复写入 GitHub，避免扩量后的存储费用。
 
 Instagram 与 TikTok 正文不放裸链接；YouTube 说明允许一个干净的 AimCodes 链接。凭据只通过 GitHub Secrets 注入，不进入仓库或前端构建。
 
