@@ -128,6 +128,7 @@ pnpm social:drafts -- --write --bundle output/social-publishing/bundles/<时间>
 - YouTube 标题、公开状态、非儿童内容设置和 Gaming 分类无误；
 - TikTok、Instagram、Facebook 在移动端预览不裁掉 CTA；
 - Instagram 与 TikTok 正文不得出现裸链接；YouTube 说明只允许一个干净的站内链接；
+- 对外文案必须使用玩家可见的准星名称，不得暴露数据库 ID、素材 Seed、模型、Prompt 或自动化术语；YouTube 的质量门检查实际发布的 Description，而不是未发布的 Caption；
 - 同一日期和平台已有 R2 Manifest 时必须跳过，防止重复排期；
 - 模型输出必须通过事实校验，画面评分必须达到 90/100；
 - GitHub Secret 只保存凭据，不得写入仓库、构建产物或 Artifact。

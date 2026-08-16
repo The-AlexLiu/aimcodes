@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import { addUtm, assertDraftOnlyPayload, buildBundle, readJson, validatePlan } from './lib.mjs'
+import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
 
 const plan = await readJson('data_raw/social-content-plan.json')
 const validation = await validatePlan(plan)
@@ -39,4 +40,37 @@ assert.equal(trackedUrl.searchParams.get('utm_medium'), 'organic_social')
 assert.equal(trackedUrl.searchParams.get('utm_campaign'), 'aimcodes_social')
 assert.equal(trackedUrl.searchParams.get('utm_content'), 'reaction-test-en-v1')
 
-console.log(`Validated ${bundle.posts.length} draft-only platform payloads and UTM safety rules.`)
+const youtubeCreative = {
+  average: 185,
+  crosshair: 'small-dot-thick',
+  crosshairName: 'Pixel',
+  socialCopy: 'This run averaged 185 ms. The matched crosshair is Pixel.',
+}
+assert.equal(crosshairDisplayName(youtubeCreative), 'Pixel')
+assert.deepEqual(validateCopy({
+  caption: '',
+  title: '185 ms Immortal Reaction Challenge',
+  description: '185 ms with the Pixel crosshair. Can you beat it? https://aimcodes.com/en/reaction-time-test/ #VALORANT #ReactionTime #Shorts',
+}, 'youtube', youtubeCreative), [])
+
+const unsafeYouTubeErrors = validateCopy({
+  caption: 'This unused caption looks valid. #VALORANT #Shorts',
+  title: 'Creative Seed demo',
+  description: '185 ms with small-dot-thick. https://example.com #VALORANT #Shorts',
+}, 'youtube', youtubeCreative)
+assert.ok(unsafeYouTubeErrors.includes('published text must mention the rendered crosshair display name'))
+assert.ok(unsafeYouTubeErrors.includes('published copy must not expose the technical crosshair id'))
+assert.ok(unsafeYouTubeErrors.includes('published copy must not expose internal production terms'))
+assert.ok(unsafeYouTubeErrors.includes('YouTube description must contain exactly one clean AimCodes reaction-test URL'))
+
+const instagramCreative = { average: 228, crosshair: 'micro-gap-cyan', crosshairName: 'Micro Gap' }
+assert.deepEqual(validateCopy({
+  caption: '228 ms with the Micro Gap crosshair. Drop your rank below. #VALORANT #ReactionTime #AimCodes',
+  title: '',
+  description: '',
+}, 'instagram', instagramCreative), [])
+assert.ok(validateCopy({
+  caption: '228 ms with the Micro Gap crosshair. https://aimcodes.com #VALORANT #ReactionTime',
+}, 'instagram', instagramCreative).includes('Instagram and TikTok captions must not contain a raw URL'))
+
+console.log(`Validated ${bundle.posts.length} draft-only platform payloads, UTM safety, and publication copy guards.`)
