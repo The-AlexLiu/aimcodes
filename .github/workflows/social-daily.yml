@@ -69,7 +69,8 @@ jobs:
 
       - name: Verify connected services
         run: |
-          buffer doctor --output json --no-color
+          buffer account --output json --no-color > /dev/null
+          buffer channels list --organization-id "${BUFFER_ORGANIZATION_ID}" --output json --no-color > /dev/null
           curl --fail --silent --show-error --head "${R2_PUBLIC_BASE_URL}/health/github-actions-ready.txt"
 
       - name: Generate, review, upload, and schedule
