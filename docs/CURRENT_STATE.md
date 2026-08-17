@@ -10,7 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
-- 2026-08-17 日语本地化：新增 `/ja/` 固定目录、设备语言跳转、完整 UI、408 个准星名称与说明、25 个合集、22 个指南、4 个真实工具及信任页面；日语页面使用日本玩家常用的“クロスヘア・おすすめ・コード・プロ・ドット・コピー・設定・インポート”等搜索表达，而不是逐字翻译英语模板。构建基线更新为 5 种语言、2,335 个本地化路由、1,560 个主 Sitemap URL、1,280 个准星详情 URL；详情见 `docs/JAPANESE_LOCALIZATION_2026-08-17.md`。
+- 2026-08-17 日语本地化已通过 PR #40 发布到生产提交 `4a3a2b3`：新增 `/ja/` 固定目录、设备语言跳转、完整 UI、408 个准星名称与说明、25 个合集、22 个指南、4 个真实工具及信任页面；日语页面使用日本玩家常用的“クロスヘア・おすすめ・コード・プロ・ドット・コピー・設定・インポート”等搜索表达，而不是逐字翻译英语模板。线上验收确认日语首页、合集、工具及旧英语入口均为 HTTP 200，日语设备请求从根路径 302 到 `/ja/`，三份 Sitemap 正常返回；构建基线更新为 5 种语言、2,335 个本地化路由、1,560 个主 Sitemap URL、1,280 个准星详情 URL；详情见 `docs/JAPANESE_LOCALIZATION_2026-08-17.md`。
 - 2026-08-17 Catalog Scale Phase 3：在不改变既有 308 条记录及图片的前提下，12 个原创形态家族精确新增 100 个可解析、外观不同的准星；全部具备四语种名称、参数说明、优缺点、Collection 内链、独立图片和 OG 图，并进入详情 Sitemap。构建基线更新为 408 条源数据、400 种可见样式、256 个可索引详情、1,868 个本地化路由和 1,248 个主 Sitemap URL；详情见 `docs/CATALOG_SCALE_PHASE_3_2026-08-17.md`。
 - 2026-08-17 GSC 点击率优化：基于 2026-08-03 至 2026-08-14 的 60 次点击、4,658 次展示，优化英语首页、移动误差、圆形准星、导入报错和 Sato 五个已有 URL；不新增 URL、不继续开放 `noindex`，并保护 Small、Pink、Green、One-Tap 与葡语 Dot 赢家页面。数据与观察指标见 `docs/SEO_DATA_REVIEW_2026-08-17.md`。
 - 2026-08-17 SEO 内容扩张：依据 Google Trends 最近 90 天的全球趋势和现有主题缺口，新增 Funny、白色、红色、细、粗、中心点、带轮廓、无轮廓、开放中心与闭合中心 10 个集合，以及导出、分享、重置、多配置、自定义颜色、轮廓、中心点、内外线、粗细与间隙 10 个指南；四语种新增 80 个 canonical URL，详情见 `docs/SEO_CONTENT_EXPANSION_2026-08-17.md`。
@@ -31,8 +31,8 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`06eebb6 feat: expand indexed catalog and add pro candidate pipeline (#25)`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>
+- 最近产品代码生产提交：`4a3a2b3 feat: add Japanese localization (#40)`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/40>
 - P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`

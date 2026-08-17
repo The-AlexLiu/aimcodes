@@ -17,8 +17,8 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`06eebb6`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>
+- 最近产品代码生产提交：`4a3a2b3`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/40>
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
@@ -27,7 +27,7 @@
 - 2026-08-12 第二批目录索引把可索引详情由 100 个提升到 150 个；主 Sitemap 为 744 条、准星 Sitemap 为 600 条、图片 Sitemap 为 660 个页面和 1,260 个图片引用。
 - 2026-08-12 首批一手来源职业配置新增 Sacy、Saadhak、mwzera、Cortezia、Sato、Tteuw，并更新 Aspas；构建基线为 308 条源代码、300 种普通目录可见样式、156 个索引详情、768 条主 Sitemap URL、624 条准星 Sitemap URL、684 个图片 Sitemap 页面和 1,308 个图片引用。
 - 2026-08-17 Catalog Scale Phase 3 在保持旧记录稳定的前提下新增 100 个原创不同形态；当前开发基线为 408 条源代码、400 种普通目录可见样式、256 个索引详情、1,248 条主 Sitemap URL、1,024 条准星 Sitemap URL、1,124 个图片 Sitemap 页面和 2,148 个图片引用。
-- 2026-08-17 日语本地化新增 `/ja/`、日语设备跳转、五语种 UI 与 408 条准星本地化；当前待发布基线为 2,335 个本地化路由、1,560 条主 Sitemap URL、1,280 条准星 Sitemap URL、1,405 个图片 Sitemap 页面和 2,685 个图片引用。
+- 2026-08-17 日语本地化已通过 PR #40 发布到生产提交 `4a3a2b3`；新增 `/ja/`、日语设备跳转、五语种 UI 与 408 条准星本地化。线上基线为 2,335 个本地化路由、1,560 条主 Sitemap URL、1,280 条准星 Sitemap URL、1,405 个图片 Sitemap 页面和 2,685 个图片引用。
 - 职业候选管线共发现 121 条公开线索，105 条可解析，16 条异常单独保留；全部等待一手来源，尚未发布职业玩家页。
 
 ## Cursor 接手时第一步
