@@ -1,5 +1,5 @@
 import { articleCopy } from '../seo/articles.js'
-import { collectionCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { routePath } from '../seo/routes.js'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
@@ -34,7 +34,9 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
       <aside className="seo-article-summary">
         <span>{labels.quick}</span>
         <div>
-          <h2>{content.summaryTitle}</h2>
+          {content.summaryTitle.trim().toLocaleLowerCase(locale) !== labels.quick.trim().toLocaleLowerCase(locale) && (
+            <h2>{content.summaryTitle}</h2>
+          )}
           <p>{content.summary}</p>
           {(quickCollectionKey || quickToolKey) && (
             <nav className="seo-article-quick-actions" aria-label={labels.quick}>

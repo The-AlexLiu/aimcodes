@@ -2,7 +2,7 @@ import { BrandMark } from './BrandLogo.jsx'
 import CatalogControls from './CatalogControls.jsx'
 import CrosshairCard from './CrosshairCard.jsx'
 import Icon from './Icon.jsx'
-import { collectionCopy, seoCopy } from '../seo/content.js'
+import { seoCopy } from '../seo/content.js'
 import { routePath } from '../seo/routes.js'
 
 export default function CrosshairCollectionSection({
@@ -32,7 +32,7 @@ export default function CrosshairCollectionSection({
     <section className={`collection-section ${route.type === 'home' ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection">
       {route.type === 'collection' ? (
         <div className="catalog-summary">
-          <h2>{collectionCopy(locale, route.collectionKey).gridTitle}</h2>
+          <h2>{t('collection.title')}</h2>
           <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
           <button type="button" onClick={() => onRandom(displayedCrosshairs, 'collection_random')}>
             <Icon name="rotate" size={16} /> {t('actions.random')}

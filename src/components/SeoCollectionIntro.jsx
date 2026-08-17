@@ -1,4 +1,4 @@
-import { collectionCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 

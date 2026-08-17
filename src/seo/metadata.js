@@ -1,13 +1,14 @@
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
-import { collectionCopy, crosshairDisplayName, seoCopy } from './content.js'
+import { crosshairDisplayName, seoCopy } from './content.js'
+import { collectionCopy } from './collectionContent.js'
 import { crosshairSlug, routePath, SEO_COLLECTIONS } from './routes.js'
 import { trustCopy } from './trustContent.js'
 import { seoToolCopy } from './toolContent.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
-export const SEO_CONTENT_UPDATED_AT = '2026-08-12'
+export const SEO_CONTENT_UPDATED_AT = '2026-08-17'
 
 const detailMetadata = Object.freeze({
   tenz: Object.freeze({

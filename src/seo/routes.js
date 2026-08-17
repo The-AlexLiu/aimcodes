@@ -26,6 +26,16 @@ export const SEO_ARTICLES = Object.freeze({
   staticVsDynamic: Object.freeze({ slug: 'static-vs-dynamic-crosshair-valorant', keyword: 'static vs dynamic crosshair valorant', priority: 'P0' }),
   dotVsCross: Object.freeze({ slug: 'dot-vs-cross-crosshair-valorant', keyword: 'dot vs cross crosshair valorant', priority: 'P0' }),
   placement: Object.freeze({ slug: 'valorant-crosshair-placement-guide', keyword: 'valorant crosshair placement', priority: 'P0' }),
+  exportCrosshair: Object.freeze({ slug: 'how-to-export-valorant-crosshair', keyword: 'how to export valorant crosshair', priority: 'P0' }),
+  shareCrosshair: Object.freeze({ slug: 'how-to-share-valorant-crosshair', keyword: 'how to share valorant crosshair', priority: 'P1' }),
+  resetCrosshair: Object.freeze({ slug: 'how-to-reset-valorant-crosshair', keyword: 'how to reset valorant crosshair', priority: 'P1' }),
+  saveMultiple: Object.freeze({ slug: 'how-to-save-multiple-crosshairs-valorant', keyword: 'save multiple valorant crosshairs', priority: 'P1' }),
+  customColor: Object.freeze({ slug: 'how-to-use-custom-crosshair-color-valorant', keyword: 'valorant custom crosshair color', priority: 'P0' }),
+  outlinesOnOff: Object.freeze({ slug: 'valorant-crosshair-outlines-on-or-off', keyword: 'valorant crosshair outlines on or off', priority: 'P1' }),
+  centerDotOnOff: Object.freeze({ slug: 'valorant-center-dot-on-or-off', keyword: 'valorant center dot on or off', priority: 'P1' }),
+  innerVsOuter: Object.freeze({ slug: 'valorant-inner-lines-vs-outer-lines', keyword: 'valorant inner lines vs outer lines', priority: 'P1' }),
+  thickness: Object.freeze({ slug: 'valorant-crosshair-thickness', keyword: 'valorant crosshair thickness', priority: 'P1' }),
+  gapOffset: Object.freeze({ slug: 'valorant-crosshair-gap-offset', keyword: 'valorant crosshair offset gap', priority: 'P1' }),
 })
 
 export const SEO_ARTICLE_KEYS = Object.freeze(Object.keys(SEO_ARTICLES))

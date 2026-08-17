@@ -1,4 +1,5 @@
 import { expansionArticleCopy } from './guideExpansionContent.js'
+import { growthArticleCopy } from './growthGuideContent.js'
 
 const articles = {
   en: {
@@ -203,6 +204,7 @@ const articles = {
 export function articleCopy(locale, articleKey) {
   return articles[locale]?.[articleKey]
     || expansionArticleCopy(locale, articleKey)
+    || growthArticleCopy(locale, articleKey)
     || articles.en[articleKey]
     || articles.en.settings
 }
