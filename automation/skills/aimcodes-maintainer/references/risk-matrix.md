@@ -13,7 +13,7 @@ Require a backup or reversible branch, full semantic diff review, `check:release
 
 - Catalog data, translations, public UI, SEO copy, tools, or shared components.
 
-Require targeted validators, semantic review, relevant four-language checks, and browser QA for public changes. Escalate to high risk if several scopes change together.
+Require targeted validators, semantic review, relevant five-language checks, and browser QA for public changes. Escalate to high risk if several scopes change together.
 
 ## Low risk
 

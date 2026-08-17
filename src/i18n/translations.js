@@ -2,6 +2,7 @@ import { catalogExpansionCrosshairs } from '../data/crosshairs.js'
 
 export const languages = [
   { code: 'en', short: 'EN', label: 'English' },
+  { code: 'ja', short: '日', label: '日本語' },
   { code: 'es', short: 'ES', label: 'Español' },
   { code: 'zh-CN', short: '中', label: '简体中文' },
   { code: 'pt-BR', short: 'PT', label: 'Português' },
@@ -51,6 +52,51 @@ export const dictionaries = {
       sharePanelEyebrow: 'YOUR CHALLENGE CARD', sharePanelTitle: 'Think your teammate is faster?', sharePanelBody: 'Send the card and challenge link. They get three rounds to beat your {average} {unit}.', sharePreviewAlt: 'Preview of your reaction result card', copyChallengeLink: 'Copy challenge link', challengeLinkCopied: 'Challenge link copied', shareCardChallengeTitle: 'Think you can beat me?', shareCardChallengeHint: 'Beat my {average} {unit} · aimcodes.com',
       challengeLabel: 'Reaction challenge', challengeLandingTitle: 'Someone challenged you with {score} {unit}', challengeLandingBody: 'Three rounds. Beat their time and take the bragging rights.', challengeWon: 'You were {difference} {unit} faster. Round won.', challengeMissed: 'You missed by {difference} {unit}. Run it back?', challengeTied: 'Exact tie. That deserves one more round.',
       copyHelp: 'The color is already in the code. Copy it and import it in VALORANT.', rankRanges: 'WHERE YOU LANDED', rankRangesHint: 'Faster ranks are on the right. Your screen and mouse can change the score.', yourTier: 'YOU', backExplore: 'Back to crosshairs',
+    },
+  },
+  ja: {
+    meta: { title: 'AimCodes — 自分に合うVALORANTクロスヘアを探す', description: 'VALORANTの実際のマップでクロスヘアを試し、コードをすぐにコピーできます。' },
+    nav: { explore: 'クロスヘア', finder: '自分に合う照準', resources: 'ガイド・ツール', mine: '保存した照準', more: 'メニュー', close: 'メニューを閉じる', primary: 'メインナビゲーション', collections: 'スタイルから探す', learn: 'ガイドとツール', generator: 'クロスヘア生成' },
+    language: { label: '言語を選択' },
+    maps: { ascent: 'アセント', haven: 'ヘイヴン', bind: 'バインド' },
+    search: { label: 'クロスヘアを検索', placeholder: '選手名・色・スタイルで検索…', clear: '検索を消す' },
+    workspace: { label: 'このクロスヘアを試す' },
+    hud: { live: 'ライブ', attack: 'アタッカー', preview: 'コードプレビュー', coordinates: 'X: 0  Y: 0' },
+    actions: { copy: 'コードをコピー', copied: 'コピーしました', copyShort: 'コピー', copiedShort: 'コピー済み', import: 'ゲームへの入れ方', clear: '検索を消す', save: 'クロスヘアを保存', random: 'ランダムに選ぶ' },
+    favorites: { add: 'このクロスヘアを保存', remove: '保存から外す', saved: '保存しました', removed: '削除しました' },
+    instructions: { one: 'VALORANTの設定を開きます。', two: 'クロスヘア → プロファイルコードをインポートを選びます。', three: 'コードを貼り付けて保存すれば完了です。' },
+    preview: { settings: 'マップ・色を変更', mapZoom: 'マップとサイズ', background: 'マップ', crosshairColor: 'クロスヘアの色', colorHelp: '色を選ぶと、コピーするコードにも反映されます。', colorVariant: '{name}・{color}', colorVariantDescription: '形はそのまま、色だけ変更。コードはすぐコピーできます。', zoom: 'プレビューサイズ', base: '標準', reset: '標準サイズに戻す', reduce: '小さく表示', increase: '大きく表示', help: '表示サイズだけが変わり、コード自体は変わりません。', viewFull: 'コードを見る', fullTitle: 'クロスヘアコードを確認してコピー', mapAlt: '{map}のゲーム画面' },
+    integrity: { invalid: 'このコードを読み取れませんでした。使用前にVALORANTで確認してください。', approximate: 'コード固有の色を使うため、プレビューと少し違って見える場合があります。', valid: 'コードから描画したプレビューです。移動エラーと射撃エラーはオフです。' },
+    source: { label: '参照元：', checked: '確認済み', saved: '保存済み', proNote: '選手は設定を変更することがあります。使う前に自分の画面で試してください。', communityNote: '使う前に射撃場で一度試してみてください。' },
+    collection: { title: 'もっと見る', subtitle: '気になる形を選び、試してからコードをコピー。', countOne: '{count}件', countMany: '{count}件' },
+    filters: { label: '絞り込み', all: 'すべて', pro: 'プロ使用', dot: 'ドット', small: '小さい', classic: '定番', cute: 'かわいい', fun: '面白い', favorites: '保存済み', recent: '最近見た', mine: '自分の照準' },
+    sort: { label: '並び順', recommended: 'おすすめ順', name: '名前順', updated: '更新が新しい順' },
+    catalogUx: { filters: '絞り込み', closeFilters: '絞り込みを閉じる', backToResults: 'クロスヘア一覧へ', loadMore: 'もっと表示', showing: '{total}件中{shown}件を表示' },
+    colors: { label: '色', filter: '色を選ぶ', white: '白', black: '黒', green: '緑', lime: 'ライム', chartreuse: '黄緑', yellow: '黄', cyan: 'シアン', pink: 'ピンク', red: '赤', custom: '元の色' },
+    badges: { pro: 'プロ', cute: 'かわいい', fun: 'ネタ' },
+    empty: { filteredTitle: '該当するクロスヘアがありません', filteredBody: '検索語やカテゴリを変えてみてください。' },
+    toast: { copied: '「{name}」のコードをコピーしました', copyBlocked: '自動コピーできなかったため、コードを表示しました。', shared: '共有しました', linkCopied: 'リンクとコードをコピーしました', textCopied: '名前とコードをコピーしました', shareFailed: '共有できませんでした。もう一度お試しください。', deleted: 'クロスヘアを削除しました' },
+    share: { crosshairAction: 'このクロスヘアを共有', crosshairWorking: '共有メニューを開いています…', crosshairShared: '共有済み', crosshairCopied: 'リンクとコードをコピー済み', crosshairError: 'もう一度試す', crosshairTitle: '{name}のクロスヘアコード', crosshairText: 'VALORANTで{name}のクロスヘアを試してみよう。', crosshairBundle: '{name} — VALORANTクロスヘア\n\nコード：\n{code}\n\nマップと色のプレビュー：\n{url}' },
+    confirm: { delete: '「{name}」を保存したクロスヘアから削除しますか？' },
+    card: { copy: '{name}のコードをコピー', copied: '{name}のコードをコピーしました', test: '{name}を試す', selected: '選択中' },
+    codeDialog: { close: '閉じる', title: 'クロスヘアコードをコピー', body: '自動コピーできませんでした。下のコードを選択してコピーしてください。' },
+    modal: { title: '自分のクロスヘアを保存', intro: 'コードを貼り付けると、ここで試せます。このブラウザだけに保存されます。', savedList: '保存したクロスヘア', test: 'この照準を試す', addAnother: 'もう1件追加', addFirst: '最初のクロスヘアを追加', instant: '入力しながらプレビュー', name: '名前', namePlaceholder: '例：小さいシアン照準', code: 'クロスヘアコード', recognized: 'コードを読み取れました', generated: '{color}・プレビューできます', source: 'どこで見つけましたか？', optional: '（任意）', sourcePlaceholder: '投稿・動画・プロフィールのURL', saved: 'このブラウザに保存しました。', newName: 'マイクロスヘア', copy: '{name}のコードをコピー', delete: '{name}を削除' },
+    errors: { nameShort: '名前は2文字以上で入力してください。', tooShort: 'クロスヘアコードを最後まで貼り付けてください。', invalidChars: 'VALORANTで認識されない文字が含まれています。', missingPrimary: 'メインクロスヘアの設定が見つかりません。', invalidColor: '6桁のカラーコードを入力してください。' },
+    local: { description: '保存したクロスヘア', descriptionApprox: '保存したクロスヘア・色の表示は実際と異なる場合があります', sourceGiven: '登録したリンク', sourceBrowser: 'このブラウザに保存' },
+    finder: {
+      title: '自分に合うクロスヘアを選ぶ', subtitle: '3回クリック。結果に合う照準を1つ提案します。', exit: 'テストを終了', round: '{total}回中{current}回目', playArea: '反応速度テスト', millisecondsShort: 'ms',
+      introTitle: '反応速度を測ってみよう', introHint: 'クリックして3回のテストを開始', wait: 'まだ！', waitHint: 'エリアが緑になったらクリック', clickNow: '今！', readyHint: 'できるだけ速くクリック', tooSoon: 'フライング', tooSoonHint: 'この回はノーカウント。もう一度構えよう。', tooSlow: '遅すぎます', tooSlowHint: '時間切れです。もう一度試そう。', reactionTime: '{time} ms', nextHint: 'いい感じ。次のラウンドへ…', progressLabel: '{total}回中{completed}回完了',
+      legendReady: '緑になったらクリック', legendEarly: '赤はフライング', deviceNote: '画面・マウス・端末によって結果が変わることがあります。',
+      resultsTitle: 'あなたの反応ランク', resultsSubtitle: 'ランクを確認して、おすすめのクロスヘアを持ち帰ろう。', testAgain: 'もう一度', yourResults: '今回の結果', average: '平均', consistency: '安定度', earlyClicks: 'フライング', roundTimes: '各ラウンド', interpretation: 'プレイ傾向',
+      profiles: { precision: '速くて正確', balanced: 'バランス型', steady: '安定型', visibility: '見失いにくさ重視' },
+      reactionRank: '反応ランク', rankPlacement: '今回：{average}{unit}・{range}',
+      ranks: { iron: 'アイアン', bronze: 'ブロンズ', silver: 'シルバー', gold: 'ゴールド', platinum: 'プラチナ', diamond: 'ダイヤモンド', ascendant: 'アセンダント', immortal: 'イモータル', radiant: 'レディアント' },
+      rankTaunts: { iron: '反応する前に相手がリロードできそうです。', bronze: '間に合った。相手が撃った直後に。', silver: '反応は起動済み。たぶん。', gold: '「今のどうやって負けた？」はもう言えません。', platinum: '目と手は合っています。あとは外さないだけ。', diamond: 'かなり速い。デバイスのせいにはできません。', ascendant: '相手が顔を出す前から撃てそうです。', immortal: 'その速さ、少し怪しいです。', radiant: 'もう測らなくて大丈夫。ほぼプリファイアです。' },
+      recommended: 'あなたへのおすすめ', rankReasons: { iron: 'まずは大きく、見失わない照準。敵より探しにくいクロスヘアはやめよう。', bronze: '明るく少し大きい中心なら、ピークした瞬間に拾いやすい。', silver: '中心がはっきりした形で、最初の1発を迷わず置こう。', gold: '反応は十分。コンパクトな照準で初弾を落ち着かせよう。', platinum: '小さく明確な照準なら、切り返しで考えることが減る。', diamond: '目が追いつくので、マイクロ照準で敵を隠さない形が合う。', ascendant: '小さい照準を使える速さ。ヘッドラインを空けよう。', immortal: '大きな目印は不要。シンプルでクリーンな形が合う。', radiant: 'クロスヘアは位置確認だけ。反応が残りを片付けます。' },
+      shareResult: 'フレンドに挑戦', sharePreparing: '画像を作成中…', shareSaved: '画像を保存しました', shareShared: '挑戦を送りました', shareError: 'もう一度試す', shareTitle: 'AimCodes反応ランク', shareText: '平均{average}{unit}で{rank}でした。超えられる？', shareCardTitle: 'MY REACTION RANK', shareCardPick: 'おすすめクロスヘア', shareCardFooter: '反応速度テスト・aimcodes.com',
+      sharePanelEyebrow: '挑戦カード', sharePanelTitle: 'フレンドのほうが速い？', sharePanelBody: 'カードとリンクを送ろう。3回であなたの{average}{unit}に挑戦できます。', sharePreviewAlt: '反応速度結果カードのプレビュー', copyChallengeLink: '挑戦リンクをコピー', challengeLinkCopied: '挑戦リンクをコピーしました', shareCardChallengeTitle: 'この記録を超えられる？', shareCardChallengeHint: '{average}{unit}を超えよう・aimcodes.com',
+      challengeLabel: '反応速度チャレンジ', challengeLandingTitle: '{score}{unit}の記録に挑戦', challengeLandingBody: '3回勝負。記録を抜いて自慢しよう。', challengeWon: '{difference}{unit}速い。あなたの勝ち。', challengeMissed: 'あと{difference}{unit}。もう一度？', challengeTied: 'まさかの同タイム。もう1回勝負。',
+      copyHelp: '選んだ色はコードに反映済みです。コピーしてVALORANTにインポートしてください。', rankRanges: 'ランク表', rankRangesHint: '右ほど高速。画面やマウスでも記録は変わります。', yourTier: 'あなた', backExplore: 'クロスヘア一覧へ',
     },
   },
   es: {
@@ -402,6 +448,48 @@ export const crosshairCopy = {
   },
 }
 
+const japaneseCrosshairNames = Object.freeze({
+  'cat-pink': ['ピンクの猫クロスヘア', '猫クロスヘア'],
+  'pig-pink': ['ピンクの豚クロスヘア', '豚クロスヘア'],
+  'heart-pink': ['ピンクのハートクロスヘア', 'ハート'],
+  'flower-pink': ['ピンクの花クロスヘア', '花'],
+  'sakura-pink': ['桜クロスヘア', '桜'],
+  'bunny-white': ['白いうさぎクロスヘア', 'うさぎ'],
+  'square-box': ['白い四角クロスヘア', '四角'],
+  'circle-dot-cyan': ['シアンの円形クロスヘア', '円形'],
+  'small-circle-cyan': ['小さいシアン円形クロスヘア', '小さい円'],
+  'flower-cyan': ['シアンの花クロスヘア', 'シアンの花'],
+  'shuriken-white': ['白い手裏剣クロスヘア', '手裏剣'],
+  'among-us-cyan': ['クルーメイトクロスヘア', 'クルーメイト'],
+  'nerd-glasses': ['白いメガネクロスヘア', 'メガネ'],
+  'blue-flower': ['青い花クロスヘア', '青い花'],
+  'spark-pink': ['ピンクの星形クロスヘア', '星形'],
+  'snowflake-white': ['白い雪の結晶クロスヘア', '雪の結晶'],
+  'clover-green': ['緑のクローバークロスヘア', 'クローバー'],
+  'bow-pink': ['ピンクのリボンクロスヘア', 'リボン'],
+})
+
+function japaneseCrosshairCopy(item) {
+  if (item.player) {
+    return [`${item.player}のVALORANTクロスヘア`, item.player, 'プロ選手の設定を起点に、実際のマップで見え方を確認してからコピーできます。']
+  }
+
+  const fixed = japaneseCrosshairNames[item.id]
+  const color = { white: '白', green: '緑', lime: 'ライム', chartreuse: '黄緑', yellow: '黄', cyan: 'シアン', pink: 'ピンク', red: '赤', black: '黒' }[item.colorKey] || ''
+  const category = { dot: 'ドット', small: '小さい', classic: '定番', cute: 'かわいい', fun: '面白い' }[item.category] || 'カスタム'
+  const suffix = item.shortName || item.name || item.id
+  const name = fixed?.[0] || `${color ? `${color}の` : ''}${category}クロスヘア「${suffix}」`
+  const shortName = fixed?.[1] || suffix
+  const descriptions = {
+    dot: '中心を小さく保ち、敵の頭を隠しにくいドット系クロスヘアです。',
+    small: '短いラインで中心を追いやすく、細かなエイム調整に向く小型クロスヘアです。',
+    classic: '中心を見つけやすく、ライフルで扱いやすい定番の十字クロスヘアです。',
+    cute: '狙う中心を残しながら、見た目でも楽しめるかわいいクロスヘアです。',
+    fun: '射撃場やカジュアルで試したくなる、形に特徴のあるネタ系クロスヘアです。',
+  }
+  return [name, shortName, descriptions[item.category] || '実際のマップで見え方を試し、コードをそのままコピーできます。']
+}
+
 function getPath(object, path) {
   return path.split('.').reduce((value, key) => value?.[key], object)
 }
@@ -423,7 +511,9 @@ export function localizeCrosshair(item, locale, t) {
       colorName: t(`colors.${item.colorKey || 'custom'}`),
     }
   }
-  const copy = crosshairCopy[item.id]?.[locale] || crosshairCopy[item.id]?.en
+  const copy = locale === 'ja'
+    ? (crosshairCopy[item.id]?.ja || japaneseCrosshairCopy(item))
+    : (crosshairCopy[item.id]?.[locale] || crosshairCopy[item.id]?.en)
   return {
     ...item,
     ...(copy ? { name: copy[0], shortName: copy[1], description: copy[2] } : {}),

@@ -1,3 +1,5 @@
+import { japaneseArticles, japaneseTools } from './japaneseContent.js'
+
 const labels = Object.freeze({
   en: Object.freeze({
     articles: Object.freeze({ copy: 'How to copy a crosshair in VALORANT', notWorking: 'VALORANT crosshair code not working? Fix it fast', makeDot: 'How to make a dot crosshair in VALORANT', makeCircle: 'How to make a circle crosshair in VALORANT', movementError: 'VALORANT movement error crosshair: on or off?', firingError: 'VALORANT firing error crosshair explained', movementVsFiring: 'Movement error vs firing error in VALORANT', staticVsDynamic: 'Static vs dynamic crosshairs in VALORANT', dotVsCross: 'Dot vs cross crosshair in VALORANT', placement: 'VALORANT crosshair placement guide', exportCrosshair: 'How to export a VALORANT crosshair code', shareCrosshair: 'How to share a VALORANT crosshair', resetCrosshair: 'How to reset your VALORANT crosshair', saveMultiple: 'How to save multiple crosshairs in VALORANT', customColor: 'How to use a custom crosshair color in VALORANT', outlinesOnOff: 'VALORANT crosshair outlines: on or off?', centerDotOnOff: 'VALORANT center dot: on or off?', innerVsOuter: 'VALORANT inner lines vs outer lines', thickness: 'VALORANT crosshair thickness explained', gapOffset: 'VALORANT crosshair gap and offset explained' }),
@@ -22,9 +24,11 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (locale === 'ja') return japaneseArticles[articleKey]?.title || articleKey
   return localizedLabels(locale).articles[articleKey] || articleKey
 }
 
 export function toolResourceLabel(locale, toolKey) {
+  if (locale === 'ja') return japaneseTools[toolKey]?.title || toolKey
   return localizedLabels(locale).tools[toolKey] || toolKey
 }

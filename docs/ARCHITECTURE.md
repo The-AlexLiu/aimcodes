@@ -29,7 +29,7 @@ src/data + src/i18n + src/seo
 | `src/hooks/useCrosshairCatalog.js` | 目录去重、本地化、搜索、排序、集合选择和当前准星视图模型 |
 | `src/data/catalogManifest.js` | 准星目录、索引子集、集合关系、图片与 Sitemap 的共享清单 |
 | `src/data/` | 准星代码、目录清单、分类和地图预览配置 |
-| `src/i18n/` | 四语种词典、准星本地化和语言路径 |
+| `src/i18n/` | 五语种词典、准星本地化和语言路径 |
 | `src/seo/` | SEO 文案、页面元数据和路由解析 |
 | `src/utils/` | 准星解析、相似度、推荐、分享图和 GA4 |
 | `scripts/` | 数据、埋点、语言、SEO 和路由验证 |
@@ -41,7 +41,7 @@ src/data + src/i18n + src/seo
 
 ## 页面与路由
 
-根路径根据设备首选语言跳转：中文进入 `/zh-cn/`、西班牙语进入 `/es/`、葡萄牙语进入 `/pt-br/`，其他或无法识别的语言回落到 `/en/`。四种语言仍使用固定的独立目录 URL。
+根路径根据设备首选语言跳转：中文进入 `/zh-cn/`、西班牙语进入 `/es/`、葡萄牙语进入 `/pt-br/`、日语进入 `/ja/`，其他或无法识别的语言回落到 `/en/`。五种语言均使用固定的独立目录 URL。
 
 | 页面类型 | 英语示例 | 路由定义 |
 |---|---|---|
@@ -59,12 +59,13 @@ src/data + src/i18n + src/seo
 - 西班牙语：`/es/`
 - 巴西葡萄牙语：`/pt-br/`
 - 简体中文：`/zh-cn/`
+- 日语：`/ja/`
 
-`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 1,868 个本地化 HTML 路由，将 1,248 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,024 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 2,335 个本地化 HTML 路由，将 1,560 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,280 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
-除基础页面和准星详情外，当前新增 10 个高意图主题集合、10 个操作/选型指南，以及 4 个可实际使用的准星工具。新增搜索意图均同步为四语种页面；未经验证的选手数据和未完成工具不会进入 sitemap。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，内容优先级与 100 URL 状态记录在 `docs/CONTENT_ROADMAP.md` 和 `docs/SEO_EXPANSION_REPORT_2026-08-10.md`。
+除基础页面和准星详情外，当前有 25 个高意图主题集合、22 个操作/选型指南，以及 4 个可实际使用的准星工具。日语页面按日本玩家的搜索表达独立改写；未经验证的选手数据和未完成工具不会进入 sitemap。索引边界与扩页规则记录在 `docs/SEO_STRATEGY.md`，日语扩展记录在 `docs/JAPANESE_LOCALIZATION_2026-08-17.md`。
 
 ## 准星数据流
 
@@ -81,7 +82,7 @@ src/data + src/i18n + src/seo
 - 代码可以解析；
 - 名称与实际图案一致；
 - 与已有样式不构成无意义重复；
-- 四语种显示正常；
+- 五语种显示正常；
 - `pnpm validate:crosshairs` 通过。
 
 目录规模与索引规模分开管理：前端目录加载完整去重数据，默认每批展示 48 项；`catalogManifest.indexableIds` 只列出具备独立说明、集合内链和图片资产的索引子集。`src/seo/routes.js` 保留旧导出名作为兼容层，但新的构建与验证脚本直接读取 Manifest。其他详情使用 `noindex,follow`。
@@ -115,7 +116,7 @@ src/data + src/i18n + src/seo
 
 任何文案或路由改动都必须：
 
-1. 同步四种语言；
+1. 同步五种语言；
 2. 保留正确 `htmlLang`、`hreflang` 和 `og:locale`；
 3. 重新执行 `pnpm build`；
 4. 执行语言、SEO 和路由验证。
@@ -129,7 +130,7 @@ src/data + src/i18n + src/seo
 - `scripts/validate-analytics.mjs` 当前要求 24 个漏斗事件。
 - 搜索事件只上报长度、结果数量和是否有结果，不上报原始搜索词。
 
-普通准星详情页的分享链接通过 `src/utils/shareLinks.js` 生成，保留语言、准星、地图和颜色，并使用 `utm_source=share`、`utm_medium=crosshair` 识别分享带来的访问。浏览器支持系统分享时直接打开分享面板，不支持时复制“准星名称 + 可用代码 + 深层链接”。`share_landing` 用于识别接收方落地，`scripts/validate-sharing.mjs` 负责校验四语种路径、预览还原和归因参数。
+普通准星详情页的分享链接通过 `src/utils/shareLinks.js` 生成，保留语言、准星、地图和颜色，并使用 `utm_source=share`、`utm_medium=crosshair` 识别分享带来的访问。浏览器支持系统分享时直接打开分享面板，不支持时复制“准星名称 + 可用代码 + 深层链接”。`share_landing` 用于识别接收方落地，`scripts/validate-sharing.mjs` 负责校验五语种路径、预览还原和归因参数。
 
 事件实现以代码和 `validate-analytics.mjs` 为准；`GA4-安装与事件字典.md` 若与验证脚本不一致，需要同步更新。
 
@@ -139,7 +140,7 @@ src/data + src/i18n + src/seo
 
 主要能力：
 
-- 四语种；
+- 五语种；
 - 308 条源代码、300 种可见样式，另保留 7 个具有玩家控制来源的职业配置快照；
 - TikTok、Reels、Shorts 和通用平台预设；
 - 自定义三次反应成绩；

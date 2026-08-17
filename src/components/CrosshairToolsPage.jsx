@@ -23,6 +23,10 @@ const uiCopy = {
     map: '试用地图', code: '准星代码', paste: '把整段准星代码贴进来', valid: '代码没问题，直接试', invalid: '这串代码读不出来，检查有没有漏掉一段。', copy: '复制代码', left: '左边准星', right: '右边准星', settings: '怎么长，你来调', color: '准星颜色', outline: '轮廓', centerDot: '中心点', inner: '内线', outer: '外线', opacity: '透明度', length: '长度', thickness: '粗细', offset: '中心间距', size: '大小', movement: '移动误差', firing: '射击误差', preview: '场景里试试看', decoded: '这串代码调了什么', on: '开', off: '关', generatorNote: '复制后去训练场打几枪，顺手再带进排位。', comparisonNote: '同一张地图、同一个比例，谁更顺眼一眼就能看出来。', codeHelp: '整段代码直接贴进来，别漏头漏尾，也别多带空格。', finder: '还是选不出来？', finderAction: '测一下，让我们帮你挑', faq: '大家常问',
     maps: { ascent: '亚海悬城', haven: '隐世修所', bind: '源工重镇' }, colors: { white: '白色', green: '绿色', cyan: '青色', yellow: '黄色', red: '红色', pink: '粉色', custom: '自定义' },
   },
+  ja: {
+    map: '試すマップ', code: 'クロスヘアコード', paste: 'プロファイルコードを貼り付ける', valid: '使えるコードです。マップで試せます', invalid: 'コードを読み取れません。途中で切れていないか確認してください。', copy: 'コードをコピー', left: '左のクロスヘア', right: '右のクロスヘア', settings: 'クロスヘアを調整', color: '色', outline: '輪郭', centerDot: 'センタードット', inner: '内側ライン', outer: '外側ライン', opacity: '不透明度', length: '長さ', thickness: '太さ', offset: '中心間隔', size: 'サイズ', movement: '移動エラー', firing: '射撃エラー', preview: 'マップでプレビュー', decoded: 'コードの設定', on: 'オン', off: 'オフ', generatorNote: 'コピーしたら、射撃場で数分試してからランクへ。', comparisonNote: '同じマップ・同じ倍率で、中心の見つけやすさを比べます。', codeHelp: '先頭から末尾まで、空白や説明文を入れずに貼り付けてください。', finder: 'まだ迷っていますか？', finderAction: '反応速度テストで選ぶ', faq: 'よくある質問',
+    maps: { ascent: 'アセント', haven: 'ヘイヴン', bind: 'バインド' }, colors: { white: '白', green: '緑', cyan: 'シアン', yellow: '黄', red: '赤', pink: 'ピンク', custom: 'カスタム' },
+  },
 }
 
 function asToolItem(code, parsed, name = 'AimCodes generated') {

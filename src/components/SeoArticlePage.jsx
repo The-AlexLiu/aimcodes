@@ -11,6 +11,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
     es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales', faq: 'Preguntas habituales', tryCodes: 'Probar códigos', openTool: 'Abrir la herramienta' },
     'pt-BR': { quick: 'Resposta rápida', related: 'Guias relacionados do AimCodes', import: 'Guia para importar e copiar miras', sources: 'Referências oficiais', faq: 'Dúvidas comuns', tryCodes: 'Testar códigos', openTool: 'Abrir a ferramenta' },
     'zh-CN': { quick: '先说结论', related: '接着看这些', import: '准星代码怎么导入和复制', sources: '官方资料', faq: '大家常问', tryCodes: '直接试代码', openTool: '打开工具' },
+    ja: { quick: '先に答え', related: '関連ガイド', import: 'クロスヘアコードのインポート方法', sources: '公式資料', faq: 'よくある質問', tryCodes: 'コードを試す', openTool: 'ツールを開く' },
   }[locale]
   const recommended = content.recommendedCrosshairIds
     .map((id) => crosshairs.find((item) => item.id === id))

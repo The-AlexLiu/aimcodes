@@ -28,6 +28,13 @@
 
 [[redirects]]
   from = "/"
+  to = "/ja/"
+  status = 302
+  force = true
+  conditions = { Language = ["ja", "ja-jp"] }
+
+[[redirects]]
+  from = "/"
   to = "/en/"
   status = 302
   force = true
@@ -126,5 +133,10 @@
 
 [[headers]]
   for = "/zh-cn/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/ja/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"

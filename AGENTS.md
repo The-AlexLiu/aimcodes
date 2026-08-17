@@ -17,14 +17,14 @@
 - 主仓库：`https://github.com/The-AlexLiu/aimcodes`
 - 社媒渲染器镜像：`https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer`
 - 技术栈：React、Vite、Canvas、原生 CSS、Netlify、GA4。
-- 支持语言：英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`。
-- 当前产品基线包含 308 条准星源数据，经外观去重后展示 300 种样式；其中职业选手配置允许共享外观，但必须保留独立来源快照和详情页。数量变化必须以验证脚本结果为准。
+- 支持语言：英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`、日语 `ja`。
+- 当前产品基线包含 408 条准星源数据，经外观去重后展示 400 种样式；其中职业选手配置允许共享外观，但必须保留独立来源快照和详情页。数量变化必须以验证脚本结果为准。
 - 反应测试固定三轮，使用 9 个无畏契约风格反应段位，只代表浏览器反应测试结果。
 
 ## 代码边界
 
 - React 源码位于 `src/`；不要直接编辑构建产物 `dist/`。
-- 多语种词条位于 `src/i18n/` 与 `src/seo/content.js`。任何用户可见文案改动必须同步四种语言。
+- 多语种词条位于 `src/i18n/` 与 `src/seo/content.js`。任何用户可见文案改动必须同步五种语言。
 - 多语种路径规则位于 `src/i18n/localeRoutes.js` 与 `src/seo/routes.js`。
 - 准星源数据位于 `src/data/crosshairs.js` 与 `src/data/expandedCrosshairs.js`；索引子集和集合关系统一位于 `src/data/catalogManifest.js`，不要在图片、Sitemap 或路由脚本中另建列表。
 - 准星代码必须可以被 `src/utils/crosshairCode.js` 解析；不要编造未经验证的代码。

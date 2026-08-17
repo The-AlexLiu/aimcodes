@@ -1,5 +1,6 @@
 import { crosshairSlug } from './routes.js'
 import { expansionCollectionCopy } from './collectionExpansionContent.js'
+import { japaneseSeoCopy } from './japaneseContent.js'
 
 const searchDisplayNames = Object.freeze({
   'cat-pink': Object.freeze({ en: 'Cat / Kitty', es: 'Gato', 'pt-BR': 'Gato', 'zh-CN': '猫猫' }),
@@ -432,6 +433,7 @@ const priorityDetails = {
 }
 
 export function seoCopy(locale) {
+  if (locale === 'ja') return japaneseSeoCopy
   return copy[locale] || copy.en
 }
 
@@ -464,6 +466,7 @@ export function detailHeading(locale, crosshair) {
     es: `Mira ${searchName} de VALORANT`,
     'pt-BR': `Mira ${searchName} do VALORANT`,
     'zh-CN': `${searchName} 无畏契约准星`,
+    ja: `${searchName}のVALORANTクロスヘア`,
   }
   return headings[locale] || headings.en
 }

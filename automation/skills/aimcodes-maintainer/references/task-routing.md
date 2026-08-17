@@ -7,7 +7,7 @@ Use the scope report as the routing hint, then confirm it against the user reque
 | Docs only | `docs/CURRENT_STATE.md` plus changed docs | `check:quick` | Facts and stale links |
 | UI | `docs/ARCHITECTURE.md`, relevant components | `check:quick` | Desktop, mobile, focus, player wording |
 | Data | data schema, parser, relevant collection rules | `check:data` | Valid code, visible uniqueness, naming, provenance |
-| SEO/localization | `docs/SEO_STRATEGY.md`, route and content modules | `check:seo` | Intent, canonical, index control, four locales |
+| SEO/localization | `docs/SEO_STRATEGY.md`, route and content modules | `check:seo` | Intent, canonical, index control, five locales |
 | Analytics | analytics utility and event validator | `check:auto` | No PII, reserved fields, production guard |
 | Renderer | renderer rule and all canonical copies | `check:auto` | Export output and source synchronization |
 | Release/tooling | `docs/HANDOFF.md`, CI and deployment config | `check:release` | Exact staged files, preview, live smoke |

@@ -91,12 +91,14 @@ export function routeMetadata(locale, route, crosshair) {
       es: `${searchName}: código de mira de VALORANT | AimCodes`,
       'pt-BR': `${searchName}: código de mira do VALORANT | AimCodes`,
       'zh-CN': `${searchName} 无畏契约准星代码与预览 | AimCodes`,
+      ja: `${searchName}のVALORANTクロスヘアコード・設定 | AimCodes`,
     }
     const descriptions = {
       en: `Preview the ${searchName} VALORANT crosshair on real maps, change its color, and copy the working profile code in one click.`,
       es: `Prueba la mira ${searchName} de VALORANT en mapas reales, cambia el color y copia el código de perfil en un clic.`,
       'pt-BR': `Teste a mira ${searchName} do VALORANT em mapas reais, troque a cor e copie o código de perfil em um clique.`,
       'zh-CN': `在真实地图中预览 ${searchName} 无畏契约准星，切换颜色并一键复制可用的准星配置代码。`,
+      ja: `${searchName}のVALORANTクロスヘアを実際のマップで確認。色を変え、使えるプロファイルコードをワンクリックでコピーできます。`,
     }
     title = metadataOverride?.title || names[locale] || names.en
     description = metadataOverride?.description || descriptions[locale] || descriptions.en
@@ -118,6 +120,7 @@ export function routeMetadata(locale, route, crosshair) {
       es: `Vista previa de la mira ${searchName} de VALORANT en Ascent`,
       'pt-BR': `Prévia da mira ${searchName} do VALORANT na Ascent`,
       'zh-CN': `${searchName} 无畏契约准星在亚海悬城中的预览效果`,
+      ja: `${searchName}のVALORANTクロスヘアをアセントでプレビュー`,
     }[locale] || `${searchName} VALORANT crosshair preview`
   } else if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)
@@ -127,6 +130,7 @@ export function routeMetadata(locale, route, crosshair) {
       es: `${collection.label} mostradas en mapas de VALORANT`,
       'pt-BR': `${collection.label} mostradas em mapas do VALORANT`,
       'zh-CN': `${collection.label}在无畏契约地图中的预览合集`,
+      ja: `${collection.label}をVALORANTマップでプレビュー`,
     }[locale] || collection.title
   } else if (route.type === 'catalog') {
     imagePath = `/images/og/collections/${SEO_COLLECTIONS.best.slug}.jpg`
@@ -135,6 +139,7 @@ export function routeMetadata(locale, route, crosshair) {
       es: 'Vista previa de la biblioteca de miras de VALORANT de AimCodes',
       'pt-BR': 'Prévia da biblioteca de miras do VALORANT do AimCodes',
       'zh-CN': 'AimCodes 无畏契约准星库预览',
+      ja: 'AimCodesのVALORANTクロスヘアコード一覧',
     }[locale] || title
   }
 
@@ -164,6 +169,7 @@ export function crosshairUrl(locale, id) {
 }
 
 export function crosshairBreadcrumbName(locale, crosshair) {
+  if (locale === 'ja') return `${crosshair.shortName}のクロスヘア`
   if (locale === 'zh-CN') return `${crosshair.shortName} 准星`
   if (locale === 'es') return `Mira ${crosshair.shortName}`
   if (locale === 'pt-BR') return `Mira ${crosshair.shortName}`

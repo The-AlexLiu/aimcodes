@@ -1,5 +1,5 @@
 import { crosshairs } from '../src/data/crosshairs.js'
-import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
+import { createTranslator, crosshairCopy, dictionaries, localizeCrosshair } from '../src/i18n/translations.js'
 import { collectionCopy } from '../src/seo/collectionContent.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
@@ -7,7 +7,7 @@ import { articleResourceLabel, toolResourceLabel } from '../src/seo/resourceLabe
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { SEO_ARTICLE_KEYS, SEO_COLLECTION_KEYS, SEO_TOOL_KEYS } from '../src/seo/routes.js'
 
-const locales = ['en', 'es', 'zh-CN', 'pt-BR']
+const locales = ['en', 'es', 'zh-CN', 'pt-BR', 'ja']
 const failures = []
 
 function getStringPaths(value, prefix = '') {
@@ -64,6 +64,7 @@ const bannedInterfaceWords = {
   'zh-CN': [/\bExplore\b/i, /\bPreview\b/i, /\bCrosshair\b/i, /\bCute\b/i, /\bFun\b/i, /\bCustom\b/i, /\bAscent\b/i, /\bHaven\b/i, /\bBind\b/i, /\bms\b/i],
   es: [/\bCute\b/i, /\bFun\b/i, /\bPreview\b/i, /\bCrosshair\b/i, /\bCustom\b/i],
   'pt-BR': [/\bCute\b/i, /\bFun\b/i, /\bPreview\b/i, /\bCrosshair\b/i, /\bCustom\b/i],
+  ja: [/\bExplore\b/i, /\bPreview\b/i, /\bCrosshair\b/i, /\bCute\b/i, /\bCustom\b/i, /\bHome\b/i, /\bCopy code\b/i],
 }
 
 for (const [locale, patterns] of Object.entries(bannedInterfaceWords)) {
@@ -77,8 +78,8 @@ for (const [locale, patterns] of Object.entries(bannedInterfaceWords)) {
 
 for (const crosshair of crosshairs) {
   for (const locale of locales) {
-    const copy = crosshairCopy[crosshair.id]?.[locale]
-    if (!copy || copy.length !== 3 || copy.some((value) => !value.trim())) failures.push(`${crosshair.id} is missing ${locale} card copy`)
+    const localized = localizeCrosshair(crosshair, locale, createTranslator(locale))
+    if (![localized.name, localized.shortName, localized.description].every((value) => String(value || '').trim())) failures.push(`${crosshair.id} is missing ${locale} card copy`)
   }
 }
 

@@ -7,6 +7,7 @@ const locales = [
   ['es', '/es/'],
   ['pt-BR', '/pt-br/'],
   ['zh-CN', '/zh-cn/'],
+  ['ja', '/ja/'],
 ]
 
 for (const [locale, prefix] of locales) {

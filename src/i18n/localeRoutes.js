@@ -5,6 +5,7 @@ export const localeRoutes = Object.freeze({
   es: Object.freeze({ path: '/es/', htmlLang: 'es', hreflang: 'es', ogLocale: 'es_ES' }),
   'pt-BR': Object.freeze({ path: '/pt-br/', htmlLang: 'pt-BR', hreflang: 'pt-BR', ogLocale: 'pt_BR' }),
   'zh-CN': Object.freeze({ path: '/zh-cn/', htmlLang: 'zh-CN', hreflang: 'zh-Hans', ogLocale: 'zh_CN' }),
+  ja: Object.freeze({ path: '/ja/', htmlLang: 'ja', hreflang: 'ja', ogLocale: 'ja_JP' }),
 })
 
 const localeAliases = Object.freeze({
@@ -15,6 +16,8 @@ const localeAliases = Object.freeze({
   zh: 'zh-CN',
   'zh-cn': 'zh-CN',
   'zh-hans': 'zh-CN',
+  ja: 'ja',
+  'ja-jp': 'ja',
 })
 
 export function normalizeLocale(value) {

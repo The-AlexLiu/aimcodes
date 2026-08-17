@@ -1,3 +1,5 @@
+import { japaneseTools } from './japaneseContent.js'
+
 const toolContent = {
   en: {
     generator: {
@@ -138,5 +140,6 @@ const toolContent = {
 }
 
 export function seoToolCopy(locale, toolKey) {
+  if (locale === 'ja') return japaneseTools[toolKey] || toolContent.en[toolKey] || toolContent.en.generator
   return toolContent[locale]?.[toolKey] || toolContent.en[toolKey] || toolContent.en.generator
 }

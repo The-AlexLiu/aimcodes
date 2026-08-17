@@ -21,10 +21,10 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
     label: seoToolCopy(locale, toolKey).title,
   }))
   const relatedLabel = {
-    en: 'Keep exploring', es: 'Sigue explorando', 'pt-BR': 'Continue explorando', 'zh-CN': '继续试准星',
+    en: 'Keep exploring', es: 'Sigue explorando', 'pt-BR': 'Continue explorando', 'zh-CN': '继续试准星', ja: '関連するクロスヘアも見る',
   }[locale] || 'Keep exploring'
   const faqLabel = {
-    en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问',
+    en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问', ja: 'よくある質問',
   }[locale] || 'Common questions'
 
   return (

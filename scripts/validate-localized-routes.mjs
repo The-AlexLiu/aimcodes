@@ -51,6 +51,7 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
 }
 
 if (normalizeLocale('zh-Hans') !== 'zh-CN') errors.push('zh-Hans alias did not resolve to zh-CN')
+if (normalizeLocale('ja-JP') !== 'ja') errors.push('ja-JP alias did not resolve to ja')
 
 const netlifyConfig = await readFile(resolve(projectRoot, 'netlify.toml'), 'utf8')
 const expectedLanguageRedirects = [
@@ -72,6 +73,12 @@ const expectedLanguageRedirects = [
   status = 302
   force = true
   conditions = { Language = ["pt", "pt-br"] }`,
+  `[[redirects]]
+  from = "/"
+  to = "/ja/"
+  status = 302
+  force = true
+  conditions = { Language = ["ja", "ja-jp"] }`,
   `[[redirects]]
   from = "/"
   to = "/en/"
@@ -108,4 +115,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log('Validated localized routes for all four languages, including Netlify device-language redirects and the English fallback.')
+console.log(`Validated localized routes for all ${Object.keys(localeRoutes).length} languages, including Netlify device-language redirects and the English fallback.`)
