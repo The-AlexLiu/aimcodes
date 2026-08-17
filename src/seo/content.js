@@ -11,8 +11,8 @@ const copy = {
     home: {
       tryNow: 'Try this crosshair',
       eyebrow: 'VALORANT CROSSHAIR LAB',
-      title: '300+ VALORANT Aim Codes & Crosshair Codes',
-      intro: 'Preview 300+ working crosshair profiles on real map scenes, switch colors, and copy the code that feels easiest to track.',
+      title: '300+ Working VALORANT Aim Codes to Preview & Copy',
+      intro: 'Browse working VALORANT crosshair codes, test each aim code on real map scenes, switch colors, and copy the one you can track fastest.',
       primary: 'Browse all crosshairs',
       secondary: 'Take the reaction test',
       popular: 'Popular crosshair codes',
@@ -86,8 +86,8 @@ const copy = {
     footer: { browse: 'Crosshair codes', resources: 'Guides & tools', finder: 'Reaction test', guide: 'Import guide', best: 'Popular picks', pro: 'Pro crosshairs', cute: 'Cute crosshairs', dot: 'Dot crosshairs', small: 'Small crosshairs', settings: 'Crosshair settings', colors: 'Crosshair colors', note: 'Built for faster crosshair testing.', email: 'Email AimCodes', trust: 'Site information', about: 'How we check codes', privacy: 'Privacy & cookies', terms: 'Terms & fan content', contact: 'Report a problem', independent: 'Independent fan project. Not affiliated with Riot Games.' },
     notFound: { title: 'That crosshair missed', body: 'This page does not exist. Head back to the crosshair catalog and pick another one.', action: 'Browse crosshairs' },
     meta: {
-      homeTitle: '300+ VALORANT Aim Codes & Crosshair Codes | AimCodes',
-      homeDescription: 'Copy 300+ working VALORANT aim and crosshair codes. Preview pro, dot, small and fun profiles on real maps, change colors, and pick your next code.',
+      homeTitle: '300+ Working VALORANT Aim Codes to Copy | AimCodes',
+      homeDescription: 'Browse 300+ working VALORANT aim codes. Preview each crosshair on real maps, change the color, and copy a profile code straight into the game.',
       catalogTitle: '300+ Working VALORANT Crosshair Codes | AimCodes',
       catalogDescription: 'Browse 300+ working VALORANT crosshair codes by style and use case. Preview each profile on a map, change its color, and copy the code.',
       finderTitle: 'VALORANT Reaction Time Test & Crosshair Picker | AimCodes',
@@ -104,7 +104,7 @@ const copy = {
       intro: 'Empieza con códigos de mira que funcionan, pruébalos sobre mapas reales, cambia el color y copia el que más te guste.',
       primary: 'Ver todas las miras', secondary: 'Hacer la prueba de reacción', popular: 'Miras populares', popularBody: 'Empieza por miras de estilo profesional y algunas opciones divertidas.',
     },
-    catalog: { eyebrow: 'MÁS DE 60 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Elige un estilo, pruébalo y copia el código.' },
+    catalog: { eyebrow: 'MÁS DE 300 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Elige un estilo, pruébalo y copia el código.' },
     topics: { title: 'Empieza por una colección' },
     collections: {
       best: {
@@ -169,7 +169,7 @@ const copy = {
       tryNow: 'Testar esta mira',
       eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Comece com códigos de mira que funcionam, teste em mapas reais, troque a cor e copie o que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras populares', popularBody: 'Comece por opções de estilo profissional e algumas escolhas divertidas.',
     },
-    catalog: { eyebrow: 'MAIS DE 60 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Escolha um estilo, teste e copie o código.' },
+    catalog: { eyebrow: 'MAIS DE 300 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Escolha um estilo, teste e copie o código.' },
     topics: { title: 'Comece por uma coleção' },
     collections: {
       best: {

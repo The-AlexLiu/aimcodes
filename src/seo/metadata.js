@@ -29,7 +29,7 @@ const detailMetadata = Object.freeze({
     en: Object.freeze({ title: 'Cortezia VALORANT Crosshair Code & Settings | AimCodes', description: 'Try Cortezia’s outlined black dot crosshair from his player-channel command on real VALORANT map scenes and copy the code.' }),
   }),
   sato: Object.freeze({
-    en: Object.freeze({ title: 'Sato VALORANT Crosshair Code & Preview | AimCodes', description: 'Preview Sato’s compact black VALORANT crosshair from his player-channel command, test clearer colors, and copy the profile code.' }),
+    en: Object.freeze({ title: 'Sato VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Sato’s compact VALORANT crosshair, check its settings, test a clearer color, and copy the profile code from his player-channel command.' }),
   }),
   tteuw: Object.freeze({
     en: Object.freeze({ title: 'Tteuw VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Tteuw’s layered white dot crosshair from his player-channel command, review its movement setting, and copy the VALORANT code.' }),
