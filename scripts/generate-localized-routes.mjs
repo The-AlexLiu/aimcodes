@@ -11,11 +11,11 @@ import {
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
 import {
-  collectionCopy,
   detailCopy,
   detailHeading,
   seoCopy,
 } from '../src/seo/content.js'
+import { collectionCopy } from '../src/seo/collectionContent.js'
 import {
   alternateUrls,
   collectionBreadcrumbName,

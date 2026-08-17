@@ -1,6 +1,6 @@
 import { crosshairs } from '../src/data/crosshairs.js'
 import { crosshairCopy, dictionaries } from '../src/i18n/translations.js'
-import { collectionCopy } from '../src/seo/content.js'
+import { collectionCopy } from '../src/seo/collectionContent.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { importGuideDetails } from '../src/seo/importGuideDetails.js'
 import { articleResourceLabel, toolResourceLabel } from '../src/seo/resourceLabels.js'
@@ -55,7 +55,7 @@ for (const locale of locales) {
     if (article.recommendedCrosshairIds?.length !== 4 || article.recommendedCrosshairIds.some((id) => !crosshairs.some((item) => item.id === id))) failures.push(`${locale} ${articleKey} article needs four valid crosshair recommendations`)
   }
 
-  for (const articleKey of ['copy', 'notWorking', 'makeDot', 'makeCircle', 'movementError', 'firingError', 'movementVsFiring', 'staticVsDynamic', 'dotVsCross', 'placement']) {
+  for (const articleKey of SEO_ARTICLE_KEYS.filter((key) => !['settings', 'colors'].includes(key))) {
     if (articleResourceLabel(locale, articleKey) !== articleCopy(locale, articleKey).title) failures.push(`${locale} ${articleKey} home resource label does not match its article title`)
   }
 }

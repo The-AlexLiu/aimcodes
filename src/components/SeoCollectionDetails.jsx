@@ -1,4 +1,4 @@
-import { collectionCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import { articleCopy } from '../seo/articles.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { routePath } from '../seo/routes.js'

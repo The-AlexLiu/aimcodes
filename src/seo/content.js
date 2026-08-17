@@ -435,9 +435,14 @@ export function seoCopy(locale) {
   return copy[locale] || copy.en
 }
 
-export function collectionCopy(locale, collectionKey) {
+export function baseCollectionCopy(locale, collectionKey) {
   return seoCopy(locale).collections?.[collectionKey]
     || expansionCollectionCopy(locale, collectionKey)
+    || null
+}
+
+export function collectionCopy(locale, collectionKey) {
+  return baseCollectionCopy(locale, collectionKey)
     || seoCopy(locale).collections.best
 }
 

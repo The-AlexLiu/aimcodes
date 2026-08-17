@@ -1,4 +1,4 @@
-import { collectionCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
 import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
 import Icon from './Icon.jsx'
@@ -14,6 +14,16 @@ const guideKeys = Object.freeze([
   'staticVsDynamic',
   'dotVsCross',
   'placement',
+  'exportCrosshair',
+  'shareCrosshair',
+  'resetCrosshair',
+  'saveMultiple',
+  'customColor',
+  'outlinesOnOff',
+  'centerDotOnOff',
+  'innerVsOuter',
+  'thickness',
+  'gapOffset',
 ])
 
 const toolKeys = Object.freeze(['generator', 'decoder', 'preview', 'comparison'])

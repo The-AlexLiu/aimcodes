@@ -1,4 +1,5 @@
-import { collectionCopy, detailCopy, seoCopy } from '../seo/content.js'
+import { detailCopy, seoCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import { collectionKeysForCrosshair, routePath } from '../seo/routes.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 

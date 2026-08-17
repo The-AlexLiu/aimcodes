@@ -1,4 +1,5 @@
-import { collectionCopy, seoCopy } from '../seo/content.js'
+import { seoCopy } from '../seo/content.js'
+import { collectionCopy } from '../seo/collectionContent.js'
 import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
 
 export default function SeoTopicLinks({ locale, activeCollection }) {
