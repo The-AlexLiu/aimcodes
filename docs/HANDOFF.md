@@ -1,6 +1,6 @@
 # AimCodes 工具间交接
 
-最后更新：2026-08-12
+最后更新：2026-08-16
 
 ## 当前交接目标
 
@@ -17,8 +17,9 @@
 ## 当前分支与提交
 
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`06eebb6`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>
+- 最近生产提交：`5891d12`（PR #30，GA4 + GSC 搜索落地页优化）
+- 最近生产发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/30>
+- 稳定本地环境与跨账号同步协议：`docs/LOCAL_ENVIRONMENT.md`；GitHub `main` 是唯一共享事实来源。
 - 当前生产内容已包含 SEO Knowledge Base Phase 1、四个真实工具、图片 SEO、独立准星图片和 `sitemap-images.xml`。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/16> 已将目录扩展为 302 条源代码、300 种可见造型；构建生成 1,364 条四语种路由、544 条主 Sitemap URL 和 400 条独立准星 Sitemap URL。
 - PR <https://github.com/The-AlexLiu/aimcodes/pull/17> 加入变更范围识别、分级验证、结构化报告、图片增量生成和 `aimcodes-maintainer` Skill。
@@ -41,7 +42,7 @@
 
 - 渲染器尚未完成单一源自动同步；
 - 页面类型懒加载和代码分包已完成第一轮；当前入口包约 382 kB（gzip 约 124 kB），后续继续以性能预算防止回退；
-- GA4 后台尚未创建计划中的自定义维度和指标，需包含 `interaction_source` 和 `shared_entry`。
+- GA4 自定义维度 `interaction_source` 与 `shared_entry` 已创建；后续分析只使用创建后采集的数据，不回填历史结论。
 - 本轮 5 类四语种 SEO 集合页、2 类四语种知识指南、扩充后的导入指南、16 个可索引准星详情和 108 URL sitemap 已发布，后续需观察 GSC 收录与查询数据。
 - AdSense 代码层准备已通过 PR #11 发布；还需账号所有者在 Google 后台完成年龄/身份/付款信息、添加根域，并提供真实站点验证代码。
 - Google 认证 CMP 与真实 `ads.txt` 必须等到获得 AdSense 账号和发布商 ID 后配置，不能使用占位值。
@@ -77,14 +78,15 @@
 - 图片生成与 SEO 验证脚本通过：62 张 1080 × 1080 WebP、77 张 1200 × 630 JPG、124 个图片 Sitemap 页面和 188 个图片引用；桌面与手机代表页面保持原有布局。
 - 准星规模化候选版本验证通过：302 条代码、300 种样式、1,364 个本地化路由、544 个规范 URL、400 个准星 Sitemap URL、54,723 条无断链内部链接、100 张索引准星图、115 张必需 OG 图、460 个图片 Sitemap 页面与 860 个图片引用。
 
-## 最近产品代码生产发布
+## 最近生产发布
 
-- 发布时间：2026-08-12；
-- 对应功能提交：`06eebb6`；
-- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/25>；
+- 发布时间：2026-08-15；
+- 对应功能提交：`5891d12`；
+- 对应 PR：<https://github.com/The-AlexLiu/aimcodes/pull/30>；
+- 本轮按 GA4/GSC 信号强化英语 Best 页面、四语种颜色指南和移动端教程页的下一步入口；不新增 URL 或扩大索引范围。
 - 发布方式：GitHub `main` 合并后由 Netlify 自动构建发布；
 - 正式域名：<https://aimcodes.com>；
-- 发布后已确认英、中代表新详情与既有 TenZ 详情、独立图片、OG 图、robots 和 canonical 正常；主 Sitemap 744 条、准星 Sitemap 600 条、图片 Sitemap 660 个页面与 1,260 个图片引用均可访问。
+- 发布后已确认指南、颜色、Best 与 Small 代表页的移动端/桌面端体验、canonical、robots 和 CTA 正常；主 Sitemap 768 条、准星 Sitemap 624 条、图片 Sitemap 684 个页面与 1,308 个图片引用均可访问。
 
 ## 已发布的分享增长功能
 

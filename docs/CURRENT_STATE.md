@@ -24,6 +24,7 @@
 - 2026-08-11 最近一次产品代码生产发布：目录架构统一，对应生产提交 `9dbfdf1`、PR #18。
 - 当前架构效率版本把索引详情、集合关系、图片和 Sitemap 统一到 `src/data/catalogManifest.js`，并将 `App.jsx` 的目录视图模型和主要页面区域拆分为独立 Hook/组件。
 - Netlify 已绑定 GitHub `The-AlexLiu/aimcodes`，生产分支为 `main`，构建命令为 `pnpm build`，发布目录为 `dist`。
+- 本机已建立干净的 `aimcodes-main` 稳定工作目录，供 GPT/Codex、Cursor 或人工开发者读取当前 `main`；各任务必须从该基线建立独立工作目录。具体同步步骤见 `docs/LOCAL_ENVIRONMENT.md`。
 
 ## GitHub
 
