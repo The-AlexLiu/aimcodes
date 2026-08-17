@@ -1,6 +1,6 @@
 # AimCodes 当前状态
 
-状态日期：2026-08-16
+状态日期：2026-08-17
 
 本文件用于 GPT/Codex、Cursor 和人工开发者快速恢复项目上下文。发生生产发布、重要合并、路由变化或权限变化后必须更新。
 
@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-08-17 GSC 点击率优化：基于 2026-08-03 至 2026-08-14 的 60 次点击、4,658 次展示，优化英语首页、移动误差、圆形准星、导入报错和 Sato 五个已有 URL；不新增 URL、不继续开放 `noindex`，并保护 Small、Pink、Green、One-Tap 与葡语 Dot 赢家页面。数据与观察指标见 `docs/SEO_DATA_REVIEW_2026-08-17.md`。
 - 2026-08-15 GA4 + GSC 联合优化：指南页快速结论新增“试现成代码”和“打开工具”入口，四语种同步；英语 Best 页面和四语种颜色指南按现有查询意图调整标题、摘要与内容承接，不新增 URL，也不继续开放剩余 `noindex` 详情。数据口径与观察指标见 `docs/SEO_DATA_REVIEW_2026-08-15.md`。
 - 2026-08-12 社媒发布流水线：新增 Instagram、TikTok、YouTube、Facebook 的 Buffer 草稿生成与校验，默认禁止排期和公开发布；账号映射、素材 URL、草稿包与台账只保存在 Git 忽略的 `output/social-publishing/`。
 - 2026-08-13 社媒素材质量门：四语种发布视频写入 AimCodes 原创合成背景音乐与时间轴同步的等待/开始/点击/出分反馈音；可复现素材种子会轮换开场、成绩、准星、封面、CTA、发布文案与音乐配置。每条素材必须同时具备 1080 × 1920 PNG 封面；跨平台 MP4 音轨、时长、视频轨与封面尺寸检查失败时，草稿流水线会直接阻止继续。

@@ -12,16 +12,16 @@ const englishGuides = {
     metaTitle: 'How to Copy a Crosshair in VALORANT with /cc | AimCodes', metaDescription: 'Learn how to copy a teammate crosshair in VALORANT with /cc, find the saved profile, and fix the command when it does not work.',
   },
   notWorking: {
-    title: 'VALORANT crosshair code not working? Fix it fast', intro: 'Use this checklist when a profile code will not import, produces an error, or appears different after you paste it.', summary: 'First copy the complete code again, paste it into Import Profile Code rather than chat, and confirm you have room for another profile. If it imports but looks wrong, compare the actual settings and code instead of relying on a zoomed image.',
+    title: 'VALORANT crosshair code not working? Fix it fast', intro: 'Use this checklist when a profile code will not import, shows “Something went wrong while importing your profile,” or looks different after you paste it.', summary: 'Seeing “Something went wrong while importing your profile”? Copy the complete code again, paste it into Import Profile Code rather than chat, and confirm you have room for another profile. If it imports but looks wrong, compare the actual settings instead of relying on a zoomed image.',
     sections: [
       ['Check the code before changing settings', ['A missing character, extra space, or truncated end can invalidate a profile code. Copy the original code again and avoid editing individual separators.'], ['Copy from the first character to the last.', 'Remove accidental spaces or line breaks.', 'Do not combine two codes.']],
-      ['Use the correct import screen', ['Open Settings → Crosshair and choose Import Profile Code. The regular chat box and profile-name field do not parse crosshair codes.'], ['Choose Import Profile Code.', 'Paste once and confirm.', 'Give the new profile a clear name.']],
+      ['Fix “Something went wrong while importing your profile”', ['Open Settings → Crosshair and choose Import Profile Code. Paste the complete code there, not in chat or the profile-name field, and make sure an empty profile slot is available.'], ['Choose Import Profile Code.', 'Free a profile slot if the list is full.', 'Paste the complete code once and confirm.']],
       ['If the code imports but the preview differs', ['Preview size, resolution, outlines, and custom colors can make the same geometry look different. Compare inner lines, outer lines, center dot, and color in the saved profile.'], ['Check the game profile rather than a social screenshot.', 'Confirm the custom color value.', 'Try a verified AimCodes code to isolate the problem.']],
     ],
     faq: [['Why is my crosshair code invalid?', 'The code may be incomplete, contain extra characters, or have been pasted outside the import control.'], ['Can an old code stop working?', 'Profile formats can change, but most failures come from a damaged copy or the wrong import step. Use a recently verified source.']],
     sources: [{ label: 'Riot Games — VALORANT Patch Notes 4.05', url: 'https://playvalorant.com/en-gb/news/game-updates/valorant-patch-notes-4-05/' }],
     recommendedCrosshairIds: ['tenz', 'aspas-dot', 'forsaken', 'small-dot-thick'], relatedArticleKeys: ['copy', 'settings'], relatedCollectionKeys: ['best'], relatedToolKeys: ['decoder', 'preview'],
-    metaTitle: 'VALORANT Crosshair Code Not Working: Fixes | AimCodes', metaDescription: 'Fix a VALORANT crosshair code that will not import. Check the full code, profile slots, import screen, custom color and preview differences.',
+    metaTitle: 'VALORANT Crosshair Code Not Working? Fix It | AimCodes', metaDescription: 'See “Something went wrong while importing your profile”? Fix a VALORANT crosshair code by checking the full code, profile slots and import screen.',
   },
   makeDot: {
     title: 'How to make a dot crosshair in VALORANT', intro: 'Build a clean center dot, remove unwanted lines, and keep the result visible enough for real fights.', summary: 'Enable Center Dot, disable inner and outer lines, then set a small dot size and full opacity. Add a thin outline or use cyan if the dot disappears on bright map surfaces.',
@@ -47,7 +47,7 @@ const englishGuides = {
     metaTitle: 'How to Make a Circle Crosshair in VALORANT | AimCodes', metaDescription: 'Build a VALORANT circle crosshair with balanced line settings, compare hollow and center-dot versions, and test ready-made circle codes.',
   },
   movementError: {
-    title: 'VALORANT movement error crosshair explained', intro: 'Learn what movement error changes, when the animation helps, and when a stable crosshair is easier to use.', summary: 'Movement error makes the crosshair react when moving reduces weapon accuracy. It is useful feedback while learning to stop before shooting, but many players turn it off once the timing is familiar.',
+    title: 'VALORANT movement error crosshair: on or off?', intro: 'Movement error shows when moving has made your shot inaccurate. Use it to learn stop timing, then turn it off if the animation gets in the way.', summary: 'Movement error makes the crosshair react while movement reduces weapon accuracy. Turn it on in practice if you are learning to stop before shooting; turn it off for a stable center once that timing feels automatic.',
     sections: [
       ['What movement error shows', ['The crosshair expands or changes while your movement makes shots inaccurate. It is a visual warning, not a change to weapon accuracy.'], ['Moving still affects the weapon normally.', 'The crosshair only displays feedback.', 'Different movement states can produce different spread.']],
       ['Use it as a practice aid', ['Enable movement error in the range and practice stopping until the crosshair returns to its settled state before firing.'], ['Strafe, stop, then fire.', 'Watch the settled center.', 'Repeat without staring at the animation.']],
@@ -55,7 +55,7 @@ const englishGuides = {
     ],
     faq: [['Should movement error be on or off?', 'Use it temporarily for learning; turn it off when you want a stable competitive reference.'], ['Does movement error make shots more accurate?', 'No. It only visualizes the accuracy penalty already applied by movement.']],
     recommendedCrosshairIds: ['tenz', 'jinggg', 'compact-green', 'micro-gap-cyan'], relatedArticleKeys: ['movementVsFiring', 'staticVsDynamic', 'placement'], relatedCollectionKeys: ['beginner'], relatedToolKeys: ['generator'],
-    metaTitle: 'VALORANT Movement Error Crosshair Explained | AimCodes', metaDescription: 'Understand VALORANT movement error, how the crosshair reacts while moving, when to use it for practice and when to turn it off.',
+    metaTitle: 'VALORANT Movement Error Crosshair: On or Off? | AimCodes', metaDescription: 'See what the VALORANT movement error crosshair shows, when to turn it on for stop-timing practice, and when a static crosshair is easier to use.',
   },
   firingError: {
     title: 'VALORANT firing error crosshair explained', intro: 'See what firing error represents during taps and sprays, and decide whether the animation helps your weapon control.', summary: 'Firing error makes the crosshair react to weapon inaccuracy while you shoot. It can show when a burst has spread, but it does not control recoil and may add distracting motion.',

@@ -1,6 +1,6 @@
 const labels = Object.freeze({
   en: Object.freeze({
-    articles: Object.freeze({ copy: 'How to copy a crosshair in VALORANT', notWorking: 'VALORANT crosshair code not working? Fix it fast', makeDot: 'How to make a dot crosshair in VALORANT', makeCircle: 'How to make a circle crosshair in VALORANT', movementError: 'VALORANT movement error crosshair explained', firingError: 'VALORANT firing error crosshair explained', movementVsFiring: 'Movement error vs firing error in VALORANT', staticVsDynamic: 'Static vs dynamic crosshairs in VALORANT', dotVsCross: 'Dot vs cross crosshair in VALORANT', placement: 'VALORANT crosshair placement guide' }),
+    articles: Object.freeze({ copy: 'How to copy a crosshair in VALORANT', notWorking: 'VALORANT crosshair code not working? Fix it fast', makeDot: 'How to make a dot crosshair in VALORANT', makeCircle: 'How to make a circle crosshair in VALORANT', movementError: 'VALORANT movement error crosshair: on or off?', firingError: 'VALORANT firing error crosshair explained', movementVsFiring: 'Movement error vs firing error in VALORANT', staticVsDynamic: 'Static vs dynamic crosshairs in VALORANT', dotVsCross: 'Dot vs cross crosshair in VALORANT', placement: 'VALORANT crosshair placement guide' }),
     tools: Object.freeze({ generator: 'VALORANT crosshair generator', decoder: 'VALORANT crosshair code decoder', preview: 'VALORANT crosshair preview', comparison: 'Compare VALORANT crosshairs' }),
   }),
   es: Object.freeze({

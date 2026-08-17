@@ -7,7 +7,7 @@ const collectionExpansionContent = {
       settingsTitle: 'Circle crosshair starting settings', settings: ['Use a small center dot only when the ring feels empty.', 'Keep the ring compact enough to leave the head visible.', 'Try cyan or green before adding a thicker outline.'],
       faq: [['Is a circle crosshair accurate?', 'The shape does not change weapon accuracy. It can make centering easier if the ring stays small enough for your target.'], ['How do I make a circle crosshair?', 'Use short inner and outer lines with a closed offset, then check the result in the preview instead of relying on numbers alone.']],
       relatedCollectionKeys: ['dot', 'small', 'minimalist'], relatedArticleKeys: ['makeCircle', 'dotVsCross'], relatedToolKeys: ['generator', 'preview'],
-      metaTitle: 'VALORANT Circle Crosshair Codes & Preview | AimCodes', metaDescription: 'Try working VALORANT circle crosshair codes. Compare rings, halos and bullseyes on real map scenes, then copy the code you prefer.',
+      metaTitle: 'VALORANT Circle Crosshair Codes to Copy | AimCodes', metaDescription: 'Preview working VALORANT circle crosshair codes on real maps. Compare small rings, halos and bullseyes, then copy the profile code you prefer.',
     },
     pink: {
       label: 'Pink crosshairs', eyebrow: 'HIGH CONTRAST, MORE PERSONALITY', title: 'Pink VALORANT crosshair codes', intro: 'Preview working pink crosshairs ranging from compact hearts and flowers to bolder clip-ready shapes.', gridTitle: 'Pink crosshairs to compare',
