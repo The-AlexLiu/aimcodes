@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { addUtm, assertDraftOnlyPayload, buildBundle, readJson, validatePlan } from './lib.mjs'
 import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
+import { normalizeVisualReview, summarizePlatformQuota } from './quality-policy.mjs'
 
 const plan = await readJson('data_raw/social-content-plan.json')
 const validation = await validatePlan(plan)
@@ -73,4 +74,37 @@ assert.ok(validateCopy({
   caption: '228 ms with the Micro Gap crosshair. https://aimcodes.com #VALORANT #ReactionTime',
 }, 'instagram', instagramCreative).includes('Instagram and TikTok captions must not contain a raw URL'))
 
-console.log(`Validated ${bundle.posts.length} draft-only platform payloads, UTM safety, and publication copy guards.`)
+assert.deepEqual(normalizeVisualReview({
+  pass: true,
+  score: 96,
+  failures: [],
+  summary: 'All frames are coherent.',
+}), {
+  pass: true,
+  score: 96,
+  failures: [],
+  summary: 'All frames are coherent.',
+})
+assert.equal(normalizeVisualReview({
+  pass: false,
+  score: 85,
+  failures: [],
+  summary: 'All visible values match the supplied facts.',
+}).pass, false)
+assert.equal(normalizeVisualReview({
+  pass: true,
+  score: 98,
+  failures: ['Image 4: score is visible before the click.'],
+  summary: 'One sequencing defect.',
+}).pass, false)
+
+const completeQuotaPosts = ['tiktok', 'instagram', 'youtube'].flatMap((platform) => [1, 2, 3].map((slot) => ({
+  platform,
+  slot: `wave-${slot}`,
+  status: 'scheduled',
+})))
+assert.equal(summarizePlatformQuota(completeQuotaPosts).pass, true)
+assert.equal(summarizePlatformQuota(completeQuotaPosts.slice(0, -1)).pass, false)
+assert.equal(summarizePlatformQuota([...completeQuotaPosts, { platform: 'youtube', slot: 'wave-4', status: 'scheduled' }]).pass, false)
+
+console.log(`Validated ${bundle.posts.length} draft-only platform payloads, UTM safety, publication copy guards, visual QA normalization, and daily platform quotas.`)

@@ -6,12 +6,14 @@ import { chromium } from 'playwright-core'
 import { absolutePath } from './lib.mjs'
 import { inspectCover, inspectVideo } from './media-inspector.mjs'
 import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
+import { normalizeVisualReview, quotaFailureMessage, summarizePlatformQuota } from './quality-policy.mjs'
 
 const TIMEZONE_OFFSET_HOURS = 8
 const MINIMUM_LEAD_MINUTES = 30
 const COPY_MODEL = process.env.SOCIAL_COPY_MODEL || 'gemini-2.5-flash-lite'
 const VISION_MODEL = process.env.SOCIAL_VISION_MODEL || 'qwen3-vl-flash'
 const QUALITY_THRESHOLD = Number(process.env.SOCIAL_QUALITY_THRESHOLD || 90)
+const MAX_SLOT_ATTEMPTS = Number(process.env.SOCIAL_MAX_SLOT_ATTEMPTS || 3)
 const writeEnabled = process.env.AIMCODES_SOCIAL_ALLOW_SCHEDULE === 'YES'
 const requestedDate = process.env.SOCIAL_SCHEDULE_DATE?.trim()
 
@@ -99,14 +101,14 @@ function extractJson(text) {
   return JSON.parse(cleaned.slice(start, end + 1))
 }
 
-async function callModel({ model, prompt, images = [] }) {
+async function callModel({ model, prompt, images = [], temperature = 0.35 }) {
   const apiKey = required('AIHUBMIX_API_KEY')
   const content = [{ type: 'text', text: prompt }]
   for (const image of images) content.push({ type: 'image_url', image_url: { url: image } })
   const response = await fetch('https://aihubmix.com/v1/chat/completions', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model, temperature: 0.35, messages: [{ role: 'user', content }] }),
+    body: JSON.stringify({ model, temperature, messages: [{ role: 'user', content }] }),
     signal: AbortSignal.timeout(90_000),
   })
   const raw = await response.text()
@@ -210,16 +212,37 @@ async function reviewVisuals({ platform, creative, coverPath, framePaths, render
   const images = await Promise.all([coverPath, ...framePaths].map((path) => base64DataUrl(path)))
   const prompt = `Act as a strict mobile-video QA reviewer for an AimCodes VALORANT short.
 Image 1 is the vertical cover. Images 2-6 are chronological frames from the 13-second video.
-Return JSON only with keys: pass (boolean), score (integer 0-100), issues (array of short strings), summary (string).
+Return JSON only with keys: pass (boolean), score (integer 0-100), failures (array of short strings), summary (string).
 
-Rendered facts: platform=${platform}; scores=${creative.scores.join('/')}; average=${creative.average}; rank=${creative.rank}; crosshair=${creative.crosshair}; audio=${renderMetadata.hasAudio}.
-Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, scores appear before a click result, the cover is weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between frames. Passing requires a score of at least ${QUALITY_THRESHOLD}.`
-  const response = await callModel({ model: VISION_MODEL, prompt, images })
-  const review = response.result
-  review.score = Number(review.score)
-  review.pass = review.pass === true && Number.isFinite(review.score) && review.score >= QUALITY_THRESHOLD
-  review.issues = Array.isArray(review.issues) ? review.issues : ['Vision model returned malformed issues']
-  return { review, usage: response.usage }
+Rendered facts: platform=${platform}; scores=${creative.scores.join('/')}; average=${creative.average}; rank=${creative.rank}; crosshair=${creative.crosshairName}; audio=${renderMetadata.hasAudio}.
+Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, scores appear before their corresponding click result, the cover is weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between chronological frames.
+
+Rules for a reliable verdict:
+- failures must contain ONLY real defects. Never put passed checks, confirmations, neutral observations, or statements such as “the values match” in failures.
+- Every failure must name the affected image number and visible evidence.
+- If the visible values match the rendered facts, do not describe them as inconsistent.
+- Set pass=true only when score is at least ${QUALITY_THRESHOLD} and failures is empty. Otherwise set pass=false.`
+  const first = await callModel({ model: VISION_MODEL, prompt, images, temperature: 0.1 })
+  const firstReview = normalizeVisualReview(first.result, QUALITY_THRESHOLD)
+  if (firstReview.pass) {
+    return { review: firstReview, attempts: [{ role: 'primary', review: firstReview, usage: first.usage }] }
+  }
+
+  const adjudicationPrompt = `${prompt}
+
+This is an independent adjudication. The first reviewer returned:
+${JSON.stringify(firstReview)}
+
+Inspect the images yourself. Correct any contradiction between the first review's score, pass flag, failure list, and summary. Do not inherit a failure unless the cited defect is actually visible. Return the same JSON shape.`
+  const second = await callModel({ model: VISION_MODEL, prompt: adjudicationPrompt, images, temperature: 0 })
+  const secondReview = normalizeVisualReview(second.result, QUALITY_THRESHOLD)
+  return {
+    review: { ...secondReview, adjudicated: true },
+    attempts: [
+      { role: 'primary', review: firstReview, usage: first.usage },
+      { role: 'adjudicator', review: secondReview, usage: second.usage },
+    ],
+  }
 }
 
 function run(command, args, options = {}) {
@@ -298,79 +321,174 @@ for (const name of [
 ]) required(name)
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true })
-const summary = { generatedAt: new Date().toISOString(), writeEnabled, copyModel: COPY_MODEL, visionModel: VISION_MODEL, posts: [] }
+const summary = {
+  generatedAt: new Date().toISOString(),
+  writeEnabled,
+  copyModel: COPY_MODEL,
+  visionModel: VISION_MODEL,
+  qualityThreshold: QUALITY_THRESHOLD,
+  maxSlotAttempts: MAX_SLOT_ATTEMPTS,
+  posts: [],
+}
+
+async function processSlot(slot, schedule, prefix) {
+  const manifestUrl = `${required('R2_PUBLIC_BASE_URL').replace(/\/$/, '')}/${prefix}/manifest.json`
+  if (await alreadyCompleted(manifestUrl)) {
+    console.log(`SKIP ${slot.platform}/${slot.id}: ${schedule.localDate} is already scheduled`)
+    return { platform: slot.platform, slot: slot.id, status: 'already_scheduled', dueAt: schedule.dueAt, manifestUrl }
+  }
+
+  const failures = []
+  for (let attempt = 1; attempt <= MAX_SLOT_ATTEMPTS; attempt += 1) {
+    const seed = safeToken(`${schedule.localDate}-${slot.platform}-${slot.id}-daily-attempt-${attempt}`)
+    const directory = absolutePath(`output/social-publishing/scheduled/${schedule.localDate}/${slot.platform}/${slot.id}/attempt-${attempt}`)
+    await mkdir(directory, { recursive: true })
+    let bufferResult = null
+
+    try {
+      console.log(`RENDER ${slot.platform}/${slot.id} attempt ${attempt}/${MAX_SLOT_ATTEMPTS} -> ${schedule.dueAt}`)
+      const rendered = await renderCreative(browser, { platform: slot.platform, seed, directory })
+      const [video, cover] = await Promise.all([inspectVideo(rendered.videoPath), inspectCover(rendered.coverPath)])
+      const deterministicErrors = []
+      if (!video.hasVideo || !video.hasAudio) deterministicErrors.push('MP4 must contain video and audio tracks')
+      if (!video.duration || video.duration < 12 || video.duration > 14.5) deterministicErrors.push(`unexpected duration: ${video.duration}`)
+      if (cover.width !== 1080 || cover.height !== 1920 || cover.format !== 'png') deterministicErrors.push('cover must be a 1080x1920 PNG')
+      if (!rendered.renderMetadata.hasAudio) deterministicErrors.push('renderer reported a missing audio track')
+      if (deterministicErrors.length) throw new Error(deterministicErrors.join('; '))
+
+      const copyResult = await generateCopy(slot.platform, rendered.creative)
+      const copy = copyResult.copy
+      const copyErrors = validateCopy(copy, slot.platform, rendered.creative)
+      if (copyErrors.length) throw new Error(`copy QA failed: ${copyErrors.join('; ')}`)
+      const visualResult = await reviewVisuals({ platform: slot.platform, ...rendered })
+      const visualReview = visualResult.review
+      const aiUsage = {
+        copy: copyResult.usage,
+        visual: visualResult.attempts.map((item) => ({ role: item.role, usage: item.usage })),
+      }
+      await writeFile(resolve(directory, 'quality-review.json'), `${JSON.stringify({
+        deterministicErrors,
+        copyErrors,
+        visualReview,
+        visualAttempts: visualResult.attempts,
+        aiUsage,
+      }, null, 2)}\n`)
+      if (!visualReview.pass) {
+        throw new Error(`visual QA blocked scheduling (${visualReview.score}/100): ${visualReview.failures.join('; ') || 'review did not pass'}`)
+      }
+
+      const fingerprint = createHash('sha256').update(await readFile(rendered.videoPath)).digest('hex').slice(0, 16)
+      const videoKey = `${prefix}/${fingerprint}.mp4`
+      const coverKey = `${prefix}/${fingerprint}-cover.png`
+      const [videoUrl, coverUrl] = await Promise.all([
+        uploadR2(rendered.videoPath, videoKey, 'video/mp4'),
+        uploadR2(rendered.coverPath, coverKey, 'image/png'),
+      ])
+      const payload = bufferPayload({ slot, copy, creative: rendered.creative, videoUrl, dueAt: schedule.dueAt })
+      bufferResult = await scheduleWithBuffer(payload, resolve(directory, 'buffer-payload.json'))
+      const manifest = {
+        version: 2,
+        platform: slot.platform,
+        slot: slot.id,
+        dueAt: schedule.dueAt,
+        seed,
+        attempt,
+        fingerprint,
+        videoUrl,
+        coverUrl,
+        creative: rendered.creative,
+        copy,
+        quality: visualReview,
+        aiUsage,
+        bufferResult,
+        scheduled: writeEnabled,
+        createdAt: new Date().toISOString(),
+      }
+      const manifestPath = resolve(directory, 'manifest.json')
+      await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
+      if (writeEnabled) {
+        try {
+          await uploadR2(manifestPath, `${prefix}/manifest.json`, 'application/json')
+        } catch (error) {
+          error.bufferResult = bufferResult
+          error.videoUrl = videoUrl
+          error.coverUrl = coverUrl
+          throw error
+        }
+      }
+      console.log(`PASS ${slot.platform}/${slot.id}: quality ${visualReview.score}/100 · ${writeEnabled ? 'scheduled' : 'dry-run'}`)
+      return {
+        platform: slot.platform,
+        slot: slot.id,
+        status: writeEnabled ? 'scheduled' : 'dry_run',
+        dueAt: schedule.dueAt,
+        attempt,
+        qualityScore: visualReview.score,
+        adjudicated: visualReview.adjudicated === true,
+        aiUsage,
+        videoUrl,
+        coverUrl,
+      }
+    } catch (error) {
+      const message = String(error?.message || error)
+      failures.push({ attempt, message })
+      await writeFile(resolve(directory, 'failure.json'), `${JSON.stringify({
+        platform: slot.platform,
+        slot: slot.id,
+        attempt,
+        message,
+        occurredAt: new Date().toISOString(),
+      }, null, 2)}\n`)
+      console.error(`RETRY ${slot.platform}/${slot.id} attempt ${attempt}: ${message}`)
+      if (bufferResult) {
+        return {
+          platform: slot.platform,
+          slot: slot.id,
+          status: 'scheduled_unconfirmed',
+          dueAt: schedule.dueAt,
+          attempt,
+          failures,
+          bufferResult,
+          warning: 'Buffer accepted the post but its R2 audit manifest could not be confirmed; retry was suppressed to prevent a duplicate.',
+          videoUrl: error.videoUrl,
+          coverUrl: error.coverUrl,
+        }
+      }
+    }
+  }
+
+  return {
+    platform: slot.platform,
+    slot: slot.id,
+    status: 'failed',
+    dueAt: schedule.dueAt,
+    attempts: MAX_SLOT_ATTEMPTS,
+    failures,
+  }
+}
 
 try {
   for (const slot of slots) {
-    const schedule = dueAtFor(slot)
-    const prefix = `social/${schedule.localDate}/${slot.platform}/${slot.id}`
-    const manifestUrl = `${required('R2_PUBLIC_BASE_URL').replace(/\/$/, '')}/${prefix}/manifest.json`
-    if (await alreadyCompleted(manifestUrl)) {
-      console.log(`SKIP ${slot.platform}/${slot.id}: ${schedule.localDate} is already scheduled`)
-      summary.posts.push({ platform: slot.platform, slot: slot.id, status: 'already_scheduled', dueAt: schedule.dueAt, manifestUrl })
-      continue
+    try {
+      const schedule = dueAtFor(slot)
+      const prefix = `social/${schedule.localDate}/${slot.platform}/${slot.id}`
+      summary.posts.push(await processSlot(slot, schedule, prefix))
+    } catch (error) {
+      const message = String(error?.message || error)
+      console.error(`FAILED ${slot.platform}/${slot.id}: ${message}`)
+      summary.posts.push({ platform: slot.platform, slot: slot.id, status: 'failed', error: message })
     }
-
-    const seed = safeToken(`${schedule.localDate}-${slot.platform}-${slot.id}-daily`)
-    const directory = absolutePath(`output/social-publishing/scheduled/${schedule.localDate}/${slot.platform}/${slot.id}`)
-    await mkdir(directory, { recursive: true })
-    console.log(`RENDER ${slot.platform}/${slot.id} -> ${schedule.dueAt}`)
-    const rendered = await renderCreative(browser, { platform: slot.platform, seed, directory })
-    const [video, cover] = await Promise.all([inspectVideo(rendered.videoPath), inspectCover(rendered.coverPath)])
-    const deterministicErrors = []
-    if (!video.hasVideo || !video.hasAudio) deterministicErrors.push('MP4 must contain video and audio tracks')
-    if (!video.duration || video.duration < 12 || video.duration > 14.5) deterministicErrors.push(`unexpected duration: ${video.duration}`)
-    if (cover.width !== 1080 || cover.height !== 1920 || cover.format !== 'png') deterministicErrors.push('cover must be a 1080x1920 PNG')
-    if (!rendered.renderMetadata.hasAudio) deterministicErrors.push('renderer reported a missing audio track')
-    if (deterministicErrors.length) throw new Error(`${slot.platform}: ${deterministicErrors.join('; ')}`)
-
-    const copyResult = await generateCopy(slot.platform, rendered.creative)
-    const copy = copyResult.copy
-    const copyErrors = validateCopy(copy, slot.platform, rendered.creative)
-    if (copyErrors.length) throw new Error(`${slot.platform}: copy QA failed: ${copyErrors.join('; ')}`)
-    const visualResult = await reviewVisuals({ platform: slot.platform, ...rendered })
-    const visualReview = visualResult.review
-    const aiUsage = { copy: copyResult.usage, visual: visualResult.usage }
-    await writeFile(resolve(directory, 'quality-review.json'), `${JSON.stringify({ deterministicErrors, copyErrors, visualReview, aiUsage }, null, 2)}\n`)
-    if (!visualReview.pass) throw new Error(`${slot.platform}: visual QA blocked scheduling (${visualReview.score}/100): ${visualReview.issues.join('; ')}`)
-
-    const fingerprint = createHash('sha256').update(await readFile(rendered.videoPath)).digest('hex').slice(0, 16)
-    const videoKey = `${prefix}/${fingerprint}.mp4`
-    const coverKey = `${prefix}/${fingerprint}-cover.png`
-    const [videoUrl, coverUrl] = await Promise.all([
-      uploadR2(rendered.videoPath, videoKey, 'video/mp4'),
-      uploadR2(rendered.coverPath, coverKey, 'image/png'),
-    ])
-    const payload = bufferPayload({ slot, copy, creative: rendered.creative, videoUrl, dueAt: schedule.dueAt })
-    const bufferResult = await scheduleWithBuffer(payload, resolve(directory, 'buffer-payload.json'))
-    const manifest = {
-      version: 1,
-      platform: slot.platform,
-      slot: slot.id,
-      dueAt: schedule.dueAt,
-      seed,
-      fingerprint,
-      videoUrl,
-      coverUrl,
-      creative: rendered.creative,
-      copy,
-      quality: visualReview,
-      aiUsage,
-      bufferResult,
-      scheduled: writeEnabled,
-      createdAt: new Date().toISOString(),
-    }
-    const manifestPath = resolve(directory, 'manifest.json')
-    await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
-    if (writeEnabled) await uploadR2(manifestPath, `${prefix}/manifest.json`, 'application/json')
-    summary.posts.push({ platform: slot.platform, slot: slot.id, status: writeEnabled ? 'scheduled' : 'dry_run', dueAt: schedule.dueAt, qualityScore: visualReview.score, aiUsage, videoUrl, coverUrl })
-    console.log(`PASS ${slot.platform}/${slot.id}: quality ${visualReview.score}/100 · ${writeEnabled ? 'scheduled' : 'dry-run'}`)
   }
 } finally {
   await browser.close()
 }
 
+summary.quota = summarizePlatformQuota(summary.posts, { writeEnabled })
 const summaryPath = absolutePath('output/social-publishing/scheduled/latest-summary.json')
 await mkdir(dirname(summaryPath), { recursive: true })
 await writeFile(summaryPath, `${JSON.stringify(summary, null, 2)}\n`)
 console.log(`SUMMARY ${summaryPath}`)
+console.log(`QUOTA ${JSON.stringify(summary.quota.platforms)}`)
+if (!summary.quota.pass) {
+  throw new Error(`Daily platform quota failed: ${quotaFailureMessage(summary.quota)}`)
+}

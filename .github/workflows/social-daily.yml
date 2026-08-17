@@ -78,6 +78,15 @@ jobs:
       - name: Generate, review, upload, and schedule
         run: pnpm social:schedule-daily
 
+      - name: Write platform quota summary
+        if: always()
+        run: |
+          if [ -f output/social-publishing/scheduled/latest-summary.json ]; then
+            node -e 'const fs=require("fs");const s=JSON.parse(fs.readFileSync("output/social-publishing/scheduled/latest-summary.json","utf8"));const q=s.quota||{};const p=q.platforms||{};const lines=["## Daily social quota",`Overall: ${q.pass?"PASS":"FAIL"}`,"", "| Platform | Accepted | Expected | Failed | Status |", "|---|---:|---:|---:|---|"];for(const name of ["tiktok","instagram","youtube"]){const item=p[name]||{};lines.push(`| ${name} | ${item.accepted??0} | ${item.expected??3} | ${item.failed??0} | ${item.pass?"PASS":"FAIL"} |`)}fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join("\n")+"\n")'
+          else
+            printf '## Daily social quota\nNo summary was produced.\n' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Upload private production report
         if: always()
         uses: actions/upload-artifact@v4
@@ -86,6 +95,7 @@ jobs:
           path: |
             output/social-publishing/scheduled/**/manifest.json
             output/social-publishing/scheduled/**/quality-review.json
+            output/social-publishing/scheduled/**/failure.json
             output/social-publishing/scheduled/**/buffer-payload.json
             output/social-publishing/scheduled/latest-summary.json
           if-no-files-found: warn
