@@ -4,8 +4,9 @@ import { expansionIdsForFamily, indexableExpansionIds, indexableLimitForFamily }
 const INDEXABLE_EXPANSION_IDS = Object.freeze(indexableExpansionIds(catalogExpansionCrosshairs))
 const INDEXABLE_EXPANSION_SET = new Set(INDEXABLE_EXPANSION_IDS)
 
-const indexedFamilyIds = (familyKey, limit = indexableLimitForFamily(familyKey)) => expansionIdsForFamily(catalogExpansionCrosshairs, familyKey, limit)
+const indexedFamilyIds = (familyKey, limit = indexableLimitForFamily(familyKey)) => expansionIdsForFamily(catalogExpansionCrosshairs, familyKey)
   .filter((id) => INDEXABLE_EXPANSION_SET.has(id))
+  .slice(0, limit)
 
 const indexedColorIds = (colorKey, limit = 6) => catalogExpansionCrosshairs
   .filter((item) => INDEXABLE_EXPANSION_SET.has(item.id) && item.colorKey === colorKey)

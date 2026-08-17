@@ -1,14 +1,23 @@
 import { generateCrosshairCode, parseCrosshairCode } from '../utils/crosshairCode.js'
 import { haveSameVisibleShape } from '../utils/crosshairSimilarity.js'
 
-const SOURCE_CHECKED_AT = '2026-08-11'
-const TARGET_PER_FAMILY = 20
-// Release index coverage in measured batches. Phase 2 raises the original
-// seven-per-family baseline to 11, with two search-led families receiving one
-// additional representative. This adds exactly 50 indexable shapes without
-// making every generated variant indexable at once.
-const INDEXABLE_PER_FAMILY = 11
-const INDEXABLE_FAMILY_OVERRIDES = Object.freeze({ microGap: 12, tapDot: 12 })
+const SOURCE_CHECKED_AT = '2026-08-17'
+// Phase 3 adds exactly 100 original, geometry-distinct crosshairs without
+// creating a second catalog system: four high-intent families add nine shapes
+// and the remaining eight add eight (4 × 9 + 8 × 8 = 100).
+const TARGET_PER_FAMILY = 28
+const TARGET_FAMILY_OVERRIDES = Object.freeze({
+  microGap: 29,
+  tapDot: 29,
+  compactCross: 29,
+  openCross: 29,
+})
+// Preserve the Phase 2 index subset, then add every Phase 3 record explicitly.
+// This avoids opening the older noindex variants merely because their array
+// position comes before the new records.
+const BASE_VARIANTS_PER_FAMILY = 20
+const BASE_INDEXABLE_PER_FAMILY = 11
+const BASE_INDEXABLE_FAMILY_OVERRIDES = Object.freeze({ microGap: 12, tapDot: 12 })
 
 const palette = [
   { key: 'cyan', preset: '5', hex: '#00ffff' },
@@ -22,12 +31,13 @@ const palette = [
 const variantNames = [
   'Apex', 'Bolt', 'Drift', 'Echo', 'Flux', 'Ghost', 'Ion', 'Jolt', 'Kite', 'Lynx',
   'Mint', 'Nova', 'Orbit', 'Prism', 'Quartz', 'Rift', 'Slate', 'Tide', 'Vex', 'Wave',
+  'Arc', 'Beacon', 'Comet', 'Dash', 'Ember', 'Frost', 'Glide', 'Helix', 'Pulse', 'Zenith',
 ]
 
 const localizedVariantNames = {
-  es: ['Ápice', 'Rayo', 'Deriva', 'Eco', 'Flujo', 'Fantasma', 'Ion', 'Salto', 'Cometa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Cuarzo', 'Grieta', 'Pizarra', 'Marea', 'Vórtice', 'Ola'],
-  'pt-BR': ['Ápice', 'Raio', 'Deriva', 'Eco', 'Fluxo', 'Fantasma', 'Íon', 'Salto', 'Pipa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Quartzo', 'Fenda', 'Ardósia', 'Maré', 'Vórtice', 'Onda'],
-  'zh-CN': ['尖峰', '闪电', '漂移', '回声', '流光', '幽灵', '离子', '跃动', '风筝', '山猫', '薄荷', '新星', '轨道', '棱镜', '石英', '裂隙', '岩板', '潮汐', '涡旋', '波浪'],
+  es: ['Ápice', 'Rayo', 'Deriva', 'Eco', 'Flujo', 'Fantasma', 'Ion', 'Salto', 'Cometa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Cuarzo', 'Grieta', 'Pizarra', 'Marea', 'Vórtice', 'Ola', 'Arco', 'Faro', 'Meteoro', 'Impulso', 'Brasa', 'Escarcha', 'Planeo', 'Hélice', 'Pulso', 'Cenit'],
+  'pt-BR': ['Ápice', 'Raio', 'Deriva', 'Eco', 'Fluxo', 'Fantasma', 'Íon', 'Salto', 'Pipa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Quartzo', 'Fenda', 'Ardósia', 'Maré', 'Vórtice', 'Onda', 'Arco', 'Farol', 'Cometa', 'Arranque', 'Brasa', 'Geada', 'Deslize', 'Hélice', 'Pulso', 'Zênite'],
+  'zh-CN': ['尖峰', '闪电', '漂移', '回声', '流光', '幽灵', '离子', '跃动', '风筝', '山猫', '薄荷', '新星', '轨道', '棱镜', '石英', '裂隙', '岩板', '潮汐', '涡旋', '波浪', '弧光', '信标', '彗星', '疾冲', '余烬', '霜冻', '滑翔', '螺旋', '脉冲', '天顶'],
 }
 
 const familyCopy = {
@@ -135,6 +145,7 @@ const familyDefinitions = [
   {
     key: 'microGap', category: 'small', useCases: ['headshots', 'one-tap', 'vandal'],
     candidates: () => combinations([[1, 3, 5], [1, 2], [1, 2, 3, 4], [false, true]], ([length, thickness, offset, outline]) => baseOptions({ outline: { enabled: outline, opacity: 1, thickness: 1 }, inner: { enabled: true, opacity: 1, length, thickness, offset } })),
+    expansionCandidates: () => combinations([[1, 3], [2, 4, 5], [1, 2], [1, 3], [false, true]], ([horizontalLength, verticalLength, thickness, offset, outline]) => baseOptions({ outline: { enabled: outline, opacity: 1, thickness: 1 }, inner: { enabled: true, opacity: 1, horizontalLength, verticalLength, thickness, offset } })),
   },
   {
     key: 'tapDot', category: 'dot', useCases: ['headshots', 'one-tap', 'vandal'],
@@ -224,13 +235,20 @@ function localizedSeoDetails(definition, parsed) {
 export function buildCatalogExpansion(existingCrosshairs = []) {
   const accepted = []
 
-  for (const family of familyDefinitions) {
+  const addFamilyVariants = (family, familyIndex, startCount, targetCount) => {
     const definition = familyCopy[family.key]
-    let familyCount = 0
+    let familyCount = startCount
 
-    for (const options of family.candidates()) {
-      if (familyCount >= TARGET_PER_FAMILY) break
-      const paletteItem = palette[(accepted.length + familyCount) % palette.length]
+    const candidates = startCount === 0
+      ? family.candidates()
+      : [...family.candidates(), ...(family.expansionCandidates?.() || [])]
+
+    for (const options of candidates) {
+      if (familyCount >= targetCount) break
+      // Keep the original 20 variants in every family byte-for-byte stable.
+      // The previous formula was equivalent to this while every family had 20
+      // items, but coupled later families to the size of all earlier families.
+      const paletteItem = palette[((familyIndex * 20) + (familyCount * 2)) % palette.length]
       const code = generateCrosshairCode({ ...options, colorPreset: paletteItem.preset })
       const candidate = { code, color: paletteItem.hex }
       if ([...existingCrosshairs, ...accepted].some((item) => haveSameVisibleShape(item, candidate))) continue
@@ -264,9 +282,23 @@ export function buildCatalogExpansion(existingCrosshairs = []) {
       familyCount += 1
     }
 
-    if (familyCount !== TARGET_PER_FAMILY) {
-      throw new Error(`Catalog expansion family ${family.key} generated ${familyCount}/${TARGET_PER_FAMILY} unique shapes`)
+    if (familyCount !== targetCount) {
+      throw new Error(`Catalog expansion family ${family.key} generated ${familyCount}/${targetCount} unique shapes`)
     }
+  }
+
+  // First reproduce the original 20 × 12 catalog exactly. Building the base
+  // in a separate pass prevents new shapes from an early family from shifting
+  // IDs, colors, or geometry in a later family's established pages.
+  for (const [familyIndex, family] of familyDefinitions.entries()) {
+    addFamilyVariants(family, familyIndex, 0, 20)
+  }
+
+  // Then append only new shapes. The candidate scan naturally skips the 20
+  // established shapes because they already exist in `accepted`.
+  for (const [familyIndex, family] of familyDefinitions.entries()) {
+    const targetCount = TARGET_FAMILY_OVERRIDES[family.key] || TARGET_PER_FAMILY
+    addFamilyVariants(family, familyIndex, 20, targetCount)
   }
 
   return accepted
@@ -274,7 +306,7 @@ export function buildCatalogExpansion(existingCrosshairs = []) {
 
 export const EXPANSION_FAMILY_KEYS = Object.freeze(familyDefinitions.map((family) => family.key))
 
-export function expansionIdsForFamily(items, familyKey, limit = TARGET_PER_FAMILY) {
+export function expansionIdsForFamily(items, familyKey, limit = TARGET_FAMILY_OVERRIDES[familyKey] || TARGET_PER_FAMILY) {
   return items.filter((item) => item.designFamily === familyKey).slice(0, limit).map((item) => item.id)
 }
 
@@ -283,13 +315,22 @@ export function expansionIdsForColor(items, colorKey, limit = 8) {
 }
 
 export function indexableExpansionIds(items) {
-  return familyDefinitions.flatMap((family) => expansionIdsForFamily(
-    items,
-    family.key,
-    INDEXABLE_FAMILY_OVERRIDES[family.key] || INDEXABLE_PER_FAMILY,
-  ))
+  return familyDefinitions.flatMap((family) => {
+    const familyIds = expansionIdsForFamily(items, family.key)
+    const baseLimit = BASE_INDEXABLE_FAMILY_OVERRIDES[family.key] || BASE_INDEXABLE_PER_FAMILY
+    return [
+      ...familyIds.slice(0, baseLimit),
+      ...familyIds.slice(BASE_VARIANTS_PER_FAMILY),
+    ]
+  })
+}
+
+export function phase3ExpansionIds(items) {
+  return familyDefinitions.flatMap((family) => expansionIdsForFamily(items, family.key).slice(BASE_VARIANTS_PER_FAMILY))
 }
 
 export function indexableLimitForFamily(familyKey) {
-  return INDEXABLE_FAMILY_OVERRIDES[familyKey] || INDEXABLE_PER_FAMILY
+  const baseLimit = BASE_INDEXABLE_FAMILY_OVERRIDES[familyKey] || BASE_INDEXABLE_PER_FAMILY
+  const targetCount = TARGET_FAMILY_OVERRIDES[familyKey] || TARGET_PER_FAMILY
+  return baseLimit + (targetCount - BASE_VARIANTS_PER_FAMILY)
 }
