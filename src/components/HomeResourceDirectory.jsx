@@ -69,6 +69,16 @@ const directoryCopy = {
     tools: '直接上手',
     toolsHint: '生成、解析、预览或对比准星',
   },
+  ja: {
+    title: '目的に合わせて探す',
+    intro: '必要な項目だけ開いて、クロスヘア・ガイド・ツールをすぐ見つけられます。',
+    collections: '形・用途から探す',
+    collectionsHint: 'プロ使用、ドット、小さい、かわいいクロスヘアなど',
+    guides: 'クロスヘアガイド',
+    guidesHint: '設定、コピー、エラー表示、プリエイムを日本語で確認',
+    tools: '今すぐ使えるツール',
+    toolsHint: '生成、解析、プレビュー、比較',
+  },
 }
 
 function ResourceDisclosure({ label, hint, children }) {

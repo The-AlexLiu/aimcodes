@@ -69,7 +69,7 @@ SEO/语言改动后检查：
 
 - title 与 description；
 - canonical；
-- 四语种双向 hreflang；
+- 五语种双向 hreflang；
 - Open Graph；
 - JSON-LD；
 - robots.txt；

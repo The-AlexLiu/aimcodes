@@ -8,6 +8,7 @@ const settingLabels = {
   es: { dot: 'Punto central', outline: 'Contorno', inner: 'Líneas internas', outer: 'Líneas externas', color: 'Color', on: 'Sí', off: 'No', copied: 'Copiado' },
   'pt-BR': { dot: 'Ponto central', outline: 'Contorno', inner: 'Linhas internas', outer: 'Linhas externas', color: 'Cor', on: 'Sim', off: 'Não', copied: 'Copiado' },
   'zh-CN': { dot: '中心点', outline: '轮廓', inner: '内侧线条', outer: '外侧线条', color: '颜色', on: '开启', off: '关闭', copied: '已复制' },
+  ja: { dot: 'センタードット', outline: '輪郭', inner: '内側ライン', outer: '外側ライン', color: '色', on: 'オン', off: 'オフ', copied: 'コピー済み' },
 }
 
 function settingRows(crosshair, locale) {

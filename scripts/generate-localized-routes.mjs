@@ -347,11 +347,11 @@ function staticPublisherValue(locale, type) {
 }
 
 function staticReferenceLabel(locale) {
-  return { en: 'Official references', es: 'Referencias oficiales', 'pt-BR': 'Referências oficiais', 'zh-CN': '官方参考资料' }[locale] || 'Official references'
+  return { en: 'Official references', es: 'Referencias oficiales', 'pt-BR': 'Referências oficiais', 'zh-CN': '官方参考资料', ja: '公式資料' }[locale] || 'Official references'
 }
 
 function staticFaqLabel(locale) {
-  return { en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问' }[locale] || 'Common questions'
+  return { en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问', ja: 'よくある質問' }[locale] || 'Common questions'
 }
 
 function staticHeroImage(locale, route, crosshair) {

@@ -9,6 +9,7 @@ export default function PublisherValueSection({ locale, type }) {
     es: ['Mira cómo comprobamos los códigos', 'Cómo importar un código'],
     'pt-BR': ['Veja como a gente confere os códigos', 'Como importar um código'],
     'zh-CN': ['看看我们怎么筛代码', '准星代码怎么导入'],
+    ja: ['コードの確認方法', 'コードのインポート方法'],
   }[locale]
 
   return (

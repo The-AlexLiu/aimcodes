@@ -5,6 +5,7 @@ const labels = {
   es: { home: 'Inicio', crosshairs: 'Miras', guides: 'Guías', tools: 'Herramientas' },
   'pt-BR': { home: 'Início', crosshairs: 'Miras', guides: 'Guias', tools: 'Ferramentas' },
   'zh-CN': { home: '首页', crosshairs: '找准星', guides: '准星指南', tools: '准星工具' },
+  ja: { home: 'ホーム', crosshairs: 'クロスヘア', guides: 'ガイド', tools: 'ツール' },
 }
 
 export default function SeoBreadcrumbs({ locale, section, current }) {

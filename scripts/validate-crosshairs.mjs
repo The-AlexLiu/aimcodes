@@ -1,9 +1,9 @@
 import { crosshairs } from '../src/data/crosshairs.js'
-import { crosshairCopy } from '../src/i18n/translations.js'
+import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { parseCrosshairCode, updateCrosshairColor } from '../src/utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance, haveSameVisibleShape } from '../src/utils/crosshairSimilarity.js'
 
-const locales = ['en', 'es', 'zh-CN', 'pt-BR']
+const locales = ['en', 'es', 'zh-CN', 'pt-BR', 'ja']
 const categories = new Set(['dot', 'small', 'classic', 'cute', 'fun'])
 const allowedLegacyDuplicateIds = new Set(['yay', 'recoil-c'])
 const errors = []
@@ -52,8 +52,8 @@ for (const item of crosshairs) {
   validateTokenStructure(item)
 
   for (const locale of locales) {
-    const copy = crosshairCopy[item.id]?.[locale]
-    if (!copy || copy.length !== 3 || copy.some((value) => !String(value).trim())) {
+    const localized = localizeCrosshair(item, locale, createTranslator(locale))
+    if (![localized.name, localized.shortName, localized.description].every((value) => String(value || '').trim())) {
       addError(item, `missing complete ${locale} localization`)
     }
   }

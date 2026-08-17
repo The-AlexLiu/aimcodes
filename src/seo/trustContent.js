@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
+import { japaneseTrust } from './japaneseContent.js'
 
 export const TRUST_UPDATED_AT = '2026-08-11'
 
@@ -156,6 +157,10 @@ const content = {
 }
 
 export function trustCopy(locale, pageKey) {
+  if (locale === 'ja') {
+    const page = japaneseTrust[pageKey] || japaneseTrust.about
+    return { ...page, updated: '最終更新', related: 'サイト情報', back: 'クロスヘアコードを見る' }
+  }
   const localized = content[locale] || content.en
   return { ...localized[pageKey], updated: localized.updated, related: localized.related, back: localized.back }
 }

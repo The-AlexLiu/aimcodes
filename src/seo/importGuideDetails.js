@@ -1,3 +1,5 @@
+import { japaneseImportGuide } from './japaneseContent.js'
+
 const details = {
   en: {
     quickLabel: 'Quick answer',
@@ -70,5 +72,6 @@ const details = {
 }
 
 export function importGuideDetails(locale) {
+  if (locale === 'ja') return japaneseImportGuide
   return details[locale] || details.en
 }

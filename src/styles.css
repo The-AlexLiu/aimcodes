@@ -677,11 +677,15 @@ legend { margin-bottom: 10px; }
 
 .app-shell[data-locale='zh-CN'] h1,
 .app-shell[data-locale='zh-CN'] h2,
-.app-shell[data-locale='zh-CN'] h3 {
+.app-shell[data-locale='zh-CN'] h3,
+.app-shell[data-locale='ja'] h1,
+.app-shell[data-locale='ja'] h2,
+.app-shell[data-locale='ja'] h3 {
   letter-spacing: -.02em;
   line-break: strict;
 }
-.app-shell[data-locale='zh-CN'] { --display-font: var(--body-font); }
+.app-shell[data-locale='zh-CN'],
+.app-shell[data-locale='ja'] { --display-font: var(--body-font); }
 
 .not-found-page { min-height: 62vh; padding: 90px 0; display: grid; place-content: center; justify-items: start; }
 .not-found-page > span { color: var(--accent); font: 850 14px/1 var(--display-font); letter-spacing: 2px; }

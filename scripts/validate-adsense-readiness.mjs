@@ -76,4 +76,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log('Validated AdSense trust pages, future ad-placement allowlist, disclosures, and placeholder safety across four languages.')
+console.log(`Validated AdSense trust pages, future ad-placement allowlist, disclosures, and placeholder safety across ${Object.keys(localeRoutes).length} languages.`)

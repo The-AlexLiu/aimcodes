@@ -10,7 +10,7 @@
 pnpm check:auto
 ```
 
-4. Cursor/GPT 阅读 `.aimcodes-reports/current/scope.md` 和 `verification.md`，审核语义差异、数据来源、四语种、链接、静态资源、移动端、GA4 参数和敏感信息。
+4. Cursor/GPT 阅读 `.aimcodes-reports/current/scope.md` 和 `verification.md`，审核语义差异、数据来源、五语种、链接、静态资源、移动端、GA4 参数和敏感信息。
 5. PR 前无条件运行 `pnpm check:release`；脚本通过不代表可以跳过人工智能审核。
 6. 输出拟提交文件、提交信息和 PR 描述草稿。
 7. 只有用户明确要求“提交/推送/创建 PR”后才能执行 GitHub 写操作。
