@@ -19,7 +19,7 @@
 - 2026-08-13 社媒素材质量门：四语种发布视频写入 AimCodes 原创合成背景音乐与时间轴同步的等待/开始/点击/出分反馈音；可复现素材种子会轮换开场、成绩、准星、封面、CTA、发布文案与音乐配置。每条素材必须同时具备 1080 × 1920 PNG 封面；跨平台 MP4 音轨、时长、视频轨与封面尺寸检查失败时，草稿流水线会直接阻止继续。
 - 2026-08-16 每日社媒自动化扩量：GitHub Actions 每天北京时间 01:30 为 TikTok、Instagram、YouTube 各生成 3 条、合计 9 条不同英文素材；三轮发布时间为 08:10–08:50、18:10–18:50、23:10–23:50。视频与封面上传 Cloudflare R2，AIHubMix 负责玩家口吻文案与五帧画面检查，硬性检查或 90 分质量门未通过时不写入 Buffer。GitHub Artifact 仅保留 7 天轻量报告，不再重复存储媒体文件；月度成本假设与升级阈值见 `docs/SOCIAL_AUTOMATION_COST.md`。
 - 2026-08-16 首次正式自动排期已经完成：Instagram、YouTube 与 TikTok 素材分别以 98、98、100 分通过检查并进入 Buffer；已新增文案发布字段检查，阻止技术准星 ID、素材 Seed 与自动化术语进入平台正文。
-- 2026-08-17 社媒任务可靠性修复：定位到视觉模型在“画面事实一致”的同时返回 85 分失败，且旧流程会因此中断后续 Instagram、YouTube 与其他时段。新流程保持 90 分门槛，新增独立复核、每时段最多 3 次重新生成、九个时段隔离执行、失败报告和三平台各 3 条的最终严格配额检查；R2 Manifest 继续阻止重跑产生重复帖子。
+- 2026-08-17 社媒任务可靠性修复已通过 PR #42 发布到生产提交 `c6307d5`：定位到视觉模型在“画面事实一致”的同时返回 85 分失败，且旧流程会因此中断后续 Instagram、YouTube 与其他时段。新流程保持 90 分门槛，新增独立复核、每时段最多 3 次重新生成、九个时段隔离执行、失败报告和三平台各 3 条的最终严格配额检查；R2 Manifest 继续阻止重跑产生重复帖子。正式工作流 #32008397022 已验证 TikTok、Instagram、YouTube 均为 3/3，共 9 条、全部 100 分进入 Buffer；部分时段在第 2–3 次尝试通过，证明质量重试与跨频道隔离生效。
 - 2026-08-12 第二批目录索引与职业候选管线：开放 50 个既有高质量详情，索引总数提升至 150；职业候选只保存研究线索并强制等待一手来源，生产提交 `06eebb6`、PR #25。
 - 2026-08-12 首批玩家来源职业配置：新增 Sacy、Saadhak、mwzera、Cortezia、Sato、Tteuw，并把 Aspas 更新为玩家频道指令中的配置；所有记录均保存直播命令或命令链接文档快照，普通目录保持外观去重。
 - 2026-08-12 页面加载与玩家文案修复：准星详情不再展示“代码已检查/检查日期”，生成器移除检查式提示；正常加载时隐藏静态 SEO 兜底，避免进入语言首页时闪现整页链接，生产提交 `2d01a4f`、PR #22。
@@ -32,8 +32,8 @@
 
 - 主仓库：<https://github.com/The-AlexLiu/aimcodes>
 - 当前生产基线分支：`main`
-- 最近产品代码生产提交：`4a3a2b3 feat: add Japanese localization (#40)`
-- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/40>
+- 最近产品代码生产提交：`c6307d5 fix: harden daily social publishing (#42)`
+- 最近产品代码发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/42>
 - P0 搜索增长发布 PR：<https://github.com/The-AlexLiu/aimcodes/pull/20>
 - 渲染器仓库：<https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer>
 - 渲染器最近提交：`d2eef82 新增社媒视频配套封面`
