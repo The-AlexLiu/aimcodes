@@ -87,12 +87,12 @@ for (const item of hiddenDuplicates) {
   }
 }
 
-if (crosshairs.length < 302) {
-  errors.push(`catalog: expected at least 302 source codes, found ${crosshairs.length}`)
+if (crosshairs.length < 408) {
+  errors.push(`catalog: expected at least 408 source codes, found ${crosshairs.length}`)
 }
 
-if (visibleCrosshairs.length < 300) {
-  errors.push(`catalog: expected at least 300 distinct visible styles, found ${visibleCrosshairs.length}`)
+if (visibleCrosshairs.length < 400) {
+  errors.push(`catalog: expected at least 400 distinct visible styles, found ${visibleCrosshairs.length}`)
 }
 
 if (errors.length) {

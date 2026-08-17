@@ -5,14 +5,18 @@ import {
   indexableCrosshairIds,
   indexableCrosshairs,
 } from '../src/data/catalogManifest.js'
+import { catalogExpansionCrosshairs } from '../src/data/crosshairs.js'
+import { phase3ExpansionIds } from '../src/data/catalogExpansion.js'
 
 const errors = []
 const allIds = catalogCrosshairs.map((item) => item.id)
 const allIdSet = new Set(allIds)
 const indexableIdSet = new Set(indexableCrosshairIds)
-const EXPECTED_INDEXABLE_COUNT = 156
+const EXPECTED_INDEXABLE_COUNT = 256
+const EXPECTED_PHASE_3_COUNT = 100
 let collectionNoindexReferences = 0
 const collectionMembership = new Map()
+const phase3Ids = phase3ExpansionIds(catalogExpansionCrosshairs)
 
 if (allIds.length !== allIdSet.size) errors.push('catalog contains duplicate crosshair IDs')
 if (indexableCrosshairIds.length !== indexableIdSet.size) errors.push('indexable list contains duplicate crosshair IDs')
@@ -21,6 +25,12 @@ if (indexableCrosshairIds.length !== EXPECTED_INDEXABLE_COUNT) {
 }
 if (indexableCrosshairs.length !== indexableCrosshairIds.length) {
   errors.push(`indexable records mismatch: expected ${indexableCrosshairIds.length}, found ${indexableCrosshairs.length}`)
+}
+if (phase3Ids.length !== EXPECTED_PHASE_3_COUNT) {
+  errors.push(`expected ${EXPECTED_PHASE_3_COUNT} Phase 3 crosshairs, received ${phase3Ids.length}`)
+}
+for (const id of phase3Ids) {
+  if (!indexableIdSet.has(id)) errors.push(`Phase 3 crosshair is not indexable: ${id}`)
 }
 
 for (const id of indexableCrosshairIds) {
