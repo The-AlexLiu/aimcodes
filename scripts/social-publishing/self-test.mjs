@@ -97,6 +97,15 @@ assert.equal(normalizeVisualReview({
   failures: ['Image 4: score is visible before the click.'],
   summary: 'One sequencing defect.',
 }).pass, false)
+const invalidScoreReview = normalizeVisualReview({
+  pass: true,
+  score: 282,
+  failures: [],
+  summary: 'The model confused the reaction time with its QA score.',
+})
+assert.equal(invalidScoreReview.pass, false)
+assert.equal(invalidScoreReview.score, 0)
+assert.ok(invalidScoreReview.failures.includes('Visual reviewer returned a score outside the required 0-100 integer range'))
 
 const completeQuotaPosts = ['tiktok', 'instagram', 'youtube'].flatMap((platform) => [1, 2, 3].map((slot) => ({
   platform,

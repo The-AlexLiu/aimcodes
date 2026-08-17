@@ -2,21 +2,23 @@ export const SOCIAL_PLATFORMS = ['tiktok', 'instagram', 'youtube']
 
 export function normalizeVisualReview(raw, threshold = 90) {
   const score = Number(raw?.score)
+  const scoreIsValid = Number.isInteger(score) && score >= 0 && score <= 100
   const reportedFailures = Array.isArray(raw?.failures)
     ? raw.failures
     : (Array.isArray(raw?.issues) ? raw.issues : ['Visual reviewer returned a malformed failure list'])
   const failures = reportedFailures
     .map((item) => String(item || '').trim())
     .filter(Boolean)
+  if (!scoreIsValid) failures.push('Visual reviewer returned a score outside the required 0-100 integer range')
   const summary = typeof raw?.summary === 'string' ? raw.summary.trim() : ''
   const pass = raw?.pass === true
-    && Number.isFinite(score)
+    && scoreIsValid
     && score >= threshold
     && failures.length === 0
 
   return {
     pass,
-    score: Number.isFinite(score) ? score : 0,
+    score: scoreIsValid ? score : 0,
     failures,
     summary,
   }

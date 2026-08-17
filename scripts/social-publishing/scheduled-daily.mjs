@@ -211,16 +211,22 @@ ${creative.socialCopy}`
 async function reviewVisuals({ platform, creative, coverPath, framePaths, renderMetadata }) {
   const images = await Promise.all([coverPath, ...framePaths].map((path) => base64DataUrl(path)))
   const prompt = `Act as a strict mobile-video QA reviewer for an AimCodes VALORANT short.
-Image 1 is the vertical cover. Images 2-6 are chronological frames from the 13-second video.
+Image 1 is the vertical cover. It is intentionally a result-led promotional cover and may reveal the final average, rank, and matched crosshair before playback.
+Images 2-6 are chronological samples from the 13-second video at approximately 0.7s, 2.8s, 5.7s, 8.8s, and 11.5s. They are NOT consecutive frames: an intermediate round or state can legitimately fall between two samples.
 Return JSON only with keys: pass (boolean), score (integer 0-100), failures (array of short strings), summary (string).
 
 Rendered facts: platform=${platform}; scores=${creative.scores.join('/')}; average=${creative.average}; rank=${creative.rank}; crosshair=${creative.crosshairName}; audio=${renderMetadata.hasAudio}.
-Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, scores appear before their corresponding click result, the cover is weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between chronological frames.
+Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, a score appears before its corresponding click result inside the video sequence, the cover is visually weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between sampled chronological frames.
 
 Rules for a reliable verdict:
 - failures must contain ONLY real defects. Never put passed checks, confirmations, neutral observations, or statements such as “the values match” in failures.
 - Every failure must name the affected image number and visible evidence.
 - If the visible values match the rendered facts, do not describe them as inconsistent.
+- Do not fail Image 1 merely because it reveals the final result; that is the intended cover design.
+- Do not assume Images 2-6 contain every round. A jump from Round 1 to Round 3 is valid when the Round 2 moment falls between sample times.
+- Do not invent requirements such as repeating the rank on every result-related frame. Judge only the defects and facts explicitly listed here.
+- Never include a self-rebuttal, a passed check, or text such as “acceptable”, “no issue”, or “re-evaluate” in failures.
+- score must be an integer from 0 to 100. If score is below ${QUALITY_THRESHOLD}, failures must cite at least one visible, actionable reason.
 - Set pass=true only when score is at least ${QUALITY_THRESHOLD} and failures is empty. Otherwise set pass=false.`
   const first = await callModel({ model: VISION_MODEL, prompt, images, temperature: 0.1 })
   const firstReview = normalizeVisualReview(first.result, QUALITY_THRESHOLD)
