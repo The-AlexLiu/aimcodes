@@ -5,10 +5,11 @@ import { collectionCopy } from './collectionContent.js'
 import { crosshairSlug, routePath, SEO_COLLECTIONS } from './routes.js'
 import { trustCopy } from './trustContent.js'
 import { seoToolCopy } from './toolContent.js'
+import { proPlayerHubCopy } from './proPlayerContent.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
-export const SEO_CONTENT_UPDATED_AT = '2026-08-17'
+export const SEO_CONTENT_UPDATED_AT = '2026-08-19'
 
 const detailMetadata = Object.freeze({
   tenz: Object.freeze({
@@ -61,6 +62,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'catalog') {
     title = localized.meta.catalogTitle
     description = localized.meta.catalogDescription
+  } else if (route.type === 'players') {
+    const players = proPlayerHubCopy(locale)
+    title = players.metaTitle
+    description = players.metaDescription
   } else if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)
     title = collection.metaTitle
@@ -132,14 +137,14 @@ export function routeMetadata(locale, route, crosshair) {
       'zh-CN': `${collection.label}在无畏契约地图中的预览合集`,
       ja: `${collection.label}をVALORANTマップでプレビュー`,
     }[locale] || collection.title
-  } else if (route.type === 'catalog') {
-    imagePath = `/images/og/collections/${SEO_COLLECTIONS.best.slug}.jpg`
+  } else if (route.type === 'catalog' || route.type === 'players') {
+    imagePath = `/images/og/collections/${route.type === 'players' ? SEO_COLLECTIONS.pro.slug : SEO_COLLECTIONS.best.slug}.jpg`
     imageAlt = {
-      en: 'AimCodes VALORANT crosshair library preview',
-      es: 'Vista previa de la biblioteca de miras de VALORANT de AimCodes',
-      'pt-BR': 'Prévia da biblioteca de miras do VALORANT do AimCodes',
-      'zh-CN': 'AimCodes 无畏契约准星库预览',
-      ja: 'AimCodesのVALORANTクロスヘアコード一覧',
+      en: route.type === 'players' ? 'AimCodes VALORANT pro player crosshair profiles' : 'AimCodes VALORANT crosshair library preview',
+      es: route.type === 'players' ? 'Perfiles de miras de profesionales de VALORANT en AimCodes' : 'Vista previa de la biblioteca de miras de VALORANT de AimCodes',
+      'pt-BR': route.type === 'players' ? 'Perfis de miras de pro players de VALORANT no AimCodes' : 'Prévia da biblioteca de miras do VALORANT do AimCodes',
+      'zh-CN': route.type === 'players' ? 'AimCodes 无畏契约职业选手准星档案' : 'AimCodes 无畏契约准星库预览',
+      ja: route.type === 'players' ? 'AimCodesのVALORANTプロ選手クロスヘアプロフィール' : 'AimCodesのVALORANTクロスヘアコード一覧',
     }[locale] || title
   }
 

@@ -102,6 +102,7 @@ export function crosshairSlug(id) {
 export function routePath(locale, route = { type: 'home' }) {
   const prefix = localePath(locale).replace(/\/$/, '')
   if (route.type === 'catalog') return `${prefix}/crosshairs/`
+  if (route.type === 'players') return `${prefix}/pro-players/`
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
   if (route.type === 'collection') return `${prefix}/${SEO_COLLECTIONS[route.collectionKey]?.slug || SEO_COLLECTIONS.best.slug}/`
   if (route.type === 'article') return `${prefix}/${SEO_ARTICLES[route.articleKey]?.slug || SEO_ARTICLES.settings.slug}/`
@@ -119,6 +120,7 @@ export function parseSeoRoute(pathname = '/') {
 
   if (rest.length === 0) return { locale, type: 'home' }
   if (rest.length === 1 && rest[0] === 'crosshairs') return { locale, type: 'catalog' }
+  if (rest.length === 1 && rest[0] === 'pro-players') return { locale, type: 'players' }
   if (rest.length === 1 && rest[0] === 'reaction-time-test') return { locale, type: 'finder' }
   if (rest.length === 1 && rest[0] === 'how-to-import-valorant-crosshair') return { locale, type: 'guide' }
   if (rest.length === 1 && slugToCollectionKey[rest[0]]) return { locale, type: 'collection', collectionKey: slugToCollectionKey[rest[0]] }

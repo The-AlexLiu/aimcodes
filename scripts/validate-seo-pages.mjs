@@ -17,6 +17,8 @@ import { seoToolCopy } from '../src/seo/toolContent.js'
 import { isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
 import { CONTACT_EMAIL } from '../src/config/contact.js'
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
+import { proPlayerProfiles } from '../src/data/proPlayerProfiles.js'
+import { proPlayerHubCopy } from '../src/seo/proPlayerContent.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -33,6 +35,7 @@ for (const locale of Object.keys(localeRoutes)) {
   const routes = [
     { type: 'home' },
     { type: 'catalog' },
+    { type: 'players' },
     { type: 'finder' },
     { type: 'guide' },
     ...crosshairCollectionKeys.map((collectionKey) => ({ type: 'collection', collectionKey })),
@@ -109,6 +112,16 @@ for (const locale of Object.keys(localeRoutes)) {
           if (!item || !html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing collection link for ${id}`)
         }
       }
+      if (route.type === 'players') {
+        const players = proPlayerHubCopy(locale)
+        if (!html.includes('"@type":"CollectionPage"')) errors.push(`${path}: CollectionPage structured data missing`)
+        if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: BreadcrumbList missing`)
+        if (!html.includes(escapeHtml(players.intro))) errors.push(`${path}: player-facing introduction missing`)
+        for (const profile of proPlayerProfiles) {
+          const playerPath = routePath(locale, { type: 'crosshair', crosshairId: profile.crosshairId })
+          if (!html.includes(playerPath)) errors.push(`${path}: missing player link ${playerPath}`)
+        }
+      }
       if (route.type === 'guide') {
         if (!html.includes('"@type":"HowTo"')) errors.push(`${path}: HowTo structured data missing`)
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: guide FAQPage structured data missing`)
@@ -156,7 +169,7 @@ for (const locale of Object.keys(localeRoutes)) {
 const sitemap = await readFile(resolve(distRoot, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
 const indexableTrustPages = Object.values(TRUST_PAGES).filter((page) => page.indexable).length
-const expectedIndexedCount = Object.keys(localeRoutes).length * (4 + crosshairCollectionKeys.length + SEO_ARTICLE_KEYS.length + SEO_TOOL_KEYS.length + indexableCrosshairIds.length + indexableTrustPages)
+const expectedIndexedCount = Object.keys(localeRoutes).length * (5 + crosshairCollectionKeys.length + SEO_ARTICLE_KEYS.length + SEO_TOOL_KEYS.length + indexableCrosshairIds.length + indexableTrustPages)
 if (sitemapUrls.length !== expectedIndexedCount) errors.push(`sitemap.xml: expected ${expectedIndexedCount} URLs, found ${sitemapUrls.length}`)
 if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: duplicate <loc> entries')
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')

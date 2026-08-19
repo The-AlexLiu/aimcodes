@@ -61,7 +61,7 @@ src/data + src/i18n + src/seo
 - 简体中文：`/zh-cn/`
 - 日语：`/ja/`
 
-`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 2,335 个本地化 HTML 路由，将 1,560 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,280 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 2,340 个本地化 HTML 路由，将 1,565 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,280 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
@@ -96,8 +96,10 @@ src/data + src/i18n + src/seo
 3. 候选代码必须通过 AimCodes 解析器和可见性检查，处理结果写入 `data_processed/`，异常行单独写入 `pro-crosshair-errors.json`；
 4. 自动采集结果始终保持 `needs_primary_source`，不会进入正式目录、可索引页面或 Sitemap；
 5. 只有补充选手本人、战队、Riot/VCT、直播命令或可定位 VOD 等一手来源，并经人工/GPT 语义审核后，才能进入正式数据。
-6. 已发布职业配置保存在 `src/data/verifiedProCrosshairs.js`，对应来源快照保存在 `data_raw/verified-pro-crosshair-sources.json`；`pnpm validate:verified-pros` 会校验代码、玩家频道、直播指令、索引与职业集合关系。
-7. 职业选手可以使用相同外观。普通目录继续按外观去重，职业选手集合和独立详情页则按玩家保留配置档案，避免把相同十字重复展示为普通样式。
+6. 已发布职业配置保存在 `src/data/verifiedProCrosshairs.js`，对应来源快照保存在 `data_raw/verified-pro-crosshair-sources.json`；`pnpm validate:verified-pros` 会校验代码、玩家频道、直播指令、索引与职业集合关系，并阻止缺少来源、资料字段或本地头像文件的选手档案进入发布流程。
+7. 职业选手中心使用 `/[locale]/pro-players/` 独立路由；公开选手名单由 `src/data/proPlayerProfiles.js` 从已发布职业准星生成，头像使用本地优化副本并保留选手公开频道来源，基础资料、战队、位置、代表成绩和五语种简介由同一档案提供，避免资料页与准星库出现两套互相冲突的真实性口径。
+8. 选手外设采用“资料来源”和“分佣链接”分离的数据原则：没有具体型号、来源 URL 和来源日期的外设不得进入公开页面；分佣 URL 不能反向充当型号证据。
+9. 职业选手可以使用相同外观。普通目录继续按外观去重，职业选手集合和独立详情页则按玩家保留配置档案，避免把相同十字重复展示为普通样式。
 
 ## 反应测试数据流
 
