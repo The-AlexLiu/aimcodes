@@ -6,6 +6,6 @@ import { isPriorityCrosshair } from '../seo/routes.js'
  * crosshair routes where an ad could be mistaken for a product action.
  */
 export function isAdEligibleRoute(route) {
-  if (['home', 'catalog', 'collection', 'article', 'guide'].includes(route.type)) return true
+  if (['home', 'catalog', 'collection', 'article', 'guide', 'players'].includes(route.type)) return true
   return route.type === 'crosshair' && isPriorityCrosshair(route.crosshairId)
 }

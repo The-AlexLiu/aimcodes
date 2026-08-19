@@ -28,8 +28,11 @@ const MAIN_PREVIEW_SCALE = 2.25
 const CodeDialog = lazy(() => import('./components/CodeDialog.jsx'))
 const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
 const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
+const ProPlayerProfilePanel = lazy(() => import('./components/ProPlayerProfilePanel.jsx'))
 const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.jsx'))
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
+const ProPlayersPage = lazy(() => import('./components/ProPlayersPage.jsx'))
+const ProPlayersSpotlight = lazy(() => import('./components/ProPlayersSpotlight.jsx'))
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
@@ -136,6 +139,7 @@ export default function App() {
   const activeBackgroundName = t(`maps.${activeBackground.value}`)
   const {
     allCrosshairs,
+    allSourceCrosshairs,
     visibleCrosshairs,
     displayedCrosshairs,
     selected,
@@ -415,7 +419,7 @@ export default function App() {
         t={t}
       />
 
-      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' ? 'guide-main' : ''}>
+      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -423,6 +427,8 @@ export default function App() {
             <p>{seoCopy(language).notFound.body}</p>
             <a className="primary-button" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).notFound.action}</a>
           </section>
+        ) : route.type === 'players' ? (
+          <Suspense fallback={<RouteLoading />}><ProPlayersPage locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
         ) : route.type === 'guide' ? (
           <Suspense fallback={<RouteLoading />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
@@ -482,8 +488,13 @@ export default function App() {
         )}
 
         {route.type === 'crosshair' && (
-          <Suspense fallback={<RouteLoading />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
+          <>
+            {selected.isPro && <Suspense fallback={null}><ProPlayerProfilePanel crosshair={selected} locale={language} /></Suspense>}
+            <Suspense fallback={<RouteLoading />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
+          </>
         )}
+
+        {route.type === 'home' && <Suspense fallback={<RouteLoading />}><ProPlayersSpotlight locale={language} crosshairs={allSourceCrosshairs} /></Suspense>}
 
         {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && (
           <CrosshairCollectionSection

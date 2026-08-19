@@ -31,6 +31,9 @@ import { isIndexableRoute, routePath, SEO_ARTICLE_KEYS, SEO_TOOL_KEYS, TRUST_PAG
 import { TRUST_UPDATED_AT, trustCopy } from '../src/seo/trustContent.js'
 import { publisherCopy } from '../src/seo/publisherContent.js'
 import { CONTACT_EMAIL } from '../src/config/contact.js'
+import { proPlayerProfiles } from '../src/data/proPlayerProfiles.js'
+import { proPlayerHubCopy } from '../src/seo/proPlayerContent.js'
+import { proPlayerProfileCopy } from '../src/seo/proPlayerProfileContent.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -84,9 +87,11 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
     },
   ]
 
-  if (route.type === 'catalog' || route.type === 'collection') {
+  if (route.type === 'catalog' || route.type === 'collection' || route.type === 'players') {
     const collectionIds = route.type === 'collection'
       ? crosshairCollections[route.collectionKey].crosshairIds
+      : route.type === 'players'
+        ? proPlayerProfiles.map((profile) => profile.crosshairId)
       : indexableCrosshairIds
     graph.push({
       '@type': 'CollectionPage',
@@ -106,7 +111,16 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       },
     })
 
-    if (route.type === 'collection') {
+    if (route.type === 'players') {
+      const players = proPlayerHubCopy(locale)
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'AimCodes', item: `${SITE_ORIGIN}${routePath(locale, { type: 'home' })}` },
+          { '@type': 'ListItem', position: 2, name: players.breadcrumb, item: metadata.canonical },
+        ],
+      })
+    } else if (route.type === 'collection') {
       const collection = collectionCopy(locale, route.collectionKey)
       graph.push({
         '@type': 'BreadcrumbList',
@@ -336,7 +350,7 @@ function staticLinks(locale, items) {
 function staticTopicLinks(locale) {
   const localized = seoCopy(locale)
   const collections = crosshairCollectionKeys.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
-  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
+  const resources = `<a href="${routePath(locale, { type: 'players' })}">${escapeHtml(proPlayerHubCopy(locale).navLabel)}</a><a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
   return `<nav class="seo-static-links">${collections}${resources}</nav>`
 }
 
@@ -371,6 +385,16 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   if (route.type === 'catalog') {
     const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
     return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p>${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
+  }
+  if (route.type === 'players') {
+    const players = proPlayerHubCopy(locale)
+    const profileCards = proPlayerProfiles.map((profile) => {
+      const item = localizedCrosshairs.find((candidate) => candidate.id === profile.crosshairId)
+      if (!item) return ''
+      const profileCopy = proPlayerProfileCopy(locale, profile)
+      return `<article><img src="${profile.image}" width="300" height="300" alt="${escapeHtml(profile.imageAlt)}" /><h2>${escapeHtml(profile.player)}</h2><p>${escapeHtml(profileCopy.bio)}</p><p>${escapeHtml(profile.team)} · ${escapeHtml(profileCopy.role)}</p><a href="${routePath(locale, { type: 'crosshair', crosshairId: profile.crosshairId })}">${escapeHtml(players.viewProfile)}</a></article>`
+    }).join('')
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(players.breadcrumb)}</span></nav><h1>${escapeHtml(players.title)}</h1><p>${escapeHtml(players.intro)}</p><section>${profileCards}</section>${staticTopicLinks(locale)}</main>`
   }
   if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)
@@ -435,7 +459,20 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
     const contextualLinks = relatedCollections ? `<nav class="seo-static-links" aria-label="${escapeHtml(localized.detail.compareStyle)}">${relatedCollections}</nav>` : ''
-    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}<code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+    const profile = proPlayerProfiles.find((item) => item.crosshairId === crosshair.id)
+    const playerProfile = profile ? (() => {
+      const playerCopy = proPlayerProfileCopy(locale, profile)
+      const facts = [
+        [playerCopy.labels.realName, profile.realName],
+        [playerCopy.labels.country, playerCopy.country],
+        [playerCopy.labels.team, profile.team],
+        [playerCopy.labels.role, playerCopy.role],
+        [playerCopy.labels.status, playerCopy.status],
+        [playerCopy.labels.highlight, playerCopy.highlight],
+      ].map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')
+      return `<section><img src="${profile.image}" width="300" height="300" alt="${escapeHtml(profile.imageAlt)}" /><h2>${escapeHtml(profile.player)}</h2><p>${escapeHtml(playerCopy.bio)}</p><dl>${facts}</dl></section>`
+    })() : ''
+    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}${playerProfile}<code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }
@@ -466,6 +503,7 @@ for (const locale of Object.keys(localeRoutes)) {
   const baseRoutes = [
     { type: 'home' },
     { type: 'catalog' },
+    { type: 'players' },
     { type: 'finder' },
     { type: 'guide' },
     ...crosshairCollectionKeys.map((collectionKey) => ({ type: 'collection', collectionKey })),

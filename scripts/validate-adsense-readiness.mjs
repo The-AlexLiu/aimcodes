@@ -14,6 +14,7 @@ const errors = []
 const adEligibleCases = [
   [{ type: 'home' }, true],
   [{ type: 'catalog' }, true],
+  [{ type: 'players' }, true],
   [{ type: 'finder' }, false],
   [{ type: 'notFound' }, false],
   [{ type: 'trust', pageKey: 'about' }, false],

@@ -134,6 +134,7 @@ export function useCrosshairCatalog({
 
   return {
     allCrosshairs,
+    allSourceCrosshairs,
     routeCrosshair,
     visibleCrosshairs,
     displayedCrosshairs,

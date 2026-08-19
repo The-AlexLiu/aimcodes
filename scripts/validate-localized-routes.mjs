@@ -13,6 +13,7 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
   const cases = [
     { type: 'home' },
     { type: 'catalog' },
+    { type: 'players' },
     { type: 'finder' },
     { type: 'guide' },
     ...SEO_COLLECTION_KEYS.map((collectionKey) => ({ type: 'collection', collectionKey })),
