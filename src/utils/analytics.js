@@ -123,6 +123,24 @@ export function trackEvent(eventName, parameters = {}) {
   return true
 }
 
+export function trackShareSuccess({
+  method,
+  contentType,
+  itemId,
+  interactionSource,
+  ...parameters
+}) {
+  if (typeof method !== 'string' || !method || typeof contentType !== 'string' || !contentType) return false
+
+  return trackEvent('share', {
+    ...parameters,
+    method,
+    content_type: contentType,
+    ...(itemId ? { item_id: itemId } : {}),
+    ...(interactionSource ? { interaction_source: interactionSource } : {}),
+  })
+}
+
 export function trackPageView(viewName, pageTitle) {
   if (!hasWindow() || lastPageView === viewName) return false
 

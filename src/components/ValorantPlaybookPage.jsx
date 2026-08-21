@@ -9,6 +9,7 @@ import {
   playbookAgentRoles,
 } from '../data/playbookAgents.js'
 import { playbookMapName, playbookSeoCopy, playbookUiCopy, valorantMaps } from '../seo/playbookContent.js'
+import { trackEvent, trackShareSuccess } from '../utils/analytics.js'
 
 const STORAGE_KEY = 'aimcodes-tactical-board-v3'
 const BOARD_SIZE = 1000
@@ -511,6 +512,14 @@ export default function ValorantPlaybookPage({ locale }) {
     const url = new URL(window.location.href)
     url.hash = `board=${encodeBoard(boardState)}`
     await copyText(url.toString())
+    trackShareSuccess({
+      method: 'link_copy',
+      contentType: 'playbook',
+      itemId: boardState.mapId,
+      interactionSource: 'playbook_toolbar',
+      map_name: boardState.mapId,
+      element_count: elements.length,
+    })
     setStatus('shared')
     window.setTimeout(() => setStatus('ready'), 1800)
   }
@@ -568,6 +577,14 @@ export default function ValorantPlaybookPage({ locale }) {
     link.download = `aimcodes-${boardState.mapId}-playbook.png`
     link.href = canvas.toDataURL('image/png')
     link.click()
+    trackEvent('playbook_export', {
+      method: 'image_download',
+      content_type: 'playbook',
+      item_id: boardState.mapId,
+      interaction_source: 'playbook_toolbar',
+      map_name: boardState.mapId,
+      element_count: elements.length,
+    })
     setStatus('exported')
     window.setTimeout(() => setStatus('ready'), 1800)
   }
