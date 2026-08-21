@@ -30,6 +30,7 @@ const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
 const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
 const ProPlayerProfilePanel = lazy(() => import('./components/ProPlayerProfilePanel.jsx'))
 const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.jsx'))
+const ValorantPlaybookPage = lazy(() => import('./components/ValorantPlaybookPage.jsx'))
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
 const ProPlayersPage = lazy(() => import('./components/ProPlayersPage.jsx'))
 const ProPlayersSpotlight = lazy(() => import('./components/ProPlayersSpotlight.jsx'))
@@ -433,6 +434,8 @@ export default function App() {
           <Suspense fallback={<RouteLoading />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
           <Suspense fallback={<RouteLoading />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} /></Suspense>
+        ) : route.type === 'tool' && route.toolKey === 'playbook' ? (
+          <Suspense fallback={<RouteLoading />}><ValorantPlaybookPage locale={language} /></Suspense>
         ) : route.type === 'tool' ? (
           <Suspense fallback={<RouteLoading />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'trust' ? (

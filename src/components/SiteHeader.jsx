@@ -4,6 +4,7 @@ import Icon from './Icon.jsx'
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
 import { proPlayerHubCopy } from '../seo/proPlayerContent.js'
+import { playbookLabel } from '../seo/playbookLabels.js'
 
 export default function SiteHeader({
   locale,
@@ -99,6 +100,7 @@ export default function SiteHeader({
         </nav>
         <nav className="nav-drawer-group" aria-label={t('nav.learn')}>
           <span>{t('nav.learn')}</span>
+          <a href={routePath(locale, { type: 'tool', toolKey: 'playbook' })} onClick={closeMenu}>{playbookLabel(locale)}</a>
           <a href={routePath(locale, { type: 'guide' })} onClick={closeMenu}>{content.footer.guide}</a>
           <a href={routePath(locale, { type: 'article', articleKey: 'settings' })} onClick={closeMenu}>{content.footer.settings}</a>
           <a href={routePath(locale, { type: 'article', articleKey: 'colors' })} onClick={closeMenu}>{content.footer.colors}</a>

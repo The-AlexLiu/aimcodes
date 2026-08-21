@@ -9,7 +9,7 @@ import { proPlayerHubCopy } from './proPlayerContent.js'
 
 export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
-export const SEO_CONTENT_UPDATED_AT = '2026-08-19'
+export const SEO_CONTENT_UPDATED_AT = '2026-08-21'
 
 const detailMetadata = Object.freeze({
   tenz: Object.freeze({
