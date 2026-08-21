@@ -13,7 +13,7 @@ export const SEO_CONTENT_UPDATED_AT = '2026-08-21'
 
 const detailMetadata = Object.freeze({
   tenz: Object.freeze({
-    en: Object.freeze({ title: 'TenZ VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Preview the TenZ VALORANT crosshair on real map scenes, check its key settings, change the color, and copy the verified profile code.' }),
+    en: Object.freeze({ title: 'TenZ Crosshair Code for VALORANT: Copy & Preview | AimCodes', description: 'Copy the TenZ VALORANT crosshair code, preview it on real map scenes, check the settings, and test another color before importing the profile.' }),
   }),
   'aspas-dot': Object.freeze({
     en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Try the current aspas VALORANT crosshair from his player-channel command, preview the compact closed center, and copy the profile code.' }),
@@ -50,6 +50,9 @@ const detailMetadata = Object.freeze({
   }),
   'bunny-white': Object.freeze({
     en: Object.freeze({ title: 'Bunny VALORANT Crosshair Code & Preview | AimCodes', description: 'Preview a working Bunny VALORANT crosshair on real maps, test clearer colors, and copy the full profile code.' }),
+  }),
+  'tracker-drift': Object.freeze({
+    en: Object.freeze({ title: 'Tracker VALORANT Crosshair Code & Preview | AimCodes', description: 'Try the Tracker Drift VALORANT crosshair on real map scenes, compare its tracking-focused shape, change the color, and copy the working code.' }),
   }),
 })
 

@@ -28,6 +28,14 @@ const guideKeys = Object.freeze([
 
 const toolKeys = Object.freeze(['playbook', 'generator', 'decoder', 'preview', 'comparison'])
 
+const searchOpportunityRoutes = Object.freeze([
+  Object.freeze({ type: 'crosshair', crosshairId: 'tenz', labelKey: 'tenz' }),
+  Object.freeze({ type: 'collection', collectionKey: 'circle', labelKey: 'circle' }),
+  Object.freeze({ type: 'collection', collectionKey: 'pink', labelKey: 'pink' }),
+  Object.freeze({ type: 'article', articleKey: 'copy', labelKey: 'copy' }),
+  Object.freeze({ type: 'article', articleKey: 'firingError', labelKey: 'firingError' }),
+])
+
 const directoryCopy = {
   en: {
     title: 'More ways to find the right crosshair',
@@ -38,6 +46,9 @@ const directoryCopy = {
     guidesHint: 'Quick answers for settings, errors, and aiming habits',
     tools: 'Tools you can use now',
     toolsHint: 'Plan a round, or build, decode, preview and compare a crosshair',
+    trending: 'Popular right now',
+    trendingHint: 'Pages players are finding most often from search',
+    trendingLabels: { tenz: 'TenZ crosshair code', circle: 'Circle crosshair codes', pink: 'Pink crosshair codes', copy: "Copy a teammate's crosshair", firingError: 'What firing error means' },
   },
   es: {
     title: 'Más formas de encontrar tu mira',
@@ -48,6 +59,9 @@ const directoryCopy = {
     guidesHint: 'Respuestas rápidas sobre ajustes, errores y puntería',
     tools: 'Herramientas listas para usar',
     toolsHint: 'Planea una ronda o crea, decodifica, prueba y compara una mira',
+    trending: 'Lo más buscado ahora',
+    trendingHint: 'Accesos que otros jugadores están encontrando en Google',
+    trendingLabels: { tenz: 'Código de mira de TenZ', circle: 'Miras circulares', pink: 'Miras rosas', copy: 'Copiar la mira de un compañero', firingError: 'Qué significa el error de disparo' },
   },
   'pt-BR': {
     title: 'Mais caminhos para encontrar sua mira',
@@ -58,6 +72,9 @@ const directoryCopy = {
     guidesHint: 'Respostas rápidas sobre ajustes, erros e mira',
     tools: 'Ferramentas prontas para usar',
     toolsHint: 'Planeje uma rodada ou crie, decodifique, teste e compare uma mira',
+    trending: 'Mais buscados agora',
+    trendingHint: 'Atalhos que outros jogadores estão encontrando na busca',
+    trendingLabels: { tenz: 'Código de mira do TenZ', circle: 'Miras circulares', pink: 'Miras rosas', copy: 'Copiar a mira de um aliado', firingError: 'O que é erro de disparo' },
   },
   'zh-CN': {
     title: '还想继续找？按需要展开',
@@ -68,6 +85,9 @@ const directoryCopy = {
     guidesHint: '解决设置、报错和瞄准习惯问题',
     tools: '直接上手',
     toolsHint: '组一套战术，或生成、解析、预览和对比准星',
+    trending: '最近大家在找',
+    trendingHint: '直接进入近期搜索热度更高的准星和教程',
+    trendingLabels: { tenz: 'TenZ 准星代码', circle: '圆形准星代码', pink: '粉色准星代码', copy: '复制队友准星', firingError: '射击误差是什么' },
   },
   ja: {
     title: '目的に合わせて探す',
@@ -78,6 +98,9 @@ const directoryCopy = {
     guidesHint: '設定、コピー、エラー表示、プリエイムを日本語で確認',
     tools: '今すぐ使えるツール',
     toolsHint: 'ラウンドを組み立て、生成・解析・プレビュー・比較',
+    trending: '最近よく見られているページ',
+    trendingHint: '検索から多く見つけられているクロスヘアとガイド',
+    trendingLabels: { tenz: 'TenZのクロスヘアコード', circle: '丸型クロスヘア', pink: 'ピンクのクロスヘア', copy: '味方のクロスヘアをコピー', firingError: '射撃エラーとは' },
   },
 }
 
@@ -105,6 +128,19 @@ export default function HomeResourceDirectory({ locale }) {
         <h2 id="home-resource-title">{copy.title}</h2>
         <p>{copy.intro}</p>
       </header>
+      <nav className="home-search-opportunities" aria-label={copy.trending}>
+        <span>
+          <strong>{copy.trending}</strong>
+          <small>{copy.trendingHint}</small>
+        </span>
+        <div>
+          {searchOpportunityRoutes.map((item) => (
+            <a href={routePath(locale, item)} key={item.labelKey}>
+              {copy.trendingLabels[item.labelKey]}
+            </a>
+          ))}
+        </div>
+      </nav>
       <div className="home-resource-disclosures">
         <ResourceDisclosure label={copy.collections} hint={copy.collectionsHint}>
           <nav className="home-resource-link-grid" aria-label={copy.collections}>

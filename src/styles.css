@@ -433,6 +433,13 @@ legend { margin-bottom: 10px; }
 .home-resource-directory > header { max-width: 760px; }
 .home-resource-directory h2 { margin: 0; font: 830 var(--type-section-title)/1.16 var(--display-font); text-wrap: balance; }
 .home-resource-directory > header p { max-width: 690px; margin: 10px 0 0; color: #98a5ae; font-size: var(--type-body); line-height: 1.65; }
+.home-search-opportunities { margin-top: 18px; padding: 16px; display: grid; grid-template-columns: minmax(180px, .7fr) minmax(0, 2fr); gap: 18px; border: 1px solid #3c4851; border-radius: 7px; background: linear-gradient(120deg, rgba(255, 91, 85, .08), rgba(14, 24, 31, .62)); }
+.home-search-opportunities > span { display: grid; align-content: center; gap: 5px; }
+.home-search-opportunities strong { color: #f3f6f7; font: 790 16px/1.3 var(--display-font); }
+.home-search-opportunities small { color: #8f9ba4; font-size: var(--type-ui); line-height: 1.45; }
+.home-search-opportunities > div { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.home-search-opportunities a { min-height: 38px; padding: 8px 11px; display: inline-flex; align-items: center; border: 1px solid #46535c; border-radius: 5px; color: #d5dce0; background: rgba(12, 21, 27, .72); font-size: var(--type-ui); font-weight: 700; line-height: 1.3; text-decoration: none; }
+.home-search-opportunities a:hover { border-color: var(--accent); color: #fff; }
 .home-resource-disclosures { margin-top: 18px; border-top: 1px solid #34424c; }
 .home-resource-disclosure { border-bottom: 1px solid #34424c; }
 .home-resource-disclosure summary { min-height: 76px; padding: 14px 4px; display: flex; align-items: center; justify-content: space-between; gap: 20px; list-style: none; cursor: pointer; }
@@ -1060,6 +1067,9 @@ legend { margin-bottom: 10px; }
   .publisher-value-content nav a { min-height: 44px; align-items: center; }
   .home-resource-directory { margin-top: 30px; padding-top: 27px; scroll-margin-top: 70px; }
   .home-resource-directory h2 { font-size: 26px; }
+  .home-search-opportunities { grid-template-columns: 1fr; gap: 13px; padding: 14px; }
+  .home-search-opportunities > div { display: grid; grid-template-columns: 1fr; }
+  .home-search-opportunities a { min-height: 42px; }
   .home-resource-disclosure summary { min-height: 72px; }
   .home-resource-link-grid { grid-template-columns: 1fr; }
   .trust-page { padding-top: 34px; }

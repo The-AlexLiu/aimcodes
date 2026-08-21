@@ -1,6 +1,6 @@
 const englishGuides = {
   copy: {
-    title: 'How to copy a crosshair in VALORANT', intro: 'Copy the teammate you are spectating with the in-game command, then save the result as a crosshair profile.', summary: 'While you are spectating the player whose crosshair you want, open chat and enter /cc. VALORANT copies that crosshair into your available profiles; open Crosshair settings after the round to review and rename it.',
+    title: "How to copy a teammate's crosshair in VALORANT", intro: 'Spectate the teammate whose crosshair you want, enter the /cc command, then save the copied setup as a crosshair profile.', summary: 'While you are spectating the player whose crosshair you want, open chat and enter /cc. VALORANT copies that crosshair into your available profiles; open Crosshair settings after the round to review and rename it.',
     sections: [
       ['Copy the crosshair you are watching', ['Wait until you are spectating the teammate, then type /cc in chat. The command copies the currently observed player, not a random teammate.'], ['Spectate the correct player first.', 'Enter /cc exactly as a chat command.', 'Check the saved profile before changing its settings.']],
       ['Find and test the copied profile', ['Open Settings → Crosshair and move through your saved profiles. Rename the copied profile so you can identify it later, then test it in the range.'], ['Keep your old profile until the new one feels right.', 'Test the center at normal resolution.', 'Export the code if you want to share it.']],
@@ -9,7 +9,7 @@ const englishGuides = {
     faq: [['What does /cc do in VALORANT?', 'It copies the crosshair of the player you are currently spectating into your crosshair profiles.'], ['Can I copy an enemy crosshair?', 'Only when the game lets you spectate that player and exposes the crosshair to the command.']],
     sources: [{ label: 'Riot Games — VALORANT Patch Notes 5.04', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-5-04/' }],
     recommendedCrosshairIds: ['tenz', 'aspas-dot', 'jinggg', 'demon1'], relatedArticleKeys: ['notWorking', 'settings'], relatedCollectionKeys: ['pro', 'beginner'], relatedToolKeys: ['preview'],
-    metaTitle: 'How to Copy a Crosshair in VALORANT with /cc | AimCodes', metaDescription: 'Learn how to copy a teammate crosshair in VALORANT with /cc, find the saved profile, and fix the command when it does not work.',
+    metaTitle: "How to Copy a Teammate's Crosshair in VALORANT | AimCodes", metaDescription: 'Use the /cc command to copy a teammate crosshair in VALORANT, find the saved profile, and fix the command when it does not work.',
   },
   notWorking: {
     title: 'VALORANT crosshair code not working? Fix it fast', intro: 'Use this checklist when a profile code will not import, shows “Something went wrong while importing your profile,” or looks different after you paste it.', summary: 'Seeing “Something went wrong while importing your profile”? Copy the complete code again, paste it into Import Profile Code rather than chat, and confirm you have room for another profile. If it imports but looks wrong, compare the actual settings instead of relying on a zoomed image.',
@@ -58,7 +58,7 @@ const englishGuides = {
     metaTitle: 'VALORANT Movement Error Crosshair: On or Off? | AimCodes', metaDescription: 'See what the VALORANT movement error crosshair shows, when to turn it on for stop-timing practice, and when a static crosshair is easier to use.',
   },
   firingError: {
-    title: 'VALORANT firing error crosshair explained', intro: 'See what firing error represents during taps and sprays, and decide whether the animation helps your weapon control.', summary: 'Firing error makes the crosshair react to weapon inaccuracy while you shoot. It can show when a burst has spread, but it does not control recoil and may add distracting motion.',
+    title: 'What is firing error in VALORANT?', intro: 'Firing error is the crosshair animation that reacts to weapon inaccuracy during taps, bursts, and sprays. Use it for practice, or turn it off when you want a fixed center.', summary: 'Firing error makes the crosshair react to weapon inaccuracy while you shoot. It can show when a burst has spread, but it does not control recoil and may add distracting motion.',
     sections: [
       ['What firing error shows', ['The crosshair changes as repeated shots become less accurate. The feedback follows weapon behavior; it does not cause or reduce the spread.'], ['First bullets may stay tighter.', 'Longer bursts create more inaccuracy.', 'The animation is only a visual signal.']],
       ['Use it to learn burst reset timing', ['In the range, fire short bursts and wait for the crosshair to settle. This can help you see how long recovery takes before the next accurate burst.'], ['Compare taps and short bursts.', 'Wait for the settled state.', 'Practice with the weapon you actually use.']],
@@ -67,10 +67,10 @@ const englishGuides = {
     faq: [['Does firing error show recoil?', 'It reflects inaccuracy, but it is not a complete recoil guide and does not replace spray practice.'], ['Should firing error be on for the Phantom?', 'It can help during practice, but many players prefer a static center in real matches.']],
     sources: [{ label: 'Riot Games — VALORANT Patch Notes 3.03', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-3-03/' }],
     recommendedCrosshairIds: ['tenz', 'boaster', 'compact-green', 'recoil-c'], relatedArticleKeys: ['movementVsFiring', 'staticVsDynamic'], relatedCollectionKeys: ['phantom'], relatedToolKeys: ['generator'],
-    metaTitle: 'VALORANT Firing Error Crosshair Explained | AimCodes', metaDescription: 'Learn what VALORANT firing error shows during taps and sprays, how to use it for burst practice, and why players turn it off.',
+    metaTitle: 'What Is Firing Error in VALORANT? On or Off? | AimCodes', metaDescription: 'See what firing error means in VALORANT, what the crosshair shows during taps and sprays, and when to turn the setting on or off.',
   },
   movementVsFiring: {
-    title: 'Movement error vs firing error in VALORANT', intro: 'Separate the two crosshair feedback options so you know whether movement or repeated shots caused the animation.', summary: 'Movement error reacts before or while you shoot if you are still moving. Firing error reacts to inaccuracy created by shooting. Enable one at a time in practice to learn the difference.',
+    title: 'Movement error vs firing error in VALORANT', intro: 'Separate the two crosshair feedback options so you know whether movement or repeated shots caused the animation. Players sometimes call firing error “shooting error”; both names refer to the same shooting-accuracy feedback.', summary: 'Movement error reacts before or while you shoot if you are still moving. Firing error reacts to inaccuracy created by shooting. Enable one at a time in practice to learn the difference.',
     sections: [
       ['Movement error starts with your movement', ['If the crosshair changes while strafing before a shot, movement error is providing the feedback. Stop fully and watch it settle.'], ['Triggered by inaccurate movement.', 'Useful for stop timing.', 'Can distract during peeks.']],
       ['Firing error starts with the shot sequence', ['If the crosshair expands through a burst after you have stopped, firing error is showing weapon inaccuracy and recovery.'], ['Triggered by shooting inaccuracy.', 'Useful for burst reset practice.', 'Not a recoil controller.']],
