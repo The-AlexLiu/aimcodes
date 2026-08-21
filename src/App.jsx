@@ -17,7 +17,7 @@ import { useCrosshairCatalog } from './hooks/useCrosshairCatalog.js'
 import { pageSlug, seoCopy } from './seo/content.js'
 import { localizedRoutePath, parseSeoRoute, routePath } from './seo/routes.js'
 import { updateCrosshairColor } from './utils/crosshairCode.js'
-import { setAnalyticsContext, trackEvent, trackPageView } from './utils/analytics.js'
+import { setAnalyticsContext, trackEvent, trackPageView, trackShareSuccess } from './utils/analytics.js'
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from './utils/shareLinks.js'
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
@@ -288,14 +288,14 @@ export default function App() {
         notify(t('toast.linkCopied'))
       }
 
-      trackEvent('share', {
+      trackShareSuccess({
         method,
-        content_type: 'crosshair',
-        item_id: selected.id,
+        contentType: 'crosshair',
+        itemId: selected.id,
         crosshair_category: selected.category,
         shared_color: selectedCodeColorKey,
         shared_map: background,
-        interaction_source: 'explore_preview',
+        interactionSource: 'explore_preview',
       })
       if (crosshairShareTimer.current) window.clearTimeout(crosshairShareTimer.current)
       crosshairShareTimer.current = window.setTimeout(() => setCrosshairShareStatus('idle'), 2400)

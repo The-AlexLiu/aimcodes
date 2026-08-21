@@ -12,7 +12,7 @@ import {
   REACTION_ROUNDS,
 } from '../utils/reactionRecommendation.js'
 import { createResultShareCard } from '../utils/shareResultCard.js'
-import { trackEvent } from '../utils/analytics.js'
+import { trackEvent, trackShareSuccess } from '../utils/analytics.js'
 
 const WAIT_MIN_MS = 1400
 const WAIT_VARIANCE_MS = 1700
@@ -438,10 +438,11 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         crosshair_id: resultCrosshair.id,
       })
 
-      trackEvent('share', {
+      trackShareSuccess({
         method: shared ? 'native_share' : 'image_download',
-        content_type: 'reaction_result',
-        item_id: result.rank.id,
+        contentType: 'reaction_result',
+        itemId: result.rank.id,
+        interactionSource: 'finder_result',
         reaction_ms: result.average,
         crosshair_id: resultCrosshair.id,
       })
@@ -481,6 +482,14 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       setChallengeLinkCopied(true)
       trackEvent('share_link_copy', {
         content_type: 'reaction_challenge',
+        reaction_ms: result.average,
+        reaction_rank: result.rank.id,
+      })
+      trackShareSuccess({
+        method: 'link_copy',
+        contentType: 'reaction_challenge',
+        itemId: result.rank.id,
+        interactionSource: 'finder_result',
         reaction_ms: result.average,
         reaction_rank: result.rank.id,
       })

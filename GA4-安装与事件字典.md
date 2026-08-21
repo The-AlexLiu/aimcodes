@@ -27,18 +27,19 @@
 | `filter_select` | 切换准星分类 | `filter_name` |
 | `search_used` | 搜索框停留 700ms 且至少输入 2 个字符 | `query_length`、`results_count`、`has_results` |
 | `language_change` | 切换语言 | `from_language`、`to_language` |
-| `share` | 成功发起准星分享、系统分享或下载成绩图 | `method`、`content_type`、`reaction_ms`、`crosshair_id`、`interaction_source` |
+| `share` | 成功分享准星、成绩、挑战链接或战术板链接；下载成绩图仍沿用该统一成功口径 | `method`、`content_type`、`item_id`、`reaction_ms`、`crosshair_id`、`interaction_source` |
 | `share_landing` | 打开队友分享的准星详情 | `crosshair_id`、`crosshair_category`、`color_key`、`map_name` |
 | `share_card_open` | 开始生成反应成绩分享图 | `reaction_ms`、`reaction_rank`、`crosshair_id` |
 | `share_download` | 分享图通过浏览器下载成功 | `reaction_ms`、`crosshair_id` |
 | `share_native` | 移动端系统分享完成 | `reaction_ms`、`crosshair_id` |
 | `share_link_copy` | 复制队友挑战链接 | `reaction_ms`、`reaction_rank` |
+| `playbook_export` | 成功导出战术板图片；单独统计，不计入分享成功 | `method`、`content_type`、`item_id`、`map_name`、`element_count`、`interaction_source` |
 | `challenge_landing` | 打开带队友成绩的挑战页面 | `challenge_ms`、`challenge_rank` |
 | `challenge_start` | 开始挑战队友成绩 | `attempt_number`、`challenge_ms`、`challenge_rank` |
 | `challenge_complete` | 完成队友挑战 | `reaction_ms`、`challenge_ms`、`outcome`、`difference_ms` |
 | `challenge_won` | 成绩快于挑战目标 | `reaction_ms`、`challenge_ms`、`difference_ms` |
 
-验证脚本当前要求以上 24 个核心漏斗事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
+验证脚本当前要求以上 25 个核心漏斗事件。所有成功分享统一通过 `trackShareSuccess` 发送 `share`，`share_link_copy`、`share_native` 和 `share_download` 仅保留为历史兼容及方式诊断事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
 
 搜索事件不发送用户输入的原始词，只发送长度和结果数量，避免把可能的个人信息写入 GA4。
 
@@ -48,11 +49,14 @@
 2. 将 `crosshair_code_copy` 标记为主要关键事件。
 3. 将 `finder_complete` 标记为辅助关键事件。
 4. 流量稳定后，再决定是否把 `share` 标记为关键事件。
-5. 打开“管理 → 数据显示 → 自定义定义”，创建事件范围的自定义维度：
+5. “管理 → 数据显示 → 自定义设置”已创建以下事件范围自定义维度；它们只对创建后的新数据生效，不会回填历史数据：
+   - `interaction_source`（2026-08-12）
+   - `shared_entry`（2026-08-12）
+   - `content_type`（2026-08-21）
+   - `method`（2026-08-21）
+6. 后续确有分析需求时，再按低基数原则创建以下事件范围自定义维度，不要一次性占满配额：
    - `app_view`
    - `app_language`
-   - `interaction_source`
-   - `shared_entry`
    - `crosshair_id`
    - `crosshair_category`
    - `color_key`
@@ -60,13 +64,13 @@
    - `filter_name`
    - `reaction_rank`
    - `recommendation_profile`
-6. 创建事件范围的自定义指标：
+7. 创建事件范围的自定义指标：
    - `reaction_ms`
    - `consistency_ms`
    - `early_clicks`
    - `results_count`
-7. 打开“管理 → 数据收集和修改 → 数据保留”，将事件数据保留期设为 14 个月。
-8. 在数据流的增强型衡量中保留滚动、出站点击等自动事件；关闭“根据浏览器历史记录变化统计网页浏览”，避免未来单页路由产生重复浏览。
+8. 打开“管理 → 数据收集和修改 → 数据保留”，将事件数据保留期设为 14 个月。
+9. 在数据流的增强型衡量中保留滚动、出站点击等自动事件；关闭“根据浏览器历史记录变化统计网页浏览”，避免未来单页路由产生重复浏览。
 
 团队成员在正式站验收前，应先用同一浏览器访问一次 `https://aimcodes.com/en/?analytics_optout=1`。这项设置只保存在当前浏览器，不影响真实访客，也不会写入 URL 的 canonical。
 
