@@ -1,4 +1,5 @@
 import { japaneseTools } from './japaneseContent.js'
+import { playbookSeoCopy } from './playbookContent.js'
 
 const toolContent = {
   en: {
@@ -140,6 +141,7 @@ const toolContent = {
 }
 
 export function seoToolCopy(locale, toolKey) {
+  if (toolKey === 'playbook') return playbookSeoCopy(locale)
   if (locale === 'ja') return japaneseTools[toolKey] || toolContent.en[toolKey] || toolContent.en.generator
   return toolContent[locale]?.[toolKey] || toolContent.en[toolKey] || toolContent.en.generator
 }

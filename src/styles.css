@@ -615,6 +615,145 @@ legend { margin-bottom: 10px; }
 .tool-finder-link { margin-top: 14px; padding: 17px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; border: 1px solid #374550; border-radius: 7px; background: rgba(15, 24, 31, .72); color: #aeb8bf; font-size: 13px; }
 .tool-finder-link a { color: var(--accent); font-weight: 780; text-decoration: none; }
 
+.playbook-hero { max-width: 900px; }
+.tactical-board-shell { margin-top: 30px; overflow: hidden; border: 1px solid #374550; border-radius: 9px; background: #0c151b; box-shadow: 0 24px 70px rgba(0, 0, 0, .24); }
+.tactical-board-topbar { padding: 18px 20px; display: flex; align-items: end; justify-content: space-between; gap: 22px; background: rgba(16, 27, 35, .96); }
+.tactical-board-topbar > div { min-width: 0; display: grid; gap: 7px; }
+.tactical-board-topbar > div > span { color: var(--accent); font: 840 10px/1 var(--display-font); letter-spacing: 1.25px; text-transform: uppercase; }
+.tactical-board-topbar h2 { margin: 0; font: 820 22px/1.2 var(--display-font); }
+.tactical-map-select { flex: 0 0 auto; display: grid; gap: 6px; color: #87949d; font-size: 10px; font-weight: 760; }
+.tactical-map-select select { min-width: 180px; height: 42px; padding: 0 36px 0 12px; border: 1px solid #42515c; border-radius: 5px; background: #091117; color: #f0f3f5; font: 720 13px/1 var(--body-font); }
+.tactical-toolbar { padding: 9px 11px; display: flex; align-items: center; gap: 10px; border-top: 1px solid #2f3d47; border-bottom: 1px solid #2f3d47; background: #091217; }
+.tactical-tool-group { min-width: 0; display: flex; flex: 1 1 auto; gap: 5px; overflow-x: auto; scrollbar-width: thin; }
+.tactical-toolbar button { min-height: 38px; padding: 0 10px; display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 6px; border: 1px solid #35434d; border-radius: 5px; background: transparent; color: #aeb8bf; font: 740 11px/1 var(--body-font); cursor: pointer; }
+.tactical-toolbar button:hover:not(:disabled) { border-color: #667783; color: #fff; }
+.tactical-toolbar button.is-active { border-color: var(--accent); background: rgba(255, 91, 85, .13); color: #fff; }
+.tactical-toolbar button:disabled { opacity: .35; cursor: not-allowed; }
+.tactical-color-group, .tactical-history-group { flex: 0 0 auto; display: flex; align-items: center; gap: 5px; }
+.tactical-color-group { padding: 0 10px; border-left: 1px solid #2c3943; border-right: 1px solid #2c3943; }
+.tactical-color-group button { width: 28px; min-height: 28px; height: 28px; padding: 0; border: 3px solid #091217; border-radius: 50%; background: var(--marker-color); box-shadow: 0 0 0 1px #43515b; }
+.tactical-color-group button.is-active { border-color: #fff; background: var(--marker-color); box-shadow: 0 0 0 1px #fff; }
+.tactical-history-group button { width: 38px; padding: 0; }
+.tactical-history-group button span { display: none; }
+.tactical-history-group .tactical-rotate-button { width: auto; padding: 0 10px; }
+.tactical-history-group .tactical-rotate-button span { display: inline; }
+.is-flipped { transform: scaleX(-1); }
+.tactical-board-layout { display: grid; grid-template-columns: 172px minmax(0, 1fr) 270px; align-items: stretch; }
+.tactical-agent-dock { min-width: 0; max-height: 750px; padding: 15px 12px; display: grid; grid-template-rows: auto auto auto minmax(180px, 1fr) auto; align-content: start; gap: 11px; border-right: 1px solid #2f3d47; background: rgba(10, 19, 25, .98); }
+.tactical-agent-dock-heading { display: grid; gap: 5px; }
+.tactical-agent-dock-heading > span { color: var(--accent); font: 820 9px/1 var(--display-font); letter-spacing: 1px; text-transform: uppercase; }
+.tactical-agent-dock-heading > strong { color: #e8edef; font: 800 14px/1.25 var(--display-font); }
+.tactical-side-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.tactical-side-switch button, .tactical-role-filter button { min-height: 31px; padding: 0 6px; border: 1px solid #34434d; border-radius: 4px; background: transparent; color: #8f9ca4; font: 720 10px/1 var(--body-font); cursor: pointer; }
+.tactical-side-switch button:hover, .tactical-role-filter button:hover { border-color: #687985; color: #fff; }
+.tactical-side-switch .is-attacker { border-color: #ff6b64; background: rgba(255, 107, 100, .13); color: #fff; }
+.tactical-side-switch .is-defender { border-color: #19d3da; background: rgba(25, 211, 218, .12); color: #fff; }
+.tactical-role-filter { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.tactical-role-filter button:first-child { grid-column: 1 / -1; }
+.tactical-role-filter button.is-active { border-color: #7d8d97; background: #1b2a33; color: #fff; }
+.tactical-agent-grid { min-height: 0; padding-right: 3px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 6px; overflow-y: auto; scrollbar-width: thin; }
+.tactical-agent-grid button { position: relative; min-width: 0; min-height: 68px; padding: 4px; display: grid; place-items: center; gap: 2px; overflow: hidden; border: 1px solid #2e3d47; border-radius: 5px; background: #0f1a21; color: #95a2aa; cursor: pointer; }
+.tactical-agent-grid button:hover { border-color: #667984; color: #fff; }
+.tactical-agent-grid button.is-active { border-color: var(--accent); background: rgba(255, 91, 85, .1); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 91, 85, .24); }
+.tactical-agent-grid img { width: 44px; height: 44px; display: block; border-radius: 50%; object-fit: cover; }
+.tactical-agent-grid span { max-width: 100%; overflow: hidden; font-size: 9px; font-weight: 760; text-overflow: ellipsis; white-space: nowrap; }
+.tactical-ability-tray { padding-top: 11px; display: grid; gap: 8px; border-top: 1px solid #2e3d47; }
+.tactical-ability-tray > div:first-child { display: flex; align-items: center; gap: 8px; }
+.tactical-ability-tray > div:first-child > img { width: 34px; height: 34px; flex: 0 0 auto; border: 2px solid #53636e; border-radius: 50%; object-fit: cover; }
+.tactical-ability-tray > div:first-child > span { min-width: 0; display: grid; gap: 2px; }
+.tactical-ability-tray strong { overflow: hidden; color: #f0f3f5; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.tactical-ability-tray small { color: #7f8d96; font-size: 9px; }
+.tactical-ability-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+.tactical-ability-grid button { position: relative; aspect-ratio: 1; padding: 3px; overflow: hidden; border: 1px solid #3a4953; border-radius: 4px; background: #071116; cursor: pointer; }
+.tactical-ability-grid button:hover, .tactical-ability-grid button.is-active { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(255, 91, 85, .26); }
+.tactical-ability-grid img { width: 100%; height: 100%; display: block; border-radius: 2px; object-fit: cover; }
+.tactical-ability-grid span { position: absolute; right: 1px; bottom: 1px; min-width: 13px; height: 13px; display: grid; place-items: center; border-radius: 2px; background: rgba(4, 10, 14, .9); color: #eef2f4; font: 800 7px/1 var(--display-font); }
+.tactical-ability-tray p { min-height: 29px; margin: 0; color: #7f8c95; font-size: 9px; line-height: 1.45; }
+.tactical-ability-tray p.is-warning { color: #f7d154; font-weight: 750; }
+.tactical-map-stage { min-width: 0; min-height: 640px; padding: 28px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at center, rgba(44, 68, 77, .48), transparent 63%), linear-gradient(135deg, #071015, #0a141a); }
+.tactical-map-canvas { position: relative; display: inline-grid; max-width: 100%; max-height: 690px; touch-action: none; user-select: none; }
+.tactical-map-canvas > img { grid-area: 1 / 1; display: block; width: auto; height: auto; max-width: 100%; max-height: 690px; pointer-events: none; filter: drop-shadow(0 22px 28px rgba(0, 0, 0, .32)); }
+.tactical-map-canvas > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.tactical-map-canvas.tool-pen, .tactical-map-canvas.tool-arrow { cursor: crosshair; }
+.tactical-map-canvas.tool-agent, .tactical-map-canvas.tool-ability, .tactical-map-canvas.tool-attacker, .tactical-map-canvas.tool-defender, .tactical-map-canvas.tool-spike, .tactical-map-canvas.tool-danger { cursor: cell; }
+.tactical-map-canvas.tool-eraser { cursor: not-allowed; }
+.tactical-stroke { fill: none; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; pointer-events: stroke; }
+.tactical-marker { cursor: grab; }
+.tool-eraser .tactical-marker, .tool-eraser .tactical-stroke { cursor: pointer; }
+.tactical-marker text { fill: #081117; font: 850 15px/1 var(--display-font); pointer-events: none; }
+.tactical-agent-token image, .tactical-ability-token image { pointer-events: none; }
+.tactical-ability-range { fill-opacity: .16; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.tactical-ability-wall rect { fill-opacity: .36; }
+.tactical-ability-corridor rect, .tactical-ability-rectangle rect { fill-opacity: .18; }
+.tactical-ability-corridor line { fill: none; stroke-width: 3; stroke-dasharray: 12 9; }
+.tactical-ability-tripwire line { fill: none; stroke-width: 5; filter: drop-shadow(0 0 4px rgba(0, 0, 0, .75)); }
+.tactical-ability-tripwire rect { stroke: #081117; stroke-width: 3; }
+.tactical-ability-mesh { opacity: .48; }
+.tactical-ability-mesh line { stroke-width: 14; }
+.tactical-ability-mesh circle { stroke: #081117; stroke-width: 3; }
+.tactical-ability-net > path:first-child, .tactical-ability-cone { fill-opacity: .2; }
+.tactical-ability-net > path:last-child { fill: none; stroke-width: 3; }
+.tactical-ability-token.is-selected > circle, .tactical-agent-token.is-selected > circle { stroke-width: 8; filter: drop-shadow(0 0 8px rgba(255, 255, 255, .72)); }
+.tactical-empty-hint { position: absolute; left: 50%; bottom: 22px; z-index: 4; width: min(88%, 470px); padding: 10px 13px; display: flex; align-items: center; justify-content: center; gap: 8px; transform: translateX(-50%); border: 1px solid rgba(145, 161, 171, .45); border-radius: 999px; background: rgba(5, 12, 16, .88); color: #dce3e7; font-size: 11px; line-height: 1.4; pointer-events: none; }
+.tactical-empty-hint svg { flex: 0 0 auto; color: var(--accent); }
+.tactical-board-sidebar { min-width: 0; padding: 20px; display: grid; align-content: start; gap: 17px; border-left: 1px solid #2f3d47; background: rgba(15, 25, 32, .97); }
+.tactical-quick-start { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 4px 9px; }
+.tactical-quick-start > span { grid-row: 1 / 3; color: var(--accent); font: 850 18px/1 var(--display-font); }
+.tactical-quick-start h3 { margin: 1px 0 8px; font: 810 17px/1.25 var(--display-font); }
+.tactical-quick-start ol { grid-column: 2; margin: 0; padding: 0 0 0 17px; color: #9da9b1; font-size: 11px; line-height: 1.58; }
+.tactical-quick-start li + li { margin-top: 6px; }
+.tactical-notes { border-top: 1px solid #2f3d47; border-bottom: 1px solid #2f3d47; }
+.tactical-notes summary { padding: 13px 0; color: #cbd3d8; font-size: 12px; font-weight: 750; cursor: pointer; }
+.tactical-notes textarea { width: 100%; margin-bottom: 13px; padding: 10px 11px; resize: vertical; border: 1px solid #3b4a55; border-radius: 5px; background: #081116; color: #edf2f4; font: 650 12px/1.55 var(--body-font); }
+.tactical-board-actions { display: grid; gap: 7px; }
+.tactical-board-actions button { min-height: 42px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #465661; border-radius: 5px; background: transparent; color: #dce3e7; font: 760 12px/1 var(--body-font); cursor: pointer; }
+.tactical-board-actions button:hover:not(:disabled) { border-color: var(--accent); color: #fff; }
+.tactical-board-actions .primary-button { border-color: var(--accent); background: var(--accent); color: #091116; }
+.tactical-board-actions .danger-button { color: #a7b1b8; }
+.tactical-board-actions button:disabled { opacity: .36; cursor: not-allowed; }
+.tactical-local-note { margin: 0; display: flex; align-items: flex-start; gap: 7px; color: #77858e; font-size: 10px; line-height: 1.55; }
+.tactical-local-note svg { flex: 0 0 auto; margin-top: 1px; }
+
+@media (max-width: 1150px) {
+  .tactical-board-layout { grid-template-columns: 172px minmax(0, 1fr); }
+  .tactical-map-stage { min-height: 560px; }
+  .tactical-board-sidebar { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(210px, .75fr); border-top: 1px solid #2f3d47; border-left: 0; }
+  .tactical-notes { grid-column: 1; }
+  .tactical-board-actions { grid-column: 2; grid-row: 1 / 3; }
+  .tactical-local-note { grid-column: 1 / -1; }
+}
+
+@media (max-width: 680px) {
+  .tactical-board-shell { margin-right: calc(var(--page-gutter) * -.35); margin-left: calc(var(--page-gutter) * -.35); border-radius: 6px; }
+  .tactical-board-topbar { padding: 15px; display: grid; align-items: stretch; }
+  .tactical-board-topbar h2 { font-size: 19px; }
+  .tactical-map-select select { width: 100%; min-width: 0; }
+  .tactical-toolbar { padding: 8px; flex-wrap: wrap; }
+  .tactical-tool-group { order: 1; width: 100%; flex-basis: 100%; padding-bottom: 3px; }
+  .tactical-color-group { order: 2; margin-right: auto; padding: 0; border: 0; }
+  .tactical-history-group { order: 3; }
+  .tactical-history-group .tactical-rotate-button span { display: none; }
+  .tactical-history-group .tactical-rotate-button { width: 40px; padding: 0; }
+  .tactical-toolbar button { min-height: 40px; }
+  .tactical-board-layout { grid-template-columns: 1fr; }
+  .tactical-agent-dock { grid-row: auto; max-height: none; padding: 13px; grid-template-rows: auto auto auto auto auto; border-right: 0; border-bottom: 1px solid #2f3d47; }
+  .tactical-agent-dock-heading { grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; }
+  .tactical-side-switch { max-width: 310px; }
+  .tactical-role-filter { display: flex; gap: 5px; overflow-x: auto; }
+  .tactical-role-filter button, .tactical-role-filter button:first-child { grid-column: auto; min-width: max-content; padding: 0 10px; }
+  .tactical-agent-grid { padding: 1px 0 5px; display: flex; gap: 7px; overflow-x: auto; overflow-y: hidden; }
+  .tactical-agent-grid button { width: 62px; min-width: 62px; min-height: 67px; }
+  .tactical-ability-tray { grid-template-columns: auto minmax(160px, 1fr); align-items: center; gap: 8px 12px; }
+  .tactical-ability-tray > div:first-child { min-width: 105px; }
+  .tactical-ability-grid { min-width: 0; }
+  .tactical-ability-tray p { grid-column: 1 / -1; min-height: 0; }
+  .tactical-map-stage { min-height: 0; padding: 13px; }
+  .tactical-map-canvas > img { max-height: 560px; }
+  .tactical-empty-hint { bottom: 12px; border-radius: 6px; }
+  .tactical-board-sidebar { padding: 16px; display: grid; grid-template-columns: 1fr; }
+  .tactical-notes, .tactical-board-actions, .tactical-local-note { grid-column: 1; grid-row: auto; }
+}
+
 .publisher-value-section { margin-top: 24px; border-top: 1px solid #34424c; border-bottom: 1px solid #34424c; }
 .publisher-value-section > summary { min-height: 88px; padding: 16px 4px; display: flex; align-items: center; justify-content: space-between; gap: 24px; list-style: none; cursor: pointer; }
 .publisher-value-section > summary::-webkit-details-marker { display: none; }

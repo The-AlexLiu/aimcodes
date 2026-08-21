@@ -45,6 +45,7 @@ export const SEO_TOOLS = Object.freeze({
   decoder: Object.freeze({ slug: 'valorant-crosshair-code-decoder', keyword: 'valorant crosshair code decoder', priority: 'P0', indexable: true }),
   preview: Object.freeze({ slug: 'valorant-crosshair-preview', keyword: 'valorant crosshair preview', priority: 'P0', indexable: true }),
   comparison: Object.freeze({ slug: 'valorant-crosshair-comparison', keyword: 'compare valorant crosshairs', priority: 'P1', indexable: true }),
+  playbook: Object.freeze({ slug: 'valorant-playbook', keyword: 'valorant playbook', priority: 'P0', indexable: true }),
 })
 
 export const SEO_TOOL_KEYS = Object.freeze(Object.keys(SEO_TOOLS))

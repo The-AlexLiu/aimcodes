@@ -26,7 +26,7 @@ const guideKeys = Object.freeze([
   'gapOffset',
 ])
 
-const toolKeys = Object.freeze(['generator', 'decoder', 'preview', 'comparison'])
+const toolKeys = Object.freeze(['playbook', 'generator', 'decoder', 'preview', 'comparison'])
 
 const directoryCopy = {
   en: {
@@ -37,7 +37,7 @@ const directoryCopy = {
     guides: 'Crosshair guides',
     guidesHint: 'Quick answers for settings, errors, and aiming habits',
     tools: 'Tools you can use now',
-    toolsHint: 'Build, decode, preview, or compare a crosshair',
+    toolsHint: 'Plan a round, or build, decode, preview and compare a crosshair',
   },
   es: {
     title: 'Más formas de encontrar tu mira',
@@ -47,7 +47,7 @@ const directoryCopy = {
     guides: 'Guías de miras',
     guidesHint: 'Respuestas rápidas sobre ajustes, errores y puntería',
     tools: 'Herramientas listas para usar',
-    toolsHint: 'Crea, decodifica, prueba o compara una mira',
+    toolsHint: 'Planea una ronda o crea, decodifica, prueba y compara una mira',
   },
   'pt-BR': {
     title: 'Mais caminhos para encontrar sua mira',
@@ -57,7 +57,7 @@ const directoryCopy = {
     guides: 'Guias de mira',
     guidesHint: 'Respostas rápidas sobre ajustes, erros e mira',
     tools: 'Ferramentas prontas para usar',
-    toolsHint: 'Crie, decodifique, teste ou compare uma mira',
+    toolsHint: 'Planeje uma rodada ou crie, decodifique, teste e compare uma mira',
   },
   'zh-CN': {
     title: '还想继续找？按需要展开',
@@ -67,7 +67,7 @@ const directoryCopy = {
     guides: '先看教程',
     guidesHint: '解决设置、报错和瞄准习惯问题',
     tools: '直接上手',
-    toolsHint: '生成、解析、预览或对比准星',
+    toolsHint: '组一套战术，或生成、解析、预览和对比准星',
   },
   ja: {
     title: '目的に合わせて探す',
@@ -77,7 +77,7 @@ const directoryCopy = {
     guides: 'クロスヘアガイド',
     guidesHint: '設定、コピー、エラー表示、プリエイムを日本語で確認',
     tools: '今すぐ使えるツール',
-    toolsHint: '生成、解析、プレビュー、比較',
+    toolsHint: 'ラウンドを組み立て、生成・解析・プレビュー・比較',
   },
 }
 

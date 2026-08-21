@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { routePath } from '../seo/routes.js'
+import { playbookLabel } from '../seo/playbookLabels.js'
 import { seoCopy } from '../seo/content.js'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
@@ -59,6 +60,7 @@ export default function SiteFooter({ locale }) {
             <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>
           </FooterColumn>
           <FooterColumn label={content.resources}>
+            <a href={routePath(locale, { type: 'tool', toolKey: 'playbook' })}>{playbookLabel(locale)}</a>
             <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
             <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
             <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{content.settings}</a>
