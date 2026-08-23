@@ -1,6 +1,6 @@
 # AimCodes 架构说明
 
-最后更新：2026-08-17
+最后更新：2026-08-23
 
 ## 总体结构
 
@@ -61,7 +61,7 @@ src/data + src/i18n + src/seo
 - 简体中文：`/zh-cn/`
 - 日语：`/ja/`
 
-`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 2,340 个本地化 HTML 路由，将 1,565 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,280 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
+`pnpm build` 先按内容 Hash 增量生成索引准星与 OG 图片，再执行 Vite 构建和本地化路由生成。生成器源码、地图、Logo 或对应准星数据变化会自动失效缓存；图片验证仍覆盖全部必需输出。当前版本生成 2,505 个本地化 HTML 路由，将 1,730 个允许索引的 canonical URL 写入主 Sitemap，并将其中 1,440 个准星详情 URL 写入 `sitemap-crosshairs.xml`。
 
 任务范围由 `scripts/task-context.mjs` 汇总，分级验证由 `scripts/run-check-suite.mjs` 调度。报告写入 `.aimcodes-reports/current/`，使智能体优先读取异常和差异而不是完整日志；流程细节见 `docs/DEVELOPMENT_WORKFLOW.md`。
 
@@ -69,8 +69,8 @@ src/data + src/i18n + src/seo
 
 ## 准星数据流
 
-1. `src/data/crosshairs.js` 汇总基础准星和 `catalogExpansionCrosshairs`；后者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成。
-2. `src/data/catalogManifest.js` 从完整目录统一派生 256 个索引详情、25 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
+1. `src/data/crosshairs.js` 汇总基础准星、`catalogExpansionCrosshairs` 与 `funnyExpansionCrosshairs`；前者由 `src/data/catalogExpansion.js` 按 12 个形态家族确定性生成，后者由 `src/data/funnyCrosshairs.js` 维护经过全库外观去重的趣味造型。
+2. `src/data/catalogManifest.js` 从完整目录统一派生 288 个索引详情、25 个集合及集合关系，图片生成、静态路由与 Sitemap 不再各自维护索引列表。
 3. `src/utils/crosshairCode.js` 解析代码并生成预览参数。
 4. `src/hooks/useCrosshairCatalog.js` 根据外观去重、本地化并计算搜索、排序、相关推荐和当前选择。
 5. `CrosshairCanvas` 在地图图片上渲染当前形状和颜色。
