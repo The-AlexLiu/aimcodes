@@ -19,6 +19,7 @@ import { localizedRoutePath, parseSeoRoute, routePath } from './seo/routes.js'
 import { updateCrosshairColor } from './utils/crosshairCode.js'
 import { setAnalyticsContext, trackEvent, trackPageView, trackShareSuccess } from './utils/analytics.js'
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from './utils/shareLinks.js'
+import { canShareData, copyText, shareData } from './utils/share.js'
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const CATALOG_SESSION_KEY = 'aimcodes-catalog-session-v1'
@@ -26,6 +27,7 @@ const CATALOG_PAGE_SIZE = 48
 const MAIN_PREVIEW_SCALE = 2.25
 
 const CodeDialog = lazy(() => import('./components/CodeDialog.jsx'))
+const CrosshairShareDialog = lazy(() => import('./components/CrosshairShareDialog.jsx'))
 const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
 const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
 const ProPlayerProfilePanel = lazy(() => import('./components/ProPlayerProfilePanel.jsx'))
@@ -68,22 +70,6 @@ function writeCatalogSession(value) {
   }
 }
 
-async function copyToClipboard(value) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(value)
-    return
-  }
-  const textarea = document.createElement('textarea')
-  textarea.value = value
-  textarea.style.position = 'fixed'
-  textarea.style.opacity = '0'
-  document.body.appendChild(textarea)
-  textarea.select()
-  const copied = document.execCommand('copy')
-  textarea.remove()
-  if (!copied) throw new Error('Copy command failed')
-}
-
 function readSharedColorOverride(colorKey, routeType, crosshairId) {
   if (routeType !== 'crosshair') return {}
   const color = crosshairColorPresets.find((option) => option.key === colorKey)
@@ -123,6 +109,7 @@ export default function App() {
   const [toast, setToast] = useState(null)
   const [copiedId, setCopiedId] = useState(null)
   const [crosshairShareStatus, setCrosshairShareStatus] = useState('idle')
+  const [showCrosshairShareDialog, setShowCrosshairShareDialog] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
   const [showPreviewSettings, setShowPreviewSettings] = useState(() => route.type === 'crosshair' && !window.matchMedia('(max-width: 680px)').matches)
   const [finderFocus, setFinderFocus] = useState(false)
@@ -236,7 +223,7 @@ export default function App() {
   const copyCrosshair = async (item, options = {}) => {
     let copied = false
     try {
-      await copyToClipboard(item.code)
+      await copyText(item.code)
       setCopiedId(item.id)
       if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
       copiedTimer.current = window.setTimeout(() => setCopiedId(null), 1800)
@@ -256,8 +243,7 @@ export default function App() {
     return copied
   }
 
-  const shareCrosshair = async () => {
-    if (crosshairShareStatus === 'working') return
+  const crosshairShareData = () => {
     const shareUrl = createCrosshairShareUrl({
       origin: window.location.origin,
       locale: language,
@@ -265,26 +251,48 @@ export default function App() {
       background,
       colorKey: selectedCodeColorKey,
     })
+    return {
+      shareUrl,
+      nativeData: {
+        title: t('share.crosshairTitle', { name: selected.shortName }),
+        text: t('share.crosshairText', { name: selected.shortName }),
+        url: shareUrl,
+      },
+    }
+  }
+
+  const openCrosshairShare = () => {
+    setCrosshairShareStatus('idle')
+    setShowCrosshairShareDialog(true)
+    trackEvent('share_sheet_open', {
+      content_type: 'crosshair',
+      item_id: selected.id,
+      interaction_source: 'explore_preview',
+    })
+  }
+
+  const shareCrosshair = async (method) => {
+    if (crosshairShareStatus === 'working') return
+    const { shareUrl, nativeData } = crosshairShareData()
 
     setCrosshairShareStatus('working')
     try {
-      let method = 'link_code_copy'
-      if (navigator.share) {
-        await navigator.share({
-          title: t('share.crosshairTitle', { name: selected.shortName }),
-          text: t('share.crosshairText', { name: selected.shortName }),
-          url: shareUrl,
-        })
-        method = 'native_share'
+      if (method === 'native_share') {
+        const shared = await shareData(nativeData)
+        if (!shared) throw new Error('Native share is unavailable')
         setCrosshairShareStatus('shared')
         notify(t('toast.shared'))
+      } else if (method === 'link_copy') {
+        await copyText(shareUrl)
+        setCrosshairShareStatus('link_copied')
+        notify(t('toast.linkOnlyCopied'))
       } else {
-        await copyToClipboard(t('share.crosshairBundle', {
+        await copyText(t('share.crosshairBundle', {
           name: selected.name,
           code: selected.code,
           url: shareUrl,
         }))
-        setCrosshairShareStatus('copied')
+        setCrosshairShareStatus('bundle_copied')
         notify(t('toast.linkCopied'))
       }
 
@@ -298,7 +306,10 @@ export default function App() {
         interactionSource: 'explore_preview',
       })
       if (crosshairShareTimer.current) window.clearTimeout(crosshairShareTimer.current)
-      crosshairShareTimer.current = window.setTimeout(() => setCrosshairShareStatus('idle'), 2400)
+      crosshairShareTimer.current = window.setTimeout(() => {
+        setCrosshairShareStatus('idle')
+        if (method === 'native_share') setShowCrosshairShareDialog(false)
+      }, method === 'native_share' ? 900 : 2400)
     } catch (error) {
       if (error?.name === 'AbortError') {
         trackEvent('share_cancel', { content_type: 'crosshair', item_id: selected.id })
@@ -485,7 +496,7 @@ export default function App() {
             onColorChange={changeCrosshairColor}
             onCopy={copyCrosshair}
             onToggleInstructions={toggleInstructions}
-            onShare={shareCrosshair}
+            onShare={openCrosshairShare}
             t={t}
           />
         )}
@@ -535,6 +546,22 @@ export default function App() {
       {activeCodeDialogItem && (
         <Suspense fallback={null}>
           <CodeDialog crosshair={activeCodeDialogItem} onClose={() => setCodeDialogItem(null)} onCopy={copyCrosshair} t={t} />
+        </Suspense>
+      )}
+      {showCrosshairShareDialog && (
+        <Suspense fallback={null}>
+          <CrosshairShareDialog
+            crosshair={selected}
+            mapName={activeBackgroundName}
+            colorName={t(`colors.${selectedCodeColorKey}`)}
+            nativeShareAvailable={canShareData(crosshairShareData().nativeData)}
+            status={crosshairShareStatus}
+            onClose={() => setShowCrosshairShareDialog(false)}
+            onNativeShare={() => shareCrosshair('native_share')}
+            onCopyLink={() => shareCrosshair('link_copy')}
+            onCopyBundle={() => shareCrosshair('link_code_copy')}
+            t={t}
+          />
         </Suspense>
       )}
     </div>

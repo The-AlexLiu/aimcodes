@@ -10,6 +10,7 @@ import {
 } from '../data/playbookAgents.js'
 import { playbookMapName, playbookSeoCopy, playbookUiCopy, valorantMaps } from '../seo/playbookContent.js'
 import { trackEvent, trackShareSuccess } from '../utils/analytics.js'
+import { canShareData, copyText, shareData } from '../utils/share.js'
 
 const STORAGE_KEY = 'aimcodes-tactical-board-v3'
 const BOARD_SIZE = 1000
@@ -62,18 +63,6 @@ function encodeBoard(value) {
   let binary = ''
   bytes.forEach((byte) => { binary += String.fromCharCode(byte) })
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
-}
-
-async function copyText(value) {
-  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(value)
-  const textarea = document.createElement('textarea')
-  textarea.value = value
-  textarea.style.position = 'fixed'
-  textarea.style.opacity = '0'
-  document.body.appendChild(textarea)
-  textarea.select()
-  document.execCommand('copy')
-  textarea.remove()
 }
 
 function boardPoint(event) {
@@ -511,17 +500,37 @@ export default function ValorantPlaybookPage({ locale }) {
   const shareBoard = async () => {
     const url = new URL(window.location.href)
     url.hash = `board=${encodeBoard(boardState)}`
-    await copyText(url.toString())
-    trackShareSuccess({
-      method: 'link_copy',
-      contentType: 'playbook',
-      itemId: boardState.mapId,
-      interactionSource: 'playbook_toolbar',
-      map_name: boardState.mapId,
-      element_count: elements.length,
+    const sharePayload = {
+      title: seo.title,
+      text: `${copy.boardTitle} · ${currentMapLabel}`,
+      url: url.toString(),
+    }
+    trackEvent('share_sheet_open', {
+      content_type: 'playbook',
+      item_id: boardState.mapId,
+      interaction_source: 'playbook_toolbar',
     })
-    setStatus('shared')
-    window.setTimeout(() => setStatus('ready'), 1800)
+    try {
+      const method = canShareData(sharePayload) ? 'native_share' : 'link_copy'
+      if (method === 'native_share') await shareData(sharePayload)
+      else await copyText(url.toString())
+      trackShareSuccess({
+        method,
+        contentType: 'playbook',
+        itemId: boardState.mapId,
+        interactionSource: 'playbook_toolbar',
+        map_name: boardState.mapId,
+        element_count: elements.length,
+      })
+      setStatus(method === 'native_share' ? 'shared' : 'copied')
+      window.setTimeout(() => setStatus('ready'), 1800)
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        trackEvent('share_cancel', { content_type: 'playbook', item_id: boardState.mapId })
+        return
+      }
+      trackEvent('share_error', { content_type: 'playbook', item_id: boardState.mapId })
+    }
   }
 
   const exportBoard = async () => {
@@ -737,7 +746,7 @@ export default function ValorantPlaybookPage({ locale }) {
             </details>
             <div className="tactical-board-actions">
               <button className="primary-button" type="button" onClick={exportBoard}><Icon name="monitor" size={17} />{status === 'exported' ? copy.exported : copy.export}</button>
-              <button type="button" onClick={shareBoard}><Icon name="copy" size={17} />{status === 'shared' ? copy.linkCopied : copy.share}</button>
+              <button type="button" onClick={shareBoard}><Icon name={status === 'shared' || status === 'copied' ? 'check' : 'share'} size={17} />{status === 'shared' ? copy.shared : status === 'copied' ? copy.linkCopied : copy.share}</button>
               <button className="danger-button" type="button" disabled={!elements.length} onClick={() => { setSelectedElementId(null); replaceElements([]) }}><Icon name="trash" size={17} />{copy.clear}</button>
             </div>
             <p className="tactical-local-note"><Icon name="shield" size={15} />{copy.localNote}</p>

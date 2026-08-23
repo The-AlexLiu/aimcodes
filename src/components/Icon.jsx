@@ -16,6 +16,8 @@ export default function Icon({ name, size = 20, strokeWidth = 1.8, className = '
     menu: <path d="M4 7h16M4 12h16M4 17h16" />,
     bookmark: <path d="M6 4.8A1.8 1.8 0 0 1 7.8 3h8.4A1.8 1.8 0 0 1 18 4.8V21l-6-3.8L6 21V4.8Z" />,
     share: <><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5" /></>,
+    link: <><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1" /><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1" /></>,
+    download: <><path d="M12 3v12M7 10l5 5 5-5" /><path d="M5 21h14" /></>,
     trash: <><path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14" /><path d="M10 11v6M14 11v6" /></>,
     target: <><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" /></>,
     rotate: <><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v6h6" /></>,
