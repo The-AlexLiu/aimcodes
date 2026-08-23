@@ -26,6 +26,7 @@ const requiredEvents = [
   'language_change',
   'import_guide_open',
   'share',
+  'share_sheet_open',
   'share_card_open',
   'share_download',
   'share_native',

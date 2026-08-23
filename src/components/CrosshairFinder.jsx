@@ -13,6 +13,7 @@ import {
 } from '../utils/reactionRecommendation.js'
 import { createResultShareCard } from '../utils/shareResultCard.js'
 import { trackEvent, trackShareSuccess } from '../utils/analytics.js'
+import { canShareData, copyText, downloadBlob, shareData } from '../utils/share.js'
 
 const WAIT_MIN_MS = 1400
 const WAIT_VARIANCE_MS = 1700
@@ -405,33 +406,26 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       const blob = await createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, t }))
       const fileName = `aimcodes-reaction-${result.rank.id}-${result.average}ms.png`
       let shared = false
-      const prefersNativeShare = navigator.maxTouchPoints > 0 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
-      if (prefersNativeShare && typeof File === 'function' && navigator.share && navigator.canShare) {
+      if (typeof File === 'function') {
         const file = new File([blob], fileName, { type: 'image/png' })
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: t('finder.shareTitle'),
-            text: t('finder.shareText', { rank: rankName, average: result.average, unit: t('finder.millisecondsShort') }),
-            url: challengeUrl,
-          })
+        const sharePayload = {
+          files: [file],
+          title: t('finder.shareTitle'),
+          text: t('finder.shareText', { rank: rankName, average: result.average, unit: t('finder.millisecondsShort') }),
+          url: challengeUrl,
+        }
+        if (canShareData(sharePayload)) {
+          await shareData(sharePayload)
           shared = true
         }
       }
 
       if (!shared) {
-        const downloadUrl = URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = downloadUrl
-        link.download = fileName
-        document.body.appendChild(link)
-        link.click()
-        link.remove()
-        window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
+        await copyText(challengeUrl)
       }
 
-      trackEvent(shared ? 'share_native' : 'share_download', {
+      trackEvent(shared ? 'share_native' : 'share_link_copy', {
         content_type: 'reaction_result',
         item_id: result.rank.id,
         reaction_ms: result.average,
@@ -439,14 +433,14 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       })
 
       trackShareSuccess({
-        method: shared ? 'native_share' : 'image_download',
+        method: shared ? 'native_share' : 'link_copy',
         contentType: 'reaction_result',
         itemId: result.rank.id,
         interactionSource: 'finder_result',
         reaction_ms: result.average,
         crosshair_id: resultCrosshair.id,
       })
-      setShareStatus(shared ? 'shared' : 'saved')
+      setShareStatus(shared ? 'shared' : 'link_copied')
       if (shareTimer.current) window.clearTimeout(shareTimer.current)
       shareTimer.current = window.setTimeout(() => setShareStatus('idle'), 2400)
     } catch (error) {
@@ -463,22 +457,42 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     }
   }
 
+  const downloadResultCard = async () => {
+    if (!result || !resultCrosshair || shareStatus === 'working') return
+    setShareStatus('working')
+    try {
+      const blob = await createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, t }))
+      downloadBlob(blob, `aimcodes-reaction-${result.rank.id}-${result.average}ms.png`)
+      trackEvent('share_download', {
+        content_type: 'reaction_result',
+        item_id: result.rank.id,
+        reaction_ms: result.average,
+        crosshair_id: resultCrosshair.id,
+      })
+      trackShareSuccess({
+        method: 'image_download',
+        contentType: 'reaction_result',
+        itemId: result.rank.id,
+        interactionSource: 'finder_result',
+        reaction_ms: result.average,
+        crosshair_id: resultCrosshair.id,
+      })
+      setShareStatus('saved')
+      if (shareTimer.current) window.clearTimeout(shareTimer.current)
+      shareTimer.current = window.setTimeout(() => setShareStatus('idle'), 2400)
+    } catch (error) {
+      console.error('Unable to download the result card.', error)
+      trackEvent('share_error', { content_type: 'reaction_result', item_id: result.rank.id, method: 'image_download' })
+      setShareStatus('error')
+      if (shareTimer.current) window.clearTimeout(shareTimer.current)
+      shareTimer.current = window.setTimeout(() => setShareStatus('idle'), 2400)
+    }
+  }
+
   const copyChallengeLink = async () => {
     if (!challengeUrl) return
     try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(challengeUrl)
-      } else {
-        const input = document.createElement('textarea')
-        input.value = challengeUrl
-        input.setAttribute('readonly', '')
-        input.style.position = 'fixed'
-        input.style.opacity = '0'
-        document.body.appendChild(input)
-        input.select()
-        document.execCommand('copy')
-        input.remove()
-      }
+      await copyText(challengeUrl)
       setChallengeLinkCopied(true)
       trackEvent('share_link_copy', {
         content_type: 'reaction_challenge',
@@ -531,6 +545,8 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       ? t('finder.sharePreparing')
       : shareStatus === 'shared'
         ? t('finder.shareShared')
+        : shareStatus === 'link_copied'
+          ? t('finder.challengeLinkCopied')
         : shareStatus === 'saved'
           ? t('finder.shareSaved')
           : shareStatus === 'error'
@@ -583,7 +599,11 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
             <p>{t('finder.sharePanelBody', { average: result.average, unit: t('finder.millisecondsShort') })}</p>
             <div className="finder-share-actions">
               <button className="primary-button finder-share-primary" type="button" onClick={handleShareResult} disabled={shareStatus === 'working'} aria-live="polite">
-                <Icon name={shareStatus === 'shared' || shareStatus === 'saved' ? 'check' : 'share'} size={18} />{shareLabel}
+                <Icon name={['shared', 'saved', 'link_copied'].includes(shareStatus) ? 'check' : 'share'} size={18} />{shareLabel}
+              </button>
+              <button className="finder-link-button" type="button" onClick={downloadResultCard} disabled={shareStatus === 'working'}>
+                <Icon name={shareStatus === 'saved' ? 'check' : 'download'} size={17} />
+                {shareStatus === 'saved' ? t('finder.shareSaved') : t('finder.downloadShareCard')}
               </button>
               <button className="finder-link-button" type="button" onClick={copyChallengeLink}>
                 <Icon name={challengeLinkCopied ? 'check' : 'copy'} size={17} />

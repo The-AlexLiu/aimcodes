@@ -91,16 +91,18 @@ export default function CrosshairPreviewWorkspace({
             <Icon name="gamepad" /> {t('actions.import')}
           </button>
           <button className="secondary-button share-crosshair-button" type="button" onClick={onShare} disabled={shareStatus === 'working'} aria-live="polite">
-            <Icon name={shareStatus === 'shared' || shareStatus === 'copied' ? 'check' : 'share'} />
+            <Icon name={['shared', 'link_copied', 'bundle_copied'].includes(shareStatus) ? 'check' : 'share'} />
             {shareStatus === 'working'
               ? t('share.crosshairWorking')
               : shareStatus === 'shared'
                 ? t('share.crosshairShared')
-                : shareStatus === 'copied'
-                  ? t('share.crosshairCopied')
-                  : shareStatus === 'error'
-                    ? t('share.crosshairError')
-                    : t('share.crosshairAction')}
+                : shareStatus === 'link_copied'
+                  ? t('share.linkCopied')
+                  : shareStatus === 'bundle_copied'
+                    ? t('share.bundleCopied')
+                    : shareStatus === 'error'
+                      ? t('share.crosshairError')
+                      : t('share.crosshairAction')}
           </button>
         </div>
         {showInstructions && (

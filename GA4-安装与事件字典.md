@@ -28,6 +28,7 @@
 | `search_used` | 搜索框停留 700ms 且至少输入 2 个字符 | `query_length`、`results_count`、`has_results` |
 | `language_change` | 切换语言 | `from_language`、`to_language` |
 | `share` | 成功分享准星、成绩、挑战链接或战术板链接；下载成绩图仍沿用该统一成功口径 | `method`、`content_type`、`item_id`、`reaction_ms`、`crosshair_id`、`interaction_source` |
+| `share_sheet_open` | 用户打开准星分享面板或战术板系统分享入口 | `content_type`、`item_id`、`interaction_source` |
 | `share_landing` | 打开队友分享的准星详情 | `crosshair_id`、`crosshair_category`、`color_key`、`map_name` |
 | `share_card_open` | 开始生成反应成绩分享图 | `reaction_ms`、`reaction_rank`、`crosshair_id` |
 | `share_download` | 分享图通过浏览器下载成功 | `reaction_ms`、`crosshair_id` |
@@ -39,7 +40,7 @@
 | `challenge_complete` | 完成队友挑战 | `reaction_ms`、`challenge_ms`、`outcome`、`difference_ms` |
 | `challenge_won` | 成绩快于挑战目标 | `reaction_ms`、`challenge_ms`、`difference_ms` |
 
-验证脚本当前要求以上 25 个核心漏斗事件。所有成功分享统一通过 `trackShareSuccess` 发送 `share`，`share_link_copy`、`share_native` 和 `share_download` 仅保留为历史兼容及方式诊断事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
+验证脚本当前要求以上 26 个核心漏斗事件。所有成功分享统一通过 `trackShareSuccess` 发送 `share`，`share_link_copy`、`share_native` 和 `share_download` 仅保留为历史兼容及方式诊断事件。代码还会发送 `catalog_sort_change`、`random_crosshair`、`finder_timeout`、`share_cancel` 和 `share_error` 等辅助诊断事件，但它们不作为核心漏斗完整性的硬性门槛。
 
 搜索事件不发送用户输入的原始词，只发送长度和结果数量，避免把可能的个人信息写入 GA4。
 
