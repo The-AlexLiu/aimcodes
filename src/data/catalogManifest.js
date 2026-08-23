@@ -1,5 +1,6 @@
 import { catalogExpansionCrosshairs, crosshairs } from './crosshairs.js'
 import { expansionIdsForFamily, indexableExpansionIds, indexableLimitForFamily } from './catalogExpansion.js'
+import { FUNNY_CROSSHAIR_IDS } from './funnyCrosshairs.js'
 
 const INDEXABLE_EXPANSION_IDS = Object.freeze(indexableExpansionIds(catalogExpansionCrosshairs))
 const INDEXABLE_EXPANSION_SET = new Set(INDEXABLE_EXPANSION_IDS)
@@ -80,6 +81,7 @@ export const indexableCrosshairIds = Object.freeze([
   'small-dot-thick',
   'needle-cyan',
   ...INDEXABLE_EXPANSION_IDS,
+  ...FUNNY_CROSSHAIR_IDS,
 ])
 
 export const crosshairCollections = Object.freeze({
@@ -165,9 +167,9 @@ export const crosshairCollections = Object.freeze({
   }),
   funny: Object.freeze({
     slug: 'funny-crosshairs',
-    keyword: 'funny valorant crosshair codes',
+    keyword: 'funny crosshair valorant',
     priority: 'P0',
-    crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white', ...indexedFamilyIds('burstRing', 8), ...indexedFamilyIds('guardFrame', 7)]),
+    crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white', ...FUNNY_CROSSHAIR_IDS, ...indexedFamilyIds('burstRing', 8), ...indexedFamilyIds('guardFrame', 7)]),
   }),
   white: Object.freeze({
     slug: 'white-crosshairs',

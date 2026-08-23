@@ -1,4 +1,4 @@
-import { catalogExpansionCrosshairs } from '../data/crosshairs.js'
+import { catalogExpansionCrosshairs, funnyExpansionCrosshairs } from '../data/crosshairs.js'
 
 export const languages = [
   { code: 'en', short: 'EN', label: 'English' },
@@ -237,7 +237,7 @@ export const dictionaries = {
 }
 
 const catalogExpansionCopy = Object.fromEntries(
-  catalogExpansionCrosshairs.map((item) => [item.id, item.localizedCopy]),
+  [...catalogExpansionCrosshairs, ...funnyExpansionCrosshairs].map((item) => [item.id, item.localizedCopy]),
 )
 
 export const crosshairCopy = {

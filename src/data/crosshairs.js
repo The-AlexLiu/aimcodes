@@ -1,5 +1,6 @@
 import { expandedCrosshairs } from './expandedCrosshairs.js'
 import { buildCatalogExpansion } from './catalogExpansion.js'
+import { buildFunnyCrosshairs } from './funnyCrosshairs.js'
 import { verifiedProCrosshairs } from './verifiedProCrosshairs.js'
 
 const sourceCheckedAt = '2026-08-03'
@@ -572,7 +573,8 @@ const coreCrosshairs = [
 ]
 
 export const catalogExpansionCrosshairs = buildCatalogExpansion(coreCrosshairs)
-export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs, ...verifiedProCrosshairs]
+export const funnyExpansionCrosshairs = buildFunnyCrosshairs([...coreCrosshairs, ...catalogExpansionCrosshairs])
+export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs, ...funnyExpansionCrosshairs, ...verifiedProCrosshairs]
 
 export const filters = [
   'all',

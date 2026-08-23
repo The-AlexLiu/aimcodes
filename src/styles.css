@@ -238,8 +238,8 @@ legend { margin-bottom: 10px; }
 .card-copy { min-width: 40px; height: 40px; padding: 0 9px; position: absolute; top: 4px; right: 4px; display: flex; align-items: center; justify-content: center; gap: 5px; color: #d9dfe4; border-radius: 7px; z-index: 3; font-size: 12px; font-weight: 750; }
 .card-copy:hover { background: #26333e; color: white; }
 .card-preview { height: 95px; position: relative; display: block; }
-.card-info { display: block; }
-.card-title { font-size: 13px; font-weight: 700; line-height: 1.35; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-info { display: block; min-width: 0; max-width: 100%; }
+.card-title { display: block; max-width: 100%; font-size: 13px; font-weight: 700; line-height: 1.35; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pro-label { display: inline-block; margin-top: 9px; padding: 3px 7px; color: #78dceb; border: 1px solid #3c5963; border-radius: 4px; background: #11222a; font-size: 10px; font-weight: 800; }
 .cute-label { color: #f2a7cf; border-color: #70445e; background: var(--cute-dark); }
 .cute-label.is-fun { color: #ffb79d; border-color: #70483c; background: #2d201c; }
