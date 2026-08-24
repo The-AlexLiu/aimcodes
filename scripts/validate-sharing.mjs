@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { dictionaries } from '../src/i18n/translations.js'
+import { isWeChatBrowser } from '../src/utils/share.js'
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from '../src/utils/shareLinks.js'
 
 const locales = [
@@ -22,10 +23,13 @@ for (const [locale, prefix] of locales) {
   if (url.searchParams.get('mapa') !== 'bind' || url.searchParams.get('color') !== 'pink') throw new Error(`${locale} share URL lost preview settings.`)
   if (!isSharedCrosshairEntry(url.searchParams, 'crosshair')) throw new Error(`${locale} share URL lost entry attribution.`)
 
-  for (const key of ['crosshairAction', 'crosshairWorking', 'crosshairShared', 'crosshairCopied', 'crosshairError', 'crosshairTitle', 'crosshairText', 'crosshairBundle', 'eyebrow', 'dialogTitle', 'dialogBody', 'previewMeta', 'actionsLabel', 'nativeAction', 'copyLink', 'linkCopied', 'copyBundle', 'bundleCopied', 'copyBundleHint', 'statePreserved', 'close']) {
+  for (const key of ['crosshairAction', 'crosshairWorking', 'crosshairShared', 'crosshairCopied', 'crosshairError', 'crosshairTitle', 'crosshairText', 'crosshairBundle', 'eyebrow', 'dialogTitle', 'dialogBody', 'previewMeta', 'actionsLabel', 'nativeAction', 'copyLink', 'linkCopied', 'copyBundle', 'bundleCopied', 'copyBundleHint', 'statePreserved', 'wechatGuideTitle', 'wechatGuideBody', 'wechatCopyAction', 'wechatCopied', 'wechatFallbackHint', 'close']) {
     if (!String(dictionaries[locale].share?.[key] || '').trim()) throw new Error(`${locale} is missing share.${key}`)
   }
 }
+
+if (!isWeChatBrowser('Mozilla/5.0 MicroMessenger/8.0.56')) throw new Error('WeChat browser user agents must be detected.')
+if (isWeChatBrowser('Mozilla/5.0 Mobile Safari/605.1.15')) throw new Error('Regular mobile browsers must not be treated as WeChat.')
 
 const invalidUrl = new URL(createCrosshairShareUrl({
   origin: 'https://aimcodes.com',
@@ -45,9 +49,9 @@ for (const parameter of ['challenge', 'rank', 'utm_source', 'utm_medium', 'utm_c
   if (!appSource.includes(`'${parameter}'`)) throw new Error(`Language switching must preserve ${parameter}.`)
 }
 if (!appSource.includes("params.set('color', selectedCodeColorKey)")) throw new Error('Language switching must preserve the shared color.')
-for (const action of ['onNativeShare', 'onCopyLink', 'onCopyBundle']) {
+for (const action of ['onNativeShare', 'onCopyLink', 'onCopyBundle', 'isWeChatBrowser', 'showWeChatFallback']) {
   if (!shareDialogSource.includes(action)) throw new Error(`Crosshair share dialog is missing ${action}.`)
 }
 if (!shareDialogSource.includes('useDialogA11y')) throw new Error('Crosshair share dialog must retain focus and keyboard dismissal.')
 
-console.log(`Share growth validation passed: ${locales.length} localized links, explicit share actions, accessible dialog, preview restoration, attribution, and fallback guards.`)
+console.log(`Share growth validation passed: ${locales.length} localized links, explicit share actions, WeChat fallback, accessible dialog, preview restoration, attribution, and fallback guards.`)
