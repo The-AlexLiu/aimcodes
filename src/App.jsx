@@ -19,7 +19,7 @@ import { localizedRoutePath, parseSeoRoute, routePath } from './seo/routes.js'
 import { updateCrosshairColor } from './utils/crosshairCode.js'
 import { setAnalyticsContext, trackEvent, trackPageView, trackShareSuccess } from './utils/analytics.js'
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from './utils/shareLinks.js'
-import { canShareData, copyText, shareData } from './utils/share.js'
+import { canShareData, copyText, isWeChatBrowser, shareData } from './utils/share.js'
 
 const RECENT_STORAGE_KEY = 'aimcodes-recent-v1'
 const CATALOG_SESSION_KEY = 'aimcodes-catalog-session-v1'
@@ -98,6 +98,7 @@ export default function App() {
   const route = useMemo(() => parseSeoRoute(window.location.pathname), [])
   const catalogSession = useMemo(() => route.type === 'catalog' ? readCatalogSession() : {}, [route.type])
   const [language] = useState(route.locale)
+  const weChatBrowser = useMemo(() => isWeChatBrowser(), [])
   const [recentIds, setRecentIds] = useState(() => readStoredValue(RECENT_STORAGE_KEY, []))
   const [selectedId, setSelectedId] = useState(() => route.crosshairId || catalogCrosshairs[0].id)
   const [query, setQuery] = useState(() => catalogSession.query || '')
@@ -254,8 +255,6 @@ export default function App() {
     return {
       shareUrl,
       nativeData: {
-        title: t('share.crosshairTitle', { name: selected.shortName }),
-        text: t('share.crosshairText', { name: selected.shortName }),
         url: shareUrl,
       },
     }
@@ -282,10 +281,10 @@ export default function App() {
         if (!shared) throw new Error('Native share is unavailable')
         setCrosshairShareStatus('shared')
         notify(t('toast.shared'))
-      } else if (method === 'link_copy') {
+      } else if (method === 'link_copy' || method === 'wechat_link_copy') {
         await copyText(shareUrl)
         setCrosshairShareStatus('link_copied')
-        notify(t('toast.linkOnlyCopied'))
+        notify(method === 'wechat_link_copy' ? t('share.wechatCopied') : t('toast.linkOnlyCopied'))
       } else {
         await copyText(t('share.crosshairBundle', {
           name: selected.name,
@@ -317,7 +316,12 @@ export default function App() {
         return
       }
       console.error('Unable to share the crosshair.', error)
-      trackEvent('share_error', { content_type: 'crosshair', item_id: selected.id })
+      trackEvent('share_error', {
+        content_type: 'crosshair',
+        item_id: selected.id,
+        method,
+        error_name: error?.name || 'unknown',
+      })
       setCrosshairShareStatus('error')
       notify(t('toast.shareFailed'), 'error')
       if (crosshairShareTimer.current) window.clearTimeout(crosshairShareTimer.current)
@@ -554,11 +558,13 @@ export default function App() {
             crosshair={selected}
             mapName={activeBackgroundName}
             colorName={t(`colors.${selectedCodeColorKey}`)}
-            nativeShareAvailable={canShareData(crosshairShareData().nativeData)}
+            isWeChatBrowser={weChatBrowser}
+            showWeChatFallback={language === 'zh-CN' || weChatBrowser}
+            nativeShareAvailable={!weChatBrowser && canShareData(crosshairShareData().nativeData)}
             status={crosshairShareStatus}
             onClose={() => setShowCrosshairShareDialog(false)}
             onNativeShare={() => shareCrosshair('native_share')}
-            onCopyLink={() => shareCrosshair('link_copy')}
+            onCopyLink={() => shareCrosshair(language === 'zh-CN' || weChatBrowser ? 'wechat_link_copy' : 'link_copy')}
             onCopyBundle={() => shareCrosshair('link_code_copy')}
             t={t}
           />

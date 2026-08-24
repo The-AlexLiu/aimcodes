@@ -275,6 +275,11 @@ legend { margin-bottom: 10px; }
 .share-dialog-preview-copy { min-width: 0; display: grid; gap: 5px; }
 .share-dialog-preview-copy strong { overflow: hidden; color: #f6f8f9; font-size: 17px; text-overflow: ellipsis; white-space: nowrap; }
 .share-dialog-preview-copy small { color: #8f9ca5; font-size: 12px; }
+.share-dialog-wechat-guide { margin: -6px 0 16px; padding: 12px 13px; display: flex; align-items: flex-start; gap: 10px; border: 1px solid rgba(125, 226, 234, .35); border-radius: 8px; background: rgba(125, 226, 234, .07); color: #dce5e9; }
+.share-dialog-wechat-guide > svg { flex: 0 0 auto; margin-top: 1px; color: #7de2ea; }
+.share-dialog-wechat-guide > span { min-width: 0; display: grid; gap: 4px; }
+.share-dialog-wechat-guide strong { font-size: 13px; }
+.share-dialog-wechat-guide small { color: #aab7bf; font-size: 11px; line-height: 1.5; }
 .share-dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .share-dialog-actions > .primary-button:first-child { grid-column: 1 / -1; }
 .share-dialog-actions > button { width: 100%; }

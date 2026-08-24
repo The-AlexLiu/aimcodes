@@ -16,6 +16,10 @@ export async function copyText(value) {
   if (!copied) throw new Error('Copy command failed')
 }
 
+export function isWeChatBrowser(userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '') {
+  return /MicroMessenger/i.test(String(userAgent || ''))
+}
+
 export function canShareData(data) {
   if (typeof navigator === 'undefined') return false
   if (typeof navigator.share !== 'function') return false

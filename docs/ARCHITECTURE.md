@@ -132,7 +132,7 @@ src/data + src/i18n + src/seo
 - `scripts/validate-analytics.mjs` 当前要求 26 个漏斗事件，并阻止业务组件绕过统一分享成功 helper 直接发送 `share`。
 - 搜索事件只上报长度、结果数量和是否有结果，不上报原始搜索词。
 
-普通准星详情页的分享链接通过 `src/utils/shareLinks.js` 生成，保留语言、准星、地图和颜色，并使用 `utm_source=share`、`utm_medium=crosshair` 识别分享带来的访问。用户先进入统一分享面板：支持系统分享的设备可直接调用系统 App，不支持时仍可明确选择复制预览链接或复制“准星代码 + 深层链接”。反应成绩分享不再在桌面端意外触发下载，下载战绩卡改为独立动作；战术板同样优先系统分享并回退到复制链接。`share_sheet_open` 与统一 `share` 事件构成分享漏斗，`share_landing` 用于识别接收方落地，`scripts/validate-sharing.mjs` 负责校验五语种路径、可访问分享面板、预览还原和归因参数。
+普通准星详情页的分享链接通过 `src/utils/shareLinks.js` 生成，保留语言、准星、地图和颜色，并使用 `utm_source=share`、`utm_medium=crosshair` 识别分享带来的访问。用户先进入统一分享面板：支持系统分享的设备可直接调用系统 App，不支持时仍可明确选择复制预览链接或复制“准星代码 + 深层链接”。微信内置浏览器通过 `MicroMessenger` 标识识别，不再调用无法保证好友选择完成的 Web Share；页面改为引导右上角菜单发送，并提供复制链接后粘贴到聊天的可靠兜底。中文页面在普通手机浏览器中也明确提供微信复制兜底，成功事件的方法值为 `wechat_link_copy`。反应成绩分享不再在桌面端意外触发下载，下载战绩卡改为独立动作；战术板同样优先系统分享并回退到复制链接。`share_sheet_open` 与统一 `share` 事件构成分享漏斗，`share_landing` 用于识别接收方落地，`scripts/validate-sharing.mjs` 负责校验五语种路径、微信环境识别、可访问分享面板、预览还原和归因参数。
 
 事件实现以代码和 `validate-analytics.mjs` 为准；`GA4-安装与事件字典.md` 若与验证脚本不一致，需要同步更新。
 
