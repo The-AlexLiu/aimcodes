@@ -83,9 +83,10 @@ function readSharedColorOverride(colorKey, routeType, crosshairId) {
   }
 }
 
-function RouteLoading() {
+function RouteLoading({ label }) {
   return (
-    <section className="route-loading" aria-busy="true" aria-live="polite">
+    <section className="route-loading" aria-busy="true" aria-label={label}>
+      <p className="route-loading__message" role="status">{label}</p>
       <span className="route-loading__line is-title" />
       <span className="route-loading__line" />
       <span className="route-loading__panel" />
@@ -444,19 +445,19 @@ export default function App() {
             <a className="primary-button" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).notFound.action}</a>
           </section>
         ) : route.type === 'players' ? (
-          <Suspense fallback={<RouteLoading />}><ProPlayersPage locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ProPlayersPage locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
         ) : route.type === 'guide' ? (
-          <Suspense fallback={<RouteLoading />}><ImportGuide locale={language} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
-          <Suspense fallback={<RouteLoading />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} /></Suspense>
         ) : route.type === 'tool' && route.toolKey === 'playbook' ? (
-          <Suspense fallback={<RouteLoading />}><ValorantPlaybookPage locale={language} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ValorantPlaybookPage locale={language} /></Suspense>
         ) : route.type === 'tool' ? (
-          <Suspense fallback={<RouteLoading />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'trust' ? (
-          <Suspense fallback={<RouteLoading />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (
-          <Suspense fallback={<RouteLoading />}><CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
@@ -466,6 +467,7 @@ export default function App() {
           <CatalogSearch
             query={query}
             firstResult={visibleCrosshairs[0]}
+            resultCount={visibleCrosshairs.length}
             onQueryChange={(value) => { setQuery(value); setCatalogLimit(CATALOG_PAGE_SIZE) }}
             onClear={() => { setQuery(''); setCatalogLimit(CATALOG_PAGE_SIZE) }}
             onSelect={selectCrosshair}
@@ -508,11 +510,11 @@ export default function App() {
         {route.type === 'crosshair' && (
           <>
             {selected.isPro && <Suspense fallback={null}><ProPlayerProfilePanel crosshair={selected} locale={language} /></Suspense>}
-            <Suspense fallback={<RouteLoading />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
+            <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
           </>
         )}
 
-        {route.type === 'home' && <Suspense fallback={<RouteLoading />}><ProPlayersSpotlight locale={language} crosshairs={allSourceCrosshairs} /></Suspense>}
+        {route.type === 'home' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ProPlayersSpotlight locale={language} crosshairs={allSourceCrosshairs} /></Suspense>}
 
         {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && (
           <CrosshairCollectionSection
@@ -537,8 +539,8 @@ export default function App() {
             t={t}
           />
         )}
-        {route.type === 'collection' && <Suspense fallback={<RouteLoading />}><SeoCollectionDetails locale={language} collectionKey={route.collectionKey} /></Suspense>}
-        {route.type === 'home' && <Suspense fallback={<RouteLoading />}><HomeResourceDirectory locale={language} /></Suspense>}
+        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionDetails locale={language} collectionKey={route.collectionKey} /></Suspense>}
+        {route.type === 'home' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><HomeResourceDirectory locale={language} /></Suspense>}
         {(route.type === 'home' || route.type === 'catalog') && <PublisherValueSection locale={language} type={route.type} />}
           </>
         )}

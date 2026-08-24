@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 
@@ -17,7 +17,27 @@ export default function CatalogControls({
   t,
 }) {
   const [showMoreFilters, setShowMoreFilters] = useState(false)
+  const filterToggleRef = useRef(null)
   const availableFilters = [...filters, ...(recentIds.length >= 2 ? ['recent'] : [])]
+  const activeFilterLabel = activeFilter === 'all' ? '' : t(`filters.${activeFilter}`)
+
+  useEffect(() => {
+    if (!showMoreFilters) return undefined
+
+    const closeOnEscape = (event) => {
+      if (event.key !== 'Escape') return
+      setShowMoreFilters(false)
+      window.requestAnimationFrame(() => filterToggleRef.current?.focus())
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [showMoreFilters])
+
+  const closeFilters = () => {
+    setShowMoreFilters(false)
+    window.requestAnimationFrame(() => filterToggleRef.current?.focus())
+  }
 
   return (
     <div className="catalog-controls">
@@ -28,13 +48,15 @@ export default function CatalogControls({
             <Icon name="rotate" size={16} /> {t('actions.random')}
           </button>
           <button
-            className={showMoreFilters ? 'is-active' : ''}
+            ref={filterToggleRef}
+            className={showMoreFilters || activeFilter !== 'all' ? 'is-active' : ''}
             type="button"
             onClick={() => setShowMoreFilters((current) => !current)}
             aria-expanded={showMoreFilters}
             aria-controls="catalog-filter-panel"
           >
-            <Icon name="sliders" size={16} /> {t('catalogUx.filters')}
+            <Icon name="sliders" size={16} />
+            <span>{t('catalogUx.filters')}{activeFilterLabel ? ` · ${activeFilterLabel}` : ''}</span>
           </button>
         </div>
       </div>
@@ -52,10 +74,10 @@ export default function CatalogControls({
         ))}
       </div>
 
-      <div className={`filters ${showMoreFilters ? 'is-open' : ''}`} id="catalog-filter-panel" aria-label={t('filters.label')}>
+      <div className={`filters ${showMoreFilters ? 'is-open' : ''}`} id="catalog-filter-panel" role="region" aria-label={t('filters.label')}>
         <div className="catalog-filter-heading">
           <strong>{t('filters.label')}</strong>
-          <button type="button" onClick={() => setShowMoreFilters(false)} aria-label={t('catalogUx.closeFilters')}>
+          <button type="button" onClick={closeFilters} aria-label={t('catalogUx.closeFilters')}>
             <Icon name="x" size={18} />
           </button>
         </div>

@@ -129,7 +129,8 @@ main { width: min(1488px, calc(100% - (var(--page-gutter) * 2))); margin: 0 auto
 
 .search-bar { height: 48px; border: 1px solid var(--border); border-radius: 7px; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 15px; background: rgba(15, 23, 30, 0.82); color: var(--muted); margin-bottom: 14px; transition: border-color 160ms ease, background 160ms ease; }
 .search-bar:focus-within { border-color: #65727d; background: var(--surface); }
-.search-bar input { flex: 1; border: 0; outline: 0; background: transparent; color: var(--text); min-width: 0; font-size: 15px; }
+.search-bar input { height: 100%; min-height: 44px; flex: 1; border: 0; outline: 0; background: transparent; color: var(--text); min-width: 0; font-size: 15px; }
+.search-bar input::-webkit-search-cancel-button { display: none; }
 .search-bar input::placeholder { color: #89949e; }
 .clear-search { display: grid; place-items: center; background: transparent; color: var(--muted); border: 0; padding: 6px; border-radius: 6px; cursor: pointer; }
 .clear-search:hover { color: var(--text); background: var(--surface-2); }
@@ -1155,6 +1156,13 @@ legend { margin-bottom: 10px; }
   border-radius: 18px;
   background: var(--surface);
   overflow: hidden;
+}
+
+.route-loading__message {
+  margin: 0 0 18px;
+  color: #aab4bb;
+  font-size: var(--type-ui);
+  font-weight: 680;
 }
 
 .route-loading__line,
