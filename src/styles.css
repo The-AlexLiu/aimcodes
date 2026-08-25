@@ -510,9 +510,9 @@ legend { margin-bottom: 10px; }
 .seo-detail-grid p { margin: 0; }
 .seo-detail-grid ol { margin: 0; padding-left: 20px; }
 .seo-detail-grid dl { margin: 0; display: grid; gap: 7px; }
-.seo-detail-grid dl div { display: flex; justify-content: space-between; gap: 20px; color: #aeb8bf; font-size: var(--type-ui); }
-.seo-detail-grid dt { color: #8d99a2; }
-.seo-detail-grid dd { margin: 0; color: #e5eaed; font-weight: 700; }
+.seo-detail-grid dl div { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; color: #aeb8bf; font-size: var(--type-ui); }
+.seo-detail-grid dt { flex: 0 0 auto; color: #8d99a2; }
+.seo-detail-grid dd { min-width: 0; margin: 0; color: #e5eaed; font-weight: 700; text-align: right; overflow-wrap: anywhere; }
 .seo-detail-context { margin-top: 14px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #34424c; border-radius: 7px; background: rgba(15, 24, 31, .72); }
 .seo-detail-context > span { color: #8d99a2; font: 800 10px/1 var(--display-font); letter-spacing: 1.15px; text-transform: uppercase; }
 .seo-detail-context > div { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
