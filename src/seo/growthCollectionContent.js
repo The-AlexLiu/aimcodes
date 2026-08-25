@@ -6,8 +6,8 @@ const shared = {
 }
 
 const related = {
-  funny: { relatedCollectionKeys: ['cute', 'circle', 'pink'], relatedArticleKeys: ['colors'], relatedToolKeys: ['preview', 'generator'] },
-  white: { relatedCollectionKeys: ['minimalist', 'thin', 'withoutOutlines'], relatedArticleKeys: ['colors', 'outlinesOnOff'], relatedToolKeys: ['comparison', 'preview'] },
+  funny: { relatedCollectionKeys: ['cute', 'circle', 'pink', 'dot', 'small'], relatedArticleKeys: ['colors'], relatedToolKeys: ['preview', 'generator'] },
+  white: { relatedCollectionKeys: ['minimalist', 'thin', 'withoutOutlines', 'dot', 'small'], relatedArticleKeys: ['colors', 'outlinesOnOff'], relatedToolKeys: ['comparison', 'preview'] },
   red: { relatedCollectionKeys: ['pink', 'thick', 'withOutlines'], relatedArticleKeys: ['colors', 'customColor'], relatedToolKeys: ['comparison', 'preview'] },
   thin: { relatedCollectionKeys: ['small', 'minimalist', 'openCenter'], relatedArticleKeys: ['thickness', 'gapOffset'], relatedToolKeys: ['generator', 'comparison'] },
   thick: { relatedCollectionKeys: ['beginner', 'closed', 'funny'], relatedArticleKeys: ['thickness', 'outlinesOnOff'], relatedToolKeys: ['preview', 'comparison'] },
@@ -29,12 +29,12 @@ const content = {
       metaTitle: 'Funny VALORANT Crosshair Codes That Work | AimCodes', metaDescription: 'Preview funny VALORANT crosshair codes: animals, pixel goggles, portals, arcade targets, totems and frames. Test every working code before copying.',
     },
     white: {
-      label: 'White crosshairs', eyebrow: 'CLEAN SHAPE, CAREFUL CONTRAST', title: 'White VALORANT crosshair codes', intro: 'Compare clean white dots and crosses, then decide whether each shape needs an outline on bright map surfaces.',
+      label: 'White crosshairs', eyebrow: 'CLEAN SHAPE, CAREFUL CONTRAST', title: 'White crosshair codes for VALORANT', intro: 'Copy and preview white VALORANT crosshair codes, from compact dots to clean crosses with or without outlines.',
       body: ['White makes compact geometry look neutral and uncluttered. It performs well on dark walls, but sky, pale stone, and ability flashes can erase a thin white center.', 'This collection mixes outlined and unoutlined shapes so you can test contrast without changing the base color. Compare them on one bright scene and one shadowed scene.'],
       selection: 'Only indexable codes whose active primary color resolves to white are included. The set covers dots, open crosses, compact crosses, and layered layouts.',
       settings: ['Try the code without an outline first.', 'Add a thin outline only when bright scenery hides the center.', 'Do not thicken every line to fix one bad background.'],
       faq: [['Is white a good VALORANT crosshair color?', 'Yes on darker and saturated surfaces; a thin outline may be needed on bright walls.'], ['Should a white crosshair always have outlines?', 'No. Use outlines only when they improve contrast without making the shape too bulky.']],
-      metaTitle: 'White VALORANT Crosshair Codes & Preview | AimCodes', metaDescription: 'Preview working white VALORANT crosshair codes with and without outlines. Compare dots and crosses on real maps, then copy a code.',
+      metaTitle: 'White Crosshair Codes for VALORANT | AimCodes', metaDescription: 'Copy white crosshair codes for VALORANT, compare dots and crosses with or without outlines, and preview each setup on real map scenes.',
     },
     red: {
       label: 'Red crosshairs', eyebrow: 'HIGH CONTRAST ON COOL MAPS', title: 'Red VALORANT crosshair codes', intro: 'Test red dots and crosses on cool and neutral map scenes before pairing them with your enemy outline color.',

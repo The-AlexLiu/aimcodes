@@ -105,8 +105,8 @@ const pages = {
       metaTitle: 'VALORANT Center Dot: On or Off? | AimCodes', metaDescription: 'Compare a VALORANT center dot with an open-center crosshair and choose the option with better visibility and target coverage.',
     },
     innerVsOuter: {
-      title: 'VALORANT inner lines vs outer lines',
-      intro: 'Know which line group should carry the aim and which one is only adding noise.',
+      title: 'VALORANT inner lines vs outer lines: best settings',
+      intro: 'See what inner and outer lines change, which layer should define your aim, and when the extra lines are only adding noise.',
       summary: 'Use inner lines as the main aiming shape. Keep outer lines off unless they solve a clear tracking or feedback problem, because they add screen space without improving weapon accuracy.',
       sections: [
         ['Inner lines define the working center', 'Length, thickness, opacity, and offset create most competitive dots and crosses. Tune these first before adding a second line layer.'],
@@ -114,7 +114,7 @@ const pages = {
         ['Build from the center outward', 'Start with outer lines off. Make the inner shape readable at normal scale, then enable outer lines only when you can name the problem they fix.'],
       ],
       faq: [['Are outer lines necessary in VALORANT?', 'No. Many clear competitive profiles use only inner lines or a center dot.'], ['Can inner and outer lines use different error settings?', 'Yes, which can be useful for practice, but the extra motion may distract in matches.']],
-      metaTitle: 'VALORANT Inner Lines vs Outer Lines | AimCodes', metaDescription: 'Learn what VALORANT inner and outer crosshair lines do, which settings define the center, and when outer lines help.',
+      metaTitle: 'VALORANT Inner Lines vs Outer Lines: Best Settings | AimCodes', metaDescription: 'Compare VALORANT inner and outer crosshair lines, learn which settings define the center, and see when outer lines should be on or off.',
     },
     thickness: {
       title: 'VALORANT crosshair thickness explained',
@@ -129,8 +129,8 @@ const pages = {
       metaTitle: 'VALORANT Crosshair Thickness Explained | AimCodes', metaDescription: 'Choose VALORANT crosshair thickness by balancing visibility, outlines, resolution, and target coverage.',
     },
     gapOffset: {
-      title: 'VALORANT crosshair gap and offset explained',
-      intro: 'Open enough space to see the target without making four separate lines feel disconnected.',
+      title: 'VALORANT crosshair gap and offset settings',
+      intro: 'Set the inner-line offset high enough to see the target without making four separate lines feel disconnected.',
       summary: 'Offset controls how far the lines sit from the center. Use a small gap for a compact reference, a wider gap to keep the head visible, and test changes together with line length.',
       sections: [
         ['Offset creates the center gap', 'A low offset pulls lines toward the middle; a higher value opens the center. The same offset can feel different when line thickness changes.'],
@@ -138,7 +138,7 @@ const pages = {
         ['Use the target as the test', 'Place the crosshair over a distant head-sized reference. If the center is hidden, open the gap; if the lines no longer point clearly to the middle, close it slightly.'],
       ],
       faq: [['Is offset the same as crosshair gap?', 'In practical use, inner-line offset is the setting that opens or closes the visible center gap.'], ['What gap is best for headshots?', 'Use the smallest gap that keeps the target visible and still makes the center obvious to you.']],
-      metaTitle: 'VALORANT Crosshair Gap & Offset Explained | AimCodes', metaDescription: 'Understand VALORANT crosshair gap and inner-line offset, then balance center visibility with line length and thickness.',
+      metaTitle: 'VALORANT Crosshair Gap & Offset Settings | AimCodes', metaDescription: 'Learn how VALORANT inner-line offset controls crosshair gap, then balance center visibility with line length and thickness.',
     },
   },
 }
