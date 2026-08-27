@@ -105,6 +105,7 @@ const manifest = await readFile(resolve(projectRoot, 'dist/site.webmanifest'), '
 if (!robots.includes('https://aimcodes.com/sitemap.xml')) errors.push('robots.txt: sitemap URL missing')
 if (!robots.includes('https://aimcodes.com/sitemap-crosshairs.xml')) errors.push('robots.txt: crosshair sitemap URL missing')
 if (!robots.includes('https://aimcodes.com/sitemap-images.xml')) errors.push('robots.txt: image sitemap URL missing')
+if (!robots.includes('User-agent: OAI-SearchBot')) errors.push('robots.txt: explicit OAI-SearchBot rule missing')
 if (faviconIco.size < 1000) errors.push('favicon.ico: file is unexpectedly small')
 if (favicon48.size < 500) errors.push('favicon-48x48.png: file is unexpectedly small')
 if (favicon96.size < 1000) errors.push('favicon-v2.png: file is unexpectedly small')

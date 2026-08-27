@@ -8,9 +8,18 @@ const PARAMETER_LENGTH_OVERRIDES = {
   page_referrer: 420,
   page_title: 300,
 }
+const AI_REFERRAL_PROVIDERS = Object.freeze([
+  Object.freeze({ provider: 'chatgpt', hosts: Object.freeze(['chatgpt.com', 'chat.openai.com']) }),
+  Object.freeze({ provider: 'perplexity', hosts: Object.freeze(['perplexity.ai']) }),
+  Object.freeze({ provider: 'claude', hosts: Object.freeze(['claude.ai']) }),
+  Object.freeze({ provider: 'gemini', hosts: Object.freeze(['gemini.google.com']) }),
+  Object.freeze({ provider: 'copilot', hosts: Object.freeze(['copilot.microsoft.com', 'copilot.com', 'bing.com/chat']) }),
+  Object.freeze({ provider: 'meta_ai', hosts: Object.freeze(['meta.ai']) }),
+])
 
 let analyticsContext = {}
 let lastPageView = ''
+let lastAiReferralView = ''
 
 function hasWindow() {
   return typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -141,6 +150,41 @@ export function trackShareSuccess({
   })
 }
 
+function referralHost(value) {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (!normalized) return ''
+  try {
+    return new URL(normalized.includes('://') ? normalized : `https://${normalized}`).hostname.replace(/^www\./, '')
+  } catch {
+    return normalized.replace(/^www\./, '').split('/')[0]
+  }
+}
+
+export function detectAiReferral(locationLike = window.location, referrer = document.referrer) {
+  const parameters = new URLSearchParams(locationLike.search || '')
+  const taggedHost = referralHost(parameters.get('utm_source'))
+  const documentHost = referralHost(referrer)
+  const matched = AI_REFERRAL_PROVIDERS.find(({ hosts }) => hosts.some((host) => taggedHost === host || documentHost === host || documentHost.endsWith(`.${host}`)))
+  if (!matched) return null
+  return {
+    provider: matched.provider,
+    host: documentHost || taggedHost,
+  }
+}
+
+function trackAiReferralLanding(viewName) {
+  if (lastAiReferralView === viewName) return false
+  const referral = detectAiReferral()
+  if (!referral) return false
+  const tracked = trackEvent('ai_referral_landing', {
+    ai_provider: referral.provider,
+    referring_host: referral.host,
+    landing_path: window.location.pathname,
+  })
+  if (tracked) lastAiReferralView = viewName
+  return tracked
+}
+
 export function trackPageView(viewName, pageTitle) {
   if (!hasWindow() || lastPageView === viewName) return false
 
@@ -151,6 +195,9 @@ export function trackPageView(viewName, pageTitle) {
     page_location: virtualLocation.href,
     app_view: viewName,
   })
-  if (tracked) lastPageView = viewName
+  if (tracked) {
+    lastPageView = viewName
+    trackAiReferralLanding(viewName)
+  }
   return tracked
 }

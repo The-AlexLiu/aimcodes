@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { routePath } from '../seo/routes.js'
 import { playbookLabel } from '../seo/playbookLabels.js'
+import { crosshairStatisticsCopy } from '../seo/crosshairStatisticsContent.js'
 import { seoCopy } from '../seo/content.js'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
@@ -65,6 +66,7 @@ export default function SiteFooter({ locale }) {
             <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>
             <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{content.settings}</a>
             <a href={routePath(locale, { type: 'article', articleKey: 'colors' })}>{content.colors}</a>
+            <a href={routePath(locale, { type: 'article', articleKey: 'statistics' })}>{crosshairStatisticsCopy(locale).navLabel}</a>
           </FooterColumn>
           <FooterColumn label={content.trust}>
             <a href={routePath(locale, { type: 'trust', pageKey: 'about' })}>{content.about}</a>

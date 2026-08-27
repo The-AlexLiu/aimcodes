@@ -16,6 +16,7 @@ export const collectionKeysForCrosshair = collectionKeysForCatalogCrosshair
 export const SEO_ARTICLES = Object.freeze({
   settings: Object.freeze({ slug: 'valorant-crosshair-settings' }),
   colors: Object.freeze({ slug: 'best-valorant-crosshair-colors' }),
+  statistics: Object.freeze({ slug: 'valorant-crosshair-statistics', keyword: 'valorant crosshair statistics', priority: 'P0' }),
   copy: Object.freeze({ slug: 'how-to-copy-crosshair-in-valorant', keyword: 'how to copy crosshair in valorant', priority: 'P0' }),
   notWorking: Object.freeze({ slug: 'valorant-crosshair-code-not-working', keyword: 'valorant crosshair code not working', priority: 'P0' }),
   makeDot: Object.freeze({ slug: 'how-to-make-dot-crosshair-valorant', keyword: 'how to make dot crosshair valorant', priority: 'P0' }),

@@ -1,6 +1,7 @@
 import { expansionArticleCopy } from './guideExpansionContent.js'
 import { growthArticleCopy } from './growthGuideContent.js'
 import { japaneseArticles } from './japaneseContent.js'
+import { crosshairStatisticsCopy } from './crosshairStatisticsContent.js'
 
 const articles = {
   en: {
@@ -203,6 +204,7 @@ const articles = {
 }
 
 export function articleCopy(locale, articleKey) {
+  if (articleKey === 'statistics') return crosshairStatisticsCopy(locale)
   if (locale === 'ja') return japaneseArticles[articleKey] || articles.en[articleKey] || articles.en.settings
   return articles[locale]?.[articleKey]
     || expansionArticleCopy(locale, articleKey)

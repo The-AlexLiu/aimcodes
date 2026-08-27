@@ -28,6 +28,11 @@ export default function ProPlayerProfilePanel({ crosshair, locale }) {
         {facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         <div className="is-wide"><dt>{copy.labels.highlight}</dt><dd>{copy.highlight}</dd></div>
       </dl>
+      {profile.profileSourceUrl && (
+        <p className="pro-player-profile-source">
+          <a href={profile.profileSourceUrl} target="_blank" rel="noreferrer">{copy.labels.source}</a>
+        </p>
+      )}
     </section>
   )
 }

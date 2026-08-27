@@ -30,6 +30,14 @@ const localizedColors = Object.freeze({
   ja: { cyan: 'シアン', white: '白', green: '緑', yellow: '黄', red: '赤', pink: 'ピンク', black: '黒', custom: 'カスタム' },
 })
 
+const sourceLabels = Object.freeze({
+  en: 'Code source',
+  es: 'Fuente del código',
+  'pt-BR': 'Fonte do código',
+  'zh-CN': '代码来源',
+  ja: 'コードの出典',
+})
+
 function settingEnabled(setting) {
   if (typeof setting === 'boolean') return setting
   if (setting && typeof setting === 'object' && 'enabled' in setting) return Boolean(setting.enabled)
@@ -86,6 +94,12 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
           <code title={crosshair.code}>{crosshair.code}</code>
         </div>
       </div>
+      {crosshair.sourceUrl && crosshair.sourceName && (
+        <p className="seo-detail-source">
+          <span>{sourceLabels[locale] || sourceLabels.en}</span>
+          <a href={crosshair.sourceUrl} target="_blank" rel="noreferrer">{crosshair.sourceName}</a>
+        </p>
+      )}
 
       <div className="seo-detail-grid">
         <article>

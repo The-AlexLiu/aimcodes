@@ -499,6 +499,9 @@ legend { margin-bottom: 10px; }
 .seo-faq details p { padding: 0 28px 16px 0; }
 
 .seo-detail-content { margin-top: 16px; }
+.seo-detail-source { margin: 10px 2px 0; display: flex; flex-wrap: wrap; gap: 7px; color: #8d99a2; font-size: 12px; line-height: 1.5; }
+.seo-detail-source a { color: #cbd3d8; text-decoration: underline; text-underline-offset: 3px; }
+.seo-detail-source a:hover { color: var(--accent); }
 .seo-code-panel { padding: 18px 20px; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 18px; border: 1px solid #3a4853; border-radius: 7px; background: #0e171e; }
 .seo-code-panel > div { min-width: 0; display: grid; gap: 8px; }
 .seo-code-panel span { color: #98a4ad; font: 800 11px/1 var(--display-font); letter-spacing: 1.35px; text-transform: uppercase; }
@@ -586,6 +589,33 @@ legend { margin-bottom: 10px; }
 .seo-article-sources h2 { margin: 0 auto 0 0; font: 780 14px/1.2 var(--display-font); }
 .seo-article-sources a { color: #aeb8bf; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
 .seo-article-sources a:hover { color: var(--accent); }
+.crosshair-statistics { margin-top: 18px; padding: clamp(18px, 3vw, 28px); border: 1px solid #374550; border-radius: 8px; background: linear-gradient(145deg, rgba(20, 31, 39, .96), rgba(10, 18, 24, .96)); }
+.crosshair-statistics > header { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr); gap: 24px; align-items: start; }
+.crosshair-statistics > header h2 { margin: 0; font: 830 24px/1.2 var(--display-font); }
+.crosshair-statistics > header p, .crosshair-statistics-grid > section > p, .crosshair-statistics-collections > p { margin: 0; color: #9eabb4; font-size: 13px; line-height: 1.65; }
+.crosshair-statistics-metrics { margin-top: 22px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.crosshair-statistics-metrics article { min-width: 0; padding: 17px; display: grid; gap: 7px; border: 1px solid #3a4852; border-radius: 7px; background: rgba(8, 17, 23, .84); }
+.crosshair-statistics-metrics strong { color: #fff; font: 850 30px/1 var(--display-font); }
+.crosshair-statistics-metrics span { color: #9eabb4; font-size: 12px; line-height: 1.45; }
+.crosshair-statistics-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.crosshair-statistics-grid > section, .crosshair-statistics-collections { min-width: 0; padding: 19px; border: 1px solid #34424c; border-radius: 7px; background: rgba(9, 18, 24, .78); }
+.crosshair-statistics h3 { margin: 0 0 7px; font: 800 18px/1.3 var(--display-font); }
+.crosshair-statistics-table-wrap { margin-top: 14px; overflow-x: auto; }
+.crosshair-statistics-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.crosshair-statistics-table th, .crosshair-statistics-table td { padding: 10px 8px; border-top: 1px solid #2f3d47; text-align: left; vertical-align: middle; }
+.crosshair-statistics-table thead th { padding-top: 0; border-top: 0; color: #7f8d96; font-weight: 700; }
+.crosshair-statistics-table tbody th { color: #dce3e7; font-weight: 720; }
+.crosshair-statistics-table tbody th a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.crosshair-statistics-table tbody th a:hover { color: var(--accent); }
+.crosshair-statistics-share { min-width: 88px; display: grid; grid-template-columns: minmax(40px, 1fr) 28px; gap: 7px; align-items: center; color: #aeb8bf; }
+.crosshair-statistics-share::before { content: ''; grid-area: 1 / 1; width: 100%; height: 5px; border-radius: 10px; background: #2a3740; }
+.crosshair-statistics-share i { grid-area: 1 / 1; display: block; max-width: 100%; height: 5px; border-radius: 10px; background: var(--accent); }
+.crosshair-statistics-collections { margin-top: 12px; }
+.crosshair-statistics-collections > div { margin-top: 14px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.crosshair-statistics-collections a { min-width: 0; padding: 13px; display: grid; gap: 5px; border: 1px solid #374650; border-radius: 6px; color: #dfe5e8; text-decoration: none; }
+.crosshair-statistics-collections a:hover { border-color: var(--accent); }
+.crosshair-statistics-collections strong { color: #fff; font: 820 21px/1 var(--display-font); }
+.crosshair-statistics-collections span { color: #9eabb4; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
 
 .crosshair-tool-page { padding: clamp(30px, 5vw, 62px) 0 58px; }
 .crosshair-tool-page > header { max-width: 880px; }
@@ -1382,11 +1412,17 @@ legend { margin-bottom: 10px; }
 .pro-player-facts .is-wide { grid-column: 1 / -1; }
 .pro-player-facts dt { margin-bottom: 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
 .pro-player-facts dd { margin: 0; color: var(--text); font-size: 15px; font-weight: 750; overflow-wrap: anywhere; }
+.pro-player-profile-source { margin: 14px 0 0; text-align: right; }
+.pro-player-profile-source a { color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.pro-player-profile-source a:hover { color: var(--accent); }
 
 @media (max-width: 860px) {
   .pro-player-spotlight-grid,
   .pro-player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pro-player-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .crosshair-statistics-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .crosshair-statistics-grid { grid-template-columns: 1fr; }
+  .crosshair-statistics-collections > div { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 620px) {
@@ -1408,4 +1444,7 @@ legend { margin-bottom: 10px; }
   .pro-player-profile-intro p { grid-column: 1 / -1; font-size: 15px; }
   .pro-player-facts { grid-template-columns: 1fr; }
   .pro-player-facts .is-wide { grid-column: auto; }
+  .crosshair-statistics > header { grid-template-columns: 1fr; gap: 9px; }
+  .crosshair-statistics-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .crosshair-statistics-collections > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

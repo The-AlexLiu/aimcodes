@@ -12,6 +12,7 @@ import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { seoCopy } from '../src/seo/content.js'
 import { routeMetadata, SEO_CONTENT_UPDATED_AT, SITE_ORIGIN } from '../src/seo/metadata.js'
+import { CROSSHAIR_STATISTICS_UPDATED_AT } from '../src/data/catalogStatistics.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
 import { isIndexableRoute, isPriorityCrosshair, routePath, SEO_ARTICLE_KEYS, SEO_TOOL_KEYS, TRUST_PAGE_KEYS, TRUST_PAGES } from '../src/seo/routes.js'
@@ -91,6 +92,7 @@ for (const locale of Object.keys(localeRoutes)) {
       }
       if (route.type === 'crosshair') {
         if (!html.includes(crosshair.code)) errors.push(`${path}: crosshair code missing from initial HTML`)
+        if (crosshair.sourceUrl && !html.includes(`"citation":"${crosshair.sourceUrl}"`)) errors.push(`${path}: crosshair source citation missing`)
         const contextualCollections = collectionKeysForCatalogCrosshair(crosshair.id)
         if (contextualCollections.length) {
           const contextualLabel = escapeHtml(seoCopy(locale).detail.compareStyle)
@@ -133,6 +135,7 @@ for (const locale of Object.keys(localeRoutes)) {
         if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: article BreadcrumbList missing`)
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
         if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
+        if (route.articleKey === 'statistics' && !html.includes('"@type":"Dataset"')) errors.push(`${path}: Dataset structured data missing`)
         for (const id of article.recommendedCrosshairIds) {
           if (!html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing recommended crosshair link for ${id}`)
         }
@@ -175,7 +178,13 @@ if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: 
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
 const sitemapLastmods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1])
 if (sitemapLastmods.length !== sitemapUrls.length) errors.push('sitemap.xml: every URL must have one lastmod')
-if (sitemapLastmods.some((value) => value !== SEO_CONTENT_UPDATED_AT)) errors.push(`sitemap.xml: unexpected lastmod; expected ${SEO_CONTENT_UPDATED_AT}`)
+const allowedSitemapLastmods = new Set([SEO_CONTENT_UPDATED_AT, CROSSHAIR_STATISTICS_UPDATED_AT])
+if (sitemapLastmods.some((value) => !allowedSitemapLastmods.has(value))) errors.push('sitemap.xml: unexpected lastmod')
+for (const locale of Object.keys(localeRoutes)) {
+  const statisticsUrl = `${SITE_ORIGIN}${routePath(locale, { type: 'article', articleKey: 'statistics' })}`
+  const statisticsEntry = sitemap.match(new RegExp(`<url>[\\s\\S]*?<loc>${statisticsUrl}</loc>[\\s\\S]*?</url>`))?.[0] || ''
+  if (!statisticsEntry.includes(`<lastmod>${CROSSHAIR_STATISTICS_UPDATED_AT}</lastmod>`)) errors.push(`sitemap.xml: statistics lastmod missing for ${statisticsUrl}`)
+}
 for (const canonical of indexedCanonicalUrls) if (!sitemapUrls.includes(canonical)) errors.push(`sitemap.xml: missing ${canonical}`)
 
 const crosshairSitemap = await readFile(resolve(distRoot, 'sitemap-crosshairs.xml'), 'utf8')
