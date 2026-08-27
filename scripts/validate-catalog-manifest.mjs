@@ -12,7 +12,7 @@ const errors = []
 const allIds = catalogCrosshairs.map((item) => item.id)
 const allIdSet = new Set(allIds)
 const indexableIdSet = new Set(indexableCrosshairIds)
-const EXPECTED_INDEXABLE_COUNT = 288
+const EXPECTED_INDEXABLE_COUNT = 336
 const EXPECTED_PHASE_3_COUNT = 100
 let collectionNoindexReferences = 0
 const collectionMembership = new Map()
