@@ -34,6 +34,12 @@ import { CONTACT_EMAIL } from '../src/config/contact.js'
 import { proPlayerProfiles } from '../src/data/proPlayerProfiles.js'
 import { proPlayerHubCopy } from '../src/seo/proPlayerContent.js'
 import { proPlayerProfileCopy } from '../src/seo/proPlayerProfileContent.js'
+import {
+  CROSSHAIR_STATISTICS_UPDATED_AT,
+  crosshairStatisticShare,
+  crosshairStatistics,
+} from '../src/data/catalogStatistics.js'
+import { crosshairStatisticsCopy } from '../src/seo/crosshairStatisticsContent.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = resolve(projectRoot, 'dist')
@@ -214,7 +220,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       headline: article.title,
       description: article.intro,
       url: metadata.canonical,
-      dateModified: SEO_CONTENT_UPDATED_AT,
+      dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : SEO_CONTENT_UPDATED_AT,
       inLanguage: localeRoutes[locale].htmlLang,
       author: { '@id': `${SITE_ORIGIN}/#organization` },
       publisher: { '@id': `${SITE_ORIGIN}/#organization` },
@@ -235,6 +241,26 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
         acceptedAnswer: { '@type': 'Answer', text },
       })),
     })
+    if (route.articleKey === 'statistics') {
+      const statisticsCopy = crosshairStatisticsCopy(locale)
+      graph.push({
+        '@type': 'Dataset',
+        '@id': `${metadata.canonical}#dataset`,
+        name: statisticsCopy.title,
+        description: statisticsCopy.intro,
+        url: metadata.canonical,
+        dateModified: CROSSHAIR_STATISTICS_UPDATED_AT,
+        inLanguage: localeRoutes[locale].htmlLang,
+        creator: { '@id': `${SITE_ORIGIN}/#organization` },
+        measurementTechnique: statisticsCopy.methodology,
+        variableMeasured: [
+          { '@type': 'PropertyValue', name: statisticsCopy.metrics.published, value: crosshairStatistics.total },
+          { '@type': 'PropertyValue', name: statisticsCopy.metrics.pros, value: crosshairStatistics.proCount },
+          ...crosshairStatistics.colors.map(({ key, count }) => ({ '@type': 'PropertyValue', name: statisticsCopy.colors[key] || key, value: count })),
+          ...crosshairStatistics.categories.map(({ key, count }) => ({ '@type': 'PropertyValue', name: statisticsCopy.categories[key] || key, value: count })),
+        ],
+      })
+    }
   }
 
   if (route.type === 'trust') {
@@ -260,7 +286,8 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
   }
 
   if (route.type === 'crosshair' && crosshair) {
-    graph.push({
+    const profile = proPlayerProfiles.find((item) => item.crosshairId === crosshair.id)
+    const page = {
       '@type': 'WebPage',
       '@id': `${metadata.canonical}#webpage`,
       url: metadata.canonical,
@@ -268,7 +295,25 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       description: metadata.description,
       inLanguage: localeRoutes[locale].htmlLang,
       isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
-    })
+      mainEntity: {
+        '@type': 'CreativeWork',
+        name: detailHeading(locale, crosshair),
+        description: detailCopy(locale, crosshair).bestFor,
+        text: crosshair.code,
+        ...(crosshair.sourceUrl ? { citation: crosshair.sourceUrl } : {}),
+      },
+      ...(crosshair.sourceUrl ? { citation: crosshair.sourceUrl } : {}),
+      ...(profile ? {
+        about: {
+          '@type': 'Person',
+          name: profile.realName,
+          alternateName: profile.player,
+          image: `${SITE_ORIGIN}${profile.image}`,
+          url: profile.profileSourceUrl,
+        },
+      } : {}),
+    }
+    graph.push(page)
     graph.push({
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -368,6 +413,21 @@ function staticFaqLabel(locale) {
   return { en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问', ja: 'よくある質問' }[locale] || 'Common questions'
 }
 
+function staticStatisticsSnapshot(locale) {
+  const copy = crosshairStatisticsCopy(locale)
+  const colorCollectionKeys = { white: 'white', cyan: 'cyan', red: 'red', pink: 'pink', green: 'green' }
+  const colorRows = crosshairStatistics.colors.map(({ key, count }) => {
+    const collectionKey = colorCollectionKeys[key]
+    const label = copy.colors[key] || key
+    const name = collectionKey ? `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(label)}</a>` : escapeHtml(label)
+    return `<tr><th scope="row">${name}</th><td>${count}</td><td>${crosshairStatisticShare(count)}%</td></tr>`
+  }).join('')
+  const categoryRows = crosshairStatistics.categories.map(({ key, count }) => `<tr><th scope="row">${escapeHtml(copy.categories[key] || key)}</th><td>${count}</td><td>${crosshairStatisticShare(count)}%</td></tr>`).join('')
+  const collections = crosshairStatistics.collections.map(({ key, count }) => `<a href="${routePath(locale, { type: 'collection', collectionKey: key })}">${count} · ${escapeHtml(collectionCopy(locale, key).label)}</a>`).join('')
+  const tableHead = `<thead><tr><th>${escapeHtml(copy.table.group)}</th><th>${escapeHtml(copy.table.codes)}</th><th>${escapeHtml(copy.table.share)}</th></tr></thead>`
+  return `<section><h2>${escapeHtml(copy.colorTitle)}</h2><p>${escapeHtml(copy.colorIntro)}</p><table>${tableHead}<tbody>${colorRows}</tbody></table></section><section><h2>${escapeHtml(copy.categoryTitle)}</h2><p>${escapeHtml(copy.categoryIntro)}</p><table>${tableHead}<tbody>${categoryRows}</tbody></table></section><section><h2>${escapeHtml(copy.collectionTitle)}</h2><p>${escapeHtml(copy.collectionIntro)}</p><div class="seo-static-links">${collections}</div></section><section><h2>${escapeHtml(copy.methodologyTitle)}</h2><p>${escapeHtml(copy.methodology)}</p></section>`
+}
+
 function staticHeroImage(locale, route, crosshair) {
   const metadata = routeMetadata(locale, route, crosshair)
   const image = metadata.standaloneImage || metadata.image
@@ -428,7 +488,8 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const recommended = article.recommendedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
     const related = `${(article.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(article.relatedCollectionKeys || []).map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).title)}</a>`).join('')}${(article.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const sources = article.sources?.length ? `<section><h2>${escapeHtml(staticReferenceLabel(locale))}</h2>${article.sources.map((source) => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join('')}</section>` : ''
-    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${sections}${staticLinks(locale, recommended)}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
+    const statistics = route.articleKey === 'statistics' ? staticStatisticsSnapshot(locale) : ''
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${statistics}${sections}${staticLinks(locale, recommended)}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'tool') {
     const tool = seoToolCopy(locale, route.toolKey)
@@ -470,9 +531,11 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
         [playerCopy.labels.status, playerCopy.status],
         [playerCopy.labels.highlight, playerCopy.highlight],
       ].map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')
-      return `<section><img src="${profile.image}" width="300" height="300" alt="${escapeHtml(profile.imageAlt)}" /><h2>${escapeHtml(profile.player)}</h2><p>${escapeHtml(playerCopy.bio)}</p><dl>${facts}</dl></section>`
+      const source = profile.profileSourceUrl ? `<p><a href="${escapeHtml(profile.profileSourceUrl)}">${escapeHtml(playerCopy.labels.source)}</a></p>` : ''
+      return `<section><img src="${profile.image}" width="300" height="300" alt="${escapeHtml(profile.imageAlt)}" /><h2>${escapeHtml(profile.player)}</h2><p>${escapeHtml(playerCopy.bio)}</p><dl>${facts}</dl>${source}</section>`
     })() : ''
-    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}${playerProfile}<code>${escapeHtml(crosshair.code)}</code><h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+    const codeSource = crosshair.sourceUrl && crosshair.sourceName ? `<p><a href="${escapeHtml(crosshair.sourceUrl)}">${escapeHtml(crosshair.sourceName)}</a></p>` : ''
+    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}${playerProfile}<code>${escapeHtml(crosshair.code)}</code>${codeSource}<h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }
@@ -531,7 +594,8 @@ const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
   const alternates = alternateUrls(route)
     .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
     .join('\n')
-  return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${SEO_CONTENT_UPDATED_AT}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
+  const lastModified = route.type === 'article' && route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : SEO_CONTENT_UPDATED_AT
+  return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
 }).join('\n')
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
 await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)

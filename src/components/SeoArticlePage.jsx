@@ -2,6 +2,7 @@ import { articleCopy } from '../seo/articles.js'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { routePath } from '../seo/routes.js'
+import CrosshairStatisticsPanel from './CrosshairStatisticsPanel.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
@@ -55,6 +56,8 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
           )}
         </div>
       </aside>
+
+      {articleKey === 'statistics' && <CrosshairStatisticsPanel locale={locale} />}
 
       <div className="seo-article-sections">
         {content.sections.map((section, index) => (

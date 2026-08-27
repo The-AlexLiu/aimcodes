@@ -12,6 +12,7 @@ const sources = Object.fromEntries(await Promise.all(files.map(async (file) => [
 const source = Object.values(sources).join('\n')
 const requiredEvents = [
   'page_view',
+  'ai_referral_landing',
   'finder_open',
   'finder_start',
   'finder_false_start',
@@ -51,6 +52,8 @@ if (!source.includes("get('analytics_optin') === '1'")) throw new Error('Missing
 if (missingEvents.length) throw new Error(`Missing GA4 events: ${missingEvents.join(', ')}`)
 if (source.includes('search_term: normalizedQuery')) throw new Error('Raw search terms must not be sent to GA4.')
 if (!source.includes('interaction_source')) throw new Error('Missing interaction_source event attribution parameter.')
+if (!source.includes('ai_provider') || !source.includes('referring_host') || !source.includes('landing_path')) throw new Error('Missing AI referral attribution parameters.')
+if (!source.includes("provider: 'chatgpt'") || !source.includes("provider: 'perplexity'") || !source.includes("provider: 'claude'")) throw new Error('Missing known AI referral providers.')
 if (!source.includes('trackShareSuccess')) throw new Error('Successful share actions must use the canonical trackShareSuccess helper.')
 if (!source.includes("contentType: 'playbook'")) throw new Error('Missing canonical Playbook share tracking.')
 if (directShareCallFiles.length) throw new Error(`Direct share event calls bypass the canonical helper: ${directShareCallFiles.join(', ')}`)

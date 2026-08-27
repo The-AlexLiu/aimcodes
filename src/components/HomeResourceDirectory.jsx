@@ -4,6 +4,7 @@ import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
 import Icon from './Icon.jsx'
 
 const guideKeys = Object.freeze([
+  'statistics',
   'copy',
   'notWorking',
   'makeDot',

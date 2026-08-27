@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# ChatGPT search discovery. This bot is separate from model-training crawlers.
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://aimcodes.com/sitemap.xml
 Sitemap: https://aimcodes.com/sitemap-crosshairs.xml
 Sitemap: https://aimcodes.com/sitemap-images.xml
