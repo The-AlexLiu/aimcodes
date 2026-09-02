@@ -11,7 +11,7 @@ import {
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { seoCopy } from '../src/seo/content.js'
-import { routeMetadata, SEO_CONTENT_UPDATED_AT, SITE_ORIGIN } from '../src/seo/metadata.js'
+import { routeMetadata, SEO_CONTENT_UPDATED_AT, SEO_ROUTE_UPDATED_AT, SITE_ORIGIN } from '../src/seo/metadata.js'
 import { CROSSHAIR_STATISTICS_UPDATED_AT } from '../src/data/catalogStatistics.js'
 import { articleCopy } from '../src/seo/articles.js'
 import { seoToolCopy } from '../src/seo/toolContent.js'
@@ -178,7 +178,7 @@ if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: 
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
 const sitemapLastmods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1])
 if (sitemapLastmods.length !== sitemapUrls.length) errors.push('sitemap.xml: every URL must have one lastmod')
-const allowedSitemapLastmods = new Set([SEO_CONTENT_UPDATED_AT, CROSSHAIR_STATISTICS_UPDATED_AT])
+const allowedSitemapLastmods = new Set([SEO_CONTENT_UPDATED_AT, CROSSHAIR_STATISTICS_UPDATED_AT, ...Object.values(SEO_ROUTE_UPDATED_AT)])
 if (sitemapLastmods.some((value) => !allowedSitemapLastmods.has(value))) errors.push('sitemap.xml: unexpected lastmod')
 for (const locale of Object.keys(localeRoutes)) {
   const statisticsUrl = `${SITE_ORIGIN}${routePath(locale, { type: 'article', articleKey: 'statistics' })}`

@@ -21,6 +21,7 @@ import {
   collectionBreadcrumbName,
   crosshairBreadcrumbName,
   routeMetadata,
+  routeContentUpdatedAt,
   SEO_CONTENT_UPDATED_AT,
   SITE_ORIGIN,
 } from '../src/seo/metadata.js'
@@ -220,7 +221,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       headline: article.title,
       description: article.intro,
       url: metadata.canonical,
-      dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : SEO_CONTENT_UPDATED_AT,
+      dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route),
       inLanguage: localeRoutes[locale].htmlLang,
       author: { '@id': `${SITE_ORIGIN}/#organization` },
       publisher: { '@id': `${SITE_ORIGIN}/#organization` },
@@ -594,7 +595,7 @@ const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
   const alternates = alternateUrls(route)
     .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
     .join('\n')
-  const lastModified = route.type === 'article' && route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : SEO_CONTENT_UPDATED_AT
+  const lastModified = route.type === 'article' && route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route)
   return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
 }).join('\n')
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
