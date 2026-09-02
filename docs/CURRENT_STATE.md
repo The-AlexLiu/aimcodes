@@ -1,6 +1,6 @@
 # AimCodes 当前状态
 
-状态日期：2026-08-27
+状态日期：2026-09-02
 
 本文件用于 GPT/Codex、Cursor 和人工开发者快速恢复项目上下文。发生生产发布、重要合并、路由变化或权限变化后必须更新。
 
@@ -10,6 +10,7 @@
 - 线上渲染器：<https://aimcodes.com/tools/social-renderer/>
 - Netlify 项目：`aimcodes`
 - Netlify Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
+- 2026-09-02 GA4 + GSC 数据优化：最近完整 14 天 GSC 为 494 次点击、21,626 次展示、CTR 2.28%，较前 14 天分别增长 495.2%、233.9% 与 78.2%；GA4 最近 28 个完整日的 Google Organic 为 614 个会话、69.1% 互动率。本轮只优化英语 Dot、英语首页、英语射击误差意图分工和日语作战板，并为实际修改的 locale/route 写入精确 Sitemap `lastmod`；Funny、Small、Pink、Movement Error、White 保持观察。数据与复查门槛见 `docs/SEO_DATA_REVIEW_2026-09-02.md`。
 - 2026-08-27 Funny Crosshair 赢家集群第二轮扩充：结合 GSC 中 funny 查询的有效流量与 ChatGPT 检索引用复现结果，现有 Funny 集合新增 48 个几何不同、代码可解析的 AimCodes 原创准星，覆盖角色、街机、太空、符号、故障和派对六类主题；合集由 52 款扩至 100 款，五语种共新增 240 个可索引详情 URL。完整记录见 `docs/FUNNY_CROSSHAIR_EXPANSION_2026-08-27.md`。
 - 2026-08-24 目录与加载体验优化通过 PR #51 发布：手机目录搜索框的实际触控高度提升至 44px，界面显示的 `/` 快捷键可直接聚焦搜索；结果数量使用可访问状态反馈；筛选按钮显示当前分类并支持 Escape 关闭和焦点返回；按需加载页面新增五语种可见提示，避免冷加载时被误认为空白页。本轮未改动准星、路由、Sitemap、分析事件和索引数量，发布基线仍为 440 条源数据、2,505 个本地化路由和 1,730 个 canonical Sitemap URL。
 - 2026-08-23 Funny Crosshair 赢家集群扩充：依据站点所有者在 GSC 看到的 `funny crosshair valorant` 赢家查询，现有 Funny 集合新增 32 个几何不同、代码可解析的原创趣味准星，并补齐五语种名称、参数、适用场景与取舍说明；集合由 20 款扩至 52 款，五语种共新增 160 个可索引详情 URL。完整记录见 `docs/FUNNY_CROSSHAIR_EXPANSION_2026-08-23.md`。

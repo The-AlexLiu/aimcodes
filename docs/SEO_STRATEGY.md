@@ -1,6 +1,12 @@
 # AimCodes SEO 策略与竞对研究
 
-最后更新：2026-08-21
+最后更新：2026-09-02
+
+## 2026-09-02 GA4 + GSC 页面一增长优化
+
+GSC 最近完整 14 天获得 494 次点击、21,626 次展示，较前 14 天分别增长 495.2% 和 233.9%，CTR 从 1.28% 升至 2.28%；GA4 最近 28 个完整日的 `google / organic` 互动率为 69.1%。增长方向有效，当前增量优先来自已经排名 5–12 但 CTR 偏低的页面，而不是无差别增加 URL。
+
+本轮优化英语 Dot 集合的代码复制意图，明确英语首页同时承接 Aim Code 与 Crosshair Code，将通用 `shooting error` 意图归还专门的 Firing Error 指南，并强化日语 `VALORANT 作戦ボード` 页面。Funny、Small、Pink、Movement Error 和刚更新的 White 页面继续观察，不因短期波动反复改写。Sitemap 开始为本轮实际修改页面写入精确 `lastmod`，未改页面保留原日期。完整数据与复查门槛见 `docs/SEO_DATA_REVIEW_2026-09-02.md`。
 
 ## 2026-08-21 GA4 + GSC 机会页优化
 

@@ -11,6 +11,20 @@ export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
 export const SEO_CONTENT_UPDATED_AT = '2026-08-25'
 
+const routeUpdateKey = (locale, route) => `${locale}:${route.type}:${route.collectionKey || route.articleKey || route.toolKey || ''}`
+
+export const SEO_ROUTE_UPDATED_AT = Object.freeze({
+  'en:home:': '2026-09-02',
+  'en:collection:dot': '2026-09-02',
+  'en:article:firingError': '2026-09-02',
+  'en:article:movementVsFiring': '2026-09-02',
+  'ja:tool:playbook': '2026-09-02',
+})
+
+export function routeContentUpdatedAt(locale, route) {
+  return SEO_ROUTE_UPDATED_AT[routeUpdateKey(locale, route)] || SEO_CONTENT_UPDATED_AT
+}
+
 const detailMetadata = Object.freeze({
   tenz: Object.freeze({
     en: Object.freeze({ title: 'TenZ Crosshair Code for VALORANT: Copy & Preview | AimCodes', description: 'Copy the TenZ VALORANT crosshair code, preview it on real map scenes, check the settings, and test another color before importing the profile.' }),

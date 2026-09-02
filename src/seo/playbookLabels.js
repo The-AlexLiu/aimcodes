@@ -3,7 +3,7 @@ const labels = Object.freeze({
   es: 'Pizarra táctica de VALORANT',
   'pt-BR': 'Prancheta tática do VALORANT',
   'zh-CN': '无畏契约地图战术板',
-  ja: 'VALORANTマップ作戦ボード',
+  ja: 'VALORANT作戦ボード（無料）',
 })
 
 export function playbookLabel(locale) {
