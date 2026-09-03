@@ -6,17 +6,19 @@ import {
   indexableCrosshairs,
 } from '../src/data/catalogManifest.js'
 import { catalogExpansionCrosshairs } from '../src/data/crosshairs.js'
-import { phase3ExpansionIds } from '../src/data/catalogExpansion.js'
+import { phase3ExpansionIds, phase4ExpansionIds } from '../src/data/catalogExpansion.js'
 
 const errors = []
 const allIds = catalogCrosshairs.map((item) => item.id)
 const allIdSet = new Set(allIds)
 const indexableIdSet = new Set(indexableCrosshairIds)
-const EXPECTED_INDEXABLE_COUNT = 336
+const EXPECTED_INDEXABLE_COUNT = 396
 const EXPECTED_PHASE_3_COUNT = 100
+const EXPECTED_PHASE_4_COUNT = 60
 let collectionNoindexReferences = 0
 const collectionMembership = new Map()
 const phase3Ids = phase3ExpansionIds(catalogExpansionCrosshairs)
+const phase4Ids = phase4ExpansionIds(catalogExpansionCrosshairs)
 
 if (allIds.length !== allIdSet.size) errors.push('catalog contains duplicate crosshair IDs')
 if (indexableCrosshairIds.length !== indexableIdSet.size) errors.push('indexable list contains duplicate crosshair IDs')
@@ -31,6 +33,12 @@ if (phase3Ids.length !== EXPECTED_PHASE_3_COUNT) {
 }
 for (const id of phase3Ids) {
   if (!indexableIdSet.has(id)) errors.push(`Phase 3 crosshair is not indexable: ${id}`)
+}
+if (phase4Ids.length !== EXPECTED_PHASE_4_COUNT) {
+  errors.push(`expected ${EXPECTED_PHASE_4_COUNT} Phase 4 crosshairs, received ${phase4Ids.length}`)
+}
+for (const id of phase4Ids) {
+  if (!indexableIdSet.has(id)) errors.push(`Phase 4 crosshair is not indexable: ${id}`)
 }
 
 for (const id of indexableCrosshairIds) {
