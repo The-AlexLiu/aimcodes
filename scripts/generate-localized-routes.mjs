@@ -591,11 +591,22 @@ for (const locale of Object.keys(localeRoutes)) {
   }
 }
 
-const sitemapEntries = indexedRoutes.map(({ locale, route }) => {
+const sitemapEntries = indexedRoutes.map(({ locale, route, crosshair }) => {
   const alternates = alternateUrls(route)
     .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
     .join('\n')
-  const lastModified = route.type === 'article' && route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route)
+  const japaneseFamilyUpdated = locale === 'ja'
+    && ['compactCross', 'tapDot', 'tracker', 'twinLine'].includes(crosshair?.designFamily)
+  const crosshairUpdatedAt = japaneseFamilyUpdated
+    ? '2026-09-03'
+    : crosshair?.sourceCheckedAt && crosshair.sourceCheckedAt > SEO_CONTENT_UPDATED_AT
+    ? crosshair.sourceCheckedAt
+    : SEO_CONTENT_UPDATED_AT
+  const lastModified = route.type === 'article' && route.articleKey === 'statistics'
+    ? CROSSHAIR_STATISTICS_UPDATED_AT
+    : route.type === 'crosshair'
+      ? crosshairUpdatedAt
+      : routeContentUpdatedAt(locale, route)
   return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
 }).join('\n')
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`
@@ -603,11 +614,18 @@ await writeFile(resolve(distRoot, 'sitemap.xml'), sitemap)
 
 const crosshairSitemapEntries = indexedRoutes
   .filter(({ route }) => route.type === 'crosshair')
-  .map(({ locale, route }) => {
+  .map(({ locale, route, crosshair }) => {
     const alternates = alternateUrls(route)
       .map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.url}" />`)
       .join('\n')
-    return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${SEO_CONTENT_UPDATED_AT}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
+    const japaneseFamilyUpdated = locale === 'ja'
+      && ['compactCross', 'tapDot', 'tracker', 'twinLine'].includes(crosshair?.designFamily)
+    const lastModified = japaneseFamilyUpdated
+      ? '2026-09-03'
+      : crosshair?.sourceCheckedAt && crosshair.sourceCheckedAt > SEO_CONTENT_UPDATED_AT
+      ? crosshair.sourceCheckedAt
+      : SEO_CONTENT_UPDATED_AT
+    return `  <url>\n    <loc>${SITE_ORIGIN}${routePath(locale, route)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />\n  </url>`
   })
   .join('\n')
 const crosshairSitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${crosshairSitemapEntries}\n</urlset>\n`

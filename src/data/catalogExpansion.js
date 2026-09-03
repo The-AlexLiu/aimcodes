@@ -2,16 +2,34 @@ import { generateCrosshairCode, parseCrosshairCode } from '../utils/crosshairCod
 import { haveSameVisibleShape } from '../utils/crosshairSimilarity.js'
 
 const SOURCE_CHECKED_AT = '2026-08-17'
-// Phase 3 adds exactly 100 original, geometry-distinct crosshairs without
-// creating a second catalog system: four high-intent families add nine shapes
-// and the remaining eight add eight (4 × 9 + 8 × 8 = 100).
+const PHASE_4_SOURCE_CHECKED_AT = '2026-09-03'
+// Phase 3 added exactly 100 original, geometry-distinct crosshairs. Phase 4
+// keeps that historical cohort stable and adds 60 more shapes only to the
+// three families now showing fresh demand in Search Console.
 const TARGET_PER_FAMILY = 28
 const TARGET_FAMILY_OVERRIDES = Object.freeze({
+  microGap: 29,
+  tapDot: 49,
+  compactCross: 29,
+  openCross: 29,
+  tracker: 48,
+  twinLine: 48,
+})
+const PHASE_3_TARGETS = Object.freeze({
   microGap: 29,
   tapDot: 29,
   compactCross: 29,
   openCross: 29,
+  tracker: 28,
+  twinLine: 28,
+  pinpoint: 28,
+  outerMark: 28,
+  tallAxis: 28,
+  wideAxis: 28,
+  burstRing: 28,
+  guardFrame: 28,
 })
+const PHASE_4_STARTS = Object.freeze({ tapDot: 29, tracker: 28, twinLine: 28 })
 // Preserve the Phase 2 index subset, then add every Phase 3 record explicitly.
 // This avoids opening the older noindex variants merely because their array
 // position comes before the new records.
@@ -32,13 +50,23 @@ const variantNames = [
   'Apex', 'Bolt', 'Drift', 'Echo', 'Flux', 'Ghost', 'Ion', 'Jolt', 'Kite', 'Lynx',
   'Mint', 'Nova', 'Orbit', 'Prism', 'Quartz', 'Rift', 'Slate', 'Tide', 'Vex', 'Wave',
   'Arc', 'Beacon', 'Comet', 'Dash', 'Ember', 'Frost', 'Glide', 'Helix', 'Pulse', 'Zenith',
+  'Arrow', 'Blade', 'Circuit', 'Delta', 'Halo', 'Laser', 'Lotus', 'Meteor', 'Neon', 'Pixel',
+  'Radar', 'Rocket', 'Signal', 'Spark', 'Spike', 'Storm', 'Vector', 'Vertex', 'Volt', 'Zero',
 ]
 
 const localizedVariantNames = {
-  es: ['Ápice', 'Rayo', 'Deriva', 'Eco', 'Flujo', 'Fantasma', 'Ion', 'Salto', 'Cometa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Cuarzo', 'Grieta', 'Pizarra', 'Marea', 'Vórtice', 'Ola', 'Arco', 'Faro', 'Meteoro', 'Impulso', 'Brasa', 'Escarcha', 'Planeo', 'Hélice', 'Pulso', 'Cenit'],
-  'pt-BR': ['Ápice', 'Raio', 'Deriva', 'Eco', 'Fluxo', 'Fantasma', 'Íon', 'Salto', 'Pipa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Quartzo', 'Fenda', 'Ardósia', 'Maré', 'Vórtice', 'Onda', 'Arco', 'Farol', 'Cometa', 'Arranque', 'Brasa', 'Geada', 'Deslize', 'Hélice', 'Pulso', 'Zênite'],
-  'zh-CN': ['尖峰', '闪电', '漂移', '回声', '流光', '幽灵', '离子', '跃动', '风筝', '山猫', '薄荷', '新星', '轨道', '棱镜', '石英', '裂隙', '岩板', '潮汐', '涡旋', '波浪', '弧光', '信标', '彗星', '疾冲', '余烬', '霜冻', '滑翔', '螺旋', '脉冲', '天顶'],
+  es: ['Ápice', 'Rayo', 'Deriva', 'Eco', 'Flujo', 'Fantasma', 'Ion', 'Salto', 'Cometa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Cuarzo', 'Grieta', 'Pizarra', 'Marea', 'Vórtice', 'Ola', 'Arco', 'Faro', 'Meteoro', 'Impulso', 'Brasa', 'Escarcha', 'Planeo', 'Hélice', 'Pulso', 'Cenit', 'Flecha', 'Hoja', 'Circuito', 'Delta', 'Halo', 'Láser', 'Loto', 'Meteorito', 'Neón', 'Píxel', 'Radar', 'Cohete', 'Señal', 'Chispa', 'Púa', 'Tormenta', 'Vector', 'Vértice', 'Voltio', 'Cero'],
+  'pt-BR': ['Ápice', 'Raio', 'Deriva', 'Eco', 'Fluxo', 'Fantasma', 'Íon', 'Salto', 'Pipa', 'Lince', 'Menta', 'Nova', 'Órbita', 'Prisma', 'Quartzo', 'Fenda', 'Ardósia', 'Maré', 'Vórtice', 'Onda', 'Arco', 'Farol', 'Cometa', 'Arranque', 'Brasa', 'Geada', 'Deslize', 'Hélice', 'Pulso', 'Zênite', 'Flecha', 'Lâmina', 'Circuito', 'Delta', 'Halo', 'Laser', 'Lótus', 'Meteoro', 'Neon', 'Pixel', 'Radar', 'Foguete', 'Sinal', 'Faísca', 'Espinho', 'Tempestade', 'Vetor', 'Vértice', 'Voltagem', 'Zero'],
+  'zh-CN': ['尖峰', '闪电', '漂移', '回声', '流光', '幽灵', '离子', '跃动', '风筝', '山猫', '薄荷', '新星', '轨道', '棱镜', '石英', '裂隙', '岩板', '潮汐', '涡旋', '波浪', '弧光', '信标', '彗星', '疾冲', '余烬', '霜冻', '滑翔', '螺旋', '脉冲', '天顶', '箭头', '刀锋', '回路', '三角洲', '光环', '激光', '莲花', '流星', '霓虹', '像素', '雷达', '火箭', '信号', '火花', '尖刺', '风暴', '向量', '顶点', '电压', '归零'],
+  ja: ['エイペックス', 'ボルト', 'ドリフト', 'エコー', 'フラックス', 'ゴースト', 'イオン', 'ジョルト', 'カイト', 'リンクス', 'ミント', 'ノヴァ', 'オービット', 'プリズム', 'クォーツ', 'リフト', 'スレート', 'タイド', 'ヴェックス', 'ウェーブ', 'アーク', 'ビーコン', 'コメット', 'ダッシュ', 'エンバー', 'フロスト', 'グライド', 'ヘリックス', 'パルス', 'ゼニス', 'アロー', 'ブレード', 'サーキット', 'デルタ', 'ヘイロー', 'レーザー', 'ロータス', 'メテオ', 'ネオン', 'ピクセル', 'レーダー', 'ロケット', 'シグナル', 'スパーク', 'スパイク', 'ストーム', 'ベクター', 'バーテックス', 'ヴォルト', 'ゼロ'],
 }
+
+const japanesePhase4FamilyCopy = Object.freeze({
+  compactCross: Object.freeze({ label: 'コンパクトクロス', description: '短い4本ラインで、中心をすぐ見つけられる定番の形です。', best: 'ライフル全般と毎日のランク', tradeoff: '太いタイプは見やすい反面、遠距離の敵を少し隠します。' }),
+  tapDot: Object.freeze({ label: 'タップドット', description: '中心ドットと短い補助線で、初弾の位置をすぐ確認できます。', best: 'Vandalのタップ撃ちと素早いターゲット切り替え', tradeoff: '遠距離では中心ドットが敵の頭を少し隠します。' }),
+  tracker: Object.freeze({ label: 'トラッカー', description: '長めのラインが、動く相手を追うときの基準になります。', best: 'Phantomのスプレー、トラッキング、近距離戦', tradeoff: '長いラインは小さいターゲットの周囲を広く覆います。' }),
+  twinLine: Object.freeze({ label: 'ダブルライン', description: '内側と外側のラインを分け、中心とリコイルの目印を両立します。', best: '中心ドットなしで多めの視覚ガイドが欲しいプレイヤー', tradeoff: '二層のラインはシンプルな十字より画面が忙しく見えます。' }),
+})
 
 const familyCopy = {
   microGap: {
@@ -203,33 +231,49 @@ function lineSummary(locale, parsed) {
     es: `Ajuste: interior ${innerValue}, exterior ${outerValue}, punto ${dotValue}, contorno ${outline.enabled ? 'sí' : 'no'}.`,
     'pt-BR': `Ajuste: interna ${innerValue}, externa ${outerValue}, ponto ${dotValue}, contorno ${outline.enabled ? 'sim' : 'não'}.`,
     'zh-CN': `参数：内线 ${innerValue}，外线 ${outerValue}，中心点 ${dotValue}，描边 ${outline.enabled ? '开' : '关'}。`,
+    ja: `設定：インナー ${innerValue}、アウター ${outerValue}、ドット ${dotValue}、アウトライン ${outline.enabled ? 'オン' : 'オフ'}。`,
   }
   return labels[locale] || labels.en
 }
 
-function localizedCopy(definition, variantName, parsed) {
-  return Object.fromEntries(Object.keys(definition.labels).map((locale) => {
+function localizedCopy(definition, variantName, parsed, familyKey = '') {
+  const copy = Object.fromEntries(Object.keys(definition.labels).map((locale) => {
     const label = definition.labels[locale]
     const variantIndex = variantNames.indexOf(variantName)
     const localizedVariant = localizedVariantNames[locale]?.[variantIndex] || variantName
     const description = `${definition.descriptions[locale]} ${lineSummary(locale, parsed)}`
     return [locale, [`${label} — ${localizedVariant}`, `${label} ${localizedVariant}`, description]]
   }))
+  const japanese = japanesePhase4FamilyCopy[familyKey]
+  if (japanese) {
+    const variantIndex = variantNames.indexOf(variantName)
+    const localizedVariant = localizedVariantNames.ja[variantIndex] || variantName
+    copy.ja = [`${japanese.label} — ${localizedVariant}`, `${japanese.label} ${localizedVariant}`, `${japanese.description} ${lineSummary('ja', parsed)}`]
+  }
+  return copy
 }
 
-function localizedSeoDetails(definition, parsed) {
+function localizedSeoDetails(definition, parsed, familyKey = '') {
   const leadIns = {
     en: 'Great for',
     es: 'Va bien para',
     'pt-BR': 'Boa para',
     'zh-CN': '适合',
   }
-  return Object.fromEntries(Object.keys(definition.labels).map((locale) => [locale, {
+  const details = Object.fromEntries(Object.keys(definition.labels).map((locale) => [locale, {
     bestFor: locale === 'zh-CN'
       ? `${leadIns[locale]}${definition.best[locale]}。${definition.descriptions[locale]}${lineSummary(locale, parsed)}`
       : `${leadIns[locale]} ${definition.best[locale]}. ${definition.descriptions[locale]} ${lineSummary(locale, parsed)}`,
     tradeoff: definition.tradeoff[locale],
   }]))
+  const japanese = japanesePhase4FamilyCopy[familyKey]
+  if (japanese) {
+    details.ja = {
+      bestFor: `${japanese.best}に向いています。${japanese.description}${lineSummary('ja', parsed)}`,
+      tradeoff: japanese.tradeoff,
+    }
+  }
+  return details
 }
 
 export function buildCatalogExpansion(existingCrosshairs = []) {
@@ -256,7 +300,9 @@ export function buildCatalogExpansion(existingCrosshairs = []) {
       const parsed = parseCrosshairCode(code, { fallbackColor: paletteItem.hex })
       const variantName = variantNames[familyCount]
       const id = `${family.key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}-${variantName.toLowerCase()}`
-      const copy = localizedCopy(definition, variantName, parsed)
+      const phase4Start = PHASE_4_STARTS[family.key]
+      const isPhase4 = Number.isInteger(phase4Start) && familyCount >= phase4Start
+      const copy = localizedCopy(definition, variantName, parsed, family.key)
       accepted.push({
         id,
         name: copy.en[0],
@@ -272,12 +318,12 @@ export function buildCatalogExpansion(existingCrosshairs = []) {
         code,
         sourceName: 'AimCodes · Original',
         sourceUrl: 'https://aimcodes.com/en/about/',
-        sourceCheckedAt: SOURCE_CHECKED_AT,
+        sourceCheckedAt: isPhase4 ? PHASE_4_SOURCE_CHECKED_AT : SOURCE_CHECKED_AT,
         designFamily: family.key,
         useCases: family.useCases,
         tags: [family.key, family.category, paletteItem.key, ...family.useCases],
         localizedCopy: copy,
-        seoDetails: localizedSeoDetails(definition, parsed),
+        seoDetails: localizedSeoDetails(definition, parsed, family.key),
       })
       familyCount += 1
     }
@@ -326,7 +372,14 @@ export function indexableExpansionIds(items) {
 }
 
 export function phase3ExpansionIds(items) {
-  return familyDefinitions.flatMap((family) => expansionIdsForFamily(items, family.key).slice(BASE_VARIANTS_PER_FAMILY))
+  return familyDefinitions.flatMap((family) => expansionIdsForFamily(items, family.key).slice(BASE_VARIANTS_PER_FAMILY, PHASE_3_TARGETS[family.key]))
+}
+
+export function phase4ExpansionIds(items) {
+  return familyDefinitions.flatMap((family) => {
+    const start = PHASE_4_STARTS[family.key]
+    return Number.isInteger(start) ? expansionIdsForFamily(items, family.key).slice(start) : []
+  })
 }
 
 export function indexableLimitForFamily(familyKey) {

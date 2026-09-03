@@ -19,6 +19,21 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'en:article:firingError': '2026-09-02',
   'en:article:movementVsFiring': '2026-09-02',
   'ja:tool:playbook': '2026-09-02',
+  'en:collection:tracker': '2026-09-03',
+  'es:collection:tracker': '2026-09-03',
+  'pt-BR:collection:tracker': '2026-09-03',
+  'zh-CN:collection:tracker': '2026-09-03',
+  'ja:collection:tracker': '2026-09-03',
+  'en:collection:double': '2026-09-03',
+  'es:collection:double': '2026-09-03',
+  'pt-BR:collection:double': '2026-09-03',
+  'zh-CN:collection:double': '2026-09-03',
+  'ja:collection:double': '2026-09-03',
+  'en:collection:plus': '2026-09-03',
+  'es:collection:plus': '2026-09-03',
+  'pt-BR:collection:plus': '2026-09-03',
+  'zh-CN:collection:plus': '2026-09-03',
+  'ja:collection:plus': '2026-09-03',
 })
 
 export function routeContentUpdatedAt(locale, route) {

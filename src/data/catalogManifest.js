@@ -165,6 +165,24 @@ export const crosshairCollections = Object.freeze({
     priority: 'P0',
     crosshairIds: Object.freeze(['tenz', 'boaster', 'jinggg', 'compact-green', 'recoil-c', 'short-wings-white', 'dual-layer-green', 'less', ...indexedFamilyIds('tracker'), ...indexedFamilyIds('twinLine')]),
   }),
+  tracker: Object.freeze({
+    slug: 'tracker-crosshairs',
+    keyword: 'tracker crosshair valorant',
+    priority: 'P0',
+    crosshairIds: Object.freeze(indexedFamilyIds('tracker', 24)),
+  }),
+  double: Object.freeze({
+    slug: 'double-crosshairs',
+    keyword: 'double crosshair valorant',
+    priority: 'P0',
+    crosshairIds: Object.freeze(indexedFamilyIds('twinLine', 24)),
+  }),
+  plus: Object.freeze({
+    slug: 'plus-crosshairs',
+    keyword: 'plus crosshair valorant',
+    priority: 'P0',
+    crosshairIds: Object.freeze(indexedFamilyIds('compactCross', 24)),
+  }),
   funny: Object.freeze({
     slug: 'funny-crosshairs',
     keyword: 'funny crosshair valorant',
