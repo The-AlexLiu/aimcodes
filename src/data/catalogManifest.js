@@ -165,6 +165,38 @@ export const crosshairCollections = Object.freeze({
     priority: 'P0',
     crosshairIds: Object.freeze(['tenz', 'boaster', 'jinggg', 'compact-green', 'recoil-c', 'short-wings-white', 'dual-layer-green', 'less', ...indexedFamilyIds('tracker'), ...indexedFamilyIds('twinLine')]),
   }),
+  sheriff: Object.freeze({
+    slug: 'sheriff-crosshairs',
+    crosshairIds: Object.freeze(['aspas-dot', 'demon1', 'scream-dot', 'small-dot-thick', 'needle-cyan', ...indexedFamilyIds('tapDot', 8), ...indexedFamilyIds('pinpoint', 8)]),
+  }),
+  visibility: Object.freeze({
+    slug: 'low-visibility-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'jinggg', 'recoil-c', 'circle-dot-cyan', 'compact-green', 'heart-pink', 'short-wings-white', 'needle-cyan', ...indexedColorIds('cyan', 6), ...indexedColorIds('green', 6)]),
+  }),
+  guardian: Object.freeze({
+    slug: 'guardian-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'demon1', 'less', 'small-dot-thick', 'needle-cyan', ...indexedFamilyIds('tapDot', 2)]),
+  }),
+  outlaw: Object.freeze({
+    slug: 'outlaw-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'forsaken', 'boaster', 'recoil-c', 'short-wings-white', ...indexedFamilyIds('openCross', 2), ...indexedFamilyIds('twinLine', 1)]),
+  }),
+  marshal: Object.freeze({
+    slug: 'marshal-crosshairs',
+    crosshairIds: Object.freeze(['aspas-dot', 'scream-dot', 'demon1', 'small-dot-thick', 'pin-white', ...indexedFamilyIds('pinpoint', 2), ...indexedFamilyIds('microGap', 1)]),
+  }),
+  burst: Object.freeze({
+    slug: 'burst-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'less', 'boaster', 'compact-green', 'recoil-c', ...indexedFamilyIds('compactCross', 2), ...indexedFamilyIds('twinLine', 1)]),
+  }),
+  spray: Object.freeze({
+    slug: 'spray-crosshairs',
+    crosshairIds: Object.freeze(['boaster', 'jinggg', 'sacy', 'mwzera', 'cortezia', ...indexedFamilyIds('tracker', 2), ...indexedFamilyIds('twinLine', 1)]),
+  }),
+  longRange: Object.freeze({
+    slug: 'long-range-crosshairs',
+    crosshairIds: Object.freeze(['tenz', 'aspas-dot', 'demon1', 'scream-dot', 'needle-cyan', ...indexedFamilyIds('pinpoint', 2), ...indexedFamilyIds('tallAxis', 1)]),
+  }),
   tracker: Object.freeze({
     slug: 'tracker-crosshairs',
     keyword: 'tracker crosshair valorant',
