@@ -4,6 +4,10 @@
 
 本文件用于 GPT/Codex、Cursor 和人工开发者快速恢复项目上下文。发生生产发布、重要合并、路由变化或权限变化后必须更新。
 
+## 已发布：2026-09-07 首页体验与交互完善
+
+本轮通过 PR #60 合并至 `main`，生产提交为 `24c7dd2`。首页使用两张站内原创 WebP 视觉素材，趣味准星成为首页的主推荐集合；“查看全部趣味准星”操作移入左侧文案区，不遮挡视觉素材。首页不再展示职业选手资料模块，独立选手页与既有职业准星页面继续保留。同步完善键盘、触控与分享等交互反馈，并将 GA4 验证事件基线更新为 27 个。`pnpm check:release` 通过 22/22；GitHub 的 `product-data`、`build-and-seo` 与 Netlify Deploy Preview 均通过。生产验证确认中文首页返回 200、canonical 为 `https://aimcodes.com/zh-cn/`、robots 为 `index,follow,max-image-preview:large`，三份 Sitemap 声明以及两张新增首页素材均可访问。未新增或移除任何可索引 URL；后续仅需观察实际用户的首页 CTA 点击与趣味准星集合转化。
+
 ## 已发布：2026-09-07 搜索意图扩页与 IndexNow
 
 本次后续扩页已通过 PR #58 合并到 `main`，生产提交为 `c67fb12`。新增动物准星与表情包准星两组集合，五语种共 10 个 canonical URL；线上构建为 3,105 个 HTML 路由、2,330 个 canonical URL、2,140 个图片 Sitemap 页面。两组页面均使用真实可解析准星、独立 OG 图、五语种元数据和上下文内链；IndexNow 已对 10 个新页面、首页和 Sitemap 发送 12 个更新通知并获 HTTP 200。符号准星集合暂未发布，以保持入口脚本性能预算。
