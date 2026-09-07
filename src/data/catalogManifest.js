@@ -189,6 +189,18 @@ export const crosshairCollections = Object.freeze({
     priority: 'P0',
     crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white', ...FUNNY_CROSSHAIR_IDS, ...indexedFamilyIds('burstRing', 8), ...indexedFamilyIds('guardFrame', 7)]),
   }),
+  animals: Object.freeze({
+    slug: 'animal-crosshairs',
+    keyword: 'animal crosshair valorant',
+    priority: 'P1',
+    crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'bunny-white', 'pixel-owl', 'robot-face', 'crab-claws', 'frog-eyes', 'space-bug', 'tiny-ghost', 'bat-wings', 'monster-mask']),
+  }),
+  meme: Object.freeze({
+    slug: 'meme-crosshairs',
+    keyword: 'meme crosshair valorant',
+    priority: 'P1',
+    crosshairIds: Object.freeze(['tall-meme', 'crosshairception', 'four-corners', 'warning-frame', 'chunky-plus', 'double-cross', 'final-boss', 'glitch-box', 'broken-screen', 'error-marker']),
+  }),
   static: Object.freeze({
     slug: 'static-crosshairs',
     keyword: 'static crosshair valorant codes',
