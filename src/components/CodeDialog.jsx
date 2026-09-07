@@ -17,9 +17,9 @@ export default function CodeDialog({ crosshair, onClose, onCopy, t }) {
           <Icon name="x" />
         </button>
         <h2 id="code-dialog-title">{t('codeDialog.title')}</h2>
-        <p>{t('codeDialog.body')}</p>
+        <p id="code-dialog-body">{t('codeDialog.body')}</p>
         <label className="code-dialog-label" htmlFor="full-crosshair-code">{crosshair.name}</label>
-        <textarea ref={codeRef} id="full-crosshair-code" value={crosshair.code} readOnly rows="4" />
+        <textarea ref={codeRef} id="full-crosshair-code" value={crosshair.code} readOnly rows="4" aria-describedby="code-dialog-body" />
         <button className="primary-button modal-submit" type="button" onClick={() => onCopy(crosshair, { keepDialogOpen: true, interactionSource: 'code_dialog' })}>
           <Icon name="copy" size={18} /> {t('actions.copy')}
         </button>

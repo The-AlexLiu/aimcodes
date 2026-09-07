@@ -26,13 +26,14 @@ export default function CrosshairCollectionSection({
   onClear,
   t,
 }) {
+  const isHome = route.type === 'home'
   const count = route.type === 'catalog' ? visibleCrosshairs.length : displayedCrosshairs.length
 
   return (
-    <section className={`collection-section ${route.type === 'home' ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection">
+    <section className={`collection-section ${isHome ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection" aria-labelledby="crosshair-collection-title">
       {route.type === 'collection' ? (
         <div className="catalog-summary">
-          <h2>{t('collection.title')}</h2>
+          <h2 id="crosshair-collection-title">{t('collection.title')}</h2>
           <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
           <button type="button" onClick={() => onRandom(displayedCrosshairs, 'collection_random')}>
             <Icon name="rotate" size={16} /> {t('actions.random')}
@@ -43,21 +44,26 @@ export default function CrosshairCollectionSection({
           <div className="collection-title-block">
             <BrandMark compact />
             <div>
-              <h2>{route.type === 'home' ? seoCopy(locale).home.popular : route.type === 'catalog' ? seoCopy(locale).catalog.gridTitle : seoCopy(locale).detail.related}</h2>
-              <p>{route.type === 'home' ? seoCopy(locale).home.popularBody : route.type === 'catalog' ? seoCopy(locale).catalog.gridBody : t('collection.subtitle')}</p>
+              <h2 id="crosshair-collection-title">{isHome ? seoCopy(locale).home.popular : route.type === 'catalog' ? seoCopy(locale).catalog.gridTitle : seoCopy(locale).detail.related}</h2>
+              <p>{isHome ? seoCopy(locale).home.popularBody : route.type === 'catalog' ? seoCopy(locale).catalog.gridBody : t('collection.subtitle')}</p>
+              {isHome && (
+                <div className="home-collection-actions">
+                  <span>{t(count === 1 ? 'collection.countOne' : 'collection.countMany', { count })}</span>
+                  <a className="collection-view-all" href={`${routePath(locale)}funny-crosshairs/`}>{seoCopy(locale).home.popularAction}</a>
+                </div>
+              )}
             </div>
           </div>
-          <div className="collection-meta">
-            <span>{t(count === 1 ? 'collection.countOne' : 'collection.countMany', { count })}</span>
-            {route.type === 'home' && (
-              <a className="collection-view-all" href={routePath(locale, { type: 'catalog' })}>{seoCopy(locale).home.primary}</a>
-            )}
-            {route.type === 'crosshair' && (
+          {!isHome && (
+            <div className="collection-meta">
+              <span>{t(count === 1 ? 'collection.countOne' : 'collection.countMany', { count })}</span>
+              {route.type === 'crosshair' && (
               <button type="button" onClick={() => onRandom(displayedCrosshairs, 'related_random')}>
                 <Icon name="rotate" size={15} /> {t('actions.random')}
               </button>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 

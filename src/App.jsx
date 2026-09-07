@@ -34,7 +34,6 @@ const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.js
 const ValorantPlaybookPage = lazy(() => import('./components/ValorantPlaybookPage.jsx'))
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
 const ProPlayersPage = lazy(() => import('./components/ProPlayersPage.jsx'))
-const ProPlayersSpotlight = lazy(() => import('./components/ProPlayersSpotlight.jsx'))
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
@@ -513,8 +512,6 @@ export default function App() {
             <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
           </>
         )}
-
-        {route.type === 'home' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ProPlayersSpotlight locale={language} crosshairs={allSourceCrosshairs} /></Suspense>}
 
         {(route.type === 'home' || route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection') && (
           <CrosshairCollectionSection

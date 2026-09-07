@@ -25,7 +25,7 @@ export default function CrosshairPreviewWorkspace({
   t,
 }) {
   return (
-    <section className="workspace" id="preview" aria-label={t('workspace.label')}>
+    <section className={`workspace ${route.type === 'crosshair' ? 'is-crosshair-detail' : 'is-home-preview'}`} id="preview" aria-label={t('workspace.label')}>
       <div className="preview-frame">
         <img src={activeBackground.image} alt={t('preview.mapAlt', { map: activeBackgroundName })} width="914" height="514" loading="eager" decoding="async" fetchPriority="high" />
         <CrosshairCanvas crosshair={selected} scale={previewScale} label={t('card.test', { name: selected.name })} />
@@ -83,11 +83,11 @@ export default function CrosshairPreviewWorkspace({
           </fieldset>
         </div>
 
-        <div className="action-row is-shareable">
+        <div className="action-row is-shareable" role="group" aria-label={t('workspace.label')}>
           <button className="primary-button" type="button" onClick={() => onCopy(selected, { interactionSource: 'explore_preview' })}>
             <Icon name={copiedId === selected.id ? 'check' : 'copy'} /> {copiedId === selected.id ? t('actions.copied') : t('actions.copy')}
           </button>
-          <button className="secondary-button" type="button" onClick={onToggleInstructions} aria-expanded={showInstructions}>
+          <button className="secondary-button" type="button" onClick={onToggleInstructions} aria-expanded={showInstructions} aria-controls="crosshair-import-instructions">
             <Icon name="gamepad" /> {t('actions.import')}
           </button>
           <button className="secondary-button share-crosshair-button" type="button" onClick={onShare} disabled={shareStatus === 'working'} aria-live="polite">
@@ -106,7 +106,7 @@ export default function CrosshairPreviewWorkspace({
           </button>
         </div>
         {showInstructions && (
-          <ol className="instruction-box">
+          <ol className="instruction-box" id="crosshair-import-instructions" role="region" aria-live="polite" aria-label={t('actions.import')}>
             <li>{t('instructions.one')}</li>
             <li>{t('instructions.two')}</li>
             <li>{t('instructions.three')}</li>
