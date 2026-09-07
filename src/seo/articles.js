@@ -2,6 +2,7 @@ import { expansionArticleCopy } from './guideExpansionContent.js'
 import { growthArticleCopy } from './growthGuideContent.js'
 import { japaneseArticles } from './japaneseContent.js'
 import { crosshairStatisticsCopy } from './crosshairStatisticsContent.js'
+import { searchIntentArticleCopy } from './searchIntentGuides.js'
 
 const articles = {
   en: {
@@ -203,7 +204,7 @@ const articles = {
   },
 }
 
-export function articleCopy(locale, articleKey) {
+function baseArticleCopy(locale, articleKey) {
   if (articleKey === 'statistics') return crosshairStatisticsCopy(locale)
   if (locale === 'ja') return japaneseArticles[articleKey] || articles.en[articleKey] || articles.en.settings
   return articles[locale]?.[articleKey]
@@ -211,4 +212,20 @@ export function articleCopy(locale, articleKey) {
     || growthArticleCopy(locale, articleKey)
     || articles.en[articleKey]
     || articles.en.settings
+}
+
+export function articleCopy(locale, articleKey) {
+  const content = searchIntentArticleCopy(locale, articleKey) || baseArticleCopy(locale, articleKey)
+  const links = {
+    colors: { articles: ['yellowEnemies'], collections: [] },
+    gapOffset: { articles: ['offCenter'], collections: ['horizontal'] },
+    innerVsOuter: { articles: ['stretched'], collections: ['horizontal'] },
+    staticVsDynamic: { articles: [], collections: ['static'] },
+    notWorking: { articles: ['invisible'], collections: [] },
+  }[articleKey]
+  if (!links) return content
+  return { ...content,
+    relatedArticleKeys: [...new Set([...(content.relatedArticleKeys || []), ...links.articles])],
+    relatedCollectionKeys: [...new Set([...(content.relatedCollectionKeys || []), ...links.collections])],
+  }
 }

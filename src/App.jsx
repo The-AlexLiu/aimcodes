@@ -3,11 +3,10 @@ import CatalogSearch from './components/CatalogSearch.jsx'
 import CrosshairCollectionSection from './components/CrosshairCollectionSection.jsx'
 import CrosshairPreviewWorkspace from './components/CrosshairPreviewWorkspace.jsx'
 import Icon from './components/Icon.jsx'
-import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
+import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
-import PublisherValueSection from './components/PublisherValueSection.jsx'
 import { isAdEligibleRoute } from './config/adPolicy.js'
 import { catalogCrosshairs } from './data/catalogManifest.js'
 import { filters } from './data/crosshairs.js'
@@ -39,6 +38,7 @@ const ProPlayersSpotlight = lazy(() => import('./components/ProPlayersSpotlight.
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
+const PublisherValueSection = lazy(() => import('./components/PublisherValueSection.jsx'))
 const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
 
 function randomItem(items) {
@@ -541,7 +541,7 @@ export default function App() {
         )}
         {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionDetails locale={language} collectionKey={route.collectionKey} /></Suspense>}
         {route.type === 'home' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><HomeResourceDirectory locale={language} /></Suspense>}
-        {(route.type === 'home' || route.type === 'catalog') && <PublisherValueSection locale={language} type={route.type} />}
+        {(route.type === 'home' || route.type === 'catalog') && <Suspense fallback={null}><PublisherValueSection locale={language} type={route.type} /></Suspense>}
           </>
         )}
       </main>

@@ -1,6 +1,10 @@
 # AimCodes SEO 策略与竞对研究
 
-最后更新：2026-09-03
+最后更新：2026-09-04
+
+## 2026-09-04 搜索任务扩页（本地待发布）
+
+统一查询 2026-08-06 至 2026-09-02：GSC 660 点击、31,136 展示，GA4 `google / organic` 752 会话、519 互动会话。优先承接已有搜索信号的 static、horizontal/stretched、yellow enemies 和 off center，另设低样本不可见排查实验。新增 2 个可复制合集、4 个独立诊断指南，五语种共 30 个 URL；不为 cat/bunny/meme 等已有内容另拆近义页，不改 Funny、Small 等赢家 URL。选码依据实际解析器，而非仅靠家族标签；索引准星数量不变。详见 `docs/SEO_DATA_REVIEW_2026-09-04.md`。
 
 ## 2026-09-03 GSC 需求驱动的目录扩展
 
