@@ -36,6 +36,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'ja:collection:plus': '2026-09-03',
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap((locale) => [
     ...['static', 'horizontal', 'plus', 'minimalist', 'cyan', 'white'].map((key) => [`${locale}:collection:${key}`, '2026-09-04']),
+    ...['animals', 'meme'].map((key) => [`${locale}:collection:${key}`, '2026-09-07']),
     ...['yellowEnemies', 'offCenter', 'stretched', 'invisible', 'colors', 'gapOffset', 'innerVsOuter', 'staticVsDynamic', 'notWorking'].map((key) => [`${locale}:article:${key}`, '2026-09-04']),
   ])),
 })
