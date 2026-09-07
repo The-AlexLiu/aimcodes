@@ -1,6 +1,7 @@
 import { japaneseArticles, japaneseTools } from './japaneseContent.js'
 import { playbookLabel } from './playbookLabels.js'
 import { crosshairStatisticsCopy } from './crosshairStatisticsContent.js'
+import { searchIntentArticleCopy } from './searchIntentGuides.js'
 
 const labels = Object.freeze({
   en: Object.freeze({
@@ -26,6 +27,8 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  const intentCopy = searchIntentArticleCopy(locale, articleKey)
+  if (intentCopy) return intentCopy.title
   if (articleKey === 'statistics') return crosshairStatisticsCopy(locale).title
   if (locale === 'ja') return japaneseArticles[articleKey]?.title || articleKey
   return localizedLabels(locale).articles[articleKey] || articleKey

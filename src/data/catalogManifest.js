@@ -189,6 +189,25 @@ export const crosshairCollections = Object.freeze({
     priority: 'P0',
     crosshairIds: Object.freeze(['cat-pink', 'pig-pink', 'heart-pink', 'flower-pink', 'bunny-white', ...FUNNY_CROSSHAIR_IDS, ...indexedFamilyIds('burstRing', 8), ...indexedFamilyIds('guardFrame', 7)]),
   }),
+  static: Object.freeze({
+    slug: 'static-crosshairs',
+    keyword: 'static crosshair valorant codes',
+    priority: 'P1',
+    crosshairIds: Object.freeze([
+      ...indexedFamilyIds('microGap', 4), ...indexedFamilyIds('tapDot', 4),
+      ...indexedFamilyIds('compactCross', 4), ...indexedFamilyIds('tracker', 4),
+    ]),
+  }),
+  horizontal: Object.freeze({
+    slug: 'horizontal-crosshairs',
+    keyword: 'horizontal crosshair valorant',
+    priority: 'P1',
+    crosshairIds: Object.freeze(indexedFamilyIds('wideAxis', 20).filter((id) => {
+      const item = catalogCrosshairs.find((crosshair) => crosshair.id === id)
+      return primaryValue(item.code, '0g') === '1'
+        && Number(primaryValue(item.code, '0l')) > Number(primaryValue(item.code, '0v'))
+    })),
+  }),
   white: Object.freeze({
     slug: 'white-crosshairs',
     keyword: 'white valorant crosshair',

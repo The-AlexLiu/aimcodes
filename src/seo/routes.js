@@ -14,6 +14,10 @@ export const SEO_COLLECTION_KEYS = crosshairCollectionKeys
 export const collectionKeysForCrosshair = collectionKeysForCatalogCrosshair
 
 export const SEO_ARTICLES = Object.freeze({
+  yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
+  offCenter: Object.freeze({ slug: 'valorant-crosshair-off-center', keyword: 'is valorant crosshair off center', priority: 'P1' }),
+  stretched: Object.freeze({ slug: 'valorant-stretched-crosshair', keyword: 'stretched crosshair valorant', priority: 'P1' }),
+  invisible: Object.freeze({ slug: 'valorant-crosshair-not-visible', keyword: 'valorant invisible crosshair', priority: 'P2' }),
   settings: Object.freeze({ slug: 'valorant-crosshair-settings' }),
   colors: Object.freeze({ slug: 'best-valorant-crosshair-colors' }),
   statistics: Object.freeze({ slug: 'valorant-crosshair-statistics', keyword: 'valorant crosshair statistics', priority: 'P0' }),

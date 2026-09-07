@@ -11,7 +11,7 @@ export default function SeoCollectionIntro({ locale, collectionKey }) {
       <span>{content.eyebrow}</span>
       <h1>{content.title}</h1>
       <p>{content.intro}</p>
-      <SeoTopicLinks locale={locale} activeCollection={collectionKey} />
+      <SeoTopicLinks locale={locale} activeCollection={collectionKey} collectionKeys={content.introCollectionKeys} />
     </section>
   )
 }
