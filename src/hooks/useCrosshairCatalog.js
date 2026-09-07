@@ -94,7 +94,9 @@ export function useCrosshairCatalog({
   let displayedCrosshairs = []
   if (route.type === 'catalog') displayedCrosshairs = visibleCrosshairs.slice(0, catalogLimit)
   if (route.type === 'home') {
-    displayedCrosshairs = indexableCrosshairIds.map((id) => allCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
+    displayedCrosshairs = crosshairCollections.funny.crosshairIds
+      .map((id) => allCrosshairs.find((item) => item.id === id))
+      .slice(0, 8)
   }
   if (route.type === 'collection') {
     const collectionCatalog = route.collectionKey === 'pro' ? allSourceCrosshairs : allCrosshairs

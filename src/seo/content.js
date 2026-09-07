@@ -16,8 +16,9 @@ const copy = {
       intro: 'Find 300+ working VALORANT aim codes and crosshair codes, test each one on real map scenes, switch colors, and copy the one you can track fastest.',
       primary: 'Browse all crosshairs',
       secondary: 'Take the reaction test',
-      popular: 'Popular crosshair codes',
-      popularBody: 'Start with pro-style essentials and a couple of playful picks.',
+      popular: 'Popular funny crosshairs',
+      popularBody: 'The funny collection players search most.',
+      popularAction: 'See all funny crosshairs',
     },
     catalog: {
       eyebrow: '300+ WORKING CODES',
@@ -103,7 +104,7 @@ const copy = {
       eyebrow: 'LABORATORIO DE MIRAS DE VALORANT',
       title: 'Códigos de mira de VALORANT para probar antes de copiar',
       intro: 'Empieza con códigos de mira que funcionan, pruébalos sobre mapas reales, cambia el color y copia el que más te guste.',
-      primary: 'Ver todas las miras', secondary: 'Hacer la prueba de reacción', popular: 'Miras populares', popularBody: 'Empieza por miras de estilo profesional y algunas opciones divertidas.',
+      primary: 'Ver todas las miras', secondary: 'Hacer la prueba de reacción', popular: 'Miras divertidas populares', popularBody: 'La colección divertida más buscada.', popularAction: 'Ver todas las miras divertidas',
     },
     catalog: { eyebrow: 'MÁS DE 300 CÓDIGOS', title: 'Explora códigos de mira de VALORANT', intro: 'Busca por jugador o estilo, prueba cada forma y copia el código directamente en VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Elige un estilo, pruébalo y copia el código.' },
     topics: { title: 'Empieza por una colección' },
@@ -168,7 +169,7 @@ const copy = {
   'pt-BR': {
     home: {
       tryNow: 'Testar esta mira',
-      eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Comece com códigos de mira que funcionam, teste em mapas reais, troque a cor e copie o que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras populares', popularBody: 'Comece por opções de estilo profissional e algumas escolhas divertidas.',
+      eyebrow: 'LABORATÓRIO DE MIRAS DO VALORANT', title: 'Códigos de mira do VALORANT para testar antes de copiar', intro: 'Comece com códigos de mira que funcionam, teste em mapas reais, troque a cor e copie o que combina com você.', primary: 'Ver todas as miras', secondary: 'Fazer o teste de reação', popular: 'Miras divertidas populares', popularBody: 'A coleção divertida mais buscada.', popularAction: 'Ver todas as miras divertidas',
     },
     catalog: { eyebrow: 'MAIS DE 300 CÓDIGOS', title: 'Explore códigos de mira do VALORANT', intro: 'Busque por jogador ou estilo, teste cada formato e copie o código direto para o VALORANT.', gridTitle: 'Biblioteca de miras', gridBody: 'Escolha um estilo, teste e copie o código.' },
     topics: { title: 'Comece por uma coleção' },
@@ -233,7 +234,7 @@ const copy = {
   'zh-CN': {
     home: {
       tryNow: '立即试用这个准星',
-      eyebrow: '无畏契约准星试用站', title: '先试效果，再复制无畏契约准星代码', intro: '先挑一个可用的无畏契约准星代码，在真实地图里试效果、换颜色，再复制顺眼的那一个。', primary: '查看全部准星', secondary: '测试反应速度', popular: '热门准星代码', popularBody: '先从职业选手风格和几款有趣准星开始试。',
+      eyebrow: '无畏契约准星试用站', title: '先试效果，再复制无畏契约准星代码', intro: '先挑一个可用的无畏契约准星代码，在真实地图里试效果、换颜色，再复制顺眼的那一个。', primary: '查看全部准星', secondary: '测试反应速度', popular: '最受欢迎的趣味准星', popularBody: '玩家搜索最多的趣味准星。', popularAction: '查看全部趣味准星',
     },
     catalog: { eyebrow: '300+ 个可用代码', title: '浏览无畏契约准星代码', intro: '按打法、形状或选手搜索，在地图里试过效果后，直接复制到游戏。', gridTitle: '准星库', gridBody: '挑一个样式，先试效果，再复制代码。' },
     topics: { title: '按类型直接开选' },

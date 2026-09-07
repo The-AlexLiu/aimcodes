@@ -139,7 +139,7 @@ export const japaneseTools = Object.freeze({
 })
 
 export const japaneseSeoCopy = Object.freeze({
-  home: { tryNow: 'このクロスヘアを今すぐ試す', eyebrow: 'VALORANTクロスヘアコード', title: 'マップで試してから、クロスヘアコードをコピー', intro: '使えるVALORANTクロスヘアを実際のマップでプレビュー。色を変え、自分に合うコードをすぐコピーできます。', primary: 'クロスヘア一覧を見る', secondary: '反応速度で選ぶ', popular: '人気のクロスヘアコード', popularBody: 'プロ使用の定番と、見た目が楽しいクロスヘアから試せます。' },
+  home: { tryNow: 'このクロスヘアを今すぐ試す', eyebrow: 'VALORANTクロスヘアコード', title: 'マップで試してから、クロスヘアコードをコピー', intro: '使えるVALORANTクロスヘアを実際のマップでプレビュー。色を変え、自分に合うコードをすぐコピーできます。', primary: 'クロスヘア一覧を見る', secondary: '反応速度で選ぶ', popular: '人気のネタ系クロスヘア', popularBody: '検索の多いネタ系クロスヘアです。', popularAction: 'ネタ系をすべて見る' },
   catalog: { eyebrow: '300種類以上のコード', title: 'VALORANTクロスヘアコード一覧', intro: 'プロ選手、色、形、プレイスタイルで検索。マップで試してからゲームにコピーできます。', gridTitle: 'クロスヘア一覧', gridBody: '気になる形を選び、同じマップで見え方を比べてください。' },
   topics: { title: '目的・形から探す' },
   collections: japaneseCollections,

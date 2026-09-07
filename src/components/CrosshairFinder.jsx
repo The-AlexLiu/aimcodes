@@ -80,6 +80,11 @@ function getChallengeComparison(average, target) {
   return { outcome: 'tied', difference: 0 }
 }
 
+function createAttemptId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID()
+  return `attempt-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+}
+
 function getShareCardOptions({ result, resultCrosshair, challengeUrl, t, format = 'portrait' }) {
   return {
     format,
@@ -119,6 +124,11 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   const shareTimer = useRef(null)
   const challengeLinkTimer = useRef(null)
   const attemptNumber = useRef(0)
+  const attemptId = useRef('')
+  const attemptStartedAt = useRef(0)
+  const roundAttempt = useRef(0)
+  const interactionKey = useRef('')
+  const startLock = useRef(false)
   const challenge = useMemo(() => readChallengeFromLocation(), [])
   const isFocusedTest = ['waiting', 'ready', 'early', 'timeout', 'feedback'].includes(phase)
 
@@ -223,8 +233,17 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   }, [resultCrosshair])
 
   const startTest = (interactionSource = 'intro') => {
+    // A double click can arrive before React commits the phase change. Lock the
+    // transition so one user action cannot create two funnel attempts.
+    if (startLock.current) return
+    startLock.current = true
+    window.setTimeout(() => { startLock.current = false }, 0)
+
     clearTimers()
     attemptNumber.current += 1
+    attemptId.current = createAttemptId()
+    attemptStartedAt.current = Date.now()
+    roundAttempt.current = 0
     setRoundTimes([])
     setEarlyClicks(0)
     setLastReaction(null)
@@ -237,12 +256,14 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     setChallengeLinkCopied(false)
     setPhase('waiting')
     trackEvent('finder_start', {
+      attempt_id: attemptId.current,
       attempt_number: attemptNumber.current,
       interaction_source: interactionSource,
       total_rounds: REACTION_ROUNDS,
     })
     if (challenge) {
       trackEvent('challenge_start', {
+        attempt_id: attemptId.current,
         attempt_number: attemptNumber.current,
         challenge_ms: challenge.score,
         challenge_rank: challenge.rankId,
@@ -260,9 +281,12 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     readyTimer.current = window.setTimeout(() => {
       readyTimer.current = null
       setLastReaction(null)
+      roundAttempt.current += 1
       trackEvent('finder_timeout', {
+        attempt_id: attemptId.current,
         attempt_number: attemptNumber.current,
         round_number: roundTimes.length + 1,
+        round_attempt: roundAttempt.current,
         elapsed_ms: MAX_REACTION_MS,
       })
       queueNextRound('timeout')
@@ -274,6 +298,12 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   }, [phase, roundTimes.length])
 
   const handlePlayArea = () => {
+    // Ignore duplicate pointer/click events for the same phase and round. This
+    // keeps false-start and timeout counts aligned with actual round states.
+    const currentInteractionKey = `${phase}:${roundTimes.length}`
+    if (interactionKey.current === currentInteractionKey) return
+    interactionKey.current = currentInteractionKey
+
     if (phase === 'intro') {
       startTest('intro')
       return
@@ -282,10 +312,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     if (phase === 'waiting') {
       if (waitTimer.current) window.clearTimeout(waitTimer.current)
       waitTimer.current = null
+      roundAttempt.current += 1
       setEarlyClicks((current) => current + 1)
       trackEvent('finder_false_start', {
+        attempt_id: attemptId.current,
         attempt_number: attemptNumber.current,
         round_number: roundTimes.length + 1,
+        round_attempt: roundAttempt.current,
         false_start_count: earlyClicks + 1,
       })
       queueNextRound('early')
@@ -299,15 +332,19 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     const reaction = Math.max(1, Math.round(window.performance.now() - readyAt.current))
     if (!isValidReactionTime(reaction)) {
       setLastReaction(null)
+      roundAttempt.current += 1
       trackEvent('finder_timeout', {
+        attempt_id: attemptId.current,
         attempt_number: attemptNumber.current,
         round_number: roundTimes.length + 1,
+        round_attempt: roundAttempt.current,
         elapsed_ms: reaction,
       })
       queueNextRound('timeout')
       return
     }
 
+    roundAttempt.current += 1
     const nextRoundTimes = [...roundTimes, reaction]
     setRoundTimes(nextRoundTimes)
     setLastReaction(reaction)
@@ -319,7 +356,11 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       setResultCopied(false)
       setPhase('result')
       trackEvent('finder_complete', {
+        attempt_id: attemptId.current,
         attempt_number: attemptNumber.current,
+        completed_rounds: nextRoundTimes.length,
+        final_round_attempts: roundAttempt.current,
+        attempt_duration_ms: Math.max(0, Date.now() - attemptStartedAt.current),
         reaction_ms: nextResult.average,
         consistency_ms: nextResult.consistency,
         best_reaction_ms: nextResult.best,
@@ -331,6 +372,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       if (challenge) {
         const comparison = getChallengeComparison(nextResult.average, challenge.score)
         trackEvent('challenge_complete', {
+          attempt_id: attemptId.current,
           attempt_number: attemptNumber.current,
           challenge_ms: challenge.score,
           challenge_rank: challenge.rankId,
@@ -341,6 +383,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
         })
         if (comparison.outcome === 'won') {
           trackEvent('challenge_won', {
+            attempt_id: attemptId.current,
             challenge_ms: challenge.score,
             reaction_ms: nextResult.average,
             difference_ms: comparison.difference,
@@ -351,6 +394,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
       return
     }
 
+    roundAttempt.current = 0
     queueNextRound('feedback')
   }
 
@@ -384,9 +428,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   }
 
   const exitFinder = () => {
+    const attemptOutcome = phase === 'result' ? 'completed' : phase === 'intro' ? 'not_started' : 'abandoned'
     trackEvent('finder_exit', {
+      ...(attemptId.current ? { attempt_id: attemptId.current } : {}),
       phase,
+      attempt_outcome: attemptOutcome,
       completed_rounds: roundTimes.length,
+      current_round: Math.min(roundTimes.length + 1, REACTION_ROUNDS),
       attempt_number: attemptNumber.current,
     })
     onExit()

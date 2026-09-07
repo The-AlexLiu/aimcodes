@@ -8,14 +8,19 @@ export default function SeoPageIntro({ locale, type = 'home' }) {
 
   return (
     <section className={`seo-page-intro is-${type}`}>
-      {type !== 'home' && <span>{content.eyebrow}</span>}
-      <h1>{content.title}</h1>
-      <p>{content.intro}</p>
+      <div className="seo-intro-copy">
+        <span className="seo-intro-eyebrow">{content.eyebrow}</span>
+        <h1>{content.title}</h1>
+        <p>{content.intro}</p>
+        {type === 'home' && (
+          <div className="seo-intro-actions">
+            <a className="primary-button" href="#preview">{content.tryNow}</a>
+            <a className="secondary-button" href={routePath(locale, { type: 'catalog' })}>{content.primary}</a>
+          </div>
+        )}
+      </div>
       {type === 'home' && (
-        <div className="seo-intro-actions">
-          <a className="primary-button" href="#preview">{content.tryNow}</a>
-          <a className="secondary-button" href={routePath(locale, { type: 'catalog' })}>{content.primary}</a>
-        </div>
+        <div className="home-hero-visual" aria-hidden="true" />
       )}
       {type !== 'home' && type !== 'catalog' && <SeoTopicLinks locale={locale} />}
     </section>
