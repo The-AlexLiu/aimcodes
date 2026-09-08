@@ -2,6 +2,10 @@
 
 状态日期：2026-09-07
 
+## 已发布：2026-09-08 反应测试转化与埋点优化
+
+本轮通过 PR #62 合并至 `main`，生产提交为 `65d04ee`。反应测试结果页将推荐准星与复制操作前置，新增三轮成绩明细和测试规则提示；新增 `finder_round_complete` 与 `finder_result_view` GA4 事件，并同步五语种文案。`pnpm check:release` 通过 22/22，Netlify Deploy Preview 与生产部署均通过；线上英语反应测试页、首页、robots.txt 与 sitemap.xml 返回 200，canonical 与 robots 指令正常。后续可在 GA4 中建立 `reaction_rank`、`recommendation_profile` 与 `attempt_outcome` 事件级自定义维度。
+
 本文件用于 GPT/Codex、Cursor 和人工开发者快速恢复项目上下文。发生生产发布、重要合并、路由变化或权限变化后必须更新。
 
 ## 已发布：2026-09-07 首页体验与交互完善
