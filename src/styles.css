@@ -473,8 +473,64 @@ legend { margin-bottom: 10px; }
 .seo-intro-actions .primary-button, .seo-intro-actions .secondary-button { min-width: 190px; padding-inline: 20px; text-decoration: none; }
 .seo-page-intro.is-catalog { padding-block: 31px; }
 .seo-page-intro.is-catalog h1 { font-size: clamp(34px, 3.7vw, 46px); }
-.seo-page-intro.is-collection { padding-block: 36px; }
+.seo-page-intro.is-collection {
+  min-height: clamp(350px, 30vw, 430px);
+  padding: clamp(34px, 4vw, 52px);
+  border-color: rgba(92, 115, 128, .7);
+  background:
+    linear-gradient(90deg, rgba(7, 16, 23, .98) 0%, rgba(7, 16, 23, .92) 34%, rgba(7, 16, 23, .56) 58%, rgba(7, 16, 23, .15) 82%),
+    linear-gradient(180deg, rgba(7, 16, 23, .12), transparent 54%, rgba(7, 16, 23, .44)),
+    url('/images/hero/aimcodes-training-range-v2.webp') center / cover no-repeat;
+  box-shadow: 0 22px 62px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(255, 255, 255, .025);
+}
+.seo-page-intro.is-collection::after { display: none; }
+.seo-page-intro.is-collection::before {
+  width: 46px;
+  height: 46px;
+  top: 22px;
+  right: 22px;
+  bottom: auto;
+  left: auto;
+  opacity: 1;
+  background: none;
+  mask-image: none;
+  border-top: 2px solid rgba(37, 230, 230, .72);
+  border-right: 2px solid rgba(37, 230, 230, .72);
+}
 .seo-page-intro.is-collection h1 { font-size: clamp(35px, 4vw, 48px); }
+.seo-page-intro.is-collection.is-funny {
+  min-height: clamp(390px, 32vw, 480px);
+  padding: clamp(34px, 4.2vw, 54px);
+  border-color: rgba(92, 115, 128, .7);
+  background:
+    linear-gradient(90deg, rgba(7, 16, 23, .98) 0%, rgba(7, 16, 23, .94) 32%, rgba(7, 16, 23, .68) 54%, rgba(7, 16, 23, .22) 79%, rgba(7, 16, 23, .14) 100%),
+    linear-gradient(180deg, rgba(7, 16, 23, .1), rgba(7, 16, 23, .46)),
+    url('/images/home/funny-crosshair-lab-v1.webp') center / cover no-repeat;
+  box-shadow: 0 22px 62px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(255, 255, 255, .025);
+}
+.seo-page-intro.is-collection.is-funny::after { display: none; }
+.seo-page-intro.is-collection.is-funny::before {
+  content: '';
+  width: 38px;
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: 22px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 81, 77, .76), rgba(255, 81, 77, .76)) left top / 38px 2px no-repeat,
+    linear-gradient(rgba(255, 81, 77, .76), rgba(255, 81, 77, .76)) left top / 2px 38px no-repeat,
+    linear-gradient(rgba(255, 81, 77, .76), rgba(255, 81, 77, .76)) left bottom / 38px 2px no-repeat,
+    linear-gradient(rgba(255, 81, 77, .76), rgba(255, 81, 77, .76)) left bottom / 2px 38px no-repeat;
+}
+.seo-page-intro.is-collection.is-funny .seo-breadcrumbs { color: #85939d; }
+.seo-page-intro.is-collection.is-funny .seo-breadcrumbs a { color: #c1cbd0; }
+.seo-page-intro.is-collection.is-funny h1 { max-width: 720px; font-size: clamp(40px, 4.4vw, 58px); line-height: 1.02; letter-spacing: -1.7px; text-shadow: 0 4px 26px rgba(0, 0, 0, .48); }
+.seo-page-intro.is-collection.is-funny p { max-width: 690px; color: #c5cfd4; font-size: clamp(15px, 1.25vw, 17px); }
+.seo-page-intro.is-collection.is-funny .seo-topic-links { max-width: 770px; }
+.seo-page-intro.is-collection.is-funny .seo-topic-links a { border-color: rgba(97, 118, 130, .62); background: rgba(7, 15, 21, .7); backdrop-filter: blur(8px); }
+.seo-page-intro.is-collection.is-funny .seo-topic-links a.is-active { border-color: rgba(255, 91, 85, .8); background: rgba(255, 81, 77, .16); }
 .seo-topic-links { margin-top: 24px; display: grid; gap: 10px; }
 .seo-topic-links > span { color: #8d99a2; font: 800 10px/1 var(--display-font); letter-spacing: 1.25px; text-transform: uppercase; }
 .seo-topic-links > div { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -1119,8 +1175,30 @@ legend { margin-bottom: 10px; }
   .seo-page-intro.is-catalog > span { display: none; }
   .seo-page-intro.is-catalog h1 { font-size: clamp(27px, 7.8vw, 32px); }
   .seo-page-intro.is-catalog p { margin-top: 8px; font-size: 13px; line-height: 1.45; }
-  .seo-page-intro.is-collection { padding: 23px 18px; }
+  .seo-page-intro.is-collection {
+    min-height: 430px;
+    padding: 28px 20px;
+    background-position: 64% center;
+    background-image:
+      linear-gradient(180deg, rgba(7, 16, 23, .94) 0%, rgba(7, 16, 23, .82) 55%, rgba(7, 16, 23, .48) 100%),
+      linear-gradient(90deg, rgba(7, 16, 23, .76), rgba(7, 16, 23, .22)),
+      url('/images/hero/aimcodes-training-range-v2.webp');
+  }
+  .seo-page-intro.is-collection::before { width: 34px; height: 34px; top: 13px; right: 13px; }
   .seo-page-intro.is-collection h1 { font-size: clamp(30px, 8.8vw, 36px); }
+  .seo-page-intro.is-collection.is-funny {
+    min-height: 470px;
+    padding: 28px 20px;
+    background-position: 63% center;
+    background-image:
+      linear-gradient(180deg, rgba(7, 16, 23, .93) 0%, rgba(7, 16, 23, .83) 55%, rgba(7, 16, 23, .48) 100%),
+      linear-gradient(90deg, rgba(7, 16, 23, .74), rgba(7, 16, 23, .2)),
+      url('/images/home/funny-crosshair-lab-v1.webp');
+  }
+  .seo-page-intro.is-collection.is-funny::before { width: 30px; top: 16px; bottom: 16px; left: 16px; background-size: 30px 2px, 2px 30px, 30px 2px, 2px 30px; }
+  .seo-page-intro.is-collection.is-funny h1 { max-width: 420px; font-size: clamp(34px, 10.2vw, 42px); line-height: 1.06; letter-spacing: -1.25px; }
+  .seo-page-intro.is-collection.is-funny p { max-width: 92%; margin-top: 12px; font-size: 14px; line-height: 1.58; }
+  .seo-page-intro.is-collection.is-funny .seo-topic-links { margin-top: 18px; }
   .seo-topic-links { margin-top: 18px; }
   .seo-topic-links > div { display: grid; grid-template-columns: 1fr 1fr; }
   .seo-topic-links a { height: 100%; justify-content: center; text-align: center; }
