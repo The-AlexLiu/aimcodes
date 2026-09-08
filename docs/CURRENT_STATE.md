@@ -2,6 +2,10 @@
 
 状态日期：2026-09-07
 
+## 已发布：2026-09-08 聚合页视觉基线
+
+所有非 Funny 的准星聚合页复用首页训练场视觉作为默认首屏背景，并使用左侧高对比文字遮罩与右上角青色 HUD 标记；Funny 聚合页继续使用独立的趣味准星视觉。此轮只调整视觉呈现，不改变 URL、索引规则、正文、准星数据、Sitemap 或 GA4 事件。
+
 ## 已发布：2026-09-08 反应测试转化与埋点优化
 
 本轮通过 PR #62 合并至 `main`，生产提交为 `65d04ee`。反应测试结果页将推荐准星与复制操作前置，新增三轮成绩明细和测试规则提示；新增 `finder_round_complete` 与 `finder_result_view` GA4 事件，并同步五语种文案。`pnpm check:release` 通过 22/22，Netlify Deploy Preview 与生产部署均通过；线上英语反应测试页、首页、robots.txt 与 sitemap.xml 返回 200，canonical 与 robots 指令正常。后续可在 GA4 中建立 `reaction_rank`、`recommendation_profile` 与 `attempt_outcome` 事件级自定义维度。
