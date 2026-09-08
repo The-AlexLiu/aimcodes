@@ -18,8 +18,9 @@ const entryBytes = await readFile(entryPath)
 const entryRawKb = entryBytes.length / 1024
 const entryGzipKb = gzipSync(entryBytes).length / 1024
 // The SEO collection index now contains 40 localized collection intents. Keep the
-// raw entry budget explicit at 432 KB while retaining the stricter gzip guard.
-const entryRawBudgetKb = 432
+// raw entry budget explicit at 433 KB while retaining the stricter gzip guard.
+// The catalog's contextual reaction-test CTA is part of the first-screen shell.
+const entryRawBudgetKb = 433
 const assetFiles = await readdir(assetsRoot)
 const jsChunks = assetFiles.filter((name) => name.endsWith('.js'))
 const requiredLazyChunks = [

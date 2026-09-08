@@ -459,7 +459,7 @@ export default function App() {
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
         ) : (
           <>
-        {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} />}
+        {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} t={t} />}
         {route.type === 'collection' && <SeoCollectionIntro locale={language} collectionKey={route.collectionKey} />}
 
         {route.type === 'catalog' && (
