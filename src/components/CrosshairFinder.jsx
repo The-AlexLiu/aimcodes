@@ -128,6 +128,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
   const attemptStartedAt = useRef(0)
   const roundAttempt = useRef(0)
   const interactionKey = useRef('')
+  const resultViewAttemptId = useRef('')
   const startLock = useRef(false)
   const challenge = useMemo(() => readChallengeFromLocation(), [])
   const isFocusedTest = ['waiting', 'ready', 'early', 'timeout', 'feedback'].includes(phase)
@@ -223,6 +224,21 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     }
   }, [challengeUrl, result, resultCrosshair, t])
 
+  useEffect(() => {
+    if (phase !== 'result' || !result || !attemptId.current) return
+    if (resultViewAttemptId.current === attemptId.current) return
+
+    resultViewAttemptId.current = attemptId.current
+    trackEvent('finder_result_view', {
+      attempt_id: attemptId.current,
+      attempt_number: attemptNumber.current,
+      reaction_ms: result.average,
+      reaction_rank: result.rank.id,
+      recommendation_profile: result.profile,
+      recommended_crosshair_id: result.id,
+    })
+  }, [phase, result])
+
   const selectedCodeColorKey = useMemo(() => {
     if (!resultCrosshair) return 'custom'
     try {
@@ -244,6 +260,7 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     attemptId.current = createAttemptId()
     attemptStartedAt.current = Date.now()
     roundAttempt.current = 0
+    resultViewAttemptId.current = ''
     setRoundTimes([])
     setEarlyClicks(0)
     setLastReaction(null)
@@ -348,6 +365,13 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
     const nextRoundTimes = [...roundTimes, reaction]
     setRoundTimes(nextRoundTimes)
     setLastReaction(reaction)
+    trackEvent('finder_round_complete', {
+      attempt_id: attemptId.current,
+      attempt_number: attemptNumber.current,
+      round_number: nextRoundTimes.length,
+      reaction_ms: reaction,
+      completed_rounds: nextRoundTimes.length,
+    })
 
     if (nextRoundTimes.length >= REACTION_ROUNDS) {
       const nextResult = getReactionRecommendation(nextRoundTimes, earlyClicks)
@@ -635,32 +659,6 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
           </div>
         </section>
 
-        <section className="finder-share-panel" aria-labelledby="finder-share-title">
-          <div className="finder-share-preview-frame" aria-live="polite">
-            {sharePreviewUrl
-              ? <img src={sharePreviewUrl} alt={t('finder.sharePreviewAlt')} />
-              : <span><Icon name="target" size={28} />{t('finder.sharePreparing')}</span>}
-          </div>
-          <div className="finder-share-copy">
-            <span>{t('finder.sharePanelEyebrow')}</span>
-            <h2 id="finder-share-title">{t('finder.sharePanelTitle')}</h2>
-            <p>{t('finder.sharePanelBody', { average: result.average, unit: t('finder.millisecondsShort') })}</p>
-            <div className="finder-share-actions">
-              <button className="primary-button finder-share-primary" type="button" onClick={handleShareResult} disabled={shareStatus === 'working'} aria-live="polite">
-                <Icon name={['shared', 'saved', 'link_copied'].includes(shareStatus) ? 'check' : 'share'} size={18} />{shareLabel}
-              </button>
-              <button className="finder-link-button" type="button" onClick={downloadResultCard} disabled={shareStatus === 'working'}>
-                <Icon name={shareStatus === 'saved' ? 'check' : 'download'} size={17} />
-                {shareStatus === 'saved' ? t('finder.shareSaved') : t('finder.downloadShareCard')}
-              </button>
-              <button className="finder-link-button" type="button" onClick={copyChallengeLink}>
-                <Icon name={challengeLinkCopied ? 'check' : 'copy'} size={17} />
-                {challengeLinkCopied ? t('finder.challengeLinkCopied') : t('finder.copyChallengeLink')}
-              </button>
-            </div>
-          </div>
-        </section>
-
         <section className="finder-primary-recommendation finder-result-workbench">
           <div className="finder-workbench-heading">
             <span>{t('finder.recommended')}</span>
@@ -720,6 +718,60 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
           </div>
         </section>
 
+        <section className="finder-run-details" aria-labelledby="finder-run-details-title">
+          <div className="finder-run-details-heading">
+            <div>
+              <span>{t('finder.yourResults')}</span>
+              <h2 id="finder-run-details-title">{t('finder.runDetailsTitle')}</h2>
+            </div>
+            <p>{t('finder.deviceNote')}</p>
+          </div>
+          <dl>
+            <div className="finder-run-detail finder-run-detail-rounds">
+              <dt>{t('finder.roundTimes')}</dt>
+              <dd>{roundTimes.map((time, index) => <span key={`${index}-${time}`}>#{index + 1} · {time}<small>{t('finder.millisecondsShort')}</small></span>)}</dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.best')}</dt>
+              <dd>{result.best}<small>{t('finder.millisecondsShort')}</small></dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.consistency')}</dt>
+              <dd>±{result.consistency}<small>{t('finder.millisecondsShort')}</small></dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.earlyClicks')}</dt>
+              <dd>{result.earlyClicks}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section className="finder-share-panel" aria-labelledby="finder-share-title">
+          <div className="finder-share-preview-frame" aria-live="polite">
+            {sharePreviewUrl
+              ? <img src={sharePreviewUrl} alt={t('finder.sharePreviewAlt')} />
+              : <span><Icon name="target" size={28} />{t('finder.sharePreparing')}</span>}
+          </div>
+          <div className="finder-share-copy">
+            <span>{t('finder.sharePanelEyebrow')}</span>
+            <h2 id="finder-share-title">{t('finder.sharePanelTitle')}</h2>
+            <p>{t('finder.sharePanelBody', { average: result.average, unit: t('finder.millisecondsShort') })}</p>
+            <div className="finder-share-actions">
+              <button className="primary-button finder-share-primary" type="button" onClick={handleShareResult} disabled={shareStatus === 'working'} aria-live="polite">
+                <Icon name={['shared', 'saved', 'link_copied'].includes(shareStatus) ? 'check' : 'share'} size={18} />{shareLabel}
+              </button>
+              <button className="finder-link-button" type="button" onClick={downloadResultCard} disabled={shareStatus === 'working'}>
+                <Icon name={shareStatus === 'saved' ? 'check' : 'download'} size={17} />
+                {shareStatus === 'saved' ? t('finder.shareSaved') : t('finder.downloadShareCard')}
+              </button>
+              <button className="finder-link-button" type="button" onClick={copyChallengeLink}>
+                <Icon name={challengeLinkCopied ? 'check' : 'copy'} size={17} />
+                {challengeLinkCopied ? t('finder.challengeLinkCopied') : t('finder.copyChallengeLink')}
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section className="finder-rank-spectrum" aria-labelledby="finder-rank-spectrum-title">
           <div><h2 id="finder-rank-spectrum-title">{t('finder.rankRanges')}</h2><p>{t('finder.rankRangesHint')}</p></div>
           <div className="finder-rank-track" role="list">
@@ -755,6 +807,14 @@ export default function CrosshairFinder({ crosshairs, onExit, onCopy, onFocusCha
             <strong>{t('finder.challengeLandingTitle', { score: challenge.score, unit: t('finder.millisecondsShort') })}</strong>
             <p>{t('finder.challengeLandingBody')}</p>
           </div>
+        </section>
+      )}
+
+      {phase === 'intro' && (
+        <section className="finder-test-brief" aria-label={t('finder.testBriefLabel')}>
+          <div className="finder-test-brief-main"><Icon name="target" size={18} /><strong>{t('finder.testDuration')}</strong></div>
+          <div className="finder-test-brief-rules"><span>{t('finder.legendReady')}</span><span>{t('finder.legendEarly')}</span></div>
+          <p>{t('finder.deviceNote')}</p>
         </section>
       )}
 
