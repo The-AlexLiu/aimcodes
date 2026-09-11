@@ -3,7 +3,29 @@ name: CI
 on:
   push:
     branches: [main]
+    paths:
+      - 'index.html'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'vite.config.js'
+      - 'eslint.config.js'
+      - 'netlify.toml'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - '.github/workflows/ci.yml'
   pull_request:
+    paths:
+      - 'index.html'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'vite.config.js'
+      - 'eslint.config.js'
+      - 'netlify.toml'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - '.github/workflows/ci.yml'
 
 permissions:
   contents: read
@@ -76,6 +98,7 @@ jobs:
 
       - name: Validate SEO, routes, tools, links, and images
         run: |
+          pnpm validate:seo-scope
           pnpm validate:seo
           pnpm validate:routing
           pnpm validate:links

@@ -29,12 +29,12 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
       await access(filePath)
       const html = await readFile(filePath, 'utf8')
       const metadata = routeMetadata(locale, route)
+      const indexed = isIndexableRoute(route, locale)
       const expected = [
         `<html lang="${config.htmlLang}">`,
         `<title>${escapeHtml(metadata.title)}</title>`,
         `content="${metadata.description}"`,
         `rel="canonical" href="${metadata.canonical}"`,
-        'hreflang="x-default"',
         'rel="icon" href="https://aimcodes.com/favicon.ico"',
         'rel="icon" href="https://aimcodes.com/favicon-48x48.png"',
         'rel="icon" href="https://aimcodes.com/favicon-v2.png"',
@@ -42,9 +42,11 @@ for (const [locale, config] of Object.entries(localeRoutes)) {
         'rel="manifest" href="https://aimcodes.com/site.webmanifest"',
         '.seo-static-shell{visibility:hidden;animation:aimcodes-show-static-fallback 0s 6s forwards;',
         '<noscript><style>.seo-static-shell{visibility:visible;animation:none}</style></noscript>',
-        `<meta name="robots" content="${isIndexableRoute(route) ? 'index,follow,max-image-preview:large' : 'noindex,follow'}"`,
+        `<meta name="robots" content="${indexed ? 'index,follow,max-image-preview:large' : 'noindex,follow'}"`,
       ]
       for (const value of expected) if (!html.includes(value)) errors.push(`${path}: missing ${value}`)
+      if (indexed && !html.includes('hreflang="x-default"')) errors.push(`${path}: missing hreflang="x-default"`)
+      if (!indexed && html.includes('hreflang="x-default"')) errors.push(`${path}: noindex page must not declare x-default`)
     } catch (error) {
       errors.push(`${path}: ${error.message}`)
     }
@@ -89,6 +91,16 @@ const expectedLanguageRedirects = [
 
 for (const redirect of expectedLanguageRedirects) {
   if (!netlifyConfig.includes(redirect)) errors.push(`netlify.toml: missing device-language redirect to ${redirect.match(/to = "([^"]+)"/)?.[1]}`)
+}
+
+const expectedRetiredRedirects = [
+  ['/:locale/meme-crosshairs/', '/:locale/funny-crosshairs/'],
+  ['/:locale/pro-players/', '/:locale/crosshairs/'],
+  ['/:locale/pro-player-crosshairs/', '/:locale/crosshairs/'],
+]
+for (const [from, to] of expectedRetiredRedirects) {
+  const redirect = `[[redirects]]\n  from = "${from}"\n  to = "${to}"\n  status = 301\n  force = true`
+  if (!netlifyConfig.includes(redirect)) errors.push(`netlify.toml: missing retired-route redirect ${from} -> ${to}`)
 }
 
 const redirectPositions = expectedLanguageRedirects.map((redirect) => netlifyConfig.indexOf(redirect))

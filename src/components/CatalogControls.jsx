@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 
-const QUICK_FILTERS = ['all', 'pro', 'dot', 'cute']
+const QUICK_FILTERS = ['all', 'dot', 'small', 'cute']
 
 export default function CatalogControls({
   locale,

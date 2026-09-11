@@ -29,7 +29,6 @@ export default function CrosshairCard({ crosshair, href, selected, copied, onSel
         <span className="card-info">
           <span className="card-title">{crosshair.shortName}</span>
         </span>
-        {crosshair.isPro && <span className="pro-label">{t('badges.pro')}</span>}
         {!crosshair.isPro && crosshair.isCute && <span className={`pro-label cute-label ${crosshair.category === 'fun' ? 'is-fun' : ''}`}>{t(`badges.${crosshair.category === 'fun' ? 'fun' : 'cute'}`)}</span>}
       </a>
     </article>

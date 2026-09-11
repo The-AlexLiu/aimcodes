@@ -17,14 +17,15 @@
 - 主仓库：`https://github.com/The-AlexLiu/aimcodes`
 - 社媒渲染器镜像：`https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer`
 - 技术栈：React、Vite、Canvas、原生 CSS、Netlify、GA4。
-- 支持语言：英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`、日语 `ja`。
-- 当前产品基线包含 408 条准星源数据，经外观去重后展示 400 种样式；其中职业选手配置允许共享外观，但必须保留独立来源快照和详情页。数量变化必须以验证脚本结果为准。
+- 产品界面支持英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`、日语 `ja`。界面支持范围不等于 SEO 投入范围。
+- SEO 语言分层：英语、日语为增长语言；西班牙语、巴西葡萄牙语仅维护已有赢家；中文保留完整产品界面，但只让首页、准星库和反应测试参与索引，不再新增中文 SEO 内容页。
+- 当前产品基线包含 548 条准星源数据，经外观去重后展示 540 种样式；396 条高价值详情允许索引。数量变化必须以验证脚本结果为准。
 - 反应测试固定三轮，使用 9 个无畏契约风格反应段位，只代表浏览器反应测试结果。
 
 ## 代码边界
 
 - React 源码位于 `src/`；不要直接编辑构建产物 `dist/`。
-- 多语种词条位于 `src/i18n/` 与 `src/seo/content.js`。任何用户可见文案改动必须同步五种语言。
+- 多语种词条位于 `src/i18n/` 与 `src/seo/content.js`。产品界面文案改动必须同步五种语言；新增 SEO 页面默认只为英语和日语建立增长目标，其他语言是否索引必须按 `docs/SEO_OPERATING_POLICY.md` 判断。
 - 多语种路径规则位于 `src/i18n/localeRoutes.js` 与 `src/seo/routes.js`。
 - 准星源数据位于 `src/data/crosshairs.js` 与 `src/data/expandedCrosshairs.js`；索引子集和集合关系统一位于 `src/data/catalogManifest.js`，不要在图片、Sitemap 或路由脚本中另建列表。
 - 准星代码必须可以被 `src/utils/crosshairCode.js` 解析；不要编造未经验证的代码。
@@ -53,6 +54,8 @@
 - C 端文案应自然、简短、像玩家说话，避免后台术语和过度解释。
 - 移动端不是次要版本；新增功能必须检查窄屏、键盘焦点和无横向溢出。
 - 不添加无法工作的按钮、假数据、无效准星代码或只在本机可用的资源。
+- 新建可索引页面前必须通过搜索意图门：写明目标查询、现有最相近 URL、用户任务差异、独有内容和目标索引语言。仅近义词变化、内容集合高度重叠或没有独立任务的页面不得索引。
+- 职业选手资料库、人物简介与职业选手聚合页已退出产品重点；不要新增人物资料或外设规划。具备历史流量和可靠来源的具体准星代码详情可以保留，但只服务于预览、测试和复制代码。
 - 不直接删除、覆盖或重命名原始文件；大改前先备份或使用新文件。
 - 不读取、输出或提交 `.env`、Cookie、Token、API Key、Google 凭据或账号密码。
 
@@ -85,6 +88,7 @@ pnpm validate:finder
 
 ```bash
 pnpm validate:localization
+pnpm validate:seo-scope
 pnpm build
 pnpm validate:seo
 pnpm validate:routing

@@ -2,7 +2,7 @@ import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
 import { crosshairDisplayName, seoCopy } from './content.js'
 import { collectionCopy } from './collectionContent.js'
-import { crosshairSlug, routePath, SEO_COLLECTIONS } from './routes.js'
+import { crosshairSlug, isIndexableRoute, routePath, SEO_COLLECTIONS } from './routes.js'
 import { trustCopy } from './trustContent.js'
 import { seoToolCopy } from './toolContent.js'
 import { proPlayerHubCopy } from './proPlayerContent.js'
@@ -199,11 +199,13 @@ export function routeMetadata(locale, route, crosshair) {
 }
 
 export function alternateUrls(route) {
-  return Object.entries(localeRoutes).map(([locale, config]) => ({
-    locale,
-    hreflang: config.hreflang,
-    url: `${SITE_ORIGIN}${routePath(locale, route)}`,
-  }))
+  return Object.entries(localeRoutes)
+    .filter(([locale]) => isIndexableRoute(route, locale))
+    .map(([locale, config]) => ({
+      locale,
+      hreflang: config.hreflang,
+      url: `${SITE_ORIGIN}${routePath(locale, route)}`,
+    }))
 }
 
 export function crosshairUrl(locale, id) {

@@ -29,11 +29,9 @@ const CodeDialog = lazy(() => import('./components/CodeDialog.jsx'))
 const CrosshairShareDialog = lazy(() => import('./components/CrosshairShareDialog.jsx'))
 const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
 const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
-const ProPlayerProfilePanel = lazy(() => import('./components/ProPlayerProfilePanel.jsx'))
 const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.jsx'))
 const ValorantPlaybookPage = lazy(() => import('./components/ValorantPlaybookPage.jsx'))
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
-const ProPlayersPage = lazy(() => import('./components/ProPlayersPage.jsx'))
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
@@ -102,7 +100,7 @@ export default function App() {
   const [recentIds, setRecentIds] = useState(() => readStoredValue(RECENT_STORAGE_KEY, []))
   const [selectedId, setSelectedId] = useState(() => route.crosshairId || catalogCrosshairs[0].id)
   const [query, setQuery] = useState(() => catalogSession.query || '')
-  const [activeFilter, setActiveFilter] = useState(() => catalogSession.activeFilter || 'all')
+  const [activeFilter, setActiveFilter] = useState(() => filters.includes(catalogSession.activeFilter) ? catalogSession.activeFilter : 'all')
   const [catalogSort, setCatalogSort] = useState(() => catalogSession.catalogSort || 'recommended')
   const [catalogLimit, setCatalogLimit] = useState(() => Math.max(CATALOG_PAGE_SIZE, Number(catalogSession.catalogLimit) || CATALOG_PAGE_SIZE))
   const [background, setBackground] = useState(() => readSharedPreviewOptions(initialParams).background)
@@ -168,6 +166,11 @@ export default function App() {
     }, 0)
     return () => window.clearTimeout(timer)
   }, [catalogSession, route.type])
+
+  useEffect(() => {
+    if (route.type !== 'players') return
+    window.location.replace(routePath(language, { type: 'catalog' }))
+  }, [language, route.type])
 
   useEffect(() => {
     setAnalyticsContext({
@@ -444,7 +447,7 @@ export default function App() {
             <a className="primary-button" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).notFound.action}</a>
           </section>
         ) : route.type === 'players' ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ProPlayersPage locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
+          <RouteLoading label={t('loading.route')} />
         ) : route.type === 'guide' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
@@ -508,7 +511,6 @@ export default function App() {
 
         {route.type === 'crosshair' && (
           <>
-            {selected.isPro && <Suspense fallback={null}><ProPlayerProfilePanel crosshair={selected} locale={language} /></Suspense>}
             <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairSeoDetails crosshair={selected} locale={language} /></Suspense>
           </>
         )}

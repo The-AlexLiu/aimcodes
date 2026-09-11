@@ -11,7 +11,28 @@ import {
 export const SEO_CROSSHAIR_IDS = indexableCrosshairIds
 export const SEO_COLLECTIONS = crosshairCollections
 export const SEO_COLLECTION_KEYS = crosshairCollectionKeys
-export const collectionKeysForCrosshair = collectionKeysForCatalogCrosshair
+
+// These collections remain routable for backwards compatibility, but they are
+// no longer discovery or indexing targets. Meme is consolidated into Funny;
+// the pro hubs are retired while the useful crosshair-code pages stay online.
+export const RETIRED_COLLECTION_REDIRECTS = Object.freeze({ meme: 'funny' })
+export const HIDDEN_COLLECTION_KEYS = Object.freeze(['pro', ...Object.keys(RETIRED_COLLECTION_REDIRECTS)])
+const hiddenCollectionKeySet = new Set(HIDDEN_COLLECTION_KEYS)
+export const DISCOVERABLE_COLLECTION_KEYS = Object.freeze(
+  SEO_COLLECTION_KEYS.filter((collectionKey) => !hiddenCollectionKeySet.has(collectionKey)),
+)
+export const collectionKeysForCrosshair = (crosshairId) => collectionKeysForCatalogCrosshair(crosshairId)
+  .filter((collectionKey) => !hiddenCollectionKeySet.has(collectionKey))
+
+export const SEO_LOCALE_TIERS = Object.freeze({
+  en: 'growth',
+  ja: 'growth',
+  es: 'maintenance',
+  'pt-BR': 'maintenance',
+  'zh-CN': 'product-only',
+})
+
+const ZH_PRODUCT_INDEX_TYPES = new Set(['home', 'catalog', 'finder'])
 
 export const SEO_ARTICLES = Object.freeze({
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
@@ -149,7 +170,11 @@ export function isPriorityCrosshair(id) {
   return SEO_CROSSHAIR_IDS.includes(id)
 }
 
-export function isIndexableRoute(route) {
+export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
+  const normalizedLocale = normalizeLocale(locale) || DEFAULT_LOCALE
+  if (normalizedLocale === 'zh-CN' && !ZH_PRODUCT_INDEX_TYPES.has(route.type)) return false
+  if (route.type === 'players') return false
+  if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false
   if (route.type === 'crosshair') return isPriorityCrosshair(route.crosshairId)
   if (route.type === 'trust') return TRUST_PAGES[route.pageKey]?.indexable === true
   if (route.type === 'tool') return SEO_TOOLS[route.toolKey]?.indexable === true

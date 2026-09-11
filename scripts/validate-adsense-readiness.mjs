@@ -14,7 +14,10 @@ const errors = []
 const adEligibleCases = [
   [{ type: 'home' }, true],
   [{ type: 'catalog' }, true],
-  [{ type: 'players' }, true],
+  [{ type: 'players' }, false],
+  [{ type: 'collection', collectionKey: 'pro' }, false],
+  [{ type: 'collection', collectionKey: 'meme' }, false],
+  [{ type: 'collection', collectionKey: 'funny' }, true],
   [{ type: 'finder' }, false],
   [{ type: 'notFound' }, false],
   [{ type: 'trust', pageKey: 'about' }, false],
@@ -37,7 +40,7 @@ for (const locale of Object.keys(localeRoutes)) {
     if (!page.title || !page.intro || page.sections.length < 2) errors.push(`${locale}/${pageKey}: trust content is incomplete`)
     const path = routePath(locale, { type: 'trust', pageKey })
     const html = await readFile(resolve(distRoot, path.slice(1), 'index.html'), 'utf8')
-    const expectedRobots = isIndexableRoute({ type: 'trust', pageKey }) ? 'index,follow,max-image-preview:large' : 'noindex,follow'
+    const expectedRobots = isIndexableRoute({ type: 'trust', pageKey }, locale) ? 'index,follow,max-image-preview:large' : 'noindex,follow'
     if (!html.includes(`<meta name="robots" content="${expectedRobots}"`)) errors.push(`${path}: incorrect robots directive`)
     if (!html.includes(TRUST_UPDATED_AT)) errors.push(`${path}: missing visible update date`)
     if (!html.includes(page.title)) errors.push(`${path}: missing localized trust title`)

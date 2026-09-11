@@ -578,7 +578,6 @@ export const crosshairs = [...coreCrosshairs, ...catalogExpansionCrosshairs, ...
 
 export const filters = [
   'all',
-  'pro',
   'dot',
   'small',
   'classic',

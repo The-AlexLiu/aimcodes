@@ -39,11 +39,11 @@ function normalizedColorKey(crosshair) {
   return colorAliases[raw] || 'custom'
 }
 
-const featuredCollectionKeys = Object.freeze(['funny', 'small', 'dot', 'circle', 'pro'])
+const featuredCollectionKeys = Object.freeze(['funny', 'small', 'dot', 'circle', 'cute'])
 
 export const crosshairStatistics = Object.freeze({
   total: indexableCrosshairs.length,
-  proCount: indexableCrosshairs.filter((crosshair) => crosshair.isPro).length,
+  shapeCount: new Set(indexableCrosshairs.map((crosshair) => crosshair.category)).size,
   colorCount: new Set(indexableCrosshairs.map(normalizedColorKey)).size,
   colors: rankedCounts(indexableCrosshairs, normalizedColorKey),
   categories: rankedCounts(indexableCrosshairs, (crosshair) => crosshair.category),
