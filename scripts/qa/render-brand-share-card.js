@@ -10,9 +10,9 @@ async (page) => {
     const crosshair = { ...crosshairs[0], name: 'TenZ — 经典青色准星' }
     const blob = await createResultShareCard({
       format: 'landscape',
-      title: '你的反应段位',
+      title: '你的反应表现',
       rankName: '钻石',
-      rankRange: '211–230 毫秒',
+      rankRange: '231–260 毫秒',
       average: 218,
       unit: '毫秒',
       taunt: '这枪够快，下一把别让队友先送。',

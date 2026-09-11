@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { dictionaries } from '../src/i18n/translations.js'
+import { getAimProfileCopy } from '../src/i18n/aimProfileCopy.js'
 import { isWeChatBrowser } from '../src/utils/share.js'
 import { createCrosshairShareUrl, isSharedCrosshairEntry, readSharedPreviewOptions } from '../src/utils/shareLinks.js'
 
@@ -26,6 +27,12 @@ for (const [locale, prefix] of locales) {
   for (const key of ['crosshairAction', 'crosshairWorking', 'crosshairShared', 'crosshairCopied', 'crosshairError', 'crosshairTitle', 'crosshairText', 'crosshairBundle', 'eyebrow', 'dialogTitle', 'dialogBody', 'previewMeta', 'actionsLabel', 'nativeAction', 'copyLink', 'linkCopied', 'copyBundle', 'bundleCopied', 'copyBundleHint', 'statePreserved', 'wechatGuideTitle', 'wechatGuideBody', 'wechatCopyAction', 'wechatCopied', 'wechatFallbackHint', 'close']) {
     if (!String(dictionaries[locale].share?.[key] || '').trim()) throw new Error(`${locale} is missing share.${key}`)
   }
+  for (const key of ['shareResult', 'sharePreparing', 'shareText', 'shareNoLogin', 'shareThreeRounds', 'shareCardTitle']) {
+    if (!String(dictionaries[locale].finder?.[key] || '').trim()) throw new Error(`${locale} is missing finder.${key}`)
+  }
+  for (const key of ['shareOpening', 'shareHandoff', 'shareCardDisclaimer', 'sharePanelEyebrow', 'sharePanelTitle', 'sharePanelBody', 'sharePreviewAlt', 'previewShareCard', 'closeSharePreview', 'sharePreviewError', 'downloadShareCard', 'copyChallengeText', 'copyWorking', 'challengeTextCopied', 'shareCopySuccess', 'shareCopyError', 'shareSystemFailed', 'shareCancelled', 'shareDownloadError', 'shareDetailsLabel', 'shareWechatHint', 'shareCardChallengeTitle', 'shareCardChallengeHint']) {
+    if (!String(getAimProfileCopy(locale, key) || '').trim() || getAimProfileCopy(locale, key) === key) throw new Error(`${locale} is missing lazy finder.${key}`)
+  }
 }
 
 if (!isWeChatBrowser('Mozilla/5.0 MicroMessenger/8.0.56')) throw new Error('WeChat browser user agents must be detected.')
@@ -45,6 +52,7 @@ if (preview.background !== 'haven' || preview.colorKey !== 'cyan') throw new Err
 
 const appSource = await readFile('src/App.jsx', 'utf8')
 const shareDialogSource = await readFile('src/components/CrosshairShareDialog.jsx', 'utf8')
+const finderSource = await readFile('src/components/CrosshairFinder.jsx', 'utf8')
 for (const parameter of ['challenge', 'rank', 'utm_source', 'utm_medium', 'utm_campaign', 'qa', 'ga_debug']) {
   if (!appSource.includes(`'${parameter}'`)) throw new Error(`Language switching must preserve ${parameter}.`)
 }
@@ -53,5 +61,10 @@ for (const action of ['onNativeShare', 'onCopyLink', 'onCopyBundle', 'isWeChatBr
   if (!shareDialogSource.includes(action)) throw new Error(`Crosshair share dialog is missing ${action}.`)
 }
 if (!shareDialogSource.includes('useDialogA11y')) throw new Error('Crosshair share dialog must retain focus and keyboard dismissal.')
+for (const behavior of ['shareCardBlob', 'withTimeout', 'isWeChatBrowser', 'copyChallengeText', 'share_panel_view', 'share_action_click', 'ResultSharePreviewDialog']) {
+  if (!finderSource.includes(behavior)) throw new Error(`Reaction challenge sharing is missing ${behavior}.`)
+}
+if (finderSource.includes("method: 'image_download',\n        contentType:")) throw new Error('Downloading a reaction card must not count as a completed share.')
+if (finderSource.includes("method: 'link_copy',\n        contentType: 'reaction")) throw new Error('Copying a reaction challenge must not count as a completed share.')
 
-console.log(`Share growth validation passed: ${locales.length} localized links, explicit share actions, WeChat fallback, accessible dialog, preview restoration, attribution, and fallback guards.`)
+console.log(`Share growth validation passed: ${locales.length} localized links, explicit challenge actions, cached reaction cards, native-share timeout, WeChat fallback, accessible previews, attribution, and fallback guards.`)

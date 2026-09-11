@@ -20,6 +20,9 @@ const requiredEvents = [
   'finder_complete',
   'finder_result_view',
   'finder_exit',
+  'aim_profile_view',
+  'aim_profile_saved',
+  'aim_profile_clear',
   'select_content',
   'crosshair_code_copy',
   'crosshair_color_change',
@@ -30,6 +33,8 @@ const requiredEvents = [
   'import_guide_open',
   'share',
   'share_sheet_open',
+  'share_panel_view',
+  'share_action_click',
   'share_card_open',
   'share_download',
   'share_native',
@@ -58,9 +63,14 @@ if (!source.includes('attempt_id')) throw new Error('Finder funnel events must c
 if (!source.includes('attempt_outcome')) throw new Error('Finder exits must classify the attempt outcome.')
 if (!source.includes('round_attempt')) throw new Error('Finder round retries must carry round_attempt.')
 if (!source.includes('currentInteractionKey')) throw new Error('Finder interactions must guard duplicate clicks per phase and round.')
+if (!source.includes('result_reliability')) throw new Error('Finder completion must classify result reliability.')
+if (!source.includes('input_type')) throw new Error('Finder completion must record the input type.')
+if (!source.includes('false_start_reason')) throw new Error('Finder false starts must include a diagnostic reason.')
 if (!source.includes('ai_provider') || !source.includes('referring_host') || !source.includes('landing_path')) throw new Error('Missing AI referral attribution parameters.')
 if (!source.includes("provider: 'chatgpt'") || !source.includes("provider: 'perplexity'") || !source.includes("provider: 'claude'")) throw new Error('Missing known AI referral providers.')
 if (!source.includes('trackShareSuccess')) throw new Error('Successful share actions must use the canonical trackShareSuccess helper.')
+if (sources['src/components/CrosshairFinder.jsx'].includes("method: 'image_download',\n        contentType:")) throw new Error('Reaction result downloads must not be counted as completed shares.')
+if (sources['src/components/CrosshairFinder.jsx'].includes("method: 'link_copy',\n        contentType: 'reaction")) throw new Error('Reaction challenge copies must not be counted as completed shares.')
 if (!source.includes("contentType: 'playbook'")) throw new Error('Missing canonical Playbook share tracking.')
 if (directShareCallFiles.length) throw new Error(`Direct share event calls bypass the canonical helper: ${directShareCallFiles.join(', ')}`)
 if (leakedTrafficParameters.length) throw new Error(`Reserved traffic-source parameters used in product events: ${leakedTrafficParameters.join(', ')}`)

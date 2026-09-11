@@ -3,7 +3,7 @@ import { parseCrosshairCode } from './crosshairCode.js'
 const LANDSCAPE_WIDTH = 1200
 const LANDSCAPE_HEIGHT = 630
 const PORTRAIT_WIDTH = 1080
-const PORTRAIT_HEIGHT = 1440
+const PORTRAIT_HEIGHT = 1350
 const DISPLAY_FONT = '"Arial Narrow", "Roboto Condensed", "PingFang SC", "Microsoft YaHei", sans-serif'
 const BODY_FONT = 'Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif'
 const BRAND_LOGO_URL = '/brand/aimcodes-logo-transparent-v2.png'
@@ -309,12 +309,11 @@ async function drawPortraitCard({
   average,
   unit,
   taunt,
-  pickLabel,
-  crosshair,
   footer,
   rankColor,
   challengeTitle,
   challengeHint,
+  disclaimer,
   challengeUrl,
   brandLogo,
 }) {
@@ -322,10 +321,10 @@ async function drawPortraitCard({
 
   ctx.strokeStyle = '#34434e'
   ctx.lineWidth = 2
-  roundedRect(ctx, 42, 34, 996, 1372, 22)
+  roundedRect(ctx, 42, 34, 996, 1282, 22)
   ctx.stroke()
   ctx.fillStyle = rankColor
-  ctx.fillRect(42, 34, 6, 1372)
+  ctx.fillRect(42, 34, 6, 1282)
   drawBrand(ctx, brandLogo)
 
   ctx.fillStyle = '#85939d'
@@ -334,70 +333,64 @@ async function drawPortraitCard({
   ctx.fillText(String(title || '').toLocaleUpperCase(), 76, 154)
   ctx.letterSpacing = '0px'
 
-  drawRankEmblem(ctx, 76, 194, 132, rankColor)
+  drawRankEmblem(ctx, 76, 198, 136, rankColor)
   ctx.fillStyle = rankColor
   ctx.font = `850 90px ${DISPLAY_FONT}`
-  ctx.fillText(rankName, 246, 290)
+  ctx.fillText(rankName, 246, 296)
 
   ctx.fillStyle = '#f7f8f9'
-  ctx.font = `850 190px ${DISPLAY_FONT}`
-  ctx.fillText(String(average), 76, 520)
+  ctx.font = `850 216px ${DISPLAY_FONT}`
+  ctx.fillText(String(average), 76, 548)
   const averageWidth = ctx.measureText(String(average)).width
   ctx.fillStyle = '#a7b2ba'
   ctx.font = `750 30px ${BODY_FONT}`
-  ctx.fillText(unit, 90 + averageWidth, 513)
+  ctx.fillText(unit, 92 + averageWidth, 540)
 
   ctx.fillStyle = '#7f8d97'
   ctx.font = `650 21px ${BODY_FONT}`
-  ctx.fillText(rankRange, 80, 565)
+  ctx.fillText(rankRange, 80, 594)
 
   ctx.fillStyle = '#e6ebee'
-  ctx.font = `720 34px ${BODY_FONT}`
-  drawWrappedText(ctx, taunt, 76, 630, 928, 48, 2)
+  ctx.font = `720 32px ${BODY_FONT}`
+  drawWrappedText(ctx, taunt, 76, 660, 928, 46, 2)
 
-  ctx.fillStyle = '#0a1218'
-  roundedRect(ctx, 76, 750, 928, 330, 18)
+  const panelGradient = ctx.createLinearGradient(76, 0, 1004, 0)
+  panelGradient.addColorStop(0, 'rgba(255, 91, 87, .16)')
+  panelGradient.addColorStop(0.52, 'rgba(12, 25, 33, .98)')
+  panelGradient.addColorStop(1, 'rgba(12, 34, 41, .98)')
+  ctx.fillStyle = panelGradient
+  roundedRect(ctx, 76, 786, 928, 426, 18)
   ctx.fill()
-  ctx.strokeStyle = '#34434e'
+  ctx.strokeStyle = '#40515c'
   ctx.lineWidth = 2
-  roundedRect(ctx, 76, 750, 928, 330, 18)
+  roundedRect(ctx, 76, 786, 928, 426, 18)
   ctx.stroke()
   ctx.fillStyle = '#ff5b57'
-  ctx.fillRect(76, 750, 928, 6)
-
-  ctx.fillStyle = '#ff716d'
-  ctx.font = `800 19px ${DISPLAY_FONT}`
-  ctx.fillText(String(pickLabel || '').toLocaleUpperCase(), 112, 804)
-  ctx.fillStyle = '#111d25'
-  roundedRect(ctx, 112, 842, 270, 190, 12)
-  ctx.fill()
-  ctx.strokeStyle = '#293943'
-  roundedRect(ctx, 112, 842, 270, 190, 12)
-  ctx.stroke()
-  drawCrosshair(ctx, crosshair, 247, 937)
-
-  ctx.fillStyle = '#f4f6f7'
-  ctx.font = `800 43px ${DISPLAY_FONT}`
-  drawWrappedText(ctx, crosshair.name, 430, 904, 520, 52, 2)
-  ctx.fillStyle = '#82909a'
-  ctx.font = `620 21px ${BODY_FONT}`
-  ctx.fillText(footer, 430, 1015)
+  ctx.fillRect(76, 786, 928, 6)
 
   ctx.fillStyle = '#f7f8f9'
-  ctx.font = `850 48px ${DISPLAY_FONT}`
-  drawWrappedText(ctx, challengeTitle, 76, 1160, 670, 58, 2)
+  ctx.font = `850 52px ${DISPLAY_FONT}`
+  drawWrappedText(ctx, challengeTitle, 112, 878, 620, 62, 3)
   ctx.fillStyle = '#9eabb4'
-  ctx.font = `650 23px ${BODY_FONT}`
-  drawWrappedText(ctx, challengeHint, 76, 1262, 650, 33, 2)
-  ctx.fillStyle = '#ff5b57'
-  ctx.fillRect(76, 1351, 650, 3)
+  ctx.font = `680 24px ${BODY_FONT}`
+  drawWrappedText(ctx, challengeHint, 112, 1068, 610, 35, 2)
 
-  await drawQrCode(ctx, challengeUrl, 786, 1150, 178)
+  await drawQrCode(ctx, challengeUrl, 790, 868, 172)
   ctx.fillStyle = '#aab5bc'
-  ctx.font = `750 18px ${BODY_FONT}`
+  ctx.font = `750 17px ${BODY_FONT}`
   ctx.textAlign = 'center'
-  ctx.fillText('aimcodes.com', 875, 1360)
+  ctx.fillText('aimcodes.com', 876, 1070)
   ctx.textAlign = 'start'
+
+  ctx.fillStyle = '#84929c'
+  ctx.font = `650 18px ${BODY_FONT}`
+  ctx.fillText(footer, 112, 1150)
+  ctx.fillStyle = '#65737d'
+  ctx.font = `600 16px ${BODY_FONT}`
+  drawWrappedText(ctx, disclaimer, 112, 1182, 610, 24, 2)
+
+  ctx.fillStyle = rankColor
+  ctx.fillRect(76, 1268, 928, 3)
 
   return canvas
 }
