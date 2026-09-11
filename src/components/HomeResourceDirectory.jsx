@@ -1,6 +1,6 @@
 import { collectionCopy } from '../seo/collectionContent.js'
 import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
-import { routePath, SEO_COLLECTION_KEYS } from '../seo/routes.js'
+import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 import Icon from './Icon.jsx'
 
 const guideKeys = Object.freeze([
@@ -145,7 +145,7 @@ export default function HomeResourceDirectory({ locale }) {
       <div className="home-resource-disclosures">
         <ResourceDisclosure label={copy.collections} hint={copy.collectionsHint}>
           <nav className="home-resource-link-grid" aria-label={copy.collections}>
-            {SEO_COLLECTION_KEYS.map((collectionKey) => (
+            {DISCOVERABLE_COLLECTION_KEYS.map((collectionKey) => (
               <a href={routePath(locale, { type: 'collection', collectionKey })} key={collectionKey}>
                 {collectionCopy(locale, collectionKey).label}
               </a>

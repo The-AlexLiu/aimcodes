@@ -7,6 +7,36 @@ import { collectionCopy } from '../src/seo/collectionContent.js'
 import { articleResourceLabel } from '../src/seo/resourceLabels.js'
 import { searchIntentArticleKeys } from '../src/seo/searchIntentGuides.js'
 import { routeContentUpdatedAt } from '../src/seo/metadata.js'
+import {
+  DISCOVERABLE_COLLECTION_KEYS,
+  isIndexableRoute,
+  RETIRED_COLLECTION_REDIRECTS,
+  SEO_LOCALE_TIERS,
+} from '../src/seo/routes.js'
+
+assert.deepEqual(SEO_LOCALE_TIERS, {
+  en: 'growth',
+  ja: 'growth',
+  es: 'maintenance',
+  'pt-BR': 'maintenance',
+  'zh-CN': 'product-only',
+})
+assert.ok(!DISCOVERABLE_COLLECTION_KEYS.includes('pro'))
+assert.ok(!DISCOVERABLE_COLLECTION_KEYS.includes('meme'))
+assert.equal(RETIRED_COLLECTION_REDIRECTS.meme, 'funny')
+assert.ok(crosshairCollections.meme.crosshairIds.every((id) => crosshairCollections.funny.crosshairIds.includes(id)), 'Meme redirect must not orphan unique crosshairs')
+for (const locale of Object.keys(localeRoutes)) {
+  assert.equal(isIndexableRoute({ type: 'players' }, locale), false)
+  assert.equal(isIndexableRoute({ type: 'collection', collectionKey: 'pro' }, locale), false)
+  assert.equal(isIndexableRoute({ type: 'collection', collectionKey: 'meme' }, locale), false)
+}
+assert.equal(isIndexableRoute({ type: 'home' }, 'zh-CN'), true)
+assert.equal(isIndexableRoute({ type: 'catalog' }, 'zh-CN'), true)
+assert.equal(isIndexableRoute({ type: 'finder' }, 'zh-CN'), true)
+assert.equal(isIndexableRoute({ type: 'collection', collectionKey: 'funny' }, 'zh-CN'), false)
+assert.equal(isIndexableRoute({ type: 'article', articleKey: 'colors' }, 'zh-CN'), false)
+assert.equal(isIndexableRoute({ type: 'tool', toolKey: 'preview' }, 'zh-CN'), false)
+assert.equal(isIndexableRoute({ type: 'crosshair', crosshairId: 'tenz' }, 'zh-CN'), false)
 
 // Check the product promise against the actual parser, independently of family names.
 for (const key of ['static', 'horizontal']) {
@@ -60,4 +90,4 @@ for (const locale of Object.keys(localeRoutes)) {
   assert.ok(articleCopy(locale, 'staticVsDynamic').relatedCollectionKeys.includes('static'))
   assert.ok(collectionCopy(locale, 'plus').relatedCollectionKeys.includes('horizontal'))
 }
-console.log('Search intent validation passed: 30 localized pages, 33 exact code selections, five-language labels and contextual inbound links.')
+console.log('Search intent validation passed: locale tiers, retired intent redirects, 30 localized pages, 33 exact code selections, five-language labels and contextual inbound links.')

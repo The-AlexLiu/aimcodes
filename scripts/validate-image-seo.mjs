@@ -12,7 +12,7 @@ import {
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import { routeMetadata, SITE_ORIGIN } from '../src/seo/metadata.js'
-import { crosshairSlug, routePath } from '../src/seo/routes.js'
+import { crosshairSlug, isIndexableRoute, routePath } from '../src/seo/routes.js'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const publicRoot = resolve(projectRoot, 'public')
@@ -59,8 +59,16 @@ await access(imageSitemapPath).catch((error) => errors.push(`${imageSitemapPath}
 const imageSitemap = await readFile(imageSitemapPath, 'utf8').catch(() => '')
 const sitemapPages = [...imageSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
 const sitemapImages = [...imageSitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((match) => match[1])
-const expectedSitemapCount = Object.keys(localeRoutes).length * (crosshairCollectionKeys.length + indexableCrosshairIds.length)
-const expectedSitemapImageCount = Object.keys(localeRoutes).length * (crosshairCollectionKeys.length + indexableCrosshairIds.length * 2)
+const expectedSitemapCount = Object.keys(localeRoutes).reduce((count, locale) => (
+  count
+  + crosshairCollectionKeys.filter((collectionKey) => isIndexableRoute({ type: 'collection', collectionKey }, locale)).length
+  + indexableCrosshairIds.filter((crosshairId) => isIndexableRoute({ type: 'crosshair', crosshairId }, locale)).length
+), 0)
+const expectedSitemapImageCount = Object.keys(localeRoutes).reduce((count, locale) => (
+  count
+  + crosshairCollectionKeys.filter((collectionKey) => isIndexableRoute({ type: 'collection', collectionKey }, locale)).length
+  + indexableCrosshairIds.filter((crosshairId) => isIndexableRoute({ type: 'crosshair', crosshairId }, locale)).length * 2
+), 0)
 if (sitemapPages.length !== expectedSitemapCount) errors.push(`sitemap-images.xml: expected ${expectedSitemapCount} page URLs, found ${sitemapPages.length}`)
 if (sitemapImages.length !== expectedSitemapImageCount) errors.push(`sitemap-images.xml: expected ${expectedSitemapImageCount} image URLs, found ${sitemapImages.length}`)
 if (new Set(sitemapPages).size !== sitemapPages.length) errors.push('sitemap-images.xml: duplicate page URLs found')
@@ -75,9 +83,11 @@ for (const locale of Object.keys(localeRoutes)) {
     const route = { type: 'crosshair', crosshairId }
     const metadata = routeMetadata(locale, route, crosshair)
     const pageUrl = `${SITE_ORIGIN}${routePath(locale, route)}`
-    if (!sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: missing ${pageUrl}`)
-    if (!sitemapImages.includes(metadata.image)) errors.push(`sitemap-images.xml: missing ${metadata.image}`)
-    if (!sitemapImages.includes(metadata.standaloneImage)) errors.push(`sitemap-images.xml: missing ${metadata.standaloneImage}`)
+    const indexed = isIndexableRoute(route, locale)
+    if (indexed && !sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: missing ${pageUrl}`)
+    if (!indexed && sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: noindex page included ${pageUrl}`)
+    if (indexed && !sitemapImages.includes(metadata.image)) errors.push(`sitemap-images.xml: missing ${metadata.image}`)
+    if (indexed && !sitemapImages.includes(metadata.standaloneImage)) errors.push(`sitemap-images.xml: missing ${metadata.standaloneImage}`)
     const html = await readFile(resolve(distRoot, routePath(locale, route).slice(1), 'index.html'), 'utf8')
     for (const expected of [
       `<meta property="og:image" content="${metadata.image}" />`,
@@ -92,8 +102,10 @@ for (const locale of Object.keys(localeRoutes)) {
     const route = { type: 'collection', collectionKey }
     const metadata = routeMetadata(locale, route)
     const pageUrl = `${SITE_ORIGIN}${routePath(locale, route)}`
-    if (!sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: missing ${pageUrl}`)
-    if (!sitemapImages.includes(metadata.image)) errors.push(`sitemap-images.xml: missing ${metadata.image}`)
+    const indexed = isIndexableRoute(route, locale)
+    if (indexed && !sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: missing ${pageUrl}`)
+    if (!indexed && sitemapPages.includes(pageUrl)) errors.push(`sitemap-images.xml: noindex page included ${pageUrl}`)
+    if (indexed && !sitemapImages.includes(metadata.image)) errors.push(`sitemap-images.xml: missing ${metadata.image}`)
   }
 }
 

@@ -1,7 +1,7 @@
 import { articleCopy } from '../seo/articles.js'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { seoToolCopy } from '../seo/toolContent.js'
-import { routePath } from '../seo/routes.js'
+import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 import CrosshairStatisticsPanel from './CrosshairStatisticsPanel.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 
@@ -19,7 +19,9 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
     .filter(Boolean)
   const fallbackArticleKeys = [articleKey === 'settings' ? 'colors' : 'settings']
   const relatedArticleKeys = content.relatedArticleKeys || fallbackArticleKeys
-  const relatedCollectionKeys = content.relatedCollectionKeys || ['small']
+  const discoverableCollectionSet = new Set(DISCOVERABLE_COLLECTION_KEYS)
+  const relatedCollectionKeys = (content.relatedCollectionKeys || ['small'])
+    .filter((collectionKey) => discoverableCollectionSet.has(collectionKey))
   const relatedToolKeys = content.relatedToolKeys || []
   const quickCollectionKey = relatedCollectionKeys[0]
   const quickToolKey = relatedToolKeys[0]

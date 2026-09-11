@@ -55,7 +55,6 @@ export default function SiteFooter({ locale }) {
         <div className="site-footer-menus">
           <FooterColumn label={content.browse}>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.best}</a>
-            <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })}>{content.pro}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })}>{content.dot}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })}>{content.cute}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>

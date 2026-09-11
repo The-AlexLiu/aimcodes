@@ -3,7 +3,6 @@ import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
 import Icon from './Icon.jsx'
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
-import { proPlayerHubCopy } from '../seo/proPlayerContent.js'
 import { playbookLabel } from '../seo/playbookLabels.js'
 
 export default function SiteHeader({
@@ -26,7 +25,6 @@ export default function SiteHeader({
   const exploreActive = route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'players'
   const resourcesActive = route.type === 'guide' || route.type === 'article' || route.type === 'tool'
   const content = seoCopy(locale)
-  const playerContent = proPlayerHubCopy(locale)
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -118,11 +116,9 @@ export default function SiteHeader({
           <nav className="nav-drawer-group" aria-label={t('nav.collections')}>
             <span>{t('nav.collections')}</span>
             <a ref={firstDrawerLinkRef} href={routePath(locale, { type: 'collection', collectionKey: 'best' })} onClick={closeMenu}>{content.collections.best.label}</a>
-            <a href={routePath(locale, { type: 'collection', collectionKey: 'pro' })} onClick={closeMenu}>{content.collections.pro.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })} onClick={closeMenu}>{content.collections.dot.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })} onClick={closeMenu}>{content.collections.cute.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })} onClick={closeMenu}>{content.collections.small.label}</a>
-            <a href={routePath(locale, { type: 'players' })} onClick={closeMenu}>{playerContent.navLabel}</a>
           </nav>
           <nav className="nav-drawer-group" aria-label={t('nav.learn')}>
             <span>{t('nav.learn')}</span>

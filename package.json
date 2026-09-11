@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-crosshair-images.mjs && vite build && node scripts/generate-localized-routes.mjs",
+    "build": "node scripts/generate-crosshair-images.mjs && vite build && node scripts/generate-localized-routes.mjs && node scripts/write-build-metadata.mjs",
     "generate:images": "node scripts/generate-crosshair-images.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -22,6 +22,7 @@
     "validate:adsense": "node scripts/validate-adsense-readiness.mjs",
     "validate:images": "node scripts/validate-image-seo.mjs",
     "validate:performance": "node scripts/validate-performance-budget.mjs",
+    "validate:seo-scope": "node scripts/report-seo-scope.mjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "social:doctor": "node scripts/social-publishing/cli.mjs doctor",
     "social:setup": "node scripts/social-publishing/cli.mjs setup",

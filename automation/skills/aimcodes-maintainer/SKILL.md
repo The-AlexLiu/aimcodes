@@ -18,6 +18,8 @@ Use repository scripts for deterministic work and keep GPT/Codex responsible for
 
 Read [task-routing.md](references/task-routing.md) when choosing project references or a validation suite. Read [risk-matrix.md](references/risk-matrix.md) for data, routing, tracking, deployment, or large generated changes.
 
+For SEO, localization, new landing pages, or content pruning, also read `docs/SEO_OPERATING_POLICY.md`. Before indexing a new page, record its target query, closest existing URL, independent user task, unique value, target index locales, and measurement window. Run `pnpm validate:seo-scope` and inspect `.aimcodes-reports/current/seo-scope.md`.
+
 ## GPT gates
 
 Do not skip any gate even when scripts pass:

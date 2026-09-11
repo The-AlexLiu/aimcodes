@@ -1,15 +1,18 @@
 import { collectionCopy } from '../seo/collectionContent.js'
 import { articleCopy } from '../seo/articles.js'
 import { seoToolCopy } from '../seo/toolContent.js'
-import { routePath } from '../seo/routes.js'
+import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 
 export default function SeoCollectionDetails({ locale, collectionKey }) {
   const content = collectionCopy(locale, collectionKey)
-  const relatedCollections = (content.relatedCollectionKeys || []).map((relatedCollectionKey) => ({
-    key: `collection-${relatedCollectionKey}`,
-    href: routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey }),
-    label: collectionCopy(locale, relatedCollectionKey).title,
-  }))
+  const discoverableCollectionSet = new Set(DISCOVERABLE_COLLECTION_KEYS)
+  const relatedCollections = (content.relatedCollectionKeys || [])
+    .filter((relatedCollectionKey) => discoverableCollectionSet.has(relatedCollectionKey))
+    .map((relatedCollectionKey) => ({
+      key: `collection-${relatedCollectionKey}`,
+      href: routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey }),
+      label: collectionCopy(locale, relatedCollectionKey).title,
+    }))
   const relatedGuides = (content.relatedArticleKeys || []).map((articleKey) => ({
     key: `article-${articleKey}`,
     href: routePath(locale, { type: 'article', articleKey }),

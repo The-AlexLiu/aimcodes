@@ -38,6 +38,13 @@ function StatisticsTable({ rows, labels, locale, collectionKeys = {} }) {
 
 export default function CrosshairStatisticsPanel({ locale }) {
   const copy = crosshairStatisticsCopy(locale)
+  const shapeLabel = copy.metrics.shapes || {
+    en: 'Shape groups',
+    es: 'Grupos de forma',
+    'pt-BR': 'Grupos de formato',
+    'zh-CN': '形状分类',
+    ja: '形のグループ',
+  }[locale] || 'Shape groups'
   const largestCollection = crosshairStatistics.collections.reduce((largest, collection) => collection.count > largest.count ? collection : largest)
 
   return (
@@ -48,7 +55,7 @@ export default function CrosshairStatisticsPanel({ locale }) {
       </header>
       <div className="crosshair-statistics-metrics">
         <article><strong>{crosshairStatistics.total}</strong><span>{copy.metrics.published}</span></article>
-        <article><strong>{crosshairStatistics.proCount}</strong><span>{copy.metrics.pros}</span></article>
+        <article><strong>{crosshairStatistics.shapeCount}</strong><span>{shapeLabel}</span></article>
         <article><strong>{crosshairStatistics.colorCount}</strong><span>{copy.metrics.colors}</span></article>
         <article><strong>{largestCollection.count}</strong><span>{copy.metrics.largest}: {collectionCopy(locale, largestCollection.key).label}</span></article>
       </div>
