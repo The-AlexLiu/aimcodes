@@ -456,7 +456,7 @@ export default function App() {
         ) : route.type === 'trust' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairFinder crosshairs={allCrosshairs} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairFinder crosshairs={allSourceCrosshairs} locale={language} onExit={exitFinder} onCopy={copyCrosshair} onFocusChange={handleFinderFocusChange} t={t} /></Suspense>
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} t={t} />}
