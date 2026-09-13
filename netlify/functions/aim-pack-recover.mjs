@@ -6,6 +6,7 @@ import { getJson, setJson } from './_lib/store.mjs'
 export default async function handler(request) {
   if (request.method !== 'POST') return json(405, { code: 'method_not_allowed' })
   if (!requireSameOrigin(request)) return json(403, { code: 'origin_not_allowed' })
+  if (!process.env.RESEND_API_KEY) return json(200, { accepted: true, deliveryAvailable: false })
   try {
     const body = await readJson(request)
     const email = normalizeEmail(body.email)
@@ -26,7 +27,7 @@ export default async function handler(request) {
   } catch (error) {
     console.warn('aim-pack recovery request not delivered', { name: error?.name })
   }
-  return json(200, { accepted: true })
+  return json(200, { accepted: true, deliveryAvailable: true })
 }
 
 export const config = { path: '/api/aim-pack/recover' }

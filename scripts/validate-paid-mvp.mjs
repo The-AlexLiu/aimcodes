@@ -66,6 +66,11 @@ const webhook = (await import('../netlify/functions/aim-pack-whop-webhook.mjs'))
 const { acceptedPayment } = await import('../netlify/functions/aim-pack-whop-webhook.mjs')
 const unsigned = await webhook(new Request('https://aimcodes.com/api/aim-pack/whop-webhook', { method: 'POST', body: '{}' }))
 if (unsigned.status !== 401) errors.push('webhook route did not reject an unsigned payload')
+delete process.env.RESEND_API_KEY
+const recover = (await import('../netlify/functions/aim-pack-recover.mjs')).default
+const unavailableRecovery = await recover(new Request('https://aimcodes.com/api/aim-pack/recover', { method: 'POST', headers: { Origin: 'https://aimcodes.com', 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'buyer@example.com', locale: 'en' }) }))
+const unavailableRecoveryPayload = await unavailableRecovery.json()
+if (unavailableRecovery.status !== 200 || unavailableRecoveryPayload.deliveryAvailable !== false) errors.push('recovery route did not expose the receipt-support fallback when email delivery is unavailable')
 const order = { amount: 1.99, currency: 'usd', checkoutConfigurationId: 'ch_test', planId: 'plan_test' }
 const payment = { id: 'pay_test', account_id: 'biz_test', status: 'paid', currency: 'usd', subtotal: { amount: '1.99', currency: 'usd' }, checkout_configuration_id: 'ch_test', plan_id: 'plan_test' }
 if (!acceptedPayment({ type: 'payment.succeeded' }, payment, order, { accountId: 'biz_test' })) errors.push('valid Whop v1 Money payment was rejected')
@@ -82,4 +87,4 @@ if (errors.length) {
   console.error(`Paid MVP validation failed:\n- ${errors.join('\n- ')}`)
   process.exit(1)
 }
-console.log('Paid MVP validation passed: deterministic 5-slot packs, private-route noindex, signed cookies, origin guard, webhook signature rejection, and secret scan.')
+console.log('Paid MVP validation passed: deterministic 5-slot packs, private-route noindex, signed cookies, origin guard, webhook signature rejection, recovery fallback, and secret scan.')
