@@ -37,6 +37,7 @@ const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
 const PublisherValueSection = lazy(() => import('./components/PublisherValueSection.jsx'))
 const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
+const AimPackPortal = lazy(() => import('./components/AimPackPortal.jsx'))
 
 function randomItem(items) {
   return items[Math.floor(Math.random() * items.length)]
@@ -438,7 +439,7 @@ export default function App() {
         t={t}
       />
 
-      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' ? 'guide-main' : ''}>
+      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' || route.type === 'paid' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -456,6 +457,8 @@ export default function App() {
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ValorantPlaybookPage locale={language} /></Suspense>
         ) : route.type === 'tool' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
+        ) : route.type === 'paid' ? (
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><AimPackPortal pageKey={route.pageKey} locale={language} crosshairs={allCrosshairs} /></Suspense>
         ) : route.type === 'trust' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (

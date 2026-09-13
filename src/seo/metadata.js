@@ -125,6 +125,14 @@ export function routeMetadata(locale, route, crosshair) {
     const page = trustCopy(locale, route.pageKey)
     title = `${page.title} | AimCodes`
     description = page.intro
+  } else if (route.type === 'paid') {
+    const paidTitles = {
+      complete: 'Confirming your Aim Pack',
+      pack: 'My Aim Pack',
+      recover: 'Recover my Aim Pack',
+    }
+    title = `${paidTitles[route.pageKey] || paidTitles.pack} | AimCodes`
+    description = 'Private AimCodes Crosshair Pack access and delivery.'
   } else if (route.type === 'crosshair' && crosshair) {
     const searchName = crosshairDisplayName(locale, crosshair)
     const metadataOverride = detailMetadata[crosshair.id]?.[locale]

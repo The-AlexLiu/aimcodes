@@ -25,6 +25,7 @@ import {
   summarizeAimProfile,
 } from '../utils/aimProfile.js'
 import { getAimProfileCopy } from '../i18n/aimProfileCopy.js'
+import PremiumAimPackOffer from './PremiumAimPackOffer.jsx'
 
 const WAIT_MIN_MS = 1400
 const WAIT_VARIANCE_MS = 1700
@@ -1126,6 +1127,8 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
             </div>
           </div>
         </section>
+
+        <PremiumAimPackOffer result={result} locale={locale} />
 
         <section className="finder-run-details" aria-labelledby="finder-run-details-title">
           <div className="finder-run-details-heading">
