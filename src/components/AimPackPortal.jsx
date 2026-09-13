@@ -68,12 +68,14 @@ function RecoveryView({ content, locale }) {
     event.preventDefault()
     setState('working')
     try {
-      await fetch('/api/aim-pack/recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, locale }) })
+      const response = await fetch('/api/aim-pack/recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, locale }) })
+      const payload = await response.json().catch(() => ({}))
+      setState(payload.deliveryAvailable === false ? 'support' : 'sent')
     } finally {
-      setState('sent')
+      setState((current) => current === 'working' ? 'sent' : current)
     }
   }
-  return <section className="aim-pack-portal aim-pack-recovery"><span>{content.eyebrow}</span><h1>{content.recoveryTitle}</h1><p>{content.recoveryBody}</p>{state === 'sent' ? <p className="aim-pack-recovery__success" role="status"><Icon name="check" size={18} />{content.recoverySent}</p> : <form onSubmit={submit}><label>{content.email}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><button className="primary-button" type="submit" disabled={state === 'working'}>{content.send}</button></form>}</section>
+  return <section className="aim-pack-portal aim-pack-recovery"><span>{content.eyebrow}</span><h1>{content.recoveryTitle}</h1><p>{content.recoveryBody}</p>{state === 'sent' ? <p className="aim-pack-recovery__success" role="status"><Icon name="check" size={18} />{content.recoverySent}</p> : state === 'support' ? <p className="aim-pack-recovery__success" role="status"><Icon name="info" size={18} />{content.recoveryUnavailable} <a href="mailto:contact@aimcodes.com">contact@aimcodes.com</a></p> : <form onSubmit={submit}><label>{content.email}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><button className="primary-button" type="submit" disabled={state === 'working'}>{content.send}</button></form>}</section>
 }
 
 export default function AimPackPortal({ pageKey, locale, crosshairs }) {
