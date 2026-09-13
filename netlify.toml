@@ -8,6 +8,10 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/:locale/meme-crosshairs/"
   to = "/:locale/funny-crosshairs/"
@@ -138,6 +142,12 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
+  for = "/api/aim-pack/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
   for = "/build-meta.json"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
@@ -167,3 +177,22 @@
   for = "/ja/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Keep private fulfillment routes after locale-wide cache rules so they win.
+[[headers]]
+  for = "/*/my-aim-pack/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/*/checkout/complete/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/*/recover-aim-pack/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    X-Robots-Tag = "noindex, nofollow"

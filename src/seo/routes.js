@@ -81,9 +81,18 @@ export const TRUST_PAGES = Object.freeze({
   privacy: Object.freeze({ slug: 'privacy', indexable: false }),
   terms: Object.freeze({ slug: 'terms', indexable: false }),
   contact: Object.freeze({ slug: 'contact', indexable: false }),
+  refund: Object.freeze({ slug: 'refund-policy', indexable: false }),
 })
 
 export const TRUST_PAGE_KEYS = Object.freeze(Object.keys(TRUST_PAGES))
+
+export const PAID_PAGES = Object.freeze({
+  complete: Object.freeze({ slug: 'checkout/complete' }),
+  pack: Object.freeze({ slug: 'my-aim-pack' }),
+  recover: Object.freeze({ slug: 'recover-aim-pack' }),
+})
+
+export const PAID_PAGE_KEYS = Object.freeze(Object.keys(PAID_PAGES))
 
 const slugToCollectionKey = Object.fromEntries(
   Object.entries(SEO_COLLECTIONS).map(([key, collection]) => [collection.slug, key]),
@@ -135,6 +144,7 @@ export function routePath(locale, route = { type: 'home' }) {
   if (route.type === 'article') return `${prefix}/${SEO_ARTICLES[route.articleKey]?.slug || SEO_ARTICLES.settings.slug}/`
   if (route.type === 'tool') return `${prefix}/tools/${SEO_TOOLS[route.toolKey]?.slug || SEO_TOOLS.generator.slug}/`
   if (route.type === 'trust') return `${prefix}/${TRUST_PAGES[route.pageKey]?.slug || TRUST_PAGES.about.slug}/`
+  if (route.type === 'paid') return `${prefix}/${PAID_PAGES[route.pageKey]?.slug || PAID_PAGES.pack.slug}/`
   if (route.type === 'finder') return `${prefix}/reaction-time-test/`
   if (route.type === 'guide') return `${prefix}/how-to-import-valorant-crosshair/`
   return `${prefix}/`
@@ -153,6 +163,9 @@ export function parseSeoRoute(pathname = '/') {
   if (rest.length === 1 && slugToCollectionKey[rest[0]]) return { locale, type: 'collection', collectionKey: slugToCollectionKey[rest[0]] }
   if (rest.length === 1 && slugToArticleKey[rest[0]]) return { locale, type: 'article', articleKey: slugToArticleKey[rest[0]] }
   if (rest.length === 1 && slugToTrustPageKey[rest[0]]) return { locale, type: 'trust', pageKey: slugToTrustPageKey[rest[0]] }
+  if (rest.length === 1 && rest[0] === 'my-aim-pack') return { locale, type: 'paid', pageKey: 'pack' }
+  if (rest.length === 1 && rest[0] === 'recover-aim-pack') return { locale, type: 'paid', pageKey: 'recover' }
+  if (rest.length === 2 && rest[0] === 'checkout' && rest[1] === 'complete') return { locale, type: 'paid', pageKey: 'complete' }
   if (rest.length === 2 && rest[0] === 'crosshairs') {
     return { locale, type: 'crosshair', crosshairId: slugToCrosshairId[rest[1]] || rest[1] }
   }
@@ -174,6 +187,7 @@ export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
   const normalizedLocale = normalizeLocale(locale) || DEFAULT_LOCALE
   if (normalizedLocale === 'zh-CN' && !ZH_PRODUCT_INDEX_TYPES.has(route.type)) return false
   if (route.type === 'players') return false
+  if (route.type === 'paid') return false
   if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false
   if (route.type === 'crosshair') return isPriorityCrosshair(route.crosshairId)
   if (route.type === 'trust') return TRUST_PAGES[route.pageKey]?.indexable === true

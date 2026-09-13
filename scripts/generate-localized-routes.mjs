@@ -31,6 +31,7 @@ import { importGuideDetails } from '../src/seo/importGuideDetails.js'
 import {
   DISCOVERABLE_COLLECTION_KEYS,
   isIndexableRoute,
+  PAID_PAGE_KEYS,
   routePath,
   SEO_ARTICLE_KEYS,
   SEO_TOOL_KEYS,
@@ -354,7 +355,7 @@ function seoBlock(locale, route, crosshair, localizedCrosshairs, indexed) {
   const schema = structuredData(locale, route, crosshair, localizedCrosshairs)
 
   return `${seoStart}
-    <meta name="robots" content="${indexed ? 'index,follow,max-image-preview:large' : 'noindex,follow'}" />
+    <meta name="robots" content="${indexed ? 'index,follow,max-image-preview:large' : route.type === 'paid' ? 'noindex,nofollow' : 'noindex,follow'}" />
     <link rel="canonical" href="${metadata.canonical}" />
 ${alternateLinks}
     ${indexed ? `<link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${routePath(DEFAULT_LOCALE, route)}" />` : ''}
@@ -473,6 +474,9 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
   }
+  if (route.type === 'paid') {
+    return '<main class="seo-static-shell"><h1>Private AimCodes Crosshair Pack</h1><p>This private page requires a valid purchase access link.</p></main>'
+  }
   if (route.type === 'guide') {
     const details = importGuideDetails(locale)
     const steps = localized.guide.steps.map(([title, body]) => `<li><strong>${escapeHtml(title)}</strong><p>${escapeHtml(body)}</p></li>`).join('')
@@ -561,6 +565,7 @@ for (const locale of Object.keys(localeRoutes)) {
     ...SEO_ARTICLE_KEYS.map((articleKey) => ({ type: 'article', articleKey })),
     ...SEO_TOOL_KEYS.map((toolKey) => ({ type: 'tool', toolKey })),
     ...TRUST_PAGE_KEYS.map((pageKey) => ({ type: 'trust', pageKey })),
+    ...PAID_PAGE_KEYS.map((pageKey) => ({ type: 'paid', pageKey })),
   ]
   const detailRoutes = localizedCrosshairs.map((item) => ({ type: 'crosshair', crosshairId: item.id }))
 

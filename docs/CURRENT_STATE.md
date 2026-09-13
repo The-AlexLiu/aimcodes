@@ -1,6 +1,12 @@
 # AimCodes 当前状态
 
-状态日期：2026-09-11
+状态日期：2026-09-13
+
+## 已实现：AimCodes Crosshair Pack 付费 MVP
+
+反应测试结果页已新增一次性 USD 1.99 的 `AimCodes Crosshair Pack`：用户选择主要模式与视觉偏好后，通过 Whop 安全结账；只有经过签名校验且账号、金额、币种、Checkout 与 Plan 全部匹配的 `payment.succeeded` 才会创建权益。交付内容为 5 款不同用途的准星、地图预览、可复制代码、长期访问和最多 2 次重新生成；重新生成后保留 3 个版本。订单、付款与权益写入 Netlify Blobs，Webhook 按付款 ID 幂等处理；私有交付页、找回页和所有付费 API 均为 `noindex`、`no-store`。
+
+2026-09-13 已用 Whop Sandbox 完成真实浏览器端到端验证：USD 1.99 测试付款成功后自动进入 5 款准星交付页，两次重新生成依次把额度从 2 降至 0，第三次按钮禁用；390px 手机视口无横向溢出。生产环境使用正式 Whop 账号，Deploy Preview 保持 Sandbox；未执行真实生产付款。即时浏览器交付是上线所需核心路径，Resend 邮件发送和 GA4 Measurement Protocol 仅在对应密钥配置后启用，不影响已付款用户当场领取。
 
 ## 已发布：2026-09-11 SEO 范围收缩与运维固化
 

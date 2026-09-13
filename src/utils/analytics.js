@@ -132,6 +132,28 @@ export function trackEvent(eventName, parameters = {}) {
   return true
 }
 
+function readGoogleTagValue(field) {
+  return new Promise((resolve) => {
+    if (!initializeAnalytics()) return resolve('')
+    let settled = false
+    const finish = (value = '') => {
+      if (settled) return
+      settled = true
+      resolve(String(value || '').slice(0, 100))
+    }
+    window.gtag('get', GA_MEASUREMENT_ID, field, finish)
+    window.setTimeout(() => finish(''), 600)
+  })
+}
+
+export async function getAnalyticsPurchaseContext() {
+  const [clientId, sessionId] = await Promise.all([
+    readGoogleTagValue('client_id'),
+    readGoogleTagValue('session_id'),
+  ])
+  return { clientId, sessionId }
+}
+
 export function trackShareSuccess({
   method,
   contentType,

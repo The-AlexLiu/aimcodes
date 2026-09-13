@@ -1,6 +1,16 @@
 # AimCodes 工具间交接
 
-最后更新：2026-08-17
+最后更新：2026-09-13
+
+## 当前交接重点：付费 MVP
+
+- 产品：`AimCodes Crosshair Pack`，一次性 USD 1.99；
+- 入口：反应测试结果页；交付：5 款准星、2 次重新生成、3 个保留版本；
+- 支付：Whop Checkout；正式站只使用生产 Whop，Deploy Preview 只使用 Sandbox；
+- 权益：签名 Webhook 确认付款后写入 Netlify Blobs，付款 ID 幂等；浏览器 Claim 只在完成付款后签发；
+- 隐私与 SEO：私有页面和 API 均为 `noindex`、`no-store`，邮箱不进入公开 URL 或前端持久存储；
+- 2026-09-13 沙盒端到端验证通过：付款、Webhook、自动交付、5 款准星、两次重新生成与额度归零均正常；
+- Resend 与 GA4 服务端购买事件属于可选增强，只有配置对应密钥后启用；密钥只保存在托管平台 Secret 中，不进入 Git、文档或 Skill。
 
 ## 当前交接目标
 
