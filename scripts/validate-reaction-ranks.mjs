@@ -49,6 +49,10 @@ for (const rounds of [[150, 160, 170], [251, 270, 285], [401, 520, 800]]) {
 if (getReactionRecommendation([180, 181, 182]).reliability !== 'high') failures.push('A stable run should have high reliability.')
 if (getReactionRecommendation([150, 250, 350]).reliability !== 'low') failures.push('A volatile run should have low reliability.')
 if (getReactionRecommendation([MIN_REACTION_MS - 1, 180, 190]).average !== 185) failures.push('Implausible reaction times must not affect result statistics.')
+const interruptedRun = getReactionRecommendation([158, 140, 1642])
+if (interruptedRun.average !== 149) failures.push(`An isolated interruption should not affect the score: ${interruptedRun.average}.`)
+if (interruptedRun.excludedRoundCount !== 1 || interruptedRun.excludedRoundIndexes[0] !== 2) failures.push('The isolated interruption should be marked as excluded.')
+if (interruptedRun.reliability !== 'medium') failures.push('An adjusted run should have medium reliability.')
 
 for (const validTime of [MIN_REACTION_MS, 170, MAX_REACTION_MS]) {
   if (!isValidReactionTime(validTime)) failures.push(`Valid reaction time rejected: ${validTime}`)

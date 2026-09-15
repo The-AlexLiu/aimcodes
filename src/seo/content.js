@@ -93,7 +93,7 @@ const copy = {
       catalogTitle: '300+ Working VALORANT Crosshair Codes | AimCodes',
       catalogDescription: 'Browse 300+ working VALORANT crosshair codes by style and use case. Preview each profile on a map, change its color, and copy the code.',
       finderTitle: 'VALORANT Reaction Time Test & Crosshair Picker | AimCodes',
-      finderDescription: 'Test your reaction time in three rounds, get a playful VALORANT rank, and receive one crosshair recommendation you can preview and copy.',
+      finderDescription: 'Test your reaction time in three rounds, get a playful VALORANT rank, track your aim profile, and optionally build a personalized five-crosshair pack.',
       guideTitle: 'How to Import a Crosshair Code in VALORANT | AimCodes',
       guideDescription: 'Learn how to import, export, share, and troubleshoot VALORANT crosshair profile codes, including spectator copy commands and common fixes.',
     },
@@ -162,7 +162,7 @@ const copy = {
     meta: {
       homeTitle: 'Códigos de mira de VALORANT y vista previa | AimCodes', homeDescription: 'Prueba códigos de mira de VALORANT en mapas reales, cambia colores, copia códigos y encuentra tu próxima mira con una prueba de reacción.',
       catalogTitle: '300+ códigos de mira de VALORANT | AimCodes', catalogDescription: 'Explora más de 300 códigos de mira de VALORANT que funcionan. Filtra por estilo y uso, prueba cada mira y copia el código.',
-      finderTitle: 'Prueba de reacción y selector de mira de VALORANT | AimCodes', finderDescription: 'Mide tu reacción en tres rondas, consigue un rango divertido de VALORANT y recibe una mira para probar y copiar.',
+      finderTitle: 'Prueba de reacción y perfil de puntería de VALORANT | AimCodes', finderDescription: 'Mide tu reacción en tres rondas, consigue un rango divertido, guarda tu perfil y crea opcionalmente un pack personalizado de cinco miras.',
       guideTitle: 'Cómo importar un código de mira en VALORANT | AimCodes', guideDescription: 'Aprende a importar, exportar, compartir y corregir códigos de mira de VALORANT, incluido el comando para copiar mientras observas.',
     },
   },
@@ -227,7 +227,7 @@ const copy = {
     meta: {
       homeTitle: 'Códigos de mira do VALORANT e prévia ao vivo | AimCodes', homeDescription: 'Teste códigos de mira do VALORANT em mapas reais, troque cores, copie códigos e encontre sua próxima mira com um teste de reação.',
       catalogTitle: '300+ códigos de mira do VALORANT | AimCodes', catalogDescription: 'Explore mais de 300 códigos de mira do VALORANT que funcionam. Filtre por estilo e uso, teste cada mira e copie o código.',
-      finderTitle: 'Teste de reação e seletor de mira do VALORANT | AimCodes', finderDescription: 'Teste sua reação em três rodadas, receba um rank divertido do VALORANT e ganhe uma indicação de mira para testar e copiar.',
+      finderTitle: 'Teste de reação e perfil de mira do VALORANT | AimCodes', finderDescription: 'Teste sua reação em três rodadas, receba um elo divertido, acompanhe seu perfil e crie opcionalmente um pacote personalizado com cinco miras.',
       guideTitle: 'Como importar um código de mira no VALORANT | AimCodes', guideDescription: 'Aprenda a importar, exportar, compartilhar e corrigir códigos de mira do VALORANT, incluindo o comando para copiar enquanto assiste.',
     },
   },
@@ -292,7 +292,7 @@ const copy = {
     meta: {
       homeTitle: '无畏契约准星代码与地图预览 | AimCodes', homeDescription: '在真实地图中预览可用的无畏契约准星代码，自定义颜色，一键复制，还能通过反应测试找到更适合自己的准星。',
       catalogTitle: '300+ 无畏契约准星代码：小点、十字与趣味准星 | AimCodes', catalogDescription: '浏览 300 多个可用的无畏契约准星代码，按打法与样式筛选，预览职业同款、小圆点、小准星和趣味造型，一键复制到游戏。',
-      finderTitle: '无畏契约反应速度测试与准星推荐 | AimCodes', finderDescription: '完成三轮反应速度测试，看看自己的无畏契约反应段位，并获得一个可以直接预览和复制的准星推荐。',
+      finderTitle: '无畏契约反应速度测试与瞄准档案 | AimCodes', finderDescription: '完成三轮反应速度测试，查看自己的反应段位、瞄准风格和历史趋势，并可选择生成五款个人准星方案。',
       guideTitle: '无畏契约准星代码怎么导入、导出与复制 | AimCodes', guideDescription: '完整了解无畏契约准星代码的导入、导出、观战复制和常见报错排查，并直接试用有效准星。',
     },
   },

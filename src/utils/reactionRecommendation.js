@@ -1,7 +1,7 @@
 export const REACTION_ROUNDS = 3
 export const MIN_REACTION_MS = 100
 export const MAX_REACTION_MS = 2000
-export const REACTION_CALIBRATION_VERSION = 'browser-v3'
+export const REACTION_CALIBRATION_VERSION = 'browser-v4'
 
 export function isValidReactionTime(value) {
   return Number.isFinite(value) && value >= MIN_REACTION_MS && value <= MAX_REACTION_MS
@@ -29,20 +29,44 @@ const recommendationProfiles = {
 }
 
 export function calculateReactionStats(rounds, earlyClicks = 0) {
-  const validRounds = rounds.filter(isValidReactionTime)
+  const validRounds = rounds
+    .map((value, index) => ({ value, index }))
+    .filter(({ value }) => isValidReactionTime(value))
   if (!validRounds.length) {
-    return { average: 0, consistency: 0, best: 0, worst: 0, earlyClicks }
+    return { average: 0, rawAverage: 0, consistency: 0, best: 0, worst: 0, earlyClicks, countedRounds: [], excludedRoundIndexes: [], excludedRoundCount: 0 }
   }
 
-  const average = validRounds.reduce((total, value) => total + value, 0) / validRounds.length
-  const variance = validRounds.reduce((total, value) => total + ((value - average) ** 2), 0) / validRounds.length
+  const sorted = [...validRounds].sort((a, b) => a.value - b.value)
+  let scoredRounds = validRounds
+  let excludedRoundIndexes = []
+
+  // A single interruption (tab switch, lost focus, etc.) should not turn an
+  // otherwise tight three-round run into an Iron result. Only discard an edge
+  // value when it is clearly isolated from the other pair.
+  if (sorted.length === 3) {
+    const lowerGap = sorted[1].value - sorted[0].value
+    const upperGap = sorted[2].value - sorted[1].value
+    if (upperGap >= Math.max(250, lowerGap * 3)) excludedRoundIndexes = [sorted[2].index]
+    else if (lowerGap >= Math.max(250, upperGap * 3)) excludedRoundIndexes = [sorted[0].index]
+    if (excludedRoundIndexes.length) scoredRounds = validRounds.filter(({ index }) => !excludedRoundIndexes.includes(index))
+  }
+
+  const scoredValues = scoredRounds.map(({ value }) => value)
+  const rawValues = validRounds.map(({ value }) => value)
+  const average = scoredValues.reduce((total, value) => total + value, 0) / scoredValues.length
+  const rawAverage = rawValues.reduce((total, value) => total + value, 0) / rawValues.length
+  const variance = scoredValues.reduce((total, value) => total + ((value - average) ** 2), 0) / scoredValues.length
 
   return {
     average: Math.round(average),
+    rawAverage: Math.round(rawAverage),
     consistency: Math.round(Math.sqrt(variance)),
-    best: Math.min(...validRounds),
-    worst: Math.max(...validRounds),
+    best: Math.min(...scoredValues),
+    worst: Math.max(...scoredValues),
     earlyClicks,
+    countedRounds: scoredRounds.map(({ index }) => index),
+    excludedRoundIndexes,
+    excludedRoundCount: excludedRoundIndexes.length,
   }
 }
 
@@ -65,9 +89,9 @@ export function getReactionRecommendation(rounds, earlyClicks = 0) {
 
   return {
     ...stats,
-    reliability: earlyClicks > 0 || stats.consistency >= 65
+    reliability: earlyClicks > 0 || (stats.excludedRoundCount === 0 && stats.consistency >= 65)
       ? 'low'
-      : stats.consistency >= 35
+      : stats.excludedRoundCount > 0 || stats.consistency >= 35
         ? 'medium'
         : 'high',
     profile,

@@ -13,12 +13,14 @@ const knownIds = new Set(ids)
 
 for (const mode of ['ranked', 'deathmatch', 'fun']) {
   for (const visual of ['minimal', 'balanced', 'visible']) {
-    for (const version of [1, 2, 3]) {
-      const pack = generateAimPack({ average: 241, best: 219, consistency: 24, profile: 'balanced', mode, visual }, ids, version)
-      if (pack.length !== 5) errors.push(`${mode}/${visual}/${version}: pack must contain five slots`)
-      if (new Set(pack.map((slot) => slot.role)).size !== 5) errors.push(`${mode}/${visual}/${version}: roles must be unique`)
-      if (new Set(pack.map((slot) => slot.crosshairId)).size !== 5) errors.push(`${mode}/${visual}/${version}: crosshairs must be unique`)
-      if (pack.some((slot) => !knownIds.has(slot.crosshairId))) errors.push(`${mode}/${visual}/${version}: unknown crosshair returned`)
+    for (const weapon of ['rifle', 'sniper', 'closeRange']) {
+      for (const version of [1, 2, 3]) {
+        const pack = generateAimPack({ average: 241, best: 219, consistency: 24, profile: 'balanced', mode, visual, weapon }, ids, version)
+        if (pack.length !== 5) errors.push(`${mode}/${visual}/${weapon}/${version}: pack must contain five slots`)
+        if (new Set(pack.map((slot) => slot.role)).size !== 5) errors.push(`${mode}/${visual}/${weapon}/${version}: roles must be unique`)
+        if (new Set(pack.map((slot) => slot.crosshairId)).size !== 5) errors.push(`${mode}/${visual}/${weapon}/${version}: crosshairs must be unique`)
+        if (pack.some((slot) => !knownIds.has(slot.crosshairId))) errors.push(`${mode}/${visual}/${weapon}/${version}: unknown crosshair returned`)
+      }
     }
   }
 }

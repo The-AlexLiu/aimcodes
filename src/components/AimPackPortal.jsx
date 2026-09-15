@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
 import { previewBackgroundOptions } from '../data/previewOptions.js'
@@ -23,6 +23,8 @@ function previewEntitlement(crosshairs) {
 
 function PackView({ entitlement, content, crosshairs, locale, onRegenerate }) {
   const [copied, setCopied] = useState('')
+  const firstCopyTracked = useRef(false)
+  const deliveryTracked = useRef(false)
   const map = previewBackgroundOptions[0]
   const byId = useMemo(() => new Map(crosshairs.map((item) => [item.id, item])), [crosshairs])
 
@@ -31,10 +33,18 @@ function PackView({ entitlement, content, crosshairs, locale, onRegenerate }) {
     setCopied(item.id)
     window.setTimeout(() => setCopied(''), 1600)
     trackEvent('premium_pack_code_copy', { product_id: 'aimcodes_crosshair_pack_v1', crosshair_id: item.id, pack_role: entitlement.pack.find((slot) => slot.crosshairId === item.id)?.role })
+    if (!firstCopyTracked.current) {
+      firstCopyTracked.current = true
+      trackEvent('pack_first_code_copy', { product_id: 'aimcodes_crosshair_pack_v1', crosshair_id: item.id, pack_version: entitlement.version })
+    }
   }
 
   useEffect(() => {
     trackEvent('premium_pack_view', { product_id: 'aimcodes_crosshair_pack_v1', pack_version: entitlement.version })
+    if (!deliveryTracked.current) {
+      deliveryTracked.current = true
+      trackEvent('delivery_confirmed', { product_id: 'aimcodes_crosshair_pack_v1', delivery_method: 'entitlement', pack_version: entitlement.version })
+    }
   }, [entitlement.version])
 
   return (

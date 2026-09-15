@@ -5,6 +5,9 @@ const files = [
   'src/utils/analytics.js',
   'src/App.jsx',
   'src/components/CrosshairFinder.jsx',
+  'src/components/FinderNudge.jsx',
+  'src/components/PremiumAimPackOffer.jsx',
+  'src/components/AimPackPortal.jsx',
   'src/components/ValorantPlaybookPage.jsx',
 ]
 
@@ -20,6 +23,9 @@ const requiredEvents = [
   'finder_complete',
   'finder_result_view',
   'finder_exit',
+  'finder_nudge_view',
+  'finder_nudge_click',
+  'finder_nudge_dismiss',
   'aim_profile_view',
   'aim_profile_saved',
   'aim_profile_clear',
@@ -45,6 +51,20 @@ const requiredEvents = [
   'challenge_start',
   'challenge_complete',
   'challenge_won',
+  'premium_offer_view',
+  'premium_offer_select',
+  'premium_offer_mobile_jump',
+  'premium_free_catalog_click',
+  'premium_preference_complete',
+  'begin_checkout',
+  'checkout_browser_complete',
+  'premium_checkout_error',
+  'premium_preferences_view',
+  'premium_email_error',
+  'checkout_loaded',
+  'checkout_exit',
+  'delivery_confirmed',
+  'pack_first_code_copy',
 ]
 
 const missingEvents = requiredEvents.filter((eventName) => !source.includes(`'${eventName}'`))
@@ -60,10 +80,13 @@ if (missingEvents.length) throw new Error(`Missing GA4 events: ${missingEvents.j
 if (source.includes('search_term: normalizedQuery')) throw new Error('Raw search terms must not be sent to GA4.')
 if (!source.includes('interaction_source')) throw new Error('Missing interaction_source event attribution parameter.')
 if (!source.includes('attempt_id')) throw new Error('Finder funnel events must carry a stable attempt_id.')
+if (!source.includes('finder_entry')) throw new Error('Finder funnel events must record their entry route.')
+if (!source.includes("SUPPORTED_ROUTE_TYPES") || !source.includes("route.type === 'finder'")) throw new Error('Finder nudge must exclude the test route and only render on supported public content routes.')
 if (!source.includes('attempt_outcome')) throw new Error('Finder exits must classify the attempt outcome.')
 if (!source.includes('round_attempt')) throw new Error('Finder round retries must carry round_attempt.')
 if (!source.includes('currentInteractionKey')) throw new Error('Finder interactions must guard duplicate clicks per phase and round.')
 if (!source.includes('result_reliability')) throw new Error('Finder completion must classify result reliability.')
+if (!source.includes('excluded_rounds')) throw new Error('Finder completion must report isolated rounds excluded from scoring.')
 if (!source.includes('input_type')) throw new Error('Finder completion must record the input type.')
 if (!source.includes('false_start_reason')) throw new Error('Finder false starts must include a diagnostic reason.')
 if (!source.includes('ai_provider') || !source.includes('referring_host') || !source.includes('landing_path')) throw new Error('Missing AI referral attribution parameters.')
