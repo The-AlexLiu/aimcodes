@@ -13,6 +13,7 @@ export function sanitizePackInput(body = {}) {
     profile: result.profile,
     mode: preferences.mode,
     visual: preferences.visual,
+    weapon: preferences.weapon,
   })
 }
 

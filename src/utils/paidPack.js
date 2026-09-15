@@ -12,6 +12,7 @@ export const AIM_PACK_CHECKOUT_STORAGE_KEY = 'aimcodes-checkout-v1'
 export const AIM_PACK_ROLES = Object.freeze(['allRound', 'closeRange', 'longRange', 'visibility', 'fun'])
 export const AIM_PACK_MODES = Object.freeze(['ranked', 'deathmatch', 'fun'])
 export const AIM_PACK_VISUALS = Object.freeze(['minimal', 'balanced', 'visible'])
+export const AIM_PACK_WEAPONS = Object.freeze(['rifle', 'sniper', 'closeRange'])
 
 const rolePools = Object.freeze({
   allRound: Object.freeze(['tenz', 'less', 'boaster', 'jinggg', 'compact-green']),
@@ -26,6 +27,12 @@ const resultBias = Object.freeze({
   balanced: Object.freeze(['tenz', 'less', 'compact-green']),
   steady: Object.freeze(['jinggg', 'micro-gap-cyan', 'open-four-white']),
   visibility: Object.freeze(['boaster', 'beacon-yellow', 'pulse-red']),
+})
+
+const weaponBias = Object.freeze({
+  rifle: Object.freeze(['tenz', 'less', 'compact-green', 'forsaken']),
+  sniper: Object.freeze(['aspas-dot', 'demon1', 'needle-cyan', 'scream-dot']),
+  closeRange: Object.freeze(['boaster', 'beacon-yellow', 'open-four-white', 'pulse-red']),
 })
 
 function stableHash(value) {
@@ -50,14 +57,15 @@ export function normalizeAimPackInput(input = {}) {
   const profile = Object.hasOwn(resultBias, input.profile) ? input.profile : 'balanced'
   const mode = AIM_PACK_MODES.includes(input.mode) ? input.mode : 'ranked'
   const visual = AIM_PACK_VISUALS.includes(input.visual) ? input.visual : 'balanced'
-  return { average, consistency, best, profile, mode, visual }
+  const weapon = AIM_PACK_WEAPONS.includes(input.weapon) ? input.weapon : 'rifle'
+  return { average, consistency, best, profile, mode, visual, weapon }
 }
 
 export function generateAimPack(input = {}, availableIds = [], version = 1) {
   const normalized = normalizeAimPackInput(input)
   const allowed = new Set(availableIds)
   const used = new Set()
-  const seed = stableHash(`${normalized.average}:${normalized.consistency}:${normalized.profile}:${normalized.mode}:${normalized.visual}:${version}`)
+  const seed = stableHash(`${normalized.average}:${normalized.consistency}:${normalized.profile}:${normalized.mode}:${normalized.visual}:${normalized.weapon}:${version}`)
 
   return AIM_PACK_ROLES.map((role, index) => {
     const bias = role === 'allRound' ? resultBias[normalized.profile] : []
@@ -71,7 +79,7 @@ export function generateAimPack(input = {}, availableIds = [], version = 1) {
       : normalized.mode === 'deathmatch'
         ? ['micro-gap-cyan', 'forsaken', 'tenz']
         : []
-    const candidates = rotate([...new Set([...bias, ...preferenceBias, ...modeBias, ...rolePools[role]])], seed + index * 7)
+    const candidates = rotate([...new Set([...bias, ...weaponBias[normalized.weapon], ...preferenceBias, ...modeBias, ...rolePools[role]])], seed + index * 7)
     const crosshairId = candidates.find((id) => allowed.has(id) && !used.has(id))
       || availableIds.find((id) => !used.has(id))
     if (!crosshairId) throw new Error(`No available crosshair for ${role}`)

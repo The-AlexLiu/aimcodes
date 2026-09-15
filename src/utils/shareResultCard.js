@@ -1,5 +1,3 @@
-import { parseCrosshairCode } from './crosshairCode.js'
-
 const LANDSCAPE_WIDTH = 1200
 const LANDSCAPE_HEIGHT = 630
 const PORTRAIT_WIDTH = 1080
@@ -135,48 +133,6 @@ function drawRankEmblem(ctx, x, y, size, color) {
   ctx.restore()
 }
 
-function drawCrosshairRect(ctx, x, y, width, height, color, opacity, outline, outlineWidth) {
-  const left = Math.round(x - width / 2)
-  const top = Math.round(y - height / 2)
-  const safeWidth = Math.max(2, Math.round(width))
-  const safeHeight = Math.max(2, Math.round(height))
-  if (outline.enabled) {
-    ctx.fillStyle = `rgba(5, 9, 12, ${Math.min(1, outline.opacity)})`
-    ctx.fillRect(left - outlineWidth, top - outlineWidth, safeWidth + outlineWidth * 2, safeHeight + outlineWidth * 2)
-  }
-  ctx.globalAlpha = opacity
-  ctx.fillStyle = color
-  ctx.fillRect(left, top, safeWidth, safeHeight)
-  ctx.globalAlpha = 1
-}
-
-function drawCrosshairLines(ctx, centerX, centerY, line, color, scale, outline) {
-  if (!line?.enabled) return
-  const horizontalLength = line.horizontalLength * scale
-  const verticalLength = line.verticalLength * scale
-  const thickness = Math.max(2, line.thickness * scale)
-  const horizontalOffset = line.offset * scale + horizontalLength / 2
-  const verticalOffset = line.offset * scale + verticalLength / 2
-  const outlineWidth = Math.max(2, Math.round(outline.thickness * Math.max(1, scale * 0.35)))
-  drawCrosshairRect(ctx, centerX, centerY - verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
-  drawCrosshairRect(ctx, centerX, centerY + verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
-  drawCrosshairRect(ctx, centerX - horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
-  drawCrosshairRect(ctx, centerX + horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
-}
-
-function drawCrosshair(ctx, crosshair, centerX, centerY) {
-  const parsed = parseCrosshairCode(crosshair.code, { fallbackColor: crosshair.color })
-  const { settings } = parsed
-  const scale = 6
-  drawCrosshairLines(ctx, centerX, centerY, settings.outer, parsed.color, scale, settings.outline)
-  drawCrosshairLines(ctx, centerX, centerY, settings.inner, parsed.color, scale, settings.outline)
-  if (settings.dot?.enabled) {
-    const size = Math.max(2, settings.dot.size * scale)
-    const outlineWidth = Math.max(2, Math.round(settings.outline.thickness * 2))
-    drawCrosshairRect(ctx, centerX, centerY, size, size, parsed.color, settings.dot.opacity, settings.outline, outlineWidth)
-  }
-}
-
 function canvasToBlob(canvas) {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
@@ -225,10 +181,10 @@ function drawLandscapeCard({
   average,
   unit,
   taunt,
-  pickLabel,
-  crosshair,
   footer,
   rankColor,
+  challengeTitle,
+  challengeHint,
   brandLogo,
 }) {
   const { canvas, ctx } = createCardCanvas(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT)
@@ -280,18 +236,31 @@ function drawLandscapeCard({
 
   ctx.fillStyle = '#ff716d'
   ctx.font = `800 17px ${DISPLAY_FONT}`
-  ctx.fillText(String(pickLabel || '').toLocaleUpperCase(), 820, 160)
-  ctx.fillStyle = '#111d25'
-  roundedRect(ctx, 820, 186, 246, 190, 11)
-  ctx.fill()
-  ctx.strokeStyle = '#293943'
-  roundedRect(ctx, 820, 186, 246, 190, 11)
-  ctx.stroke()
-  drawCrosshair(ctx, crosshair, 943, 281)
-
+  ctx.fillText('REACTION CHALLENGE', 820, 160)
   ctx.fillStyle = '#f4f6f7'
-  ctx.font = `800 30px ${DISPLAY_FONT}`
-  drawWrappedText(ctx, crosshair.name, 820, 421, 246, 36, 2)
+  ctx.font = `850 32px ${DISPLAY_FONT}`
+  drawWrappedText(ctx, challengeTitle, 820, 215, 246, 39, 3)
+  ctx.fillStyle = '#8fa1aa'
+  ctx.font = `650 17px ${BODY_FONT}`
+  drawWrappedText(ctx, challengeHint, 820, 370, 246, 26, 3)
+
+  ctx.save()
+  ctx.strokeStyle = rankColor
+  ctx.lineWidth = 4
+  ctx.beginPath()
+  ctx.arc(943, 458, 22, 0, Math.PI * 2)
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(943, 420)
+  ctx.lineTo(943, 438)
+  ctx.moveTo(943, 478)
+  ctx.lineTo(943, 496)
+  ctx.moveTo(905, 458)
+  ctx.lineTo(923, 458)
+  ctx.moveTo(963, 458)
+  ctx.lineTo(981, 458)
+  ctx.stroke()
+  ctx.restore()
 
   ctx.fillStyle = '#7f8c95'
   ctx.font = `600 17px ${BODY_FONT}`

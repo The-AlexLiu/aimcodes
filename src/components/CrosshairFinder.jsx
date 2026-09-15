@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
-import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
-import { parseCrosshairCode, updateCrosshairColor } from '../utils/crosshairCode.js'
 import {
   getReactionRank,
   getReactionRecommendation,
@@ -25,12 +22,13 @@ import {
   summarizeAimProfile,
 } from '../utils/aimProfile.js'
 import { getAimProfileCopy } from '../i18n/aimProfileCopy.js'
+import { paidPackCopy } from '../i18n/paidPackCopy.js'
+import { AIM_PACK_PRODUCT } from '../utils/paidPack.js'
 import PremiumAimPackOffer from './PremiumAimPackOffer.jsx'
 
 const WAIT_MIN_MS = 1400
 const WAIT_VARIANCE_MS = 1700
 const FEEDBACK_MS = 1100
-const RESULT_PREVIEW_SCALE = 2.25
 const NATIVE_SHARE_TIMEOUT_MS = 8000
 
 function withTimeout(promise, timeoutMs = NATIVE_SHARE_TIMEOUT_MS) {
@@ -121,7 +119,7 @@ function createAttemptId() {
   return `attempt-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 }
 
-function getShareCardOptions({ result, resultCrosshair, challengeUrl, locale, t, format = 'portrait' }) {
+function getShareCardOptions({ result, challengeUrl, locale, t, format = 'portrait' }) {
   return {
     format,
     title: t('finder.shareCardTitle'),
@@ -130,8 +128,6 @@ function getShareCardOptions({ result, resultCrosshair, challengeUrl, locale, t,
     average: result.average,
     unit: t('finder.millisecondsShort'),
     taunt: getAimProfileCopy(locale, `rankFeedback_${result.rank.id}`),
-    pickLabel: t('finder.shareCardPick'),
-    crosshair: resultCrosshair,
     footer: t('finder.shareCardFooter'),
     rankColor: result.rank.color,
     challengeTitle: getAimProfileCopy(locale, 'shareCardChallengeTitle', { average: result.average, unit: t('finder.millisecondsShort') }),
@@ -178,8 +174,8 @@ function AimProfilePanel({ summary, onClear, locale, t }) {
       : 'trendSteady'
 
   return (
-    <section className="aim-profile-panel" aria-labelledby="aim-profile-title">
-      <div className="aim-profile-heading">
+    <details className="aim-profile-panel">
+      <summary className="aim-profile-heading">
         <div>
           <span>{profileCopy('eyebrow')}</span>
           <h2 id="aim-profile-title">{profileCopy('title')}</h2>
@@ -188,8 +184,9 @@ function AimProfilePanel({ summary, onClear, locale, t }) {
         <div className="aim-profile-current" style={{ '--rank-color': summary.rank.color }}>
           <span>{profileCopy('currentRank')}</span>
           <strong>{t(`finder.ranks.${summary.rank.id}`)}</strong>
+          <Icon name="chevronDown" size={17} />
         </div>
-      </div>
+      </summary>
 
       <div className="aim-profile-body">
         <dl className="aim-profile-metrics">
@@ -222,19 +219,16 @@ function AimProfilePanel({ summary, onClear, locale, t }) {
       </div>
 
       <button className="aim-profile-clear" type="button" onClick={onClear}>{profileCopy('clear')}</button>
-    </section>
+    </details>
   )
 }
 
-export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, onFocusChange, t }) {
+export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
   const [phase, setPhase] = useState('intro')
   const [roundTimes, setRoundTimes] = useState([])
   const [earlyClicks, setEarlyClicks] = useState(0)
   const [lastReaction, setLastReaction] = useState(null)
   const [result, setResult] = useState(null)
-  const [resultCode, setResultCode] = useState('')
-  const [resultBackground, setResultBackground] = useState('ascent')
-  const [resultCopied, setResultCopied] = useState(false)
   const [shareStatus, setShareStatus] = useState('idle')
   const [downloadStatus, setDownloadStatus] = useState('idle')
   const [copyStatus, setCopyStatus] = useState('idle')
@@ -247,7 +241,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
   const waitTimer = useRef(null)
   const readyTimer = useRef(null)
   const feedbackTimer = useRef(null)
-  const copiedTimer = useRef(null)
   const shareTimer = useRef(null)
   const downloadTimer = useRef(null)
   const copyTimer = useRef(null)
@@ -303,7 +296,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     if (waitTimer.current) window.clearTimeout(waitTimer.current)
     if (readyTimer.current) window.clearTimeout(readyTimer.current)
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
-    if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
     if (downloadTimer.current) window.clearTimeout(downloadTimer.current)
     if (copyTimer.current) window.clearTimeout(copyTimer.current)
@@ -311,7 +303,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     waitTimer.current = null
     readyTimer.current = null
     feedbackTimer.current = null
-    copiedTimer.current = null
     shareTimer.current = null
     downloadTimer.current = null
     copyTimer.current = null
@@ -323,7 +314,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     if (waitTimer.current) window.clearTimeout(waitTimer.current)
     if (readyTimer.current) window.clearTimeout(readyTimer.current)
     if (feedbackTimer.current) window.clearTimeout(feedbackTimer.current)
-    if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
     if (shareTimer.current) window.clearTimeout(shareTimer.current)
     if (downloadTimer.current) window.clearTimeout(downloadTimer.current)
     if (copyTimer.current) window.clearTimeout(copyTimer.current)
@@ -360,34 +350,15 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     }
   }, [phase])
 
-  const primaryRecommendation = useMemo(() => {
-    if (!result) return null
-    return crosshairs.find((item) => item.id === result.id) || null
-  }, [crosshairs, result])
-
-  const activeBackground = previewBackgroundOptions.find((item) => item.value === resultBackground) || previewBackgroundOptions[0]
-  const activeBackgroundName = t(`maps.${activeBackground.value}`)
-
-  const resultCrosshair = useMemo(() => {
-    if (!primaryRecommendation) return null
-    const code = resultCode || primaryRecommendation.code
-    try {
-      const parsed = parseCrosshairCode(code, { fallbackColor: primaryRecommendation.color })
-      return { ...primaryRecommendation, code, color: parsed.color, colorKey: parsed.colorKey }
-    } catch {
-      return { ...primaryRecommendation, code }
-    }
-  }, [primaryRecommendation, resultCode])
-
   const challengeUrl = useMemo(() => createChallengeUrl(result), [result])
 
   useEffect(() => {
     let isCancelled = false
     let objectUrl = ''
-    if (!result || !resultCrosshair || !challengeUrl) return undefined
+    if (!result || !challengeUrl) return undefined
 
     shareCardBlob.current = null
-    const pendingCard = createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, locale, t }))
+    const pendingCard = createResultShareCard(getShareCardOptions({ result, challengeUrl, locale, t }))
     shareCardPromise.current = pendingCard
     pendingCard
       .then((blob) => {
@@ -411,7 +382,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
       shareCardBlob.current = null
       if (objectUrl) URL.revokeObjectURL(objectUrl)
     }
-  }, [challengeUrl, locale, result, resultCrosshair, t])
+  }, [challengeUrl, locale, result, t])
 
   useEffect(() => {
     if (phase !== 'result' || !result || !sharePanelRef.current) return undefined
@@ -445,7 +416,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
       reaction_ms: result.average,
       reaction_rank: result.rank.id,
       recommendation_profile: result.profile,
-      recommended_crosshair_id: result.id,
       calibration_version: REACTION_CALIBRATION_VERSION,
     })
   }, [phase, result])
@@ -454,15 +424,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     if (phase !== 'result') return
     window.requestAnimationFrame(() => resultTitleRef.current?.focus({ preventScroll: true }))
   }, [phase])
-
-  const selectedCodeColorKey = useMemo(() => {
-    if (!resultCrosshair) return 'custom'
-    try {
-      return parseCrosshairCode(resultCrosshair.code, { fallbackColor: resultCrosshair.color }).colorKey
-    } catch {
-      return 'custom'
-    }
-  }, [resultCrosshair])
 
   const startTest = (interactionSource = 'intro') => {
     // A double click can arrive before React commits the phase change. Lock the
@@ -481,9 +442,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     setEarlyClicks(0)
     setLastReaction(null)
     setResult(null)
-    setResultCode('')
-    setResultBackground('ascent')
-    setResultCopied(false)
     setShareStatus('idle')
     setDownloadStatus('idle')
     setCopyStatus('idle')
@@ -625,8 +583,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
       const nextProfileHistory = saveAimProfileHistory([...aimProfileHistory, profileAttempt].filter(Boolean))
       setAimProfileHistory(nextProfileHistory)
       setResult(nextResult)
-      setResultCode('')
-      setResultCopied(false)
       setPhase('result')
       trackEvent('finder_complete', {
         attempt_id: attemptId.current,
@@ -641,8 +597,8 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
         early_clicks: nextResult.earlyClicks,
         recommendation_profile: nextResult.profile,
         result_reliability: nextResult.reliability,
+        excluded_rounds: nextResult.excludedRoundCount,
         input_type: inputType.current,
-        recommended_crosshair_id: nextResult.id,
         calibration_version: REACTION_CALIBRATION_VERSION,
       })
       trackEvent('aim_profile_saved', {
@@ -692,35 +648,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
     trackEvent('aim_profile_clear', { history_count: previousCount, storage_scope: 'local' })
   }
 
-  const changeResultColor = (option) => {
-    if (!resultCrosshair) return
-    try {
-      setResultCode(updateCrosshairColor(resultCrosshair.code, { preset: option.preset }))
-      setResultCopied(false)
-      trackEvent('crosshair_color_change', {
-        crosshair_id: resultCrosshair.id,
-        color_key: option.key,
-        interaction_source: 'finder_result',
-      })
-    } catch {
-      // Catalog codes are validated before display; keep the last valid result.
-    }
-  }
-
-  const copyResultCode = async () => {
-    if (!resultCrosshair) return
-    const copied = await onCopy(resultCrosshair, { interactionSource: 'finder_result' })
-    if (copied === false) return
-    setResultCopied(true)
-    if (copiedTimer.current) window.clearTimeout(copiedTimer.current)
-    copiedTimer.current = window.setTimeout(() => setResultCopied(false), 1800)
-  }
-
-  const changeResultBackground = (nextBackground) => {
-    setResultBackground(nextBackground)
-    trackEvent('map_change', { map_name: nextBackground, interaction_source: 'finder_result' })
-  }
-
   const exitFinder = () => {
     if (isFocusedTest && !window.confirm(t('finder.exitConfirm'))) return
     const attemptOutcome = phase === 'result' ? 'completed' : phase === 'intro' ? 'not_started' : 'abandoned'
@@ -738,7 +665,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
   const getPreparedShareCard = async () => {
     if (shareCardBlob.current) return shareCardBlob.current
     if (shareCardPromise.current) return shareCardPromise.current
-    const pendingCard = createResultShareCard(getShareCardOptions({ result, resultCrosshair, challengeUrl, locale, t }))
+    const pendingCard = createResultShareCard(getShareCardOptions({ result, challengeUrl, locale, t }))
     shareCardPromise.current = pendingCard
     try {
       const blob = await pendingCard
@@ -792,7 +719,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
   }
 
   const handleShareResult = async () => {
-    if (!result || !resultCrosshair || shareStatus === 'working' || shareStatus === 'opening') return
+    if (!result || shareStatus === 'working' || shareStatus === 'opening') return
     if (!nativeShareAvailable) {
       await copyChallengeText({ surface: weChatBrowser ? 'wechat_primary' : 'desktop_primary' })
       return
@@ -837,7 +764,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
         item_id: result.rank.id,
         method: shareMethod,
         reaction_ms: result.average,
-        crosshair_id: resultCrosshair.id,
       })
       trackShareSuccess({
         method: `${shareMethod}_handoff`,
@@ -845,7 +771,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
         itemId: result.rank.id,
         interactionSource: 'finder_result_primary',
         reaction_ms: result.average,
-        crosshair_id: resultCrosshair.id,
       })
       setShareStatus('shared')
       resetStatusLater(shareTimer, setShareStatus)
@@ -868,7 +793,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
   }
 
   const downloadResultCard = async () => {
-    if (!result || !resultCrosshair || downloadStatus === 'working') return
+    if (!result || downloadStatus === 'working') return
     setDownloadStatus('working')
     trackEvent('share_action_click', {
       content_type: 'reaction_result',
@@ -884,7 +809,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
         content_type: 'reaction_result',
         item_id: result.rank.id,
         reaction_ms: result.average,
-        crosshair_id: resultCrosshair.id,
       })
       setDownloadStatus('saved')
       resetStatusLater(downloadTimer, setDownloadStatus)
@@ -903,7 +827,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
       content_type: 'reaction_result',
       reaction_ms: result.average,
       reaction_rank: result.rank.id,
-      crosshair_id: resultCrosshair.id,
     })
   }
 
@@ -939,7 +862,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
             ? t('finder.tooSlowHint')
             : t('finder.nextHint')
 
-  if (phase === 'result' && result && resultCrosshair) {
+  if (phase === 'result' && result) {
     const displayRanks = [...REACTION_RANKS].reverse()
     const nextFasterRank = getNextFasterRank(result.rank)
     const resultCopy = (key, variables) => getAimProfileCopy(locale, key, variables)
@@ -951,6 +874,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
         })
       : resultCopy('topRange')
     const markerPosition = getReactionMarkerPosition(result.average)
+    const premiumCopy = paidPackCopy(locale)
     const challengeComparison = challenge ? getChallengeComparison(result.average, challenge.score) : null
     const previousDifference = aimProfileSummary?.latestDifference || 0
     const previousKey = previousDifference > 0 ? 'previousFaster' : previousDifference < 0 ? 'previousSlower' : 'previousTied'
@@ -1006,6 +930,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
               <span>{resultCopy(`input_${aimProfileSummary?.current?.inputType || 'unknown'}`)}</span>
               {aimProfileSummary?.previousAverage !== null && <span>{resultCopy(previousKey, { difference: Math.abs(previousDifference), unit: t('finder.millisecondsShort') })}</span>}
             </div>
+            {result.excludedRoundCount > 0 && <p className="finder-adjustment-note"><Icon name="info" size={15} />{t('finder.adjustedResult', { count: result.excludedRoundCount })}</p>}
             {challengeComparison && (
               <strong className={`finder-challenge-outcome is-${challengeComparison.outcome}`}>
                 {t(`finder.challenge${challengeComparison.outcome === 'won' ? 'Won' : challengeComparison.outcome === 'missed' ? 'Missed' : 'Tied'}`, {
@@ -1034,6 +959,37 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
             </div>
           </div>
         </section>
+
+        <PremiumAimPackOffer result={result} locale={locale} />
+
+        <details className="finder-run-details">
+          <summary className="finder-run-details-heading">
+            <div>
+              <span>{t('finder.yourResults')}</span>
+              <h2 id="finder-run-details-title">{t('finder.runDetailsTitle')}</h2>
+            </div>
+            <p>{t('finder.deviceNote')}</p>
+            <Icon name="chevronDown" size={18} />
+          </summary>
+          <dl>
+            <div className="finder-run-detail finder-run-detail-rounds">
+              <dt>{t('finder.roundTimes')}</dt>
+              <dd>{roundTimes.map((time, index) => <span className={result.excludedRoundIndexes.includes(index) ? 'is-excluded' : ''} key={`${index}-${time}`}>#{index + 1} · {time}<small>{result.excludedRoundIndexes.includes(index) ? t('finder.notCounted') : t('finder.millisecondsShort')}</small></span>)}</dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.best')}</dt>
+              <dd>{result.best}<small>{t('finder.millisecondsShort')}</small></dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.consistency')}</dt>
+              <dd>±{result.consistency}<small>{t('finder.millisecondsShort')}</small></dd>
+            </div>
+            <div className="finder-run-detail">
+              <dt>{t('finder.earlyClicks')}</dt>
+              <dd>{result.earlyClicks}</dd>
+            </div>
+          </dl>
+        </details>
 
         <section ref={sharePanelRef} className="finder-share-panel" aria-labelledby="finder-share-title">
           <button className="finder-share-preview-frame" type="button" onClick={openSharePreview} disabled={!sharePreviewUrl} aria-label={resultCopy('previewShareCard')}>
@@ -1069,95 +1025,6 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
           </div>
         </section>
 
-        <section className="finder-primary-recommendation finder-result-workbench">
-          <div className="finder-workbench-heading">
-            <span>{t('finder.recommended')}</span>
-            <div><h2>{resultCrosshair.name}</h2><p>{resultCopy(`profileReason_${result.profile}`)}</p></div>
-          </div>
-
-          <div className="finder-workbench-body">
-            <div className="finder-scene-preview">
-              <img src={activeBackground.image} alt={t('preview.mapAlt', { map: activeBackgroundName })} />
-              <CrosshairCanvas crosshair={resultCrosshair} scale={RESULT_PREVIEW_SCALE} label={t('card.test', { name: resultCrosshair.name })} />
-              <div className="hud-map" aria-hidden="true"><strong>{activeBackgroundName.toLocaleUpperCase()}</strong></div>
-              <span className="corner corner-tl" aria-hidden="true" />
-              <span className="corner corner-tr" aria-hidden="true" />
-              <span className="corner corner-bl" aria-hidden="true" />
-              <span className="corner corner-br" aria-hidden="true" />
-            </div>
-
-            <div className="finder-result-controls">
-              <fieldset className="background-picker">
-                <legend>{t('preview.background')}</legend>
-                <div className="background-options">
-                  {previewBackgroundOptions.map((option) => (
-                    <button key={option.value} className={`background-option ${resultBackground === option.value ? 'is-selected' : ''}`} type="button" onClick={() => changeResultBackground(option.value)} aria-pressed={resultBackground === option.value}>
-                      <span className="background-swatch"><img src={option.image} alt="" /></span>
-                      <span>{t(`maps.${option.value}`)}</span>
-                      {resultBackground === option.value && <i><Icon name="check" size={12} strokeWidth={2.6} /></i>}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
-              <fieldset className="crosshair-color-picker">
-                <legend>{t('preview.crosshairColor')}</legend>
-                <div className="crosshair-color-options">
-                  {crosshairColorPresets.map((option) => (
-                    <button
-                      className={selectedCodeColorKey === option.key ? 'is-selected' : ''}
-                      type="button"
-                      onClick={() => changeResultColor(option)}
-                      aria-label={t(`colors.${option.key}`)}
-                      aria-pressed={selectedCodeColorKey === option.key}
-                      title={t(`colors.${option.key}`)}
-                      key={option.key}
-                    >
-                      <span style={{ background: option.hex }} />
-                    </button>
-                  ))}
-                </div>
-                <p className="control-help">{t('preview.colorHelp')}</p>
-              </fieldset>
-
-              <button className="primary-button finder-copy-result" type="button" onClick={copyResultCode}>
-                <Icon name={resultCopied ? 'check' : 'copy'} />{resultCopied ? t('actions.copied') : t('actions.copy')}
-              </button>
-              <p className="finder-copy-help"><Icon name="gamepad" size={15} />{t('finder.copyHelp')}</p>
-            </div>
-          </div>
-        </section>
-
-        <PremiumAimPackOffer result={result} locale={locale} />
-
-        <section className="finder-run-details" aria-labelledby="finder-run-details-title">
-          <div className="finder-run-details-heading">
-            <div>
-              <span>{t('finder.yourResults')}</span>
-              <h2 id="finder-run-details-title">{t('finder.runDetailsTitle')}</h2>
-            </div>
-            <p>{t('finder.deviceNote')}</p>
-          </div>
-          <dl>
-            <div className="finder-run-detail finder-run-detail-rounds">
-              <dt>{t('finder.roundTimes')}</dt>
-              <dd>{roundTimes.map((time, index) => <span key={`${index}-${time}`}>#{index + 1} · {time}<small>{t('finder.millisecondsShort')}</small></span>)}</dd>
-            </div>
-            <div className="finder-run-detail">
-              <dt>{t('finder.best')}</dt>
-              <dd>{result.best}<small>{t('finder.millisecondsShort')}</small></dd>
-            </div>
-            <div className="finder-run-detail">
-              <dt>{t('finder.consistency')}</dt>
-              <dd>±{result.consistency}<small>{t('finder.millisecondsShort')}</small></dd>
-            </div>
-            <div className="finder-run-detail">
-              <dt>{t('finder.earlyClicks')}</dt>
-              <dd>{result.earlyClicks}</dd>
-            </div>
-          </dl>
-        </section>
-
         <AimProfilePanel summary={aimProfileSummary} onClear={clearAimProfile} locale={locale} t={t} />
 
         <details className="finder-rank-spectrum">
@@ -1179,7 +1046,10 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
 
         <div className="finder-mobile-actions" aria-label={t('finder.resultActions')}>
           <button className="finder-secondary-button" type="button" onClick={() => startTest('retest')}><Icon name="rotate" size={17} />{t('finder.testAgain')}</button>
-          <button className="primary-button" type="button" onClick={copyResultCode}><Icon name={resultCopied ? 'check' : 'copy'} size={17} />{resultCopied ? t('actions.copied') : t('actions.copy')}</button>
+          <button className="primary-button" type="button" onClick={() => {
+            trackEvent('premium_offer_mobile_jump', { product_id: AIM_PACK_PRODUCT.id, offer_location: 'finder_mobile_bar' })
+            document.getElementById('premium-pack-offer')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }}><Icon name="target" size={17} />{premiumCopy.shortCta}</button>
         </div>
 
         <button className="finder-back-link" type="button" onClick={exitFinder}><Icon name="arrowLeft" size={17} />{t('finder.backExplore')}</button>
@@ -1193,7 +1063,7 @@ export default function CrosshairFinder({ crosshairs, locale, onExit, onCopy, on
   return (
     <section className="finder finder-test" aria-labelledby="finder-title">
       <div className="finder-heading">
-        <div><h1 id="finder-title">{t('finder.title')}</h1><p>{t('finder.subtitle')}</p></div>
+        <div><h1 id="finder-title"><span className="finder-title-line">{t('finder.titleLead')}</span><span className="finder-title-line">{t('finder.titleTail')}</span></h1><p>{t('finder.subtitle')}</p></div>
         <button className="finder-secondary-button finder-exit-button" type="button" onClick={exitFinder}><Icon name="exit" size={17} />{t('finder.exit')}</button>
       </div>
 
