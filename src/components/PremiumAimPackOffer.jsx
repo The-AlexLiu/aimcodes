@@ -189,6 +189,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
             <div className="premium-pack-offer__action">
               <strong>{content.price}</strong>
               <span>{content.priceNote}</span>
+              <p className="premium-pack-offer__decision"><Icon name="target" size={15} />{content.decisionNote}</p>
               <button className="primary-button" type="button" onClick={openPreferences}>{content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
               <ul className="premium-pack-delivery-facts">{content.deliveryFacts.map((item) => <li key={item}><Icon name="check" size={13} />{item}</li>)}</ul>
               <small><Icon name="shield" size={14} />{content.secure}</small>

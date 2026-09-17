@@ -1123,6 +1123,8 @@ legend { margin-bottom: 10px; }
 }
 .premium-pack-offer__action strong { font-size: 26px; letter-spacing: -.02em; }
 .premium-pack-offer__action > span { margin-top: -7px; color: #78909a; font-size: 10px; line-height: 1.4; }
+.premium-pack-offer__decision { min-height: 34px; margin: 0; padding: 8px 10px; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(37, 230, 230, .19); border-radius: 8px; background: rgba(37, 230, 230, .055); color: #bed9df; font-size: 10px; font-weight: 720; line-height: 1.35; }
+.premium-pack-offer__decision svg { flex: 0 0 auto; color: var(--cyan); }
 .premium-pack-offer__action .primary-button { width: 100%; justify-content: center; }
 .premium-pack-delivery-facts { margin: 1px 0 0; padding: 12px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; border-top: 1px solid rgba(78, 107, 119, .34); border-bottom: 1px solid rgba(78, 107, 119, .34); list-style: none; }
 .premium-pack-delivery-facts li { display: flex; align-items: center; gap: 6px; color: #adbec5; font-size: 10px; line-height: 1.35; }

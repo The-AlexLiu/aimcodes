@@ -12,6 +12,10 @@ import { trackEvent } from '../utils/analytics.js'
 const SUPPORTED_ROUTE_TYPES = new Set(['home', 'catalog', 'crosshair', 'collection', 'article', 'guide', 'tool'])
 const MIN_DWELL_MS = 8000
 
+function isHighIntentTrigger(type) {
+  return type === 'code_copy'
+}
+
 function getScrollThreshold(routeType) {
   return routeType === 'article' || routeType === 'guide' || routeType === 'tool' ? 0.28 : 0.16
 }
@@ -66,9 +70,11 @@ export default function FinderNudge({ locale, route, finderHref, engagementSigna
   }, [])
 
   useEffect(() => {
-    if (!isEligibleRoute || blocked || visible || shown.current || !dwellReady) return
+    if (!isEligibleRoute || blocked || visible || shown.current) return
     const behaviorTrigger = engagementSignal?.type || ''
     const scrollTrigger = scrollReady ? `scroll_${route.type}` : ''
+    const highIntentReady = isHighIntentTrigger(behaviorTrigger)
+    if (!dwellReady && !highIntentReady) return
     if (!behaviorTrigger && !scrollTrigger) return
     if (!shouldShowFinderNudge()) return
 
@@ -83,7 +89,7 @@ export default function FinderNudge({ locale, route, finderHref, engagementSigna
         entry_page_type: route.type,
         nudge_trigger: nextTrigger,
         nudge_surface: mobile ? 'mobile_fab' : 'desktop_card',
-        message_variant: 'reaction_test_v1',
+        message_variant: highIntentReady ? 'post_copy_v2' : 'reaction_test_v1',
         shown_after_seconds: Math.round((Date.now() - mountedAt.current) / 1000),
       })
     }, behaviorTrigger ? 500 : 0)
@@ -117,7 +123,7 @@ export default function FinderNudge({ locale, route, finderHref, engagementSigna
       entry_page_type: route.type,
       nudge_trigger: trigger || 'unknown',
       nudge_surface: mobile ? 'mobile_fab' : 'desktop_card',
-      message_variant: 'reaction_test_v1',
+      message_variant: isHighIntentTrigger(trigger) ? 'post_copy_v2' : 'reaction_test_v1',
     })
     trackEvent('finder_open', { interaction_source: 'finder_nudge' })
     const qa = preserveQaParameters()
