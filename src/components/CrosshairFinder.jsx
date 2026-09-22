@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
+import './reactionExperience.css'
 import {
   getReactionRank,
   getReactionRecommendation,
@@ -55,12 +56,12 @@ function ReactionReticle() {
   )
 }
 
-function ProgressDots({ completed, t }) {
+function ProgressDots({ completed, times = [], t }) {
   return (
     <div className="finder-progress-dots" role="progressbar" aria-valuemin="0" aria-valuemax={REACTION_ROUNDS} aria-valuenow={completed} aria-label={t('finder.progressLabel', { completed, total: REACTION_ROUNDS })}>
       {Array.from({ length: REACTION_ROUNDS }, (_, index) => (
         <span className={index < completed ? 'is-complete' : ''} key={index}>
-          {index < completed && <Icon name="check" size={15} strokeWidth={2.6} />}
+          {index < completed ? <>{times[index]}<small>{t('finder.millisecondsShort')}</small></> : `0${index + 1}`}
         </span>
       ))}
     </div>
@@ -111,7 +112,7 @@ function getNextFasterRank(rank) {
 function getReactionMarkerPosition(average) {
   const scaleMin = MIN_REACTION_MS
   const scaleMax = 650
-  return Math.min(98, Math.max(2, ((average - scaleMin) / (scaleMax - scaleMin)) * 100))
+  return Math.min(100, Math.max(0, ((average - scaleMin) / (scaleMax - scaleMin)) * 100))
 }
 
 function createAttemptId() {
@@ -863,7 +864,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
             : t('finder.nextHint')
 
   if (phase === 'result' && result) {
-    const displayRanks = [...REACTION_RANKS].reverse()
+    const displayRanks = REACTION_RANKS
     const nextFasterRank = getNextFasterRank(result.rank)
     const resultCopy = (key, variables) => getAimProfileCopy(locale, key, variables)
     const nextGoalCopy = nextFasterRank
@@ -878,10 +879,10 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
     const challengeComparison = challenge ? getChallengeComparison(result.average, challenge.score) : null
     const previousDifference = aimProfileSummary?.latestDifference || 0
     const previousKey = previousDifference > 0 ? 'previousFaster' : previousDifference < 0 ? 'previousSlower' : 'previousTied'
-    const calibrationSegments = REACTION_RANKS.map((rank) => {
-      const start = Math.max(MIN_REACTION_MS, rank.min)
-      const end = Math.min(650, Number.isFinite(rank.max) ? rank.max : 650)
-      return { ...rank, width: Math.max(1, end - start + 1) }
+    const calibrationSegments = REACTION_RANKS.map((rank, index) => {
+      const start = getReactionMarkerPosition(rank.min)
+      const end = getReactionMarkerPosition(REACTION_RANKS[index + 1]?.min ?? 650)
+      return { ...rank, width: end - start }
     })
     const shareLabel = !nativeShareAvailable
       ? (copyStatus === 'working' ? resultCopy('copyWorking') : copyStatus === 'copied' ? resultCopy('challengeTextCopied') : resultCopy('copyChallengeText'))
@@ -919,11 +920,15 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
         </div>
 
         <section className="finder-rank-summary" style={{ '--rank-color': result.rank.color }} aria-label={t('finder.reactionRank')}>
+          <div className="finder-rank-score">
+            <span>{t('finder.average')}</span>
+            <strong>{result.average}<small>{t('finder.millisecondsShort')}</small></strong>
+          </div>
           <div className="finder-rank-emblem" aria-hidden="true"><Icon name="target" size={29} strokeWidth={1.5} /></div>
           <div className="finder-rank-copy">
             <span>{t('finder.reactionRank')}</span>
             <h2>{t(`finder.ranks.${result.rank.id}`)}</h2>
-            <p>{t('finder.rankPlacement', { average: result.average, unit: t('finder.millisecondsShort'), range: formatRankRange(result.rank, t) })}</p>
+            <p>{formatRankRange(result.rank, t)}</p>
             <strong className="finder-rank-taunt">{resultCopy(`rankFeedback_${result.rank.id}`)}</strong>
             <div className="finder-result-signals">
               <span className={`is-${result.reliability}`}>{resultCopy(`reliability${result.reliability[0].toUpperCase()}${result.reliability.slice(1)}`)}</span>
@@ -940,10 +945,6 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
               </strong>
             )}
           </div>
-          <div className="finder-rank-score">
-            <span>{t('finder.average')}</span>
-            <strong>{result.average}<small>{t('finder.millisecondsShort')}</small></strong>
-          </div>
           <div className="finder-calibration">
             <div className="finder-calibration-labels"><span>{resultCopy('fastLabel')}</span><span>{resultCopy('steadyLabel')}</span></div>
             <div className="finder-calibration-track" role="img" aria-label={t('finder.calibrationLabel', { average: result.average, unit: t('finder.millisecondsShort') })}>
@@ -952,13 +953,18 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
               </span>
               <i className="finder-calibration-marker" style={{ '--marker-position': `${markerPosition}%` }}><span>{resultCopy('yourMarker')}</span></i>
             </div>
-            <div className="finder-calibration-ticks" aria-hidden="true"><span>100</span><span>200</span><span>300</span><span>410</span><span>500+</span></div>
+            <div className="finder-calibration-ticks" aria-hidden="true">{[100, 200, 300, 400, 500, 650].map((value) => <span key={value} style={{ left: `${getReactionMarkerPosition(value)}%` }}>{value === 650 ? '650+' : value}</span>)}</div>
             <div className="finder-calibration-notes">
               <p>{resultCopy('calibrationNote')}</p>
               <strong><span>{resultCopy('nextGoal')}</span>{nextGoalCopy}</strong>
             </div>
           </div>
         </section>
+
+        <div className="finder-result-quick-share">
+          <button className="finder-secondary-button" type="button" onClick={() => sharePanelRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })}><Icon name="share" size={17} />{t('finder.shareResult')}</button>
+          <span>{roundTimes.map((time) => `${time} ${t('finder.millisecondsShort')}`).join(' / ')}</span>
+        </div>
 
         <PremiumAimPackOffer result={result} locale={locale} />
 
@@ -1048,7 +1054,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
           <button className="finder-secondary-button" type="button" onClick={() => startTest('retest')}><Icon name="rotate" size={17} />{t('finder.testAgain')}</button>
           <button className="primary-button" type="button" onClick={() => {
             trackEvent('premium_offer_mobile_jump', { product_id: AIM_PACK_PRODUCT.id, offer_location: 'finder_mobile_bar' })
-            document.getElementById('premium-pack-offer')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            document.getElementById('premium-pack-offer')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
           }}><Icon name="target" size={17} />{premiumCopy.shortCta}</button>
         </div>
 
@@ -1061,13 +1067,13 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
   const roundNumber = Math.min(roundTimes.length + 1, REACTION_ROUNDS)
 
   return (
-    <section className="finder finder-test" aria-labelledby="finder-title">
+    <section className="finder finder-test" data-phase={phase} aria-labelledby="finder-title">
       <div className="finder-heading">
         <div><h1 id="finder-title"><span className="finder-title-line">{t('finder.titleLead')}</span><span className="finder-title-line">{t('finder.titleTail')}</span></h1><p>{t('finder.subtitle')}</p></div>
         <button className="finder-secondary-button finder-exit-button" type="button" onClick={exitFinder}><Icon name="exit" size={17} />{t('finder.exit')}</button>
       </div>
 
-      {phase === 'intro' && challenge && (
+      {challenge && (
         <section className="finder-challenge-banner" aria-label={t('finder.challengeLabel')}>
           <span><Icon name="target" size={22} /></span>
           <div>
@@ -1077,23 +1083,21 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
         </section>
       )}
 
-      {phase === 'intro' && (
-        <section className="finder-test-brief" aria-label={t('finder.testBriefLabel')}>
+      <section className="finder-test-brief" aria-label={t('finder.testBriefLabel')}>
           <div className="finder-test-brief-main"><Icon name="target" size={18} /><strong>{t('finder.testDuration')}</strong></div>
           <div className="finder-test-brief-rules"><span>{t('finder.legendReady')}</span><span>{t('finder.legendEarly')}</span></div>
           <p>{t('finder.deviceNote')}</p>
-        </section>
-      )}
+      </section>
 
       <div className="finder-round-heading"><span />{t('finder.round', { current: roundNumber, total: REACTION_ROUNDS })}<span /></div>
-      <button ref={reactionFieldRef} className={`reaction-field is-${phase}`} type="button" onPointerDown={rememberInputType} onClick={handlePlayArea} data-phase={phase} aria-label={t('finder.playArea')}>
+      <button ref={reactionFieldRef} className={`reaction-field is-${phase}`} type="button" onPointerDown={rememberInputType} onClick={handlePlayArea} data-phase={phase} aria-label={`${phaseTitle}. ${phaseHint}`}>
         <span className="finder-corner finder-corner-tl" aria-hidden="true" />
         <span className="finder-corner finder-corner-tr" aria-hidden="true" />
         <span className="finder-corner finder-corner-bl" aria-hidden="true" />
         <span className="finder-corner finder-corner-br" aria-hidden="true" />
         <ReactionReticle />
         <span className="reaction-copy" aria-live="polite"><strong>{phaseTitle}</strong><small>{phaseHint}</small></span>
-        <ProgressDots completed={roundTimes.length} t={t} />
+        <ProgressDots completed={roundTimes.length} times={roundTimes} t={t} />
       </button>
       {phase === 'intro' && <AimProfilePanel summary={aimProfileSummary} onClear={clearAimProfile} locale={locale} t={t} />}
     </section>

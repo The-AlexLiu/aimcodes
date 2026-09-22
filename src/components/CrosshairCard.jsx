@@ -5,7 +5,7 @@ export default function CrosshairCard({ crosshair, href, selected, copied, onSel
   return (
     <article className={`crosshair-card ${selected ? 'is-selected' : ''} ${crosshair.isCute ? 'is-cute' : ''}`}>
       <button
-        className="icon-button card-copy"
+        className={`icon-button card-copy${copied ? ' is-copied' : ''}`}
         type="button"
         aria-label={copied ? t('card.copied', { name: crosshair.name }) : t('card.copy', { name: crosshair.name })}
         title={copied ? t('actions.copiedShort') : t('actions.copyShort')}

@@ -25,6 +25,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
   const [error, setError] = useState('')
   const impressionTracked = useRef(false)
   const sectionRef = useRef(null)
+  const emailRef = useRef(null)
   const returnUrl = useMemo(() => `${window.location.origin}/${locale.toLowerCase()}/checkout/complete/`, [locale])
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
 
   useEffect(() => {
     if (step === 'offer') return undefined
-    const frame = window.requestAnimationFrame(() => sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+    const frame = window.requestAnimationFrame(() => sectionRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }))
     return () => window.cancelAnimationFrame(frame)
   }, [step])
 
@@ -77,6 +78,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
     setError('')
     if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
       setError(content.emailError)
+      emailRef.current?.focus()
       trackEvent('premium_email_error', { product_id: AIM_PACK_PRODUCT.id, error_reason: 'invalid_format', offer_variant: OFFER_VARIANT })
       return
     }
@@ -146,15 +148,6 @@ export default function PremiumAimPackOffer({ result, locale }) {
       {step === 'offer' && (
         <>
           <div className="premium-pack-offer__main">
-            <div className="premium-pack-profile">
-              <span>{content.profileEyebrow}</span>
-              <h2>{content.profileNames[result.profile]}</h2>
-              <p>{content.profileReasons[result.profile]}</p>
-              <div className="premium-pack-profile__signals" aria-label={content.profileSignalsLabel}>
-                <span><small>{content.reactionLabel}</small><strong>{result.average} ms</strong></span>
-                <span><small>{content.consistencyLabel}</small><strong>±{result.consistency} ms</strong></span>
-              </div>
-            </div>
             <div className="premium-pack-offer__copy">
               <span>{content.eyebrow}</span>
               <h2 id="premium-pack-title">{content.title}</h2>
@@ -163,11 +156,20 @@ export default function PremiumAimPackOffer({ result, locale }) {
             </div>
           </div>
           <div className="premium-pack-offer__side">
+            <div className="premium-pack-offer__action">
+              <strong>{content.price}</strong>
+              <span>{content.priceNote}</span>
+              <p className="premium-pack-offer__decision"><Icon name="target" size={15} />{content.decisionNote}</p>
+              <button className="primary-button" type="button" onClick={openPreferences}>{content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
+              <ul className="premium-pack-delivery-facts">{content.deliveryFacts.map((item) => <li key={item}><Icon name="check" size={13} />{item}</li>)}</ul>
+              <small><Icon name="shield" size={14} />{content.secure}</small>
+              <a href={`/${locale.toLowerCase()}/crosshairs/`} onClick={openFreeCatalog}>{content.freeCatalog}</a>
+            </div>
             <div className="premium-pack-sample">
               <div className="premium-pack-sample__visual" aria-hidden="true">
                 <img src={previewBackgroundOptions[0].image} alt="" />
                 <span className="premium-pack-sample__reticle"><i /><i /><i /><i /></span>
-                <em>01 / SAMPLE</em>
+                <em>{content.sampleEyebrow}</em>
               </div>
               <div className="premium-pack-sample__copy">
                 <span>{content.sampleEyebrow}</span>
@@ -186,15 +188,6 @@ export default function PremiumAimPackOffer({ result, locale }) {
                 </div>
               ))}
             </div>
-            <div className="premium-pack-offer__action">
-              <strong>{content.price}</strong>
-              <span>{content.priceNote}</span>
-              <p className="premium-pack-offer__decision"><Icon name="target" size={15} />{content.decisionNote}</p>
-              <button className="primary-button" type="button" onClick={openPreferences}>{content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
-              <ul className="premium-pack-delivery-facts">{content.deliveryFacts.map((item) => <li key={item}><Icon name="check" size={13} />{item}</li>)}</ul>
-              <small><Icon name="shield" size={14} />{content.secure}</small>
-              <a href={`/${locale.toLowerCase()}/crosshairs/`} onClick={openFreeCatalog}>{content.freeCatalog}</a>
-            </div>
           </div>
         </>
       )}
@@ -212,11 +205,11 @@ export default function PremiumAimPackOffer({ result, locale }) {
               <fieldset><legend>{content.weaponLabel}</legend><div>{Object.entries(content.weapons).map(([key, label]) => <button className={weapon === key ? 'is-selected' : ''} type="button" onClick={() => setWeapon(key)} aria-pressed={weapon === key} key={key}>{label}</button>)}</div></fieldset>
               <label className="premium-pack-email">
                 <span>{content.emailLabel}</span>
-                <input type="email" inputMode="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={content.emailPlaceholder} required />
-                <small>{content.emailHelp}</small>
+                <input ref={emailRef} type="email" inputMode="email" autoComplete="email" value={email} onChange={(event) => { setEmail(event.target.value); setError('') }} placeholder={content.emailPlaceholder} aria-invalid={error === content.emailError || undefined} aria-describedby={`premium-email-help${error ? ' premium-email-error' : ''}`} required />
+                <small id="premium-email-help">{content.emailHelp}</small>
               </label>
               <button className="primary-button premium-pack-continue" type="button" onClick={beginCheckout} disabled={step === 'loading'}>{step === 'loading' ? content.loading : content.continue}</button>
-              {error && <p className="premium-pack-error" role="alert">{error}</p>}
+              {error && <p id="premium-email-error" className="premium-pack-error" role="alert">{error}</p>}
               <small className="premium-pack-terms">{content.terms} <a href={`/${locale.toLowerCase()}/refund-policy/`}>{content.refundLink}</a></small>
             </div>
             <aside className="premium-pack-preferences__summary">
