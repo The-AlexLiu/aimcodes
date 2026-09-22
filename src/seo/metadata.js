@@ -39,6 +39,8 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     ...['animals', 'meme'].map((key) => [`${locale}:collection:${key}`, '2026-09-07']),
     ...['yellowEnemies', 'offCenter', 'stretched', 'invisible', 'colors', 'gapOffset', 'innerVsOuter', 'staticVsDynamic', 'notWorking'].map((key) => [`${locale}:article:${key}`, '2026-09-04']),
   ])),
+  // Only mark the pages with substantive content changes in this SEO review.
+  ...Object.fromEntries(['dot', 'plus', 'funny'].map((key) => [`en:collection:${key}`, '2026-09-22'])),
 })
 
 export function routeContentUpdatedAt(locale, route) {
