@@ -34,9 +34,10 @@ const content = {
       label: 'Plus crosshairs', eyebrow: 'THE SIMPLE FOUR-LINE CLASSIC', title: 'Plus crosshair codes for VALORANT', intro: 'Compare compact plus-shaped crosshairs with short, solid arms and a center that is quick to find in normal ranked fights.',
       body: ['A plus crosshair is the familiar four-line shape with no decorative geometry. It gives clear horizontal and vertical references while keeping the setup easy to understand and tune.', 'Small changes to length, thickness, and gap make a bigger difference than they appear in the settings menu. Preview them on a distant target before choosing one.'],
       selection: 'The collection uses compact four-line codes with distinct geometry. It includes open and nearly closed centers, several line weights, and both outlined and clean versions.',
-      settings: ['Start with short arms and a small center gap.', 'Use thickness 1–2 when target coverage matters.', 'Add an outline only when the plus disappears on bright walls.'],
+      introCollectionKeys: ['plus', 'small', 'dot', 'openCenter', 'horizontal'],
+      settings: ['For a simple +, enable Inner Lines and disable Center Dot and Outer Lines. Start with inner line opacity 1, length 4, thickness 2 and offset 0.', 'Want a small opening instead of a solid center? Increase offset one step at a time. A closed plus and an open-center cross are different choices, not different accuracy settings.', 'For a thinner plus, compare thickness 1 against 2 at your normal resolution. Keep movement and firing error off if you want the shape to stay static.', 'Copy the profile you prefer above, then use Settings → Crosshair → Import Profile Code in VALORANT. Test it in the range before replacing your current profile.'],
       faq: [['How do I make a plus crosshair in VALORANT?', 'Enable inner lines, keep all four arms the same length, and adjust offset for an open or closed center.'], ['Is a plus crosshair good for beginners?', 'Yes. Its familiar shape is easy to read and simple to adjust without adding extra visual layers.']],
-      metaTitle: 'Plus Crosshair Codes for VALORANT | AimCodes', metaDescription: 'Preview compact plus crosshair codes for VALORANT. Compare line length, thickness, center gaps and outlines, then copy a working code.',
+      metaTitle: 'VALORANT Plus Crosshair Codes (+) & Settings | AimCodes', metaDescription: 'Copy a plus crosshair code for VALORANT or build a simple + with inner-line settings. Compare small, thin and open-center versions before importing.',
     },
   },
   es: {
