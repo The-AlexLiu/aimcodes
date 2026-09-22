@@ -1,6 +1,6 @@
 # AimCodes SEO 数据复盘与优化 — 2026-09-22
 
-状态：本地完成，待验收与发布授权。分支 `codex/seo-growth-2026-09-22`。
+状态：已通过 [PR #76](https://github.com/The-AlexLiu/aimcodes/pull/76) 发布，生产功能提交 `56e274e`。Netlify 于 2026-09-22 完成生产构建并通过线上复测。
 
 ## 口径与证据
 
@@ -55,7 +55,7 @@ Small 在增长，保留其标题、内容和选品。日语已有兔子、可�
 
 按 AimCodes Maintainer 的 SEO 模式验证代码、生成 HTML、本地桌面/手机页面；完整结果以 `.aimcodes-reports/current/verification.md` 为准。仅包含三个 SEO 内容文件、metadata、静态 HTML 生成器及此报告。可独立回退这些变更，不涉及用户数据迁移。
 
-实际验证：`pnpm check:auto` 根据生成器变更升级为 release 套件，24 项全部通过；另行断言三个生成页面的标题、相关链接和 09-22 lastmod 均正确。Ego Lite 在 390px / 1440px 下检查三页，均为单一 H1、正确 canonical、index/follow，且无横向溢出。手机与桌面首屏截图已检查。尚未推送 GitHub、部署 Netlify 或向搜索引擎提交新版本。
+实际验证：`pnpm check:auto` 根据生成器变更升级为 release 套件，24 项全部通过；另行断言三个生成页面的标题、相关链接和 09-22 lastmod 均正确。Ego Lite 在 390px / 1440px 下检查三页，均为单一 H1、正确 canonical、index/follow，且无横向溢出。GitHub `product-data`、`build-and-seo` 与 Netlify Deploy Preview 均通过；生产站再次确认三个页面的标题、canonical、robots 和相关内链正确。未主动提交 GSC 重新抓取，搜索引擎发现与处理时间由平台决定。
 
 ## 发布后判断标准
 
