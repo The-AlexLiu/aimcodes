@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
-import SeoTopicLinks from './SeoTopicLinks.jsx'
+const SeoTopicLinks = lazy(() => import('./SeoTopicLinks.jsx'))
 
 const QUICK_FILTERS = ['all', 'dot', 'small', 'cute']
 
@@ -103,7 +103,7 @@ export default function CatalogControls({
           <Icon name="chevronDown" size={14} />
         </label>
         <div className="catalog-topic-links">
-          <SeoTopicLinks locale={locale} />
+          <Suspense fallback={<p>{t('loading.route')}</p>}><SeoTopicLinks locale={locale} /></Suspense>
         </div>
       </div>
     </div>

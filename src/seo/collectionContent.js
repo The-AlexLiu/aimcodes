@@ -1,3 +1,4 @@
+import { enrichCollectionCopy } from './searchOpportunityContent.js'
 import { baseCollectionCopy, seoCopy } from './content.js'
 import { demandCollectionCopy } from './demandCollectionContent.js'
 import { growthCollectionCopy } from './growthCollectionContent.js'
@@ -30,11 +31,12 @@ export function collectionCopy(locale, collectionKey) {
           : `${locale === 'pt-BR' ? 'Miras de' : 'Miras para'} ${batchTerm} VALORANT`
   const localizedBatchTitle = batchTitle && batchIndex < 2 && locale === 'zh-CN' ? `无畏契约${batchTitle}` : batchTitle && batchIndex < 2 && locale === 'ja' ? `VALORANT ${batchTitle}` : batchTitle && batchIndex < 2 && locale !== 'en' ? `${batchTitle} VALORANT` : batchTitle
   const batchBase = localizedBatchTitle ? baseCollectionCopy(locale, 'best') : null
-  const content = searchIntentCollectionCopy(locale, collectionKey) || (localizedBatchTitle ? { ...batchBase, label: localizedBatchTitle, title: localizedBatchTitle, metaTitle: `${localizedBatchTitle} | AimCodes`, metaDescription: `${localizedBatchTitle}. ${batchBase.metaDescription}` } : null) || baseCollectionCopy(locale, collectionKey)
+  const baseContent = searchIntentCollectionCopy(locale, collectionKey) || (localizedBatchTitle ? { ...batchBase, label: localizedBatchTitle, title: localizedBatchTitle, metaTitle: `${localizedBatchTitle} | AimCodes`, metaDescription: `${localizedBatchTitle}. ${batchBase.metaDescription}` } : null) || baseCollectionCopy(locale, collectionKey)
     || demandCollectionCopy(locale, collectionKey)
     || growthCollectionCopy(locale, collectionKey)
     || nextCollectionCopy(locale, collectionKey)
     || seoCopy(locale).collections.best
+  const content = enrichCollectionCopy(locale, collectionKey, baseContent)
   const links = {
     plus: { collections: ['horizontal', 'static'], articles: ['stretched'] },
     minimalist: { collections: ['static'], articles: [] },

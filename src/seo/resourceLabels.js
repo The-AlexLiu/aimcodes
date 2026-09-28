@@ -27,6 +27,14 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  // Keep lightweight homepage labels in sync; validate:localization checks parity.
+  const opportunityTitle = {
+    'en:copy': 'How to copy a crosshair in VALORANT: /cc or a profile code',
+    'en:firingError': 'VALORANT shooting error: graph vs firing-error crosshair',
+    'ja:copy': 'VALORANT クロスヘアのコピーコマンドとコード入力方法',
+    'ja:notWorking': 'VALORANT クロスヘアをインポートできないときの確認手順',
+  }[`${locale}:${articleKey}`]
+  if (opportunityTitle) return opportunityTitle
   const intentCopy = searchIntentArticleCopy(locale, articleKey)
   if (intentCopy) return intentCopy.title
   if (articleKey === 'statistics') return crosshairStatisticsCopy(locale).title

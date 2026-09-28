@@ -1,3 +1,4 @@
+import { enrichArticleCopy } from './searchOpportunityArticles.js'
 import { expansionArticleCopy } from './guideExpansionContent.js'
 import { growthArticleCopy } from './growthGuideContent.js'
 import { japaneseArticles } from './japaneseContent.js'
@@ -215,7 +216,7 @@ function baseArticleCopy(locale, articleKey) {
 }
 
 export function articleCopy(locale, articleKey) {
-  const content = searchIntentArticleCopy(locale, articleKey) || baseArticleCopy(locale, articleKey)
+  const content = enrichArticleCopy(locale, articleKey, searchIntentArticleCopy(locale, articleKey) || baseArticleCopy(locale, articleKey))
   const links = {
     colors: { articles: ['yellowEnemies'], collections: [] },
     gapOffset: { articles: ['offCenter'], collections: ['horizontal'] },

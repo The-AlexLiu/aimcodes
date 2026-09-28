@@ -4,7 +4,6 @@ import CrosshairCollectionSection from './components/CrosshairCollectionSection.
 import CrosshairPreviewWorkspace from './components/CrosshairPreviewWorkspace.jsx'
 import Icon from './components/Icon.jsx'
 import SeoPageIntro from './components/SeoPageIntro.jsx'
-import SeoCollectionIntro from './components/SeoCollectionIntro.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
 import { isAdEligibleRoute } from './config/adPolicy.js'
@@ -35,6 +34,7 @@ const ValorantPlaybookPage = lazy(() => import('./components/ValorantPlaybookPag
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
+const SeoCollectionIntro = lazy(() => import('./components/SeoCollectionIntro.jsx'))
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
 const PublisherValueSection = lazy(() => import('./components/PublisherValueSection.jsx'))
 const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
@@ -487,7 +487,7 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} t={t} />}
-        {route.type === 'collection' && <SeoCollectionIntro locale={language} collectionKey={route.collectionKey} />}
+        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionIntro locale={language} collectionKey={route.collectionKey} /></Suspense>}
 
         {route.type === 'catalog' && (
           <CatalogSearch

@@ -14,7 +14,7 @@
     "validate:finder": "node scripts/validate-reaction-ranks.mjs",
     "validate:localization": "node scripts/validate-localization.mjs",
     "validate:routing": "node scripts/validate-localized-routes.mjs",
-    "validate:seo": "node scripts/validate-seo-pages.mjs && node scripts/validate-search-intents.mjs",
+    "validate:seo": "node scripts/validate-seo-pages.mjs && node scripts/validate-search-intents.mjs && node scripts/validate-keyword-opportunities.mjs",
     "validate:links": "node scripts/validate-internal-links.mjs",
     "validate:tools": "node scripts/validate-seo-tools.mjs",
     "validate:analytics": "node scripts/validate-analytics.mjs",

@@ -14,9 +14,8 @@ export const SEO_CONTENT_UPDATED_AT = '2026-08-25'
 const routeUpdateKey = (locale, route) => `${locale}:${route.type}:${route.collectionKey || route.articleKey || route.toolKey || ''}`
 
 export const SEO_ROUTE_UPDATED_AT = Object.freeze({
-  'en:home:': '2026-09-02',
+  'en:home:': '2026-09-28',
   'en:collection:dot': '2026-09-02',
-  'en:article:firingError': '2026-09-02',
   'en:article:movementVsFiring': '2026-09-02',
   'ja:tool:playbook': '2026-09-02',
   'en:collection:tracker': '2026-09-03',
@@ -39,8 +38,17 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     ...['animals', 'meme'].map((key) => [`${locale}:collection:${key}`, '2026-09-07']),
     ...['yellowEnemies', 'offCenter', 'stretched', 'invisible', 'colors', 'gapOffset', 'innerVsOuter', 'staticVsDynamic', 'notWorking'].map((key) => [`${locale}:article:${key}`, '2026-09-04']),
   ])),
+  ...Object.fromEntries(['dot', 'small', 'plus', 'cute'].map((key) => [`en:collection:${key}`, '2026-09-28'])),
+  'ja:collection:cute': '2026-09-28',
+  'en:article:firingError': '2026-09-28',
+  'en:article:copy': '2026-09-28',
+  'ja:article:copy': '2026-09-28',
+  'ja:article:notWorking': '2026-09-28',
   // Only mark the pages with substantive content changes in this SEO review.
-  ...Object.fromEntries(['dot', 'plus', 'funny'].map((key) => [`en:collection:${key}`, '2026-09-22'])),
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap((locale) => [
+    [`${locale}:home:`, '2026-09-28'],
+    [`${locale}:collection:funny`, '2026-09-28'],
+  ])),
 })
 
 export function routeContentUpdatedAt(locale, route) {

@@ -21,7 +21,7 @@ const related = {
 const content = {
   en: {
     funny: {
-      label: 'Funny crosshairs', eyebrow: 'BREAK THE DEFAULT CROSSHAIR', title: 'Funny VALORANT crosshair codes that actually work', intro: 'Preview 100 working joke crosshairs, including creatures, arcade icons, space markers, glitch shapes, party effects, and oversized frames.',
+      gridTitle: 'Funny VALORANT crosshair codes to preview', label: 'Funny crosshairs', eyebrow: 'BREAK THE DEFAULT CROSSHAIR', title: 'Funny VALORANT crosshair codes that actually work', intro: 'Preview 100 working joke crosshairs, including creatures, arcade icons, space markers, glitch shapes, party effects, and oversized frames.',
       body: ['Funny crosshairs turn valid profile settings into recognizable shapes. They are useful for clips and casual games, but the larger geometry can hide distant targets.', 'Start with Pixel Sun or Portal Ring, then compare Pixel Owl, Joystick Gate, UFO Beam, Glitch Box, Firework Core, and Final Boss at normal scale. The funniest shape is not worth copying if you cannot still read the center.'],
       selection: 'Every item is a working AimCodes profile code with a visibly different silhouette. Near-duplicate color swaps were removed, and the 100-code set spans bold centers, HUD shapes, tall markers, layered frames, characters, arcade, space, symbols, glitches, and party effects.',
       introCollectionKeys: ['funny', 'cute', 'animals', 'circle', 'small'],
@@ -162,7 +162,7 @@ for (const locale of ['es', 'pt-BR', 'zh-CN']) {
 }
 
 for (const [key, value] of Object.entries(content.en)) {
-  content.en[key] = { ...value, gridTitle: shared.en.grid, selectionTitle: shared.en.selectionTitle, settingsTitle: shared.en.settingsTitle, ...related[key] }
+  content.en[key] = { ...value, gridTitle: value.gridTitle || shared.en.grid, selectionTitle: shared.en.selectionTitle, settingsTitle: shared.en.settingsTitle, ...related[key] }
 }
 
 export function growthCollectionCopy(locale, collectionKey) {

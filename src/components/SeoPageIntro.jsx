@@ -1,6 +1,8 @@
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
-import SeoTopicLinks from './SeoTopicLinks.jsx'
+import { lazy, Suspense } from 'react'
+
+const SeoTopicLinks = lazy(() => import('./SeoTopicLinks.jsx'))
 
 export default function SeoPageIntro({ locale, type = 'home', t }) {
   const content = seoCopy(locale)[type]
@@ -29,7 +31,7 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
       {type === 'home' && (
         <div className="home-hero-visual" aria-hidden="true" />
       )}
-      {type !== 'home' && type !== 'catalog' && <SeoTopicLinks locale={locale} />}
+      {type !== 'home' && type !== 'catalog' && <Suspense fallback={null}><SeoTopicLinks locale={locale} /></Suspense>}
     </section>
   )
 }

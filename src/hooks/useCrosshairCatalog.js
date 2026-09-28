@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { catalogCrosshairs, crosshairCollections, indexableCrosshairIds } from '../data/catalogManifest.js'
+import { catalogCrosshairs, crosshairCollections, homeFeaturedCrosshairIds, indexableCrosshairIds } from '../data/catalogManifest.js'
 import { localizeCrosshair } from '../i18n/translations.js'
 import { parseCrosshairCode } from '../utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from '../utils/crosshairSimilarity.js'
@@ -94,9 +94,9 @@ export function useCrosshairCatalog({
   let displayedCrosshairs = []
   if (route.type === 'catalog') displayedCrosshairs = visibleCrosshairs.slice(0, catalogLimit)
   if (route.type === 'home') {
-    displayedCrosshairs = crosshairCollections.funny.crosshairIds
+    displayedCrosshairs = homeFeaturedCrosshairIds
       .map((id) => allCrosshairs.find((item) => item.id === id))
-      .slice(0, 8)
+      .filter(Boolean)
   }
   if (route.type === 'collection') {
     const collectionCatalog = route.collectionKey === 'pro' ? allSourceCrosshairs : allCrosshairs
