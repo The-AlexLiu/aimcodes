@@ -7,6 +7,7 @@ import {
   crosshairCollectionKeys,
   crosshairCollections,
   indexableCrosshairIds,
+  homeFeaturedCrosshairIds,
 } from '../src/data/catalogManifest.js'
 import { createTranslator, localizeCrosshair } from '../src/i18n/translations.js'
 import { DEFAULT_LOCALE, localeRoutes } from '../src/i18n/localeRoutes.js'
@@ -375,7 +376,7 @@ ${alternateLocales}
     <meta name="twitter:image" content="${metadata.image}" />
     <meta name="twitter:image:alt" content="${escapeHtml(metadata.imageAlt)}" />
     <script type="application/ld+json">${jsonLd(schema)}</script>
-    <style id="aimcodes-static-seo">html,body{margin:0;background:#091117;color:#eef2f4}.seo-static-shell{visibility:hidden;animation:aimcodes-show-static-fallback 0s 6s forwards;max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}@keyframes aimcodes-show-static-fallback{to{visibility:visible}}.seo-static-shell h1{max-width:900px;font-size:52px;line-height:1.1}.seo-static-shell p{max-width:760px;color:#aeb8bf;font-size:16px;line-height:1.65}.seo-static-shell a{color:#ff6b65}.seo-static-hero-image{display:block;width:min(100%,960px);height:auto;margin:26px 0;border:1px solid #36434d;border-radius:8px}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}@media(max-width:680px){.seo-static-shell{padding:36px 18px}.seo-static-shell h1{font-size:36px;line-height:1.12}}</style>
+    <style id="aimcodes-static-seo">html,body{margin:0;background:#091117;color:#eef2f4}.seo-static-shell{visibility:hidden;animation:aimcodes-show-static-fallback 0s 6s forwards;max-width:1180px;margin:0 auto;padding:64px 28px;color:#eef2f4;font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif}@keyframes aimcodes-show-static-fallback{to{visibility:visible}}.seo-static-shell h1{max-width:900px;font-size:52px;line-height:1.1}.seo-static-shell p{max-width:760px;color:#aeb8bf;font-size:16px;line-height:1.65}.seo-static-shell a{color:#ff6b65}.seo-static-hero-image{display:block;width:min(100%,960px);height:auto;margin:26px 0;border:1px solid #36434d;border-radius:8px}.seo-static-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.seo-static-links a{padding:10px 14px;border:1px solid #46535e;border-radius:6px;text-decoration:none}.seo-static-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.seo-static-card{min-width:0;padding:14px;border:1px solid #36434d;border-radius:8px}.seo-static-card img{width:100%;height:auto}.seo-static-card summary{min-height:44px;cursor:pointer;display:list-item;padding:12px 0;box-sizing:border-box}.seo-static-shell code{display:block;margin:18px 0;padding:14px;overflow-wrap:anywhere;background:#0d151b;border:1px solid #36434d;border-radius:6px}@media(max-width:680px){.seo-static-shell{padding:36px 18px}.seo-static-shell h1{font-size:36px;line-height:1.12}}</style>
     <noscript><style>.seo-static-shell{visibility:visible;animation:none}</style></noscript>
     ${seoEnd}`
 }
@@ -389,6 +390,17 @@ function replaceSeoBlock(html, nextBlock) {
 
 function staticLinks(locale, items) {
   return `<div class="seo-static-links">${items.map((item) => `<a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a>`).join('')}</div>`
+}
+
+// Use the same manifest records as the live gallery, including the real code.
+// Native details remain usable when scripts fail or are disabled.
+function staticCrosshairCards(locale, items, heading) {
+  const t = createTranslator(locale)
+  const cards = items.map((item) => {
+    const metadata = routeMetadata(locale, { type: 'crosshair', crosshairId: item.id }, item)
+    return `<article class="seo-static-card"><h3><a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a></h3><img src="${metadata.standaloneImage}" width="1080" height="1080" loading="lazy" alt="${escapeHtml(metadata.imageAlt)}" /><details><summary>${escapeHtml(t('modal.code'))}</summary><code>${escapeHtml(item.code)}</code></details></article>`
+  }).join('')
+  return `<section><h2>${escapeHtml(heading)}</h2><div class="seo-static-card-grid">${cards}</div></section>`
 }
 
 function staticTopicLinks(locale) {
@@ -438,8 +450,9 @@ function staticHeroImage(locale, route, crosshair) {
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
   const localized = seoCopy(locale)
   if (route.type === 'home') {
-    const featured = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean).slice(0, 8)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticLinks(locale, featured)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
+    const featured = homeFeaturedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
+    const initialPreview = localizedCrosshairs.find((item) => item.id === catalogCrosshairs[0].id)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticCrosshairCards(locale, [initialPreview].filter(Boolean), localized.home.tryNow)}${staticCrosshairCards(locale, featured, localized.home.popular)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
   }
   if (route.type === 'catalog') {
     const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
@@ -460,6 +473,9 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const items = crosshairCollections[route.collectionKey].crosshairIds
       .map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter(Boolean)
+    const quickPicks = collection.quickPicks?.length
+      ? `<section class="seo-quick-picks"><h2>${escapeHtml(collection.quickPicksTitle)}</h2><ul>${collection.quickPicks.map((pick) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span></li>`).join('')}</ul></section>`
+      : ''
     const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')
     const selectionContent = Array.isArray(collection.selection)
       ? `<ul>${collection.selection.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
@@ -472,7 +488,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((key) => `<a href="${routePath(locale, { type: 'collection', collectionKey: key })}">${escapeHtml(collectionCopy(locale, key).label)}</a>`).join('')
     const related = `${(collection.relatedCollectionKeys || []).filter((relatedCollectionKey) => discoverableCollectionSet.has(relatedCollectionKey)).map((relatedCollectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey })}">${escapeHtml(collectionCopy(locale, relatedCollectionKey).title)}</a>`).join('')}${(collection.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(collection.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''}${staticHeroImage(locale, route, null)}${staticLinks(locale, items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${quickPicks}${introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${staticLinks(locale, route.collectionKey === 'funny' ? items.slice(12) : items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`

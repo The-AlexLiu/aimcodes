@@ -2,6 +2,7 @@ import { BrandMark } from './BrandLogo.jsx'
 import CatalogControls from './CatalogControls.jsx'
 import CrosshairCard from './CrosshairCard.jsx'
 import Icon from './Icon.jsx'
+import { funnyGridTitle } from '../seo/collectionLabels.js'
 import { seoCopy } from '../seo/content.js'
 import { routePath } from '../seo/routes.js'
 
@@ -33,7 +34,7 @@ export default function CrosshairCollectionSection({
     <section className={`collection-section ${isHome ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection" aria-labelledby="crosshair-collection-title">
       {route.type === 'collection' ? (
         <div className="catalog-summary">
-          <h2 id="crosshair-collection-title">{t('collection.title')}</h2>
+          <h2 id="crosshair-collection-title">{route.collectionKey === 'funny' ? funnyGridTitle(locale) : t('collection.title')}</h2>
           <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
           <button type="button" onClick={() => onRandom(displayedCrosshairs, 'collection_random')}>
             <Icon name="rotate" size={16} /> {t('actions.random')}
@@ -86,7 +87,7 @@ export default function CrosshairCollectionSection({
         <>
           <div className="crosshair-grid">
             {displayedCrosshairs.map((item) => (
-              <CrosshairCard key={item.id} crosshair={item} href={routePath(locale, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && route.type !== 'collection' && selected.id === item.id} copied={copiedId === item.id} onSelect={onSelect} onCopy={onCopy} t={t} />
+              <CrosshairCard showCode={isHome || route.collectionKey === 'funny'} key={item.id} crosshair={item} href={routePath(locale, { type: 'crosshair', crosshairId: item.id })} selected={route.type !== 'catalog' && route.type !== 'collection' && selected.id === item.id} copied={copiedId === item.id} onSelect={onSelect} onCopy={onCopy} t={t} />
             ))}
           </div>
           {route.type === 'catalog' && displayedCrosshairs.length < visibleCrosshairs.length && (

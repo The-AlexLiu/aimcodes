@@ -308,6 +308,9 @@ export const crosshairCollections = Object.freeze({
   }),
 })
 
+// Keep the initial home gallery identical in React and generated HTML.
+export const homeFeaturedCrosshairIds = Object.freeze(crosshairCollections.funny.crosshairIds.slice(0, 8))
+
 export const crosshairCollectionKeys = Object.freeze(Object.keys(crosshairCollections))
 
 const crosshairById = new Map(catalogCrosshairs.map((item) => [item.id, item]))

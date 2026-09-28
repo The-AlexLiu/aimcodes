@@ -1,9 +1,9 @@
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import Icon from './Icon.jsx'
 
-export default function CrosshairCard({ crosshair, href, selected, copied, onSelect, onCopy, t }) {
+export default function CrosshairCard({ crosshair, href, selected, copied, onSelect, onCopy, showCode = false, t }) {
   return (
-    <article className={`crosshair-card ${selected ? 'is-selected' : ''} ${crosshair.isCute ? 'is-cute' : ''}`}>
+    <article className={`crosshair-card ${selected ? 'is-selected' : ''} ${crosshair.isCute ? 'is-cute' : ''} ${showCode ? 'has-code' : ''}`}>
       <button
         className={`icon-button card-copy${copied ? ' is-copied' : ''}`}
         type="button"
@@ -31,6 +31,12 @@ export default function CrosshairCard({ crosshair, href, selected, copied, onSel
         </span>
         {!crosshair.isPro && crosshair.isCute && <span className={`pro-label cute-label ${crosshair.category === 'fun' ? 'is-fun' : ''}`}>{t(`badges.${crosshair.category === 'fun' ? 'fun' : 'cute'}`)}</span>}
       </a>
+      {showCode && (
+        <details className="card-code">
+          <summary>{t('modal.code')}</summary>
+          <code>{crosshair.code}</code>
+        </details>
+      )}
     </article>
   )
 }
