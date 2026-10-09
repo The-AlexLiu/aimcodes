@@ -25,3 +25,14 @@
 - https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-setup
 - https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-consent-api-v2
 - https://github.com/advisories/GHSA-68fv-2mgg-jv7q
+
+
+## 生产验收结果
+
+- PR：https://github.com/The-AlexLiu/aimcodes/pull/81 ，已合并。
+- 生产提交：`ea03ba732507051ffa7e5b269f8ba0115ae942d9`；部署 `6ac8a114cdb8b80008389f88` ready；线上 build-meta 匹配。
+- Clarity 官方 tag 返回 200，两个 collect 请求均返回 204。
+- 真实页面 QA 持续排除、opt-out 持续排除、付费交付与找回页面没有 Clarity script 或请求。
+- 英语首页、中文/日语隐私页、TenZ 图片、robots.txt、sitemap.xml 返回 200；canonical 与 robots 指令保持原规则，主 Sitemap 1,887 个 URL。
+- 后台模式为默认“平衡”屏蔽；首次后台复查仍显示安装引导。录制/热力图处理可能延迟，尚未声称后台回放可查看。
+- 原 GA4 审计及其他用户文件未纳入提交；无数据删除。本次生产不执行付款、恢复邮件或其他业务写入。

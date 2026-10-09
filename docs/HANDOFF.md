@@ -120,3 +120,12 @@
 ## 交接原则
 
 聊天只用于讨论；长期事实必须回写仓库文档。任务只在可验证的 Git 提交点交接，不在两个工具同时编辑同一工作树时交接。
+
+
+## 已发布：2026-10-09 Microsoft Clarity 与依赖漏洞修复
+
+Clarity 项目 `yuxaq5sl26` 已通过 PR #81 发布到生产提交 `ea03ba732507051ffa7e5b269f8ba0115ae942d9`，Netlify 部署 `6ac8a114cdb8b80008389f88` ready，正式站 build-meta.json 与提交一致。Clarity 仅在正式域名异步加载，排除 QA、opt-out、预览环境、付费交付/找回页面及敏感链接；默认 consentv2 denied，无 Cookie 模式。五语种隐私说明已同步，付费隐私说明保留。
+
+完整 release 检查 25/25、10 项 Clarity 测试、GitHub 两项 CI 和 Netlify Deploy Preview 均通过；`source-map-js` 已固定到 1.2.2，依赖审计无已知漏洞。正式浏览器 tag 请求为 200，两个 collect 请求返回 204；QA 持续排除、opt-out 与交付/找回页均为零 Clarity 请求。英语首页、中日隐私页、准星图片、robots 与 Sitemap 均返回 200；Sitemap 保持 1,887 个 URL。后台回放在首次验收时仍待处理，不能将请求接收等同于回放已可查看。
+
+本次发布从最新主线建立独立分支 `codex/clarity-release`；旧 GA4 审计工作树及全部未提交用户修改均保留。未修改 GA4 后台、GSC、支付逻辑或执行真实付款。详见 `docs/CLARITY_SETUP_2026-10-09.md`。
