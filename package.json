@@ -47,7 +47,8 @@
     "check:quick": "node scripts/run-check-suite.mjs quick",
     "check:data": "node scripts/run-check-suite.mjs data",
     "check:seo": "node scripts/run-check-suite.mjs seo",
-    "check:release": "node scripts/run-check-suite.mjs release"
+    "check:release": "node scripts/run-check-suite.mjs release",
+    "validate:clarity": "node --test scripts/test-clarity.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "11.0.3",
@@ -71,7 +72,8 @@
   },
   "pnpm": {
     "overrides": {
-      "nanoid": ">=3.3.17 <4"
+      "nanoid": ">=3.3.17 <4",
+      "source-map-js": "1.2.2"
     }
   }
 }
