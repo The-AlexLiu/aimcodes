@@ -15,6 +15,7 @@ const steps = {
   finder: ['pnpm', ['validate:finder']],
   localization: ['pnpm', ['validate:localization']],
   analytics: ['pnpm', ['validate:analytics']],
+  clarity: ['pnpm', ['validate:clarity']],
   sharing: ['pnpm', ['validate:sharing']],
   seo: ['pnpm', ['validate:seo']],
   routing: ['pnpm', ['validate:routing']],
@@ -38,7 +39,7 @@ const suites = {
   quick: ['lint', 'workflow', 'social', 'socialMedia', 'build', 'performance', 'paid'],
   data: ['lint', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'build', 'performance', 'seo', 'routing', 'tools', 'images'],
   seo: ['lint', 'manifest', 'localization', 'seoScope', 'build', 'performance', 'seo', 'routing', 'links', 'adsense', 'images'],
-  release: ['lint', 'workflow', 'social', 'socialMedia', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'analytics', 'sharing', 'seoScope', 'build', 'performance', 'paid', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
+  release: ['lint', 'workflow', 'social', 'socialMedia', 'manifest', 'crosshairs', 'proCandidates', 'verifiedPros', 'finder', 'localization', 'analytics', 'clarity', 'sharing', 'seoScope', 'build', 'performance', 'paid', 'seo', 'routing', 'links', 'tools', 'adsense', 'images', 'audit', 'whitespace'],
 }
 
 if (process.env.AIMCODES_SKIP_NETWORK_AUDIT === '1') {
