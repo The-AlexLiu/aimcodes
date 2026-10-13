@@ -8,7 +8,7 @@
 
 main 保护已由 GitHub API 保存并读回：两项 GitHub Actions 必需检查 product-data / build-and-seo，strict、PR、讨论解决、管理员约束，禁止强推/删除；不要求另一位审批者。原先 main 无保护。
 
-社媒根因为 Buffer key 在9月12日过期，现已原生再生成并更新 GitHub BUFFER_API_KEY；权限仍为 account:read/posts:read/posts:write，界面到期日2027-10-13。非敏感变量 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。未读取、写文件或输出密钥。
+社媒根因为 Buffer key 在9月12日过期，现已原生再生成并更新 GitHub BUFFER_API_KEY；新版个人密钥默认11项权限，当前界面没有收窄入口；旧密钥仅三项，不能声称权限未变化。界面到期日2027-10-13。非敏感变量 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。未读取、写文件或输出密钥。
 
 GitHub CI、Netlify Deploy Preview、远端 preflight 与正式合并状态以本任务 PR 和 docs/INFRASTRUCTURE_FIXES_2026-10-13.md 后续记录为准；不能将本地通过或 Secret 保存当成生产生效。未补发帖子、未付款、未升级或迁移。
 

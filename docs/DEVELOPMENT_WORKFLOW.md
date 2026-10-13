@@ -68,5 +68,5 @@ GitHub CI 在 PR 上并行运行产品数据检查与构建/SEO 检查；功能�
 - 手工运行 Daily Social Publishing 默认 dry_run=true；preflight_only=true 只检查服务，不生成、上传或创建帖子。不要用失败的旧任务重跑恢复公开排期。
 - social:preflight 输出仅含检查名称、状态、错误类别和缺少的配置名称；原始 API 响应与凭据不会进入日志或 Artifact。Buffer 频道必须存在、匹配平台、未断开且未锁定。
 - dry-run 使用计划媒体 URL 做本地 payload 校验，不写 R2。真实自动化仍使用既有九时段、90分质量门和 R2 Manifest 去重。
-- Buffer 密钥过期时，在 Buffer Settings → API 原生再生成并复制到 GitHub Actions BUFFER_API_KEY；保留 account:read、posts:read、posts:write 三项权限。将仓库变量 BUFFER_API_KEY_EXPIRES_AT 更新为界面到期日；检查在到期前14天显示警告。
+- Buffer 密钥过期时，在 Buffer Settings → API 原生再生成并复制到 GitHub Actions BUFFER_API_KEY；旧密钥为 account:read、posts:read、posts:write；新版个人密钥默认11项权限，当前界面没有权限收窄入口，不能声称仍为三项。将仓库变量 BUFFER_API_KEY_EXPIRES_AT 更新为界面到期日；检查在到期前14天显示警告。
 - 密钥与频道修复由只读服务检查验收，不能以 Secret 已保存代替 API 认证成功；真实公开排期与付款需要单独授权。

@@ -10,7 +10,7 @@
 - 社媒根因：2026-10-13运行38323592556在服务检查返回 Buffer 认证错误 code4；后台 AimCodes Social Publisher 显示9月12日过期。旧检查重定向输出到/dev/null，且失败发生在报告生成之前，导致无可用 Artifact。
 - 新的只读 preflight 分别核对 Buffer 认证/组织/频道、AI 服务认证、R2 公开交付和存储访问；失败仍生成安全报告，不打印原始响应或凭据。
 - 手工运行默认 dry-run；新增 preflight_only。dry-run 禁止 R2 上传和 Buffer 发帖，正式每日九时段及质量门保持原逻辑。
-- Buffer 再生成保留原三项权限，并选1年有效期；通过原生复制粘贴更新 GitHub Secret，不读取或保存密钥值。到期元数据以 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。
+- Buffer 再生成选1年有效期；新版个人密钥默认11项权限，当前再生成与菜单没有权限收窄入口，旧密钥三项权限未被保留。通过原生复制粘贴更新 GitHub Secret，不读取或保存密钥值。到期元数据以 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。
 
 ## 验证边界
 
