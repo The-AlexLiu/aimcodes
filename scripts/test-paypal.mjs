@@ -196,3 +196,24 @@ test('single merchant sandbox app resolves payee from provider rather than inter
   assert.equal(body.purchase_units[0].payee, undefined)
   assert.equal(completedCapture(confirmed(), { ...order, merchantId: 'WRONG' }), null)
 })
+
+const { sendAccessEmail } = await import('../netlify/functions/_lib/email.mjs')
+test('sandbox email always uses its isolated test sender', async () => {
+  const previousFetch = globalThis.fetch
+  const previousEnvironment = process.env.PAYPAL_ENVIRONMENT
+  const previousSender = process.env.RESEND_FROM_EMAIL
+  let mail
+  try {
+    process.env.PAYPAL_ENVIRONMENT = 'sandbox'
+    process.env.RESEND_API_KEY = 'fixture-key'
+    process.env.RESEND_FROM_EMAIL = 'Production <production@example.com>'
+    globalThis.fetch = async (url, options) => { mail = JSON.parse(options.body); return Response.json({ id: 'fixture-email' }) }
+    assert.deepEqual(await sendAccessEmail({ email: 'buyer@example.com', locale: 'en', accessUrl: 'https://preview.example.com/test' }), { sent: true })
+    assert.equal(mail.from, 'AimCodes Sandbox <onboarding@resend.dev>')
+  } finally {
+    globalThis.fetch = previousFetch
+    delete process.env.RESEND_API_KEY
+    if (previousEnvironment === undefined) delete process.env.PAYPAL_ENVIRONMENT; else process.env.PAYPAL_ENVIRONMENT = previousEnvironment
+    if (previousSender === undefined) delete process.env.RESEND_FROM_EMAIL; else process.env.RESEND_FROM_EMAIL = previousSender
+  }
+})
