@@ -6,7 +6,7 @@ const EXCLUSION_STORAGE_KEY = 'aimcodes-analytics-excluded-v1'
 
 // Keep recordings out of previews, QA sessions, and opted-out browsers.
 // These storage keys intentionally match GA4's existing exclusion contract.
-export function initializeClarity() {
+function recordingAllowed() {
   if (typeof window === 'undefined' || typeof document === 'undefined') return false
   if (!LIVE_HOSTS.has(window.location.hostname.toLowerCase())) return false
 
@@ -28,6 +28,11 @@ export function initializeClarity() {
     return false
   }
   if (qa || excluded || window.__aimcodesQaMode) return false
+  return true
+}
+
+export function initializeClarity() {
+  if (!recordingAllowed()) return false
   if (document.querySelector('script[data-aimcodes-clarity]')) return true
 
   window.clarity = window.clarity || function clarity() {
@@ -42,4 +47,26 @@ export function initializeClarity() {
   script.dataset.aimcodesClarity = CLARITY_PROJECT_ID
   document.head.appendChild(script)
   return true
+}
+
+const BUSINESS_EVENTS = new Set(['crosshair_code_copy', 'finder_start', 'finder_complete', 'playbook_export'])
+const LANGUAGES = new Set(['en', 'es', 'pt-BR', 'zh-CN', 'ja'])
+const PAGE_TYPES = new Set(['home', 'catalog', 'collection', 'crosshair', 'finder', 'tool', 'guide', 'article'])
+
+// Reuse real GA4 success branches, but never forward their free-form payloads.
+// This gate is independent of GA4 and remains active after SPA navigation.
+export function trackClarityEvent(eventName, context = {}) {
+  if (!BUSINESS_EVENTS.has(eventName)) return false
+  if (eventName === 'playbook_export' && !(Number.isInteger(context.element_count) && context.element_count > 0)) return false
+  if (!recordingAllowed() || typeof window.clarity !== 'function') return false
+  try {
+    window.clarity('set', 'measurement_version', 'success_v1')
+    if (LANGUAGES.has(context.app_language)) window.clarity('set', 'app_language', context.app_language)
+    if (PAGE_TYPES.has(context.page_type)) window.clarity('set', 'page_type', context.page_type)
+    window.clarity('event', eventName)
+    return true
+  } catch {
+    // Blocked or broken telemetry must not turn a successful action into failure.
+    return false
+  }
 }
