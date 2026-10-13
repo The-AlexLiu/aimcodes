@@ -1,4 +1,6 @@
 export async function trackServerPurchase({ order, paymentId }) {
+  // Sandbox transactions must never appear as production revenue.
+  if (order.environment === 'sandbox') return false
   const measurementId = process.env.GA4_MEASUREMENT_ID
   const apiSecret = process.env.GA4_API_SECRET
   if (!measurementId || !apiSecret) return false

@@ -42,19 +42,7 @@ for (const pageKey of PAID_PAGE_KEYS) {
 }
 
 process.env.AIMCODES_ACCESS_SECRET = 'test-only-secret-with-at-least-thirty-two-characters'
-process.env.WHOP_ENVIRONMENT = 'sandbox'
-process.env.WHOP_SANDBOX_ACCOUNT_ID = 'biz_test'
-process.env.WHOP_SANDBOX_WEBHOOK_SECRET = 'ws_test-only-webhook-secret'
 const { createAccessCookie, readAccessCookie } = await import('../netlify/functions/_lib/security.mjs')
-const { whopRuntimeConfig } = await import('../netlify/functions/_lib/whop.mjs')
-const testWhop = whopRuntimeConfig()
-if (testWhop.baseUrl !== 'https://sandbox-api.whop.com/api/v1') errors.push('sandbox checkout is not using the sandbox API')
-if (testWhop.accountId !== 'biz_test') errors.push('sandbox account selection failed')
-process.env.WHOP_ENVIRONMENT = 'production'
-process.env.WHOP_ACCOUNT_ID = 'biz_live_test'
-const liveWhop = whopRuntimeConfig()
-if (liveWhop.baseUrl !== undefined || liveWhop.accountId !== 'biz_live_test') errors.push('production Whop selection failed')
-process.env.WHOP_ENVIRONMENT = 'sandbox'
 const cookie = createAccessCookie('ent_test', 120)
 const cookieRequest = new Request('https://aimcodes.com/api/aim-pack/entitlement', { headers: { cookie: `aimcodes_pack=${cookie}` } })
 if (readAccessCookie(cookieRequest) !== 'ent_test') errors.push('signed access cookie could not be read')
@@ -64,26 +52,21 @@ if (readAccessCookie(tamperedRequest) !== null) errors.push('tampered access coo
 const checkout = (await import('../netlify/functions/aim-pack-create-checkout.mjs')).default
 const forbidden = await checkout(new Request('https://aimcodes.com/api/aim-pack/create-checkout', { method: 'POST', body: '{}' }))
 if (forbidden.status !== 403) errors.push('checkout route did not reject a cross-origin/absent-origin request')
-const webhook = (await import('../netlify/functions/aim-pack-whop-webhook.mjs')).default
-const { acceptedPayment } = await import('../netlify/functions/aim-pack-whop-webhook.mjs')
-const unsigned = await webhook(new Request('https://aimcodes.com/api/aim-pack/whop-webhook', { method: 'POST', body: '{}' }))
+const webhook = (await import('../netlify/functions/aim-pack-paypal-webhook.mjs')).default
+const unsigned = await webhook(new Request('https://aimcodes.com/api/aim-pack/paypal-webhook', { method: 'POST', body: '{}' }))
 if (unsigned.status !== 401) errors.push('webhook route did not reject an unsigned payload')
 delete process.env.RESEND_API_KEY
 const recover = (await import('../netlify/functions/aim-pack-recover.mjs')).default
 const unavailableRecovery = await recover(new Request('https://aimcodes.com/api/aim-pack/recover', { method: 'POST', headers: { Origin: 'https://aimcodes.com', 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'buyer@example.com', locale: 'en' }) }))
 const unavailableRecoveryPayload = await unavailableRecovery.json()
 if (unavailableRecovery.status !== 200 || unavailableRecoveryPayload.deliveryAvailable !== false) errors.push('recovery route did not expose the receipt-support fallback when email delivery is unavailable')
-const order = { amount: 1.99, currency: 'usd', checkoutConfigurationId: 'ch_test', planId: 'plan_test' }
-const payment = { id: 'pay_test', account_id: 'biz_test', status: 'paid', currency: 'usd', subtotal: { amount: '1.99', currency: 'usd' }, checkout_configuration_id: 'ch_test', plan_id: 'plan_test' }
-if (!acceptedPayment({ type: 'payment.succeeded' }, payment, order, { accountId: 'biz_test' })) errors.push('valid Whop v1 Money payment was rejected')
-if (acceptedPayment({ type: 'payment.succeeded' }, { ...payment, subtotal: { amount: '2.99', currency: 'usd' } }, order, { accountId: 'biz_test' })) errors.push('wrong Whop amount was accepted')
-if (acceptedPayment({ type: 'payment.succeeded' }, { ...payment, account_id: 'biz_other' }, order, { accountId: 'biz_test' })) errors.push('wrong Whop account was accepted')
-const localizedPayment = { ...payment, currency: 'eur', subtotal: { amount: '1.79', currency: 'eur' }, usd_total: { amount: '1.99', currency: 'usd' } }
-if (!acceptedPayment({ type: 'payment.succeeded' }, localizedPayment, order, { accountId: 'biz_test' })) errors.push('valid adaptive-pricing payment was rejected')
+execFileSync(process.execPath, ['--test', 'scripts/test-paypal.mjs'], { cwd: projectRoot, stdio: 'inherit' })
 
 const diff = execFileSync('git', ['diff', '--', '.'], { cwd: projectRoot, encoding: 'utf8' })
 const credentialPatterns = [/(?:sk|ws|whsec|re)_[A-Za-z0-9_-]{20,}/, /AIza[A-Za-z0-9_-]{30,}/, /-----BEGIN (?:RSA |EC )?PRIVATE KEY-----/]
-if (credentialPatterns.some((pattern) => pattern.test(diff))) errors.push('a value resembling a real credential exists in the working diff')
+// Removed legacy test fixtures must not block a provider migration. Scan additions.
+const addedDiff = diff.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n')
+if (credentialPatterns.some((pattern) => pattern.test(addedDiff))) errors.push('a value resembling a real credential exists in the working diff')
 
 if (errors.length) {
   console.error(`Paid MVP validation failed:\n- ${errors.join('\n- ')}`)

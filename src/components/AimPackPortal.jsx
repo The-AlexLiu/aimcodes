@@ -80,12 +80,13 @@ function RecoveryView({ content, locale }) {
     try {
       const response = await fetch('/api/aim-pack/recover', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, locale }) })
       const payload = await response.json().catch(() => ({}))
+      if (!response.ok || payload.accepted !== true) throw new Error('recovery_failed')
       setState(payload.deliveryAvailable === false ? 'support' : 'sent')
-    } finally {
-      setState((current) => current === 'working' ? 'sent' : current)
+    } catch {
+      setState('error')
     }
   }
-  return <section className="aim-pack-portal aim-pack-recovery"><span>{content.eyebrow}</span><h1>{content.recoveryTitle}</h1><p>{content.recoveryBody}</p>{state === 'sent' ? <p className="aim-pack-recovery__success" role="status"><Icon name="check" size={18} />{content.recoverySent}</p> : state === 'support' ? <p className="aim-pack-recovery__success" role="status"><Icon name="info" size={18} />{content.recoveryUnavailable} <a href="mailto:contact@aimcodes.com">contact@aimcodes.com</a></p> : <form onSubmit={submit}><label>{content.email}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><button className="primary-button" type="submit" disabled={state === 'working'}>{content.send}</button></form>}</section>
+  return <section className="aim-pack-portal aim-pack-recovery"><span>{content.eyebrow}</span><h1>{content.recoveryTitle}</h1><p>{content.recoveryBody}</p>{state === 'sent' ? <p className="aim-pack-recovery__success" role="status"><Icon name="check" size={18} />{content.recoverySent}</p> : state === 'support' ? <p className="aim-pack-recovery__success" role="status"><Icon name="info" size={18} />{content.recoveryUnavailable} <a href="mailto:contact@aimcodes.com">contact@aimcodes.com</a></p> : <form onSubmit={submit}>{state === 'error' && <p role="alert">{content.recoveryError}</p>}<label>{content.email}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><button className="primary-button" type="submit" disabled={state === 'working'}>{content.send}</button></form>}</section>
 }
 
 export default function AimPackPortal({ pageKey, locale, crosshairs }) {
@@ -94,6 +95,7 @@ export default function AimPackPortal({ pageKey, locale, crosshairs }) {
   const [state, setState] = useState(() => pageKey === 'recover' ? 'recover' : isPreview ? 'pack' : 'loading')
   const [entitlement, setEntitlement] = useState(() => isPreview ? previewEntitlement(crosshairs) : null)
   const [message, setMessage] = useState('')
+  const [retry, setRetry] = useState(0)
 
   useEffect(() => {
     if (pageKey === 'recover' || isPreview) return
@@ -101,12 +103,25 @@ export default function AimPackPortal({ pageKey, locale, crosshairs }) {
     const controller = new AbortController()
     const loadPack = async () => {
       if (pageKey === 'complete') {
+        const parameters = new URLSearchParams(window.location.search)
+        if (parameters.get('cancelled') === '1') { setState('cancelled'); return }
         let checkout
         try { checkout = JSON.parse(sessionStorage.getItem(AIM_PACK_CHECKOUT_STORAGE_KEY) || 'null') } catch { checkout = null }
         if (!checkout?.orderId || !checkout?.statusToken || !checkout?.claimToken) { setState('recovery-needed'); return }
         setMessage(content.waiting)
+        if (checkout.provider === 'paypal') {
+          const paypalOrderId = parameters.get('token') || checkout.paypalOrderId
+          if (paypalOrderId !== checkout.paypalOrderId) { setState('confirmation-error'); return }
+          const response = await fetch('/api/aim-pack/paypal-capture', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId: checkout.orderId, statusToken: checkout.statusToken, paypalOrderId }), signal: AbortSignal.any([controller.signal, AbortSignal.timeout(30000)]),
+          })
+          if (!response.ok) { setState('confirmation-error'); return }
+          trackEvent('checkout_browser_complete', { product_id: 'aimcodes_crosshair_pack_v1', provider: 'paypal' })
+          window.history.replaceState(null, '', window.location.pathname)
+        }
         for (let attempt = 0; attempt < 18; attempt += 1) {
-          const response = await fetch('/api/aim-pack/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(checkout), signal: controller.signal })
+          const response = await fetch('/api/aim-pack/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(checkout), signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10000)]) })
           const payload = await response.json().catch(() => ({}))
           if (payload.claimUrl) { sessionStorage.removeItem(AIM_PACK_CHECKOUT_STORAGE_KEY); window.location.replace(payload.claimUrl); return }
           if (payload.state === 'failed') { setState('recovery-needed'); return }
@@ -122,9 +137,9 @@ export default function AimPackPortal({ pageKey, locale, crosshairs }) {
       setEntitlement(payload.entitlement)
       setState('pack')
     }
-    loadPack().catch((error) => { if (error.name !== 'AbortError') setState('recovery-needed') })
+    loadPack().catch((error) => { if (error.name !== 'AbortError') setState(pageKey === 'complete' ? 'confirmation-error' : 'recovery-needed') })
     return () => controller.abort()
-  }, [content.waiting, isPreview, pageKey])
+  }, [content.waiting, isPreview, pageKey, retry])
 
   const regenerate = async () => {
     if (entitlement?.id === 'preview') {
@@ -138,6 +153,8 @@ export default function AimPackPortal({ pageKey, locale, crosshairs }) {
     if (response.ok && payload.entitlement) { setEntitlement(payload.entitlement); setState('pack'); trackEvent('premium_pack_regenerate', { product_id: 'aimcodes_crosshair_pack_v1', pack_version: payload.entitlement.version }) } else setState('recovery-needed')
   }
 
+  if (state === 'cancelled') return <section className="aim-pack-portal aim-pack-wait"><h1>{content.cancelledTitle}</h1><p>{content.cancelledBody}</p><a className="primary-button" href={`/${locale.toLowerCase()}/reaction-time-test/`}>{content.backToTest}</a></section>
+  if (state === 'confirmation-error') return <section className="aim-pack-portal aim-pack-wait"><h1>{content.confirmationError}</h1><p>{content.confirmationHelp}</p><button className="primary-button" type="button" onClick={() => { setState('loading'); setRetry(value => value + 1) }}>{content.retry}</button><a href={`/${locale.toLowerCase()}/recover-aim-pack/`}>{content.recoveryTitle}</a></section>
   if (state === 'recover') return <RecoveryView content={content} locale={locale} />
   if (state === 'pack' && entitlement) return <PackView entitlement={entitlement} content={content} crosshairs={crosshairs} locale={locale} onRegenerate={regenerate} />
   if (state === 'recovery-needed') return <section className="aim-pack-portal aim-pack-wait"><Icon name="info" size={28} /><h1>{content.recoveryTitle}</h1><p>{content.support}</p><a className="primary-button" href={`/${locale.toLowerCase()}/recover-aim-pack/`}>{content.recoveryTitle}</a></section>

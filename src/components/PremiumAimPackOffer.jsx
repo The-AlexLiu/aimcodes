@@ -1,11 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
 import { previewBackgroundOptions } from '../data/previewOptions.js'
 import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { AIM_PACK_CHECKOUT_STORAGE_KEY, AIM_PACK_PRODUCT } from '../utils/paidPack.js'
 import { getAnalyticsPurchaseContext, trackEvent } from '../utils/analytics.js'
 
-const WhopCheckoutEmbed = lazy(() => import('@whop/checkout/react').then((module) => ({ default: module.WhopCheckoutEmbed })))
 const OFFER_VARIANT = 'proof_preview_v1'
 
 function isLocalPreview() {
@@ -21,12 +20,10 @@ export default function PremiumAimPackOffer({ result, locale }) {
   const [visual, setVisual] = useState('balanced')
   const [weapon, setWeapon] = useState('rifle')
   const [email, setEmail] = useState('')
-  const [checkout, setCheckout] = useState(null)
   const [error, setError] = useState('')
   const impressionTracked = useRef(false)
   const sectionRef = useRef(null)
   const emailRef = useRef(null)
-  const returnUrl = useMemo(() => `${window.location.origin}/${locale.toLowerCase()}/checkout/complete/`, [locale])
 
   useEffect(() => {
     if (impressionTracked.current || !sectionRef.current) return undefined
@@ -108,18 +105,19 @@ export default function PremiumAimPackOffer({ result, locale }) {
           email: email.trim(),
           analytics,
         }),
+        signal: AbortSignal.timeout(30000),
       })
       const payload = await response.json().catch(() => ({}))
-      if (!response.ok || !payload.sessionId) throw new Error(payload.code || 'checkout_unavailable')
+      if (!response.ok || !payload.approvalUrl || !payload.paypalOrderId) throw new Error(payload.code || 'checkout_unavailable')
       const checkoutState = {
         orderId: payload.orderId,
         statusToken: payload.statusToken,
         claimToken: payload.claimToken,
         locale,
+        provider: 'paypal',
+        paypalOrderId: payload.paypalOrderId,
       }
       sessionStorage.setItem(AIM_PACK_CHECKOUT_STORAGE_KEY, JSON.stringify(checkoutState))
-      setCheckout(payload)
-      setStep('checkout')
       trackEvent('begin_checkout', {
         currency: AIM_PACK_PRODUCT.currency.toUpperCase(),
         value: AIM_PACK_PRODUCT.price,
@@ -129,7 +127,9 @@ export default function PremiumAimPackOffer({ result, locale }) {
         weapon_preference: weapon,
         offer_variant: OFFER_VARIANT,
       })
-      trackEvent('checkout_loaded', { product_id: AIM_PACK_PRODUCT.id, provider: 'whop', offer_variant: OFFER_VARIANT })
+      // This event means PayPal created an approval URL, not a rendered provider UI.
+      trackEvent('checkout_redirect', { product_id: AIM_PACK_PRODUCT.id, provider: 'paypal', offer_variant: OFFER_VARIANT })
+      window.location.assign(payload.approvalUrl)
     } catch {
       setError(content.unavailable)
       setStep('preferences')
@@ -137,10 +137,6 @@ export default function PremiumAimPackOffer({ result, locale }) {
     }
   }
 
-  const handleComplete = () => {
-    trackEvent('checkout_browser_complete', { product_id: AIM_PACK_PRODUCT.id, provider: 'whop' })
-    window.location.assign(returnUrl)
-  }
 
   return (
     <section id="premium-pack-offer" ref={sectionRef} className={`premium-pack-offer is-${step}`} aria-labelledby="premium-pack-title">
@@ -195,7 +191,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
       {(step === 'preferences' || step === 'loading') && (
         <div className="premium-pack-preferences">
           <div className="premium-pack-preferences__heading">
-            <button type="button" onClick={() => goBack('offer')} aria-label={content.back}><Icon name="arrowLeft" size={18} /></button>
+            <button type="button" onClick={() => goBack('offer')} disabled={step === 'loading'} aria-label={content.back}><Icon name="arrowLeft" size={18} /></button>
             <div><span>{content.eyebrow}</span><h2 id="premium-pack-title">{content.preferenceTitle}</h2><p>{content.preferenceIntro}</p></div>
           </div>
           <div className="premium-pack-preferences__layout">
@@ -220,29 +216,6 @@ export default function PremiumAimPackOffer({ result, locale }) {
               <small><Icon name="shield" size={14} />{content.secure}</small>
             </aside>
           </div>
-        </div>
-      )}
-
-      {step === 'checkout' && checkout && (
-        <div className="premium-pack-checkout">
-          <div className="premium-pack-checkout__heading"><button type="button" onClick={() => goBack('preferences')}><Icon name="arrowLeft" size={18} />{content.back}</button><div><strong>{content.checkoutFor.replace('{email}', email.trim())}</strong><span><Icon name="shield" size={15} />{content.secure}</span></div></div>
-          <Suspense fallback={<p role="status">{content.loading}</p>}>
-            <WhopCheckoutEmbed
-              sessionId={checkout.sessionId}
-              environment={checkout.environment}
-              returnUrl={returnUrl}
-              onComplete={handleComplete}
-              onPaymentError={() => trackEvent('premium_checkout_error', { product_id: AIM_PACK_PRODUCT.id, error_stage: 'payment' })}
-              theme="dark"
-              themeOptions={{ accentColor: '#ff5b55', backgroundColor: '#0b151c', borderRadius: 12, buttonText: content.continue }}
-              adaptivePricing
-              collectPhoneNumbers={false}
-              collectShipping={false}
-              locale={locale.toLowerCase()}
-              prefill={{ email: email.trim() }}
-              hideEmail
-            />
-          </Suspense>
         </div>
       )}
 
