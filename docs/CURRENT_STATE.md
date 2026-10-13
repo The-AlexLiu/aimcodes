@@ -1,6 +1,14 @@
 # AimCodes 当前状态
 
-状态日期：2026-10-09
+状态日期：2026-10-13
+
+## 已发布：2026-10-13 Clarity 成功事件；同页漏斗待后台入库
+
+PR #84 已将 Clarity 成功事件桥接发布至生产提交 `4876f4dc1e38675f615459edebf00fbb19e50564`，Netlify 部署 `6acd99fecb973ac84199970b` ready，正式站 build-meta.json 已匹配。仅新增 `crosshair_code_copy`、`finder_start`、`finder_complete` 和有战术元素的 `playbook_export`；GA4 计数定义和 consentv2 denied 保持不变。
+
+完整 release 检查 25/25、Clarity 测试 16/16、GitHub CI 和产品代码 Deploy Preview 通过。生产复制、完整三轮及战术图实际下载均已核对相应事件发送；采集请求返回 HTTP 204。QA 页面和移除 URL 参数后的同一浏览器会话均不加载 Clarity。四个代表 URL 的状态、canonical 和 robots 指令已读回，未改路由、准星数据、图片、支付和性能逻辑。
+
+Clarity 后台本轮仍显示“未检测到 API 事件”，不能将前端发送或 HTTP 204 当作后台报表已入库。用户已选择后台就绪后自动续做并在完成时通知；待 API 事件和同页录制关联可核查后，创建 `AC · 目录到复制 · v1`（中文目录访问→复制成功）和 `AC · 测试开始到完成 · v1`（中文测试页访问→开始→完成）。验收发现当前结果页没有免费推荐复制入口，因此第二条漏斗不含复制步骤，不修改免费/付费结果页。第 6 项慢页面优化明确暂缓。详见 `docs/CLARITY_EVENTS_2026-10-13.md`。
 
 ## Sandbox 主流程验收通过：2026-10-13 PayPal 替换 Whop
 
