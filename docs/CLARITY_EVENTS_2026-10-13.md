@@ -22,7 +22,7 @@ Only event names and enum tags (`app_language`, `page_type`, `measurement_versio
 Create only after the API events appear and same-page event association is verified:
 
 1. **AC · 目录到复制 · v1**: visit `https://aimcodes.com/zh-cn/crosshairs/` → `crosshair_code_copy`, restricted to that page.
-2. **AC · 测试到推荐复制 · v1**: `finder_start` → `finder_complete` → `crosshair_code_copy`, restricted to `https://aimcodes.com/zh-cn/reaction-time-test/`.
+2. **AC · 测试开始到完成 · v1**: visit `https://aimcodes.com/zh-cn/reaction-time-test/` → `finder_start` → `finder_complete`, restricted to that page. Preview inspection confirmed that the current results page has no free recommendation-copy control, so a final copy step would describe an unavailable path. No recommendation or payment UI is changed by this release.
 
 These count sessions with ordered steps, not per-attempt success. Directory → detail-page navigation is outside the first funnel. Reloads, changed language and restored results can break step association under denied consent. Do not restore cross-page association by fabricating consent.
 
