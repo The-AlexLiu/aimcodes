@@ -36,3 +36,7 @@
 ## 文件与交接
 
 改动集中在付款 offer/portal、结果恢复工具、五语词条、导航/页脚、搜索、选型器和生成 API；新增 `src/utils/checkoutDraft.js`、`src/i18n/paidExperienceCopy.js` 与本文档。原文件备份与本地截图保存在 `output/ux-optimization-2026-10-13/`。未覆盖原 GA4 工作树，未修改准星源数据、主站路由或索引范围。
+
+## 补充：买家逐节点截图发现的四卡交付
+
+新订单选到去重展示列表未保留的源 ID，初次只显示四张卡；已将交付页传入完整源列表，保留原订单配置。2f9816b 预览已匹配构建提交，同一订单五卡、复制、邮件无凭证领取、实际重生成和旧版本切回通过，完整 release 25/25 通过。详见 docs/PAYPAL_PAYMENT_WALKTHROUGH_2026-10-13.md。
