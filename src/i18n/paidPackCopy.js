@@ -1,3 +1,4 @@
+import { paidExperienceCopy } from './paidExperienceCopy.js'
 const copy = {
   en: {
     retry: "Try confirmation again", confirmationError: "We could not confirm your payment yet", confirmationHelp: "If you approved payment, try confirmation again. Do not pay a second time. If this continues, contact contact@aimcodes.com with your PayPal transaction ID.", cancelledTitle: "Payment cancelled", cancelledBody: "You cancelled checkout. Your free result is still available.", backToTest: "Back to the test", recoveryError: "We could not send the link. Please try again or contact contact@aimcodes.com.",
@@ -43,5 +44,5 @@ const copy = {
 const fallback = copy.en
 
 export function paidPackCopy(locale) {
-  return copy[locale] || fallback
+  return { ...fallback, ...(copy[locale] || fallback), ...paidExperienceCopy(locale) }
 }

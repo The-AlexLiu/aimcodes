@@ -1,3 +1,4 @@
+import { paidExperienceCopy } from '../i18n/paidExperienceCopy.js'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 import { japaneseTrust } from './japaneseContent.js'
 
@@ -188,6 +189,11 @@ const refundPolicies = {
 }
 
 export function trustCopy(locale, pageKey) {
+  if (pageKey === 'contact') {
+    const base = locale === 'ja' ? japaneseTrust.contact : (content[locale] || content.en).contact
+    const paid = paidExperienceCopy(locale)
+    return { ...base, sections: [...base.sections, { title: paid.purchaseHelpTitle, paragraphs: [paid.purchaseHelp], links: [{ label: ({ en: 'Recover my Aim Pack', 'zh-CN': '找回我的准星包', ja: 'Aim Packを復元', es: 'Recuperar mi Aim Pack', 'pt-BR': 'Recuperar meu Aim Pack' })[locale] || 'Recover my Aim Pack', url: `/${locale.toLowerCase()}/recover-aim-pack/` }] }], updated: locale === 'ja' ? '最終更新' : (content[locale] || content.en).updated, related: locale === 'ja' ? 'サイト情報' : (content[locale] || content.en).related, back: locale === 'ja' ? 'クロスヘアコードを見る' : (content[locale] || content.en).back }
+  }
   if (pageKey === 'refund') {
     const localized = content[locale] || content.en
     return { ...(refundPolicies[locale] || refundPolicies.en), updated: localized.updated, related: localized.related, back: localized.back }

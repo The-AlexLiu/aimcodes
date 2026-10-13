@@ -5,6 +5,7 @@ import { parseCrosshairCode } from '../utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from '../utils/crosshairSimilarity.js'
 
 const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(catalogCrosshairs)
+const sourceById = new Map(catalogCrosshairs.map(item => [item.id, item]))
 const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
 const recommendedOrder = new Map(indexableCrosshairIds.map((id, index) => [id, index]))
 
@@ -63,7 +64,7 @@ export function useCrosshairCatalog({
     const normalized = query.trim().toLocaleLowerCase(language)
     const filtered = allCrosshairs.filter((item) => {
       const localizedCategory = t(`filters.${item.category}`)
-      const matchesText = !normalized || [item.name, item.shortName, item.player, item.description, localizedCategory, item.colorName]
+      const matchesText = !normalized || [item.name, item.shortName, item.player, item.description, localizedCategory, item.colorName, item.colorKey, item.category, item.id.replaceAll('-', ' '), item.code, sourceById.get(item.id)?.name, sourceById.get(item.id)?.shortName]
         .join(' ')
         .toLocaleLowerCase(language)
         .includes(normalized)

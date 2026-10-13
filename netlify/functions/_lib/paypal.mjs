@@ -45,7 +45,7 @@ export function paypalOrderBody(order, origin) {
       amount: { currency_code: 'USD', value: '1.99', breakdown: { item_total: { currency_code: 'USD', value: '1.99' } } },
       items: [{ name: 'AimCodes Crosshair Pack', quantity: '1', category: 'DIGITAL_GOODS', unit_amount: { currency_code: 'USD', value: '1.99' } }],
     }],
-    payment_source: { paypal: { experience_context: { brand_name: 'AimCodes', shipping_preference: 'NO_SHIPPING', user_action: 'PAY_NOW', return_url: returnUrl, cancel_url: `${returnUrl}?cancelled=1` } } },
+    payment_source: { paypal: { experience_context: { brand_name: 'AimCodes', locale: ({ en: 'en-US', 'zh-cn': 'zh-CN', ja: 'ja-JP', es: 'es-ES', 'pt-br': 'pt-BR' })[order.locale.toLowerCase()] || 'en-US', shipping_preference: 'NO_SHIPPING', user_action: 'PAY_NOW', return_url: returnUrl, cancel_url: `${returnUrl}?cancelled=1` } } },
   }
 }
 

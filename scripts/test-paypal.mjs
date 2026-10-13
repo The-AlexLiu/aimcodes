@@ -233,3 +233,62 @@ test('preview returns and email links never inherit the production build URL', (
     if (previousContext === undefined) delete process.env.CONTEXT; else process.env.CONTEXT = previousContext
   }
 })
+
+test('cancel draft restores choices and recomputes results without storing email or credentials', async () => {
+  const { readCheckoutDraft, saveCheckoutDraft, clearCheckoutDraft } = await import('../src/utils/checkoutDraft.js')
+  let saved
+  const storage = { getItem: () => saved, setItem: (_key, value) => { saved = value }, removeItem: () => { saved = null } }
+  saveCheckoutDraft({ rounds: [240, 250, 260], earlyClicks: 0, preferences: { mode: 'deathmatch', visual: 'minimal', weapon: 'sniper', email: 'private@example.com', token: 'not-stored' }, step: 'preferences' }, storage, 1000)
+  const restored = readCheckoutDraft(storage, 2000)
+  assert.equal(restored.result.average, 250)
+  assert.equal(restored.preferences.weapon, 'sniper')
+  assert.equal(restored.step, 'preferences')
+  assert.ok(!saved.includes('private@example.com') && !saved.includes('not-stored'))
+  assert.equal(readCheckoutDraft(storage, 1000 + 3 * 60 * 60 * 1000), null)
+  clearCheckoutDraft(storage); assert.equal(readCheckoutDraft(storage), null)
+  assert.doesNotThrow(() => saveCheckoutDraft({}, { getItem() { throw Error('denied') } }))
+})
+
+test('saved versions expose only pack data and never private purchase fields', async () => {
+  const { publicEntitlement } = await import('../netlify/functions/_lib/pack.mjs')
+  const publicValue = publicEntitlement({ id: 'test', version: 2, pack: [], versions: [{ version: 1, pack: [], createdAt: 'private' }, { version: 2, pack: [] }], email: 'private@example.com', paymentId: 'private-payment', input: { average: 240 } })
+  assert.deepEqual(publicValue.versions.map(item => item.version), [1, 2])
+  assert.ok(!JSON.stringify(publicValue).includes('private'))
+})
+
+test('parallel or retried rebuilds use one allowance, and storage errors leave versions untouched', async () => {
+  const { createRegenerateHandler } = await import('../netlify/functions/aim-pack-regenerate.mjs')
+  const { buildPack } = await import('../netlify/functions/_lib/pack.mjs')
+  let value = { id: 'test', state: 'active', input: order.input, version: 1, regenerationsRemaining: 2, pack: buildPack(order.input), versions: [{ version: 1, pack: buildPack(order.input) }] }
+  let etag = '1'; let fail = false
+  const store = { async getWithMetadata() { return { data: structuredClone(value), etag } }, async get() { return value }, async setJSON(_key, next, options) { if (fail) throw Error('unavailable'); if (options.onlyIfMatch !== etag) return { modified: false }; value = next; etag = String(next.version); return { modified: true } } }
+  const handler = createRegenerateHandler({ store: () => store, readAccess: () => 'test' })
+  const request = version => new Request('https://preview.example/api/aim-pack/regenerate', { method: 'POST', headers: { Origin: 'https://preview.example', 'Content-Type': 'application/json' }, body: JSON.stringify({ expectedVersion: version }) })
+  const results = await Promise.all([handler(request(1)), handler(request(1))])
+  assert.ok(results.every(result => result.status === 200)); assert.equal(value.version, 2); assert.equal(value.regenerationsRemaining, 1)
+  assert.equal((await handler(request(1))).status, 200); assert.equal(value.regenerationsRemaining, 1)
+  fail = true; assert.equal((await handler(request(2))).status, 503); assert.equal(value.version, 2)
+  fail = false; assert.equal((await handler(request(2))).status, 200); assert.equal(value.version, 3); assert.equal(value.regenerationsRemaining, 0)
+  assert.equal((await handler(request(2))).status, 200); assert.equal(value.version, 3)
+})
+
+test('new picks stay in their situation pools across preferences and provide honest role reasons', async () => {
+  const { generateAimPack } = await import('../src/utils/paidPack.js')
+  const { crosshairs } = await import('../src/data/crosshairs.js')
+  for (const visual of ['minimal', 'visible', 'balanced']) for (let version = 1; version <= 3; version++) {
+    const pack = generateAimPack({ visual, average: 250, consistency: 20 }, crosshairs.map(item => item.id), version)
+    assert.equal(new Set(pack.map(slot => slot.crosshairId)).size, 5)
+    assert.ok(['aspas-dot', 'demon1', 'needle-cyan', 'scream-dot', 'pin-white'].includes(pack.find(slot => slot.role === 'longRange').crosshairId))
+    assert.ok(['heart-pink', 'cat-pink', 'bunny-white', 'star-cyan', 'among-us-cyan'].includes(pack.find(slot => slot.role === 'fun').crosshairId))
+    assert.ok(pack.every(slot => slot.reason === slot.role))
+  }
+})
+
+test('all five languages include complete experience labels and role reasons; PayPal follows locale', () => {
+  const shape = value => Object.entries(value).flatMap(([key, child]) => typeof child === 'string' ? [key] : Object.keys(child).map(nested => `${key}.${nested}`)).sort()
+  for (const locale of ['en', 'zh-CN', 'ja', 'es', 'pt-BR']) {
+    assert.deepEqual(shape(paidPackCopy(locale)), shape(paidPackCopy('en')))
+    assert.ok(paidPackCopy(locale).roleReasons.longRange)
+    assert.equal(paypalOrderBody({ ...order, locale }, 'https://preview.example').payment_source.paypal.experience_context.locale, { en: 'en-US', 'zh-CN': 'zh-CN', ja: 'ja-JP', es: 'es-ES', 'pt-BR': 'pt-BR' }[locale])
+  }
+})
