@@ -9,7 +9,7 @@
     "generate:images": "node scripts/generate-crosshair-images.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
-    "validate:crosshairs": "node scripts/validate-crosshairs.mjs",
+    "validate:crosshairs": "node scripts/validate-crosshairs.mjs && node --test scripts/test-catalog-search.mjs",
     "validate:manifest": "node scripts/validate-catalog-manifest.mjs",
     "validate:finder": "node scripts/validate-reaction-ranks.mjs",
     "validate:localization": "node scripts/validate-localization.mjs",

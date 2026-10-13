@@ -2,6 +2,7 @@ import { detailCopy, seoCopy } from '../seo/content.js'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { collectionKeysForCrosshair, routePath } from '../seo/routes.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
+import { reviewCopy } from '../seo/octoberReviewContent.js'
 
 const settingLabels = {
   en: { dot: 'Center dot', outline: 'Outline', inner: 'Inner lines', outer: 'Outer lines', color: 'Color', on: 'On', off: 'Off', size: 'Size', length: 'Length', thickness: 'Thickness', offset: 'Offset' },
@@ -98,6 +99,10 @@ export default function CrosshairSeoDetails({ crosshair, locale }) {
         <p className="seo-detail-source">
           <span>{sourceLabels[locale] || sourceLabels.en}</span>
           <a href={crosshair.sourceUrl} target="_blank" rel="noreferrer">{crosshair.sourceName}</a>
+          {crosshair.id === 'aspas-dot' && crosshair.sourceCheckedAt && <>
+            <span>{reviewCopy(locale).sourceDate}: <time dateTime={crosshair.sourceCheckedAt}>{crosshair.sourceCheckedAt}</time></span>
+            <span>{reviewCopy(locale).sourceNote}</span>
+          </>}
         </p>
       )}
 

@@ -556,6 +556,15 @@ legend { margin-bottom: 10px; }
 .finder-back-link:hover { color: white; }
 .finder-mobile-actions { display: none; }
 
+.color-comparison { margin: 28px 0; padding: clamp(16px, 3vw, 28px); border: 1px solid #33414c; border-radius: 8px; }
+.color-comparison > p { color: #b1bbc2; line-height: 1.65; }
+.color-comparison .tool-field { max-width: 280px; }
+.color-comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.color-comparison-grid article { min-width: 0; }
+.color-comparison-grid h3 { font-size: 16px; }
+.color-comparison-grid h3 code { display: block; margin-top: 6px; color: #b1bbc2; font-size: 12px; }
+.color-comparison-grid a { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: #ff817b; }
+@media (max-width: 680px) { .color-comparison-grid { grid-template-columns: 1fr; } }
 .seo-page-intro { margin: 8px 0 24px; padding: clamp(24px, 4vw, 48px); position: relative; overflow: hidden; border: 1px solid #33414c; border-radius: 8px; background: linear-gradient(120deg, rgba(255, 91, 85, .13), rgba(14, 23, 30, .96) 38%, rgba(19, 33, 42, .92)); }
 .seo-page-intro::after { content: ''; position: absolute; width: 230px; height: 230px; right: -90px; top: -130px; border: 1px solid rgba(255, 91, 85, .34); border-radius: 50%; box-shadow: 0 0 0 36px rgba(255, 91, 85, .035), 0 0 0 76px rgba(255, 91, 85, .025); }
 .seo-page-intro > * { position: relative; z-index: 1; }

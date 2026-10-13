@@ -1,6 +1,7 @@
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
 import { importGuideDetails } from '../seo/importGuideDetails.js'
+import { reviewCopy } from '../seo/octoberReviewContent.js'
 
 export default function ImportGuide({ locale }) {
   const content = seoCopy(locale).guide
@@ -46,6 +47,8 @@ export default function ImportGuide({ locale }) {
         ))}
       </section>
       <nav className="guide-related" aria-label={details.moreTitle}>
+        <a href={routePath(locale, { type: 'tool', toolKey: 'decoder' })}>{reviewCopy(locale).guideLinks[0]}</a>
+        <a href={routePath(locale, { type: 'article', articleKey: 'notWorking' })}>{reviewCopy(locale).guideLinks[1]}</a>
         <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{seoCopy(locale).footer.settings}</a>
         <a href={routePath(locale, { type: 'article', articleKey: 'colors' })}>{seoCopy(locale).footer.colors}</a>
         <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{seoCopy(locale).footer.small}</a>

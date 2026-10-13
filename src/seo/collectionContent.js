@@ -1,4 +1,5 @@
 import { enrichCollectionCopy } from './searchOpportunityContent.js'
+import { enrichReviewCollection } from './octoberReviewContent.js'
 import { baseCollectionCopy, seoCopy } from './content.js'
 import { demandCollectionCopy } from './demandCollectionContent.js'
 import { growthCollectionCopy } from './growthCollectionContent.js'
@@ -36,7 +37,7 @@ export function collectionCopy(locale, collectionKey) {
     || growthCollectionCopy(locale, collectionKey)
     || nextCollectionCopy(locale, collectionKey)
     || seoCopy(locale).collections.best
-  const content = enrichCollectionCopy(locale, collectionKey, baseContent)
+  const content = enrichReviewCollection(locale, collectionKey, enrichCollectionCopy(locale, collectionKey, baseContent))
   const links = {
     plus: { collections: ['horizontal', 'static'], articles: ['stretched'] },
     minimalist: { collections: ['static'], articles: [] },

@@ -36,5 +36,12 @@ const copy = {
 }
 
 export function publisherCopy(locale, type) {
-  return (copy[locale] || copy.en)[type]
+  const content = (copy[locale] || copy.en)[type]
+  if (type !== 'catalog') return content
+  const labels = {
+    en: ['FIND A SHAPE', 'Search, compare, then copy'], es: ['ENCUENTRA UNA FORMA', 'Busca, compara y copia'],
+    'pt-BR': ['ACHE UM FORMATO', 'Busque, compare e copie'], 'zh-CN': ['先挑造型', '搜索、对比，再复制'],
+    ja: ['形から探す', '検索して、比べて、コピー'],
+  }[locale] || ['FIND A SHAPE', 'Search, compare, then copy']
+  return { ...content, eyebrow: labels[0], title: labels[1] }
 }

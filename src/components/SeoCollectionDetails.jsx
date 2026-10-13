@@ -2,6 +2,7 @@ import { collectionCopy } from '../seo/collectionContent.js'
 import { articleCopy } from '../seo/articles.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
+import { reviewCopy } from '../seo/octoberReviewContent.js'
 
 export default function SeoCollectionDetails({ locale, collectionKey }) {
   const content = collectionCopy(locale, collectionKey)
@@ -34,6 +35,7 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
     <section className="seo-collection-details">
       <div className="seo-collection-copy">
         {content.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        {collectionKey === 'best' && <a href={routePath(locale, { type: 'catalog' })}>{reviewCopy(locale).best.database}</a>}
       </div>
       {content.selection?.length > 0 && (
         <section className="seo-collection-method">
