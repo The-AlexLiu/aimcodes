@@ -1,11 +1,11 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { readCheckoutDraft, saveCheckoutDraft } from '../utils/checkoutDraft.js'
 import Icon from './Icon.jsx'
 import { previewBackgroundOptions } from '../data/previewOptions.js'
 import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { AIM_PACK_CHECKOUT_STORAGE_KEY, AIM_PACK_PRODUCT } from '../utils/paidPack.js'
 import { getAnalyticsPurchaseContext, trackEvent } from '../utils/analytics.js'
 
-const WhopCheckoutEmbed = lazy(() => import('@whop/checkout/react').then((module) => ({ default: module.WhopCheckoutEmbed })))
 const OFFER_VARIANT = 'proof_preview_v1'
 
 function isLocalPreview() {
@@ -14,19 +14,32 @@ function isLocalPreview() {
     && new URLSearchParams(window.location.search).get('paid_preview') === '1'
 }
 
-export default function PremiumAimPackOffer({ result, locale }) {
+export default function PremiumAimPackOffer({ result, locale, onRetest }) {
   const content = paidPackCopy(locale)
-  const [step, setStep] = useState('offer')
-  const [mode, setMode] = useState('ranked')
-  const [visual, setVisual] = useState('balanced')
-  const [weapon, setWeapon] = useState('rifle')
+  const [draft] = useState(() => readCheckoutDraft())
+  const [step, setStep] = useState(draft?.step || 'offer')
+  const [hasPack, setHasPack] = useState(false)
+  const [buyNew, setBuyNew] = useState(draft?.buyNew || false)
+  const [mode, setMode] = useState(draft?.preferences?.mode || 'ranked')
+  const [visual, setVisual] = useState(draft?.preferences?.visual || 'balanced')
+  const [weapon, setWeapon] = useState(draft?.preferences?.weapon || 'rifle')
   const [email, setEmail] = useState('')
-  const [checkout, setCheckout] = useState(null)
   const [error, setError] = useState('')
   const impressionTracked = useRef(false)
   const sectionRef = useRef(null)
   const emailRef = useRef(null)
-  const returnUrl = useMemo(() => `${window.location.origin}/${locale.toLowerCase()}/checkout/complete/`, [locale])
+  const checkoutLock = useRef(false)
+
+  useEffect(() => {
+    saveCheckoutDraft({ buyNew, preferences: { mode, visual, weapon }, step: step === 'offer' ? 'offer' : 'preferences' })
+  }, [mode, visual, weapon, step, buyNew])
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetch('/api/aim-pack/entitlement', { signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10000)]) })
+      .then(async response => { const payload = response.ok ? await response.json().catch(() => ({})) : {}; if (payload.entitlement?.state === 'active') setHasPack(true) }).catch(() => {})
+    return () => controller.abort()
+  }, [])
 
   useEffect(() => {
     if (impressionTracked.current || !sectionRef.current) return undefined
@@ -56,6 +69,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
   }, [step])
 
   const openPreferences = () => {
+    if (hasPack && !buyNew) { window.location.assign(`/${locale.toLowerCase()}/my-aim-pack/`); return }
     setStep('preferences')
     trackEvent('premium_offer_select', { product_id: AIM_PACK_PRODUCT.id, offer_location: 'finder_result', offer_variant: OFFER_VARIANT })
     trackEvent('premium_preferences_view', { product_id: AIM_PACK_PRODUCT.id, offer_variant: OFFER_VARIANT })
@@ -75,6 +89,8 @@ export default function PremiumAimPackOffer({ result, locale }) {
   }
 
   const beginCheckout = async () => {
+    if (checkoutLock.current) return
+    if (hasPack && !buyNew) { window.location.assign(`/${locale.toLowerCase()}/my-aim-pack/`); return }
     setError('')
     if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
       setError(content.emailError)
@@ -82,11 +98,12 @@ export default function PremiumAimPackOffer({ result, locale }) {
       trackEvent('premium_email_error', { product_id: AIM_PACK_PRODUCT.id, error_reason: 'invalid_format', offer_variant: OFFER_VARIANT })
       return
     }
+    checkoutLock.current = true
     setStep('loading')
     trackEvent('premium_preference_complete', { product_id: AIM_PACK_PRODUCT.id, play_mode: mode, visual_preference: visual, weapon_preference: weapon, offer_variant: OFFER_VARIANT })
 
     if (isLocalPreview()) {
-      window.setTimeout(() => setStep('preview'), 250)
+      window.setTimeout(() => { setStep('preview'); checkoutLock.current = false }, 250)
       return
     }
 
@@ -108,18 +125,20 @@ export default function PremiumAimPackOffer({ result, locale }) {
           email: email.trim(),
           analytics,
         }),
+        signal: AbortSignal.timeout(30000),
       })
       const payload = await response.json().catch(() => ({}))
-      if (!response.ok || !payload.sessionId) throw new Error(payload.code || 'checkout_unavailable')
+      if (!response.ok || !payload.approvalUrl || !payload.paypalOrderId) throw new Error(payload.code || 'checkout_unavailable')
+      if (payload.returnOrigin !== window.location.origin) throw new Error('checkout_return_origin_mismatch')
       const checkoutState = {
         orderId: payload.orderId,
         statusToken: payload.statusToken,
         claimToken: payload.claimToken,
         locale,
+        provider: 'paypal',
+        paypalOrderId: payload.paypalOrderId,
       }
       sessionStorage.setItem(AIM_PACK_CHECKOUT_STORAGE_KEY, JSON.stringify(checkoutState))
-      setCheckout(payload)
-      setStep('checkout')
       trackEvent('begin_checkout', {
         currency: AIM_PACK_PRODUCT.currency.toUpperCase(),
         value: AIM_PACK_PRODUCT.price,
@@ -129,18 +148,17 @@ export default function PremiumAimPackOffer({ result, locale }) {
         weapon_preference: weapon,
         offer_variant: OFFER_VARIANT,
       })
-      trackEvent('checkout_loaded', { product_id: AIM_PACK_PRODUCT.id, provider: 'whop', offer_variant: OFFER_VARIANT })
+      // This event means PayPal created an approval URL, not a rendered provider UI.
+      trackEvent('checkout_redirect', { product_id: AIM_PACK_PRODUCT.id, provider: 'paypal', offer_variant: OFFER_VARIANT })
+      window.location.assign(payload.approvalUrl)
     } catch {
+      checkoutLock.current = false
       setError(content.unavailable)
       setStep('preferences')
       trackEvent('premium_checkout_error', { product_id: AIM_PACK_PRODUCT.id, error_stage: 'create_session' })
     }
   }
 
-  const handleComplete = () => {
-    trackEvent('checkout_browser_complete', { product_id: AIM_PACK_PRODUCT.id, provider: 'whop' })
-    window.location.assign(returnUrl)
-  }
 
   return (
     <section id="premium-pack-offer" ref={sectionRef} className={`premium-pack-offer is-${step}`} aria-labelledby="premium-pack-title">
@@ -157,10 +175,11 @@ export default function PremiumAimPackOffer({ result, locale }) {
           </div>
           <div className="premium-pack-offer__side">
             <div className="premium-pack-offer__action">
-              <strong>{content.price}</strong>
-              <span>{content.priceNote}</span>
+              <strong>{hasPack && !buyNew ? content.packTitle : content.price}</strong>
+              <span>{hasPack && !buyNew ? content.existingAccessNote : content.priceNote}</span>
               <p className="premium-pack-offer__decision"><Icon name="target" size={15} />{content.decisionNote}</p>
-              <button className="primary-button" type="button" onClick={openPreferences}>{content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
+              <button className="primary-button" type="button" onClick={openPreferences}>{hasPack && !buyNew ? content.openPack : content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
+              {hasPack && !buyNew && <button className="premium-buy-another" type="button" onClick={() => { setBuyNew(true); setStep('preferences') }}>{content.buyAnother}</button>}
               <ul className="premium-pack-delivery-facts">{content.deliveryFacts.map((item) => <li key={item}><Icon name="check" size={13} />{item}</li>)}</ul>
               <small><Icon name="shield" size={14} />{content.secure}</small>
               <a href={`/${locale.toLowerCase()}/crosshairs/`} onClick={openFreeCatalog}>{content.freeCatalog}</a>
@@ -192,10 +211,10 @@ export default function PremiumAimPackOffer({ result, locale }) {
         </>
       )}
 
-      {(step === 'preferences' || step === 'loading') && (
+      {(step === 'preferences' || step === 'loading') && !(hasPack && !buyNew) && (
         <div className="premium-pack-preferences">
           <div className="premium-pack-preferences__heading">
-            <button type="button" onClick={() => goBack('offer')} aria-label={content.back}><Icon name="arrowLeft" size={18} /></button>
+            <button type="button" onClick={() => goBack('offer')} disabled={step === 'loading'} aria-label={content.back}><Icon name="arrowLeft" size={18} /></button>
             <div><span>{content.eyebrow}</span><h2 id="premium-pack-title">{content.preferenceTitle}</h2><p>{content.preferenceIntro}</p></div>
           </div>
           <div className="premium-pack-preferences__layout">
@@ -210,6 +229,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
               </label>
               <button className="primary-button premium-pack-continue" type="button" onClick={beginCheckout} disabled={step === 'loading'}>{step === 'loading' ? content.loading : content.continue}</button>
               {error && <p id="premium-email-error" className="premium-pack-error" role="alert">{error}</p>}
+              <p className="premium-pack-paypal-note">{content.paypalNote}</p>
               <small className="premium-pack-terms">{content.terms} <a href={`/${locale.toLowerCase()}/refund-policy/`}>{content.refundLink}</a></small>
             </div>
             <aside className="premium-pack-preferences__summary">
@@ -223,29 +243,8 @@ export default function PremiumAimPackOffer({ result, locale }) {
         </div>
       )}
 
-      {step === 'checkout' && checkout && (
-        <div className="premium-pack-checkout">
-          <div className="premium-pack-checkout__heading"><button type="button" onClick={() => goBack('preferences')}><Icon name="arrowLeft" size={18} />{content.back}</button><div><strong>{content.checkoutFor.replace('{email}', email.trim())}</strong><span><Icon name="shield" size={15} />{content.secure}</span></div></div>
-          <Suspense fallback={<p role="status">{content.loading}</p>}>
-            <WhopCheckoutEmbed
-              sessionId={checkout.sessionId}
-              environment={checkout.environment}
-              returnUrl={returnUrl}
-              onComplete={handleComplete}
-              onPaymentError={() => trackEvent('premium_checkout_error', { product_id: AIM_PACK_PRODUCT.id, error_stage: 'payment' })}
-              theme="dark"
-              themeOptions={{ accentColor: '#ff5b55', backgroundColor: '#0b151c', borderRadius: 12, buttonText: content.continue }}
-              adaptivePricing
-              collectPhoneNumbers={false}
-              collectShipping={false}
-              locale={locale.toLowerCase()}
-              prefill={{ email: email.trim() }}
-              hideEmail
-            />
-          </Suspense>
-        </div>
-      )}
-
+      {hasPack && !buyNew && step !== 'offer' && <div className="premium-existing-pack"><a className="primary-button" href={`/${locale.toLowerCase()}/my-aim-pack/`}>{content.openPack}</a><button type="button" onClick={() => setBuyNew(true)}>{content.buyAnother}</button></div>}
+      <div className="finder-mobile-actions" aria-label={content.preferenceTitle}><button className="finder-secondary-button" type="button" onClick={onRetest} disabled={step === 'loading'}>{content.retest}</button><button className="primary-button" type="button" disabled={step === 'loading'} onClick={() => { if (step === 'offer') { trackEvent('premium_offer_mobile_jump', { product_id: AIM_PACK_PRODUCT.id, offer_location: 'finder_mobile_bar' }); openPreferences() } else if (hasPack && !buyNew) openPreferences(); else beginCheckout() }}>{step === 'loading' ? content.loading : hasPack && !buyNew ? content.openPack : step === 'offer' ? content.shortCta : content.continue}</button></div>
       {step === 'preview' && <div className="premium-pack-preview-state"><Icon name="shield" size={26} /><h2 id="premium-pack-title">{content.previewTitle}</h2><p>{content.previewBody}</p><button type="button" onClick={() => setStep('offer')}>{content.back}</button></div>}
     </section>
   )

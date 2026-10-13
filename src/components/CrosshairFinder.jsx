@@ -23,8 +23,7 @@ import {
   summarizeAimProfile,
 } from '../utils/aimProfile.js'
 import { getAimProfileCopy } from '../i18n/aimProfileCopy.js'
-import { paidPackCopy } from '../i18n/paidPackCopy.js'
-import { AIM_PACK_PRODUCT } from '../utils/paidPack.js'
+import { readCheckoutDraft, saveCheckoutDraft, clearCheckoutDraft } from '../utils/checkoutDraft.js'
 import PremiumAimPackOffer from './PremiumAimPackOffer.jsx'
 
 const WAIT_MIN_MS = 1400
@@ -225,11 +224,12 @@ function AimProfilePanel({ summary, onClear, locale, t }) {
 }
 
 export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
-  const [phase, setPhase] = useState('intro')
-  const [roundTimes, setRoundTimes] = useState([])
-  const [earlyClicks, setEarlyClicks] = useState(0)
+  const [restoredDraft] = useState(() => new URLSearchParams(window.location.search).has('challenge') ? null : readCheckoutDraft())
+  const [phase, setPhase] = useState(restoredDraft ? 'result' : 'intro')
+  const [roundTimes, setRoundTimes] = useState(restoredDraft?.rounds || [])
+  const [earlyClicks, setEarlyClicks] = useState(restoredDraft?.earlyClicks || 0)
   const [lastReaction, setLastReaction] = useState(null)
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState(restoredDraft?.result || null)
   const [shareStatus, setShareStatus] = useState('idle')
   const [downloadStatus, setDownloadStatus] = useState('idle')
   const [copyStatus, setCopyStatus] = useState('idle')
@@ -434,6 +434,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
     window.setTimeout(() => { startLock.current = false }, 0)
 
     clearTimers()
+    clearCheckoutDraft()
     attemptNumber.current += 1
     attemptId.current = createAttemptId()
     attemptStartedAt.current = Date.now()
@@ -583,6 +584,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
       const profileAttempt = createAimProfileAttempt(nextResult, nextRoundTimes, attemptId.current, new Date().toISOString(), inputType.current)
       const nextProfileHistory = saveAimProfileHistory([...aimProfileHistory, profileAttempt].filter(Boolean))
       setAimProfileHistory(nextProfileHistory)
+      saveCheckoutDraft({ rounds: nextRoundTimes, earlyClicks, step: 'offer' })
       setResult(nextResult)
       setPhase('result')
       trackEvent('finder_complete', {
@@ -875,7 +877,6 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
         })
       : resultCopy('topRange')
     const markerPosition = getReactionMarkerPosition(result.average)
-    const premiumCopy = paidPackCopy(locale)
     const challengeComparison = challenge ? getChallengeComparison(result.average, challenge.score) : null
     const previousDifference = aimProfileSummary?.latestDifference || 0
     const previousKey = previousDifference > 0 ? 'previousFaster' : previousDifference < 0 ? 'previousSlower' : 'previousTied'
@@ -966,7 +967,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
           <span>{roundTimes.map((time) => `${time} ${t('finder.millisecondsShort')}`).join(' / ')}</span>
         </div>
 
-        <PremiumAimPackOffer result={result} locale={locale} />
+        <PremiumAimPackOffer result={result} locale={locale} onRetest={() => startTest('retest')} />
 
         <details className="finder-run-details">
           <summary className="finder-run-details-heading">
@@ -1049,14 +1050,6 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
             ))}
           </div>
         </details>
-
-        <div className="finder-mobile-actions" aria-label={t('finder.resultActions')}>
-          <button className="finder-secondary-button" type="button" onClick={() => startTest('retest')}><Icon name="rotate" size={17} />{t('finder.testAgain')}</button>
-          <button className="primary-button" type="button" onClick={() => {
-            trackEvent('premium_offer_mobile_jump', { product_id: AIM_PACK_PRODUCT.id, offer_location: 'finder_mobile_bar' })
-            document.getElementById('premium-pack-offer')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
-          }}><Icon name="target" size={17} />{premiumCopy.shortCta}</button>
-        </div>
 
         <button className="finder-back-link" type="button" onClick={exitFinder}><Icon name="arrowLeft" size={17} />{t('finder.backExplore')}</button>
         {sharePreviewOpen && sharePreviewUrl && <ResultSharePreviewDialog previewUrl={sharePreviewUrl} onClose={() => setSharePreviewOpen(false)} locale={locale} />}

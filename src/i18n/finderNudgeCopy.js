@@ -46,6 +46,9 @@ const finderNudgeCopy = {
   },
 }
 
-export function getFinderNudgeCopy(locale) {
-  return finderNudgeCopy[locale] || finderNudgeCopy.en
+const browsingTitles = { en: 'Want a crosshair that feels right?', 'zh-CN': '想找一款更顺手的准星吗？', ja: '自分に合うクロスヘアを探す？', es: '¿Buscas una mira que encaje contigo?', 'pt-BR': 'Quer encontrar uma mira que combine?' }
+
+export function getFinderNudgeCopy(locale, trigger = '') {
+  const copy = finderNudgeCopy[locale] || finderNudgeCopy.en
+  return trigger === 'code_copy' ? copy : { ...copy, title: browsingTitles[locale] || browsingTitles.en }
 }

@@ -28,7 +28,8 @@ for (const locale of ['en', 'es', 'pt-BR', 'zh-CN', 'ja']) {
   for (const key of Object.keys(crosshairCollections)) {
     const content = collectionCopy(locale, key)
     if (!content.quickPicks) continue
-    assert(['en', 'ja'].includes(locale), 'New editorial shortlist outside growth locales')
+    // Best is an existing maintained page; its shared player-facing picks are localized in all five languages.
+    assert(['en', 'ja'].includes(locale) || key === 'best', 'New editorial shortlist outside growth locales')
     const html = await readFile(new URL(`../dist${routePath(locale, { type: 'collection', collectionKey: key })}index.html`, import.meta.url), 'utf8')
     for (const pick of content.quickPicks) {
       assert(indexableCrosshairIds.includes(pick.id), `${key}: shortlist target is not indexable`)

@@ -11,7 +11,7 @@ export const SITE_ORIGIN = 'https://aimcodes.com'
 export const OG_IMAGE_PATH = '/og-aimcodes.png'
 export const SEO_CONTENT_UPDATED_AT = '2026-08-25'
 
-const routeUpdateKey = (locale, route) => `${locale}:${route.type}:${route.collectionKey || route.articleKey || route.toolKey || ''}`
+const routeUpdateKey = (locale, route) => `${locale}:${route.type}:${route.collectionKey || route.articleKey || route.toolKey || route.crosshairId || ''}`
 
 export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'en:home:': '2026-09-28',
@@ -49,6 +49,11 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:home:`, '2026-09-28'],
     [`${locale}:collection:funny`, '2026-09-28'],
   ])),
+  // Only these existing routes gained substantive content in the October review.
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap((locale) => [
+    ...['catalog:', 'collection:best', 'collection:circle', 'article:colors', 'guide:', 'tool:generator', 'crosshair:aspas-dot']
+      .map((key) => [`${locale}:${key}`, '2026-10-13']),
+  ])),
 })
 
 export function routeContentUpdatedAt(locale, route) {
@@ -60,7 +65,8 @@ const detailMetadata = Object.freeze({
     en: Object.freeze({ title: 'TenZ Crosshair Code for VALORANT: Copy & Preview | AimCodes', description: 'Copy the TenZ VALORANT crosshair code, preview it on real map scenes, check the settings, and test another color before importing the profile.' }),
   }),
   'aspas-dot': Object.freeze({
-    en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Try the current aspas VALORANT crosshair from his player-channel command, preview the compact closed center, and copy the profile code.' }),
+    en: Object.freeze({ title: 'Aspas VALORANT Crosshair Code, Settings & Preview | AimCodes', description: 'Preview the aspas VALORANT crosshair snapshot from his player-channel command, review its source date and compact closed center, and copy the profile code.' }),
+    'pt-BR': Object.freeze({ title: 'Mira do Aspas no VALORANT: Código e Configuração | AimCodes', description: 'Copie o código da mira do aspas, veja os ajustes e teste a cruz ciano no mapa. Fonte e data do registro visíveis; não é uma promessa de configuração atual.' }),
   }),
   sacy: Object.freeze({
     en: Object.freeze({ title: 'Sacy VALORANT Crosshair Code & Settings | AimCodes', description: 'Preview Sacy’s 1-4-2-2 cyan VALORANT crosshair on real map scenes and copy the code listed in his player-owned crosshair document.' }),

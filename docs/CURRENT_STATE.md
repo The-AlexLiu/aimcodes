@@ -10,6 +10,24 @@ PR #84 已将 Clarity 成功事件桥接发布至生产提交 `4876f4dc1e38675f6
 
 Clarity 后台本轮仍显示“未检测到 API 事件”，不能将前端发送或 HTTP 204 当作后台报表已入库。用户已选择后台就绪后自动续做并在完成时通知；待 API 事件和同页录制关联可核查后，创建 `AC · 目录到复制 · v1`（中文目录访问→复制成功）和 `AC · 测试开始到完成 · v1`（中文测试页访问→开始→完成）。验收发现当前结果页没有免费推荐复制入口，因此第二条漏斗不含复制步骤，不修改免费/付费结果页。第 6 项慢页面优化明确暂缓。详见 `docs/CLARITY_EVENTS_2026-10-13.md`。
 
+## 合并发布验收中：2026-10-13 PayPal + SEO
+
+用户授权将 SEO be42d8d 与支付 PR83 一并发布，支付宝接入暂停。SEO 已 cherry-pick 至支付分支 049ac16；搜索文本冲突保留独立来源搜索与英文名称/颜色/代码别名，完整源数据交付保持不变。合并后 release 25/25、GitHub CI 与 Netlify 预览通过；build-meta 匹配，实际新一笔 Sandbox 付款交付五卡、初始额度 2。颜色三图和 Bind 参数跳转、中文 aspas 搜索、既有五卡与历史版复核通过。Production 已保存 Live 凭据、固定关联商户、正式通知及专域发信密钥，预览继续 Sandbox；当前准备合并 main，正式发布结果待部署后补录。
+
+## 预览已发布：2026-10-13 付款与已购体验优化
+
+沿用 PR83：取消后恢复成绩与非敏感偏好；已购入口与新购确认；用途理由、地图/换色/导入、历史版本免费切换；生成确认、故障重试、并发额度保护；紧凑手机结账；正确的阅读提示、跨语言搜索和 PayPal locale。24 项回归、25 项完整 release 检查通过；本地浏览器恢复、版本切换、复制与390px布局正常。旧订单和原始配置保留，未切换生产。发信域名已验证：新增 3 条 DNS，原 10 条记录保留；自有域名找回邮件实际进入 Gmail 收件箱，链接可打开原包。真实 Sandbox 取消后原结果和三项偏好保持，PayPal 中文结账页正常。真实通知及重发均最终 DELIVERED，未重置权益或重复发邮件；开发者账户显示 Business / Go live 权限，用户已确认 PayPal.cn 关联，AimCodes Live 应用及单一付款完成通知已建立；Netlify 正式凭据与生产邮件配置及合并发布仍待最终确认。另一次买家截图验收发现并修复完整源与去重展示目录不一致导致的四卡交付；2f9816b 预览已实际显示五卡，邮件无凭证领取、实际重生成与旧版本切回通过，20 个节点截图在本地 output 保留。详见 `docs/PAYPAL_UX_OPTIMIZATION_2026-10-13.md` 与 `docs/PAYPAL_PAYMENT_WALKTHROUGH_2026-10-13.md`。
+
+## Sandbox 主流程验收通过：2026-10-13 PayPal 替换 Whop
+
+- 用户确认 PayPal.cn 已审核且网站收单已开通，并明确授权清除 Whop；用户反馈 Whop 从未成功生产交付。历史 2026-09-13 Sandbox 验证不代表生产交付成功。
+- 工作分支 `codex/aimcodes-paypal-checkout`，独立工作目录；已提交并推送草稿 PR #83；Netlify PR 预览已部署，尚未合并生产。正式站当前 build-meta 为 `4876f4d`（另一项 Clarity PR84 已发布），支付仍使用 Whop；本付款分支已同步最新主线。
+- 移除 Whop 浏览器 SDK、服务端 SDK、配置模块和 Webhook；保留订单存储。新 PayPal Orders v2 使用固定 USD 1.99、数字商品、无需收货地址、同标签页结账；服务器校验订单、收款账户、金额与扣款状态后创建权益。通知经 PayPal 签名校验并重新查询订单。
+- 新增付款取消、确认失败重试；找回失败不再显示邮件已发送。五语种支付、隐私和退款说明同步。将误称渲染完成的 `checkout_loaded` 改为 `checkout_redirect`。
+- 19 项支付自动测试通过；390px 交付预览无溢出、五槽显示和两次重新生成正常。完整验收和待上线配置见 `docs/PAYPAL_MIGRATION_2026-10-13.md`。
+- PR83 预览 bd0983f 已实际完成 USD 1.99 Sandbox 买家付款、服务器确认、五槽交付、刷新保留、复制代码、两次重新生成限额、邮件交付和无访问 Cookie 的邮件找回。Resend 两封邮件 Delivered，Gmail 实收但进入垃圾邮件；390px 实付权益页面无横向溢出。
+- 生产仍未切换。上线前必须核验 PayPal.cn 对应 Live 商户、配置正式凭据及 Webhook、验证自有发信域名并复测收件箱送达。PayPal 后台已重新登录，实际 Webhook 与重发最终 DELIVERED，权益及邮件幂等已复核；当前 Go live 权限可见，PayPal.cn 关联已获用户确认；Live 应用与正式通知已建立，正式 Netlify 配置及发布待最终确认。保留下面 Whop 历史记录供追溯。
+
 ## 已发布：2026-10-09 Microsoft Clarity 与依赖漏洞修复
 
 Clarity 项目 `yuxaq5sl26` 已通过 PR #81 发布到生产提交 `ea03ba732507051ffa7e5b269f8ba0115ae942d9`，Netlify 部署 `6ac8a114cdb8b80008389f88` ready，正式站 build-meta.json 与提交一致。Clarity 仅在正式域名异步加载，排除 QA、opt-out、预览环境、付费交付/找回页面及敏感链接；默认 consentv2 denied，无 Cookie 模式。五语种隐私说明已同步，付费隐私说明保留。

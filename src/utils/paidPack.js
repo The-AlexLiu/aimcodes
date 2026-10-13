@@ -68,22 +68,21 @@ export function generateAimPack(input = {}, availableIds = [], version = 1) {
   const seed = stableHash(`${normalized.average}:${normalized.consistency}:${normalized.profile}:${normalized.mode}:${normalized.visual}:${normalized.weapon}:${version}`)
 
   return AIM_PACK_ROLES.map((role, index) => {
-    const bias = role === 'allRound' ? resultBias[normalized.profile] : []
+    // Keep each situation inside its own curated pool. Preferences rank those
+    // candidates; they must not insert unrelated shapes into another slot.
+    const candidates = rotate(rolePools[role].filter(id => allowed.has(id)), seed + index * 7)
     const preferenceBias = normalized.visual === 'minimal'
-      ? ['needle-cyan', 'aspas-dot', 'demon1', 'forsaken']
+      ? ['needle-cyan', 'aspas-dot', 'demon1', 'forsaken', 'micro-gap-cyan', 'less']
       : normalized.visual === 'visible'
-        ? ['boaster', 'beacon-yellow', 'pulse-red', 'compact-green']
-        : []
-    const modeBias = normalized.mode === 'fun' && role === 'fun'
-      ? ['heart-pink', 'cat-pink', 'bunny-white']
-      : normalized.mode === 'deathmatch'
-        ? ['micro-gap-cyan', 'forsaken', 'tenz']
-        : []
-    const candidates = rotate([...new Set([...bias, ...weaponBias[normalized.weapon], ...preferenceBias, ...modeBias, ...rolePools[role]])], seed + index * 7)
-    const crosshairId = candidates.find((id) => allowed.has(id) && !used.has(id))
-      || availableIds.find((id) => !used.has(id))
+        ? ['boaster', 'beacon-yellow', 'pulse-red', 'compact-green', 'slim-yellow', 'open-four-white'] : []
+    const score = id => (role === 'allRound' && resultBias[normalized.profile].includes(id) ? 2 : 0)
+      + (weaponBias[normalized.weapon].includes(id) ? 1 : 0)
+      + (preferenceBias.includes(id) ? 2 : 0)
+      + (normalized.mode === 'deathmatch' && ['micro-gap-cyan', 'forsaken', 'tenz'].includes(id) ? 1 : 0)
+    candidates.sort((left, right) => score(right) - score(left))
+    const crosshairId = candidates.find(id => !used.has(id))
     if (!crosshairId) throw new Error(`No available crosshair for ${role}`)
     used.add(crosshairId)
-    return Object.freeze({ role, crosshairId })
+    return Object.freeze({ role, crosshairId, reason: role })
   })
 }

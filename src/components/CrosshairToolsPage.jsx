@@ -4,6 +4,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { routePath } from '../seo/routes.js'
+import { reviewCopy } from '../seo/octoberReviewContent.js'
 import { generateCrosshairCode, parseCrosshairCode } from '../utils/crosshairCode.js'
 
 const uiCopy = {
@@ -187,6 +188,13 @@ export default function CrosshairToolsPage({ locale, toolKey, crosshairs, onCopy
           {content.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}
         </div>
       </section>
+      {toolKey === 'generator' && (
+        <nav className="guide-related" aria-label={content.guideTitle}>
+          <a href={routePath(locale, { type: 'catalog' })}>{reviewCopy(locale).toolLinks[0]}</a>
+          <a href={routePath(locale, { type: 'guide' })}>{reviewCopy(locale).toolLinks[1]}</a>
+          <a href={routePath(locale, { type: 'article', articleKey: 'settings' })}>{reviewCopy(locale).toolLinks[2]}</a>
+        </nav>
+      )}
       <aside className="tool-finder-link"><span>{copy.finder}</span><a href={routePath(locale, { type: 'finder' })}>{copy.finderAction}</a></aside>
     </article>
   )

@@ -3,6 +3,7 @@ import { catalogCrosshairs, crosshairCollections, homeFeaturedCrosshairIds, inde
 import { localizeCrosshair } from '../i18n/translations.js'
 import { parseCrosshairCode } from '../utils/crosshairCode.js'
 import { dedupeCrosshairsByAppearance } from '../utils/crosshairSimilarity.js'
+import { searchCatalog } from '../utils/catalogSearch.js'
 
 const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(catalogCrosshairs)
 const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
@@ -60,19 +61,8 @@ export function useCrosshairCatalog({
   const storedSelected = routeCrosshair || allCrosshairs.find((item) => item.id === selectedId) || allCrosshairs[0]
 
   const visibleCrosshairs = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase(language)
-    const filtered = allCrosshairs.filter((item) => {
-      const localizedCategory = t(`filters.${item.category}`)
-      const matchesText = !normalized || [item.name, item.shortName, item.player, item.description, localizedCategory, item.colorName]
-        .join(' ')
-        .toLocaleLowerCase(language)
-        .includes(normalized)
-      const matchesFilter = activeFilter === 'all'
-        || (activeFilter === 'pro' && item.isPro)
-        || (activeFilter === 'cute' && item.isCute)
-        || (activeFilter === 'recent' && recentIds.includes(item.id))
-        || item.category === activeFilter
-      return matchesText && matchesFilter
+    const filtered = searchCatalog({ crosshairs: allCrosshairs, sourceCrosshairs: allSourceCrosshairs,
+      query, language, activeFilter, recentIds, categoryLabel: (category) => t(`filters.${category}`),
     })
 
     return filtered.sort((left, right) => {
@@ -89,7 +79,7 @@ export function useCrosshairCatalog({
       if (left.isPro !== right.isPro) return left.isPro ? -1 : 1
       return (catalogOrder.get(left.id) ?? 0) - (catalogOrder.get(right.id) ?? 0)
     })
-  }, [activeFilter, allCrosshairs, catalogSort, language, query, recentIds, t])
+  }, [activeFilter, allCrosshairs, allSourceCrosshairs, catalogSort, language, query, recentIds, t])
 
   let displayedCrosshairs = []
   if (route.type === 'catalog') displayedCrosshairs = visibleCrosshairs.slice(0, catalogLimit)

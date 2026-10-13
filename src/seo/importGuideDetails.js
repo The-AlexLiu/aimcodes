@@ -1,4 +1,5 @@
 import { japaneseImportGuide } from './japaneseContent.js'
+import { reviewCopy } from './octoberReviewContent.js'
 
 const details = {
   en: {
@@ -72,6 +73,6 @@ const details = {
 }
 
 export function importGuideDetails(locale) {
-  if (locale === 'ja') return japaneseImportGuide
-  return details[locale] || details.en
+  const base = locale === 'ja' ? japaneseImportGuide : details[locale] || details.en
+  return { ...base, sections: [reviewCopy(locale).profile, ...base.sections] }
 }

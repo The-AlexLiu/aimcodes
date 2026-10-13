@@ -1,3 +1,4 @@
+import { paidExperienceCopy } from '../i18n/paidExperienceCopy.js'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 import { japaneseTrust } from './japaneseContent.js'
 
@@ -19,7 +20,7 @@ const content = {
       eyebrow: 'PRIVACY & COOKIES', title: 'Privacy and cookie notice', intro: 'This notice explains what AimCodes stores, what analytics we use, and what will change if advertising is enabled later.',
       sections: [
         { title: 'Information collected', paragraphs: ['AimCodes does not require an account. Google Analytics 4 may collect page views, interactions, approximate location, device and browser information, and traffic-source data. We use aggregated reports to improve the product.', 'Microsoft Clarity helps us understand clicks, scrolling, and page interactions through heatmaps and session recordings. We send denied cookie-storage consent by default, so Clarity operates without its analytics or advertising cookies and cannot link visits across pages using those cookies. You can disable GA4 and Clarity in this browser by opening https://aimcodes.com/en/?analytics_optout=1; use analytics_optin=1 to restore analytics. See https://privacy.microsoft.com/privacystatement for how Microsoft processes data.'] },
-        { title: 'Digital purchases', paragraphs: ['If you buy an AimCodes Crosshair Pack, we store the delivery email, order reference, selected preferences, access entitlement, and regeneration history needed to deliver and recover the purchase. Whop processes the payment; AimCodes does not receive or store full card details. Resend may process the delivery email when sending access links.'] },
+        { title: 'Digital purchases', paragraphs: ['If you buy an AimCodes Crosshair Pack, we store the delivery email, order reference, selected preferences, access entitlement, and regeneration history needed to deliver and recover the purchase. PayPal processes the payment; AimCodes does not receive or store full card details. Resend may process the delivery email when sending access links.'] },
         { title: 'Local storage and cookies', paragraphs: ['Your language route, recently viewed crosshairs, preview choices, and challenge state may be stored in your browser. Analytics cookies may be used where permitted. Clearing site data removes locally stored preferences.'] },
         { title: 'Advertising and consent', paragraphs: ['AimCodes does not currently need an ad cookie to provide its tools. If Google ads are enabled, Google and its partners may use cookies or similar technologies to deliver, measure, and limit ads. Visitors in the EEA, United Kingdom, and Switzerland will be shown a Google-certified consent message before personalized advertising is used.'] },
         { title: 'Choices and contact', paragraphs: ['You can block or delete cookies in your browser. For a correction, privacy question, or removal request, use the contact options linked below. AimCodes does not sell personal information.'] },
@@ -57,7 +58,7 @@ const content = {
       eyebrow: 'PRIVACIDAD Y COOKIES', title: 'Aviso de privacidad y cookies', intro: 'Este aviso explica qué guarda AimCodes, qué analítica usamos y qué cambiará si activamos publicidad más adelante.',
       sections: [
         { title: 'Información recopilada', paragraphs: ['AimCodes no requiere una cuenta. Google Analytics 4 puede recopilar páginas vistas, interacciones, ubicación aproximada, dispositivo, navegador y fuente de tráfico. Usamos informes agregados para mejorar el producto.', 'Microsoft Clarity nos ayuda a entender clics, desplazamientos e interacciones mediante mapas de calor y grabaciones de sesiones. Por defecto enviamos el consentimiento de almacenamiento como denegado: Clarity funciona sin sus cookies analíticas o publicitarias y no puede vincular visitas entre páginas mediante ellas. Para desactivar GA4 y Clarity en este navegador, abre https://aimcodes.com/es/?analytics_optout=1; usa analytics_optin=1 para reactivarlos. Consulta https://privacy.microsoft.com/privacystatement para conocer el tratamiento de datos de Microsoft.'] },
-        { title: 'Compras digitales', paragraphs: ['Si compras un AimCodes Crosshair Pack, guardamos el correo de entrega, la referencia del pedido, las preferencias, el derecho de acceso y el historial de regeneraciones necesarios para entregar y recuperar la compra. Whop procesa el pago; AimCodes no recibe ni guarda los datos completos de la tarjeta. Resend puede procesar el correo al enviar enlaces de acceso.'] },
+        { title: 'Compras digitales', paragraphs: ['Si compras un AimCodes Crosshair Pack, guardamos el correo de entrega, la referencia del pedido, las preferencias, el derecho de acceso y el historial de regeneraciones necesarios para entregar y recuperar la compra. PayPal procesa el pago; AimCodes no recibe ni guarda los datos completos de la tarjeta. Resend puede procesar el correo al enviar enlaces de acceso.'] },
         { title: 'Almacenamiento local y cookies', paragraphs: ['La ruta de idioma, miras recientes, opciones de vista previa y estado del reto pueden guardarse en tu navegador. Se pueden usar cookies analíticas donde esté permitido. Borrar los datos del sitio elimina las preferencias locales.'] },
         { title: 'Publicidad y consentimiento', paragraphs: ['AimCodes no necesita una cookie publicitaria para ofrecer sus herramientas. Si activamos anuncios de Google, Google y sus socios podrán usar cookies o tecnologías similares para mostrar, medir y limitar anuncios. En el EEE, Reino Unido y Suiza mostraremos un mensaje de consentimiento certificado por Google antes de usar publicidad personalizada.'] },
         { title: 'Tus opciones y contacto', paragraphs: ['Puedes bloquear o borrar cookies desde el navegador. Para corregir datos, preguntar sobre privacidad o solicitar una retirada, usa las opciones de contacto. AimCodes no vende información personal.'] },
@@ -95,7 +96,7 @@ const content = {
       eyebrow: 'PRIVACIDADE E COOKIES', title: 'Aviso de privacidade e cookies', intro: 'Este aviso explica o que o AimCodes armazena, quais dados analíticos usamos e o que mudará se anúncios forem ativados.',
       sections: [
         { title: 'Informações coletadas', paragraphs: ['O AimCodes não exige conta. O Google Analytics 4 pode coletar visualizações, interações, localização aproximada, dispositivo, navegador e origem do tráfego. Usamos relatórios agregados para melhorar o produto.', 'O Microsoft Clarity ajuda a entender cliques, rolagem e interações por meio de mapas de calor e gravações de sessões. Por padrão enviamos o consentimento de armazenamento como negado: o Clarity funciona sem seus cookies de análise ou publicidade e não vincula visitas entre páginas por esses cookies. Para desativar GA4 e Clarity neste navegador, abra https://aimcodes.com/pt-br/?analytics_optout=1; use analytics_optin=1 para reativar. Veja https://privacy.microsoft.com/privacystatement para saber como a Microsoft trata os dados.'] },
-        { title: 'Compras digitais', paragraphs: ['Ao comprar um AimCodes Crosshair Pack, armazenamos o e-mail de entrega, a referência do pedido, as preferências, o direito de acesso e o histórico de novas gerações necessários para entregar e recuperar a compra. A Whop processa o pagamento; o AimCodes não recebe nem armazena os dados completos do cartão. A Resend pode processar o e-mail ao enviar links de acesso.'] },
+        { title: 'Compras digitais', paragraphs: ['Ao comprar um AimCodes Crosshair Pack, armazenamos o e-mail de entrega, a referência do pedido, as preferências, o direito de acesso e o histórico de novas gerações necessários para entregar e recuperar a compra. A PayPal processa o pagamento; o AimCodes não recebe nem armazena os dados completos do cartão. A Resend pode processar o e-mail ao enviar links de acesso.'] },
         { title: 'Armazenamento local e cookies', paragraphs: ['Rota de idioma, miras recentes, opções de prévia e estado do desafio podem ficar no navegador. Cookies analíticos podem ser usados quando permitido. Limpar os dados do site remove preferências locais.'] },
         { title: 'Publicidade e consentimento', paragraphs: ['O AimCodes não precisa de cookie de anúncio para oferecer as ferramentas. Se anúncios do Google forem ativados, Google e parceiros poderão usar cookies ou tecnologias semelhantes para entregar, medir e limitar anúncios. No EEE, Reino Unido e Suíça, exibiremos uma mensagem de consentimento certificada pelo Google antes de publicidade personalizada.'] },
         { title: 'Suas escolhas e contato', paragraphs: ['Você pode bloquear ou apagar cookies no navegador. Para correção, dúvida de privacidade ou pedido de remoção, use os canais de contato. O AimCodes não vende informações pessoais.'] },
@@ -133,7 +134,7 @@ const content = {
       eyebrow: '隐私与 COOKIE', title: '隐私与 Cookie 说明', intro: '这里说明 AimCodes 会保存什么、如何使用统计数据，以及未来启用广告后会发生哪些变化。',
       sections: [
         { title: '收集的信息', paragraphs: ['AimCodes 无需注册账号。Google Analytics 4 可能收集页面浏览、站内交互、大致地区、设备与浏览器信息以及访问来源。我们只使用汇总报告来改进产品。', 'Microsoft Clarity 通过热力图和会话回放帮助我们了解点击、滚动及页面交互。默认发送拒绝 Cookie 存储的同意信号，因此 Clarity 不使用其统计或广告 Cookie，也无法通过这些 Cookie 关联跨页面访问。访问 https://aimcodes.com/zh-cn/?analytics_optout=1 可在当前浏览器停用 GA4 与 Clarity；使用 analytics_optin=1 可恢复统计。微软的数据处理说明见 https://privacy.microsoft.com/privacystatement。'] },
-        { title: '数字商品购买', paragraphs: ['购买 AimCodes Crosshair Pack 时，我们会保存完成交付和找回所需的交付邮箱、订单编号、偏好选择、访问权益及重新生成记录。付款由 Whop 处理；AimCodes 不会接收或保存完整银行卡信息。发送访问链接时，Resend 可能会处理交付邮箱。'] },
+        { title: '数字商品购买', paragraphs: ['购买 AimCodes Crosshair Pack 时，我们会保存完成交付和找回所需的交付邮箱、订单编号、偏好选择、访问权益及重新生成记录。付款由 PayPal 处理；AimCodes 不会接收或保存完整银行卡信息。发送访问链接时，Resend 可能会处理交付邮箱。'] },
         { title: '本地存储与 Cookie', paragraphs: ['语言路径、最近浏览的准星、预览选项和挑战状态可能保存在你的浏览器中。在法律允许的情况下，统计工具可能使用 Cookie。清除网站数据即可移除本地偏好。'] },
         { title: '广告与同意管理', paragraphs: ['AimCodes 的核心工具不依赖广告 Cookie。未来若启用 Google 广告，Google 及其合作伙伴可能使用 Cookie 或类似技术来投放、衡量并控制广告频次。对于欧洲经济区、英国和瑞士用户，在使用个性化广告前会展示经 Google 认证的同意管理提示。'] },
         { title: '你的选择与联系', paragraphs: ['你可以在浏览器中阻止或删除 Cookie。如需更正信息、咨询隐私或申请移除内容，请使用联系页面中的官方渠道。AimCodes 不出售个人信息。'] },
@@ -164,30 +165,35 @@ const refundPolicies = {
   en: {
     eyebrow: 'DIGITAL PURCHASE POLICY', title: 'Refund policy', intro: 'AimCodes Crosshair Pack is a low-cost, one-time digital purchase delivered immediately after verified payment.',
     sections: [
-      { title: 'When a refund may be approved', paragraphs: ['Contact us within 7 days if you were charged twice for the same order, or if a verified delivery or technical fault prevents access and we cannot resolve it. Refunds required by Whop rules or applicable law will also be honored.'] },
+      { title: 'When a refund may be approved', paragraphs: ['Contact us within 7 days if you were charged twice for the same order, or if a verified delivery or technical fault prevents access and we cannot resolve it. Refunds required by PayPal rules or applicable law will also be honored.'] },
       { title: 'When a refund is not normally available', paragraphs: ['Because access to the digital pack and copy-ready codes begins immediately, we do not normally refund a change of mind, dissatisfaction with personal performance, a used or copied pack, or a request made after the 7-day review period.'] },
-      { title: 'How to request a review', paragraphs: [`Email ${CONTACT_EMAIL} with your Whop receipt ID and a short description of the issue. Do not send card details, passwords, API keys, or other sensitive information.`], links: [{ label: 'Contact AimCodes support', url: CONTACT_MAILTO }] },
+      { title: 'How to request a review', paragraphs: [`Email ${CONTACT_EMAIL} with your PayPal receipt ID and a short description of the issue. Do not send card details, passwords, API keys, or other sensitive information.`], links: [{ label: 'Contact AimCodes support', url: CONTACT_MAILTO }] },
     ],
   },
   'zh-CN': {
     eyebrow: '数字商品购买政策', title: '退款政策', intro: 'AimCodes Crosshair Pack 是一次性低价数字商品，经确认付款后会立即开始交付。',
     sections: [
-      { title: '可以申请退款的情况', paragraphs: ['如同一订单被重复扣款，或经确认的交付、技术故障导致无法访问且我们无法修复，请在 7 天内联系我们。Whop 规则或适用法律强制要求退款的情况也会按要求处理。'] },
+      { title: '可以申请退款的情况', paragraphs: ['如同一订单被重复扣款，或经确认的交付、技术故障导致无法访问且我们无法修复，请在 7 天内联系我们。PayPal 规则或适用法律强制要求退款的情况也会按要求处理。'] },
       { title: '通常不支持退款的情况', paragraphs: ['由于数字准星包和可复制代码会立即开放，因改变主意、个人游戏表现未提升、已经使用或复制商品，或超过 7 天审核期而提出的退款申请，通常不会批准。'] },
-      { title: '如何申请审核', paragraphs: [`请将 Whop 收据编号和问题说明发送至 ${CONTACT_EMAIL}。请勿发送银行卡资料、密码、API Key 或其他敏感信息。`], links: [{ label: '联系 AimCodes 客服', url: CONTACT_MAILTO }] },
+      { title: '如何申请审核', paragraphs: [`请将 PayPal 收据编号和问题说明发送至 ${CONTACT_EMAIL}。请勿发送银行卡资料、密码、API Key 或其他敏感信息。`], links: [{ label: '联系 AimCodes 客服', url: CONTACT_MAILTO }] },
     ],
   },
   ja: {
     eyebrow: 'デジタル購入ポリシー', title: '返金ポリシー', intro: 'AimCodes Crosshair Packは、支払い確認後すぐに提供される低価格の買い切りデジタル商品です。',
     sections: [
-      { title: '返金を検討するケース', paragraphs: ['同じ注文で二重に請求された場合、または確認済みの配信・技術上の不具合によりアクセスできず、当社でも解決できない場合は7日以内にご連絡ください。Whopの規則または適用法で必要な返金にも対応します。'] },
+      { title: '返金を検討するケース', paragraphs: ['同じ注文で二重に請求された場合、または確認済みの配信・技術上の不具合によりアクセスできず、当社でも解決できない場合は7日以内にご連絡ください。PayPalの規則または適用法で必要な返金にも対応します。'] },
       { title: '通常は返金対象外となるケース', paragraphs: ['デジタルパックとコピー可能なコードは直ちに提供されるため、気が変わった場合、プレイ成績への不満、使用・コピー済みの商品、7日を過ぎた申請は通常返金できません。'] },
-      { title: '申請方法', paragraphs: [`WhopのレシートIDと問題の説明を ${CONTACT_EMAIL} へ送ってください。カード情報、パスワード、APIキーなどの機密情報は送らないでください。`], links: [{ label: 'AimCodesサポートへ連絡', url: CONTACT_MAILTO }] },
+      { title: '申請方法', paragraphs: [`PayPalのレシートIDと問題の説明を ${CONTACT_EMAIL} へ送ってください。カード情報、パスワード、APIキーなどの機密情報は送らないでください。`], links: [{ label: 'AimCodesサポートへ連絡', url: CONTACT_MAILTO }] },
     ],
   },
 }
 
 export function trustCopy(locale, pageKey) {
+  if (pageKey === 'contact') {
+    const base = locale === 'ja' ? japaneseTrust.contact : (content[locale] || content.en).contact
+    const paid = paidExperienceCopy(locale)
+    return { ...base, sections: [...base.sections, { title: paid.purchaseHelpTitle, paragraphs: [paid.purchaseHelp], links: [{ label: ({ en: 'Recover my Aim Pack', 'zh-CN': '找回我的准星包', ja: 'Aim Packを復元', es: 'Recuperar mi Aim Pack', 'pt-BR': 'Recuperar meu Aim Pack' })[locale] || 'Recover my Aim Pack', url: `/${locale.toLowerCase()}/recover-aim-pack/` }] }], updated: locale === 'ja' ? '最終更新' : (content[locale] || content.en).updated, related: locale === 'ja' ? 'サイト情報' : (content[locale] || content.en).related, back: locale === 'ja' ? 'クロスヘアコードを見る' : (content[locale] || content.en).back }
+  }
   if (pageKey === 'refund') {
     const localized = content[locale] || content.en
     return { ...(refundPolicies[locale] || refundPolicies.en), updated: localized.updated, related: localized.related, back: localized.back }

@@ -61,7 +61,7 @@ const requiredEvents = [
   'premium_checkout_error',
   'premium_preferences_view',
   'premium_email_error',
-  'checkout_loaded',
+  'checkout_redirect',
   'checkout_exit',
   'delivery_confirmed',
   'pack_first_code_copy',

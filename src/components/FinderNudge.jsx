@@ -31,7 +31,6 @@ function preserveQaParameters() {
 }
 
 export default function FinderNudge({ locale, route, finderHref, engagementSignal, blocked = false }) {
-  const copy = getFinderNudgeCopy(locale)
   const mountedAt = useRef(0)
   const shown = useRef(false)
   const [dwellReady, setDwellReady] = useState(false)
@@ -39,6 +38,7 @@ export default function FinderNudge({ locale, route, finderHref, engagementSigna
   const [visible, setVisible] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [trigger, setTrigger] = useState('')
+  const copy = getFinderNudgeCopy(locale, trigger)
   const [mobile, setMobile] = useState(() => window.matchMedia('(max-width: 680px)').matches)
 
   const isEligibleRoute = SUPPORTED_ROUTE_TYPES.has(route.type)

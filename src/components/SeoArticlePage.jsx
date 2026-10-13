@@ -4,6 +4,7 @@ import { seoToolCopy } from '../seo/toolContent.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 import CrosshairStatisticsPanel from './CrosshairStatisticsPanel.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
+import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
   const content = articleCopy(locale, articleKey)
@@ -60,6 +61,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
       </aside>
 
       {articleKey === 'statistics' && <CrosshairStatisticsPanel locale={locale} />}
+      {articleKey === 'colors' && <CrosshairColorComparison locale={locale} crosshair={crosshairs.find((item) => item.id === 'tenz')} />}
 
       <div className="seo-article-sections">
         {content.sections.map((section, index) => (

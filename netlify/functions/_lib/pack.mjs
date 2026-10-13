@@ -29,6 +29,7 @@ export function publicEntitlement(entitlement) {
     version: entitlement.version,
     regenerationsRemaining: entitlement.regenerationsRemaining,
     pack: entitlement.pack,
+    versions: (entitlement.versions?.length ? entitlement.versions : [{ version: entitlement.version, pack: entitlement.pack }]).slice(-3).map(({ version, pack }) => ({ version, pack })),
     updatedAt: entitlement.updatedAt,
   }
 }

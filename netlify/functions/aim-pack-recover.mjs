@@ -26,6 +26,7 @@ export default async function handler(request) {
     }
   } catch (error) {
     console.warn('aim-pack recovery request not delivered', { name: error?.name })
+    return json(503, { accepted: false, code: 'recovery_unavailable' })
   }
   return json(200, { accepted: true, deliveryAvailable: true })
 }

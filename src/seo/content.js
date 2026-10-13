@@ -1,6 +1,7 @@
 import { crosshairSlug } from './routes.js'
 import { expansionCollectionCopy } from './collectionExpansionContent.js'
 import { japaneseSeoCopy } from './japaneseContent.js'
+import { reviewCopy } from './octoberReviewContent.js'
 
 const searchDisplayNames = Object.freeze({
   'cat-pink': Object.freeze({ en: 'Cat / Kitty', es: 'Gato', 'pt-BR': 'Gato', 'zh-CN': '猫猫' }),
@@ -435,8 +436,11 @@ const priorityDetails = {
 }
 
 export function seoCopy(locale) {
-  if (locale === 'ja') return japaneseSeoCopy
-  return copy[locale] || copy.en
+  const base = locale === 'ja' ? japaneseSeoCopy : copy[locale] || copy.en
+  const catalog = reviewCopy(locale).catalog
+  return { ...base, catalog: { ...base.catalog, ...catalog },
+    meta: { ...base.meta, catalogTitle: catalog.metaTitle, catalogDescription: catalog.metaDescription },
+  }
 }
 
 export function baseCollectionCopy(locale, collectionKey) {

@@ -1,3 +1,4 @@
+import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { useEffect, useRef, useState } from 'react'
 import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
 import Icon from './Icon.jsx'
@@ -25,6 +26,7 @@ export default function SiteHeader({
   const exploreActive = route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'players'
   const resourcesActive = route.type === 'guide' || route.type === 'article' || route.type === 'tool'
   const content = seoCopy(locale)
+  const paid = paidPackCopy(locale)
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -128,6 +130,7 @@ export default function SiteHeader({
             <a href={routePath(locale, { type: 'article', articleKey: 'colors' })} onClick={closeMenu}>{content.footer.colors}</a>
             <a href={routePath(locale, { type: 'tool', toolKey: 'generator' })} onClick={closeMenu}>{t('nav.generator')}</a>
           </nav>
+          <nav className="nav-drawer-group" aria-label={paid.packTitle}><span>{paid.packTitle}</span><a href={`/${locale.toLowerCase()}/my-aim-pack/`} onClick={closeMenu}>{paid.openPack}</a><a href={`/${locale.toLowerCase()}/recover-aim-pack/`} onClick={closeMenu}>{paid.recoveryTitle}</a></nav>
         </div>
       </div>
     </header>

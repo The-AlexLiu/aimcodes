@@ -9,7 +9,9 @@ const localized = {
 export async function sendAccessEmail({ email, locale, accessUrl }) {
   if (!process.env.RESEND_API_KEY || !email) return { sent: false, reason: 'not_configured' }
   const copy = localized[locale] || localized.en
-  const from = process.env.RESEND_FROM_EMAIL || 'AimCodes <delivery@mail.aimcodes.com>'
+  const from = process.env.PAYPAL_ENVIRONMENT === 'production'
+    ? process.env.RESEND_FROM_EMAIL || 'AimCodes <delivery@mail.aimcodes.com>'
+    : process.env.RESEND_SANDBOX_FROM_EMAIL || 'AimCodes Sandbox <onboarding@resend.dev>'
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
