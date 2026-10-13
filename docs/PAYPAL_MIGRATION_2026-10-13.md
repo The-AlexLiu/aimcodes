@@ -75,3 +75,13 @@
 用户已授权创建 PR、部署预览、配置 Sandbox 并测试付款/交付/邮件；生产切换必须在验证完成后继续确认。PayPal Developer 已由用户完成登录。仅将 Deploy Preview 的 PAYPAL_ENVIRONMENT 设为 sandbox，不修改 production。Sandbox 付款不会上报生产 GA4 purchase。PayPal.cn 个人卖家与当前开发者账号的全球服务关联仍需核验，不可将 Sandbox Business Account 当成真实企业主体。
 
 PR #83 已创建为 draft，提交 94aae95；Netlify Deploy Preview 6acd960d64e6a7f668607706 ready，GitHub 两项 CI 通过。PayPal.cn 已实际登录，官方按钮入口成功跳至 paypal.com 的完整创建表单；无企业升级阻挡，但 Live 应用的收款账户关联仍需生产前核验。AimCodes Sandbox 应用已创建，Webhook 指向 PR83 Preview，仅订阅 PAYMENT.CAPTURE.COMPLETED。Client ID/Secret 已通过原生复制粘贴保存到预览环境，密钥未展开。当前没有 RESEND_API_KEY，邮件验收待配置。
+
+## 配置后的预览验收进度
+
+- 草稿 PR：https://github.com/The-AlexLiu/aimcodes/pull/83，17 项付款测试和 25 项 release 检查通过。
+- PR 预览：https://deploy-preview-83--aimcodes.netlify.app/。代码版本 d6fbe3a。新代码从 PayPal 官方建单响应锁定 Sandbox 商户身份，Live 仍要求固定且已核验的 Merchant ID。
+- 预览环境已保存 PAYPAL_ENVIRONMENT、PAYPAL_SANDBOX_CLIENT_ID、PAYPAL_SANDBOX_CLIENT_SECRET、PAYPAL_SANDBOX_WEBHOOK_ID、RESEND_API_KEY。Secrets 使用后台原生复制粘贴，未展开、未写入源码或聊天。
+- RESEND_FROM_EMAIL 仅 Deploy Preview 使用 AimCodes Sandbox <onboarding@resend.dev>；production 值保留。Resend 当前没有任何已验证域名，新 Key 仅 Sending access。Sandbox 邮件仅验证到账号自己的 Gmail；生产前必须验证实际发信域名。
+- 一个 US Personal Sandbox 买家账号已创建，用于跨境买家测试；商户仍使用 C2 测试账户。
+- 手动 CLI 的 paypal-sandbox alias 部署虽然 ready，实际 context 是 branch-deploy，未加载仅 Deploy Preview 的凭据，因此不用于付款测试。正式验收只用 PR83 预览，并在配置完成后重新构建。
+- 原网站生产提交仍是 ea03ba7，PR 未合并，未进行任何真实扣款。付款、交付与邮件找回完整结果待后续记录。
