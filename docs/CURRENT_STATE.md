@@ -2,14 +2,15 @@
 
 状态日期：2026-10-09
 
-## 预览验收中：2026-10-13 PayPal 替换 Whop
+## Sandbox 主流程验收通过：2026-10-13 PayPal 替换 Whop
 
 - 用户确认 PayPal.cn 已审核且网站收单已开通，并明确授权清除 Whop；用户反馈 Whop 从未成功生产交付。历史 2026-09-13 Sandbox 验证不代表生产交付成功。
 - 工作分支 `codex/aimcodes-paypal-checkout`，独立工作目录；已提交并推送草稿 PR #83；Netlify PR 预览已部署，尚未合并生产。线上仍是 `ea03ba7` 的 Whop 版本。
 - 移除 Whop 浏览器 SDK、服务端 SDK、配置模块和 Webhook；保留订单存储。新 PayPal Orders v2 使用固定 USD 1.99、数字商品、无需收货地址、同标签页结账；服务器校验订单、收款账户、金额与扣款状态后创建权益。通知经 PayPal 签名校验并重新查询订单。
 - 新增付款取消、确认失败重试；找回失败不再显示邮件已发送。五语种支付、隐私和退款说明同步。将误称渲染完成的 `checkout_loaded` 改为 `checkout_redirect`。
 - 19 项支付自动测试通过；390px 交付预览无溢出、五槽显示和两次重新生成正常。完整验收和待上线配置见 `docs/PAYPAL_MIGRATION_2026-10-13.md`。
-- 当前没有 PayPal Sandbox/Live 端到端付款证据；账户资格由用户确认，尚未核验 App/API 权限。必须配置分环境凭据、Webhook、邮件交付，Sandbox 验收后再申请生产切换。保留下面 Whop 历史记录供追溯，不能当成当前方案。
+- PR83 预览 bd0983f 已实际完成 USD 1.99 Sandbox 买家付款、服务器确认、五槽交付、刷新保留、复制代码、两次重新生成限额、邮件交付和无访问 Cookie 的邮件找回。Resend 两封邮件 Delivered，Gmail 实收但进入垃圾邮件；390px 实付权益页面无横向溢出。
+- 生产仍未切换。上线前必须核验 PayPal.cn 对应 Live 商户、配置正式凭据及 Webhook、验证自有发信域名并复测收件箱送达。PayPal 后台登录过期，实际 Webhook 投递状态与重发验收待完成；本轮自动测试已覆盖签名和重复通知幂等。保留下面 Whop 历史记录供追溯。
 
 ## 已发布：2026-10-09 Microsoft Clarity 与依赖漏洞修复
 
