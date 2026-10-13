@@ -175,8 +175,8 @@ export default function PremiumAimPackOffer({ result, locale, onRetest }) {
           </div>
           <div className="premium-pack-offer__side">
             <div className="premium-pack-offer__action">
-              <strong>{content.price}</strong>
-              <span>{content.priceNote}</span>
+              <strong>{hasPack && !buyNew ? content.packTitle : content.price}</strong>
+              <span>{hasPack && !buyNew ? content.existingAccessNote : content.priceNote}</span>
               <p className="premium-pack-offer__decision"><Icon name="target" size={15} />{content.decisionNote}</p>
               <button className="primary-button" type="button" onClick={openPreferences}>{hasPack && !buyNew ? content.openPack : content.cta}<Icon name="arrowLeft" className="premium-arrow" size={17} /></button>
               {hasPack && !buyNew && <button className="premium-buy-another" type="button" onClick={() => { setBuyNew(true); setStep('preferences') }}>{content.buyAnother}</button>}

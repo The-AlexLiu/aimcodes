@@ -20,13 +20,16 @@
 - 完整 release 检查 25/25 通过，含 lint、build、准星、语言、SEO、路由、埋点、性能、依赖与私有路由校验。
 - 本地浏览器：取消页恢复原结果与死斗/极简/狙击偏好，邮箱未被存储；历史版本切回、地图切换、换色和复制正常；390px 无横向溢出；临时加载失败显示重试；中文 cat 命中猫猫。
 - 手机偏好布局约 691px（巡检原布局约 1201px），底部按钮切到付款动作。以上为同一 390px 视口观测，不是实际转化率提升证据。
-- 新规则未重写任何旧订单或历史配置。生产仍未切换；实际更新后预览验收待部署完成补充。
+- 新规则未重写任何旧订单或历史配置。生产仍未切换；功能提交 ebe5c1a 已部署到 PR83 预览；更新后的真实 Sandbox 取消与恢复通过。
 
 ## 发信与生产待办
 
-- Resend 已准备 `mail.aimcodes.com` 的认证配置；三个必需发信记录：TXT `resend._domainkey.mail`、CNAME `rsend.mail`、CNAME `send.mail`。公开 DNS 查询三个名称当前均不存在，未修改 DNS。
-- 权威 DNS 为 NameSilo DNSOwl。已安全准备完整 DNS 草稿在 Git 忽略的 output 目录；不是 API 密钥。NameSilo 登录和安全验证需用户接手，正在等待登录。未声称域名已验证，未点击“已添加记录”，未启用接收邮箱或覆盖根域 DMARC。
-- 正式送达、PayPal.cn 对应 Live 商户/API 权限、实际通知投递和重发仍是生产切换前必做项。未进行真实扣款或生产部署。
+- 已在 NameSilo 添加三个必需发信记录：TXT `resend._domainkey.mail`、CNAME `rsend.mail`、CNAME `send.mail`，TTL 3600。公开 DNS 内容逐一匹配，Resend 的 `mail.aimcodes.com` 状态 Verified。
+- 权威 DNS 为 NameSilo DNSOwl。用户完成登录后执行，仅添加上述记录；原 10 条网站解析、Zoho 收信/认证等记录与备份逐一一致，总记录数为 13。未启用 Resend 接收邮箱、未覆盖根域 DMARC。完整公开 DNS 前后快照在 Git 忽略的 output 目录。
+- Netlify 新增 `RESEND_SANDBOX_FROM_EMAIL`，仅 Deploy Preview 设为自有域名发件地址；其他上下文为空，原生产配置保留。无缓存重建部署 6acdb5d576980f24b208cea8 ready，代码仍为 ebe5c1a。
+- 从自有域名发送的找回邮件在 Resend 显示 Delivered，Gmail 实际进入收件箱；邮件链接打开正确的预览站，恢复五槽包及 1–3 三个版本，剩余次数仍为 0。只验证了自己的 Gmail，不能保证其他邮箱或后续邮件均进收件箱。
+- 更新后真实 Sandbox 结账取消后，原结果及死斗/极简/狙击偏好完整恢复；已有买家默认显示打开现有包，必须明确新购；PayPal 中文站结账页面实际显示中文；服务器重复生成请求返回已有版本，额度仍为 0。
+- PayPal.cn 对应 Live 商户/API 权限、实际通知投递和重发仍是生产切换前必做项。开发者后台会话过期，已请用户登录核验；未进行真实扣款或生产部署。
 
 ## 文件与交接
 

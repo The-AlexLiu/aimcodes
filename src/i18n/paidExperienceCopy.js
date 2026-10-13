@@ -34,7 +34,8 @@ const copy = {
       "longRange": "A small center leaves distant targets visible. Test it on long sightlines.",
       "visibility": "A visible shape or color makes the center easier to find. Compare it on bright and dark walls.",
       "fun": "A playful shape for warm-up or casual rounds. Use a focused pick for precise duels."
-    }
+    },
+    "existingAccessNote": "Your purchase is ready to open."
   },
   "zh-CN": {
     "legacyReason": "结合地图预览，比较这款准星与其他槽位的实际效果。",
@@ -70,7 +71,8 @@ const copy = {
       "longRange": "较小的中心减少对远处目标的遮挡，适合先在长距离视线中试用。",
       "visibility": "易辨认的形状或颜色方便寻找中心，可在亮墙和暗处分别比较。",
       "fun": "趣味形状适合热身或娱乐回合，精确对枪时可换回专注型准星。"
-    }
+    },
+    "existingAccessNote": "购买内容已可用，直接打开即可。"
   },
   "ja": {
     "legacyReason": "マッププレビューでほかの候補と比較してください。",
@@ -106,7 +108,8 @@ const copy = {
       "longRange": "小さな中心で遠い敵を隠しにくい候補。長い射線で試してください。",
       "visibility": "見分けやすい形や色で中心を探せます。明るい壁と暗い場所で比較してください。",
       "fun": "ウォームアップやカジュアル向けの形です。精密な撃ち合いでは別の候補を試してください。"
-    }
+    },
+    "existingAccessNote": "購入済みのパックをそのまま開けます。"
   },
   "es": {
     "legacyReason": "Usa el mapa para comparar esta opción con las otras.",
@@ -142,7 +145,8 @@ const copy = {
       "longRange": "Un centro pequeño tapa menos los objetivos lejanos. Pruébalo en líneas largas.",
       "visibility": "Una forma o color visible ayuda a encontrar el centro. Compara paredes claras y oscuras.",
       "fun": "Una forma divertida para calentamiento o partidas casuales. Para precisión, prueba otra opción."
-    }
+    },
+    "existingAccessNote": "Tu compra está lista para abrir."
   },
   "pt-BR": {
     "legacyReason": "Use o mapa para comparar esta opção com as outras.",
@@ -178,7 +182,8 @@ const copy = {
       "longRange": "Um centro pequeno esconde menos alvos distantes. Experimente em linhas longas.",
       "visibility": "Uma forma ou cor visível ajuda a encontrar o centro. Compare paredes claras e escuras.",
       "fun": "Uma forma divertida para aquecimento ou partidas casuais. Para precisão, experimente outra opção."
-    }
+    },
+    "existingAccessNote": "Sua compra já está pronta para abrir."
   }
 }
 
