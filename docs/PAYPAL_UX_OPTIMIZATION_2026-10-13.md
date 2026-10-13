@@ -30,8 +30,8 @@
 - 从自有域名发送的找回邮件在 Resend 显示 Delivered，Gmail 实际进入收件箱；邮件链接打开正确的预览站，恢复五槽包及 1–3 三个版本，剩余次数仍为 0。只验证了自己的 Gmail，不能保证其他邮箱或后续邮件均进收件箱。
 - 更新后真实 Sandbox 结账取消后，原结果及死斗/极简/狙击偏好完整恢复；已有买家默认显示打开现有包，必须明确新购；PayPal 中文站结账页面实际显示中文；服务器重复生成请求返回已有版本，额度仍为 0。
 - 用户重新登录后，PayPal Sandbox 真实 PAYMENT.CAPTURE.COMPLETED 通知显示 SUCCESS；初始一次 FAIL_SOFT 后自动重试 DELIVERED。实际重发经历 PENDING 后最终 SUCCESS，2026-10-13 13:23:09（后台显示时间）的最新尝试为 DELIVERED。重发后权益仍为第 3 版、剩余 0 次、历史版本 1–3，Resend 邮件列表没有新增重复交付。
-- 开发者 My Account 显示 Current account type: Business，当前类型具有 Go live 权限；Live Apps & Credentials 页面可访问，当前未列出 AimCodes Live 应用。平台账户类型不代表已核验其与 PayPal.cn 网站收单账户的关联，该关联已向用户询问。
-- 生产仍需建立并配置正式应用、固定收款商户、正式 Webhook 与生产 RESEND_API_KEY。未创建 Live 应用、未修改正式支付配置、未进行真实扣款或生产部署。
+- 开发者 My Account 显示 Current account type: Business，当前类型具有 Go live 权限；Live Apps & Credentials 页面可访问，用户已明确确认该账户就是 PayPal.cn 已开通网站收单的关联账户。随后创建 AimCodes Live 应用，并创建正式通知 https://aimcodes.com/api/aim-pack/paypal-webhook，仅订阅 PAYMENT.CAPTURE.COMPLETED；后台读回通知 ID 9YP946676P350322U 和唯一事件。
+- 生产仍需建立并配置正式应用、固定收款商户、正式 Webhook 与生产 RESEND_API_KEY。Live 应用和通知已建立；Netlify 正式环境尚未保存 Live 凭据/商户/通知及生产邮件密钥。未启用正式收款、未进行真实扣款或生产部署。具体待确认操作与回退见 docs/PAYPAL_PRODUCTION_CUTOVER_2026-10-13.md。
 
 ## 文件与交接
 
