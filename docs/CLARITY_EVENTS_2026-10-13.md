@@ -34,3 +34,12 @@ These count sessions with ordered steps, not per-attempt success. Directory → 
 - Backend configuration receipt and production verification will be recorded in this task's delivery report after execution. Do not equate a saved funnel with verified conversion data.
 
 Rollback: revert the event bridge while retaining the base tag and existing GA4 instrumentation. Historical data persists. Stop using or rename funnels rather than automatically deleting them, since deletion is irreversible.
+
+## Production receipt, 2026-10-13
+
+- PR #84 merged; production commit `4876f4dc1e38675f615459edebf00fbb19e50564`, Netlify deploy `6acd99fecb973ac84199970b`, live metadata matched.
+- Full release checks 25/25 and Clarity tests 16/16 passed. Product preview validated copying, three rounds and an actual nonempty-board PNG download. The final documentation-only commit reused the already validated product preview; product code was unchanged.
+- Controlled production actions reached the Clarity SDK as one copy event, one start/complete pair and one nonempty-board export event. Collect responses included HTTP 204. These internal validation actions are not organic conversion evidence.
+- The first reaction smoke's logging wrapper was replaced during SDK initialization, so its empty capture is not a product failure. The subsequent settled-SDK test captured the actual start/complete pair and result page; both records are preserved locally.
+- QA and persistent QA exclusion after navigation were verified on production. Canonical/robots/status checks passed for catalog, test and playbook routes.
+- Backend API event list remained empty at the final check. Both funnels are **pending**, not saved or verified. The user authorized automatic continuation after processing and a notification on completion; no further production code change or synthetic test traffic is required.
