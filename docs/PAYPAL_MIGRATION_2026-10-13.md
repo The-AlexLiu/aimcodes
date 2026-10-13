@@ -112,3 +112,6 @@ PR #83 已创建为 draft，提交 94aae95；Netlify Deploy Preview 6acd960d64e6
 当前 Resend 账户最初没有域名或 API Key。已创建仅 Sending access 的 Sandbox Key 并安全配置到 Netlify Deploy Preview。没有验证 `mail.aimcodes.com`，没有修改 DNS。测试发送采用 Resend 测试地址，仅发送到账号自己的 Gmail；正式用户邮件发送仍需验证自有域名和送达。
 
 生产切换前剩余：核验 PayPal.cn 全球收单关联的 Live 商户与 API 权限；配置 Live 凭据、正式 Webhook 并核验通知投递；验证正式发信域名及送达；复核退款/争议人工操作路径。PR 保持 draft，未合并 main、未生产部署、未移除生产旧 Whop 环境变量或历史订单。实际测试仅使用 Sandbox 余额，未扣真实款，未发送生产 GA4 purchase。
+
+
+最终生产复核：正式站当前 build-meta 为 `4876f4dc1e38675f615459edebf00fbb19e50564`，对应独立的 Clarity PR84，支付仍为 Whop。本付款分支同步最新 origin/main（含 PR84 与文档后续），不覆盖既有 Clarity 成功事件。此前 ea03ba7 的生产版本描述为检查时历史状态。

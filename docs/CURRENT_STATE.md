@@ -13,7 +13,7 @@ Clarity 后台本轮仍显示“未检测到 API 事件”，不能将前端发�
 ## Sandbox 主流程验收通过：2026-10-13 PayPal 替换 Whop
 
 - 用户确认 PayPal.cn 已审核且网站收单已开通，并明确授权清除 Whop；用户反馈 Whop 从未成功生产交付。历史 2026-09-13 Sandbox 验证不代表生产交付成功。
-- 工作分支 `codex/aimcodes-paypal-checkout`，独立工作目录；已提交并推送草稿 PR #83；Netlify PR 预览已部署，尚未合并生产。线上仍是 `ea03ba7` 的 Whop 版本。
+- 工作分支 `codex/aimcodes-paypal-checkout`，独立工作目录；已提交并推送草稿 PR #83；Netlify PR 预览已部署，尚未合并生产。正式站当前 build-meta 为 `4876f4d`（另一项 Clarity PR84 已发布），支付仍使用 Whop；本付款分支已同步最新主线。
 - 移除 Whop 浏览器 SDK、服务端 SDK、配置模块和 Webhook；保留订单存储。新 PayPal Orders v2 使用固定 USD 1.99、数字商品、无需收货地址、同标签页结账；服务器校验订单、收款账户、金额与扣款状态后创建权益。通知经 PayPal 签名校验并重新查询订单。
 - 新增付款取消、确认失败重试；找回失败不再显示邮件已发送。五语种支付、隐私和退款说明同步。将误称渲染完成的 `checkout_loaded` 改为 `checkout_redirect`。
 - 19 项支付自动测试通过；390px 交付预览无溢出、五槽显示和两次重新生成正常。完整验收和待上线配置见 `docs/PAYPAL_MIGRATION_2026-10-13.md`。
