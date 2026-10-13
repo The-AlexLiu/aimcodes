@@ -13,6 +13,11 @@ on:
       dry_run:
         description: Validate everything without creating Buffer posts
         required: true
+        default: true
+        type: boolean
+      preflight_only:
+        description: Read-only service verification; skip media generation and all writes
+        required: true
         default: false
         type: boolean
 
@@ -30,6 +35,7 @@ jobs:
     env:
       AIHUBMIX_API_KEY: ${{ secrets.AIHUBMIX_API_KEY }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      BUFFER_API_KEY_EXPIRES_AT: ${{ vars.BUFFER_API_KEY_EXPIRES_AT }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       R2_ENDPOINT: ${{ vars.R2_ENDPOINT }}
@@ -40,7 +46,7 @@ jobs:
       BUFFER_TIKTOK_CHANNEL_ID: ${{ vars.BUFFER_TIKTOK_CHANNEL_ID }}
       BUFFER_YOUTUBE_CHANNEL_ID: ${{ vars.BUFFER_YOUTUBE_CHANNEL_ID }}
       SOCIAL_SCHEDULE_DATE: ${{ inputs.schedule_date }}
-      AIMCODES_SOCIAL_ALLOW_SCHEDULE: ${{ (github.event_name == 'schedule' || inputs.dry_run == false) && 'YES' || 'NO' }}
+      AIMCODES_SOCIAL_ALLOW_SCHEDULE: ${{ (github.event_name == 'schedule' || (inputs.dry_run == false && inputs.preflight_only != true)) && 'YES' || 'NO' }}
       BUFFER_DISABLE_UPDATE_CHECK: '1'
       NO_COLOR: '1'
 
@@ -60,22 +66,23 @@ jobs:
           cache: pnpm
 
       - name: Set up Google Chrome
+        if: ${{ inputs.preflight_only != true }}
         uses: browser-actions/setup-chrome@v1
 
       - name: Install project and Buffer CLI
         run: |
-          pnpm install --frozen-lockfile
-          sudo apt-get update
-          sudo apt-get install --yes ffmpeg
+          if [ "${{ inputs.preflight_only }}" != "true" ]; then
+            pnpm install --frozen-lockfile
+            sudo apt-get update
+            sudo apt-get install --yes ffmpeg
+          fi
           npm install --global @bufferapp/cli@1.2.0
 
       - name: Verify connected services
-        run: |
-          buffer account --output json --no-color > /dev/null
-          buffer channels list --organization-id "${BUFFER_ORGANIZATION_ID}" --output json --no-color > /dev/null
-          curl --fail --silent --show-error --head "${R2_PUBLIC_BASE_URL}/health/github-actions-ready.txt"
+        run: pnpm social:preflight
 
       - name: Generate, review, upload, and schedule
+        if: ${{ inputs.preflight_only != true }}
         run: pnpm social:schedule-daily
 
       - name: Write platform quota summary
@@ -93,6 +100,7 @@ jobs:
         with:
           name: social-production-${{ github.run_id }}
           path: |
+            output/social-publishing/preflight.json
             output/social-publishing/scheduled/**/manifest.json
             output/social-publishing/scheduled/**/quality-review.json
             output/social-publishing/scheduled/**/failure.json

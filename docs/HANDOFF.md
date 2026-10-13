@@ -2,6 +2,16 @@
 
 最后更新：2026-09-13
 
+## 基建保护修复（2026-10-13）
+
+当前任务分支 codex/infrastructure-guardrails，基于 main 60e1ac9；旧 GA4 工作树及用户修改未动。支付 CI、函数高风险任务分类、社媒安全 preflight 和禁止写入的 dry-run 已实现。本地完整 release 25/25、支付回归24项与社媒诊断7项通过。
+
+main 保护已由 GitHub API 保存并读回：两项 GitHub Actions 必需检查 product-data / build-and-seo，strict、PR、讨论解决、管理员约束，禁止强推/删除；不要求另一位审批者。原先 main 无保护。
+
+社媒根因为 Buffer key 在9月12日过期，现已原生再生成并更新 GitHub BUFFER_API_KEY；权限仍为 account:read/posts:read/posts:write，界面到期日2027-10-13。非敏感变量 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。未读取、写文件或输出密钥。
+
+GitHub CI、Netlify Deploy Preview、远端 preflight 与正式合并状态以本任务 PR 和 docs/INFRASTRUCTURE_FIXES_2026-10-13.md 后续记录为准；不能将本地通过或 Secret 保存当成生产生效。未补发帖子、未付款、未升级或迁移。
+
 ## 当前交接重点：付费 MVP
 
 - 产品：`AimCodes Crosshair Pack`，一次性 USD 1.99；

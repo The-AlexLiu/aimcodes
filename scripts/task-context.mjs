@@ -32,6 +32,7 @@ function collectChangedFiles(baseRef) {
 
 function classifyFile(file) {
   const scopes = new Set()
+  if (/^netlify\/functions\//.test(file)) scopes.add('payments')
   if (/^(src\/data\/|src\/utils\/crosshairCode|scripts\/validate-crosshairs|scripts\/generate-crosshair-images)/.test(file)) scopes.add('data')
   if (/^(src\/seo\/|src\/i18n\/|scripts\/generate-localized-routes|scripts\/validate-(seo|localized|internal|image)|public\/robots\.txt|netlify\.toml)/.test(file)) scopes.add('seo')
   if (/^(src\/(App|components|hooks|styles)|src\/assets\/|public\/brand\/)/.test(file)) scopes.add('ui')
@@ -46,6 +47,7 @@ function classifyFile(file) {
 function chooseRisk(files, scopes) {
   const criticalPatterns = [
     /^netlify\.toml$/,
+    /^netlify\/functions\//,
     /^\.github\/workflows\//,
     /^scripts\/generate-(localized-routes|crosshair-images|promo-renderer-data)/,
     /^src\/seo\/routes/,
@@ -79,6 +81,10 @@ function chooseReferences(scopes, risk) {
   if (scopes.includes('seo')) {
     references.add('docs/SEO_STRATEGY.md')
     references.add('docs/CONTENT_ROADMAP.md')
+  }
+  if (scopes.includes('payments')) {
+    references.add('docs/ARCHITECTURE.md')
+    references.add('docs/PAYPAL_SEO_RELEASE_2026-10-13.md')
   }
   if (scopes.includes('renderer')) references.add('AGENTS.md#社媒渲染器边界')
   if (scopes.includes('tooling')) references.add('docs/DEVELOPMENT_WORKFLOW.md')

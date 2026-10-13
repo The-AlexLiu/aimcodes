@@ -4,6 +4,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { chromium } from 'playwright-core'
 import { absolutePath } from './lib.mjs'
+import { publishMedia } from './preflight.mjs'
 import { inspectCover, inspectVideo } from './media-inspector.mjs'
 import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
 import { normalizeVisualReview, quotaFailureMessage, summarizePlatformQuota } from './quality-policy.mjs'
@@ -386,10 +387,10 @@ async function processSlot(slot, schedule, prefix) {
       const fingerprint = createHash('sha256').update(await readFile(rendered.videoPath)).digest('hex').slice(0, 16)
       const videoKey = `${prefix}/${fingerprint}.mp4`
       const coverKey = `${prefix}/${fingerprint}-cover.png`
-      const [videoUrl, coverUrl] = await Promise.all([
-        uploadR2(rendered.videoPath, videoKey, 'video/mp4'),
-        uploadR2(rendered.coverPath, coverKey, 'image/png'),
-      ])
+      const [videoUrl, coverUrl] = await publishMedia({
+        writeEnabled, upload: uploadR2, publicBase: required('R2_PUBLIC_BASE_URL'),
+        videoPath: rendered.videoPath, coverPath: rendered.coverPath, videoKey, coverKey,
+      })
       const payload = bufferPayload({ slot, copy, creative: rendered.creative, videoUrl, dueAt: schedule.dueAt })
       bufferResult = await scheduleWithBuffer(payload, resolve(directory, 'buffer-payload.json'))
       const manifest = {
