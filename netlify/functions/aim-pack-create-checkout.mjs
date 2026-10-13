@@ -26,10 +26,17 @@ export default async function handler(request) {
     }
     // Persist before provider creation; no buyer can approve an unrecorded draft.
     await setJson(`orders/${orderId}`, order)
-    const configuration = await paypalRequest('/v2/checkout/orders', { method: 'POST', body: paypalOrderBody(order, siteOrigin(request)), requestId: orderId }, paypal)
+    let configuration = await paypalRequest('/v2/checkout/orders', { method: 'POST', body: paypalOrderBody(order, siteOrigin(request)), requestId: orderId }, paypal)
     const approvalUrl = approvedUrl(configuration, paypal.environment)
+    // Sandbox is a single merchant app. Resolve its PayPal merchant identity
+    // from the authenticated provider response rather than an internal dashboard ID.
+    if (!configuration.purchase_units?.[0]?.payee?.merchant_id) {
+      configuration = await paypalRequest(`/v2/checkout/orders/${encodeURIComponent(configuration.id)}`, {}, paypal)
+    }
+    const merchantId = configuration.purchase_units?.[0]?.payee?.merchant_id
+    if (!merchantId || (paypal.merchantId && merchantId !== paypal.merchantId)) throw new Error('paypal_merchant_mismatch')
     if (!configuration.id || !approvalUrl) throw new Error('paypal_approval_missing')
-    await setJson(`orders/${orderId}`, { ...order, paypalOrderId: configuration.id })
+    await setJson(`orders/${orderId}`, { ...order, merchantId, paypalOrderId: configuration.id })
     await setJson(`paypal-orders/${configuration.id}`, { orderId })
     return json(200, { orderId, paypalOrderId: configuration.id, approvalUrl, statusToken, claimToken, provider: 'paypal', environment: paypal.environment })
   } catch (error) {

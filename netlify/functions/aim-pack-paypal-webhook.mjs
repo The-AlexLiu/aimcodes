@@ -23,7 +23,7 @@ export function createWebhookHandler({ readOrder = getJson, runtimeConfig = payp
       // Other products in the same merchant account are outside this integration.
       if (!index) return json(200, { state: 'ignored' })
       const order = await readOrder(`orders/${index.orderId}`)
-      if (!order || order.provider !== 'paypal' || order.environment !== paypal.environment || order.merchantId !== paypal.merchantId) return json(422, { code: 'payment_mismatch' })
+      if (!order || order.provider !== 'paypal' || order.environment !== paypal.environment || (paypal.merchantId && order.merchantId !== paypal.merchantId)) return json(422, { code: 'payment_mismatch' })
       const payload = await api(`/v2/checkout/orders/${paypalId}`, {}, paypal)
       const capture = completedCapture(payload, order)
       if (!capture || capture.id !== event.resource.id) return json(422, { code: 'payment_mismatch' })

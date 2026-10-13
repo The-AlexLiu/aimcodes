@@ -190,3 +190,9 @@ test('sandbox purchases never call production GA4', async () => {
     assert.equal(calls, 0)
   } finally { globalThis.fetch = originalFetch }
 })
+
+test('single merchant sandbox app resolves payee from provider rather than internal dashboard ID', () => {
+  const body = paypalOrderBody({ ...order, merchantId: undefined }, 'https://preview.example.com')
+  assert.equal(body.purchase_units[0].payee, undefined)
+  assert.equal(completedCapture(confirmed(), { ...order, merchantId: 'WRONG' }), null)
+})

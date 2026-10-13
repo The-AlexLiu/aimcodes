@@ -14,7 +14,7 @@ export function paypalRuntimeConfig() {
 }
 
 export function paypalConfigured(config) {
-  return Boolean(config.clientId && config.clientSecret && config.merchantId && config.webhookId && process.env.AIMCODES_ACCESS_SECRET?.length >= 32)
+  return Boolean(config.clientId && config.clientSecret && (config.environment === 'sandbox' || config.merchantId) && config.webhookId && process.env.AIMCODES_ACCESS_SECRET?.length >= 32)
 }
 
 export async function paypalRequest(path, { method = 'GET', body, requestId } = {}, config = paypalRuntimeConfig(), fetcher = fetch) {
@@ -41,7 +41,7 @@ export function paypalOrderBody(order, origin) {
   return {
     intent: 'CAPTURE',
     purchase_units: [{ reference_id: order.id, custom_id: order.id, invoice_id: order.id,
-      payee: { merchant_id: order.merchantId },
+      ...(order.merchantId ? { payee: { merchant_id: order.merchantId } } : {}),
       amount: { currency_code: 'USD', value: '1.99', breakdown: { item_total: { currency_code: 'USD', value: '1.99' } } },
       items: [{ name: 'AimCodes Crosshair Pack', quantity: '1', category: 'DIGITAL_GOODS', unit_amount: { currency_code: 'USD', value: '1.99' } }],
     }],

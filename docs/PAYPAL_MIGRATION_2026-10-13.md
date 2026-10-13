@@ -35,7 +35,7 @@
 
 | 环境 | Netlify Functions 变量 |
 | --- | --- |
-| Deploy Preview / Sandbox | `PAYPAL_ENVIRONMENT=sandbox`、`PAYPAL_SANDBOX_CLIENT_ID`、`PAYPAL_SANDBOX_CLIENT_SECRET`、`PAYPAL_SANDBOX_MERCHANT_ID`、`PAYPAL_SANDBOX_WEBHOOK_ID` |
+| Deploy Preview / Sandbox | `PAYPAL_ENVIRONMENT=sandbox`、`PAYPAL_SANDBOX_CLIENT_ID`、`PAYPAL_SANDBOX_CLIENT_SECRET`、`PAYPAL_SANDBOX_MERCHANT_ID`（可选；默认从官方建单响应锁定）、`PAYPAL_SANDBOX_WEBHOOK_ID` |
 | Production | `PAYPAL_ENVIRONMENT=production`、`PAYPAL_CLIENT_ID`、`PAYPAL_CLIENT_SECRET`、`PAYPAL_MERCHANT_ID`、`PAYPAL_WEBHOOK_ID` |
 | 权益签名 | 沿用 `AIMCODES_ACCESS_SECRET`，不可随意轮换，否则旧 Cookie/链接失效 |
 | 邮件交付/找回 | `RESEND_API_KEY`、`RESEND_FROM_EMAIL`，必须核验发信域名及实际收信 |
@@ -63,7 +63,7 @@
 
 ## 验证记录
 
-- 支付自动测试 16/16：金额/币种/收款商户/订单匹配、恶意跳转、环境隔离、服务器 Capture、伪造会话、未付款拒绝、签名拒绝、重复通知与存储中断恢复、五语文案。
+- 支付自动测试 17/17：金额/币种/收款商户/订单匹配、恶意跳转、环境隔离、服务器 Capture、伪造会话、未付款拒绝、签名拒绝、重复通知与存储中断恢复、五语文案。
 - `pnpm lint` 通过；`pnpm check:auto` 选择 SEO 套件，11/11 通过，包括 build、语言、SEO、路由、图片、内部链接与性能预算。
 - 本地取消页实际浏览器显示中文取消提示。390px 交付预览显示 5 卡且文档宽度等于窗口宽度；这是本地预览，不能当作 PayPal Sandbox 真实付款结果。
 - `pnpm check:release` 25/25 通过；无已知依赖漏洞，构建 JS 内没有 Whop。检查结果保存在 `.aimcodes-reports/current/verification.md`。
@@ -73,3 +73,5 @@
 ## 2026-10-13 预览授权与账户核验
 
 用户已授权创建 PR、部署预览、配置 Sandbox 并测试付款/交付/邮件；生产切换必须在验证完成后继续确认。PayPal Developer 已由用户完成登录。仅将 Deploy Preview 的 PAYPAL_ENVIRONMENT 设为 sandbox，不修改 production。Sandbox 付款不会上报生产 GA4 purchase。PayPal.cn 个人卖家与当前开发者账号的全球服务关联仍需核验，不可将 Sandbox Business Account 当成真实企业主体。
+
+PR #83 已创建为 draft，提交 94aae95；Netlify Deploy Preview 6acd960d64e6a7f668607706 ready，GitHub 两项 CI 通过。PayPal.cn 已实际登录，官方按钮入口成功跳至 paypal.com 的完整创建表单；无企业升级阻挡，但 Live 应用的收款账户关联仍需生产前核验。AimCodes Sandbox 应用已创建，Webhook 指向 PR83 Preview，仅订阅 PAYMENT.CAPTURE.COMPLETED。Client ID/Secret 已通过原生复制粘贴保存到预览环境，密钥未展开。当前没有 RESEND_API_KEY，邮件验收待配置。

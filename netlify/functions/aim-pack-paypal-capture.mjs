@@ -15,7 +15,7 @@ export function createCaptureHandler({ readOrder = getJson, runtimeConfig = payp
       if (!order || order.provider !== 'paypal' || !safeEqual(order.statusTokenHash, sha256(body.statusToken))) return json(404, { code: 'order_not_found' })
       if (body.paypalOrderId !== order.paypalOrderId) return json(422, { code: 'payment_mismatch' })
       const paypal = runtimeConfig()
-      if (!configured(paypal) || paypal.environment !== order.environment || paypal.merchantId !== order.merchantId) return json(503, { code: 'checkout_not_configured' })
+      if (!configured(paypal) || paypal.environment !== order.environment || (paypal.merchantId && paypal.merchantId !== order.merchantId)) return json(503, { code: 'checkout_not_configured' })
       if (order.state === 'fulfilled') return json(200, { state: 'fulfilled' })
       const path = `/v2/checkout/orders/${encodeURIComponent(order.paypalOrderId)}`
       let payload = await api(path, {}, paypal)
