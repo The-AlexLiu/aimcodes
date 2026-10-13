@@ -479,7 +479,7 @@ export default function App() {
         ) : route.type === 'tool' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'paid' ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><AimPackPortal pageKey={route.pageKey} locale={language} crosshairs={allCrosshairs} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><AimPackPortal pageKey={route.pageKey} locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
         ) : route.type === 'trust' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (
