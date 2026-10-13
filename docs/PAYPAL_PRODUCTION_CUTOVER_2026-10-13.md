@@ -22,4 +22,4 @@ Live 应用创建成功不代表真实支付、正式回调、结算或提现已
 
 ## 当前状态
 
-尚未执行上述 Production 配置或合并。不会为了核验 Live 凭据而读取账号密码、Cookie、Token、Client Secret 或 .env。原 GA4 工作树和用户未提交修改保留。该清单由当前 PR 维护，最终授权后逐项记录结果。
+用户已明确授权与 SEO be42d8d 一起发布。Production Live 凭据、固定关联商户、正式通知和仅限 mail.aimcodes.com 的 Sending access 邮件密钥已保存；PAYPAL_ENVIRONMENT 读回 Production=production / Deploy Preview=sandbox，发件地址为自有域名。当前合并预览 049ac16 新笔 Sandbox 付款交付五款成功，准备合并 main；未真实扣款。不会为了核验 Live 凭据而读取账号密码、Cookie、Token、Client Secret 或 .env。原 GA4 工作树和用户未提交修改保留。该清单由当前 PR 维护，最终授权后逐项记录结果。
