@@ -10,9 +10,13 @@ PR #84 已将 Clarity 成功事件桥接发布至生产提交 `4876f4dc1e38675f6
 
 Clarity 后台本轮仍显示“未检测到 API 事件”，不能将前端发送或 HTTP 204 当作后台报表已入库。用户已选择后台就绪后自动续做并在完成时通知；待 API 事件和同页录制关联可核查后，创建 `AC · 目录到复制 · v1`（中文目录访问→复制成功）和 `AC · 测试开始到完成 · v1`（中文测试页访问→开始→完成）。验收发现当前结果页没有免费推荐复制入口，因此第二条漏斗不含复制步骤，不修改免费/付费结果页。第 6 项慢页面优化明确暂缓。详见 `docs/CLARITY_EVENTS_2026-10-13.md`。
 
-## 合并发布验收中：2026-10-13 PayPal + SEO
+## 已发布：2026-10-13 PayPal 收款与 SEO 合并版本
 
-用户授权将 SEO be42d8d 与支付 PR83 一并发布，支付宝接入暂停。SEO 已 cherry-pick 至支付分支 049ac16；搜索文本冲突保留独立来源搜索与英文名称/颜色/代码别名，完整源数据交付保持不变。合并后 release 25/25、GitHub CI 与 Netlify 预览通过；build-meta 匹配，实际新一笔 Sandbox 付款交付五卡、初始额度 2。颜色三图和 Bind 参数跳转、中文 aspas 搜索、既有五卡与历史版复核通过。Production 已保存 Live 凭据、固定关联商户、正式通知及专域发信密钥，预览继续 Sandbox；当前准备合并 main，正式发布结果待部署后补录。
+PR83 已合并，生产代码提交 d3a26de78850893e87b6e30af9fd97fb0dcc5498，Netlify 6acdcd76beef58e998aafbfe ready，正式站 build-meta 匹配。包含 PayPal 替换 Whop、付款/交付/找回体验与 SEO be42d8d（集成时为049ac16）。搜索重叠已保留独立来源与英文名称/颜色/代码别名，交付使用完整源数据，原用户 GA4 工作树及历史订单保留。支付宝接入暂停。
+
+合并版本完整 release 25/25、GitHub CI、Netlify 预览通过；新笔 Sandbox 付款实际交付五卡、初始次数2，中文邮件进入自己的 Gmail 收件箱。Production 已配置 Live 凭据、固定关联商户、正式通知与专域发信密钥；Deploy Preview 仍为 Sandbox。正式站实际建单成功进入 PayPal 中文付款页，取消返回后成绩及三项偏好恢复，邮箱未保存；未真实扣款，不将建单当作已验证 Live capture、通知或邮件交付。
+
+线上35个SEO页面HTTP200且title/lang/canonical/robots与构建一致；主Sitemap1887、准星Sitemap1584、图片Sitemap1736，robots三份Sitemap均可访问。390px三色地图对比无溢出，Bind绿色链接和代码复制成功。正式通知接口拒绝无签名请求401。独立买家真实付款、Live通知/邮件及提现仍待验证；旧Whop凭据暂留回退窗口，产品源码、SDK和专属函数已移除。详见 docs/PAYPAL_SEO_RELEASE_2026-10-13.md；以下为此前预览验收历史。
 
 ## 预览已发布：2026-10-13 付款与已购体验优化
 
