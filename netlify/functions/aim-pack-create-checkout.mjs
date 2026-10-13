@@ -38,7 +38,7 @@ export default async function handler(request) {
     if (!configuration.id || !approvalUrl) throw new Error('paypal_approval_missing')
     await setJson(`orders/${orderId}`, { ...order, merchantId, paypalOrderId: configuration.id })
     await setJson(`paypal-orders/${configuration.id}`, { orderId })
-    return json(200, { orderId, paypalOrderId: configuration.id, approvalUrl, statusToken, claimToken, provider: 'paypal', environment: paypal.environment })
+    return json(200, { orderId, paypalOrderId: configuration.id, approvalUrl, statusToken, claimToken, provider: 'paypal', environment: paypal.environment, returnOrigin: siteOrigin(request) })
   } catch (error) {
     console.error('aim-pack checkout creation failed', { name: error?.name })
     return json(error?.message === 'payload_too_large' ? 413 : 502, { code: 'checkout_unavailable' })

@@ -8,7 +8,7 @@
 - 工作分支 `codex/aimcodes-paypal-checkout`，独立工作目录；已提交并推送草稿 PR #83；Netlify PR 预览已部署，尚未合并生产。线上仍是 `ea03ba7` 的 Whop 版本。
 - 移除 Whop 浏览器 SDK、服务端 SDK、配置模块和 Webhook；保留订单存储。新 PayPal Orders v2 使用固定 USD 1.99、数字商品、无需收货地址、同标签页结账；服务器校验订单、收款账户、金额与扣款状态后创建权益。通知经 PayPal 签名校验并重新查询订单。
 - 新增付款取消、确认失败重试；找回失败不再显示邮件已发送。五语种支付、隐私和退款说明同步。将误称渲染完成的 `checkout_loaded` 改为 `checkout_redirect`。
-- 18 项支付自动测试通过；390px 交付预览无溢出、五槽显示和两次重新生成正常。完整验收和待上线配置见 `docs/PAYPAL_MIGRATION_2026-10-13.md`。
+- 19 项支付自动测试通过；390px 交付预览无溢出、五槽显示和两次重新生成正常。完整验收和待上线配置见 `docs/PAYPAL_MIGRATION_2026-10-13.md`。
 - 当前没有 PayPal Sandbox/Live 端到端付款证据；账户资格由用户确认，尚未核验 App/API 权限。必须配置分环境凭据、Webhook、邮件交付，Sandbox 验收后再申请生产切换。保留下面 Whop 历史记录供追溯，不能当成当前方案。
 
 ## 已发布：2026-10-09 Microsoft Clarity 与依赖漏洞修复

@@ -217,3 +217,19 @@ test('sandbox email always uses its isolated test sender', async () => {
     if (previousSender === undefined) delete process.env.RESEND_FROM_EMAIL; else process.env.RESEND_FROM_EMAIL = previousSender
   }
 })
+
+const { siteOrigin } = await import('../netlify/functions/_lib/http.mjs')
+test('preview returns and email links never inherit the production build URL', () => {
+  const previousURL = process.env.URL
+  const previousContext = process.env.CONTEXT
+  try {
+    process.env.URL = 'https://aimcodes.com'
+    delete process.env.CONTEXT
+    const origin = siteOrigin(new Request('https://deploy-preview-83--aimcodes.netlify.app/api/aim-pack/create-checkout'))
+    assert.equal(origin, 'https://deploy-preview-83--aimcodes.netlify.app')
+    assert.equal(paypalOrderBody(order, origin).payment_source.paypal.experience_context.return_url, 'https://deploy-preview-83--aimcodes.netlify.app/en/checkout/complete/')
+  } finally {
+    if (previousURL === undefined) delete process.env.URL; else process.env.URL = previousURL
+    if (previousContext === undefined) delete process.env.CONTEXT; else process.env.CONTEXT = previousContext
+  }
+})

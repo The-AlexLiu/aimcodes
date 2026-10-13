@@ -31,8 +31,8 @@ export function safeLocale(value) {
 }
 
 export function siteOrigin(request) {
-  if (process.env.CONTEXT && process.env.CONTEXT !== 'production' && process.env.DEPLOY_PRIME_URL) {
-    return process.env.DEPLOY_PRIME_URL.replace(/\/$/, '')
-  }
-  return (process.env.URL || new URL(request.url).origin).replace(/\/$/, '')
+  // Netlify build variables (URL/CONTEXT/DEPLOY_PRIME_URL) are not reliable
+  // request-domain metadata in Functions. Bind redirects and email links to
+  // the host that actually served this request, including PR previews.
+  return new URL(request.url).origin
 }

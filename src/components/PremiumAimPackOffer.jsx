@@ -109,6 +109,7 @@ export default function PremiumAimPackOffer({ result, locale }) {
       })
       const payload = await response.json().catch(() => ({}))
       if (!response.ok || !payload.approvalUrl || !payload.paypalOrderId) throw new Error(payload.code || 'checkout_unavailable')
+      if (payload.returnOrigin !== window.location.origin) throw new Error('checkout_return_origin_mismatch')
       const checkoutState = {
         orderId: payload.orderId,
         statusToken: payload.statusToken,

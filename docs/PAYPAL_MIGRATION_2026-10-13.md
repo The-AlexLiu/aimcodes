@@ -63,7 +63,7 @@
 
 ## 验证记录
 
-- 支付自动测试 18/18：金额/币种/收款商户/订单匹配、恶意跳转、环境隔离、服务器 Capture、伪造会话、未付款拒绝、签名拒绝、重复通知与存储中断恢复、五语文案。
+- 支付自动测试 19/19：金额/币种/收款商户/订单匹配、恶意跳转、环境隔离、服务器 Capture、伪造会话、未付款拒绝、签名拒绝、重复通知与存储中断恢复、五语文案。
 - `pnpm lint` 通过；`pnpm check:auto` 选择 SEO 套件，11/11 通过，包括 build、语言、SEO、路由、图片、内部链接与性能预算。
 - 本地取消页实际浏览器显示中文取消提示。390px 交付预览显示 5 卡且文档宽度等于窗口宽度；这是本地预览，不能当作 PayPal Sandbox 真实付款结果。
 - `pnpm check:release` 25/25 通过；无已知依赖漏洞，构建 JS 内没有 Whop。检查结果保存在 `.aimcodes-reports/current/verification.md`。
@@ -87,3 +87,7 @@ PR #83 已创建为 draft，提交 94aae95；Netlify Deploy Preview 6acd960d64e6
 - 原网站生产提交仍是 ea03ba7，PR 未合并，未进行任何真实扣款。付款、交付与邮件找回完整结果待后续记录。
 
 部署核验发现文档提交 6909510 的预览被 ignore 命令取消（GitHub Netlify 状态仍 SUCCESS），实际域名仍运行 d6fbe3a。原 ignore 路径遗漏 netlify/functions，现补入以确保函数改动触发部署。Sandbox 邮件发件地址在后端显式隔离为 onboarding@resend.dev，可选 RESEND_SANDBOX_FROM_EMAIL；生产仍沿用原 RESEND_FROM_EMAIL。新预览必须通过 build-meta 和运行中 recover 接口证明新邮件配置生效。
+
+首笔实际 Sandbox 建单与买家批准成功，但付款返回到了生产域名，未交付。Functions 缺少构建上下文变量时，旧 siteOrigin() 退回 process.env.URL=aimcodes.com。现改为请求自身 origin，覆盖创建订单、Capture、Webhook 邮件和找回邮件，新增预览域名回归测试。此失败不是 PayPal.cn 与全球 API 的资格冲突；订单尚无成功交付证据，不计为成功付款验收。必须重跑真实 Sandbox 浏览器路径。
+
+付款前前端同时校验服务端返回的 returnOrigin 与当前域名一致，避免错误回跳配置在买家付款后才被发现；错误时停留在偏好页并可重试。
