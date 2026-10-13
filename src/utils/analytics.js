@@ -1,3 +1,5 @@
+import { trackClarityEvent } from './clarity.js'
+
 export const GA_MEASUREMENT_ID = 'G-2VMCECN5S6'
 
 const LIVE_HOSTS = new Set(['aimcodes.com', 'www.aimcodes.com'])
@@ -117,6 +119,7 @@ export function setAnalyticsContext(nextContext = {}) {
 
 export function trackEvent(eventName, parameters = {}) {
   if (!/^[a-z][a-z0-9_]{0,39}$/.test(eventName)) return false
+  trackClarityEvent(eventName, { ...analyticsContext, ...parameters })
   if (!initializeAnalytics()) return false
 
   const eventParameters = sanitizeParameters({
