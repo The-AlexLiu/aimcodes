@@ -24,7 +24,7 @@
 
 已执行并读回：main protected=true；required_status_checks 为上述两项，绑定 GitHub Actions app15368；strict=true、enforce_admins=true、required_conversation_resolution=true、allow_force_pushes/allow_deletions=false。PR审批数为0，允许单人仓库在检查通过后正常合并。
 
-Buffer Secret 元数据已确认更新于2026-10-13T10:36:55Z（北京时间18:36）；界面新有效期至2027-10-13，仓库到期变量已保存。认证结果仍等待远端 preflight。
+Buffer Secret 元数据已确认更新于2026-10-13T10:36:55Z（北京时间18:36）；界面新有效期至2027-10-13，仓库到期变量已保存。远端 preflight 已通过认证、组织与三平台频道检查。
 
 如规则错误阻塞发布，先修规则或 CI 名称，不使用管理员绕过。确需撤销保护时，由所有者单独授权恢复修改前无保护状态。规则快照与本地检查报告保留在 Git 忽略的 output/infrastructure-fixes-2026-10-13。
 
@@ -32,8 +32,12 @@ Buffer Secret 元数据已确认更新于2026-10-13T10:36:55Z（北京时间18:3
 
 完整dry-run 38385470461发现旧 Qwen视觉别名404，已停止无效重试；38497160207进一步确认固定快照也404，模型目录存在不代表推理可用。模型配置集中至model-config.mjs，改用支持图像的gemini-2.5-flash-lite。preflight增加实际小图推理；不发帖、不写R2，但消耗少量API推理额度。模型可通过SOCIAL_COPY_MODEL/SOCIAL_VISION_MODEL仓库变量覆盖，90分门保持不变。
 
-本地release再次25/25通过，社媒诊断已扩展至9项；GitHub f8ffcdf产品检查与Netlify预览通过。完整新dry-run为38497618078，结果待完成后补录。旧工作树与原始素材保留，未补发历史帖子。
+本地release再次25/25通过，支付回归24项通过；社媒回归最终扩展至11项。38497618078因旧视觉校验误判而停止，失败诊断保留。旧工作树与原始素材保留，未补发历史帖子。
 
 试运行进一步发现旧抽检跳过6.05–8.45秒的真实出分段，同时旧提示将challenge/result/crosshair三种封面都描述为成绩封面，误报缺少rank。已查看实际导出的准星封面及7.25秒出分图确认：准星封面不应含成绩，出分画面确实有average/rank/scores。抽检从5个增至6个视频时间点，出分点从渲染器音效时间轴动态派生；提示按实际封面用途校验，保留缺陷、90分、三次重试和配额门。未编辑渲染器及三份副本。
 
-相关回归扩展至11项。新完整试运行待本轮代码提交后执行。
+相关回归扩展至11项。完整试运行 [38499401850](https://github.com/The-AlexLiu/aimcodes/actions/runs/38499401850) 在产品提交 ae20dbb 上成功：13项服务检查通过，writeEnabled=false；TikTok / Instagram / YouTube 各3/3，合计9/9，质量分均100，无未解决的槽位失败。YouTube wave-1的模型超时和标签错误被拦截，第三次尝试成功；失败记录保留。预定测试日期2026-10-15，所有状态为dry_run，没有Buffer发布或R2写入。
+
+GitHub CI [38499272465](https://github.com/The-AlexLiu/aimcodes/actions/runs/38499272465) 的两项检查与Netlify Deploy Preview通过；桌面和390px手机预览无横向溢出，私有页面no-store，未登录权益接口401、Webhook错误方法405。未执行真实PayPal付款。最终文档提交应再次通过必需CI；产品代码不再变化，无需重复九条模型推理。
+
+交付PR：[87](https://github.com/The-AlexLiu/aimcodes/pull/87)。代码合并与生产发布待用户明确授权；main保护与密钥恢复已经生效。合并将由Netlify自动发布，并使原每日社媒定时任务使用修复版本。未升级套餐、迁移平台或补发失败日期。新版Buffer密钥权限11项的限制、模型费用按当前AIHubMix账单核对、真实买家支付验收仍需保留为后续事项。

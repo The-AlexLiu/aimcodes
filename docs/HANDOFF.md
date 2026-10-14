@@ -10,7 +10,7 @@ main 保护已由 GitHub API 保存并读回：两项 GitHub Actions 必需检�
 
 社媒根因为 Buffer key 在9月12日过期，现已原生再生成并更新 GitHub BUFFER_API_KEY；新版个人密钥默认11项权限，当前界面没有收窄入口；旧密钥仅三项，不能声称权限未变化。界面到期日2027-10-13。非敏感变量 BUFFER_API_KEY_EXPIRES_AT 供每日检查提前14天提示。未读取、写文件或输出密钥。
 
-GitHub CI、Netlify Deploy Preview、远端 preflight 与正式合并状态以本任务 PR 和 docs/INFRASTRUCTURE_FIXES_2026-10-13.md 后续记录为准；不能将本地通过或 Secret 保存当成生产生效。未补发帖子、未付款、未升级或迁移。
+PR #87 的产品提交 ae20dbb 已通过两项GitHub CI、Netlify预览和完整社媒dry-run 38499401850：13项服务检查通过，三平台各3/3、合计9/9，全部状态dry_run，writeEnabled=false；没有发帖或R2写入。改用可用的gemini-2.5-flash-lite视觉模型，并按真实封面及成绩时间轴校验。main保护和Secret更新已生效；代码合并与生产发布待用户明确授权。详见 docs/INFRASTRUCTURE_FIXES_2026-10-13.md。未补发帖子、未付款、未升级或迁移。
 
 ## 当前交接重点：付费 MVP
 
