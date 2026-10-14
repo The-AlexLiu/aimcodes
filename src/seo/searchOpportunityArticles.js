@@ -1,14 +1,15 @@
+import { completeCoreGuide } from './coreGuideUpdates.js'
 // Query evidence: docs/SEO_KEYWORD_EXPANSION_2026-09-28.md.
 const copySource = { label: 'Riot Games — VALORANT Patch Notes 5.04', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-5-04/' }
 const shootingSource = { label: 'Riot Games — VALORANT Patch Notes 4.10', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-4-10/' }
 
-export function enrichArticleCopy(locale, key, content) {
+function enrichSearchArticleCopy(locale, key, content) {
   if (locale === 'en' && key === 'firingError') return {
     ...content,
     title: 'VALORANT shooting error: graph vs firing-error crosshair',
     intro: 'Looking for the Shooting Error graph or the Firing Error crosshair setting? Both help you inspect inaccuracy, but one shows recent shots in a graph and the other changes your aiming reference as you fire.',
     summary: 'The Shooting Error graph records recent shots; Firing Error animates crosshair lines. Turning the crosshair setting off keeps that reference steady without removing weapon spread. Choose the display that helps you diagnose your shots.',
-    sections: [{ title: 'Shooting Error graph vs crosshair feedback', paragraphs: ['Riot introduced the Shooting Error performance graph in patch 4.10 to show recent-shot values. It presents the information from crosshair error settings in a form you can review after an engagement. It is a separate display, not a crosshair code.'], bullets: ['Use the graph when you want to review recent shots.', 'Use crosshair error feedback when you want a visible cue around the aiming point.', 'Neither display changes weapon accuracy.'] }, ...content.sections],
+    sections: [{ id: 'shooting-graph-vs-crosshair', title: 'Shooting Error graph vs crosshair feedback', paragraphs: ['Riot introduced the Shooting Error performance graph in patch 4.10 to show recent-shot values. It presents the information from crosshair error settings in a form you can review after an engagement. It is a separate display, not a crosshair code.'], bullets: ['Use the graph when you want to review recent shots.', 'Use crosshair error feedback when you want a visible cue around the aiming point.', 'Neither display changes weapon accuracy.'] }, ...content.sections],
     faq: [
       ['Is shooting error the same as firing error?', 'The search term can mean two things: the Shooting Error performance graph, or the Firing Error crosshair setting. The graph displays recent-shot information; the crosshair setting changes the aiming reference while firing.'],
       ['Should I turn firing error on or off?', 'Try it in the range to notice changes between taps and bursts. Turn it off if the moving reference distracts you; the weapon still has the same spread and recoil.'],
@@ -23,7 +24,7 @@ export function enrichArticleCopy(locale, key, content) {
     ...content,
     title: 'How to copy a crosshair in VALORANT: /cc or a profile code',
     intro: 'Copy a teammate’s crosshair while spectating with /cc or /crosshair copy. If you already have a code from a website or friend, paste it into Import Profile Code in Crosshair settings instead.',
-    sections: [...content.sections, { title: 'Copy a code from a website instead of a spectator', paragraphs: ['Open the profile you want on AimCodes, choose the color and press Copy code. In VALORANT, open Settings → Crosshair → Import Profile Code and paste the complete string.'], bullets: ['A profile code belongs in the import field, not normal chat.', 'The /cc command belongs in chat while spectating; it does not accept a pasted profile string.', 'Keep your old profile so you can compare both in the range.'] }],
+    sections: [...content.sections, { id: 'website-code-import', title: 'Copy a code from a website instead of a spectator', paragraphs: ['Open the profile you want on AimCodes, choose the color and press Copy code. In VALORANT, open Settings → Crosshair → Import Profile Code and paste the complete string.'], bullets: ['A profile code belongs in the import field, not normal chat.', 'The /cc command belongs in chat while spectating; it does not accept a pasted profile string.', 'Keep your old profile so you can compare both in the range.'] }],
     faq: [...content.faq, ['Is /crosshair copy different from /cc?', 'Riot documents both commands for the same task: saving the crosshair of the player you are spectating as a new profile.'], ['Where do I paste a crosshair code?', 'Use Import Profile Code in VALORANT Crosshair settings. Do not put the string in chat or in the custom-color field.']],
     metaTitle: 'How to Copy a Crosshair in VALORANT: /cc & Codes | AimCodes',
     metaDescription: 'Copy a teammate’s VALORANT crosshair with /cc or /crosshair copy, or import a code from a website. Find the saved profile and check common copy problems.',
@@ -32,7 +33,7 @@ export function enrichArticleCopy(locale, key, content) {
     ...content,
     title: 'VALORANT クロスヘアのコピーコマンドとコード入力方法',
     intro: '味方を観戦中なら /cc または /crosshair copy。サイトで取得したコードなら、クロスヘア設定のインポート欄に入力します。使う場所が違うので、手元にあるものに合わせて選びましょう。',
-    sections: [...content.sections, { title: 'サイトのコードを入力する場所', paragraphs: ['コード全文をコピーし、設定 → クロスヘアでプロファイルコードのインポートを開きます。チャットや色の入力欄ではありません。保存後は選択中のプロファイルを確認してください。'], bullets: ['観戦中のコピー：チャットに /cc または /crosshair copy。', '文字列のコード：プロファイルのインポート欄に全文を貼り付け。', '保存できない：全文のコピーとプロファイルの空き枠を確認。'] }],
+    sections: [...content.sections, { id: 'website-code-import', title: 'サイトのコードを入力する場所', paragraphs: ['コード全文をコピーし、設定 → クロスヘアでプロファイルコードのインポートを開きます。チャットや色の入力欄ではありません。保存後は選択中のプロファイルを確認してください。'], bullets: ['観戦中のコピー：チャットに /cc または /crosshair copy。', '文字列のコード：プロファイルのインポート欄に全文を貼り付け。', '保存できない：全文のコピーとプロファイルの空き枠を確認。'] }],
     faq: [
       ['味方のクロスヘアをコピーするコマンドは？', 'コピーしたいプレイヤーを観戦し、チャットに /cc または /crosshair copy と入力します。Riot公式のパッチ5.04で両方のコマンドが案内されています。'],
       ['/cc と /crosshair copy は違う？', 'どちらも観戦中のプレイヤーのクロスヘアを新しいプロファイルに保存するためのコマンドです。コード全文を後ろに付ける必要はありません。'],
@@ -63,4 +64,8 @@ export function enrichArticleCopy(locale, key, content) {
     metaDescription: 'クロスヘアコードの拒否・保存失敗・読み込み後に見えない問題を切り分け。全文コピー、正しい入力欄、保存枠、表示設定の順に確認できます。',
   }
   return content
+}
+
+export function enrichArticleCopy(locale, key, content) {
+  return completeCoreGuide(locale, key, enrichSearchArticleCopy(locale, key, content))
 }

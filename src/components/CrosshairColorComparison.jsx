@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createTranslator } from '../i18n/translations.js'
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import { previewBackgroundOptions, crosshairColorPresets } from '../data/previewOptions.js'
 import { reviewCopy } from '../seo/octoberReviewContent.js'
@@ -9,6 +10,7 @@ export default function CrosshairColorComparison({ locale, crosshair }) {
   const [background, setBackground] = useState('ascent')
   if (!crosshair) return null
   const copy = reviewCopy(locale).colors
+  const t = createTranslator(locale)
   const map = previewBackgroundOptions.find((item) => item.value === background) || previewBackgroundOptions[0]
   return (
     <section className="color-comparison" aria-labelledby="color-comparison-title">
@@ -17,7 +19,7 @@ export default function CrosshairColorComparison({ locale, crosshair }) {
       <label className="tool-field">
         <span>{copy.map}</span>
         <select value={background} onChange={(event) => setBackground(event.target.value)}>
-          {previewBackgroundOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+          {previewBackgroundOptions.map((option) => <option key={option.value} value={option.value}>{t(`maps.${option.value}`)}</option>)}
         </select>
       </label>
       <div className="color-comparison-grid">
@@ -30,7 +32,7 @@ export default function CrosshairColorComparison({ locale, crosshair }) {
             <article key={key}>
               <h3>{copy.names[index]} <code>{color.hex.toUpperCase()}</code></h3>
               <div className="tool-preview-frame">
-                <img src={map.image} width="914" height="514" alt={map.label} loading="lazy" />
+                <img src={map.image} width="914" height="514" alt={t(`maps.${map.value}`)} loading="lazy" />
                 <CrosshairCanvas crosshair={item} scale={1.25} label={`${crosshair.shortName} · ${copy.names[index]}`} />
               </div>
               <a href={href}>{copy.open} →</a>

@@ -119,7 +119,7 @@ const localeLabels = {
   en: { eyebrow: 'SOLVE THE CROSSHAIR PROBLEM', summaryTitle: 'Quick answer', cta: 'Crosshairs to test' },
   es: { eyebrow: 'RESUELVE EL PROBLEMA DE LA MIRA', summaryTitle: 'Respuesta rápida', cta: 'Miras para probar' },
   'pt-BR': { eyebrow: 'RESOLVA O PROBLEMA DA MIRA', summaryTitle: 'Resposta rápida', cta: 'Miras para testar' },
-  'zh-CN': { eyebrow: '先把准星问题解决', summaryTitle: '快速结论', cta: '接着试这些准星' },
+  'zh-CN': { eyebrow: '先把准星问题解决', summaryTitle: '先说结论', cta: '接着试这些准星' },
 }
 
 const localizedGuides = {

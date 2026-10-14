@@ -179,7 +179,7 @@ if (new Set(sitemapUrls).size !== sitemapUrls.length) errors.push('sitemap.xml: 
 if (sitemapUrls.some((url) => url.includes('?'))) errors.push('sitemap.xml: query-string URL found')
 const sitemapLastmods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1])
 if (sitemapLastmods.length !== sitemapUrls.length) errors.push('sitemap.xml: every URL must have one lastmod')
-const allowedSitemapLastmods = new Set([SEO_CONTENT_UPDATED_AT, CROSSHAIR_STATISTICS_UPDATED_AT, ...Object.values(SEO_ROUTE_UPDATED_AT)])
+const allowedSitemapLastmods = new Set([SEO_CONTENT_UPDATED_AT, CROSSHAIR_STATISTICS_UPDATED_AT, ...Object.values(SEO_ROUTE_UPDATED_AT), ...catalogCrosshairs.map(item => item.sourceCheckedAt).filter(Boolean)])
 if (sitemapLastmods.some((value) => !allowedSitemapLastmods.has(value))) errors.push('sitemap.xml: unexpected lastmod')
 for (const locale of Object.keys(localeRoutes)) {
   const statisticsRoute = { type: 'article', articleKey: 'statistics' }
