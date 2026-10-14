@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { commandOutcome, expiryNotice, preflight, publishMedia, validateChannels } from './preflight.mjs'
+import { DEFAULT_COPY_MODEL, DEFAULT_VISION_MODEL } from './model-config.mjs'
 
 test('expiration notices provide advance warning without treating metadata as authentication', () => {
   const now = Date.parse('2026-10-13')
@@ -35,15 +36,28 @@ test('failed Buffer authentication produces a durable safe report and still chec
     run: (command) => { commands.push(command); return command === 'buffer'
       ? { status: 4, stdout: 'do-not-log-me' } : { status: 0, stdout: '200' } },
     fetchImpl: async (url, options) => { requests.push({ url, method: options.method || 'GET' }); return {
-      ok: true, status: 200, json: async () => ({ data: [{ id: 'gemini-2.5-flash-lite' }, { id: 'qwen3-vl-flash' }] }),
+      ok: true, status: 200, json: async () => options.method === 'POST'
+        ? { choices: [{ message: { content: 'A cyan crosshair.' } }] }
+        : { data: [{ id: DEFAULT_COPY_MODEL }, { id: DEFAULT_VISION_MODEL }] },
     } },
   })
   assert.equal(report.pass, false)
   assert.equal(report.checks.find((item) => item.name === 'buffer_authentication').code, 'authentication_failed')
   assert.deepEqual(commands, ['buffer', 'curl'])
-  assert.deepEqual(requests.map((item) => item.method), ['GET', 'HEAD'])
+  assert.deepEqual(requests.map((item) => item.method), ['GET', 'POST', 'HEAD'])
   assert.ok(!JSON.stringify(report).includes('private-'))
   assert.ok(!JSON.stringify(report).includes('do-not-log-me'))
+})
+
+test('an advertised model still fails preflight when actual vision inference returns 404', async () => {
+  const report = await preflight({ env: { AIHUBMIX_API_KEY: 'test-only' },
+    run: () => assert.fail('no local commands expected'),
+    fetchImpl: async (_url, options) => options.method === 'POST'
+      ? { ok: false, status: 404 }
+      : { ok: true, status: 200, json: async () => ({ data: [{ id: DEFAULT_COPY_MODEL }, { id: DEFAULT_VISION_MODEL }] }) },
+  })
+  assert.equal(report.checks.find((item) => item.name === 'aihubmix_vision_model').pass, true)
+  assert.equal(report.checks.find((item) => item.name === 'aihubmix_vision_inference').code, 'model_unavailable')
 })
 
 test('HTTP 200 from a provider does not hide a removed configured model', async () => {

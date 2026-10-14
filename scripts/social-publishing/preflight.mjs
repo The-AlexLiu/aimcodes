@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process'
 import { mkdir, writeFile, appendFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { DEFAULT_COPY_MODEL, DEFAULT_VISION_MODEL } from './model-config.mjs'
 
 const channels = {
   instagram: 'BUFFER_INSTAGRAM_CHANNEL_ID',
@@ -85,10 +86,32 @@ export async function preflight({ env = process.env, run = spawnSync, fetchImpl 
     const catalog = await response.json()
     const ids = catalog.data?.map((item) => item.id).filter((id) => typeof id === 'string') || []
     availableVisionModels = ids.filter((id) => /qwen.*vl|gemini.*flash|gpt.*mini/i.test(id)).slice(0, 60)
-    for (const [name, model] of [['copy', env.SOCIAL_COPY_MODEL || 'gemini-2.5-flash-lite'],
-      ['vision', env.SOCIAL_VISION_MODEL || 'qwen3-vl-flash']]) {
+    for (const [name, model] of [['copy', env.SOCIAL_COPY_MODEL || DEFAULT_COPY_MODEL],
+      ['vision', env.SOCIAL_VISION_MODEL || DEFAULT_VISION_MODEL]]) {
       const pass = ids.includes(model)
       checks.push({ name: `aihubmix_${name}_model`, pass, code: pass ? 'ok' : 'model_unavailable', model })
+    }
+    const visionModel = env.SOCIAL_VISION_MODEL || DEFAULT_VISION_MODEL
+    if (ids.includes(visionModel)) {
+      // A catalog entry alone is insufficient: the floating Qwen alias was
+      // listed but inference returned 404. Probe one existing public image.
+      const response = await fetchImpl('https://aihubmix.com/v1/chat/completions', {
+        method: 'POST', signal: AbortSignal.timeout(30000),
+        headers: { Authorization: `Bearer ${env.AIHUBMIX_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: visionModel, max_tokens: 128, temperature: 0,
+          messages: [{ role: 'user', content: [
+            { type: 'text', text: 'Describe the crosshair at the center of this public game screenshot in one short sentence.' },
+            { type: 'image_url', image_url: { url: 'https://aimcodes.com/images/crosshairs/tenz.webp' } },
+          ] }],
+        }),
+      })
+      let usable = false
+      if (response.ok) {
+        const payload = await response.json()
+        usable = Boolean(payload.choices?.[0]?.message?.content)
+      } else await response.body?.cancel()
+      checks.push({ name: 'aihubmix_vision_inference', pass: response.ok && usable,
+        code: response.ok && usable ? 'ok' : response.status === 404 ? 'model_unavailable' : 'inference_unavailable', httpStatus: response.status, model: visionModel })
     }
   })
   if (env.R2_PUBLIC_BASE_URL) await httpCheck('r2_public_delivery', `${env.R2_PUBLIC_BASE_URL.replace(/\/$/, '')}/health/github-actions-ready.txt`, { method: 'HEAD' })

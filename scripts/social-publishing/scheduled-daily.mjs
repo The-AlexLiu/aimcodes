@@ -5,14 +5,15 @@ import { dirname, resolve } from 'node:path'
 import { chromium } from 'playwright-core'
 import { absolutePath } from './lib.mjs'
 import { publishMedia } from './preflight.mjs'
+import { DEFAULT_COPY_MODEL, DEFAULT_VISION_MODEL } from './model-config.mjs'
 import { inspectCover, inspectVideo } from './media-inspector.mjs'
 import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
 import { normalizeVisualReview, quotaFailureMessage, summarizePlatformQuota } from './quality-policy.mjs'
 
 const TIMEZONE_OFFSET_HOURS = 8
 const MINIMUM_LEAD_MINUTES = 30
-const COPY_MODEL = process.env.SOCIAL_COPY_MODEL || 'gemini-2.5-flash-lite'
-const VISION_MODEL = process.env.SOCIAL_VISION_MODEL || 'qwen3-vl-flash'
+const COPY_MODEL = process.env.SOCIAL_COPY_MODEL || DEFAULT_COPY_MODEL
+const VISION_MODEL = process.env.SOCIAL_VISION_MODEL || DEFAULT_VISION_MODEL
 const QUALITY_THRESHOLD = Number(process.env.SOCIAL_QUALITY_THRESHOLD || 90)
 const MAX_SLOT_ATTEMPTS = Number(process.env.SOCIAL_MAX_SLOT_ATTEMPTS || 3)
 const writeEnabled = process.env.AIMCODES_SOCIAL_ALLOW_SCHEDULE === 'YES'
