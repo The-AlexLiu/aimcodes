@@ -3,6 +3,11 @@ import { classifyTask } from './task-context.mjs'
 
 const cases = [
   {
+    name: 'payment-only changes require release checks',
+    files: ['netlify/functions/aim-pack-paypal-webhook.mjs'],
+    expected: { risk: 'high', suite: 'release', scopes: ['payments'] },
+  },
+  {
     name: 'documentation stays quick and low risk',
     files: ['docs/PROJECT_CONTEXT.md'],
     expected: { risk: 'low', suite: 'quick', scopes: ['docs'] },

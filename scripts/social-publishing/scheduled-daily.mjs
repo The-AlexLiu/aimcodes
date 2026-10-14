@@ -4,14 +4,17 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { chromium } from 'playwright-core'
 import { absolutePath } from './lib.mjs'
+import { publishMedia } from './preflight.mjs'
+import { DEFAULT_COPY_MODEL, DEFAULT_VISION_MODEL } from './model-config.mjs'
+import { visualReviewPrompt, visualSampleTimes } from './visual-review-contract.mjs'
 import { inspectCover, inspectVideo } from './media-inspector.mjs'
 import { crosshairDisplayName, validateCopy } from './copy-quality.mjs'
 import { normalizeVisualReview, quotaFailureMessage, summarizePlatformQuota } from './quality-policy.mjs'
 
 const TIMEZONE_OFFSET_HOURS = 8
 const MINIMUM_LEAD_MINUTES = 30
-const COPY_MODEL = process.env.SOCIAL_COPY_MODEL || 'gemini-2.5-flash-lite'
-const VISION_MODEL = process.env.SOCIAL_VISION_MODEL || 'qwen3-vl-flash'
+const COPY_MODEL = process.env.SOCIAL_COPY_MODEL || DEFAULT_COPY_MODEL
+const VISION_MODEL = process.env.SOCIAL_VISION_MODEL || DEFAULT_VISION_MODEL
 const QUALITY_THRESHOLD = Number(process.env.SOCIAL_QUALITY_THRESHOLD || 90)
 const MAX_SLOT_ATTEMPTS = Number(process.env.SOCIAL_MAX_SLOT_ATTEMPTS || 3)
 const writeEnabled = process.env.AIMCODES_SOCIAL_ALLOW_SCHEDULE === 'YES'
@@ -153,7 +156,8 @@ async function renderCreative(browser, { platform, seed, directory }) {
     return document.querySelector('#promo').toDataURL('image/png')
   })
 
-  const frameTimes = [0.7, 2.8, 5.7, 8.8, Math.min(11.5, duration - 0.2)]
+  const audioTimeline = await page.evaluate(() => window.__promoAudioTimeline())
+  const frameTimes = visualSampleTimes(duration, audioTimeline)
   const framePaths = frameTimes.map((_, index) => resolve(directory, `frame-${index + 1}.png`))
   for (let index = 0; index < frameTimes.length; index += 1) {
     const dataUrl = await page.evaluate((time) => {
@@ -180,7 +184,7 @@ async function renderCreative(browser, { platform, seed, directory }) {
     '-c:v', 'libx264', '-preset', 'fast', '-crf', '20', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', videoPath,
   ])
-  return { creative, duration, coverPath, framePaths, videoPath, renderMetadata }
+  return { creative, duration, coverPath, framePaths, frameTimes, videoPath, renderMetadata }
 }
 
 async function generateCopy(platform, creative) {
@@ -208,26 +212,9 @@ ${creative.socialCopy}`
   return { copy: response.result, usage: response.usage }
 }
 
-async function reviewVisuals({ platform, creative, coverPath, framePaths, renderMetadata }) {
+async function reviewVisuals({ platform, creative, coverPath, framePaths, frameTimes, renderMetadata }) {
   const images = await Promise.all([coverPath, ...framePaths].map((path) => base64DataUrl(path)))
-  const prompt = `Act as a strict mobile-video QA reviewer for an AimCodes VALORANT short.
-Image 1 is the vertical cover. It is intentionally a result-led promotional cover and may reveal the final average, rank, and matched crosshair before playback.
-Images 2-6 are chronological samples from the 13-second video at approximately 0.7s, 2.8s, 5.7s, 8.8s, and 11.5s. They are NOT consecutive frames: an intermediate round or state can legitimately fall between two samples.
-Return JSON only with keys: pass (boolean), score (integer 0-100), failures (array of short strings), summary (string).
-
-Rendered facts: platform=${platform}; scores=${creative.scores.join('/')}; average=${creative.average}; rank=${creative.rank}; crosshair=${creative.crosshairName}; audio=${renderMetadata.hasAudio}.
-Fail if any frame is blank, text is clipped/overlapping/illegible, the UI looks unfinished, a score appears before its corresponding click result inside the video sequence, the cover is visually weak, the sequence is incoherent, or visible facts contradict the rendered facts. Ignore normal differences between sampled chronological frames.
-
-Rules for a reliable verdict:
-- failures must contain ONLY real defects. Never put passed checks, confirmations, neutral observations, or statements such as “the values match” in failures.
-- Every failure must name the affected image number and visible evidence.
-- If the visible values match the rendered facts, do not describe them as inconsistent.
-- Do not fail Image 1 merely because it reveals the final result; that is the intended cover design.
-- Do not assume Images 2-6 contain every round. A jump from Round 1 to Round 3 is valid when the Round 2 moment falls between sample times.
-- Do not invent requirements such as repeating the rank on every result-related frame. Judge only the defects and facts explicitly listed here.
-- Never include a self-rebuttal, a passed check, or text such as “acceptable”, “no issue”, or “re-evaluate” in failures.
-- score must be an integer from 0 to 100. If score is below ${QUALITY_THRESHOLD}, failures must cite at least one visible, actionable reason.
-- Set pass=true only when score is at least ${QUALITY_THRESHOLD} and failures is empty. Otherwise set pass=false.`
+  const prompt = visualReviewPrompt({ platform, creative, frameTimes, renderMetadata, threshold: QUALITY_THRESHOLD })
   const first = await callModel({ model: VISION_MODEL, prompt, images, temperature: 0.1 })
   const firstReview = normalizeVisualReview(first.result, QUALITY_THRESHOLD)
   if (firstReview.pass) {
@@ -386,10 +373,10 @@ async function processSlot(slot, schedule, prefix) {
       const fingerprint = createHash('sha256').update(await readFile(rendered.videoPath)).digest('hex').slice(0, 16)
       const videoKey = `${prefix}/${fingerprint}.mp4`
       const coverKey = `${prefix}/${fingerprint}-cover.png`
-      const [videoUrl, coverUrl] = await Promise.all([
-        uploadR2(rendered.videoPath, videoKey, 'video/mp4'),
-        uploadR2(rendered.coverPath, coverKey, 'image/png'),
-      ])
+      const [videoUrl, coverUrl] = await publishMedia({
+        writeEnabled, upload: uploadR2, publicBase: required('R2_PUBLIC_BASE_URL'),
+        videoPath: rendered.videoPath, coverPath: rendered.coverPath, videoKey, coverKey,
+      })
       const payload = bufferPayload({ slot, copy, creative: rendered.creative, videoUrl, dueAt: schedule.dueAt })
       bufferResult = await scheduleWithBuffer(payload, resolve(directory, 'buffer-payload.json'))
       const manifest = {

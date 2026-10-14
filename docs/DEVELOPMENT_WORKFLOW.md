@@ -58,3 +58,15 @@ pnpm task:context
 Skill 源文件位于 `automation/skills/aimcodes-maintainer/`；Cursor 命令位于 `.cursor/commands/`。两者必须调用仓库中的同一套脚本，不能维护两套产品事实。
 
 GitHub CI 在 PR 上并行运行产品数据检查与构建/SEO 检查；功能分支不再额外触发重复的 push 检查。合并到 `main` 后再运行一次生产基线检查。
+
+## 基建保护（2026-10-13）
+
+- CI 对所有 PR 和 main push 运行，不使用 workflow paths 过滤，避免文档或函数单独变更令必需检查永久等待。
+- product-data 检查 Manifest、社媒策略与安全诊断测试；build-and-seo 构建后检查性能预算和 validate:paid（包含 PayPal 行为回归及私有路由边界）。
+- netlify/functions 单独变更被识别为 payments / high risk，check:auto 必须选择完整 release。
+- main 保护以 product-data 和 build-and-seo 两项 GitHub Actions 检查为必需，要求分支最新、PR、讨论解决；管理员也受约束，禁止强推和删除。单人维护不强制另一位审批者。
+- 手工运行 Daily Social Publishing 默认 dry_run=true；preflight_only=true 只检查服务，不生成、上传或创建帖子。不要用失败的旧任务重跑恢复公开排期。
+- social:preflight 输出仅含检查名称、状态、错误类别和缺少的配置名称；原始 API 响应与凭据不会进入日志或 Artifact。模型检查同时核对目录与一次实际小图推理；该调用产生少量模型用量，不发帖或写存储。Buffer 频道必须存在、匹配平台、未断开且未锁定。
+- dry-run 使用计划媒体 URL 做本地 payload 校验，不写 R2。真实自动化仍使用既有九时段、90分质量门和 R2 Manifest 去重。
+- Buffer 密钥过期时，在 Buffer Settings → API 原生再生成并复制到 GitHub Actions BUFFER_API_KEY；旧密钥为 account:read、posts:read、posts:write；新版个人密钥默认11项权限，当前界面没有权限收窄入口，不能声称仍为三项。将仓库变量 BUFFER_API_KEY_EXPIRES_AT 更新为界面到期日；检查在到期前14天显示警告。
+- 密钥与频道修复由只读服务检查验收，不能以 Secret 已保存代替 API 认证成功；真实公开排期与付款需要单独授权。
