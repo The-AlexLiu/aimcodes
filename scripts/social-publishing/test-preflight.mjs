@@ -89,3 +89,19 @@ test('authorized media publication keeps the video and cover upload contract', a
   assert.deepEqual(calls, [['/tmp/video.mp4', 'v.mp4', 'video/mp4'], ['/tmp/cover.png', 'c.png', 'image/png']])
   assert.deepEqual(urls, ['https://media.example/v.mp4', 'https://media.example/c.png'])
 })
+
+
+test('visual samples include the actual result scene and follow renderer timeline changes', async () => {
+  const { visualSampleTimes } = await import('./visual-review-contract.mjs')
+  const samples = visualSampleTimes(13, { events: [{ kind: 'final_result', at: 6.05 }, { kind: 'recommendation', at: 8.45 }] })
+  assert.equal(samples.length, 6)
+  assert.ok(samples.includes(7.25))
+  const shifted = visualSampleTimes(14, { events: [{ kind: 'final_result', at: 6.5 }, { kind: 'recommendation', at: 9.5 }] })
+  assert.ok(shifted.includes(8))
+  assert.throws(() => visualSampleTimes(13, { events: [] }), /result window/)
+})
+
+test('unknown cover designs fail closed rather than receiving invented grading rules', async () => {
+  const { visualReviewPrompt } = await import('./visual-review-contract.mjs')
+  assert.throws(() => visualReviewPrompt({ creative: { coverStyle: 'unknown' } }), /Unknown renderer cover style/)
+})

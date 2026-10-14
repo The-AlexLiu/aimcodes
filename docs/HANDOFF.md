@@ -4,7 +4,7 @@
 
 ## 基建保护修复（2026-10-13）
 
-当前任务分支 codex/infrastructure-guardrails，基于 main 60e1ac9；旧 GA4 工作树及用户修改未动。支付 CI、函数高风险任务分类、社媒安全 preflight 和禁止写入的 dry-run 已实现。本地完整 release 25/25、支付回归24项与社媒诊断7项通过。
+当前任务分支 codex/infrastructure-guardrails，基于 main 60e1ac9；旧 GA4 工作树及用户修改未动。支付 CI、函数高风险任务分类、社媒安全 preflight 和禁止写入的 dry-run 已实现。本地完整 release 25/25、支付回归24项与社媒诊断11项通过。
 
 main 保护已由 GitHub API 保存并读回：两项 GitHub Actions 必需检查 product-data / build-and-seo，strict、PR、讨论解决、管理员约束，禁止强推/删除；不要求另一位审批者。原先 main 无保护。
 
