@@ -1,3 +1,4 @@
+import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
 import { crosshairDisplayName, seoCopy } from './content.js'
@@ -53,6 +54,10 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap((locale) => [
     ...['catalog:', 'collection:best', 'collection:circle', 'article:colors', 'guide:', 'tool:generator', 'crosshair:aspas-dot']
       .map((key) => [`${locale}:${key}`, '2026-10-13']),
+  ])),
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
+    ...['dot', 'small', 'cute', 'funny', 'sheriff', 'visibility', 'guardian', 'outlaw', 'marshal', 'burst', 'spray', 'longRange'].map(key => [`${locale}:collection:${key}`, '2026-10-14']),
+    ...['firingError', 'copy', 'colors', 'statistics'].map(key => [`${locale}:article:${key}`, '2026-10-14']),
   ])),
 })
 
@@ -142,13 +147,10 @@ export function routeMetadata(locale, route, crosshair) {
     title = `${page.title} | AimCodes`
     description = page.intro
   } else if (route.type === 'paid') {
-    const paidTitles = {
-      complete: 'Confirming your Aim Pack',
-      pack: 'My Aim Pack',
-      recover: 'Recover my Aim Pack',
-    }
+    const paid = paidPackCopy(locale)
+    const paidTitles = { complete: paid.waiting, pack: paid.packTitle, recover: paid.recoveryTitle }
     title = `${paidTitles[route.pageKey] || paidTitles.pack} | AimCodes`
-    description = 'Private AimCodes Crosshair Pack access and delivery.'
+    description = route.pageKey === 'recover' ? paid.recoveryBody : paid.packBody
   } else if (route.type === 'crosshair' && crosshair) {
     const searchName = crosshairDisplayName(locale, crosshair)
     const metadataOverride = detailMetadata[crosshair.id]?.[locale]

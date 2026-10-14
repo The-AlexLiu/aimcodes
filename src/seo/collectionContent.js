@@ -1,3 +1,5 @@
+import { completeCollectionUseCase } from './collectionUseCases.js'
+import { completeCollectionSelection } from './dotSelectionContent.js'
 import { enrichCollectionCopy } from './searchOpportunityContent.js'
 import { enrichReviewCollection } from './octoberReviewContent.js'
 import { baseCollectionCopy, seoCopy } from './content.js'
@@ -16,7 +18,7 @@ const BATCH_EN_TERMS = ['Guardian', 'Outlaw', 'Marshal', 'Burst', 'Spray', 'Long
 const BATCH_TERMS = {
   es: ['Guardian', 'Outlaw', 'Marshal', 'ráfaga', 'spray', 'larga distancia'],
   'pt-BR': ['Guardian', 'Outlaw', 'Marshal', 'rajada', 'spray', 'longa distância'],
-  'zh-CN': ['戍卫', 'Outlaw', 'Marshal', '连发', '压枪', '远距离'],
+  'zh-CN': ['戍卫', '莽侠', '飞将', '连发', '压枪', '远距离'],
   ja: ['ガーディアン', 'アウトロー', 'マーシャル', 'バースト', 'スプレー', '遠距離'],
 }
 const BATCH_INDEX = { sheriff: 0, visibility: 1, guardian: 2, outlaw: 3, marshal: 4, burst: 5, spray: 6, longRange: 7 }
@@ -37,7 +39,7 @@ export function collectionCopy(locale, collectionKey) {
     || growthCollectionCopy(locale, collectionKey)
     || nextCollectionCopy(locale, collectionKey)
     || seoCopy(locale).collections.best
-  const content = enrichReviewCollection(locale, collectionKey, enrichCollectionCopy(locale, collectionKey, baseContent))
+  const content = completeCollectionUseCase(locale, collectionKey, completeCollectionSelection(locale, collectionKey, enrichReviewCollection(locale, collectionKey, enrichCollectionCopy(locale, collectionKey, baseContent))))
   const links = {
     plus: { collections: ['horizontal', 'static'], articles: ['stretched'] },
     minimalist: { collections: ['static'], articles: [] },

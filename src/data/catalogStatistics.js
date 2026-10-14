@@ -1,6 +1,7 @@
-import { crosshairCollections, indexableCrosshairs } from './catalogManifest.js'
+import { indexableCrosshairs } from './catalogManifest.js'
+import { collectionDisplayIds } from './catalogDisplay.js'
 
-export const CROSSHAIR_STATISTICS_UPDATED_AT = '2026-08-27'
+export const CROSSHAIR_STATISTICS_UPDATED_AT = '2026-10-14'
 
 const colorAliases = Object.freeze({
   ciano: 'cyan',
@@ -49,7 +50,7 @@ export const crosshairStatistics = Object.freeze({
   categories: rankedCounts(indexableCrosshairs, (crosshair) => crosshair.category),
   collections: Object.freeze(featuredCollectionKeys.map((key) => Object.freeze({
     key,
-    count: crosshairCollections[key].crosshairIds.length,
+    count: collectionDisplayIds(key).length,
   }))),
 })
 

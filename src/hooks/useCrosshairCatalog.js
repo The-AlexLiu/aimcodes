@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
-import { catalogCrosshairs, crosshairCollections, homeFeaturedCrosshairIds, indexableCrosshairIds } from '../data/catalogManifest.js'
+import { catalogCrosshairs, homeFeaturedCrosshairIds, indexableCrosshairIds } from '../data/catalogManifest.js'
 import { localizeCrosshair } from '../i18n/translations.js'
 import { parseCrosshairCode } from '../utils/crosshairCode.js'
-import { dedupeCrosshairsByAppearance } from '../utils/crosshairSimilarity.js'
+import { distinctCatalogCrosshairs, collectionDisplayIds } from '../data/catalogDisplay.js'
 import { searchCatalog } from '../utils/catalogSearch.js'
 
-const distinctCatalogCrosshairs = dedupeCrosshairsByAppearance(catalogCrosshairs)
 const catalogOrder = new Map(distinctCatalogCrosshairs.map((item, index) => [item.id, index]))
 const recommendedOrder = new Map(indexableCrosshairIds.map((id, index) => [id, index]))
 
@@ -90,7 +89,7 @@ export function useCrosshairCatalog({
   }
   if (route.type === 'collection') {
     const collectionCatalog = route.collectionKey === 'pro' ? allSourceCrosshairs : allCrosshairs
-    displayedCrosshairs = crosshairCollections[route.collectionKey].crosshairIds.map((id) => collectionCatalog.find((item) => item.id === id)).filter(Boolean)
+    displayedCrosshairs = collectionDisplayIds(route.collectionKey).map((id) => collectionCatalog.find((item) => item.id === id)).filter(Boolean)
   }
   if (route.type === 'crosshair') {
     const indexed = indexableCrosshairIds.map((id) => allCrosshairs.find((item) => item.id === id))
