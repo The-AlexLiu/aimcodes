@@ -16,7 +16,7 @@ on:
         default: true
         type: boolean
       preflight_only:
-        description: Read-only service verification; skip media generation and all writes
+        description: Service checks and one vision probe; no publication or storage writes
         required: true
         default: false
         type: boolean
@@ -46,6 +46,8 @@ jobs:
       BUFFER_TIKTOK_CHANNEL_ID: ${{ vars.BUFFER_TIKTOK_CHANNEL_ID }}
       BUFFER_YOUTUBE_CHANNEL_ID: ${{ vars.BUFFER_YOUTUBE_CHANNEL_ID }}
       SOCIAL_SCHEDULE_DATE: ${{ inputs.schedule_date }}
+      SOCIAL_COPY_MODEL: ${{ vars.SOCIAL_COPY_MODEL }}
+      SOCIAL_VISION_MODEL: ${{ vars.SOCIAL_VISION_MODEL }}
       AIMCODES_SOCIAL_ALLOW_SCHEDULE: ${{ (github.event_name == 'schedule' || (inputs.dry_run == false && inputs.preflight_only != true)) && 'YES' || 'NO' }}
       BUFFER_DISABLE_UPDATE_CHECK: '1'
       NO_COLOR: '1'

@@ -61,7 +61,7 @@ test('an advertised model still fails preflight when actual vision inference ret
 })
 
 test('HTTP 200 from a provider does not hide a removed configured model', async () => {
-  const report = await preflight({ env: { AIHUBMIX_API_KEY: 'test-only' },
+  const report = await preflight({ env: { AIHUBMIX_API_KEY: 'test-only', SOCIAL_VISION_MODEL: 'removed-model' },
     run: () => assert.fail('no Buffer or R2 commands expected'),
     fetchImpl: async () => ({ ok: true, status: 200, json: async () => ({ data: [{ id: 'gemini-2.5-flash-lite' }] }) }),
   })

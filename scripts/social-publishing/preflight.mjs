@@ -123,7 +123,7 @@ export async function preflight({ env = process.env, run = spawnSync, fetchImpl 
     const pass = result.status === 0 && status === 200
     checks.push({ name: 'r2_bucket_access', pass, code: pass ? 'ok' : [401, 403].includes(status) ? 'authentication_failed' : 'bucket_unavailable', httpStatus: Number.isInteger(status) ? status : 0 })
   }
-  return { generatedAt: new Date().toISOString(), mode: 'read_only', pass: checks.every((check) => check.pass), checks, availableVisionModels }
+  return { generatedAt: new Date().toISOString(), mode: 'no_publication', pass: checks.every((check) => check.pass), checks, availableVisionModels }
 }
 
 export async function publishMedia({ writeEnabled, upload, publicBase, videoPath, coverPath, videoKey, coverKey }) {
