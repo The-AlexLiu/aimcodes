@@ -34,7 +34,9 @@ test('failed Buffer authentication produces a durable safe report and still chec
   const report = await preflight({ env,
     run: (command) => { commands.push(command); return command === 'buffer'
       ? { status: 4, stdout: 'do-not-log-me' } : { status: 0, stdout: '200' } },
-    fetchImpl: async (url, options) => { requests.push({ url, method: options.method || 'GET' }); return { ok: true, status: 200 } },
+    fetchImpl: async (url, options) => { requests.push({ url, method: options.method || 'GET' }); return {
+      ok: true, status: 200, json: async () => ({ data: [{ id: 'gemini-2.5-flash-lite' }, { id: 'qwen3-vl-flash' }] }),
+    } },
   })
   assert.equal(report.pass, false)
   assert.equal(report.checks.find((item) => item.name === 'buffer_authentication').code, 'authentication_failed')
@@ -42,6 +44,15 @@ test('failed Buffer authentication produces a durable safe report and still chec
   assert.deepEqual(requests.map((item) => item.method), ['GET', 'HEAD'])
   assert.ok(!JSON.stringify(report).includes('private-'))
   assert.ok(!JSON.stringify(report).includes('do-not-log-me'))
+})
+
+test('HTTP 200 from a provider does not hide a removed configured model', async () => {
+  const report = await preflight({ env: { AIHUBMIX_API_KEY: 'test-only' },
+    run: () => assert.fail('no Buffer or R2 commands expected'),
+    fetchImpl: async () => ({ ok: true, status: 200, json: async () => ({ data: [{ id: 'gemini-2.5-flash-lite' }] }) }),
+  })
+  assert.equal(report.checks.find((item) => item.name === 'aihubmix_copy_model').pass, true)
+  assert.equal(report.checks.find((item) => item.name === 'aihubmix_vision_model').code, 'model_unavailable')
 })
 
 test('an empty configuration does not accidentally use ambient local credentials', async () => {

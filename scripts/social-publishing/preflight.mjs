@@ -39,6 +39,7 @@ export function validateChannels(list, env) {
 
 export async function preflight({ env = process.env, run = spawnSync, fetchImpl = fetch } = {}) {
   const checks = []
+  let availableVisionModels = []
   const expiry = expiryNotice(env.BUFFER_API_KEY_EXPIRES_AT)
   if (expiry) checks.push(expiry)
   const required = ['BUFFER_API_KEY', 'BUFFER_ORGANIZATION_ID', ...Object.values(channels),
@@ -69,16 +70,26 @@ export async function preflight({ env = process.env, run = spawnSync, fetchImpl 
     }
   }
 
-  async function httpCheck(name, url, options) {
+  async function httpCheck(name, url, options, inspectResponse) {
     try {
       const response = await fetchImpl(url, { ...options, signal: AbortSignal.timeout(20000) })
       const code = response.ok ? 'ok' : [401, 403].includes(response.status) ? 'authentication_failed' : 'http_error'
       checks.push({ name, pass: response.ok, code, httpStatus: response.status })
-      await response.body?.cancel()
+      if (response.ok && inspectResponse) await inspectResponse(response)
+      if (!response.bodyUsed) await response.body?.cancel()
     } catch { checks.push({ name, pass: false, code: 'network_unavailable' }) }
   }
   if (env.AIHUBMIX_API_KEY) await httpCheck('aihubmix_authentication', 'https://aihubmix.com/v1/models', {
     headers: { Authorization: `Bearer ${env.AIHUBMIX_API_KEY}` },
+  }, async (response) => {
+    const catalog = await response.json()
+    const ids = catalog.data?.map((item) => item.id).filter((id) => typeof id === 'string') || []
+    availableVisionModels = ids.filter((id) => /qwen.*vl|gemini.*flash|gpt.*mini/i.test(id)).slice(0, 60)
+    for (const [name, model] of [['copy', env.SOCIAL_COPY_MODEL || 'gemini-2.5-flash-lite'],
+      ['vision', env.SOCIAL_VISION_MODEL || 'qwen3-vl-flash']]) {
+      const pass = ids.includes(model)
+      checks.push({ name: `aihubmix_${name}_model`, pass, code: pass ? 'ok' : 'model_unavailable', model })
+    }
   })
   if (env.R2_PUBLIC_BASE_URL) await httpCheck('r2_public_delivery', `${env.R2_PUBLIC_BASE_URL.replace(/\/$/, '')}/health/github-actions-ready.txt`, { method: 'HEAD' })
   if (['R2_ENDPOINT', 'R2_BUCKET', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY'].every((name) => env[name])) {
@@ -89,7 +100,7 @@ export async function preflight({ env = process.env, run = spawnSync, fetchImpl 
     const pass = result.status === 0 && status === 200
     checks.push({ name: 'r2_bucket_access', pass, code: pass ? 'ok' : [401, 403].includes(status) ? 'authentication_failed' : 'bucket_unavailable', httpStatus: Number.isInteger(status) ? status : 0 })
   }
-  return { generatedAt: new Date().toISOString(), mode: 'read_only', pass: checks.every((check) => check.pass), checks }
+  return { generatedAt: new Date().toISOString(), mode: 'read_only', pass: checks.every((check) => check.pass), checks, availableVisionModels }
 }
 
 export async function publishMedia({ writeEnabled, upload, publicBase, videoPath, coverPath, videoKey, coverKey }) {
