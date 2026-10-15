@@ -487,7 +487,7 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} t={t} />}
-        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionIntro locale={language} collectionKey={route.collectionKey} /></Suspense>}
+        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionIntro locale={language} collectionKey={route.collectionKey} crosshairs={allSourceCrosshairs} copiedId={copiedId} onCopy={copyCrosshair} t={t} /></Suspense>}
 
         {route.type === 'catalog' && (
           <CatalogSearch
