@@ -6,6 +6,7 @@ import { localeRoutes } from '../src/i18n/localeRoutes.js'
 import {
   HIDDEN_COLLECTION_KEYS,
   isIndexableRoute,
+  routePath,
   RETIRED_COLLECTION_REDIRECTS,
   SEO_ARTICLE_KEYS,
   SEO_LOCALE_TIERS,
@@ -40,8 +41,18 @@ const locales = Object.keys(localeRoutes).map((locale) => {
 
   if (!SEO_LOCALE_TIERS[locale]) errors.push(`${locale}: SEO locale tier missing`)
   if (locale === 'zh-CN') {
-    const unexpected = indexed.filter((route) => !['home', 'catalog', 'finder'].includes(route.type))
-    if (unexpected.length) errors.push(`zh-CN: product-only policy leaked ${unexpected.length} SEO routes`)
+    // Independent expected set catches both accidental expansion and missing exceptions.
+    const expectedPaths = new Set([
+      '/zh-cn/', '/zh-cn/crosshairs/', '/zh-cn/reaction-time-test/',
+      '/zh-cn/dot-crosshairs/', '/zh-cn/plus-crosshairs/', '/zh-cn/crosshairs/cat/',
+    ])
+    const actualPaths = new Set(indexed.map((route) => routePath(locale, route)))
+    for (const path of actualPaths) {
+      if (!expectedPaths.has(path)) errors.push(`zh-CN: unexpected indexable route ${path}`)
+    }
+    for (const path of expectedPaths) {
+      if (!actualPaths.has(path)) errors.push(`zh-CN: missing approved indexable route ${path}`)
+    }
   }
 
   return {

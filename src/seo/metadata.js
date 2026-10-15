@@ -59,6 +59,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     ...['dot', 'small', 'cute', 'funny', 'sheriff', 'visibility', 'guardian', 'outlaw', 'marshal', 'burst', 'spray', 'longRange'].map(key => [`${locale}:collection:${key}`, '2026-10-14']),
     ...['firingError', 'copy', 'colors', 'statistics'].map(key => [`${locale}:article:${key}`, '2026-10-14']),
   ])),
+  ...Object.fromEntries(Object.keys(localeRoutes).map(locale => [`${locale}:collection:best`, '2026-10-15'])),
 })
 
 export function routeContentUpdatedAt(locale, route) {
