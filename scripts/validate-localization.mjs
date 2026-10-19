@@ -51,8 +51,8 @@ for (const locale of locales) {
       if (!String(article[field] || '').trim()) failures.push(`${locale} ${articleKey} article is missing ${field}`)
     }
     if (article.sections?.length < 3 || article.sections.some((section) => !section.title || section.paragraphs?.length < 1 || section.paragraphs.some((value) => !value.trim()) || !Array.isArray(section.bullets))) failures.push(`${locale} ${articleKey} article needs at least three complete sections`)
-    if ((!['hush', 'sage', 'phoenix', 'jett'].includes(articleKey) && article.faq?.length < 2) || article.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${articleKey} article needs at least two complete FAQs`)
-    if (article.recommendedCrosshairIds?.length !== (['hush', 'sage', 'phoenix', 'jett'].includes(articleKey) ? 0 : 4) || article.recommendedCrosshairIds.some((id) => !crosshairs.some((item) => item.id === id))) failures.push(`${locale} ${articleKey} article needs four valid crosshair recommendations`)
+    if ((!['hush', 'sage', 'phoenix', 'jett', 'omen'].includes(articleKey) && article.faq?.length < 2) || article.faq.some((item) => item.length !== 2 || item.some((value) => !value.trim()))) failures.push(`${locale} ${articleKey} article needs at least two complete FAQs`)
+    if (article.recommendedCrosshairIds?.length !== (['hush', 'sage', 'phoenix', 'jett', 'omen'].includes(articleKey) ? 0 : 4) || article.recommendedCrosshairIds.some((id) => !crosshairs.some((item) => item.id === id))) failures.push(`${locale} ${articleKey} article needs four valid crosshair recommendations`)
   }
 
   for (const articleKey of SEO_ARTICLE_KEYS.filter((key) => !['settings', 'colors'].includes(key))) {

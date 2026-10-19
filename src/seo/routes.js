@@ -45,6 +45,7 @@ export const SEO_ARTICLES = Object.freeze({
   jett: Object.freeze({ slug: 'valorant-jett', keyword: 'valorant jett abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   // Release approved: English search entry; other locales remain product access.
   phoenix: Object.freeze({ slug: 'valorant-phoenix', keyword: 'valorant phoenix abilities', priority: 'P1', indexLocales: Object.freeze(['en']) }),
+  omen: Object.freeze({ slug: 'valorant-omen', keyword: 'valorant omen abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   sage: Object.freeze({ slug: 'valorant-sage', keyword: 'valorant sage abilities', priority: 'P0', indexLocales: Object.freeze(['en']) }),
   hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: Object.freeze(['en', 'ja']) }),
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
