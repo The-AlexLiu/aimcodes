@@ -16,7 +16,7 @@
 - 正式站点：`https://aimcodes.com`
 - 主仓库：`https://github.com/The-AlexLiu/aimcodes`
 - 社媒渲染器镜像：`https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer`
-- 技术栈：React、Vite、Canvas、原生 CSS、Netlify、GA4。
+- 技术栈：React、Vite、Canvas、原生 CSS、Cloudflare Workers Static Assets、GA4。
 - 产品界面支持英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`、日语 `ja`。界面支持范围不等于 SEO 投入范围。
 - SEO 语言分层：英语、日语为增长语言；西班牙语、巴西葡萄牙语仅维护已有赢家；中文保留完整产品界面，默认仅首页、准星库和反应测试参与索引；2026-10-15 批准的圆点、十字集合和猫猫详情为三个明确 URL 例外。其他中文 SEO 页继续 noindex，不自动扩展白名单。
 - 当前产品基线包含 548 条准星源数据，经外观去重后展示 540 种样式；396 条高价值详情允许索引。数量变化必须以验证脚本结果为准。

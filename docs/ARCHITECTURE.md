@@ -4,7 +4,7 @@
 
 ## 总体结构
 
-AimCodes 是一个不依赖业务后端的 React + Vite 静态网站。准星数据、推荐算法、语言词典和 GA4 事件均在前端代码中维护，生产构建后部署到 Netlify CDN。
+AimCodes 是一个不依赖业务后端的 React + Vite 静态网站。准星数据、推荐算法、语言词典和 GA4 事件均在前端代码中维护，生产构建后部署到 Cloudflare Workers Static Assets。购买功能已永久停用；历史支付源码不进入线上前端与 Worker 依赖图。
 
 ```text
 src/data + src/i18n + src/seo
@@ -17,7 +17,7 @@ src/data + src/i18n + src/seo
               ↓
   多语种 HTML + sitemap + 静态资源
               ↓
-             Netlify
+             Cloudflare Workers Static Assets
 ```
 
 ## 关键目录
@@ -183,4 +183,4 @@ Netlify 配置：
 - Project ID：`b244d8b7-4cce-46de-b9b5-2b4f29e30392`
 - 正式域名：`https://aimcodes.com`
 
-目标工作流是 GitHub PR → Netlify Deploy Preview → 合并 `main` → 自动生产部署。当前历史上仍使用过本地 Netlify CLI 手动发布，因此执行生产部署前必须先确认 GitHub、工作树和线上版本关系。
+当前目标工作流是 GitHub PR → Cloudflare 预览验证 → 合并 `main` → Cloudflare Workers Builds。自动发布连接状态以最新交接记录为准；迁移期间使用 Wrangler 发布。Netlify 自动构建已停止，以下支付后端及 Netlify 配置内容仅作历史参考。
