@@ -1,3 +1,6 @@
+import { CHAMBER_OG_IMAGE, CHAMBER_UPDATED_AT, chamberArticleCopy } from './chamberContent.js'
+
+
 import { BRIMSTONE_OG_IMAGE, BRIMSTONE_UPDATED_AT, brimstoneArticleCopy } from './brimstoneContent.js'
 import { OMEN_OG_IMAGE, OMEN_UPDATED_AT, omenArticleCopy } from './omenContent.js'
 import { VIPER_OG_IMAGE, VIPER_UPDATED_AT, viperArticleCopy } from './viperContent.js'
@@ -69,6 +72,9 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:home:`, HUSH_UPDATED_AT],
     [`${locale}:article:hush`, HUSH_UPDATED_AT],
     [`${locale}:article:sage`, SAGE_UPDATED_AT],
+    [`${locale}:article:chamber`, CHAMBER_UPDATED_AT],
+
+
     [`${locale}:article:brimstone`, BRIMSTONE_UPDATED_AT],
     [`${locale}:article:omen`, OMEN_UPDATED_AT],
     [`${locale}:article:viper`, VIPER_UPDATED_AT],
@@ -226,6 +232,10 @@ export function routeMetadata(locale, route, crosshair) {
     }[locale] || title
   }
 
+  if (route.type === 'article' && route.articleKey === 'chamber') {
+    imagePath = CHAMBER_OG_IMAGE
+    imageAlt = chamberArticleCopy(locale).imageAlt
+  }
   if (route.type === 'article' && route.articleKey === 'brimstone') {
     imagePath = BRIMSTONE_OG_IMAGE
     imageAlt = brimstoneArticleCopy(locale).imageAlt
