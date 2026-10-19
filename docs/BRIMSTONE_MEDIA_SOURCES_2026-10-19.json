@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-19",
+  "agent": "brimstone",
+  "officialHeroPages": [
+    "https://playvalorant.com/en-us/agents/brimstone/",
+    "https://playvalorant.com/ja-jp/agents/brimstone/",
+    "https://playvalorant.com/es-es/agents/brimstone/",
+    "https://playvalorant.com/pt-br/agents/brimstone/"
+  ],
+  "chineseSource": "https://val.qq.com/game-data.html?pageType=1&heroId=5",
+  "cinematic": {
+    "url": "https://www.youtube.com/watch?v=FUoqAn5T4h4",
+    "channel": "VALORANT",
+    "title": "L’Accord - Chamber Agent Trailer // VALORANT",
+    "capture": "Ego Lite playback at hd1080, viewport screenshot video only, no subtitles",
+    "clip": {
+      "x": 16,
+      "y": 68,
+      "width": 822,
+      "height": 462
+    },
+    "frames": [
+      {
+        "seconds": 72,
+        "derived": "hero.webp, og.jpg"
+      },
+      {
+        "seconds": 69,
+        "derived": "gallery/cover.webp"
+      },
+      {
+        "seconds": 71,
+        "derived": "gallery/closeup.webp"
+      }
+    ]
+  },
+  "abilities": {
+    "officialOrder": [
+      "incendiary",
+      "smoke",
+      "stim",
+      "ultimate"
+    ],
+    "displayOrder": [
+      "stim",
+      "incendiary",
+      "smoke",
+      "ultimate"
+    ],
+    "rawData": "official-en.json props.pageProps.page.blades[2].groups",
+    "derived": "960px H264 muted faststart; 3-second posters; official icons resized 96px WebP",
+    "sources": [
+      {
+        "key": "incendiary",
+        "title": "INCENDIARY",
+        "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/d7e00a4ad8a1a01b2edcb9fc1193d05e4e50248f-128x128.png?accountingTag=VAL",
+        "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/9df59d490062acceb7c6ca32a3650b55718381f7.mp4?accountingTag=VAL"
+      },
+      {
+        "key": "smoke",
+        "title": "SKY SMOKE",
+        "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/5325b2340045a32d919d467ce3b09c3725de73ea-126x126.png?accountingTag=VAL",
+        "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/8e0b72295747346b60c354765944f5233fb208f2.mp4?accountingTag=VAL"
+      },
+      {
+        "key": "stim",
+        "title": "STIM BEACON",
+        "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/f6c1e1c587dbfe97a4185a47326ce45c42620583-128x128.png?accountingTag=VAL",
+        "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/da2d65e4abc2129e284cf5248fd70925f093a0b3.mp4?accountingTag=VAL"
+      },
+      {
+        "key": "ultimate",
+        "title": "ORBITAL STRIKE",
+        "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/8cfa836d1d19356685e42c13054f9f5bc8e9e029-128x128.png?accountingTag=VAL",
+        "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/ccd8e6c574b7017a2681e5d37c744f5a654327e3.mp4?accountingTag=VAL"
+      }
+    ]
+  }
+}
