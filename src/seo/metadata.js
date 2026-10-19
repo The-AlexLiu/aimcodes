@@ -1,4 +1,5 @@
-import { paidPackCopy } from '../i18n/paidPackCopy.js'
+import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.js'
+import { freeSiteCopy } from '../i18n/freeSiteCopy.js'
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
 import { crosshairDisplayName, seoCopy } from './content.js'
@@ -58,6 +59,10 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
     ...['dot', 'small', 'cute', 'funny', 'sheriff', 'visibility', 'guardian', 'outlaw', 'marshal', 'burst', 'spray', 'longRange'].map(key => [`${locale}:collection:${key}`, '2026-10-14']),
     ...['firingError', 'copy', 'colors', 'statistics'].map(key => [`${locale}:article:${key}`, '2026-10-14']),
+  ])),
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
+    [`${locale}:home:`, HUSH_UPDATED_AT],
+    [`${locale}:article:hush`, HUSH_UPDATED_AT],
   ])),
   ...Object.fromEntries(Object.keys(localeRoutes).map(locale => [`${locale}:collection:best`, '2026-10-15'])),
 })
@@ -148,10 +153,9 @@ export function routeMetadata(locale, route, crosshair) {
     title = `${page.title} | AimCodes`
     description = page.intro
   } else if (route.type === 'paid') {
-    const paid = paidPackCopy(locale)
-    const paidTitles = { complete: paid.waiting, pack: paid.packTitle, recover: paid.recoveryTitle }
-    title = `${paidTitles[route.pageKey] || paidTitles.pack} | AimCodes`
-    description = route.pageKey === 'recover' ? paid.recoveryBody : paid.packBody
+    const content = freeSiteCopy(locale)
+    title = `${content.title} | AimCodes`
+    description = content.body
   } else if (route.type === 'crosshair' && crosshair) {
     const searchName = crosshairDisplayName(locale, crosshair)
     const metadataOverride = detailMetadata[crosshair.id]?.[locale]
@@ -210,6 +214,11 @@ export function routeMetadata(locale, route, crosshair) {
       'zh-CN': route.type === 'players' ? 'AimCodes 无畏契约职业选手准星档案' : 'AimCodes 无畏契约准星库预览',
       ja: route.type === 'players' ? 'AimCodesのVALORANTプロ選手クロスヘアプロフィール' : 'AimCodesのVALORANTクロスヘアコード一覧',
     }[locale] || title
+  }
+
+  if (route.type === 'article' && route.articleKey === 'hush') {
+    imagePath = HUSH_OG_IMAGE
+    imageAlt = hushArticleCopy(locale).ui.imageAlt
   }
 
   return {

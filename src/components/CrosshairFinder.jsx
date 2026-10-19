@@ -24,7 +24,7 @@ import {
 } from '../utils/aimProfile.js'
 import { getAimProfileCopy } from '../i18n/aimProfileCopy.js'
 import { readCheckoutDraft, saveCheckoutDraft, clearCheckoutDraft } from '../utils/checkoutDraft.js'
-import PremiumAimPackOffer from './PremiumAimPackOffer.jsx'
+import FreeCrosshairNextStep from './FreeCrosshairNextStep.jsx'
 
 const WAIT_MIN_MS = 1400
 const WAIT_VARIANCE_MS = 1700
@@ -967,7 +967,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
           <span>{roundTimes.map((time) => `${time} ${t('finder.millisecondsShort')}`).join(' / ')}</span>
         </div>
 
-        <PremiumAimPackOffer result={result} locale={locale} onRetest={() => startTest('retest')} />
+        <FreeCrosshairNextStep locale={locale} />
 
         <details className="finder-run-details">
           <summary className="finder-run-details-heading">

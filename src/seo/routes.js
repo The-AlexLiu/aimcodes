@@ -41,6 +41,7 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
 ])
 
 export const SEO_ARTICLES = Object.freeze({
+  hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: Object.freeze(['en', 'ja']) }),
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
   offCenter: Object.freeze({ slug: 'valorant-crosshair-off-center', keyword: 'is valorant crosshair off center', priority: 'P1' }),
   stretched: Object.freeze({ slug: 'valorant-stretched-crosshair', keyword: 'stretched crosshair valorant', priority: 'P1' }),
@@ -87,7 +88,6 @@ export const TRUST_PAGES = Object.freeze({
   privacy: Object.freeze({ slug: 'privacy', indexable: false }),
   terms: Object.freeze({ slug: 'terms', indexable: false }),
   contact: Object.freeze({ slug: 'contact', indexable: false }),
-  refund: Object.freeze({ slug: 'refund-policy', indexable: false }),
 })
 
 export const TRUST_PAGE_KEYS = Object.freeze(Object.keys(TRUST_PAGES))
@@ -194,6 +194,7 @@ export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
   if (normalizedLocale === 'zh-CN'
     && !ZH_PRODUCT_INDEX_TYPES.has(route.type)
     && !ZH_SEO_INDEX_PATHS.includes(routePath(normalizedLocale, route))) return false
+  if (route.type === 'article' && SEO_ARTICLES[route.articleKey]?.indexLocales) return SEO_ARTICLES[route.articleKey].indexLocales.includes(normalizedLocale)
   if (route.type === 'players') return false
   if (route.type === 'paid') return false
   if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false
@@ -206,6 +207,11 @@ export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
 
 export function redirectLegacyAppUrl(locationLike = window.location) {
   const route = parseSeoRoute(locationLike.pathname)
+  const retired = locationLike.pathname.match(/^\/(en|ja|es|pt-br|zh-cn)\/(?:my-aim-pack|recover-aim-pack|checkout\/complete|refund-policy)\/?$/)
+  if (retired) {
+    locationLike.replace(`/${retired[1]}/crosshairs/`)
+    return true
+  }
   if (route.type !== 'home') return false
 
   const params = new URLSearchParams(locationLike.search || '')

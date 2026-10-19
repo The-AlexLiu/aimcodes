@@ -1,3 +1,5 @@
+import { freeSiteCopy } from '../src/i18n/freeSiteCopy.js'
+import { HUSH_IMAGE, HUSH_VIDEOS } from '../src/seo/hushContent.js'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -229,6 +231,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       '@type': 'Article',
       '@id': `${metadata.canonical}#article`,
       headline: article.title,
+      ...(route.articleKey === 'hush' ? { image: metadata.image } : {}),
       description: article.intro,
       url: metadata.canonical,
       dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route),
@@ -244,7 +247,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
         { '@type': 'ListItem', position: 2, name: article.title, item: metadata.canonical },
       ],
     })
-    graph.push({
+    if (article.faq.length) graph.push({
       '@type': 'FAQPage',
       mainEntity: article.faq.map(([name, text]) => ({
         '@type': 'Question',
@@ -502,7 +505,8 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
   }
   if (route.type === 'paid') {
-    return '<main class="seo-static-shell"><h1>Private AimCodes Crosshair Pack</h1><p>This private page requires a valid purchase access link.</p></main>'
+    const content = freeSiteCopy(locale)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(content.title)}</h1><p>${escapeHtml(content.body)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(content.browse)}</a></main>`
   }
   if (route.type === 'guide') {
     const details = importGuideDetails(locale)
@@ -513,6 +517,17 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
+    if (route.articleKey === 'hush') {
+      const { ui } = article
+      const regions = locale === 'zh-CN' ? [['china', 3], ['international', 4]] : [['international', 4], ['china', 3]]
+      const dates = regions.map(([region, sourceIndex]) => `<dt>${escapeHtml(ui[region])}</dt><dd><a href="${escapeHtml(article.sources[sourceIndex].url)}">${escapeHtml(ui[`${region}Date`])}</a></dd>`).join('')
+      const abilities = article.abilities.map(ability => `<section><header><h3>${escapeHtml(ability.name)}<small>${escapeHtml(ability.label)}</small></h3><div><img src="${ability.media.icon}" alt="" width="48" height="48" loading="lazy" /><small>${escapeHtml(ability.binding)}</small></div></header><p>${escapeHtml(ui.effect)}: ${escapeHtml(ability.body)}</p><p>${escapeHtml(ui.action)}: ${escapeHtml(ability.action)}</p><video controls muted loop playsinline preload="none" width="768" height="432" poster="${ability.media.poster}" aria-label="${escapeHtml(ability.label)}"><source src="${ability.media.src}" type="video/mp4" /></video></section>`).join('')
+      const unlock = regions.map(([region]) => `<p><strong>${escapeHtml(ui[region])}</strong> ${escapeHtml(region === 'china' ? ui.chinaUnlock : article.internationalUnlock)}</p>`).join('')
+      const gallery = article.gallery.map(image => `<figure><a href="${image.src}"><img src="${image.src}" alt="${escapeHtml(image.label)}" width="${image.width}" height="${image.height}" loading="lazy" /></a><figcaption>${escapeHtml(image.label)}</figcaption></figure>`).join('')
+      const story = article.story.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')
+      return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(ui.heroTitle)}</span></nav><header><h1>${escapeHtml(ui.heroTitle)}</h1><p>${escapeHtml(article.intro)}</p><img class="seo-static-hero-image" src="${HUSH_IMAGE}" width="1440" height="810" alt="${escapeHtml(ui.imageAlt)}" /><a href="#hush-abilities">${escapeHtml(ui.kit)}</a></header><section id="hush-abilities"><h2>${escapeHtml(ui.kit)}</h2><p>${escapeHtml(ui.kitNote)}</p>${abilities}</section><details><summary>${escapeHtml(ui.showDemo)}</summary><a href="${HUSH_VIDEOS[1].url}">${escapeHtml(ui.watch)}</a></details><section id="hush-story"><h2>${escapeHtml(ui.storyTitle)}</h2>${story}<a href="${HUSH_VIDEOS[0].url}">RISE AND FALL · ${escapeHtml(ui.videoNames[0])}</a><a href="${article.sources[3].url}">${escapeHtml(ui.chineseVideo)}</a></section><section><h2>${escapeHtml(ui.galleryTitle)}</h2>${gallery}</section><details><summary>${escapeHtml(ui.releaseLabel)}</summary><dl>${dates}</dl>${unlock}</details><section><h2>${escapeHtml(ui.next)}</h2><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(ui.catalog)}</a><a href="${routePath(locale, { type: 'tool', toolKey: 'generator' })}">${escapeHtml(ui.generator)}</a></section><p><a href="${HUSH_VIDEOS[0].url}">${escapeHtml(ui.credit)}</a></p></main>`
+
+    }
     const sections = article.sections.map((section) => `<section><h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}${section.bullets?.length ? `<ul>${section.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul>` : ''}</section>`).join('')
     const faq = article.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
     const recommended = article.recommendedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
@@ -520,6 +535,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const related = `${(article.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(article.relatedCollectionKeys || []).filter((collectionKey) => discoverableCollectionSet.has(collectionKey)).map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).title)}</a>`).join('')}${(article.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const sources = article.sources?.length ? `<section><h2>${escapeHtml(staticReferenceLabel(locale))}</h2>${article.sources.map((source) => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join('')}</section>` : ''
     const statistics = route.articleKey === 'statistics' ? staticStatisticsSnapshot(locale) : ''
+
     return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${statistics}${route.articleKey === 'colors' ? staticColorComparison(locale) : ''}${sections}${staticLinks(locale, recommended)}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'tool') {

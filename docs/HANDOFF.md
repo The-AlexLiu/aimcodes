@@ -1,5 +1,13 @@
 # AimCodes 工具间交接
 
+## 2026-10-19：Cloudflare 迁移与永久免费准星库
+
+准星包售卖永久取消：五语种购买、领取、找回及退款入口已移除，旧链接 301 跳转免费准星库并清除查询参数，旧 API 返回 410。历史支付代码和 Netlify 数据仅保留存档，不迁移凭据或订单，不再接入支付。
+
+免费基线已部署到 Cloudflare Worker `aimcodes`，版本 `6b9f7c82-a348-4f50-be0f-cca5b060858d`，标记 `2b75ffe…-free-migration`。权威 DNS 与 1.1.1.1 已指向 Cloudflare；定向访问新边缘验证五语言首页、1890 条主 Sitemap、robots、404 和旧购买跳转均正常。部分本地 DNS 缓存仍指向旧站，须待传播后再次普通访问验证。Netlify 自动构建已停止，原站保留；邮箱记录保持不变。
+
+Hush 与取消售卖代码位于 `codex/hush-agent-page`、PR #90；完整发布检查 25/25、Cloudflare 测试 4/4、两项 GitHub CI 通过。Cloudflare Hush 预览版本 `12a5de54-4728-4e86-9d0d-0808d55368c8` 已验证五个视频、手机无溢出及无购买入口。正式 Hush 发布与 Cloudflare 自动发布连接仍需完成。部署方式为 `pnpm build:cloudflare` 后 `pnpm deploy:cloudflare`，不得恢复 Netlify 自动发布。以下较早的付费 MVP 与 Netlify 发布记录均为历史状态。
+
 最后更新：2026-10-14
 
 ## 多语种巡检修复（2026-10-14，本地待发布）

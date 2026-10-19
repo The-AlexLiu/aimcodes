@@ -50,7 +50,9 @@
     "check:seo": "node scripts/run-check-suite.mjs seo",
     "check:release": "node scripts/run-check-suite.mjs release",
     "validate:clarity": "node --test scripts/test-clarity.mjs",
-    "test:payments": "node --test scripts/test-paypal.mjs"
+    "test:payments": "node --test scripts/test-paypal.mjs",
+    "build:cloudflare": "pnpm build && node scripts/cloudflare/prepare-headers.mjs",
+    "deploy:cloudflare": "npx --yes wrangler@4.127.1 deploy"
   },
   "dependencies": {
     "@netlify/blobs": "11.0.3",

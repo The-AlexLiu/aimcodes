@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aimcodes",
+  "main": "cloudflare/worker.mjs",
+  "account_id": "09d1cc2373bb7e37b6b0a85826059f9f",
+  "compatibility_date": "2026-09-04",
+  "workers_dev": false,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  "vars": {
+    "CONTEXT": "production"
+  },
+  "observability": {
+    "enabled": false
+  },
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "aimcodes.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.aimcodes.com",
+      "custom_domain": true
+    }
+  ]
+}

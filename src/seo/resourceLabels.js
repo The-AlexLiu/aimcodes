@@ -1,3 +1,4 @@
+import { hushArticleCopy } from './hushContent.js'
 import { japaneseArticles, japaneseTools } from './japaneseContent.js'
 import { playbookLabel } from './playbookLabels.js'
 import { crosshairStatisticsCopy } from './crosshairStatisticsContent.js'
@@ -27,6 +28,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'hush') return hushArticleCopy(locale).title
   // Keep lightweight homepage labels in sync; validate:localization checks parity.
   const opportunityTitle = {
     'en:copy': 'How to copy a crosshair in VALORANT: /cc or a profile code',

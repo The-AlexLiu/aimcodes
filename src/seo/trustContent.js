@@ -1,4 +1,3 @@
-import { paidExperienceCopy } from '../i18n/paidExperienceCopy.js'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact.js'
 import { japaneseTrust } from './japaneseContent.js'
 
@@ -161,47 +160,26 @@ const content = {
   },
 }
 
-const refundPolicies = {
-  en: {
-    eyebrow: 'DIGITAL PURCHASE POLICY', title: 'Refund policy', intro: 'AimCodes Crosshair Pack is a low-cost, one-time digital purchase delivered immediately after verified payment.',
-    sections: [
-      { title: 'When a refund may be approved', paragraphs: ['Contact us within 7 days if you were charged twice for the same order, or if a verified delivery or technical fault prevents access and we cannot resolve it. Refunds required by PayPal rules or applicable law will also be honored.'] },
-      { title: 'When a refund is not normally available', paragraphs: ['Because access to the digital pack and copy-ready codes begins immediately, we do not normally refund a change of mind, dissatisfaction with personal performance, a used or copied pack, or a request made after the 7-day review period.'] },
-      { title: 'How to request a review', paragraphs: [`Email ${CONTACT_EMAIL} with your PayPal receipt ID and a short description of the issue. Do not send card details, passwords, API keys, or other sensitive information.`], links: [{ label: 'Contact AimCodes support', url: CONTACT_MAILTO }] },
-    ],
-  },
-  'zh-CN': {
-    eyebrow: '数字商品购买政策', title: '退款政策', intro: 'AimCodes Crosshair Pack 是一次性低价数字商品，经确认付款后会立即开始交付。',
-    sections: [
-      { title: '可以申请退款的情况', paragraphs: ['如同一订单被重复扣款，或经确认的交付、技术故障导致无法访问且我们无法修复，请在 7 天内联系我们。PayPal 规则或适用法律强制要求退款的情况也会按要求处理。'] },
-      { title: '通常不支持退款的情况', paragraphs: ['由于数字准星包和可复制代码会立即开放，因改变主意、个人游戏表现未提升、已经使用或复制商品，或超过 7 天审核期而提出的退款申请，通常不会批准。'] },
-      { title: '如何申请审核', paragraphs: [`请将 PayPal 收据编号和问题说明发送至 ${CONTACT_EMAIL}。请勿发送银行卡资料、密码、API Key 或其他敏感信息。`], links: [{ label: '联系 AimCodes 客服', url: CONTACT_MAILTO }] },
-    ],
-  },
-  ja: {
-    eyebrow: 'デジタル購入ポリシー', title: '返金ポリシー', intro: 'AimCodes Crosshair Packは、支払い確認後すぐに提供される低価格の買い切りデジタル商品です。',
-    sections: [
-      { title: '返金を検討するケース', paragraphs: ['同じ注文で二重に請求された場合、または確認済みの配信・技術上の不具合によりアクセスできず、当社でも解決できない場合は7日以内にご連絡ください。PayPalの規則または適用法で必要な返金にも対応します。'] },
-      { title: '通常は返金対象外となるケース', paragraphs: ['デジタルパックとコピー可能なコードは直ちに提供されるため、気が変わった場合、プレイ成績への不満、使用・コピー済みの商品、7日を過ぎた申請は通常返金できません。'] },
-      { title: '申請方法', paragraphs: [`PayPalのレシートIDと問題の説明を ${CONTACT_EMAIL} へ送ってください。カード情報、パスワード、APIキーなどの機密情報は送らないでください。`], links: [{ label: 'AimCodesサポートへ連絡', url: CONTACT_MAILTO }] },
-    ],
-  },
-}
-
 export function trustCopy(locale, pageKey) {
-  if (pageKey === 'contact') {
-    const base = locale === 'ja' ? japaneseTrust.contact : (content[locale] || content.en).contact
-    const paid = paidExperienceCopy(locale)
-    return { ...base, sections: [...base.sections, { title: paid.purchaseHelpTitle, paragraphs: [paid.purchaseHelp], links: [{ label: ({ en: 'Recover my Aim Pack', 'zh-CN': '找回我的准星包', ja: 'Aim Packを復元', es: 'Recuperar mi Aim Pack', 'pt-BR': 'Recuperar meu Aim Pack' })[locale] || 'Recover my Aim Pack', url: `/${locale.toLowerCase()}/recover-aim-pack/` }] }], updated: locale === 'ja' ? '最終更新' : (content[locale] || content.en).updated, related: locale === 'ja' ? 'サイト情報' : (content[locale] || content.en).related, back: locale === 'ja' ? 'クロスヘアコードを見る' : (content[locale] || content.en).back }
-  }
-  if (pageKey === 'refund') {
-    const localized = content[locale] || content.en
-    return { ...(refundPolicies[locale] || refundPolicies.en), updated: localized.updated, related: localized.related, back: localized.back }
-  }
   if (locale === 'ja') {
     const page = japaneseTrust[pageKey] || japaneseTrust.about
-    return { ...page, updated: '最終更新', related: 'サイト情報', back: 'クロスヘアコードを見る' }
+    return { ...page, sections: cleanPrivacySections(page.sections, locale), updated: '最終更新', related: 'サイト情報', back: 'クロスヘアコードを見る' }
   }
   const localized = content[locale] || content.en
-  return { ...localized[pageKey], updated: localized.updated, related: localized.related, back: localized.back }
+  return { ...localized[pageKey], sections: cleanPrivacySections(localized[pageKey].sections, locale), updated: localized.updated, related: localized.related, back: localized.back }
+}
+
+function cleanPrivacySections(sections, locale) {
+  const historical = {
+    en: ['Historical records', 'Records of past transactions may be retained to handle support requests and meet applicable retention obligations. The site no longer sells crosshair packs.'],
+    'zh-CN': ['历史记录', '历史交易记录仅用于处理售后问题及履行适用的数据保留义务。本站不再销售准星包。'],
+    ja: ['過去の記録', '過去の取引記録は、サポート対応や適用される保存義務のために保持する場合があります。クロスヘアパックの販売は終了しました。'],
+    es: ['Registros históricos', 'Podemos conservar registros de transacciones anteriores para atender consultas y cumplir las obligaciones de conservación aplicables. Ya no vendemos paquetes de miras.'],
+    'pt-BR': ['Registros históricos', 'Podemos manter registros de transações anteriores para atender solicitações e cumprir obrigações de retenção aplicáveis. Não vendemos mais pacotes de miras.'],
+  }
+  return sections.map(section => {
+    if (!section.paragraphs?.some(text => text.includes('PayPal'))) return section
+    const [title, paragraph] = historical[locale] || historical.en
+    return { title, paragraphs: [paragraph] }
+  })
 }

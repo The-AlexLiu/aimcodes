@@ -16,7 +16,7 @@
 - 正式站点：`https://aimcodes.com`
 - 主仓库：`https://github.com/The-AlexLiu/aimcodes`
 - 社媒渲染器镜像：`https://github.com/The-AlexLiu/AimCodes-Social-Creative-Renderer`
-- 技术栈：React、Vite、Canvas、原生 CSS、Netlify、GA4。
+- 技术栈：React、Vite、Canvas、原生 CSS、Cloudflare Workers Static Assets、GA4。
 - 产品界面支持英语 `en`、西班牙语 `es`、巴西葡萄牙语 `pt-BR`、简体中文 `zh-CN`、日语 `ja`。界面支持范围不等于 SEO 投入范围。
 - SEO 语言分层：英语、日语为增长语言；西班牙语、巴西葡萄牙语仅维护已有赢家；中文保留完整产品界面，默认仅首页、准星库和反应测试参与索引；2026-10-15 批准的圆点、十字集合和猫猫详情为三个明确 URL 例外。其他中文 SEO 页继续 noindex，不自动扩展白名单。
 - 当前产品基线包含 548 条准星源数据，经外观去重后展示 540 种样式；396 条高价值详情允许索引。数量变化必须以验证脚本结果为准。
@@ -64,7 +64,7 @@
 - 禁止直接在 `main` 开发；使用 `cursor/<task>`、`codex/<task>`、`fix/<task>` 或 `feat/<task>` 分支。
 - 提交前只暂存本任务文件，禁止在混合工作树中使用 `git add -A`。
 - 未经用户明确授权，不得推送 GitHub、合并 PR、修改线上配置或执行生产部署。
-- 生产部署目标是：PR 预览通过后合并 `main`，由 Netlify 自动发布。
+- 生产部署目标是：PR 预览通过后合并 `main`，由 Cloudflare Workers Builds 发布。
 - 当前 Netlify 仍可能由本地 CLI 手动发布；执行 `netlify deploy --prod` 前必须获得明确授权。
 
 ## 必须运行的验证
@@ -120,3 +120,7 @@ pnpm check:release
 - 下一位开发者还需要人工确认什么。
 
 如果任务跨工具继续，在 `docs/HANDOFF.md` 或对应 PR 中留下当前分支、最后提交、完成项、待办项和验证结果。
+
+## 2026-10-19 托管迁移与免费版
+
+正式目标为 Cloudflare Workers Static Assets，配置见 `wrangler.jsonc`；构建 `pnpm build:cloudflare`，发布 `pnpm deploy:cloudflare`。Netlify 仅保留历史数据与回退资料，自动构建已停止。用户明确永久取消准星包售卖；不要重新接入 PayPal、展示购买入口或迁移支付密钥。旧购买、领取、找回及退款页统一跳转免费准星库，旧 API 返回 410。历史支付源码只作为存档，不打包进 Cloudflare Worker。
