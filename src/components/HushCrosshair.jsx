@@ -49,7 +49,6 @@ export default function HushCrosshair({ locale, onCopy }) {
         </label>
       </div>
       <div className="hush-crosshair-copy">
-        <small className="hush-eyebrow">{copy.original}</small>
         <h2 id="hush-crosshair-title">{copy.title}</h2>
         <p>{copy.description}</p>
         <div className="hush-crosshair-actions">

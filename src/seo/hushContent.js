@@ -177,11 +177,11 @@ const copy = {
     "faq": [],
     "internationalUnlock": "按国际服现行规则，新英雄上线时会开启招募活动，对局获得的经验会推进解锁；也可使用 VP，或通过符合条件且已关联的 Game Pass 使用英雄。招募活动结束后，通常才开放王国币解锁。",
     "abilityLabels": [
-      "Telekinesis",
-      "Flow",
-      "Flashbulb",
-      "Displacement",
-      "Suspension"
+      "远程互动",
+      "锚点位移",
+      "引导闪光",
+      "牵引与震荡",
+      "范围浮空"
     ],
     "abilityActions": [
       "准星对准掉落武器、爆能器或开关，使用互动。",
@@ -513,7 +513,7 @@ export function hushArticleCopy(locale) {
     gallery: HUSH_GALLERY.map((image, index) => ({ ...image, label: item.galleryLabels[index] })),
     metaTitle: `${item.title} | AimCodes`,
     internationalUnlock: item.internationalUnlock,
-    sections: abilities.map((ability, index) => ({ id: `ability-${index}`, title: `${ability.binding} · ${ability.label} (${ability.name})`, paragraphs: [`${item.ui.effect}: ${ability.body}`, `${item.ui.action}: ${ability.action}`], bullets: [] })),
+    sections: abilities.map((ability, index) => ({ id: `ability-${index}`, title: `${ability.binding} · ${ability.label}${ability.label === ability.name ? '' : ` (${ability.name})`}`, paragraphs: [`${item.ui.effect}: ${ability.body}`, `${item.ui.action}: ${ability.action}`], bullets: [] })),
     sources: sourceUrls.map((url, index) => ({ url, label: sourceLabels[locale]?.[index] || sourceLabels.en[index] })),
     recommendedCrosshairIds: [],
     relatedArticleKeys: ['placement', 'colors'], relatedCollectionKeys: [], relatedToolKeys: [],
