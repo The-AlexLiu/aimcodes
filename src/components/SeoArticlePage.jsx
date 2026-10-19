@@ -1,3 +1,4 @@
+import ChamberAgentPage from './ChamberAgentPage.jsx'
 import PhoenixAgentPage from './PhoenixAgentPage.jsx'
 import SageAgentPage from './SageAgentPage.jsx'
 import HushAgentPage from './HushAgentPage.jsx'
@@ -10,6 +11,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'chamber') return <ChamberAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'phoenix') return <PhoenixAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'sage') return <SageAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'hush') return <HushAgentPage locale={locale} onCopy={onCopy} />

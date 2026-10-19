@@ -1,3 +1,4 @@
+import { chamberArticleCopy } from './chamberContent.js'
 import { phoenixArticleCopy } from './phoenixContent.js'
 import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
@@ -30,6 +31,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'chamber') return chamberArticleCopy(locale).title
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
   if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title
