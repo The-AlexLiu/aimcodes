@@ -1,5 +1,8 @@
 import { jettArticleCopy } from '../seo/jettContent.js'
 import './jettAgent.css'
+import { chamberArticleCopy } from '../seo/chamberContent.js'
+
+
 import { brimstoneArticleCopy } from '../seo/brimstoneContent.js'
 import { omenArticleCopy } from '../seo/omenContent.js'
 import { phoenixArticleCopy } from '../seo/phoenixContent.js'
@@ -136,6 +139,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'hush' })}>{hushArticleCopy(locale).ui.homeLink}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'sage' })}>{sageArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link jett-home-link" href={routePath(locale, { type: 'article', articleKey: 'jett' })}>{jettArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link chamber-home-link" href={routePath(locale, { type: 'article', articleKey: 'chamber' })}>{chamberArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link phoenix-home-link" href={routePath(locale, { type: 'article', articleKey: 'phoenix' })}>{phoenixArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link brimstone-home-link" href={routePath(locale, { type: 'article', articleKey: 'brimstone' })}>{brimstoneArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link omen-home-link" href={routePath(locale, { type: 'article', articleKey: 'omen' })}>{omenArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
