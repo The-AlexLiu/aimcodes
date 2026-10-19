@@ -1,3 +1,17 @@
+## Latest instruction: permanent retirement of paid packs
+
+User confirmed packs will not be part of the business model. Remove/hide all purchase-related UI, including contact-page recovery links and refund policy navigation. Legacy purchase/recovery/refund URLs redirect to the free catalog, stripping query tokens. Retain historical records only; no credentials accessed or migrated. Public privacy text describes historical retention rather than active sales. Previous temporary-unavailability UI is superseded.
+
+# Current scope: free site migration (2026-10-19)
+
+The user explicitly removed payment functionality from this migration. Supersedes the earlier payment/data transfer plan below: no secret transfer, no PayPal/D1 runtime, no customer record copy. Existing Netlify data stays intact. Old purchase routes show localized support/free catalog links; API returns 410. Results, menu and footer no longer offer purchases.
+
+Cloudflare zone is active, DNS records matched 13/13. NameSilo delegation is confirmed. Free baseline preview on preview.aimcodes.com passes HTTP checks for five languages, three sitemaps, robots, private-route no-store, missing-path 404, noindex, and retired API 410. Hush remains absent from baseline (404). Netlify stop_builds=true has been set and read back.
+
+Production cutover and Hush release are pending. Preview mobile visual QA caught an icon-button style hiding CTA text; switched to the standard text primary button. Keep this correction in both baseline and new page builds.
+
+---
+
 # Cloudflare migration — in progress
 
 Authorized: migrate the existing production version first, then release Hush. Do not mark complete until DNS, payments/data, live routes and release identity are verified.

@@ -64,7 +64,7 @@
 - 禁止直接在 `main` 开发；使用 `cursor/<task>`、`codex/<task>`、`fix/<task>` 或 `feat/<task>` 分支。
 - 提交前只暂存本任务文件，禁止在混合工作树中使用 `git add -A`。
 - 未经用户明确授权，不得推送 GitHub、合并 PR、修改线上配置或执行生产部署。
-- 生产部署目标是：PR 预览通过后合并 `main`，由 Netlify 自动发布。
+- 生产部署目标是：PR 预览通过后合并 `main`，由 Cloudflare Workers Builds 发布。
 - 当前 Netlify 仍可能由本地 CLI 手动发布；执行 `netlify deploy --prod` 前必须获得明确授权。
 
 ## 必须运行的验证
@@ -120,3 +120,7 @@ pnpm check:release
 - 下一位开发者还需要人工确认什么。
 
 如果任务跨工具继续，在 `docs/HANDOFF.md` 或对应 PR 中留下当前分支、最后提交、完成项、待办项和验证结果。
+
+## 2026-10-19 托管迁移与免费版
+
+正式目标为 Cloudflare Workers Static Assets，配置见 `wrangler.jsonc`；构建 `pnpm build:cloudflare`，发布 `pnpm deploy:cloudflare`。Netlify 仅保留历史数据与回退资料，自动构建已停止。用户明确永久取消准星包售卖；不要重新接入 PayPal、展示购买入口或迁移支付密钥。旧购买、领取、找回及退款页统一跳转免费准星库，旧 API 返回 410。历史支付源码只作为存档，不打包进 Cloudflare Worker。

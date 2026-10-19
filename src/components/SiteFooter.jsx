@@ -1,4 +1,3 @@
-import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { useEffect, useState } from 'react'
 import { routePath } from '../seo/routes.js'
 import { playbookLabel } from '../seo/playbookLabels.js'
@@ -43,7 +42,6 @@ function FooterColumn({ label, children }) {
 
 export default function SiteFooter({ locale }) {
   const content = seoCopy(locale).footer
-  const paid = paidPackCopy(locale)
   return (
     <footer className="site-footer">
       <div className="site-footer-main">
@@ -53,7 +51,6 @@ export default function SiteFooter({ locale }) {
             <BrandWordmark />
           </a>
           <p>{content.note}</p>
-          <div className="footer-paid-access"><a href={`/${locale.toLowerCase()}/my-aim-pack/`}>{paid.openPack}</a><a href={`/${locale.toLowerCase()}/recover-aim-pack/`}>{paid.recoveryTitle}</a></div>
         </div>
         <div className="site-footer-menus">
           <FooterColumn label={content.browse}>

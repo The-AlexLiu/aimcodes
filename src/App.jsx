@@ -38,7 +38,7 @@ const SeoCollectionIntro = lazy(() => import('./components/SeoCollectionIntro.js
 const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetails.jsx'))
 const PublisherValueSection = lazy(() => import('./components/PublisherValueSection.jsx'))
 const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
-const AimPackPortal = lazy(() => import('./components/AimPackPortal.jsx'))
+const FreeCrosshairNextStep = lazy(() => import('./components/FreeCrosshairNextStep.jsx'))
 const FinderNudge = lazy(() => import('./components/FinderNudge.jsx'))
 
 function randomItem(items) {
@@ -479,7 +479,7 @@ export default function App() {
         ) : route.type === 'tool' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><CrosshairToolsPage locale={language} toolKey={route.toolKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'paid' ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><AimPackPortal pageKey={route.pageKey} locale={language} crosshairs={allSourceCrosshairs} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><FreeCrosshairNextStep locale={language} /></Suspense>
         ) : route.type === 'trust' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><TrustPage locale={language} pageKey={route.pageKey} /></Suspense>
         ) : showFinder ? (

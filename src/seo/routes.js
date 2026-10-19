@@ -88,7 +88,6 @@ export const TRUST_PAGES = Object.freeze({
   privacy: Object.freeze({ slug: 'privacy', indexable: false }),
   terms: Object.freeze({ slug: 'terms', indexable: false }),
   contact: Object.freeze({ slug: 'contact', indexable: false }),
-  refund: Object.freeze({ slug: 'refund-policy', indexable: false }),
 })
 
 export const TRUST_PAGE_KEYS = Object.freeze(Object.keys(TRUST_PAGES))
@@ -208,6 +207,11 @@ export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
 
 export function redirectLegacyAppUrl(locationLike = window.location) {
   const route = parseSeoRoute(locationLike.pathname)
+  const retired = locationLike.pathname.match(/^\/(en|ja|es|pt-br|zh-cn)\/(?:my-aim-pack|recover-aim-pack|checkout\/complete|refund-policy)\/?$/)
+  if (retired) {
+    locationLike.replace(`/${retired[1]}/crosshairs/`)
+    return true
+  }
   if (route.type !== 'home') return false
 
   const params = new URLSearchParams(locationLike.search || '')

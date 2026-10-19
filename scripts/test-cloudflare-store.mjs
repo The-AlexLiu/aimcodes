@@ -36,6 +36,16 @@ test('language redirect, legacy redirect, unknown API and unconfigured preview a
   assert.equal(response.headers.get('vary'), 'Accept-Language')
   const legacy = await worker.fetch(new Request('https://aimcodes.com/en/pro-players/?qa=1'), {})
   assert.equal(legacy.headers.get('location'), 'https://aimcodes.com/en/crosshairs/?qa=1')
-  assert.equal((await worker.fetch(new Request('https://preview.workers.dev/api/aim-pack/create-checkout'), {})).status, 503)
-  assert.equal((await worker.fetch(new Request('https://aimcodes.com/api/unknown'), {})).status, 404)
+  assert.equal((await worker.fetch(new Request('https://preview.workers.dev/api/aim-pack/create-checkout'), {})).status, 410)
+  assert.equal((await worker.fetch(new Request('https://aimcodes.com/api/unknown'), {})).status, 410)
+})
+
+test('retired purchase URLs redirect without leaking old claim tokens', async () => {
+  for (const locale of ['en', 'zh-cn', 'ja', 'es', 'pt-br']) {
+    for (const route of ['my-aim-pack', 'recover-aim-pack', 'checkout/complete', 'refund-policy']) {
+      const response = await worker.fetch(new Request(`https://aimcodes.com/${locale}/${route}/?t=old-test-claim`), {})
+      assert.equal(response.status, 301)
+      assert.equal(response.headers.get('location'), `https://aimcodes.com/${locale}/crosshairs/`)
+    }
+  }
 })

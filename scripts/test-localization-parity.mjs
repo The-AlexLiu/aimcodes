@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { articleCopy } from '../src/seo/articles.js'
 import { collectionCopy } from '../src/seo/collectionContent.js'
 import { routeMetadata } from '../src/seo/metadata.js'
-import { paidPackCopy } from '../src/i18n/paidPackCopy.js'
+import { freeSiteCopy } from '../src/i18n/freeSiteCopy.js'
 import { catalogCrosshairs, crosshairCollections } from '../src/data/catalogManifest.js'
 import { crosshairStatistics } from '../src/data/catalogStatistics.js'
 import { collectionDisplayIds } from '../src/data/catalogDisplay.js'
@@ -33,10 +33,10 @@ for (const locale of locales) {
       assert.notEqual(item.intro, item.body[0], `${key}: repeated intro`)
     }
   })
-  test(`${locale}: private page titles use the product dictionary`, () => {
-    const copy = paidPackCopy(locale)
-    for (const [pageKey, field] of [['pack', 'packTitle'], ['recover', 'recoveryTitle'], ['complete', 'waiting']]) {
-      assert.equal(routeMetadata(locale, { type: 'paid', pageKey }).title, `${copy[field]} | AimCodes`)
+  test(`${locale}: retired purchase page titles use the localized free-site dictionary`, () => {
+    const copy = freeSiteCopy(locale)
+    for (const pageKey of ['pack', 'recover', 'complete']) {
+      assert.equal(routeMetadata(locale, { type: 'paid', pageKey }).title, `${copy.title} | AimCodes`)
     }
   })
 }

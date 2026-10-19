@@ -1,5 +1,5 @@
 import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.js'
-import { paidPackCopy } from '../i18n/paidPackCopy.js'
+import { freeSiteCopy } from '../i18n/freeSiteCopy.js'
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
 import { crosshairDisplayName, seoCopy } from './content.js'
@@ -153,10 +153,9 @@ export function routeMetadata(locale, route, crosshair) {
     title = `${page.title} | AimCodes`
     description = page.intro
   } else if (route.type === 'paid') {
-    const paid = paidPackCopy(locale)
-    const paidTitles = { complete: paid.waiting, pack: paid.packTitle, recover: paid.recoveryTitle }
-    title = `${paidTitles[route.pageKey] || paidTitles.pack} | AimCodes`
-    description = route.pageKey === 'recover' ? paid.recoveryBody : paid.packBody
+    const content = freeSiteCopy(locale)
+    title = `${content.title} | AimCodes`
+    description = content.body
   } else if (route.type === 'crosshair' && crosshair) {
     const searchName = crosshairDisplayName(locale, crosshair)
     const metadataOverride = detailMetadata[crosshair.id]?.[locale]

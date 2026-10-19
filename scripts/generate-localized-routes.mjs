@@ -1,3 +1,4 @@
+import { freeSiteCopy } from '../src/i18n/freeSiteCopy.js'
 import { HUSH_IMAGE, HUSH_VIDEOS } from '../src/seo/hushContent.js'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
@@ -504,7 +505,8 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
   }
   if (route.type === 'paid') {
-    return '<main class="seo-static-shell"><h1>Private AimCodes Crosshair Pack</h1><p>This private page requires a valid purchase access link.</p></main>'
+    const content = freeSiteCopy(locale)
+    return `<main class="seo-static-shell"><h1>${escapeHtml(content.title)}</h1><p>${escapeHtml(content.body)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(content.browse)}</a></main>`
   }
   if (route.type === 'guide') {
     const details = importGuideDetails(locale)

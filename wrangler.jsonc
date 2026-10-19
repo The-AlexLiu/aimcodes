@@ -1,13 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "aimcodes-migration-preview",
+  "name": "aimcodes",
   "main": "cloudflare/worker.mjs",
   "account_id": "09d1cc2373bb7e37b6b0a85826059f9f",
   "compatibility_date": "2026-09-04",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "workers_dev": true,
+  "workers_dev": false,
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -16,18 +13,20 @@
     "run_worker_first": true
   },
   "vars": {
-    "CONTEXT": "deploy-preview",
-    "PAYPAL_ENVIRONMENT": "sandbox",
-    "PAYMENTS_READY": "false"
+    "CONTEXT": "production"
   },
   "observability": {
     "enabled": false
   },
-  "d1_databases": [
+  "preview_urls": false,
+  "routes": [
     {
-      "binding": "PAID_DB",
-      "database_name": "aimcodes-paid-migration",
-      "database_id": "09e0f782-4b02-460c-babf-13e48340409a"
+      "pattern": "aimcodes.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.aimcodes.com",
+      "custom_domain": true
     }
   ]
 }
