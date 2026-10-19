@@ -1,3 +1,4 @@
+import { phoenixArticleCopy } from './phoenixContent.js'
 import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
 import { japaneseArticles, japaneseTools } from './japaneseContent.js'
@@ -29,6 +30,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
   if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title
   // Keep lightweight homepage labels in sync; validate:localization checks parity.

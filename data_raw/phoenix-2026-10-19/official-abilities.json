@@ -1,0 +1,37 @@
+[
+  {
+    "key": "passive",
+    "title": "Inner Fire",
+    "description": "<p>Phoenix heals while standing in his own fire instead of taking damage.</p>",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f4d7628501a66b212f967ed3c5e90219b82678ff-640x360.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/e10d4ce2480ed1f811c47686d690c59fa4b8d8f4.webm?accountingTag=VAL"
+  },
+  {
+    "key": "flash",
+    "title": "CURVEBALL",
+    "description": "EQUIP a flare orb that takes a curving path and detonates shortly after throwing. FIRE to curve the flare orb to the left, detonating and blinding any player who sees the orb. ALTERNATE FIRE to curve the flare orb to the right.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/beb874d19c79982f0e99e858098c067d9132a95a-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/c62125b1b5637b7b0e0881348502f7e8b8e93572.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "fireball",
+    "title": "HOT HANDS",
+    "description": "EQUIP a fireball. FIRE to throw a fireball that explodes after a set amount of time or upon hitting the ground, creating a lingering fire zone that damages enemies.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/67df9ca3cb158a945fc9b13eb0e3949683c4c65d-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/b702ed368fd050e7cb77adf26bc55bb63c5936fb.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "wall",
+    "title": "BLAZE",
+    "description": "EQUIP a flame wall. FIRE to create a line of flame that moves forward, creating a wall of fire that blocks vision and damages players passing through it. HOLD FIRE to bend the wall in the direction of your crosshair.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/d807a982ce70475acb2e8461b4f8737204e35d96-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/8c5b0e23be0814583ad4601b4297d04dbaff79f7.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "ultimate",
+    "title": "RUN IT BACK",
+    "description": "INSTANTLY place a marker at Phoenix\u2019s location. While this ability is active, dying or allowing the timer to expire will end this ability and bring Phoenix back to this location with full health.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/d428c0c6c73ba34676e063092a7ae7157268db0c-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/aa122a33b1ef0320174991b8ddee4e82dbc2b937.mp4?accountingTag=VAL"
+  }
+]
