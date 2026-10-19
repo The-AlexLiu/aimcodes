@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-19",
+  "officialAgent": "https://playvalorant.com/en-us/agents/omen/",
+  "officialCN": "https://val.qq.com/game-data.html?pageType=1&heroId=4",
+  "cinematic": {
+    "url": "https://www.youtube.com/watch?v=q2eLOupmraQ",
+    "channel": "VALORANT",
+    "capture": "Ego Lite official watch page at 1920x818 playback, paused; CSS screenshot 892x380; captions and player chrome hidden",
+    "hero": {
+      "timeSeconds": 275,
+      "output": "hero.webp",
+      "resize": "1920x1080 cover"
+    },
+    "gallery": [
+      {
+        "timeSeconds": 145,
+        "output": "gallery/shadow.webp"
+      },
+      {
+        "timeSeconds": 185,
+        "output": "gallery/strike.webp"
+      },
+      {
+        "timeSeconds": 200,
+        "output": "gallery/closeup.webp"
+      }
+    ],
+    "galleryResize": "1280x546 cover"
+  },
+  "abilities": [
+    {
+      "key": "paranoia",
+      "title": "PARANOIA",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/e8544e323a51c9b8ff7ae8fca257e038a570819d-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/f401fc788f3182b6d5aa25af6056c842117b1b36.mp4?accountingTag=VAL",
+      "transform": "960x540 H264 CRF24 muted faststart; poster at 2 seconds; icon WebP"
+    },
+    {
+      "key": "smoke",
+      "title": "DARK COVER",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/e4012aeda506a8e77f2e83d48aa8c5c73a37b659-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/ba0b035a5ff2bb8d9487ba461b3d15900ff50f6b.mp4?accountingTag=VAL",
+      "transform": "960x540 H264 CRF24 muted faststart; poster at 2 seconds; icon WebP"
+    },
+    {
+      "key": "step",
+      "title": "SHROUDED STEP",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/2790998724c94f38688c9c6c5d43c0712cae18ef-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/33550fee410c5a55ea8832f41827a12aaddb686f.mp4?accountingTag=VAL",
+      "transform": "960x540 H264 CRF24 muted faststart; poster at 2 seconds; icon WebP"
+    },
+    {
+      "key": "ultimate",
+      "title": "FROM THE SHADOWS",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/fed58cd5eb95f4e50b7b8230a150c3b686b82f78-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/252cf8ad86b6aca6210ba93ea856f52708476eba.mp4?accountingTag=VAL",
+      "transform": "960x540 H264 CRF24 muted faststart; poster at 2 seconds; icon WebP"
+    }
+  ]
+}

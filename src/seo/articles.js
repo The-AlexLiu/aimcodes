@@ -1,4 +1,6 @@
 import { chamberArticleCopy } from './chamberContent.js'
+
+import { omenArticleCopy } from './omenContent.js'
 import { phoenixArticleCopy } from './phoenixContent.js'
 import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
@@ -222,6 +224,8 @@ function baseArticleCopy(locale, articleKey) {
 
 export function articleCopy(locale, articleKey) {
   if (articleKey === 'chamber') return chamberArticleCopy(locale)
+
+  if (articleKey === 'omen') return omenArticleCopy(locale)
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale)
   if (articleKey === 'sage') return sageArticleCopy(locale)
   if (articleKey === 'hush') return hushArticleCopy(locale)
