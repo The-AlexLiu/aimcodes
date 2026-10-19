@@ -1,5 +1,15 @@
 # AimCodes 工具间交接
 
+## 已上线核验：2026-10-19
+
+PR #90 已合并，正式代码 `dae95d0eb2ba3fab730a3309d6de55aa92afa7f1`。先验证免费基线，再发布 Hush，Cloudflare 正式 Worker 版本 `dce53821-f3ef-44ae-87c6-9b273a57df9b`。通过 Cloudflare 公共 DNS 的 HTTPS 请求确认 build-meta 与合并提交一致；本机默认递归 DNS 仍缓存旧 Netlify 地址，不能把本地旧响应误判为部署失败。
+
+五语种 Hush 均为 200；canonical 和既有语言索引政策正常（英语/日语 index，中文/西语/葡语 noindex）。主 Sitemap 1892、准星 Sitemap 1585、图片 Sitemap 1739，robots 正常。五段 MP4 均可下载，浏览器预览技能与大招播放成功；服务端目前对 Range 请求返回完整 200 文件，不能声称已验证 206。390px 手机及桌面布局无横向溢出，桌面大招卡占满整行。
+
+购买/领取/找回/退款旧地址转免费库并清除查询参数，支付 API 410，www 正确跳转根域。除两条网站来源记录外，其余 11 条 DNS 记录逐项对比均未变化。Netlify 自动构建停止，旧站和历史数据保留；未读取或迁移支付凭据、未修改 GA4/GSC 设置。原用户工作树与未提交原始媒体均未处理。
+
+自动发布尚未接通：Cloudflare 构建 API 返回 Git 账户 disconnected（8000008），尽管 GitHub 应用已安装。当前账户 9 个 Worker 均无构建触发器。共享 GitHub 应用重装可能影响其他账户/项目，未执行；已向用户询问保留手动发布还是修复共享授权。当前可用的发布方式为 `pnpm build:cloudflare` + `pnpm deploy:cloudflare`。
+
 ## 2026-10-19：Cloudflare 迁移与永久免费准星库
 
 准星包售卖永久取消：五语种购买、领取、找回及退款入口已移除，旧链接 301 跳转免费准星库并清除查询参数，旧 API 返回 410。历史支付代码和 Netlify 数据仅保留存档，不迁移凭据或订单，不再接入支付。
