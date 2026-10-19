@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import CrosshairCanvas from './CrosshairCanvas.jsx'
+import { HUSH_GENERATOR_SETTINGS } from '../data/hushCrosshair.js'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
 import { seoToolCopy } from '../seo/toolContent.js'
@@ -81,8 +82,8 @@ function Toggle({ label, checked, onChange }) {
 
 function Generator({ copy, onCopy }) {
   const [background, setBackground] = useState('ascent')
-  const [settings, setSettings] = useState({
-    colorPreset: '5', outline: true, outlineOpacity: 1, outlineThickness: 1,
+  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
+    colorPreset: '5', customColor: '#ed9bda', outline: true, outlineOpacity: 1, outlineThickness: 1,
     dot: false, dotOpacity: 1, dotSize: 2, inner: true, innerOpacity: 1,
     innerLength: 4, innerThickness: 2, innerOffset: 2, outer: false,
     outerOpacity: 1, outerLength: 2, outerThickness: 2, outerOffset: 10,
@@ -90,7 +91,7 @@ function Generator({ copy, onCopy }) {
   })
   const update = (key, value) => setSettings((current) => ({ ...current, [key]: value }))
   const code = useMemo(() => generateCrosshairCode({
-    colorPreset: settings.colorPreset,
+    colorPreset: settings.colorPreset, customColor: settings.customColor,
     outline: { enabled: settings.outline, opacity: settings.outlineOpacity, thickness: settings.outlineThickness },
     dot: { enabled: settings.dot, opacity: settings.dotOpacity, size: settings.dotSize },
     inner: { enabled: settings.inner, opacity: settings.innerOpacity, length: settings.innerLength, thickness: settings.innerThickness, offset: settings.innerOffset },
@@ -105,7 +106,8 @@ function Generator({ copy, onCopy }) {
       <section className="tool-preview-panel"><Preview item={item} background={background} label={copy.preview} copy={copy} /><MapPicker copy={copy} value={background} onChange={setBackground} /><code>{code}</code><button className="primary-button" type="button" onClick={() => onCopy(item, { interactionSource: 'crosshair_generator' })}>{copy.copy}</button><p>{copy.generatorNote}</p></section>
       <section className="tool-controls" aria-label={copy.settings}>
         <h2>{copy.settings}</h2>
-        <label className="tool-field"><span>{copy.color}</span><select value={settings.colorPreset} onChange={(event) => update('colorPreset', event.target.value)}>{crosshairColorPresets.map((option) => <option key={option.preset} value={option.preset}>{copy.colors[option.key] || option.key}</option>)}</select></label>
+        <label className="tool-field"><span>{copy.color}</span><select value={settings.colorPreset} onChange={(event) => update('colorPreset', event.target.value)}>{crosshairColorPresets.map((option) => <option key={option.preset} value={option.preset}>{copy.colors[option.key] || option.key}</option>)}<option value="8">{copy.colors.custom}</option></select></label>
+        {settings.colorPreset === '8' && <label className="tool-field"><span>{copy.colors.custom}</span><input type="color" value={settings.customColor || '#ed9bda'} onChange={event => update('customColor', event.target.value)} /></label>}
         <div className="tool-toggle-row"><Toggle label={copy.outline} checked={settings.outline} onChange={(value) => update('outline', value)} /><Toggle label={copy.centerDot} checked={settings.dot} onChange={(value) => update('dot', value)} /><Toggle label={copy.inner} checked={settings.inner} onChange={(value) => update('inner', value)} /><Toggle label={copy.outer} checked={settings.outer} onChange={(value) => update('outer', value)} /></div>
         {settings.outline && <div className="tool-control-group"><h3>{copy.outline}</h3><NumberControl label={copy.opacity} value={settings.outlineOpacity} min={0} max={1} step={0.1} onChange={(value) => update('outlineOpacity', value)} /><NumberControl label={copy.thickness} value={settings.outlineThickness} min={1} max={6} onChange={(value) => update('outlineThickness', value)} /></div>}
         {settings.dot && <div className="tool-control-group"><h3>{copy.centerDot}</h3><NumberControl label={copy.opacity} value={settings.dotOpacity} min={0} max={1} step={0.1} onChange={(value) => update('dotOpacity', value)} /><NumberControl label={copy.size} value={settings.dotSize} min={1} max={6} onChange={(value) => update('dotSize', value)} /></div>}

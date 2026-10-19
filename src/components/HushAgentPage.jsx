@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { HUSH_IMAGE, HUSH_VIDEOS, hushArticleCopy } from '../seo/hushContent.js'
 import { hushClipCopy } from '../seo/hushMedia.js'
-import { routePath } from '../seo/routes.js'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
+import HushCrosshair from './HushCrosshair.jsx'
 import './hushAgent.css'
 
 function VideoPlayer({ video, label, ui, index, poster }) {
@@ -89,7 +89,7 @@ function CharacterGallery({ images, ui }) {
   )
 }
 
-export default function HushAgentPage({ locale }) {
+export default function HushAgentPage({ locale, onCopy }) {
   const [demoExpanded, setDemoExpanded] = useState(false)
   const content = hushArticleCopy(locale)
   const { ui } = content
@@ -164,7 +164,7 @@ export default function HushAgentPage({ locale }) {
         </dl>
         {regions.map(([region]) => <p key={region}><strong>{ui[region]}</strong> {region === 'china' ? ui.chinaUnlock : content.internationalUnlock}</p>)}
       </details>
-      <section className="hush-next"><h2>{ui.next}</h2><div><a className="hush-primary" href={routePath(locale, { type: 'catalog' })}>{ui.catalog} ↗</a><a className="hush-secondary" href={routePath(locale, { type: 'tool', toolKey: 'generator' })}>{ui.generator}</a></div></section>
+      <HushCrosshair locale={locale} onCopy={onCopy} />
       <p className="hush-credit"><a href={HUSH_VIDEOS[1].url} target="_blank" rel="noreferrer">{ui.credit} ↗</a></p>
     </article>
   )
