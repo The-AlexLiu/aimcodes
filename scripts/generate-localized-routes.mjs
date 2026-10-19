@@ -1,3 +1,5 @@
+import { PHOENIX_CROSSHAIR } from '../src/data/phoenixCrosshair.js'
+import { PHOENIX_IMAGE, PHOENIX_CINEMATIC } from '../src/seo/phoenixContent.js'
 import { SAGE_CROSSHAIR } from '../src/data/sageCrosshair.js'
 import { SAGE_IMAGE } from '../src/seo/sageContent.js'
 import { HUSH_CROSSHAIR } from '../src/data/hushCrosshair.js'
@@ -235,7 +237,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       '@type': 'Article',
       '@id': `${metadata.canonical}#article`,
       headline: article.title,
-      ...(['hush', 'sage'].includes(route.articleKey) ? { image: metadata.image } : {}),
+      ...(['hush', 'sage', 'phoenix'].includes(route.articleKey) ? { image: metadata.image } : {}),
       description: article.intro,
       url: metadata.canonical,
       dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route),
@@ -521,6 +523,10 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
+    if (route.articleKey === 'phoenix') {
+      const abilities = article.abilities.map(a => `<section><h3>${escapeHtml(a.name)}</h3><img src="/images/agents/phoenix/${a.key}.webp" alt="" width="48" height="48" /><small>${a.binding}</small><p>${escapeHtml(a.effect)}</p><p>${escapeHtml(a.action)}</p><video controls muted playsinline preload="none" poster="/images/agents/phoenix/${a.key}-poster.webp" width="960" height="540" aria-label="${escapeHtml(a.name)}"><source src="/images/agents/phoenix/${a.key}.mp4" type="video/mp4" /></video></section>`).join('')
+      return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale,{type:'home'})}">AimCodes</a> / ${escapeHtml(article.heroName)}</nav><header><h1>${escapeHtml(article.heroName)}</h1><p>${escapeHtml(article.intro)}</p><img class="seo-static-hero-image" src="${PHOENIX_IMAGE}" alt="${escapeHtml(article.imageAlt)}" width="1920" height="1080" /><a href="#phoenix-abilities">${escapeHtml(article.watch)}</a></header><section id="phoenix-abilities"><h2>${escapeHtml(article.kit)}</h2>${abilities}</section><details><summary>${escapeHtml(article.showDemo)}</summary><video controls muted playsinline preload="none" poster="/images/agents/phoenix/wall-poster.webp" width="960" height="540"><source src="/images/agents/phoenix/abilities-overview.mp4" type="video/mp4" /></video></details><section><h2>${escapeHtml(article.storyTitle)}</h2>${article.story.map(p=>`<p>${escapeHtml(p)}</p>`).join('')}<a href="${PHOENIX_CINEMATIC}">${escapeHtml(article.cinematic)}</a></section><section><h2>${escapeHtml(article.galleryTitle)}</h2>${article.gallery.map(image=>`<a href="${image.src}"><img src="${image.src}" alt="${escapeHtml(image.label)}" width="${image.width}" height="${image.height}" loading="lazy" /></a>`).join('')}</section><details><summary>${escapeHtml(article.profileTitle)}</summary><p>${escapeHtml(article.originLabel)}: ${escapeHtml(article.origin)} · ${escapeHtml(article.roleLabel)}: ${escapeHtml(article.role)}</p><p>${escapeHtml(article.profileBody)}</p></details><section><h2>${escapeHtml(article.themeTitle)}</h2><p>${escapeHtml(article.themeDescription)}</p><code>${escapeHtml(PHOENIX_CROSSHAIR.code)}</code><p>${escapeHtml(article.importBody)}</p><a href="${routePath(locale,{type:'tool',toolKey:'generator'})}?theme=phoenix">${escapeHtml(article.adjust)}</a><a href="${routePath(locale,{type:'catalog'})}">${escapeHtml(article.more)}</a></section></main>`
+    }
     if (route.articleKey === 'sage') {
       const abilities = article.abilities.map(a => `<section id="${a.key}"><h3>${escapeHtml(a.name)} · ${a.binding}</h3><p>${escapeHtml(a.effect)}</p><h4>${escapeHtml(a.question)}</h4><p>${escapeHtml(a.body)}</p><video controls muted playsinline preload="none" poster="/images/agents/sage/${a.key}-poster.webp" width="1280" height="720" aria-label="${escapeHtml(a.name)}"><source src="/images/agents/sage/${a.key}.mp4" type="video/mp4" /></video></section>`).join('')
       const sources = article.sources.map(source => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join(' ')

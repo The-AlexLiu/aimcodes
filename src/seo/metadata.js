@@ -1,3 +1,4 @@
+import { PHOENIX_OG_IMAGE, PHOENIX_UPDATED_AT, phoenixArticleCopy } from './phoenixContent.js'
 import { SAGE_OG_IMAGE, SAGE_UPDATED_AT, sageArticleCopy } from './sageContent.js'
 import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.js'
 import { freeSiteCopy } from '../i18n/freeSiteCopy.js'
@@ -65,6 +66,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:home:`, HUSH_UPDATED_AT],
     [`${locale}:article:hush`, HUSH_UPDATED_AT],
     [`${locale}:article:sage`, SAGE_UPDATED_AT],
+    [`${locale}:article:phoenix`, PHOENIX_UPDATED_AT],
   ])),
   ...Object.fromEntries(Object.keys(localeRoutes).map(locale => [`${locale}:collection:best`, '2026-10-15'])),
 })
@@ -218,6 +220,10 @@ export function routeMetadata(locale, route, crosshair) {
     }[locale] || title
   }
 
+  if (route.type === 'article' && route.articleKey === 'phoenix') {
+    imagePath = PHOENIX_OG_IMAGE
+    imageAlt = phoenixArticleCopy(locale).imageAlt
+  }
   if (route.type === 'article' && route.articleKey === 'sage') {
     imagePath = SAGE_OG_IMAGE
     imageAlt = sageArticleCopy(locale).imageAlt

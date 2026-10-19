@@ -1,0 +1,4 @@
+interface:
+  display_name: "AimCodes 角色准星页面"
+  short_description: "复用已验收模板，制作角色媒体与独有主题准星，并完成多语、索引和发布验收"
+  default_prompt: "使用 $aimcodes-agent-page 为 AimCodes 制作指定英雄的技能与主题准星页面，先检查最新模板并交付本地样稿。"

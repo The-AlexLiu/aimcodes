@@ -1,0 +1,35 @@
+[
+  {
+    "source": "https://www.youtube.com/watch?v=e_E9W2vsRbQ",
+    "title": "DUELISTS // Official Launch Cinematic Trailer - VALORANT",
+    "channel": "VALORANT",
+    "seconds": 35,
+    "capture": "Official 1920x1080 playback screenshot, cropped to x0 y144 width1920 height792 to exclude player UI and baked-in black bars",
+    "raw": "data_raw/phoenix-2026-10-19/duelists-frames/frame-35.png",
+    "output": "public/images/agents/phoenix/gallery/duelists-punch.webp",
+    "width": 1280,
+    "height": 528
+  },
+  {
+    "source": "https://www.youtube.com/watch?v=e_E9W2vsRbQ",
+    "title": "DUELISTS // Official Launch Cinematic Trailer - VALORANT",
+    "channel": "VALORANT",
+    "seconds": 49,
+    "capture": "Official 1920x1080 playback screenshot, cropped to x0 y144 width1920 height792 to exclude player UI and baked-in black bars",
+    "raw": "data_raw/phoenix-2026-10-19/duelists-frames/frame-49.png",
+    "output": "public/images/agents/phoenix/gallery/duelists-aim.webp",
+    "width": 1280,
+    "height": 528
+  },
+  {
+    "source": "https://www.youtube.com/watch?v=e_E9W2vsRbQ",
+    "title": "DUELISTS // Official Launch Cinematic Trailer - VALORANT",
+    "channel": "VALORANT",
+    "seconds": 77,
+    "capture": "Official 1920x1080 playback screenshot, cropped to x0 y144 width1920 height792 to exclude player UI and baked-in black bars",
+    "raw": "data_raw/phoenix-2026-10-19/duelists-frames/frame-77.png",
+    "output": "public/images/agents/phoenix/gallery/duelists-closeup.webp",
+    "width": 1280,
+    "height": 528
+  }
+]
