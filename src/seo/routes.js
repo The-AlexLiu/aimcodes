@@ -35,6 +35,7 @@ export const SEO_LOCALE_TIERS = Object.freeze({
 const ZH_PRODUCT_INDEX_TYPES = new Set(['home', 'catalog', 'finder'])
 
 export const SEO_ARTICLES = Object.freeze({
+  hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: Object.freeze(['en', 'ja']) }),
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
   offCenter: Object.freeze({ slug: 'valorant-crosshair-off-center', keyword: 'is valorant crosshair off center', priority: 'P1' }),
   stretched: Object.freeze({ slug: 'valorant-stretched-crosshair', keyword: 'stretched crosshair valorant', priority: 'P1' }),
@@ -186,6 +187,7 @@ export function isPriorityCrosshair(id) {
 export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
   const normalizedLocale = normalizeLocale(locale) || DEFAULT_LOCALE
   if (normalizedLocale === 'zh-CN' && !ZH_PRODUCT_INDEX_TYPES.has(route.type)) return false
+  if (route.type === 'article' && SEO_ARTICLES[route.articleKey]?.indexLocales) return SEO_ARTICLES[route.articleKey].indexLocales.includes(normalizedLocale)
   if (route.type === 'players') return false
   if (route.type === 'paid') return false
   if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false

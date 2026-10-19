@@ -135,7 +135,8 @@ for (const locale of Object.keys(localeRoutes)) {
         const article = articleCopy(locale, route.articleKey)
         if (!html.includes('"@type":"Article"')) errors.push(`${path}: Article structured data missing`)
         if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: article BreadcrumbList missing`)
-        if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
+        if (article.faq.length && !html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
+        if (!article.faq.length && html.includes('"@type":"FAQPage"')) errors.push(`${path}: empty article FAQPage must be omitted`)
         if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
         if (route.articleKey === 'statistics' && !html.includes('"@type":"Dataset"')) errors.push(`${path}: Dataset structured data missing`)
         for (const id of article.recommendedCrosshairIds) {

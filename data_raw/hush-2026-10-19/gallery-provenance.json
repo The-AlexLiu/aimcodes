@@ -1,0 +1,33 @@
+{
+  "publication": "https://www.gamespark.jp/article/2026/10/18/173758.html",
+  "copyright": "Riot Games; publication watermark retained",
+  "records": [
+    {
+      "key": "cinematic-combat",
+      "input": "cinematic-02.png",
+      "source": "https://www.gamespark.jp/imgs/zoom/1208110.png",
+      "src": "/images/agents/hush/gallery/cinematic-combat.webp",
+      "width": 670,
+      "height": 376,
+      "bytes": 31732
+    },
+    {
+      "key": "cinematic-dinner",
+      "input": "cinematic-10.png",
+      "source": "https://www.gamespark.jp/imgs/zoom/1208118.png",
+      "src": "/images/agents/hush/gallery/cinematic-dinner.webp",
+      "width": 670,
+      "height": 376,
+      "bytes": 40306
+    },
+    {
+      "key": "cinematic-reveal",
+      "input": "cinematic-06.png",
+      "source": "https://www.gamespark.jp/imgs/zoom/1208114.png",
+      "src": "/images/agents/hush/gallery/cinematic-reveal.webp",
+      "width": 670,
+      "height": 376,
+      "bytes": 31464
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "source": "https://www.youtube.com/watch?v=XN_HF9KVT0M",
+  "input": "data_raw/hush-2026-10-19/official-abilities-hq.mp4",
+  "cropWidth": 96,
+  "cropHeight": 96,
+  "left": 780,
+  "icons": [
+    {
+      "key": "telekinesis",
+      "time": 5,
+      "top": 278
+    },
+    {
+      "key": "flow",
+      "time": 30,
+      "top": 278
+    },
+    {
+      "key": "flashbulb",
+      "time": 24.5,
+      "top": 256
+    },
+    {
+      "key": "displacement",
+      "time": 13,
+      "top": 220
+    },
+    {
+      "key": "suspension",
+      "time": 37,
+      "top": 256
+    }
+  ]
+}

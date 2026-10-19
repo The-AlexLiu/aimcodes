@@ -1,3 +1,4 @@
+import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.js'
 import { paidPackCopy } from '../i18n/paidPackCopy.js'
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
@@ -58,6 +59,10 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
     ...['dot', 'small', 'cute', 'funny', 'sheriff', 'visibility', 'guardian', 'outlaw', 'marshal', 'burst', 'spray', 'longRange'].map(key => [`${locale}:collection:${key}`, '2026-10-14']),
     ...['firingError', 'copy', 'colors', 'statistics'].map(key => [`${locale}:article:${key}`, '2026-10-14']),
+  ])),
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
+    [`${locale}:home:`, HUSH_UPDATED_AT],
+    [`${locale}:article:hush`, HUSH_UPDATED_AT],
   ])),
 })
 
@@ -209,6 +214,11 @@ export function routeMetadata(locale, route, crosshair) {
       'zh-CN': route.type === 'players' ? 'AimCodes 无畏契约职业选手准星档案' : 'AimCodes 无畏契约准星库预览',
       ja: route.type === 'players' ? 'AimCodesのVALORANTプロ選手クロスヘアプロフィール' : 'AimCodesのVALORANTクロスヘアコード一覧',
     }[locale] || title
+  }
+
+  if (route.type === 'article' && route.articleKey === 'hush') {
+    imagePath = HUSH_OG_IMAGE
+    imageAlt = hushArticleCopy(locale).ui.imageAlt
   }
 
   return {

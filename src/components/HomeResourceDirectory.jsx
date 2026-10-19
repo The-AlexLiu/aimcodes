@@ -1,3 +1,5 @@
+import { hushArticleCopy } from '../seo/hushContent.js'
+import './hushAgent.css'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
@@ -125,6 +127,7 @@ export default function HomeResourceDirectory({ locale }) {
 
   return (
     <section className="home-resource-directory" id="guides-and-tools" aria-labelledby="home-resource-title">
+      <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'hush' })}>{hushArticleCopy(locale).ui.homeLink}<span aria-hidden="true">↗</span></a>
       <header>
         <h2 id="home-resource-title">{copy.title}</h2>
         <p>{copy.intro}</p>
