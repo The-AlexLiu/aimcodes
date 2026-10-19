@@ -1,3 +1,4 @@
+import { sageMediaCopy, SAGE_GALLERY } from './sageMedia.js'
 export const SAGE_IMAGE = '/images/agents/sage/hero.webp'
 export const SAGE_OG_IMAGE = '/images/agents/sage/og.jpg'
 export const SAGE_UPDATED_AT = '2026-10-19'
@@ -337,5 +338,5 @@ export function sageArticleCopy(locale) {
   const abilities = keys.map((key,index)=>({key,binding:bindings[index],english:english[index],name:item.names[index],common:item.common[index],effect:item.effects[index],question:item.questions[index],body:item.actions[index]}))
   const sources = [{url:`https://playvalorant.com/${sourceLocale}/agents/sage/`,label:item.sourceLabels[0]},{url:'https://www.youtube.com/watch?v=XfuMEmcz3k0&t=160s',label:item.sourceLabels[1]}]
   if(locale==='zh-CN') sources.push({url:'https://val.qq.com/game-data.html?pageType=1&heroId=7',label:'国服技能说明'})
-  return {...item,abilities,sources,metaTitle:`${item.title} | AimCodes`,summaryTitle:item.kit,summary:item.intro,sections:abilities.map(a=>({id:a.key,title:a.question,paragraphs:[a.effect,a.body],bullets:[]})),faq:[],recommendedCrosshairIds:[],relatedArticleKeys:['placement'],relatedCollectionKeys:[],relatedToolKeys:[],cta:item.copy}
+  return {...item,...sageMediaCopy(locale),gallery:SAGE_GALLERY.map((image,index)=>({...image,label:sageMediaCopy(locale).galleryLabels[index]})),abilities,sources,metaTitle:`${item.title} | AimCodes`,summaryTitle:item.kit,summary:item.intro,sections:abilities.map(a=>({id:a.key,title:a.question,paragraphs:[a.effect,a.body],bullets:[]})),faq:[],recommendedCrosshairIds:[],relatedArticleKeys:['placement'],relatedCollectionKeys:[],relatedToolKeys:[],cta:item.copy}
 }
