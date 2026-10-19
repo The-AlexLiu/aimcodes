@@ -1,3 +1,4 @@
+import { storeContext } from './store-context.mjs'
 import { getStore } from '@netlify/blobs'
 
 export function paidStoreName() {
@@ -7,6 +8,7 @@ export function paidStoreName() {
 }
 
 export function paidStore() {
+  if (storeContext.getStore()) return storeContext.getStore()
   return getStore({ name: paidStoreName(), consistency: 'strong' })
 }
 

@@ -24,3 +24,6 @@ MiraBase-Preview.html
 双击预览-*.html
 preview-*.png
 .firecrawl/
+
+# Cloudflare local runtime
+.wrangler/
