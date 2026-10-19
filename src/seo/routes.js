@@ -41,6 +41,8 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
 ])
 
 export const SEO_ARTICLES = Object.freeze({
+  // Local preview: all five locales remain noindex until an explicit release decision.
+  viper: Object.freeze({ slug: 'valorant-viper', keyword: 'valorant viper abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   // Release approved: English search entry; other locales remain product access.
   phoenix: Object.freeze({ slug: 'valorant-phoenix', keyword: 'valorant phoenix abilities', priority: 'P1', indexLocales: Object.freeze(['en']) }),
   omen: Object.freeze({ slug: 'valorant-omen', keyword: 'valorant omen abilities', priority: 'P1', indexLocales: Object.freeze([]) }),

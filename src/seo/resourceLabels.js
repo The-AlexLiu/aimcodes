@@ -1,4 +1,5 @@
 import { omenArticleCopy } from './omenContent.js'
+import { viperArticleCopy } from './viperContent.js'
 import { phoenixArticleCopy } from './phoenixContent.js'
 import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
@@ -32,6 +33,7 @@ function localizedLabels(locale) {
 
 export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'omen') return omenArticleCopy(locale).title
+  if (articleKey === 'viper') return viperArticleCopy(locale).title
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
   if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title

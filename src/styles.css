@@ -2561,3 +2561,8 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.phoenix-home-link { border-color: #785635; background: linear-gradient(100deg, #2a2117, #111922); color: #ffbc70; }
 .hush-home-link.phoenix-home-link:hover { border-color: #ffbc70; }
 .hush-home-link.phoenix-home-link:focus-visible { outline-color: #ffbc70; }
+
+/* Viper directory entry, scoped to its own link. */
+.hush-home-link.viper-home-link { border-color: #536d35; background: linear-gradient(100deg, #202c15, #111922); color: #b7f34b; }
+.hush-home-link.viper-home-link:hover { border-color: #b7f34b; }
+.hush-home-link.viper-home-link:focus-visible { outline-color: #b7f34b; }

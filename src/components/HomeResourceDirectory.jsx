@@ -1,4 +1,5 @@
 import { omenArticleCopy } from '../seo/omenContent.js'
+import { viperArticleCopy } from '../seo/viperContent.js'
 import { phoenixArticleCopy } from '../seo/phoenixContent.js'
 import { sageArticleCopy } from '../seo/sageContent.js'
 import { hushArticleCopy } from '../seo/hushContent.js'
@@ -132,6 +133,7 @@ export default function HomeResourceDirectory({ locale }) {
     <section className="home-resource-directory" id="guides-and-tools" aria-labelledby="home-resource-title">
       <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'hush' })}>{hushArticleCopy(locale).ui.homeLink}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'sage' })}>{sageArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link viper-home-link" href={routePath(locale, { type: 'article', articleKey: 'viper' })}>{viperArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link phoenix-home-link" href={routePath(locale, { type: 'article', articleKey: 'phoenix' })}>{phoenixArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link omen-home-link" href={routePath(locale, { type: 'article', articleKey: 'omen' })}>{omenArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <header>
