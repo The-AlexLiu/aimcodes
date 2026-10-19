@@ -119,7 +119,7 @@ export default function HushAgentPage({ locale, onCopy }) {
             <section key={ability.name} className={`hush-ability ${index === 4 ? 'hush-ultimate' : ''}`}>
               <div className="hush-ability-content">
                 <header className="hush-ability-heading">
-                  <h3>{ability.name}<small>{ability.label}</small></h3>
+                  <h3>{ability.name}{ability.label !== ability.name && <small>{ability.label}</small>}</h3>
                   <div className="hush-binding"><img src={ability.media.icon} alt="" width="48" height="48" loading="lazy" /><small>{ability.binding}</small></div>
                 </header>
                 <div className="hush-ability-description">
