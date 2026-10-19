@@ -36,3 +36,8 @@
 .sage-page .hero-copy p{font-size:16px;line-height:1.7;margin:0 0 14px;max-width:440px}
 .sage-page .hero-copy nav{margin-top:26px}
 @media(max-width:600px){.sage-page .sage-hero{min-height:0}.sage-page .hero-copy{padding:18px 20px 24px}.sage-page .hero-copy h1{font-size:40px;line-height:1.05}.sage-page .hero-copy p{font-size:14px;line-height:1.6}}
+
+.sage-page .ability-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px}
+.sage-page .ability-heading>div{min-width:0}
+.sage-page .ability-heading h2{margin:0 0 8px;color:var(--mint)}
+.sage-page .ability-heading small{color:var(--muted);font-size:13px}

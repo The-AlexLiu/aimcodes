@@ -59,8 +59,8 @@ export default function SageAgentPage({ locale, onCopy }) {
     <SeoBreadcrumbs locale={locale} section="guides" current={copy.heroName} />
     <section className="sage-hero"><img src={SAGE_IMAGE} alt={copy.imageAlt} width="1280" height="540" fetchPriority="high" /><div className="hero-copy"><span className="eyebrow">{copy.eyebrow}</span><h1>{copy.heroName}</h1><p>{copy.intro}</p><nav aria-label={copy.title}><a className="primary" href="#abilities">{copy.watch} ↓</a><a href="#crosshair">{copy.tryTheme} ↗</a></nav></div></section>
     <section id="abilities" className="abilities"><div className="section-heading"><h2>{copy.kit}</h2></div>
-      <div className="sage-ability-cards">{copy.abilities.map((ability, index) => <section className="ability" id={ability.key} key={ability.key} aria-labelledby={`${ability.key}-title`}>
-        <div className="ability-copy"><div className="ability-topline"><span>0{index + 1} / {ability.english}</span><img className="ability-icon" src={`/images/agents/sage/${ability.key}.webp`} alt="" width="64" height="64" loading="lazy" /></div><h2 id={`${ability.key}-title`}>{ability.name}<small>{ability.common}</small></h2><p className="ability-effect">{ability.effect}</p><h3>{ability.question}</h3><p className="ability-action">{ability.body}</p></div>
+      <div className="sage-ability-cards">{copy.abilities.map((ability) => <section className="ability" id={ability.key} key={ability.key} aria-labelledby={`${ability.key}-title`}>
+        <div className="ability-copy"><header className="ability-heading"><div><h2 id={`${ability.key}-title`}>{ability.name}</h2><small>{ability.common}</small></div><img className="ability-icon" src={`/images/agents/sage/${ability.key}.webp`} alt="" width="64" height="64" loading="lazy" /></header><p className="ability-effect">{ability.effect}</p><h3>{ability.question}</h3><p className="ability-action">{ability.body}</p></div>
         <AbilityVideo ability={ability} />
       </section>)}</div>
     </section>
