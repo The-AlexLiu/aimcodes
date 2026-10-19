@@ -28,3 +28,11 @@
 
 .sage-page .ability-icon{display:block;width:64px;height:64px;object-fit:contain;padding:12px;border-radius:10px;background:#0c191b;flex:0 0 auto}
 .sage-page .ability-topline{min-height:64px}
+
+/* Use the same hero type scale and spacing as Hush. */
+.sage-page .sage-hero{min-height:440px}
+.sage-page .hero-copy{width:min(100%,610px);max-width:610px;padding:48px 36px}
+.sage-page .hero-copy h1{margin:12px 0;max-width:480px;color:#fff;font:800 clamp(40px,6vw,64px)/1.05 var(--display-font);letter-spacing:-.6px;text-wrap:balance}
+.sage-page .hero-copy p{font-size:16px;line-height:1.7;margin:0 0 14px;max-width:440px}
+.sage-page .hero-copy nav{margin-top:26px}
+@media(max-width:600px){.sage-page .sage-hero{min-height:0}.sage-page .hero-copy{padding:18px 20px 24px}.sage-page .hero-copy h1{font-size:40px;line-height:1.05}.sage-page .hero-copy p{font-size:14px;line-height:1.6}}
