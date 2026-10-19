@@ -21,7 +21,7 @@
 .hush-page.phoenix-page .hush-video-links a,.hush-page.phoenix-page .hush-crosshair-more{color:var(--phoenix-accent)}
 .hush-page.phoenix-page .hush-demo{border-color:var(--hush-border)}
 .hush-page.phoenix-page .hush-demo-toggle{border-color:var(--hush-border);color:#efcfaa;background:#211a14}
-.phoenix-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #5e4936;border-radius:8px;background:#111}
+.agent-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #5e4936;border-radius:8px;background:#111}
 .hush-page.phoenix-page .hush-gallery-grid figure{display:block}
 .hush-page.phoenix-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#181510}
 .hush-page.phoenix-page .hush-gallery-grid img{object-fit:cover;object-position:center top}

@@ -1,5 +1,7 @@
 import { CHAMBER_OG_IMAGE, CHAMBER_UPDATED_AT, chamberArticleCopy } from './chamberContent.js'
 
+
+import { BRIMSTONE_OG_IMAGE, BRIMSTONE_UPDATED_AT, brimstoneArticleCopy } from './brimstoneContent.js'
 import { OMEN_OG_IMAGE, OMEN_UPDATED_AT, omenArticleCopy } from './omenContent.js'
 import { PHOENIX_OG_IMAGE, PHOENIX_UPDATED_AT, phoenixArticleCopy } from './phoenixContent.js'
 import { SAGE_OG_IMAGE, SAGE_UPDATED_AT, sageArticleCopy } from './sageContent.js'
@@ -71,6 +73,8 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:sage`, SAGE_UPDATED_AT],
     [`${locale}:article:chamber`, CHAMBER_UPDATED_AT],
 
+
+    [`${locale}:article:brimstone`, BRIMSTONE_UPDATED_AT],
     [`${locale}:article:omen`, OMEN_UPDATED_AT],
     [`${locale}:article:phoenix`, PHOENIX_UPDATED_AT],
   ])),
@@ -229,6 +233,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'chamber') {
     imagePath = CHAMBER_OG_IMAGE
     imageAlt = chamberArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'brimstone') {
+    imagePath = BRIMSTONE_OG_IMAGE
+    imageAlt = brimstoneArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'omen') {
     imagePath = OMEN_OG_IMAGE
