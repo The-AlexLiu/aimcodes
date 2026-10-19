@@ -1,3 +1,4 @@
+import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
 import { enrichArticleCopy } from './searchOpportunityArticles.js'
 import { enrichReviewArticle } from './octoberReviewContent.js'
@@ -218,6 +219,7 @@ function baseArticleCopy(locale, articleKey) {
 }
 
 export function articleCopy(locale, articleKey) {
+  if (articleKey === 'sage') return sageArticleCopy(locale)
   if (articleKey === 'hush') return hushArticleCopy(locale)
   const content = enrichReviewArticle(locale, articleKey, enrichArticleCopy(locale, articleKey, searchIntentArticleCopy(locale, articleKey) || baseArticleCopy(locale, articleKey)))
   const links = {

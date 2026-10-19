@@ -1,3 +1,4 @@
+import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
 import { japaneseArticles, japaneseTools } from './japaneseContent.js'
 import { playbookLabel } from './playbookLabels.js'
@@ -28,6 +29,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title
   // Keep lightweight homepage labels in sync; validate:localization checks parity.
   const opportunityTitle = {

@@ -1,3 +1,5 @@
+import { SAGE_CROSSHAIR } from '../src/data/sageCrosshair.js'
+import { SAGE_IMAGE } from '../src/seo/sageContent.js'
 import { HUSH_CROSSHAIR } from '../src/data/hushCrosshair.js'
 import { hushCrosshairCopy } from '../src/i18n/hushCrosshairCopy.js'
 import { freeSiteCopy } from '../src/i18n/freeSiteCopy.js'
@@ -233,7 +235,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       '@type': 'Article',
       '@id': `${metadata.canonical}#article`,
       headline: article.title,
-      ...(route.articleKey === 'hush' ? { image: metadata.image } : {}),
+      ...(['hush', 'sage'].includes(route.articleKey) ? { image: metadata.image } : {}),
       description: article.intro,
       url: metadata.canonical,
       dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route),
@@ -519,6 +521,11 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
+    if (route.articleKey === 'sage') {
+      const abilities = article.abilities.map(a => `<section id="${a.key}"><h3>${escapeHtml(a.name)} · ${a.binding}</h3><p>${escapeHtml(a.effect)}</p><h4>${escapeHtml(a.question)}</h4><p>${escapeHtml(a.body)}</p><video controls muted playsinline preload="none" poster="/images/agents/sage/${a.key}-poster.webp" width="1280" height="720" aria-label="${escapeHtml(a.name)}"><source src="/images/agents/sage/${a.key}.mp4" type="video/mp4" /></video></section>`).join('')
+      const sources = article.sources.map(source => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join(' ')
+      return `<main class="seo-static-shell"><nav aria-label="Breadcrumb"><a href="${routePath(locale,{type:'home'})}">AimCodes</a> / ${escapeHtml(article.heroName)}</nav><header><h1>${escapeHtml(article.heroName)} ${escapeHtml(article.heroSubtitle)}</h1><p>${escapeHtml(article.intro)}</p><img class="seo-static-hero-image" src="${SAGE_IMAGE}" alt="${escapeHtml(article.imageAlt)}" width="1280" height="540" /></header><section><h2>${escapeHtml(article.kit)}</h2>${abilities}</section><section><h2>${escapeHtml(article.themeTitle)}</h2><p>${escapeHtml(article.themeDescription)}</p><code>${escapeHtml(SAGE_CROSSHAIR.code)}</code><h3>${escapeHtml(article.importTitle)}</h3><p>${escapeHtml(article.importBody)}</p></section><details><summary>${escapeHtml(article.sourcesTitle)}</summary><p>${escapeHtml(article.sourceNote)}</p>${sources}</details></main>`
+    }
     if (route.articleKey === 'hush') {
       const { ui } = article
       const theme = hushCrosshairCopy(locale)
