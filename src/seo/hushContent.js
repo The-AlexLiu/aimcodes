@@ -111,7 +111,7 @@ const copy = {
     "intro": "来自广东的念力决斗者。看引导闪光、锚点位移、牵引与浮空大招怎么用。",
     "summaryTitle": "遐思是什么定位？",
     "summary": "遐思是来自中国广东的决斗者。已公开的演示包含远程拾取、闪光、锚点位移、牵引和浮空大招，Riot 已确认她将在 2026 赛季第六幕登场。",
-    "metaDescription": "认识无畏契约新英雄遐思 Hush：查看预告剧照，观看 RISE AND FALL 故事预告、五项技能视频和端游操作说明。",
+    "metaDescription": "认识无畏契约新英雄遐思：查看预告剧照，观看 RISE AND FALL 故事预告、五项技能视频和端游操作说明。",
     "ui": {
       "imageAlt": "Riot 官方无畏契约遐思英雄预告封面",
       "credit": "图片与实机演示 © Riot Games",
@@ -142,7 +142,7 @@ const copy = {
       "closeDemo": "收起视频",
       "chinaUnlock": "国服解锁方式待国服上线活动公告确认。",
       "unlockLabel": "怎么解锁",
-      "heroTitle": "遐思 Hush",
+      "heroTitle": "遐思",
       "storyTitle": "认识遐思",
       "galleryTitle": "角色图集",
       "releaseLabel": "上线与解锁",
@@ -498,7 +498,7 @@ const sourceUrls = [
 ]
 const sourceLabels = {
   en: ['Riot Games — Hush announcement', 'VALORANT — official reveal', 'VALORANT Korea — official gameplay', 'Chinese reveal — October 29', 'Dot Esports — reported release date', 'Kanga — English ability names and explanation', 'Riot Games — recruitment system'],
-  'zh-CN': ['Riot Games：Hush 官宣', 'VALORANT：官方英雄预告', 'VALORANT 韩国官方：技能实机演示', '中文预告：10 月 29 日上线', 'Dot Esports：国际服日期报道', 'Kanga：英文技能名与解说', 'Riot Games：英雄招募规则'],
+  'zh-CN': ['Riot Games：遐思官宣', 'VALORANT：官方英雄预告', 'VALORANT 韩国官方：技能实机演示', '中文预告：10 月 29 日上线', 'Dot Esports：国际服日期报道', 'Kanga：英文技能名与解说', 'Riot Games：英雄招募规则'],
   ja: ['Riot Games：Hushの発表', 'VALORANT：公式トレーラー', 'VALORANT韓国公式：スキル映像', '中国版映像：10月29日の案内', 'Dot Esports：実装日の報道', 'Kanga：英語名とスキル解説', 'Riot Games：エージェント採用システム'],
   es: ['Riot Games — anuncio de Hush', 'VALORANT — tráiler oficial', 'VALORANT Corea — habilidades oficiales', 'Tráiler chino — 29 de octubre', 'Dot Esports — fecha según prensa', 'Kanga — nombres y explicación en inglés', 'Riot Games — sistema de reclutamiento'],
   'pt-BR': ['Riot Games — anúncio da Hush', 'VALORANT — trailer oficial', 'VALORANT Coreia — habilidades oficiais', 'Trailer chinês — 29 de outubro', 'Dot Esports — data segundo a imprensa', 'Kanga — nomes e explicação em inglês', 'Riot Games — sistema de recrutamento'],
