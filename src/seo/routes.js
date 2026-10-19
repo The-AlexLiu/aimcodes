@@ -41,6 +41,8 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
 ])
 
 export const SEO_ARTICLES = Object.freeze({
+  // Local Jett preview: all locales remain outside search indexes.
+  jett: Object.freeze({ slug: 'valorant-jett', keyword: 'valorant jett abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   // Release approved: English search entry; other locales remain product access.
   phoenix: Object.freeze({ slug: 'valorant-phoenix', keyword: 'valorant phoenix abilities', priority: 'P1', indexLocales: Object.freeze(['en']) }),
   sage: Object.freeze({ slug: 'valorant-sage', keyword: 'valorant sage abilities', priority: 'P0', indexLocales: Object.freeze(['en']) }),
