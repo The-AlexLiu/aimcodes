@@ -64,6 +64,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:home:`, HUSH_UPDATED_AT],
     [`${locale}:article:hush`, HUSH_UPDATED_AT],
   ])),
+  ...Object.fromEntries(Object.keys(localeRoutes).map(locale => [`${locale}:collection:best`, '2026-10-15'])),
 })
 
 export function routeContentUpdatedAt(locale, route) {
