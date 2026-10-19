@@ -1,3 +1,4 @@
+import { SAGE_GENERATOR_SETTINGS } from '../data/sageCrosshair.js'
 import { useMemo, useState } from 'react'
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import { HUSH_GENERATOR_SETTINGS } from '../data/hushCrosshair.js'
@@ -82,7 +83,7 @@ function Toggle({ label, checked, onChange }) {
 
 function Generator({ copy, onCopy }) {
   const [background, setBackground] = useState('ascent')
-  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
+  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'sage' ? { ...SAGE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
     colorPreset: '5', customColor: '#ed9bda', outline: true, outlineOpacity: 1, outlineThickness: 1,
     dot: false, dotOpacity: 1, dotSize: 2, inner: true, innerOpacity: 1,
     innerLength: 4, innerThickness: 2, innerOffset: 2, outer: false,

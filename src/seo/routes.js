@@ -41,6 +41,7 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
 ])
 
 export const SEO_ARTICLES = Object.freeze({
+  sage: Object.freeze({ slug: 'valorant-sage', keyword: 'valorant sage abilities', priority: 'P0', indexLocales: Object.freeze(['en']) }),
   hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: Object.freeze(['en', 'ja']) }),
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
   offCenter: Object.freeze({ slug: 'valorant-crosshair-off-center', keyword: 'is valorant crosshair off center', priority: 'P1' }),

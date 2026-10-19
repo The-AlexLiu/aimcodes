@@ -1,0 +1,81 @@
+{
+  "sourcePage": "https://playvalorant.com/en-us/agents/sage/",
+  "checkedOn": "2026-10-19",
+  "hero": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/ded53d6f127a00074675eb79fde95437f2c2f521-5120x1772.png?accountingTag=VAL",
+  "abilities": [
+    {
+      "key": "slow",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/45053483528b96cbe003ac39e6b53c9866d5fea6.mp4?accountingTag=VAL",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/f2931e5af58255216179b21cce81f53eab15d6ee-128x128.png?accountingTag=VAL",
+      "title": "SLOW ORB"
+    },
+    {
+      "key": "heal",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/a247d196383136d3de15b4d6d9c816e3c8054ba0.mp4?accountingTag=VAL",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/cdc246179e160ded2788fd37ac21f10bc040ad54-128x128.png?accountingTag=VAL",
+      "title": "HEALING ORB"
+    },
+    {
+      "key": "wall",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/a79b1d6838cee5572b428babd74a2db0c07f4ea5.mp4?accountingTag=VAL",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/829075fef7193503dd480947b79d78193d729d42-128x128.png?accountingTag=VAL",
+      "title": "BARRIER ORB"
+    },
+    {
+      "key": "revive",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/df83929ed5da349c37a5bf4600c2b55010c72402.mp4?accountingTag=VAL",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/90b6e1ca1a3ecd68e2a3072515d071f80bf46c1d-128x128.png?accountingTag=VAL",
+      "title": "RESURRECTION"
+    }
+  ],
+  "activeHero": {
+    "file": "hero.webp",
+    "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=160s",
+    "title": "REVELATION // Episode 6 Cinematic - VALORANT",
+    "channel": "VALORANT",
+    "timestampSeconds": 160,
+    "dimensions": [
+      1280,
+      540
+    ],
+    "method": "Unaltered frame captured from the official player; WebP encoding only",
+    "checkedOn": "2026-10-19"
+  },
+  "localizedNamesCheckedOn": "2026-10-19",
+  "localizedNameSources": [
+    "https://playvalorant.com/ja-jp/agents/sage/",
+    "https://playvalorant.com/es-es/agents/sage/",
+    "https://playvalorant.com/pt-br/agents/sage/"
+  ],
+  "gallery": [
+    {
+      "file": "gallery/training-90.webp",
+      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=90s",
+      "method": "Original official player frame; WebP encoding only"
+    },
+    {
+      "file": "gallery/training-105.webp",
+      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=105s",
+      "method": "Original official player frame; WebP encoding only"
+    },
+    {
+      "file": "gallery/training-160.webp",
+      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=160s",
+      "method": "Original official player frame; WebP encoding only"
+    }
+  ],
+  "overview": {
+    "file": "abilities-overview.mp4",
+    "method": "Concatenated official wall, slow, heal and revive clips; resized 768x432; muted; no added gameplay",
+    "sources": [
+      "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/45053483528b96cbe003ac39e6b53c9866d5fea6.mp4?accountingTag=VAL",
+      "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/a247d196383136d3de15b4d6d9c816e3c8054ba0.mp4?accountingTag=VAL",
+      "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/a79b1d6838cee5572b428babd74a2db0c07f4ea5.mp4?accountingTag=VAL",
+      "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/df83929ed5da349c37a5bf4600c2b55010c72402.mp4?accountingTag=VAL"
+    ]
+  },
+  "storySources": [
+    "https://playvalorant.com/en-us/agents/sage/",
+    "https://playvalorant.com/en-gb/news/community/community-roundup-january-2023/"
+  ]
+}
