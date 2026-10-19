@@ -1,3 +1,4 @@
+import BrimstoneAgentPage from './BrimstoneAgentPage.jsx'
 import OmenAgentPage from './OmenAgentPage.jsx'
 import ViperAgentPage from './ViperAgentPage.jsx'
 import PhoenixAgentPage from './PhoenixAgentPage.jsx'
@@ -12,6 +13,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'brimstone') return <BrimstoneAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'omen') return <OmenAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'viper') return <ViperAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'phoenix') return <PhoenixAgentPage locale={locale} onCopy={onCopy} />

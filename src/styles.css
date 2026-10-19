@@ -2566,3 +2566,6 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.viper-home-link { border-color: #536d35; background: linear-gradient(100deg, #202c15, #111922); color: #b7f34b; }
 .hush-home-link.viper-home-link:hover { border-color: #b7f34b; }
 .hush-home-link.viper-home-link:focus-visible { outline-color: #b7f34b; }
+.hush-home-link.brimstone-home-link { border-color: #785635; background: linear-gradient(100deg, #2a2117, #111922); color: #f7a16b; }
+.hush-home-link.brimstone-home-link:hover { border-color: #f7a16b; }
+.hush-home-link.brimstone-home-link:focus-visible { outline-color: #f7a16b; }

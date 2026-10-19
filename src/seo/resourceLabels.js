@@ -1,3 +1,4 @@
+import { brimstoneArticleCopy } from './brimstoneContent.js'
 import { omenArticleCopy } from './omenContent.js'
 import { viperArticleCopy } from './viperContent.js'
 import { phoenixArticleCopy } from './phoenixContent.js'
@@ -32,6 +33,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'brimstone') return brimstoneArticleCopy(locale).title
   if (articleKey === 'omen') return omenArticleCopy(locale).title
   if (articleKey === 'viper') return viperArticleCopy(locale).title
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
