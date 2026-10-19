@@ -1,0 +1,44 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.chamber-page{--chamber-accent:#e7ca85;--hush-pink:var(--chamber-accent);--hush-border:#4e5260;color:#f5ede4}
+.hush-page.chamber-page .hush-hero{background:#121a29}
+.hush-page.chamber-page .hush-hero-art{top:0;left:0;object-position:66% 0%;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.chamber-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.chamber-page h2,.hush-page.chamber-page h3{color:#f7f0dd}
+.hush-page.chamber-page p,.hush-page.chamber-page li{color:#c6bcb1}
+.hush-page.chamber-page .hush-eyebrow,.hush-page.chamber-page .hush-ability-heading h3{color:var(--chamber-accent)}
+.hush-page.chamber-page .hush-primary{background:var(--chamber-accent);color:#161b29}
+.hush-page.chamber-page .hush-primary:hover{background:#f7e6b7;color:#161b29}
+.hush-page.chamber-page .hush-secondary{border-color:#8b6542;color:#f5ede4}
+.hush-page.chamber-page .hush-secondary:hover{border-color:var(--chamber-accent);color:var(--chamber-accent)}
+.hush-page.chamber-page .hush-ability{background:linear-gradient(145deg,#202b41,#101722);border-color:var(--hush-border);border-top-color:#cbb16f}
+.hush-page.chamber-page .hush-ability-description>p{color:#eee4d9}
+.hush-page.chamber-page .hush-ability-description .hush-controls{color:#c5b4a1}
+.hush-page.chamber-page .hush-binding img{object-fit:contain;background:#141c2c;padding:5px}
+.hush-page.chamber-page .hush-binding small,.hush-page.chamber-page .hush-gallery-heading>span,.hush-page.chamber-page .hush-crosshair-map-picker{color:#bfae9c}
+.hush-page.chamber-page .hush-ability-media video,.hush-page.chamber-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.chamber-page .hush-play-symbol{background:var(--chamber-accent);color:#161b29}
+.hush-page.chamber-page .hush-video-label{color:#f7f0dd}
+.hush-page.chamber-page .hush-video-links a,.hush-page.chamber-page .hush-crosshair-more{color:var(--chamber-accent)}
+.hush-page.chamber-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.chamber-page .hush-demo-toggle{border-color:var(--hush-border);color:#efcfaa;background:#1b2538}
+.chamber-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #4e5260;border-radius:8px;background:#111}
+.hush-page.chamber-page .hush-gallery-grid figure{display:block}
+.hush-page.chamber-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#141c2c}
+.hush-page.chamber-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.chamber-page .hush-gallery-grid figure:nth-child(2) img{object-position:center top}
+.hush-page.chamber-page .hush-unlock summary,.hush-page.chamber-page .hush-quick-facts dd{color:#eed8bf}
+.hush-page.chamber-page .hush-quick-facts dt{color:#bfae9c}
+.hush-page.chamber-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#202c42,#111922)}
+.hush-page.chamber-page .hush-crosshair-map,.hush-page.chamber-page .hush-crosshair :is(button,select){border-color:#77705a}
+.hush-page.chamber-page .hush-crosshair-map-picker select{background:#1b2538;color:#f7eee5}
+.hush-page.chamber-page .hush-crosshair-zoom{color:var(--chamber-accent);background:#1b2538eb}
+.hush-page.chamber-page .hush-crosshair-copy>p,.hush-page.chamber-page .hush-crosshair-import{color:#c6bcb1}
+.hush-page.chamber-page .hush-credit a{color:#a98c6e}
+.hush-page.chamber-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--chamber-accent);outline-offset:4px}
+.hush-lightbox.chamber-lightbox{border-color:#77705a;background:#141c2c}
+.hush-lightbox.chamber-lightbox form button{border-color:#77705a;background:#202c42}
+.hush-page.chamber-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.chamber-page .hush-hero-art{top:0;left:0;object-position:50% 10%;mask-image:none}
+ .hush-page.chamber-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}

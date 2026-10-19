@@ -2561,6 +2561,12 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.phoenix-home-link { border-color: #785635; background: linear-gradient(100deg, #2a2117, #111922); color: #ffbc70; }
 .hush-home-link.phoenix-home-link:hover { border-color: #ffbc70; }
 .hush-home-link.phoenix-home-link:focus-visible { outline-color: #ffbc70; }
+
+/* Chamber resource entry, isolated from other agent themes. */
+.hush-home-link.chamber-home-link { border-color:#5c5a52; background:linear-gradient(100deg,#202c42,#111922); color:#e7ca85; }
+.hush-home-link.chamber-home-link:hover { border-color:#e7ca85; }
+.hush-home-link.chamber-home-link:focus-visible { outline-color:#e7ca85; }
+
 .hush-home-link.brimstone-home-link { border-color: #785635; background: linear-gradient(100deg, #2a2117, #111922); color: #f7a16b; }
 .hush-home-link.brimstone-home-link:hover { border-color: #f7a16b; }
 .hush-home-link.brimstone-home-link:focus-visible { outline-color: #f7a16b; }
