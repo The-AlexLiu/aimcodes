@@ -14,9 +14,6 @@
 .sage-page .hush-crosshair :is(select,button),.sage-page .hush-crosshair-map{border-color:#426456}
 .sage-page .hush-crosshair-zoom,.sage-page .hush-crosshair-more,.sage-page .hush-video-links a{color:var(--hush-pink)}
 .sage-page .hush-crosshair-actions .hush-primary{color:#0e211b}
-.sage-copy-status{display:block;min-height:22px;margin-top:8px;font-size:12px;color:var(--hush-pink)}
-.sage-code-label{display:block;font-size:12px;color:#a3b3b0;margin-top:12px}
-.sage-code-label textarea{display:block;width:100%;margin-top:8px;min-height:66px;resize:vertical;padding:10px;border:1px solid #426456;border-radius:5px;background:#0b1517;color:#bcd8cd;font:11px/1.6 ui-monospace,monospace;overflow-wrap:anywhere;word-break:break-all}
 .sage-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid var(--hush-border);border-radius:8px;background:#080d19}
 .sage-page .hush-demo-toggle{border-color:var(--hush-border);color:#d3e8de;background:#111e1d}
 .sage-page .hush-gallery-grid button{background:#101a1b;border-color:var(--hush-border)}
@@ -28,3 +25,25 @@
 .sage-page .hush-play-symbol{background:var(--hush-pink);color:#0e211b}
 .sage-page .hush-video-frame,.sage-page .hush-gallery-grid figure:first-child button{border-color:var(--hush-border);background:#101a1b}
 .sage-lightbox form button{border-color:#426456;background:#172b24}
+
+/* Sage text and interaction palette; no Hush pink/purple remains in this scope. */
+.sage-page{--sage-text:#e6f1ec;--sage-muted:#a9bdb5;--sage-heading:#f1f7f4;color:var(--sage-text)}
+.sage-page h2,.sage-page h3{color:var(--sage-heading)}
+.sage-page p,.sage-page li{color:var(--sage-muted)}
+.sage-page .hush-eyebrow,.sage-page .hush-ability-heading h3{color:var(--hush-pink)}
+.sage-page .hush-ability-heading h3 small,.sage-page .hush-gallery-heading>span,.sage-page .hush-crosshair-map-picker,.sage-page .hush-crosshair-import{color:var(--sage-muted)}
+.sage-page .hush-ability-description>p{color:var(--sage-text)}
+.sage-page .hush-ability-description h4{color:#c4ded2}
+.sage-page .hush-ability-description .hush-controls,.sage-page .hush-crosshair-copy>p{color:var(--sage-muted)}
+.sage-page .hush-secondary{border-color:#517766;color:var(--sage-text)}
+.sage-page .hush-secondary:hover{border-color:var(--hush-pink);color:var(--hush-pink)}
+.sage-page .hush-unlock summary,.sage-page .hush-unlock strong,.sage-page .hush-quick-facts dd{color:#d5e8de}
+.sage-page .hush-quick-facts dt{color:var(--sage-muted)}
+.sage-page .hush-credit a{color:#77948a}
+.sage-page .hush-video-label{color:var(--sage-heading)}
+.sage-page .hush-crosshair :is(button,a,select):focus-visible{outline-color:var(--hush-pink)}
+
+.sage-page .hush-gallery-grid figure{display:block}
+.sage-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden}
+.sage-page .hush-gallery-grid img{object-fit:cover;object-position:center}
+.sage-page .hush-ability-media video{border-color:#355149}

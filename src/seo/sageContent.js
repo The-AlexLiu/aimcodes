@@ -16,7 +16,7 @@ const copy = {
     "imageAlt": "Sage holding a rifle in the official REVELATION cinematic",
     "themeTitle": "Sage-inspired crosshair code",
     "themeName": "Sage Orb crosshair",
-    "themeDescription": "A small ring and center dot inspired by Sage’s orbs. An original AimCodes design.",
+    "themeDescription": "A small ring and center dot inspired by Sage’s orbs.",
     "copy": "Copy crosshair code",
     "copied": "Crosshair code copied",
     "failed": "Copy failed. Select the code below to copy manually.",
@@ -25,7 +25,7 @@ const copy = {
     "maps": [
       "Ascent",
       "Haven",
-      "Split"
+      "Bind"
     ],
     "actual": "Actual size",
     "zoom": "Zoom 5×",
@@ -81,7 +81,7 @@ const copy = {
     "imageAlt": "贤者在《REVELATION》官方动画中持枪警戒的近景",
     "themeTitle": "贤者主题准星代码",
     "themeName": "贤者晶球准星",
-    "themeDescription": "小环加中心点，取自贤者的晶球意象。AimCodes 原创主题。",
+    "themeDescription": "小环加中心点，取自贤者的晶球意象。",
     "copy": "复制准星代码",
     "copied": "已复制准星代码",
     "failed": "复制未成功，请选中下方代码手动复制",
@@ -146,7 +146,7 @@ const copy = {
     "imageAlt": "公式シネマティックREVELATIONでライフルを構えるセージ",
     "themeTitle": "セージ風クロスヘアコード",
     "themeName": "セージ オーブ クロスヘア",
-    "themeDescription": "オーブをイメージした小さなリングと中央ドット。AimCodesのオリジナルデザインです。",
+    "themeDescription": "オーブをイメージした小さなリングと中央ドット。",
     "copy": "コードをコピー",
     "copied": "コードをコピーしました",
     "failed": "コピーできませんでした。下のコードを選択して手動でコピーしてください。",
@@ -155,7 +155,7 @@ const copy = {
     "maps": [
       "アセント",
       "ヘイヴン",
-      "スプリット"
+      "バインド"
     ],
     "actual": "実際のサイズ",
     "zoom": "5倍に拡大",
@@ -211,7 +211,7 @@ const copy = {
     "imageAlt": "Sage con un rifle en la cinemática oficial REVELATION",
     "themeTitle": "Código de mira inspirado en Sage",
     "themeName": "Mira Orbe de Sage",
-    "themeDescription": "Un pequeño anillo con un punto central inspirado en sus orbes. Diseño original de AimCodes.",
+    "themeDescription": "Un pequeño anillo con un punto central inspirado en sus orbes.",
     "copy": "Copiar código de mira",
     "copied": "Código copiado",
     "failed": "No se pudo copiar. Selecciona el código de abajo y cópialo manualmente.",
@@ -220,7 +220,7 @@ const copy = {
     "maps": [
       "Ascent",
       "Haven",
-      "Split"
+      "Bind"
     ],
     "actual": "Tamaño real",
     "zoom": "Ampliar 5×",
@@ -276,7 +276,7 @@ const copy = {
     "imageAlt": "Sage com um fuzil na cinemática oficial REVELATION",
     "themeTitle": "Código de mira inspirado na Sage",
     "themeName": "Mira Orbe da Sage",
-    "themeDescription": "Um pequeno anel com ponto central inspirado nos orbes dela. Design original do AimCodes.",
+    "themeDescription": "Um pequeno anel com ponto central inspirado nos orbes dela.",
     "copy": "Copiar código da mira",
     "copied": "Código copiado",
     "failed": "Não foi possível copiar. Selecione o código abaixo e copie manualmente.",
@@ -285,7 +285,7 @@ const copy = {
     "maps": [
       "Ascent",
       "Haven",
-      "Split"
+      "Bind"
     ],
     "actual": "Tamanho real",
     "zoom": "Ampliar 5×",
@@ -329,6 +329,7 @@ const copy = {
     ]
   }
 }
+const adjustLabels = {en:'Customize this crosshair','zh-CN':'调整这款准星',ja:'このクロスヘアを調整',es:'Personalizar esta mira','pt-BR':'Personalizar esta mira'}
 const keys = ['wall','slow','heal','revive']
 const bindings = ['C','Q','E','X']
 const english = ['Barrier Orb','Slow Orb','Healing Orb','Resurrection']
@@ -338,5 +339,5 @@ export function sageArticleCopy(locale) {
   const abilities = keys.map((key,index)=>({key,binding:bindings[index],english:english[index],name:item.names[index],common:item.common[index],effect:item.effects[index],question:item.questions[index],body:item.actions[index]}))
   const sources = [{url:`https://playvalorant.com/${sourceLocale}/agents/sage/`,label:item.sourceLabels[0]},{url:'https://www.youtube.com/watch?v=XfuMEmcz3k0&t=160s',label:item.sourceLabels[1]}]
   if(locale==='zh-CN') sources.push({url:'https://val.qq.com/game-data.html?pageType=1&heroId=7',label:'国服技能说明'})
-  return {...item,...sageMediaCopy(locale),gallery:SAGE_GALLERY.map((image,index)=>({...image,label:sageMediaCopy(locale).galleryLabels[index]})),abilities,sources,metaTitle:`${item.title} | AimCodes`,summaryTitle:item.kit,summary:item.intro,sections:abilities.map(a=>({id:a.key,title:a.question,paragraphs:[a.effect,a.body],bullets:[]})),faq:[],recommendedCrosshairIds:[],relatedArticleKeys:['placement'],relatedCollectionKeys:[],relatedToolKeys:[],cta:item.copy}
+  return {...item,...sageMediaCopy(locale),adjust:adjustLabels[locale] || adjustLabels.en,gallery:SAGE_GALLERY.map((image,index)=>({...image,label:sageMediaCopy(locale).galleryLabels[index]})),abilities,sources,metaTitle:`${item.title} | AimCodes`,summaryTitle:item.kit,summary:item.intro,sections:abilities.map(a=>({id:a.key,title:a.question,paragraphs:[a.effect,a.body],bullets:[]})),faq:[],recommendedCrosshairIds:[],relatedArticleKeys:['placement'],relatedCollectionKeys:[],relatedToolKeys:[],cta:item.copy}
 }

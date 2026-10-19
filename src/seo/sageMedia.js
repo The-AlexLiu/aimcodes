@@ -1,5 +1,5 @@
 export const SAGE_CINEMATIC = Object.freeze({ id: 'XfuMEmcz3k0', url: 'https://www.youtube.com/watch?v=XfuMEmcz3k0' })
-export const SAGE_GALLERY = Object.freeze([90,110,180].map((seconds,index)=>Object.freeze({key:`training-${index}`,src:`/images/agents/sage/gallery/training-${index}.webp`,width:1280,height:540,seconds})))
+export const SAGE_GALLERY = Object.freeze([90,105,160].map((seconds,index)=>Object.freeze({key:`training-${index}`,src:`/images/agents/sage/gallery/training-${seconds}.webp`,width:1280,height:540,seconds})))
 const copy = {
   "en": {
     "storyTitle": "Meet Sage",
@@ -16,8 +16,8 @@ const copy = {
     "closeImage": "Close image",
     "galleryLabels": [
       "Training: aiming down sights",
-      "Training: moving through the doorway",
-      "Training: drawing a knife"
+      "Training: rifle close-up",
+      "Training: holding an angle"
     ],
     "showDemo": "Watch all four abilities",
     "closeDemo": "Close ability video",
@@ -46,8 +46,8 @@ const copy = {
     "closeImage": "关闭图片",
     "galleryLabels": [
       "训练：持枪瞄准",
-      "训练：穿过门口",
-      "训练：拔出匕首"
+      "训练：持枪近景",
+      "训练：侧身警戒"
     ],
     "showDemo": "连着看四个技能",
     "closeDemo": "收起技能演示",
@@ -76,8 +76,8 @@ const copy = {
     "closeImage": "画像を閉じる",
     "galleryLabels": [
       "訓練：照準を合わせる",
-      "訓練：入口を通過する",
-      "訓練：ナイフを抜く"
+      "訓練：ライフルを構える",
+      "訓練：横から見たセージ"
     ],
     "showDemo": "4つのスキルを続けて見る",
     "closeDemo": "スキル動画を閉じる",
@@ -106,8 +106,8 @@ const copy = {
     "closeImage": "Cerrar imagen",
     "galleryLabels": [
       "Entrenamiento: apuntando",
-      "Entrenamiento: cruzando la puerta",
-      "Entrenamiento: desenfundando el cuchillo"
+      "Entrenamiento: primer plano con rifle",
+      "Entrenamiento: vigilando un ángulo"
     ],
     "showDemo": "Ver las cuatro habilidades seguidas",
     "closeDemo": "Cerrar demostración",
@@ -136,8 +136,8 @@ const copy = {
     "closeImage": "Fechar imagem",
     "galleryLabels": [
       "Treinamento: mirando",
-      "Treinamento: cruzando a porta",
-      "Treinamento: sacando a faca"
+      "Treinamento: close com fuzil",
+      "Treinamento: vigiando um ângulo"
     ],
     "showDemo": "Ver as quatro habilidades em sequência",
     "closeDemo": "Fechar demonstração",

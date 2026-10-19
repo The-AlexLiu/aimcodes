@@ -49,18 +49,18 @@
   ],
   "gallery": [
     {
-      "file": "gallery/training-0.webp",
+      "file": "gallery/training-90.webp",
       "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=90s",
       "method": "Original official player frame; WebP encoding only"
     },
     {
-      "file": "gallery/training-1.webp",
-      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=110s",
+      "file": "gallery/training-105.webp",
+      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=105s",
       "method": "Original official player frame; WebP encoding only"
     },
     {
-      "file": "gallery/training-2.webp",
-      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=180s",
+      "file": "gallery/training-160.webp",
+      "source": "https://www.youtube.com/watch?v=XfuMEmcz3k0&t=160s",
       "method": "Original official player frame; WebP encoding only"
     }
   ],
