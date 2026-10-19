@@ -1,5 +1,9 @@
 # AimCodes 工具间交接
 
+## 2026-10-19：遐思主题准星与移除浮窗（已授权发布）
+
+Hush 页面底部新增 AimCodes 原创主题准星，支持三地图、1×/5×预览、一键复制与带入生成器；五语种和静态内容同步。移除全站 FinderNudge 挂载与触发信号，保留常规反应测试入口及复制提示。主题代码经解析验证，浏览器复制结果与生成器代码完全一致；桌面、390px/320px 无溢出。完整检查 25/25 通过（54.7 秒），Sitemap 仍为 1892 条。用户已授权上线；发布前基线 `91feeac`，最终 Cloudflare 构建与线上提交见本次 PR。详情见 `docs/HUSH_THEME_CROSSHAIR_2026-10-19.md`。
+
 ## 2026-10-19：共享授权恢复与 Cloudflare 自动发布
 
 用户明确授权重新安装共享 GitHub 应用；旧失效安装已移除，用户完成新的 Install & Authorize。`The-AlexLiu/aimcodes` 已重新连接到生产 Worker `aimcodes`，构建触发器 `86c09b4a-138a-4436-8702-45384a184165` 仅匹配 `main`，根目录 `/`，构建 `pnpm build:cloudflare`，部署 `pnpm deploy:cloudflare`。Netlify 自动构建继续停止。

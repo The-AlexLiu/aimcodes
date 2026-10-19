@@ -7,8 +7,8 @@ import CrosshairStatisticsPanel from './CrosshairStatisticsPanel.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
-export default function SeoArticlePage({ locale, articleKey, crosshairs }) {
-  if (articleKey === 'hush') return <HushAgentPage locale={locale} />
+export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'hush') return <HushAgentPage locale={locale} onCopy={onCopy} />
   const content = articleCopy(locale, articleKey)
   const labels = {
     en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions', tryCodes: 'Try working codes', openTool: 'Open the tool' },

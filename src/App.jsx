@@ -39,7 +39,6 @@ const SeoCollectionDetails = lazy(() => import('./components/SeoCollectionDetail
 const PublisherValueSection = lazy(() => import('./components/PublisherValueSection.jsx'))
 const TrustPage = lazy(() => import('./components/TrustPage.jsx'))
 const FreeCrosshairNextStep = lazy(() => import('./components/FreeCrosshairNextStep.jsx'))
-const FinderNudge = lazy(() => import('./components/FinderNudge.jsx'))
 
 function randomItem(items) {
   return items[Math.floor(Math.random() * items.length)]
@@ -115,7 +114,6 @@ export default function App() {
   const [showInstructions, setShowInstructions] = useState(false)
   const [showPreviewSettings, setShowPreviewSettings] = useState(() => route.type === 'crosshair' && !window.matchMedia('(max-width: 680px)').matches)
   const [finderFocus, setFinderFocus] = useState(false)
-  const [finderNudgeSignal, setFinderNudgeSignal] = useState(null)
   const [codeDialogItem, setCodeDialogItem] = useState(null)
   const toastTimer = useRef(null)
   const copiedTimer = useRef(null)
@@ -152,10 +150,6 @@ export default function App() {
   const activeCodeDialogItem = codeDialogItem
     ? { ...(allCrosshairs.find((item) => item.id === codeDialogItem.id) || {}), ...codeDialogItem }
     : null
-
-  const signalFinderNudge = useCallback((type) => {
-    setFinderNudgeSignal({ type, id: Date.now() })
-  }, [])
 
   useEffect(() => {
     localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(recentIds))
@@ -215,13 +209,13 @@ export default function App() {
         results_count: visibleCrosshairs.length,
         has_results: visibleCrosshairs.length > 0,
       })
-      signalFinderNudge('catalog_search')
+
     }, 700)
 
     return () => {
       if (searchAnalyticsTimer.current) window.clearTimeout(searchAnalyticsTimer.current)
     }
-  }, [query, route.type, signalFinderNudge, visibleCrosshairs.length])
+  }, [query, route.type, visibleCrosshairs.length])
 
   useEffect(() => {
     if (selected.id === selectedId) return undefined
@@ -249,7 +243,7 @@ export default function App() {
         crosshair_category: item.category,
         interaction_source: options.interactionSource || 'explore_preview',
       })
-      signalFinderNudge('code_copy')
+
       copied = true
     } catch {
       setCodeDialogItem(item)
@@ -369,7 +363,7 @@ export default function App() {
         color_key: option.key,
         interaction_source: 'explore_preview',
       })
-      signalFinderNudge('preview_color')
+
     } catch {
       notify(t('errors.invalidColor'), 'error')
     }
@@ -378,7 +372,7 @@ export default function App() {
   const changeBackground = (nextBackground) => {
     setBackground(nextBackground)
     trackEvent('map_change', { map_name: nextBackground, interaction_source: 'explore_preview' })
-    signalFinderNudge('preview_map')
+
   }
 
   const toggleInstructions = () => {
@@ -391,14 +385,14 @@ export default function App() {
     setActiveFilter(nextFilter)
     setCatalogLimit(CATALOG_PAGE_SIZE)
     trackEvent('filter_select', { filter_name: nextFilter })
-    signalFinderNudge('catalog_filter')
+
   }
 
   const changeSort = (nextSort) => {
     setCatalogSort(nextSort)
     setCatalogLimit(CATALOG_PAGE_SIZE)
     trackEvent('catalog_sort_change', { sort_name: nextSort })
-    signalFinderNudge('catalog_sort')
+
   }
 
   const openRandomCrosshair = (pool, interactionSource) => {
@@ -406,7 +400,7 @@ export default function App() {
     const next = randomItem(candidates) || pool?.[0] || allCrosshairs[0]
     selectCrosshair(next, interactionSource)
     trackEvent('random_crosshair', { crosshair_id: next.id, interaction_source: interactionSource })
-    signalFinderNudge('random_pick')
+
     window.location.assign(routePath(language, { type: 'crosshair', crosshairId: next.id }))
   }
 
@@ -473,7 +467,7 @@ export default function App() {
         ) : route.type === 'guide' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'tool' && route.toolKey === 'playbook' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ValorantPlaybookPage locale={language} /></Suspense>
         ) : route.type === 'tool' ? (
@@ -571,15 +565,6 @@ export default function App() {
 
       <SiteFooter locale={language} />
 
-      <Suspense fallback={null}>
-        <FinderNudge
-          locale={language}
-          route={route}
-          finderHref={routePath(language, { type: 'finder' })}
-          engagementSignal={finderNudgeSignal}
-          blocked={Boolean(toast || activeCodeDialogItem || showCrosshairShareDialog || showFinder)}
-        />
-      </Suspense>
 
       {toast && <div className={`toast ${toast.type === 'error' ? 'is-error' : ''}`} role="status"><span><Icon name={toast.type === 'error' ? 'x' : 'check'} size={15} strokeWidth={2.5} /></span>{toast.message}</div>}
       {activeCodeDialogItem && (
