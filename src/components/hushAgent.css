@@ -236,11 +236,12 @@
 /* Follow the official explanation panel's reading order: name / icon, text, demo. */
 .hush-ability-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .hush-ability { display: block; padding: 22px; background: linear-gradient(145deg, #191520, #10151e); border-top: 2px solid #a95083; }
-.hush-ability-content { display: flex; flex-direction: column; gap: 16px; height: 100%; }
-.hush-ability-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.hush-ability-content { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+.hush-ability-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .hush-ability-heading h3 { padding: 0; min-height: 0; margin: 0; color: #f6a1df; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; overflow-wrap: anywhere; }
 .hush-ability-heading h3 small { color: #c4b7cc; font-size: 12px; margin-top: 7px; }
-.hush-ability-heading .hush-binding { position: static; flex-shrink: 0; width: 52px; min-height: 0; gap: 3px; }
+.hush-ability-heading .hush-binding { position: static; align-self: center; flex-shrink: 0; width: 44px; min-height: 0; gap: 3px; }
+.hush-ability-heading .hush-binding img { width: 36px; height: 36px; }
 .hush-ability-description { flex: 1; }
 .hush-ability-description > p { color: #e1dbe7; font-size: 15px; }
 .hush-ability-description .hush-controls { margin-top: 12px; color: #b4aabc; font-size: 13px; }
