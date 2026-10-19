@@ -1,0 +1,47 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.brimstone-page{--brimstone-accent:#f7a16b;--hush-pink:var(--brimstone-accent);--hush-border:#5e4936;color:#f5ede4}
+.hush-page.brimstone-page .hush-hero{background:#15130f}
+.hush-page.brimstone-page .hush-hero-art{left:20%;width:80%;object-position:57% 85%;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.brimstone-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.brimstone-page h2,.hush-page.brimstone-page h3{color:#fff3e6}
+.hush-page.brimstone-page p,.hush-page.brimstone-page li{color:#c6bcb1}
+.hush-page.brimstone-page .hush-eyebrow,.hush-page.brimstone-page .hush-ability-heading h3{color:var(--brimstone-accent)}
+.hush-page.brimstone-page .hush-primary{background:var(--brimstone-accent);color:#24180d}
+.hush-page.brimstone-page .hush-primary:hover{background:#ffc39e;color:#24180d}
+.hush-page.brimstone-page .hush-secondary{border-color:#8b6542;color:#f5ede4}
+.hush-page.brimstone-page .hush-secondary:hover{border-color:var(--brimstone-accent);color:var(--brimstone-accent)}
+.hush-page.brimstone-page .hush-ability{background:linear-gradient(145deg,#261e16,#10151e);border-color:var(--hush-border);border-top-color:#d98c49}
+.hush-page.brimstone-page .hush-ability-description>p{color:#eee4d9}
+.hush-page.brimstone-page .hush-ability-description .hush-controls{color:#c5b4a1}
+.hush-page.brimstone-page .hush-binding img{object-fit:contain;background:#17130f;padding:5px}
+.hush-page.brimstone-page .hush-binding small,.hush-page.brimstone-page .hush-gallery-heading>span,.hush-page.brimstone-page .hush-crosshair-map-picker{color:#bfae9c}
+.hush-page.brimstone-page .hush-ability-media video,.hush-page.brimstone-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.brimstone-page .hush-play-symbol{background:var(--brimstone-accent);color:#24180d}
+.hush-page.brimstone-page .hush-video-label{color:#fff3e6}
+.hush-page.brimstone-page .hush-video-links a,.hush-page.brimstone-page .hush-crosshair-more{color:var(--brimstone-accent)}
+.hush-page.brimstone-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.brimstone-page .hush-demo-toggle{border-color:var(--hush-border);color:#efcfaa;background:#211a14}
+.agent-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #5e4936;border-radius:8px;background:#111}
+.hush-page.brimstone-page .hush-gallery-grid figure{display:block}
+.hush-page.brimstone-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#181510}
+.hush-page.brimstone-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.brimstone-page .hush-gallery-grid figure:nth-child(2) img{object-position:center top}
+.hush-page.brimstone-page .hush-unlock summary,.hush-page.brimstone-page .hush-quick-facts dd{color:#eed8bf}
+.hush-page.brimstone-page .hush-quick-facts dt{color:#bfae9c}
+.hush-page.brimstone-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#2a2117,#111922)}
+.hush-page.brimstone-page .hush-crosshair-map,.hush-page.brimstone-page .hush-crosshair :is(button,select){border-color:#876444}
+.hush-page.brimstone-page .hush-crosshair-map-picker select{background:#211a14;color:#f7eee5}
+.hush-page.brimstone-page .hush-crosshair-zoom{color:var(--brimstone-accent);background:#211a14eb}
+.hush-page.brimstone-page .hush-crosshair-copy>p,.hush-page.brimstone-page .hush-crosshair-import{color:#c6bcb1}
+.hush-page.brimstone-page .hush-credit a{color:#a98c6e}
+.hush-page.brimstone-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--brimstone-accent);outline-offset:4px}
+.hush-lightbox.brimstone-lightbox{border-color:#876444;background:#17130f}
+.hush-lightbox.brimstone-lightbox form button{border-color:#876444;background:#2a2117}
+.hush-page.brimstone-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.brimstone-page .hush-hero-art{left:0;width:100%;height:230px;object-position:54% 50%;mask-image:none}
+ .hush-page.brimstone-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}
+
+.hush-page.brimstone-page .hush-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:680px){.hush-page.brimstone-page .hush-gallery-grid{grid-template-columns:1fr}}
