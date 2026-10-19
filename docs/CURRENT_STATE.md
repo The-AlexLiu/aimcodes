@@ -4,7 +4,7 @@
 
 用户明确授权重新安装共享 GitHub 应用；旧失效安装已移除，用户完成新的 Install & Authorize。`The-AlexLiu/aimcodes` 已重新连接到生产 Worker `aimcodes`，构建触发器 `86c09b4a-138a-4436-8702-45384a184165` 仅匹配 `main`，根目录 `/`，构建 `pnpm build:cloudflare`，部署 `pnpm deploy:cloudflare`。Netlify 自动构建继续停止。
 
-首次云端验证构建 ID 为 `2d0691ec-ed50-47c5-8017-e8dceb94ae86`；运行结果以 Cloudflare 部署记录为准。新的共享授权已可克隆仓库；未修改其他 Worker 的部署配置。此记录取代下方“共享授权未修复、只能手动发布”的历史限制。本轮完整发布检查 25/25 通过（81.2 秒），正式域名的默认网络访问已读回 Hush 发布提交，大招视频实际播放正常，页面无购买入口。
+首次云端验证构建 `2d0691ec-ed50-47c5-8017-e8dceb94ae86` 已成功，部署版本 `625e73ef-1cfc-4602-ba81-779e32356764`。分支预览使用固定版本 `npx --yes wrangler@4.151.1 preview` 与 `pnpm build:cloudflare`；`wrangler.jsonc` 显式声明预览变量 `CONTEXT=deploy-preview` 并启用预览 URL。生产 CLI 同样固定 4.151.1。未修改其他 Worker 的部署配置。此记录取代下方“共享授权未修复、只能手动发布”的历史限制。本轮完整发布检查 25/25 通过（81.2 秒），正式域名的默认网络访问已读回 Hush 发布提交，大招视频实际播放正常，页面无购买入口。
 
 ## 已上线核验：2026-10-19
 

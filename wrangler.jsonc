@@ -18,7 +18,7 @@
   "observability": {
     "enabled": false
   },
-  "preview_urls": false,
+  "preview_urls": true,
   "routes": [
     {
       "pattern": "aimcodes.com",
@@ -28,5 +28,10 @@
       "pattern": "www.aimcodes.com",
       "custom_domain": true
     }
-  ]
+  ],
+  "previews": {
+    "vars": {
+      "CONTEXT": "deploy-preview"
+    }
+  }
 }
