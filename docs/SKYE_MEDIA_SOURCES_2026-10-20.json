@@ -1,0 +1,173 @@
+{
+  "agent": "skye",
+  "accessedAt": "2026-10-20",
+  "officialPages": [
+    "https://playvalorant.com/en-us/agents/skye/",
+    "https://playvalorant.com/ja-jp/agents/skye/",
+    "https://playvalorant.com/es-es/agents/skye/",
+    "https://playvalorant.com/pt-br/agents/skye/"
+  ],
+  "chinaApi": {
+    "url": "https://api.val.qq.com/go/agame/graphql/graphiQL",
+    "agentId": 13,
+    "names": [
+      "愈生之息",
+      "辟林之虎",
+      "引路之隼",
+      "追猎之灵"
+    ]
+  },
+  "abilities": [
+    {
+      "key": "tiger",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/b905a3a39bc979bc43653eccf9fdb289b03c5223-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/3256cb83ad3563516497864209ea585c595cd8df.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "hawk",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/ed6e5f91be20274ff84cb24644c3b559bfa8fed1-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/64edfd7af8a7125dd9c981c52fdc60f9560b821b.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "heal",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/b80c38c49a8e37d69cda3bf335c885170975b415-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/d64273e31bf2c4d16c52acc2f461e9accdb7c7f9.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/9ccbd11eadca50047c6e84125285a11e1d334acd-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/82ab63d9255f9fbbea7c13e00cd46b09ff90d25b.mp4?accountingTag=VAL"
+    }
+  ],
+  "trailer": {
+    "url": "https://www.youtube.com/watch?v=C3QTyMXi-WE",
+    "channel": "VALORANT (verified)",
+    "title": "Skye Agent Reveal trailer - VALORANT",
+    "published": "2020-10-08",
+    "capture": [
+      1200,
+      828
+    ],
+    "videoRect": [
+      16,
+      68,
+      822,
+      462
+    ],
+    "approved": [
+      {
+        "time": 29,
+        "cropInVideo": [
+          230,
+          0,
+          400,
+          330
+        ],
+        "outputs": [
+          "hero.webp",
+          "og.jpg",
+          "gallery/portrait.webp"
+        ]
+      },
+      {
+        "time": 32,
+        "cropInVideo": [
+          180,
+          0,
+          610,
+          462
+        ],
+        "outputs": [
+          "gallery/companion.webp"
+        ]
+      }
+    ]
+  },
+  "derivedFiles": [
+    {
+      "path": "public/images/agents/skye/abilities-overview.mp4",
+      "sha256": "d6649ac4fc5c040e6ec509e8b461b6ee7c823bbd8d405570e0b63fbdc7aa524e",
+      "bytes": 2863620
+    },
+    {
+      "path": "public/images/agents/skye/gallery/companion.webp",
+      "sha256": "997e4fd05e9e5efc26d152fa1b6f3335e016e94223038986ac69ff74350ec3b2",
+      "bytes": 47996
+    },
+    {
+      "path": "public/images/agents/skye/gallery/portrait.webp",
+      "sha256": "b790deca3f6e7154fe6558245e1ac3e31e3f2c1dd34aa4e54502358cae2e7cc3",
+      "bytes": 33966
+    },
+    {
+      "path": "public/images/agents/skye/hawk-poster.webp",
+      "sha256": "7c930d054025d3753727af33bb89471c1ece48612cf30faf29d54725d70e6b24",
+      "bytes": 27992
+    },
+    {
+      "path": "public/images/agents/skye/hawk.mp4",
+      "sha256": "f8d3bef5cb120924b38714379cfc8152f30f11fdcdc42867d37604e9b934324c",
+      "bytes": 554507
+    },
+    {
+      "path": "public/images/agents/skye/hawk.webp",
+      "sha256": "943936c1d03ae32e621465de14989db03630b35fa814d7ea2863365864d19898",
+      "bytes": 1784
+    },
+    {
+      "path": "public/images/agents/skye/heal-poster.webp",
+      "sha256": "3fb1fd28d56676d80377e21e31ff9d849715bfad6fadd6e4ccac7db326446c60",
+      "bytes": 45470
+    },
+    {
+      "path": "public/images/agents/skye/heal.mp4",
+      "sha256": "2b2650314ae46f1a13f345e022edd29ec862c074f8ca6e6ae1debac9f227faf1",
+      "bytes": 918446
+    },
+    {
+      "path": "public/images/agents/skye/heal.webp",
+      "sha256": "29d97defff5bfa974dce5cf63bbbe05b9db79b1864445eb5239d990ab87a8ddc",
+      "bytes": 2740
+    },
+    {
+      "path": "public/images/agents/skye/hero.webp",
+      "sha256": "adfa07036d9f377316156f19f397e1ed8058855aa0d40434d80a8d15e7c100ea",
+      "bytes": 59148
+    },
+    {
+      "path": "public/images/agents/skye/og.jpg",
+      "sha256": "a2be804d7822656fc68931f09b3239cf3fe92ef365b453eb4af688e90d4419cc",
+      "bytes": 60239
+    },
+    {
+      "path": "public/images/agents/skye/tiger-poster.webp",
+      "sha256": "b0630e66ba2ed7ba0cab976393a2ac9d5a44483629eeeab4eed731a8c1f87e40",
+      "bytes": 36040
+    },
+    {
+      "path": "public/images/agents/skye/tiger.mp4",
+      "sha256": "7b3af243a61b616afac7f57d6046134dbb01656a21ccae546eeca6ab64bb88bc",
+      "bytes": 832324
+    },
+    {
+      "path": "public/images/agents/skye/tiger.webp",
+      "sha256": "15d067ccac27225901f035cb027a61b9f7e8ea47a913560dcaf3fce1eb1c99c6",
+      "bytes": 2466
+    },
+    {
+      "path": "public/images/agents/skye/ultimate-poster.webp",
+      "sha256": "050b6c6e5b464175c4819789ea4529a92094533e6872ba6c8a53dad55a43ffcf",
+      "bytes": 35860
+    },
+    {
+      "path": "public/images/agents/skye/ultimate.mp4",
+      "sha256": "5349dc637275f6d48cffcb1d01c92d3cc1a0d0f3bc1e019ef0def5f479a415db",
+      "bytes": 560728
+    },
+    {
+      "path": "public/images/agents/skye/ultimate.webp",
+      "sha256": "824bd55d3217f0eb558a8d3d0640936aded258d3eb732ec85f4dd522d1b1a7c8",
+      "bytes": 3946
+    }
+  ]
+}

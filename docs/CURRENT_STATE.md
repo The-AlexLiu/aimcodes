@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：斯凯英雄页（已授权发布，待正式核验）
+
+独立分支`codex/skye-agent-page`，基线`6f9c3aa`。新增五语`/valorant-skye/`、四技能官方图标/视频、角色预告与双图灯箱、绿色纵长双层准星。复用共享英雄组件；五语均noindex,follow、自canonical、无hreflang、不进Sitemap。用户明确授权完成后直接发布；待PR预览、CI、正式域名版本与交互核验后认定上线。来源及验收见`docs/SKYE_RELEASE_2026-10-20.md`。原混合工作树与其他英雄/准星目录保持不变，无追踪、支付或托管配置变更。
+
 ## 2026-10-20：铁臂英雄页（已授权发布，待正式核验）
 
 独立分支`codex/breach-agent-page`，基线`181efd4`。新增五语`/valorant-breach/`、官方四技能与INCURSIONS角色图集、橙色长横臂/短竖臂准星。复用共享英雄交互，编辑器保留独立竖线长度。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权制作后直接发布；正式PR、预览、CI与生产版本核验后确认上线。来源及验收见`docs/BREACH_RELEASE_2026-10-20.md`；原混合工作树及其他英雄数据保持不变。
