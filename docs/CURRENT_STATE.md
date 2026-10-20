@@ -5,6 +5,12 @@
 独立分支`codex/gekko-agent-page`，基线`eda3dc9`。新增五语`/valorant-gekko/`、官方四技能/角色动画、双图灯箱和中心留空的青柠色双横线准星。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。修复Canvas长度0仍画1像素的问题，保持已有正长度线条。用户授权完成后直接发布；正式PR预览、CI及线上版本/交互核验后确认上线。来源、数据边界、验收与回滚见`docs/GEKKO_RELEASE_2026-10-20.md`；原混合工作树和其他英雄配置未改。
 
 
+
+## 2026-10-20：黑梦英雄页（已授权发布，待正式核验）
+
+独立分支`codex/fade-agent-page`，基线`eda3dc9`。新增五语`/valorant-fade/`、四技能官方演示、角色动画与图集、冰蓝横向扁环配中心点准星。复用共享英雄交互；五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确授权完成后直接发布，待PR预览、CI与生产版本/交互核验。来源与验收见`docs/FADE_RELEASE_2026-10-20.md`；保留原混合工作树与旧英雄。
+
+
 ## 2026-10-20：星礈英雄页（已授权发布，待正式核验）
 
 专用分支 `codex/astra-agent-page`，基线 `eda3dc9`。新增五语 `/valorant-astra/`，五组官方技能演示（含独立星界形态）、官方预告与双图灯箱、紫色横长星芒准星，复用共享英雄交互。五语均 noindex,follow、自 canonical、无 hreflang、不入 Sitemap；用户已授权完成后直接发布。实际PR、Cloudflare与正式域名版本/交互核验后确认上线，来源和完整验收见 `docs/ASTRA_RELEASE_2026-10-20.md`。原混合工作树、其他英雄及追踪/支付配置保持不变。
