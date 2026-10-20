@@ -1,4 +1,5 @@
 import { KILLJOY_OG_IMAGE, KILLJOY_UPDATED_AT, killjoyArticleCopy } from './killjoyContent.js'
+import { CYPHER_OG_IMAGE, CYPHER_UPDATED_AT, cypherArticleCopy } from './cypherContent.js'
 import { MIKS_OG_IMAGE, MIKS_UPDATED_AT, miksArticleCopy } from './miksContent.js'
 import { HARBOR_OG_IMAGE, HARBOR_UPDATED_AT, harborArticleCopy } from './harborContent.js'
 import { CLOVE_OG_IMAGE, CLOVE_UPDATED_AT, cloveArticleCopy } from './cloveContent.js'
@@ -99,6 +100,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:waylay`, WAYLAY_UPDATED_AT],
     [`${locale}:article:astra`, ASTRA_UPDATED_AT],
     [`${locale}:article:tejo`, TEJO_UPDATED_AT],
+    [`${locale}:article:cypher`, CYPHER_UPDATED_AT],
     [`${locale}:article:miks`, MIKS_UPDATED_AT],
     [`${locale}:article:harbor`, HARBOR_UPDATED_AT],
     [`${locale}:article:killjoy`, KILLJOY_UPDATED_AT],
@@ -293,6 +295,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'fade') {
     imagePath = FADE_OG_IMAGE
     imageAlt = fadeArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'cypher') {
+    imagePath = CYPHER_OG_IMAGE
+    imageAlt = cypherArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'miks') {
     imagePath = MIKS_OG_IMAGE
