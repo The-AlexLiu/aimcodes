@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：黑梦英雄页（已授权发布，待正式核验）
+
+独立分支`codex/fade-agent-page`，基线`eda3dc9`。新增五语`/valorant-fade/`、四技能官方演示、角色动画与图集、冰蓝横向扁环配中心点准星。复用共享英雄交互；五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确授权完成后直接发布，待PR预览、CI与生产版本/交互核验。来源与验收见`docs/FADE_RELEASE_2026-10-20.md`；保留原混合工作树与旧英雄。
+
 ## 2026-10-20：K/O 英雄页（已授权发布，待正式核验）
 
 独立分支`codex/kayo-agent-page`，基线`6f9c3aa`。新增五语`/valorant-kayo/`、官方四技能、官方角色预告和战斗图集、淡紫色细长竖轨配中心点准星，复用共享英雄交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权制作后直接发布；待PR预览、CI和正式域名版本/交互核验后确认上线。来源与验收见`docs/KAYO_RELEASE_2026-10-20.md`。原混合工作树及旧英雄配置保持不变。
