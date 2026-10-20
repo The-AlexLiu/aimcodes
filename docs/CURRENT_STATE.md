@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：禁灭英雄页（已授权发布，待正式核验）
+
+专用分支`codex/veto-page-release`，基线`9634439`。新增五语`/valorant-veto/`、四技能官方图标与演示、GIVE THEM NOTHING角色预告、双图灯箱、青蓝色分体护盾准星，复用完整地图/5×/复制/编辑器交互。五语noindex,follow、自canonical、无hreflang、不入Sitemap。用户要求完成后直接发布；来源、验收与正式版本见`docs/VETO_RELEASE_2026-10-20.md`。原混合工作树、名为veto的miks工作树及旧英雄配置全部跳过。
+
 ## 2026-10-20：维斯英雄页（已授权发布，待正式核验）
 
 专用分支`codex/vyse-page-release`，基线`e7003b7`。新增五语`/valorant-vyse/`、四技能官方图标和演示、ALL PATHS END HERE动画与双图灯箱、紫色竖向荆棘准星。复用共享英雄与准星组件，保留地图/5×/复制/完整编辑器配置。五语noindex,follow、自canonical、无hreflang、不入Sitemap。用户要求完成后直接发布；实际验收、PR及Cloudflare版本见`docs/VYSE_RELEASE_2026-10-20.md`。原混合工作树、既有waylay工作树及旧英雄配置全部跳过。

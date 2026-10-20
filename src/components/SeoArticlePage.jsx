@@ -1,4 +1,5 @@
 import DeadlockAgentPage from './DeadlockAgentPage.jsx'
+import VetoAgentPage from './VetoAgentPage.jsx'
 import VyseAgentPage from './VyseAgentPage.jsx'
 import KilljoyAgentPage from './KilljoyAgentPage.jsx'
 import CypherAgentPage from './CypherAgentPage.jsx'
@@ -48,6 +49,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   if (articleKey === 'miks') return <MiksAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'harbor') return <HarborAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'deadlock') return <DeadlockAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'veto') return <VetoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'vyse') return <VyseAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'killjoy') return <KilljoyAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'clove') return <CloveAgentPage locale={locale} onCopy={onCopy} />
