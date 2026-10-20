@@ -257,7 +257,7 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
       '@type': 'Article',
       '@id': `${metadata.canonical}#article`,
       headline: article.title,
-      ...(['hush', 'sage', 'phoenix', 'omen', 'viper', 'brimstone', 'chamber', 'raze', 'yoru', 'jett', 'reyna'].includes(route.articleKey) ? { image: metadata.image } : {}),
+      ...(['hush', 'sage', 'phoenix', 'omen', 'viper', 'brimstone', 'chamber', 'raze', 'yoru', 'jett', 'reyna', 'neon'].includes(route.articleKey) ? { image: metadata.image } : {}),
       description: article.intro,
       url: metadata.canonical,
       dateModified: route.articleKey === 'statistics' ? CROSSHAIR_STATISTICS_UPDATED_AT : routeContentUpdatedAt(locale, route),
