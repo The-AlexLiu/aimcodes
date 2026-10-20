@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：壹决英雄页（已授权发布，待正式核验）
+
+独立分支`codex/iso-agent-page`，基线`df820d6`。新增五语`/valorant-iso/`、官方四技能图标/演示、MYTHS角色动画与双图灯箱、紫色双层方环准星。五语均noindex,follow、自canonical、无hreflang、不入Sitemap；用户明确授权完成后直接发布，正式版本核验后才认定上线。保留原混合工作树与旧英雄配置；来源、索引及验收见`docs/ISO_RELEASE_2026-10-20.md`。
+
 ## 2026-10-20：霓虹英雄页（已授权发布，待正式核验）
 
 独立分支 `codex/neon-agent-page`，基线 `ebfa6f8`。新增五语 `/valorant-neon/`、四段官方技能、Spark人物图集与青蓝中心细小十字配四条分离粗外线准星。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户已明确授权制作后直接发布；需待PR预览、CI及Cloudflare正式域名版本核验后认定上线。完整来源与验收见 `docs/NEON_RELEASE_2026-10-20.md`。保留原混合工作树；未改旧英雄、目录或追踪/支付/部署配置。
