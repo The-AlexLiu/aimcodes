@@ -3,6 +3,7 @@ import { CHAMBER_GENERATOR_SETTINGS } from '../data/chamberCrosshair.js'
 
 import { BRIMSTONE_GENERATOR_SETTINGS } from '../data/brimstoneCrosshair.js'
 import { OMEN_GENERATOR_SETTINGS } from '../data/omenCrosshair.js'
+import { VIPER_GENERATOR_SETTINGS } from '../data/viperCrosshair.js'
 import { PHOENIX_GENERATOR_SETTINGS } from '../data/phoenixCrosshair.js'
 import { SAGE_GENERATOR_SETTINGS } from '../data/sageCrosshair.js'
 import { useMemo, useState } from 'react'
@@ -89,7 +90,7 @@ function Toggle({ label, checked, onChange }) {
 
 function Generator({ copy, onCopy }) {
   const [background, setBackground] = useState('ascent')
-  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'brimstone' ? { ...BRIMSTONE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'omen' ? { ...OMEN_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'chamber' ? { ...CHAMBER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'phoenix' ? { ...PHOENIX_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'sage' ? { ...SAGE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
+  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'chamber' ? { ...CHAMBER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'brimstone' ? { ...BRIMSTONE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'viper' ? { ...VIPER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'omen' ? { ...OMEN_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'phoenix' ? { ...PHOENIX_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'sage' ? { ...SAGE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
     colorPreset: '5', customColor: '#ed9bda', outline: true, outlineOpacity: 1, outlineThickness: 1,
     dot: false, dotOpacity: 1, dotSize: 2, inner: true, innerOpacity: 1,
     innerLength: 4, innerThickness: 2, innerOffset: 2, outer: false,

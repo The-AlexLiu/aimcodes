@@ -3,6 +3,7 @@ import { CHAMBER_OG_IMAGE, CHAMBER_UPDATED_AT, chamberArticleCopy } from './cham
 
 import { BRIMSTONE_OG_IMAGE, BRIMSTONE_UPDATED_AT, brimstoneArticleCopy } from './brimstoneContent.js'
 import { OMEN_OG_IMAGE, OMEN_UPDATED_AT, omenArticleCopy } from './omenContent.js'
+import { VIPER_OG_IMAGE, VIPER_UPDATED_AT, viperArticleCopy } from './viperContent.js'
 import { PHOENIX_OG_IMAGE, PHOENIX_UPDATED_AT, phoenixArticleCopy } from './phoenixContent.js'
 import { SAGE_OG_IMAGE, SAGE_UPDATED_AT, sageArticleCopy } from './sageContent.js'
 import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.js'
@@ -76,6 +77,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
 
     [`${locale}:article:brimstone`, BRIMSTONE_UPDATED_AT],
     [`${locale}:article:omen`, OMEN_UPDATED_AT],
+    [`${locale}:article:viper`, VIPER_UPDATED_AT],
     [`${locale}:article:phoenix`, PHOENIX_UPDATED_AT],
   ])),
   ...Object.fromEntries(Object.keys(localeRoutes).map(locale => [`${locale}:collection:best`, '2026-10-15'])),
@@ -241,6 +243,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'omen') {
     imagePath = OMEN_OG_IMAGE
     imageAlt = omenArticleCopy(locale).imageAlt
+    }
+  if (route.type === 'article' && route.articleKey === 'viper') {
+    imagePath = VIPER_OG_IMAGE
+    imageAlt = viperArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'phoenix') {
     imagePath = PHOENIX_OG_IMAGE

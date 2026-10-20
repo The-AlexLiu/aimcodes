@@ -1,0 +1,50 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.viper-page{--viper-accent:#b7f34b;--hush-pink:var(--viper-accent);--hush-border:#455536;color:#edf4e4}
+.hush-page.viper-page .hush-hero{background:#10170d}
+.hush-page.viper-page .hush-hero-art{left:20%;object-position:68% 38%;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.viper-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.viper-page h2,.hush-page.viper-page h3{color:#f3ffe6}
+.hush-page.viper-page p,.hush-page.viper-page li{color:#bac5b0}
+.hush-page.viper-page .hush-eyebrow,.hush-page.viper-page .hush-ability-heading h3{color:var(--viper-accent)}
+.hush-page.viper-page .hush-primary{background:var(--viper-accent);color:#18200c}
+.hush-page.viper-page .hush-primary:hover{background:#d7ff94;color:#18200c}
+.hush-page.viper-page .hush-secondary{border-color:#678b42;color:#edf4e4}
+.hush-page.viper-page .hush-secondary:hover{border-color:var(--viper-accent);color:var(--viper-accent)}
+.hush-page.viper-page .hush-ability{background:linear-gradient(145deg,#1e2a16,#10151e);border-color:var(--hush-border);border-top-color:#87b94b}
+.hush-page.viper-page .hush-ability-description>p{color:#e7efda}
+.hush-page.viper-page .hush-ability-description .hush-controls{color:#b8c5a1}
+.hush-page.viper-page .hush-binding img{object-fit:contain;background:#12190f;padding:5px}
+.hush-page.viper-page .hush-binding small,.hush-page.viper-page .hush-gallery-heading>span,.hush-page.viper-page .hush-crosshair-map-picker{color:#aebf9c}
+.hush-page.viper-page .hush-ability-media video,.hush-page.viper-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.viper-page .hush-play-symbol{background:var(--viper-accent);color:#18200c}
+.hush-page.viper-page .hush-video-label{color:#f3ffe6}
+.hush-page.viper-page .hush-video-links a,.hush-page.viper-page .hush-crosshair-more{color:var(--viper-accent)}
+.hush-page.viper-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.viper-page .hush-demo-toggle{border-color:var(--hush-border);color:#d5efaa;background:#1a2314}
+.viper-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #455536;border-radius:8px;background:#111}
+.hush-page.viper-page .hush-gallery-grid figure{display:block}
+.hush-page.viper-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#141a10}
+.hush-page.viper-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.viper-page .hush-gallery-grid figure:nth-child(2) img{object-position:center top}
+.hush-page.viper-page .hush-unlock summary,.hush-page.viper-page .hush-quick-facts dd{color:#dceebf}
+.hush-page.viper-page .hush-quick-facts dt{color:#aebf9c}
+.hush-page.viper-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#202c15,#111922)}
+.hush-page.viper-page .hush-crosshair-map,.hush-page.viper-page .hush-crosshair :is(button,select){border-color:#657f41}
+.hush-page.viper-page .hush-crosshair-map-picker select{background:#1a2314;color:#f0f7e5}
+.hush-page.viper-page .hush-crosshair-zoom{color:var(--viper-accent);background:#1a2314eb}
+.hush-page.viper-page .hush-crosshair-copy>p,.hush-page.viper-page .hush-crosshair-import{color:#bac5b0}
+.hush-page.viper-page .hush-credit a{color:#91a970}
+.hush-page.viper-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--viper-accent);outline-offset:4px}
+.hush-lightbox.viper-lightbox{border-color:#657f41;background:#12190f}
+.hush-lightbox.viper-lightbox form button{border-color:#657f41;background:#202c15}
+.hush-page.viper-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.viper-page .hush-hero-art{left:0;object-position:68% 20%;mask-image:none}
+ .hush-page.viper-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}
+
+.hush-page.viper-page .hush-gallery-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+@media(max-width:680px){.hush-page.viper-page .hush-gallery-grid{grid-template-columns:1fr}}
+.hush-page.viper-page .hush-gallery-grid figure:first-child { grid-row:auto;grid-column:auto;width:100%;justify-self:stretch; }
+.hush-page.viper-page .hush-gallery-grid button { aspect-ratio:1200/499; }
+.hush-page.viper-page .hush-gallery-grid img { width:100%;height:100%;object-fit:cover; }

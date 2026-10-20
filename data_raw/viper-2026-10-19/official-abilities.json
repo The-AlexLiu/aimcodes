@@ -1,0 +1,37 @@
+[
+  {
+    "key": "passive",
+    "title": "Toxin",
+    "description": "<p>Viper's toxin continuously inflicts decay when enemies come in contact. Passively recharge fuel over time.</p>",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/f4d7628501a66b212f967ed3c5e90219b82678ff-640x360.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/e04087ff895a9489889ab03b0e72886a6e06ffca.webm?accountingTag=VAL"
+  },
+  {
+    "key": "cloud",
+    "title": "POISON CLOUD",
+    "description": "<p>EQUIP a gas emitter. FIRE to throw the emitter that perpetually remains throughout the round. RE-USE the ability to create a toxic gas cloud at the cost of fuel. This ability can be picked up to be REDEPLOYED before the round starts and can be RE-USED more than once throughout the round.</p>",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/3eba05b8ed1ac69c440d54cec365e537d294be25-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/49ff8efd75b76941da3018362061275d3a1d43d6.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "wall",
+    "title": "TOXIC SCREEN",
+    "description": "EQUIP a gas emitter launcher. FIRE to deploy a long line of gas emitters. RE-USE the ability to create a tall wall of toxic gas at the cost of fuel. This ability can be RE-USED more than once.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/b1204a1fbcc0e2fced090f18ad18e7587357c783-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/36db8f44946850c2a20aba43d8ad3ecd977c7d7e.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "bite",
+    "title": "SNAKE BITE",
+    "description": "EQUIP a chemical launcher. FIRE to launch a canister that shatters upon hitting the floor, creating a lingering chemical zone that damages and slows enemies.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/f477dce332e51e53f4e2f565f2d3d868dd2d0df8-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/9eeb3090efed080792e6ea2f264fd60ebb12694e.mp4?accountingTag=VAL"
+  },
+  {
+    "key": "ultimate",
+    "title": "VIPER'S PIT",
+    "description": "EQUIP a chemical sprayer. FIRE to spray a chemical cloud in all directions around Viper, creating a large cloud that reduces the vision range and maximum health of players inside of it.",
+    "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/dab73c2ea877aca79a5bb0b8533d1de4ac07186a-128x128.png?accountingTag=VAL",
+    "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/4601fd972c588a79cdd910b2497546f156886c40.mp4?accountingTag=VAL"
+  }
+]
