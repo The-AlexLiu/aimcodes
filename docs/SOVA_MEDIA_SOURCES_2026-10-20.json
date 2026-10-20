@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-20",
+  "officialPages": [
+    "https://playvalorant.com/en-us/agents/sova/",
+    "https://playvalorant.com/ja-jp/agents/sova/",
+    "https://playvalorant.com/es-es/agents/sova/",
+    "https://playvalorant.com/pt-br/agents/sova/"
+  ],
+  "abilities": [
+    {
+      "key": "shock",
+      "type": "png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/8ab5a2d03438ff0f8b2ba2d7b26c812ab6b7adbb-128x128.png?accountingTag=VAL"
+    },
+    {
+      "key": "shock",
+      "type": "mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/7776fa677e90c72da94ec7d188d2d4618116c41b.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "recon",
+      "type": "png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/b428e1783f98a0990b86d13872f564095442f44b-128x128.png?accountingTag=VAL"
+    },
+    {
+      "key": "recon",
+      "type": "mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/50f9d870fa2a9b9ba38408eb718ffc06879c11a8.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "drone",
+      "type": "png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/07877d7c79546ef64338eae550ffa5649f3582b0-128x128.png?accountingTag=VAL"
+    },
+    {
+      "key": "drone",
+      "type": "mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/6c6f036376c18ddf4ed0c589b506b8889d86a29a.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "type": "png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/7b9f078b0576e87e74b8175b0d33ac682b7a8ab3-128x128.png?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "type": "mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/df9ce34c3d2a7f527929cac123501e1473e0da0e.mp4?accountingTag=VAL"
+    }
+  ],
+  "cinematic": {
+    "url": "https://www.youtube.com/watch?v=q2eLOupmraQ",
+    "channel": "VALORANT verified",
+    "heroSeconds": 305,
+    "gallerySeconds": [
+      355,
+      350
+    ],
+    "viewportCrop": {
+      "left": 16,
+      "top": 68,
+      "width": 892,
+      "height": 380
+    }
+  }
+}

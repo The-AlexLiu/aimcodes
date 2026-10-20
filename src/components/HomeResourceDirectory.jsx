@@ -1,4 +1,5 @@
 import { yoruArticleCopy } from '../seo/yoruContent.js'
+import { sovaArticleCopy } from '../seo/sovaContent.js'
 import { isoArticleCopy } from '../seo/isoContent.js'
 import { waylayArticleCopy } from '../seo/waylayContent.js'
 import { neonArticleCopy } from '../seo/neonContent.js'
@@ -151,6 +152,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link phoenix-home-link" href={routePath(locale, { type: 'article', articleKey: 'phoenix' })}>{phoenixArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link yoru-home-link" href={routePath(locale, { type: 'article', articleKey: 'yoru' })}>{yoruArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link raze-home-link" href={routePath(locale, { type: 'article', articleKey: 'raze' })}>{razeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link sova-home-link" href={routePath(locale, { type: 'article', articleKey: 'sova' })}>{sovaArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link iso-home-link" href={routePath(locale, { type: 'article', articleKey: 'iso' })}>{isoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link waylay-home-link" href={routePath(locale, { type: 'article', articleKey: 'waylay' })}>{waylayArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link neon-home-link" href={routePath(locale, { type: 'article', articleKey: 'neon' })}>{neonArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
