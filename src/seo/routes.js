@@ -40,42 +40,41 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
   '/zh-cn/crosshairs/cat/',
 ])
 
-export const SEO_ARTICLES = Object.freeze({
-  deadlock: Object.freeze({ slug: 'valorant-deadlock', keyword: 'valorant deadlock abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  veto: Object.freeze({ slug: 'valorant-veto', keyword: 'valorant veto abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  vyse: Object.freeze({ slug: 'valorant-vyse', keyword: 'valorant vyse abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  killjoy: Object.freeze({ slug: 'valorant-killjoy', keyword: 'valorant killjoy abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  // Local Jett preview: all locales remain outside search indexes.
-  jett: Object.freeze({ slug: 'valorant-jett', keyword: 'valorant jett abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  // Product release approved; all five locales remain noindex.
-  viper: Object.freeze({ slug: 'valorant-viper', keyword: 'valorant viper abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  // Local preview only: indexing requires a separate release decision.
-  chamber: Object.freeze({ slug: 'valorant-chamber', keyword: 'valorant chamber abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
+// User-authorized 2026-10-20: the published agent batch is searchable in all five locales.
+export const AGENT_INDEX_LOCALES = Object.freeze(['en', 'es', 'pt-BR', 'zh-CN', 'ja'])
 
-  brimstone: Object.freeze({ slug: 'valorant-brimstone', keyword: 'valorant brimstone abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  // Release approved: English search entry; other locales remain product access.
-  phoenix: Object.freeze({ slug: 'valorant-phoenix', keyword: 'valorant phoenix abilities', priority: 'P1', indexLocales: Object.freeze(['en']) }),
-  yoru: Object.freeze({ slug: 'valorant-yoru', keyword: 'valorant yoru abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  raze: Object.freeze({ slug: 'valorant-raze', keyword: 'valorant raze abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  sova: Object.freeze({ slug: 'valorant-sova', keyword: 'valorant sova abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  iso: Object.freeze({ slug: 'valorant-iso', keyword: 'valorant iso abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  waylay: Object.freeze({ slug: 'valorant-waylay', keyword: 'valorant waylay abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  astra: Object.freeze({ slug: 'valorant-astra', keyword: 'valorant astra abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  cypher: Object.freeze({ slug: 'valorant-cypher', keyword: 'valorant cypher abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  miks: Object.freeze({ slug: 'valorant-miks', keyword: 'valorant miks abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  harbor: Object.freeze({ slug: 'valorant-harbor', keyword: 'valorant harbor abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  clove: Object.freeze({ slug: 'valorant-clove', keyword: 'valorant clove abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  fade: Object.freeze({ slug: 'valorant-fade', keyword: 'valorant fade abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  tejo: Object.freeze({ slug: 'valorant-tejo', keyword: 'valorant tejo abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  gekko: Object.freeze({ slug: 'valorant-gekko', keyword: 'valorant gekko abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  kayo: Object.freeze({ slug: 'valorant-kayo', keyword: 'valorant kayo abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  skye: Object.freeze({ slug: 'valorant-skye', keyword: 'valorant skye abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  breach: Object.freeze({ slug: 'valorant-breach', keyword: 'valorant breach abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  neon: Object.freeze({ slug: 'valorant-neon', keyword: 'valorant neon abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  reyna: Object.freeze({ slug: 'valorant-reyna', keyword: 'valorant reyna abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  omen: Object.freeze({ slug: 'valorant-omen', keyword: 'valorant omen abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
-  sage: Object.freeze({ slug: 'valorant-sage', keyword: 'valorant sage abilities', priority: 'P0', indexLocales: Object.freeze(['en']) }),
-  hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: Object.freeze(['en', 'ja']) }),
+export const SEO_ARTICLES = Object.freeze({
+  deadlock: Object.freeze({ slug: 'valorant-deadlock', keyword: 'valorant deadlock abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  veto: Object.freeze({ slug: 'valorant-veto', keyword: 'valorant veto abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  vyse: Object.freeze({ slug: 'valorant-vyse', keyword: 'valorant vyse abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  killjoy: Object.freeze({ slug: 'valorant-killjoy', keyword: 'valorant killjoy abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  jett: Object.freeze({ slug: 'valorant-jett', keyword: 'valorant jett abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  viper: Object.freeze({ slug: 'valorant-viper', keyword: 'valorant viper abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  chamber: Object.freeze({ slug: 'valorant-chamber', keyword: 'valorant chamber abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+
+  brimstone: Object.freeze({ slug: 'valorant-brimstone', keyword: 'valorant brimstone abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  phoenix: Object.freeze({ slug: 'valorant-phoenix', keyword: 'valorant phoenix abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  yoru: Object.freeze({ slug: 'valorant-yoru', keyword: 'valorant yoru abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  raze: Object.freeze({ slug: 'valorant-raze', keyword: 'valorant raze abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  sova: Object.freeze({ slug: 'valorant-sova', keyword: 'valorant sova abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  iso: Object.freeze({ slug: 'valorant-iso', keyword: 'valorant iso abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  waylay: Object.freeze({ slug: 'valorant-waylay', keyword: 'valorant waylay abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  astra: Object.freeze({ slug: 'valorant-astra', keyword: 'valorant astra abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  cypher: Object.freeze({ slug: 'valorant-cypher', keyword: 'valorant cypher abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  miks: Object.freeze({ slug: 'valorant-miks', keyword: 'valorant miks abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  harbor: Object.freeze({ slug: 'valorant-harbor', keyword: 'valorant harbor abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  clove: Object.freeze({ slug: 'valorant-clove', keyword: 'valorant clove abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  fade: Object.freeze({ slug: 'valorant-fade', keyword: 'valorant fade abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  tejo: Object.freeze({ slug: 'valorant-tejo', keyword: 'valorant tejo abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  gekko: Object.freeze({ slug: 'valorant-gekko', keyword: 'valorant gekko abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  kayo: Object.freeze({ slug: 'valorant-kayo', keyword: 'valorant kayo abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  skye: Object.freeze({ slug: 'valorant-skye', keyword: 'valorant skye abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  breach: Object.freeze({ slug: 'valorant-breach', keyword: 'valorant breach abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  neon: Object.freeze({ slug: 'valorant-neon', keyword: 'valorant neon abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  reyna: Object.freeze({ slug: 'valorant-reyna', keyword: 'valorant reyna abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  omen: Object.freeze({ slug: 'valorant-omen', keyword: 'valorant omen abilities', priority: 'P1', indexLocales: AGENT_INDEX_LOCALES }),
+  sage: Object.freeze({ slug: 'valorant-sage', keyword: 'valorant sage abilities', priority: 'P0', indexLocales: AGENT_INDEX_LOCALES }),
+  hush: Object.freeze({ slug: 'valorant-hush', keyword: 'valorant hush abilities', priority: 'P0', indexLocales: AGENT_INDEX_LOCALES }),
   yellowEnemies: Object.freeze({ slug: 'valorant-crosshair-color-yellow-enemies', keyword: 'best crosshair color for yellow enemies', priority: 'P1' }),
   offCenter: Object.freeze({ slug: 'valorant-crosshair-off-center', keyword: 'is valorant crosshair off center', priority: 'P1' }),
   stretched: Object.freeze({ slug: 'valorant-stretched-crosshair', keyword: 'stretched crosshair valorant', priority: 'P1' }),
@@ -227,11 +226,12 @@ export function isPriorityCrosshair(id) {
 
 export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
   const normalizedLocale = normalizeLocale(locale) || DEFAULT_LOCALE
+  if (route.type === 'agents') return true
   if (normalizedLocale === 'zh-CN'
+    && !(route.type === 'article' && SEO_ARTICLES[route.articleKey]?.indexLocales?.includes(normalizedLocale))
     && !ZH_PRODUCT_INDEX_TYPES.has(route.type)
     && !ZH_SEO_INDEX_PATHS.includes(routePath(normalizedLocale, route))) return false
   if (route.type === 'article' && SEO_ARTICLES[route.articleKey]?.indexLocales) return SEO_ARTICLES[route.articleKey].indexLocales.includes(normalizedLocale)
-  if (route.type === 'agents') return false
   if (route.type === 'players') return false
   if (route.type === 'paid') return false
   if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false

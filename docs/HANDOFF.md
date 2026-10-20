@@ -1,3 +1,7 @@
+# 2026-10-20 首页加载与英雄索引交付
+
+分支 `codex/home-performance-indexing`，基于已上线的 PR #125（`85fb00c`）。图片优化与用户本次明确要求的近期英雄/图鉴五语索引修复一起交付：155 个目标 URL、净增 151 个可索引 URL，主 Sitemap 2045。独立授权快照和搜索意图门见 `HERO_INDEXING_2026-10-20.md/json`，加载优化见 `HOME_IMAGE_LOADING_2026-10-20.md`。正式提交和发布证据见本次 PR；Google/Bing Sitemap 必须在正式版本可访问后提交并读回。
+
 # 2026-10-20 首页与英雄图鉴发布
 
 分支 `codex/home-hero-directory`，基线 `1d8ae44b365d`。用户已验收并明确授权发布首页和 `/valorant-agents/` 聚合页。首页双排自动循环、悬停暂停、透明立绘；移除按钮/提示/序号和两处红框小字。复用用户图鉴并修复舞台准星居中，五语目录 noindex/follow，既有详情索引不变。原混合工作树及用户图鉴源工作树保留。
