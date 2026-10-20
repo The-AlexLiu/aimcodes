@@ -1,0 +1,54 @@
+{
+  "collectedAt": "2026-10-20",
+  "officialPage": "https://playvalorant.com/en-us/agents/clove/",
+  "media": [
+    {
+      "file": "meddle.png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/b193ce03089f357e330a51876dbb7172444e80da-128x128.png?accountingTag=VAL"
+    },
+    {
+      "file": "meddle.mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/71b28c3a8e3b6f29a2523f2cada52f2ea5a1eab0.mp4?accountingTag=VAL"
+    },
+    {
+      "file": "ruse.png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/5ce846ce8e5ae7ce7904f0c31824f7729307743e-128x128.png?accountingTag=VAL"
+    },
+    {
+      "file": "ruse.mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/f74f0d7b96cae0bcf51e97ad99883a370508a381.mp4?accountingTag=VAL"
+    },
+    {
+      "file": "pick-me-up.png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/8207dec024cbac83685eb14379055e25d8c3bbed-128x128.png?accountingTag=VAL"
+    },
+    {
+      "file": "pick-me-up.mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/4adb022f083d3887f73d23f60de71cccb45e6d83.mp4?accountingTag=VAL"
+    },
+    {
+      "file": "ultimate.png",
+      "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/cb541873b62077199333f468fddd54620635870a-128x128.png?accountingTag=VAL"
+    },
+    {
+      "file": "ultimate.mp4",
+      "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/b9e4ee59e2e2a492ec5a76f71c2161faa6f03981.mp4?accountingTag=VAL"
+    }
+  ],
+  "trailer": {
+    "url": "https://www.youtube.com/watch?v=QL0LUaxWUOI",
+    "channel": "VALORANT",
+    "heroSeconds": 77,
+    "gallerySeconds": [
+      60,
+      91
+    ],
+    "captureCrop": {
+      "left": 0,
+      "top": 90,
+      "width": 1360,
+      "height": 475
+    },
+    "method": "Official playback captured in Ego Lite; download returned HTTP 403"
+  }
+}

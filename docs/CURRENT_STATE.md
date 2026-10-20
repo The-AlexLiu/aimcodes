@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：暮蝶英雄页（已授权发布，待正式核验）
+
+独立分支codex/clove-agent-page，基线7ee749e。新增五语/valorant-clove/、四技能官方图标/视频、2 WORLDS动画与双图灯箱、粉紫宽双翼配中心点准星，以及完整地图/复制/生成器交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布；正式验收和来源见docs/CLOVE_RELEASE_2026-10-20.md。原混合工作树及其他英雄配置跳过。
+
 ## 2026-10-20：海神英雄页（已授权发布，待正式核验）
 
 专用分支`codex/harbor-agent-page`，基线`c95e033`。新增五语`/valorant-harbor/`，当前版本乱涌/狂潮/海盾/怒涛四技能图标与演示、官方角色预告、双图灯箱、水绿色竖长空框准星及完整地图/复制/生成器入口。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布，完整发布检查25项通过；最终PR、预览、Cloudflare正式版本及线上交互核验见`docs/HARBOR_RELEASE_2026-10-20.md`。原混合工作树及旧英雄配置未改。

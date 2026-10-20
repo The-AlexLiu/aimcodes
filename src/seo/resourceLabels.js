@@ -1,4 +1,5 @@
 import { harborArticleCopy } from './harborContent.js'
+import { cloveArticleCopy } from './cloveContent.js'
 
 import { gekkoArticleCopy } from './gekkoContent.js'
 import { fadeArticleCopy } from './fadeContent.js'
@@ -59,6 +60,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'waylay') return waylayArticleCopy(locale).title
   if (articleKey === 'astra') return astraArticleCopy(locale).title
   if (articleKey === 'harbor') return harborArticleCopy(locale).title
+  if (articleKey === 'clove') return cloveArticleCopy(locale).title
   if (articleKey === 'fade') return fadeArticleCopy(locale).title
   if (articleKey === 'tejo') return tejoArticleCopy(locale).title
   if (articleKey === 'gekko') return gekkoArticleCopy(locale).title
