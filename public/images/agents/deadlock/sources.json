@@ -1,0 +1,65 @@
+{
+  "retrievedAt": "2026-10-20",
+  "official": "https://playvalorant.com/en-us/agents/deadlock/",
+  "china": "https://api.val.qq.com/go/agame/graphql/graphiQL (agent 22)",
+  "abilities": [
+    {
+      "key": "barrier",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/f712588876f0df7fa899418b4f2b2b6fbccfedbf-512x512.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/a9dc93d62c1ae6c51b12ed1e84a5d96c678677f9.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "sensor",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/3abe232b9adae7ae2d96a5b87d0a4fecb8a3bd5a-512x512.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/e2c77e5b49fc3b53a7c625eb7646e51e7094dc52.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "gravnet",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/4516d714505d1a69918c8405dda463aeb7c5718b-512x512.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/d7576f43161214699762f1858e2fc8e2d3112077.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/fba13a9ca1a5efb4e3456b96c0e78cbf4b3ec46d-512x512.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/b995bab386bd58541eacfe0e065a808081c0b9ea.mp4?accountingTag=VAL"
+    }
+  ],
+  "cinematic": "https://www.youtube.com/watch?v=sUoSPryMZr0",
+  "channel": "VALORANT (verified)",
+  "frames": {
+    "hero": {
+      "seconds": 110,
+      "crop": {
+        "left": 610,
+        "top": 140,
+        "width": 720,
+        "height": 523
+      }
+    },
+    "corridor": {
+      "seconds": 110,
+      "crop": {
+        "left": 136,
+        "top": 140,
+        "width": 1228,
+        "height": 523
+      }
+    },
+    "aiming": {
+      "seconds": 230,
+      "crop": {
+        "left": 136,
+        "top": 140,
+        "width": 1228,
+        "height": 523
+      }
+    }
+  },
+  "derived": {
+    "hero": "1920x1080 WebP",
+    "og": "1200x630 JPEG",
+    "gallery": "1200x675 WebP",
+    "videos": "960x540 H264 muted 30fps"
+  },
+  "note": "Riot gameplay demos are illustrative legacy footage. Bindings follow patch 10.04 and current China official data: C Barrier, Q Sensor, E GravNet, X Annihilation. No legacy HUD values asserted."
+}

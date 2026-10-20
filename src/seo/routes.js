@@ -41,6 +41,7 @@ export const ZH_SEO_INDEX_PATHS = Object.freeze([
 ])
 
 export const SEO_ARTICLES = Object.freeze({
+  deadlock: Object.freeze({ slug: 'valorant-deadlock', keyword: 'valorant deadlock abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   vyse: Object.freeze({ slug: 'valorant-vyse', keyword: 'valorant vyse abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   killjoy: Object.freeze({ slug: 'valorant-killjoy', keyword: 'valorant killjoy abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   // Local Jett preview: all locales remain outside search indexes.

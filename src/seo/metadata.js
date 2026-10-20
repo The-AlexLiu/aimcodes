@@ -1,4 +1,5 @@
 import { VYSE_OG_IMAGE, VYSE_UPDATED_AT, vyseArticleCopy } from './vyseContent.js'
+import { DEADLOCK_OG_IMAGE, DEADLOCK_UPDATED_AT, deadlockArticleCopy } from './deadlockContent.js'
 import { KILLJOY_OG_IMAGE, KILLJOY_UPDATED_AT, killjoyArticleCopy } from './killjoyContent.js'
 import { CYPHER_OG_IMAGE, CYPHER_UPDATED_AT, cypherArticleCopy } from './cypherContent.js'
 import { MIKS_OG_IMAGE, MIKS_UPDATED_AT, miksArticleCopy } from './miksContent.js'
@@ -104,6 +105,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:cypher`, CYPHER_UPDATED_AT],
     [`${locale}:article:miks`, MIKS_UPDATED_AT],
     [`${locale}:article:harbor`, HARBOR_UPDATED_AT],
+    [`${locale}:article:deadlock`, DEADLOCK_UPDATED_AT],
     [`${locale}:article:vyse`, VYSE_UPDATED_AT],
     [`${locale}:article:killjoy`, KILLJOY_UPDATED_AT],
     [`${locale}:article:clove`, CLOVE_UPDATED_AT],
@@ -309,6 +311,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'harbor') {
     imagePath = HARBOR_OG_IMAGE
     imageAlt = harborArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'deadlock') {
+    imagePath = DEADLOCK_OG_IMAGE
+    imageAlt = deadlockArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'vyse') {
     imagePath = VYSE_OG_IMAGE
