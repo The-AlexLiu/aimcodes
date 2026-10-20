@@ -1,0 +1,78 @@
+{
+  "collectedAt": "2026-10-20",
+  "copyright": "Riot Games",
+  "officialPages": [
+    "https://playvalorant.com/en-us/agents/cypher/",
+    "https://playvalorant.com/ja-jp/agents/cypher/",
+    "https://playvalorant.com/es-es/agents/cypher/",
+    "https://playvalorant.com/pt-br/agents/cypher/"
+  ],
+  "cn": {
+    "endpoint": "https://api.val.qq.com/go/agame/graphql/graphiQL",
+    "agentId": 10,
+    "trapwireVid": "p1281w45qyv"
+  },
+  "hero": {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/c5fc45f615ff1f0ca2ea71a69510316639c49ad7-5120x1772.png?accountingTag=VAL",
+    "crop": {
+      "left": 2270,
+      "top": 0,
+      "width": 1600,
+      "height": 1772
+    }
+  },
+  "abilities": [
+    {
+      "key": "trapwire",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/df43766f56e1e844ed1b179722c9444a1bd1d45c-128x128.png?accountingTag=VAL",
+      "video": "https://v.qq.com/x/page/p1281w45qyv.html",
+      "posterSeconds": 2
+    },
+    {
+      "key": "cage",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/292fbe783ac9e2f638822c5f87f09b005b48a712-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/54a8dfaa9b82c7aaf994b0432bb25ef1e95c985c.mp4?accountingTag=VAL",
+      "posterSeconds": 2
+    },
+    {
+      "key": "spycam",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/eae012cb583a41bbc0de83f0963a40de58f5534f-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/825ba0643c74ad583350d1eb562bb7650ad78ae0.mp4?accountingTag=VAL",
+      "posterSeconds": 2
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/3e8e1779afeebd0612c019f8b2d41d7a984781b3-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/ddeaad5ff2e4865351755b71fdc4fc97339fb334.mp4?accountingTag=VAL",
+      "posterSeconds": 2
+    }
+  ],
+  "gallery": {
+    "url": "https://www.youtube.com/watch?v=9N_iC-Yc0FA",
+    "channel": "VALORANT (verified)",
+    "title": "CHECKMATE // Cypher’s Revenge Game Mode Trailer",
+    "note": "April Fools special, not current normal gameplay",
+    "frames": [
+      {
+        "seconds": 6,
+        "key": "gesture"
+      },
+      {
+        "seconds": 10,
+        "key": "portrait"
+      }
+    ],
+    "captureCrop": {
+      "left": 16,
+      "top": 115,
+      "width": 822,
+      "height": 369
+    },
+    "output": "960x540 center crop"
+  },
+  "patches": [
+    "https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-0-50/",
+    "https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-11-08/",
+    "https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-13-00/"
+  ]
+}
