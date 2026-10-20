@@ -5,8 +5,8 @@ export const YORU_GENERATOR_SETTINGS = Object.freeze({
   colorPreset: '8', customColor: '#66a3ff',
   outline: true, outlineOpacity: 0.7, outlineThickness: 1,
   dot: false, dotOpacity: 1, dotSize: 2,
-  inner: true, innerOpacity: 1, innerLength: 1, innerThickness: 5, innerOffset: 5,
-  outer: false, outerOpacity: 1, outerLength: 2, outerThickness: 1, outerOffset: 5,
+  inner: true, innerOpacity: 1, innerLength: 1, innerThickness: 5, innerOffset: 4,
+  outer: true, outerOpacity: 1, outerLength: 4, outerThickness: 1, outerOffset: 8,
   movementError: false, firingError: false,
 })
 const s = YORU_GENERATOR_SETTINGS
