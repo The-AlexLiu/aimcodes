@@ -1,0 +1,48 @@
+{
+  "high-tide.mp4": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/1705161e278ec0d669e17e3392ece2cfb3555316.mp4?accountingTag=VAL",
+  "high-tide.png": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/113687d2d723a44d435c3fb0490b55ac51560bfd-128x128.png?accountingTag=VAL",
+  "high-tide-poster.jpg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/a359aff73b34c5519a404a574a7bb94cd8c67a49-1920x1080.jpg?accountingTag=VAL",
+  "storm-surge.mp4": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/e8a2822075831bdda3b1a121a569c61cb865eb59.mp4?accountingTag=VAL",
+  "storm-surge.png": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/95fee21657c2d93ebc45991e01e7ecd24cfb8de5-128x128.png?accountingTag=VAL",
+  "storm-surge-poster.jpg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/3961811a7fb0eca2ca06e7274e0d9f78e14713b2-1920x1080.jpg?accountingTag=VAL",
+  "cove.mp4": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/ba5abcf93cae8d9dfacaac56862dd400407d416e.mp4?accountingTag=VAL",
+  "cove.png": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7788537e17e3d4f486c2187bc2608a877a4fa0a3-128x128.png?accountingTag=VAL",
+  "cove-poster.jpg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7f29d51df2649d915502652e3a7d7ceda69494fe-1920x1080.jpg?accountingTag=VAL",
+  "ultimate.mp4": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/820946b15b9a68ca46270d44363574dc634b8c1f.mp4?accountingTag=VAL",
+  "ultimate.png": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/6aef01d0fab39b3a05756749692a3508880bbde4-128x128.png?accountingTag=VAL",
+  "ultimate-poster.jpg": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/0a17213a9858ab8d5a7726e37843ba5c567d66db-1920x1080.jpg?accountingTag=VAL",
+  "cinematic": {
+    "url": "https://www.youtube.com/watch?v=qRao6FARFRo",
+    "channel": "VALORANT",
+    "capturedAt": "2026-10-20",
+    "videoPixels": [
+      1920,
+      818
+    ],
+    "screenCrop": {
+      "left": 0,
+      "top": 56,
+      "width": 1200,
+      "height": 511
+    },
+    "hero": {
+      "time": 125,
+      "resize": [
+        1920,
+        1080
+      ],
+      "fit": "cover left"
+    },
+    "gallery": [
+      {
+        "file": "bracelet.webp",
+        "time": 123
+      },
+      {
+        "file": "water.webp",
+        "time": 165
+      }
+    ],
+    "note": "Pure video region from the official normal watch page; no player controls or captions; selected after visual inspection."
+  }
+}
