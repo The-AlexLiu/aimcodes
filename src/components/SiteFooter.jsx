@@ -1,3 +1,4 @@
+import { agentsCopy } from '../seo/agentsContent.js'
 import { useEffect, useState } from 'react'
 import { routePath } from '../seo/routes.js'
 import { playbookLabel } from '../seo/playbookLabels.js'
@@ -60,6 +61,7 @@ export default function SiteFooter({ locale }) {
             <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })}>{content.small}</a>
           </FooterColumn>
           <FooterColumn label={content.resources}>
+            <a href={routePath(locale, { type: 'agents' })}>{agentsCopy(locale).nav}</a>
             <a href={routePath(locale, { type: 'tool', toolKey: 'playbook' })}>{playbookLabel(locale)}</a>
             <a href={routePath(locale, { type: 'finder' })}>{content.finder}</a>
             <a href={routePath(locale, { type: 'guide' })}>{content.guide}</a>

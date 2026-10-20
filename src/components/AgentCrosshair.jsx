@@ -9,6 +9,12 @@ export default function AgentCrosshair({ locale, onCopy, theme, crosshair, copy 
   const [zoom, setZoom] = useState(false)
   const [copied, setCopied] = useState(false)
   const sectionRef = useRef(null)
+  useEffect(() => {
+    // The detail component loads asynchronously, after the browser's first hash scroll.
+    if (window.location.hash !== `#${theme}-crosshair-title`) return
+    const frame = requestAnimationFrame(() => sectionRef.current?.scrollIntoView({ block: 'start' }))
+    return () => cancelAnimationFrame(frame)
+  }, [theme])
   const mapIndex = previewBackgroundOptions.findIndex(map => map.value === background)
   const map = previewBackgroundOptions[mapIndex]
   useEffect(() => {
@@ -31,7 +37,7 @@ export default function AgentCrosshair({ locale, onCopy, theme, crosshair, copy 
     if (success) setCopied(true)
   }
   return (
-    <section ref={sectionRef} className="hush-crosshair hush-section" id={theme === 'sage' ? 'crosshair' : undefined} aria-labelledby={`${theme}-crosshair-title`}>
+    <section ref={sectionRef} className="hush-crosshair hush-section" style={{ scrollMarginTop: 96 }} id={theme === 'sage' ? 'crosshair' : undefined} aria-labelledby={`${theme}-crosshair-title`}>
       <div className="hush-crosshair-preview">
         <div className="hush-crosshair-map">
           <img src={map.image} alt={copy.maps[mapIndex]} width="914" height="514" loading="lazy" />

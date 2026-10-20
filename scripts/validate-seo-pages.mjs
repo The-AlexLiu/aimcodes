@@ -34,6 +34,7 @@ for (const locale of Object.keys(localeRoutes)) {
   const localizedCrosshairs = catalogCrosshairs.map((item) => localizeCrosshair(item, locale, t))
   const routes = [
     { type: 'home' },
+    { type: 'agents' },
     { type: 'catalog' },
     { type: 'players' },
     { type: 'finder' },

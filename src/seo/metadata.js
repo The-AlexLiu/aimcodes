@@ -1,3 +1,4 @@
+import { agentsCopy } from './agentsCollectionContent.js'
 import { VETO_OG_IMAGE, VETO_UPDATED_AT, vetoArticleCopy } from './vetoContent.js'
 import { VYSE_OG_IMAGE, VYSE_UPDATED_AT, vyseArticleCopy } from './vyseContent.js'
 import { DEADLOCK_OG_IMAGE, DEADLOCK_UPDATED_AT, deadlockArticleCopy } from './deadlockContent.js'
@@ -185,7 +186,11 @@ export function routeMetadata(locale, route, crosshair) {
   let title = localized.meta.homeTitle
   let description = localized.meta.homeDescription
 
-  if (route.type === 'catalog') {
+  if (route.type === 'agents') {
+    const content = agentsCopy(locale)
+    title = content.metaTitle
+    description = content.intro
+  } else if (route.type === 'catalog') {
     title = localized.meta.catalogTitle
     description = localized.meta.catalogDescription
   } else if (route.type === 'players') {

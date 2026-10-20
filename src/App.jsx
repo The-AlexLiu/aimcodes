@@ -31,6 +31,7 @@ const CrosshairFinder = lazy(() => import('./components/CrosshairFinder.jsx'))
 const CrosshairSeoDetails = lazy(() => import('./components/CrosshairSeoDetails.jsx'))
 const CrosshairToolsPage = lazy(() => import('./components/CrosshairToolsPage.jsx'))
 const ValorantPlaybookPage = lazy(() => import('./components/ValorantPlaybookPage.jsx'))
+const AgentsCollectionPage = lazy(() => import('./components/AgentsCollectionPage.jsx'))
 const HomeResourceDirectory = lazy(() => import('./components/HomeResourceDirectory.jsx'))
 const ImportGuide = lazy(() => import('./components/ImportGuide.jsx'))
 const SeoArticlePage = lazy(() => import('./components/SeoArticlePage.jsx'))
@@ -454,7 +455,7 @@ export default function App() {
         t={t}
       />
 
-      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' || route.type === 'paid' ? 'guide-main' : ''}>
+      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'agents' || route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' || route.type === 'paid' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -462,6 +463,8 @@ export default function App() {
             <p>{seoCopy(language).notFound.body}</p>
             <a className="primary-button" href={routePath(language, { type: 'catalog' })}>{seoCopy(language).notFound.action}</a>
           </section>
+        ) : route.type === 'agents' ? (
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><AgentsCollectionPage locale={language} /></Suspense>
         ) : route.type === 'players' ? (
           <RouteLoading label={t('loading.route')} />
         ) : route.type === 'guide' ? (

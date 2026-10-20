@@ -16,11 +16,12 @@ import {
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const reportRoot = resolve(projectRoot, '.aimcodes-reports/current')
-const routeTypes = ['home', 'catalog', 'players', 'finder', 'guide', 'collection', 'article', 'tool', 'trust', 'crosshair']
+const routeTypes = ['agents', 'home', 'catalog', 'players', 'finder', 'guide', 'collection', 'article', 'tool', 'trust', 'crosshair']
 
 function routesForLocale() {
   return [
     { type: 'home' },
+    { type: 'agents' },
     { type: 'catalog' },
     { type: 'players' },
     { type: 'finder' },
