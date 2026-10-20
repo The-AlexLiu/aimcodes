@@ -1,5 +1,6 @@
 import BreachAgentPage from './BreachAgentPage.jsx'
 import YoruAgentPage from './YoruAgentPage.jsx'
+import SovaAgentPage from './SovaAgentPage.jsx'
 import IsoAgentPage from './IsoAgentPage.jsx'
 import WaylayAgentPage from './WaylayAgentPage.jsx'
 import NeonAgentPage from './NeonAgentPage.jsx'
@@ -25,6 +26,7 @@ import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
   if (articleKey === 'yoru') return <YoruAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'sova') return <SovaAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'iso') return <IsoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'waylay') return <WaylayAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'breach') return <BreachAgentPage locale={locale} onCopy={onCopy} />
