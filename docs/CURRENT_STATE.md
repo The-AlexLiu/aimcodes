@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：霓虹英雄页（已授权发布，待正式核验）
+
+独立分支 `codex/neon-agent-page`，基线 `ebfa6f8`。新增五语 `/valorant-neon/`、四段官方技能、Spark人物图集与青蓝短粗内标配细长外线准星。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户已明确授权制作后直接发布；需待PR预览、CI及Cloudflare正式域名版本核验后认定上线。完整来源与验收见 `docs/NEON_RELEASE_2026-10-20.md`。保留原混合工作树；未改旧英雄、目录或追踪/支付/部署配置。
+
 ## 2026-10-20：芮娜英雄页（已授权发布，待正式核验）
 
 分支 `codex/reyna-agent-preview`，基线 `177a6b4`，独立工作目录。新增五语 `/valorant-reyna/`、官方四技能演示、动画图集与紫色细线方框准星，复用共享英雄组件。五语均 noindex,follow、自 canonical、无 hreflang、排除 Sitemap；用户已授权发布当前页面，需待PR、Cloudflare与正式域名核验后认定上线；索引保持关闭。来源、索引决策与验收见 `docs/REYNA_PREVIEW_2026-10-20.md`。
