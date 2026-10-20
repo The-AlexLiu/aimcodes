@@ -2,7 +2,7 @@
 
 ## 2026-10-20：幻棱英雄页（已授权发布，待正式核验）
 
-独立分支 `codex/waylay-agent-page`，基线 `df820d6`。新增五语 `/valorant-waylay/`、官方四技能与Dawn Breaks人物图集、浅金粗十字配四枚外点准星，复用共享英雄组件。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确要求制作后直接发布；待PR预览、CI和正式域名版本核验后认定上线。来源与验收见 `docs/WAYLAY_RELEASE_2026-10-20.md`。保留原混合工作树，未改旧英雄、目录、追踪、支付或托管配置。
+独立分支 `codex/waylay-agent-page`，基线 `df820d6`。新增五语 `/valorant-waylay/`、官方四技能与Dawn Breaks人物图集、浅金连通长十字配四枚外点准星，复用共享英雄组件。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确要求制作后直接发布；待PR预览、CI和正式域名版本核验后认定上线。来源与验收见 `docs/WAYLAY_RELEASE_2026-10-20.md`。保留原混合工作树，未改旧英雄、目录、追踪、支付或托管配置。
 
 ## 2026-10-20：霓虹英雄页（已授权发布，待正式核验）
 

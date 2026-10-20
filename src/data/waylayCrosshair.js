@@ -5,8 +5,8 @@ export const WAYLAY_GENERATOR_SETTINGS = Object.freeze({
   colorPreset: '8', customColor: '#ffe9a0',
   outline: true, outlineOpacity: 0.7, outlineThickness: 1,
   dot: false, dotOpacity: 1, dotSize: 2,
-  inner: true, innerOpacity: 1, innerLength: 3, innerThickness: 4, innerOffset: 0,
-  outer: true, outerOpacity: 1, outerLength: 1, outerThickness: 1, outerOffset: 8,
+  inner: true, innerOpacity: 1, innerLength: 6, innerThickness: 2, innerOffset: 0,
+  outer: true, outerOpacity: 1, outerLength: 1, outerThickness: 1, outerOffset: 12,
   movementError: false, firingError: false,
 })
 const s = WAYLAY_GENERATOR_SETTINGS
