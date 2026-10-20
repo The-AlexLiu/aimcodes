@@ -26,10 +26,14 @@ function drawLineSet(ctx, centerX, centerY, line, color, scale, outline) {
   const verticalOffset = line.offset * scale + verticalLength / 2
   const outlineWidth = Math.max(1, Math.round(outline.thickness * Math.max(1, scale * 0.5)))
 
-  drawRect(ctx, centerX, centerY - verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
-  drawRect(ctx, centerX, centerY + verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
-  drawRect(ctx, centerX - horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
-  drawRect(ctx, centerX + horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
+  if (verticalLength > 0) {
+    drawRect(ctx, centerX, centerY - verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
+    drawRect(ctx, centerX, centerY + verticalOffset, thickness, verticalLength, color, line.opacity, outline, outlineWidth)
+  }
+  if (horizontalLength > 0) {
+    drawRect(ctx, centerX - horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
+    drawRect(ctx, centerX + horizontalOffset, centerY, horizontalLength, thickness, color, line.opacity, outline, outlineWidth)
+  }
 }
 
 export default function CrosshairCanvas({ crosshair, scale = 1, className = '', label }) {

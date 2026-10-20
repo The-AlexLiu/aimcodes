@@ -1,3 +1,4 @@
+import { gekkoArticleCopy } from '../seo/gekkoContent.js'
 import { fadeArticleCopy } from '../seo/fadeContent.js'
 import { astraArticleCopy } from '../seo/astraContent.js'
 import { skyeArticleCopy } from '../seo/skyeContent.js'
@@ -164,6 +165,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link astra-home-link" href={routePath(locale, { type: 'article', articleKey: 'astra' })}>{astraArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link fade-home-link" href={routePath(locale, { type: 'article', articleKey: 'fade' })}>{fadeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link tejo-home-link" href={routePath(locale, { type: 'article', articleKey: 'tejo' })}>{tejoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link gekko-home-link" href={routePath(locale, { type: 'article', articleKey: 'gekko' })}>{gekkoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link kayo-home-link" href={routePath(locale, { type: 'article', articleKey: 'kayo' })}>{kayoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link breach-home-link" href={routePath(locale, { type: 'article', articleKey: 'breach' })}>{breachArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link skye-home-link" href={routePath(locale, { type: 'article', articleKey: 'skye' })}>{skyeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>

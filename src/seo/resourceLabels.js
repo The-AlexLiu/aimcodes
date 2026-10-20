@@ -1,3 +1,4 @@
+import { gekkoArticleCopy } from './gekkoContent.js'
 import { fadeArticleCopy } from './fadeContent.js'
 import { astraArticleCopy } from './astraContent.js'
 import { skyeArticleCopy } from './skyeContent.js'
@@ -57,6 +58,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'astra') return astraArticleCopy(locale).title
   if (articleKey === 'fade') return fadeArticleCopy(locale).title
   if (articleKey === 'tejo') return tejoArticleCopy(locale).title
+  if (articleKey === 'gekko') return gekkoArticleCopy(locale).title
   if (articleKey === 'kayo') return kayoArticleCopy(locale).title
   if (articleKey === 'skye') return skyeArticleCopy(locale).title
   if (articleKey === 'breach') return breachArticleCopy(locale).title
