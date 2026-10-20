@@ -1,0 +1,43 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.deadlock-page{--deadlock-accent:#e7f3e8;--hush-pink:var(--deadlock-accent);--hush-border:#698879;color:#f0f8ff}
+.hush-page.deadlock-page .hush-hero{background:#26332e}
+.hush-page.deadlock-page .hush-hero-art{left:40%;width:60%;object-position:65% center;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.deadlock-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.deadlock-page h2,.hush-page.deadlock-page h3{color:#f0f8ff}
+.hush-page.deadlock-page p,.hush-page.deadlock-page li{color:#c6d9e3}
+.hush-page.deadlock-page .hush-eyebrow,.hush-page.deadlock-page .hush-ability-heading h3{color:var(--deadlock-accent)}
+.hush-page.deadlock-page .hush-primary{background:var(--deadlock-accent);color:#171333}
+.hush-page.deadlock-page .hush-primary:hover{background:#ffffff;color:#171333}
+.hush-page.deadlock-page .hush-secondary{border-color:#6d8f9e;color:#f0f8ff}
+.hush-page.deadlock-page .hush-secondary:hover{border-color:var(--deadlock-accent);color:var(--deadlock-accent)}
+.hush-page.deadlock-page .hush-ability{background:linear-gradient(145deg,#25352f,#10151e);border-color:var(--hush-border);border-top-color:#e7f3e8}
+.hush-page.deadlock-page .hush-ability-description>p{color:#edf7ff}
+.hush-page.deadlock-page .hush-ability-description .hush-controls{color:#c6d9e3}
+.hush-page.deadlock-page .hush-binding img{object-fit:contain;background:#20313b;padding:5px}
+.hush-page.deadlock-page .hush-binding small,.hush-page.deadlock-page .hush-gallery-heading>span,.hush-page.deadlock-page .hush-crosshair-map-picker{color:#b2c8d4}
+.hush-page.deadlock-page .hush-ability-media video,.hush-page.deadlock-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.deadlock-page .hush-play-symbol{background:var(--deadlock-accent);color:#171333}
+.hush-page.deadlock-page .hush-video-label{color:#f0f8ff}
+.hush-page.deadlock-page .hush-video-links a,.hush-page.deadlock-page .hush-crosshair-more{color:var(--deadlock-accent)}
+.hush-page.deadlock-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.deadlock-page .hush-demo-toggle{border-color:var(--hush-border);color:#e2f3ff;background:#293b33}
+.hush-page.deadlock-page .agent-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #698879;border-radius:8px;background:#111}
+.hush-page.deadlock-page .hush-gallery-grid figure{display:block}
+.hush-page.deadlock-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#20243c}
+.hush-page.deadlock-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.deadlock-page .hush-unlock summary,.hush-page.deadlock-page .hush-quick-facts dd{color:#edf7ff}
+.hush-page.deadlock-page .hush-quick-facts dt{color:#b2c8d4}
+.hush-page.deadlock-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#29392e,#1e2d29)}
+.hush-page.deadlock-page .hush-crosshair-map,.hush-page.deadlock-page .hush-crosshair :is(button,select){border-color:#6d8f9e}
+.hush-page.deadlock-page .hush-crosshair-map-picker select{background:#293b33;color:#f0f8ff}
+.hush-page.deadlock-page .hush-crosshair-zoom{color:var(--deadlock-accent);background:#293b33eb}
+.hush-page.deadlock-page .hush-crosshair-copy>p,.hush-page.deadlock-page .hush-crosshair-import{color:#c6d9e3}
+.hush-page.deadlock-page .hush-credit a{color:#a6becb}
+.hush-page.deadlock-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--deadlock-accent);outline-offset:4px}
+.hush-lightbox.deadlock-lightbox{border-color:#6d8f9e;background:#20313b}
+.hush-lightbox.deadlock-lightbox form button{border-color:#6d8f9e;background:#29392e}
+.hush-page.deadlock-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.deadlock-page .hush-hero-art{left:0;width:100%;object-position:65% 10%;mask-image:none}
+ .hush-page.deadlock-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}
