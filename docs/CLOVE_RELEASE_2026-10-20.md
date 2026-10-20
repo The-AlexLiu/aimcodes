@@ -36,7 +36,7 @@ GA4属性548356819，America/Los_Angeles，2026-09-22—10-19共28完整日，pa
 
 待记录正式构建、浏览器、PR/预览和生产版本。回滚使用只恢复本次文件的PR或Cloudflare已知部署版本，不覆盖其他工作树。
 
-本地：check:auto推荐并执行release，25/25通过。新增文档/聚焦测试后再次check:release，最终25/25通过（2026-10-20T06:25起，38.724秒）；中间一次进程收到SIGTERM退出143，未当成验证通过。已审阅verification.md和seo-scope.md。目录仍548源/540外观，主Sitemap1894、准星1585、图片1739，索引范围不变。test-clove-agent及Skill辅助检查通过，含五语静态H1/canonical/noindex/hreflang/Sitemap、完整代码往返和23英雄几何差异。
+本地：check:auto推荐并执行release，25/25通过。新增文档/聚焦测试后再次check:release，最终25/25通过（2026-10-20T06:24:14Z起，38.724秒）；中间一次进程收到SIGTERM退出143，未当成验证通过。已审阅verification.md和seo-scope.md。目录仍548源/540外观，主Sitemap1894、准星1585、图片1739，索引范围不变。test-clove-agent及Skill辅助检查通过，含五语静态H1/canonical/noindex/hreflang/Sitemap、完整代码往返和23英雄几何差异。
 
 Ego正式构建：1440px和390px无横向溢出，H1分别64/40px；首图人物/文字可见。四技能readyState4，时长16.68/9.17/40.93/36.95秒，各播放推进约0.35秒；合辑103.73秒推进0.35秒。灯箱打开、Esc关闭、焦点返回通过。Haven地图、5×、原生剪贴板写入成功反馈通过，代码与实际生成器.tool-preview-panel code逐字一致。未在游戏客户端导入，不声称游戏内导入验证。
 
