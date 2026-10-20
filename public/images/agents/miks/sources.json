@@ -1,0 +1,77 @@
+[
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/45c98b9b7d4dab07ccfd0e79c563870434dbe130-128x128.png?accountingTag=VAL",
+    "file": "harmonize.png"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/793ce0c21d1f56ba3757c28690082e06360cf64b-1920x1080.jpg?accountingTag=VAL",
+    "file": "harmonize-poster.jpg"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/7fe1ccd5f450d0e4734c4452cedca5bf6fa818fc.mp4?accountingTag=VAL",
+    "file": "harmonize.mp4"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/a11a9e00362ca314ea30100e144f226b71a8e607-128x128.png?accountingTag=VAL",
+    "file": "waveform.png"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/0670e5d770171f520c1f3d540fac6dddb49ba4e5-1920x1080.jpg?accountingTag=VAL",
+    "file": "waveform-poster.jpg"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/aba82134b8cf0f62eb0ba80daa9b6d86380e2348.mp4?accountingTag=VAL",
+    "file": "waveform.mp4"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/71767977d350517150b1d447240032079b975a4e-128x128.png?accountingTag=VAL",
+    "file": "m-pulse.png"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/12d80fe9b0fabb36f30e3784f1f9ecb3ddacc3e0-1920x1080.jpg?accountingTag=VAL",
+    "file": "m-pulse-poster.jpg"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/71696d85f7392dc2dbbefbf7d6d53b478dd50d1e.mp4?accountingTag=VAL",
+    "file": "m-pulse.mp4"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/1b07902e2322e1f4614c4fd10b508ad9a0a6a4ee-128x128.png?accountingTag=VAL",
+    "file": "ultimate.png"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/09edfc3a4146017bd2b19560b4dbc1f6d743860d-1920x1080.jpg?accountingTag=VAL",
+    "file": "ultimate-poster.jpg"
+  },
+  {
+    "url": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/460f601d6928013be29591766945f2d6bd4759e2.mp4?accountingTag=VAL",
+    "file": "ultimate.mp4"
+  },
+  {
+    "url": "https://playvalorant.com/en-us/agents/miks/",
+    "asset": "hero.webp / og.jpg",
+    "note": "official masthead illustration; cover crop right"
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=gictwC-KlTk",
+    "channel": "VALORANT verified",
+    "collected": "2026-10-20",
+    "capture": {
+      "left": 0,
+      "top": 121,
+      "width": 1200,
+      "height": 504
+    },
+    "gallery": [
+      {
+        "file": "gallery/hood.webp",
+        "seconds": 50.3
+      },
+      {
+        "file": "gallery/sound.webp",
+        "seconds": 159.3
+      }
+    ],
+    "note": "Ego normal watch page capture after download returned 403; cropped player UI and black bars"
+  }
+]
