@@ -1,4 +1,5 @@
 import { yoruArticleCopy } from './yoruContent.js'
+import { isoArticleCopy } from './isoContent.js'
 import { waylayArticleCopy } from './waylayContent.js'
 import { neonArticleCopy } from './neonContent.js'
 import { reynaArticleCopy } from './reynaContent.js'
@@ -43,6 +44,7 @@ function localizedLabels(locale) {
 
 export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'yoru') return yoruArticleCopy(locale).title
+  if (articleKey === 'iso') return isoArticleCopy(locale).title
   if (articleKey === 'waylay') return waylayArticleCopy(locale).title
   if (articleKey === 'neon') return neonArticleCopy(locale).title
   if (articleKey === 'reyna') return reynaArticleCopy(locale).title
