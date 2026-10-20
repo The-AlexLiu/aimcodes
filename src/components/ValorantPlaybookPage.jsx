@@ -611,9 +611,9 @@ export default function ValorantPlaybookPage({ locale }) {
 
   return (
     <article className="crosshair-tool-page playbook-page">
-      <SeoBreadcrumbs locale={locale} section="tools" current={seo.title} />
+      <SeoBreadcrumbs locale={locale} current={seo.title} />
       <header className="playbook-hero">
-        <span>{seo.eyebrow}</span>
+
         <h1>{seo.title}</h1>
         <p>{seo.intro}</p>
       </header>

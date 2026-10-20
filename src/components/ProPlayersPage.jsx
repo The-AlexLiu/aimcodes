@@ -16,7 +16,7 @@ export default function ProPlayersPage({ locale, crosshairs }) {
         <a href={routePath(locale, { type: 'home' })}>AimCodes</a><span>/</span><span>{copy.breadcrumb}</span>
       </nav>
       <header className="pro-players-hero">
-        <span>{copy.eyebrow}</span>
+
         <h1>{copy.title}</h1>
         <p>{copy.intro}</p>
       </header>

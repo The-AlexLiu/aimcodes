@@ -1,3 +1,4 @@
+import { breadcrumbCopy } from '../src/seo/breadcrumbs.js'
 import { access, readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -111,7 +112,7 @@ for (const locale of Object.keys(localeRoutes)) {
       if (route.type === 'collection') {
         if (!html.includes('"@type":"FAQPage"')) errors.push(`${path}: FAQPage structured data missing`)
         if (!html.includes(`<h2>${escapeHtml({ en: 'Common questions', es: 'Preguntas habituales', 'pt-BR': 'Dúvidas comuns', 'zh-CN': '大家常问', ja: 'よくある質問' }[locale])}</h2>`)) errors.push(`${path}: localized FAQ heading missing from initial HTML`)
-        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
+        if (!html.includes(`<nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}">`)) errors.push(`${path}: visible breadcrumb missing`)
         for (const id of crosshairCollections[route.collectionKey].crosshairIds) {
           const item = localizedCrosshairs.find((crosshairItem) => crosshairItem.id === id)
           if (!item || !html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing collection link for ${id}`)
@@ -138,7 +139,7 @@ for (const locale of Object.keys(localeRoutes)) {
         if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: article BreadcrumbList missing`)
         if (article.faq.length && !html.includes('"@type":"FAQPage"')) errors.push(`${path}: article FAQPage missing`)
         if (!article.faq.length && html.includes('"@type":"FAQPage"')) errors.push(`${path}: empty article FAQPage must be omitted`)
-        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
+        if (!html.includes(`<nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}">`)) errors.push(`${path}: visible breadcrumb missing`)
         if (route.articleKey === 'statistics' && !html.includes('"@type":"Dataset"')) errors.push(`${path}: Dataset structured data missing`)
         for (const id of article.recommendedCrosshairIds) {
           if (!html.includes(routePath(locale, { type: 'crosshair', crosshairId: id }))) errors.push(`${path}: missing recommended crosshair link for ${id}`)
@@ -148,7 +149,7 @@ for (const locale of Object.keys(localeRoutes)) {
         const tool = seoToolCopy(locale, route.toolKey)
         if (!html.includes('"@type":"WebApplication"')) errors.push(`${path}: WebApplication structured data missing`)
         if (!html.includes('"@type":"BreadcrumbList"')) errors.push(`${path}: tool BreadcrumbList missing`)
-        if (!html.includes('<nav aria-label="Breadcrumb">')) errors.push(`${path}: visible breadcrumb missing`)
+        if (!html.includes(`<nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}">`)) errors.push(`${path}: visible breadcrumb missing`)
         if (!html.includes(escapeHtml(tool.intro))) errors.push(`${path}: tool intro missing from initial HTML`)
       }
       if (route.type === 'trust') {

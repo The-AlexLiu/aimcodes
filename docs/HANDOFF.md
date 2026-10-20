@@ -1,3 +1,10 @@
+## 2026-10-20：页面标注清理与细节巡检（已授权发布）
+
+- 分支 `codex/page-label-detail-audit`，基线/最后已发布提交 `9b166a7`；用户已明确授权“可以发布”；后续 PR、CI、Cloudflare 及线上结果以本次发布 PR 的核验记录为准。
+- 移除五语页面主标题前的重复标注；英雄面包屑改为图鉴层级，合并重复返回入口；教程/工具移除虚假的上级栏目；本地化面包屑名称，并同步静态 HTML/结构化数据。
+- 图鉴 320px 精选按钮触控宽度提升至约 44.4px。全量 3315 HTML 检查、67 URL × 2 宽度浏览器巡检、图鉴筛选/清除及主题准星深链检查；完整验证报告位于 `.aimcodes-reports/current/verification.md`。
+- 详见 `docs/PAGE_DETAIL_AUDIT_2026-10-20.md`。预览 `http://127.0.0.1:4176/zh-cn/valorant-agents/?qa=1&v=detail-clean1`；发布流程为 PR、CI 和云端预览通过后合并，再核对正式版本及 Sitemap；原工作树和其他任务保留，分析和搜索后台配置不变。
+
 # 2026-10-20 首页加载与英雄索引交付
 
 分支 `codex/home-performance-indexing`，基于已上线的 PR #125（`85fb00c`）。图片优化与用户本次明确要求的近期英雄/图鉴五语索引修复一起交付：155 个目标 URL、净增 151 个可索引 URL，主 Sitemap 2045。独立授权快照和搜索意图门见 `HERO_INDEXING_2026-10-20.md/json`，加载优化见 `HOME_IMAGE_LOADING_2026-10-20.md`。正式提交和发布证据见本次 PR；Google/Bing Sitemap 必须在正式版本可访问后提交并读回。

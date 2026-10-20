@@ -7,7 +7,7 @@ export default function TrustPage({ locale, pageKey }) {
   return (
     <article className="trust-page">
       <header className="trust-hero">
-        <span>{content.eyebrow}</span>
+
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
         <time dateTime={TRUST_UPDATED_AT}>{content.updated}: {TRUST_UPDATED_AT}</time>

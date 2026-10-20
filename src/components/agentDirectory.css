@@ -25,8 +25,6 @@
 .home-agent-arrow { position:absolute; right:12px; bottom:12px; font-size:17px; color:var(--agent-tone); }
 .home-agent-tile:hover { border-color:var(--agent-tone); }
 .home-agents :is(a,button,[tabindex]):focus-visible { outline:2px solid #c5e8ad; outline-offset:2px; }
-.agent-directory-return { max-width:1160px; margin:0 auto; padding:24px 24px 0; }
-.agent-directory-return a { color:#bad0db; font-size:14px; text-underline-offset:4px; }
 @media(max-width:600px) {
  .home-agents-heading { display:block; margin-bottom:18px; } .home-agents-all { display:inline-block; margin-top:16px; } .home-agents-heading p { font-size:13px; }
  .home-agent-tile { width:200px; flex-basis:200px; height:155px; } .home-agent-tile:nth-child(3n+2) { width:224px; flex-basis:224px; }
