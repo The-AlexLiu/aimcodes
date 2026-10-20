@@ -1,5 +1,10 @@
 # AimCodes 当前状态
 
+## 2026-10-20：幻棱英雄页（已授权发布，待正式核验）
+
+独立分支 `codex/waylay-agent-page`，基线 `df820d6`。新增五语 `/valorant-waylay/`、官方四技能与Dawn Breaks人物图集、浅金连通长十字配四枚外点准星，复用共享英雄组件。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确要求制作后直接发布；待PR预览、CI和正式域名版本核验后认定上线。来源与验收见 `docs/WAYLAY_RELEASE_2026-10-20.md`。保留原混合工作树，未改旧英雄、目录、追踪、支付或托管配置。
+
+
 ## 2026-10-20：壹决英雄页（已授权发布，待正式核验）
 
 独立分支`codex/iso-agent-page`，基线`df820d6`。新增五语`/valorant-iso/`、官方四技能图标/演示、MYTHS角色动画与双图灯箱、紫色双层方环准星。五语均noindex,follow、自canonical、无hreflang、不入Sitemap；用户明确授权完成后直接发布，正式版本核验后才认定上线。保留原混合工作树与旧英雄配置；来源、索引及验收见`docs/ISO_RELEASE_2026-10-20.md`。

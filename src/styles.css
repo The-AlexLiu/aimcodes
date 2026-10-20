@@ -2592,3 +2592,7 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.iso-home-link { border-color: #554476; background: linear-gradient(100deg, #352446, #1c1529); color: #c6afff; }
 .hush-home-link.iso-home-link:hover { border-color: #c6afff; }
 .hush-home-link.iso-home-link:focus-visible { outline-color: #c6afff; }
+
+.hush-home-link.waylay-home-link { border-color: #685840; background: linear-gradient(100deg, #342d22, #201c19); color: #ffe9a0; }
+.hush-home-link.waylay-home-link:hover { border-color: #ffe9a0; }
+.hush-home-link.waylay-home-link:focus-visible { outline-color: #ffe9a0; }
