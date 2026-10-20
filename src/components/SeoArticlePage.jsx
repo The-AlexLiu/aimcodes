@@ -1,3 +1,4 @@
+import ReynaAgentPage from './ReynaAgentPage.jsx'
 import JettAgentPage from './JettAgentPage.jsx'
 import RazeAgentPage from './RazeAgentPage.jsx'
 import ChamberAgentPage from './ChamberAgentPage.jsx'
@@ -18,6 +19,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'reyna') return <ReynaAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'jett') return <JettAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'raze') return <RazeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'chamber') return <ChamberAgentPage locale={locale} onCopy={onCopy} />
