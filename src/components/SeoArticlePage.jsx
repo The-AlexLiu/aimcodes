@@ -1,4 +1,6 @@
 import HarborAgentPage from './HarborAgentPage.jsx'
+
+import GekkoAgentPage from './GekkoAgentPage.jsx'
 import FadeAgentPage from './FadeAgentPage.jsx'
 import AstraAgentPage from './AstraAgentPage.jsx'
 import TejoAgentPage from './TejoAgentPage.jsx'
@@ -39,6 +41,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   if (articleKey === 'harbor') return <HarborAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'fade') return <FadeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'tejo') return <TejoAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'gekko') return <GekkoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'kayo') return <KayoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'skye') return <SkyeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'breach') return <BreachAgentPage locale={locale} onCopy={onCopy} />
