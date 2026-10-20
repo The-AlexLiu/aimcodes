@@ -57,6 +57,13 @@ test('published agent directories and details are indexable in all five locales;
       const detail = await readFile(resolve(root, 'dist', detailPath.slice(1), 'index.html'), 'utf8')
       assert.ok(detail.includes('content="index,follow,max-image-preview:large"'))
       assert.ok(detail.includes(`rel="canonical" href="https://aimcodes.com${detailPath}"`))
+      const graph = JSON.parse(detail.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph']
+      const breadcrumb = graph.find(item => item['@type'] === 'BreadcrumbList')
+      assert.deepEqual(breadcrumb.itemListElement.map(item => item.item), [
+        `https://aimcodes.com${routePath(locale, { type: 'home' })}`,
+        `https://aimcodes.com${path}`,
+        `https://aimcodes.com${detailPath}`,
+      ])
     }
     const home = await readFile(resolve(root, 'dist', routePath(locale, { type: 'home' }).slice(1), 'index.html'), 'utf8')
     const linkedAgents = agentDirectory.filter((agent) => home.includes(`href="${routePath(locale, { type: 'article', articleKey: agent.id })}"`))

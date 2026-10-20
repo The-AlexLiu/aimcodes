@@ -20,7 +20,7 @@ export default function AgentsCollectionPage({ locale }) {
 
   return <article className="agents-page">
     <SeoBreadcrumbs locale={locale} current={copy.directory} />
-    <header className="agents-heading"><div><p>{copy.eyebrow}</p><h1>{copy.title}</h1></div><p>{copy.intro}</p></header>
+    <header className="agents-heading"><div><h1>{copy.title}</h1></div><p>{copy.intro}</p></header>
     <section className="agents-stage" style={{ '--agent-accent': selected.crosshair.color }} aria-label={copy.preview}>
       <img key={selected.id} className="agents-stage-art" src={selected.image} alt="" width="1920" height="1080" fetchPriority="high" />
       <div className="agents-stage-shade" />

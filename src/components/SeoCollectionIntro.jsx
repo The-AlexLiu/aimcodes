@@ -9,7 +9,7 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
   return (
     <section className={`seo-page-intro is-collection${collectionKey === 'funny' ? ' is-funny' : ''}`}>
       <SeoBreadcrumbs locale={locale} section="crosshairs" current={content.title} />
-      <span>{content.eyebrow}</span>
+
       <h1>{content.title}</h1>
       <p>{content.intro}</p>
       {content.quickPicks?.length > 0 && (

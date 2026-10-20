@@ -202,8 +202,8 @@ export default function CrosshairToolsPage({ locale, toolKey, crosshairs, onCopy
   const copy = uiCopy[locale] || uiCopy.en
   return (
     <article className="crosshair-tool-page">
-      <SeoBreadcrumbs locale={locale} section="tools" current={content.title} />
-      <header><span>{content.eyebrow}</span><h1>{content.title}</h1><p>{content.intro}</p></header>
+      <SeoBreadcrumbs locale={locale} current={content.title} />
+      <header><h1>{content.title}</h1><p>{content.intro}</p></header>
       {toolKey === 'generator' && <Generator copy={copy} onCopy={onCopy} />}
       {(toolKey === 'decoder' || toolKey === 'preview') && <CodeTool copy={copy} mode={toolKey} crosshairs={crosshairs} onCopy={onCopy} />}
       {toolKey === 'comparison' && <Comparison copy={copy} crosshairs={crosshairs} onCopy={onCopy} />}

@@ -10,7 +10,7 @@ export default function ImportGuide({ locale }) {
   return (
     <article className="guide-page">
       <header>
-        <span>{content.eyebrow}</span>
+
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
       </header>

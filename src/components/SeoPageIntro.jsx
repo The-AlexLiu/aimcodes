@@ -11,7 +11,7 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
   return (
     <section className={`seo-page-intro is-${type}`}>
       <div className="seo-intro-copy">
-        {type !== 'home' && <span className="seo-intro-eyebrow">{content.eyebrow}</span>}
+
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
         {type === 'catalog' && (

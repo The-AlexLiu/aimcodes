@@ -1,5 +1,4 @@
 import './agentDirectory.css'
-import { agentsCopy } from '../seo/agentsContent.js'
 import DeadlockAgentPage from './DeadlockAgentPage.jsx'
 import VetoAgentPage from './VetoAgentPage.jsx'
 import VyseAgentPage from './VyseAgentPage.jsx'
@@ -76,14 +75,7 @@ const agentPages = {
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
   const AgentPage = agentPages[articleKey]
-  if (AgentPage) return (
-    <>
-      <nav className="agent-directory-return">
-        <a href={routePath(locale, { type: 'agents' })}>← {agentsCopy(locale).viewAll}</a>
-      </nav>
-      <AgentPage locale={locale} onCopy={onCopy} />
-    </>
-  )
+  if (AgentPage) return <AgentPage locale={locale} onCopy={onCopy} />
   const content = articleCopy(locale, articleKey)
   const labels = {
     en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions', tryCodes: 'Try working codes', openTool: 'Open the tool' },
@@ -106,9 +98,9 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
 
   return (
     <article className="seo-article-page">
-      <SeoBreadcrumbs locale={locale} section="guides" current={content.title} />
+      <SeoBreadcrumbs locale={locale} current={content.title} />
       <header className="seo-article-hero">
-        <span>{content.eyebrow}</span>
+
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
       </header>

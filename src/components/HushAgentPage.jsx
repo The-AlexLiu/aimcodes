@@ -98,11 +98,11 @@ export default function HushAgentPage({ locale, onCopy }) {
 
   return (
     <article className="hush-page">
-      <SeoBreadcrumbs locale={locale} section="guides" current={locale === 'zh-CN' ? '遐思' : 'Hush'} />
+      <SeoBreadcrumbs locale={locale} section="agents" current={locale === 'zh-CN' ? '遐思' : 'Hush'} />
       <header className="hush-hero">
         <img className="hush-hero-art" src={HUSH_IMAGE} alt={ui.imageAlt} width="1440" height="810" fetchPriority="high" />
         <div className="hush-hero-copy">
-          <span className="hush-eyebrow">{content.eyebrow}</span>
+
           <h1>{ui.heroTitle}</h1>
           <p>{content.intro}</p>
           <div className="hush-hero-actions">

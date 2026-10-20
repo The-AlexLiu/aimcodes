@@ -1,6 +1,5 @@
 .agents-page { max-width: 1240px; margin: 0 auto; padding: 20px 24px 80px; color: #edf1ed; }
 .agents-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin: 32px 0 28px; }
-.agents-heading > div > p { margin: 0 0 12px; color: #b8d98b; font: 700 11px/1.4 monospace; letter-spacing: .16em; }
 .agents-heading h1 { margin: 0; font-size: clamp(34px, 5vw, 66px); line-height: 1.1; letter-spacing: -.05em; }
 .agents-heading > p { max-width: 340px; margin: 0 0 4px; color: #a7b1ac; font-size: 14px; line-height: 1.7; }
 .agents-stage { position: relative; min-height: 510px; overflow: hidden; background: #151d21; border: 1px solid #34413d; isolation: isolate; }
@@ -65,7 +64,7 @@
   .agents-stage { min-height: 590px; } .agents-stage-art { height: 280px; object-position: center; } .agents-stage-shade { background: linear-gradient(0deg, #0c1419 0%, #0c1419 43%, #0c141938 100%); }
   .agents-stage-copy { max-width: 100%; padding: 185px 20px 100px; } .agents-stage h2 { font-size: 44px; margin: 12px 0; } .agents-stage-copy > p { font-size: 13px; } .agents-stage-abilities { margin-bottom: 18px; }
   .agents-stage-crosshair { top: 16px; right: 16px; bottom: auto; width: 86px; height: 86px; } .agents-stage-crosshair > span { top: 6px; font-size: 7px; }
-  .agents-featured { left: 14px; right: 14px; bottom: 14px; gap: 5px; } .agents-featured button { flex: 1; padding: 5px 2px; flex-direction: column; gap: 5px; font-size: 10px; } .agents-featured img { width: 32px; height: 32px; }
+  .agents-featured { left: 14px; right: 14px; bottom: 14px; gap: 3px; } .agents-featured button { flex: 1; min-width: 44px; padding: 5px 2px; flex-direction: column; gap: 5px; font-size: 10px; } .agents-featured img { width: 32px; height: 32px; }
   .agents-stage-actions { gap: 12px; } .agents-stage-actions a { gap: 10px; font-size: 12px; } .agents-primary { padding: 0 14px; }
   .agents-directory { margin-top: 34px; } .agents-directory-heading { align-items: stretch; flex-direction: column; gap: 18px; } .agents-search { width: auto; } .agents-filter-row { display: block; } .agents-filters { gap: 6px; } .agents-filters button { padding: 8px 12px; } .agents-count { display: block; margin-top: 14px; }
   .agents-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .agents-card-info { padding: 12px 10px; } .agents-card h3 { font-size: 18px; }
