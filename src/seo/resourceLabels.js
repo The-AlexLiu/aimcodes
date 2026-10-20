@@ -1,3 +1,4 @@
+import { cypherArticleCopy } from './cypherContent.js'
 import { miksArticleCopy } from './miksContent.js'
 import { harborArticleCopy } from './harborContent.js'
 import { cloveArticleCopy } from './cloveContent.js'
@@ -60,6 +61,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'iso') return isoArticleCopy(locale).title
   if (articleKey === 'waylay') return waylayArticleCopy(locale).title
   if (articleKey === 'astra') return astraArticleCopy(locale).title
+  if (articleKey === 'cypher') return cypherArticleCopy(locale).title
   if (articleKey === 'miks') return miksArticleCopy(locale).title
   if (articleKey === 'harbor') return harborArticleCopy(locale).title
   if (articleKey === 'clove') return cloveArticleCopy(locale).title

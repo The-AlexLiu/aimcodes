@@ -1,3 +1,4 @@
+import { cypherArticleCopy } from '../seo/cypherContent.js'
 import { miksArticleCopy } from '../seo/miksContent.js'
 import { harborArticleCopy } from '../seo/harborContent.js'
 import { cloveArticleCopy } from '../seo/cloveContent.js'
@@ -167,6 +168,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link iso-home-link" href={routePath(locale, { type: 'article', articleKey: 'iso' })}>{isoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link waylay-home-link" href={routePath(locale, { type: 'article', articleKey: 'waylay' })}>{waylayArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link astra-home-link" href={routePath(locale, { type: 'article', articleKey: 'astra' })}>{astraArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link cypher-home-link" href={routePath(locale, { type: 'article', articleKey: 'cypher' })}>{cypherArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link miks-home-link" href={routePath(locale, { type: 'article', articleKey: 'miks' })}>{miksArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link harbor-home-link" href={routePath(locale, { type: 'article', articleKey: 'harbor' })}>{harborArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link clove-home-link" href={routePath(locale, { type: 'article', articleKey: 'clove' })}>{cloveArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
