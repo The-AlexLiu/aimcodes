@@ -1,0 +1,61 @@
+{
+  "result": 0,
+  "msg": "",
+  "err_msg": "",
+  "req_id": "4d5df2bf-62c3-4994-8f59-8cddcfd6ca88",
+  "data": {
+    "agent": {
+      "desc": "“捷风”是新罗人的后代，她灵活机动的战斗风格使她能够采取比常人更激进和冒险的策略。她可以在战场上肆意纵横，将敌人逐个击破，或是把他们打个措手不及。",
+      "e_name": "Jett",
+      "name": "捷风",
+      "position_name": "决斗",
+      "skill": [
+        {
+          "desc": "投掷一个发射物，其在触碰后可扩展成一朵能短暂阻挡视线的云雾。按住技能键能扭曲云雾至准星的方向。",
+          "e_name": "",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/02_c.png",
+          "keypad": "C",
+          "name": "瞬云",
+          "type": 2,
+          "type_name": "基础技能"
+        },
+        {
+          "desc": "立即腾空直上，高高跃起。",
+          "e_name": "",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/02_q.png",
+          "keypad": "Q",
+          "name": "凌空",
+          "type": 2,
+          "type_name": "基础技能"
+        },
+        {
+          "desc": "【激活】即可在限定时间内刮起阵风。【再次使用】该技能可朝移动方向突进。若站立不动，则向面朝的方向突进。每击败两名敌人，可重置【逐风】的充能。",
+          "e_name": "",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/02_e.png",
+          "keypad": "E",
+          "name": "逐风",
+          "type": 3,
+          "type_name": "招牌技能"
+        },
+        {
+          "desc": "装备一组飞刀，按【射击】向目标掷出一把飞刀，击败敌人即可重新充能所有飞刀。按【辅助射击】向你的目标抛掷所有剩余的飞刀，但这样做无法通过击败敌人获得充能。",
+          "e_name": "",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/02_x.png",
+          "keypad": "X",
+          "name": "飓刃",
+          "type": 4,
+          "type_name": "终极技能"
+        },
+        {
+          "desc": "在坠下的时候按住跳跃键可以让捷风在空中滑翔",
+          "e_name": "",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/02_space.png",
+          "keypad": "SPACE",
+          "name": "飘移",
+          "type": 1,
+          "type_name": "被动技能"
+        }
+      ]
+    }
+  }
+}

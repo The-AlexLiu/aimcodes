@@ -1,0 +1,200 @@
+[
+  {
+    "layout": "arNative",
+    "palette": "palette2",
+    "backdrop": {
+      "foreground": {
+        "type": "image",
+        "provider": "sanity",
+        "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/70d1d136b5bf68814fa916ceab5e3c8ecced3239-529x529.png?accountingTag=VAL",
+        "dimensions": {
+          "width": 529,
+          "height": 529,
+          "aspectRatio": 1
+        },
+        "mimeType": "image/png"
+      }
+    },
+    "header": {
+      "title": "SPECIAL ABILITIES"
+    },
+    "groups": [
+      {
+        "thumbnail": {
+          "type": "image",
+          "provider": "sanity",
+          "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/479a11544e4001d360f40c2bd658aab9a3732a36-128x128.png?accountingTag=VAL",
+          "dimensions": {
+            "width": 128,
+            "height": 128,
+            "aspectRatio": 1
+          },
+          "colors": {
+            "primary": "#000000",
+            "secondary": "#000000",
+            "label": "#000000"
+          },
+          "mimeType": "image/png"
+        },
+        "content": {
+          "media": {
+            "type": "video",
+            "provider": "sanity",
+            "dimensions": {
+              "width": 1600,
+              "height": 900
+            },
+            "sources": [
+              {
+                "src": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news_live/afb5ba5a6a13e70dbaa52703c5a4f63066bf3bfb.webm?accountingTag=VAL",
+                "type": "video/webm"
+              }
+            ]
+          },
+          "title": "Drift",
+          "description": {
+            "type": "html",
+            "body": "<p>HOLD JUMP while falling to glide.</p>"
+          }
+        }
+      },
+      {
+        "thumbnail": {
+          "type": "image",
+          "provider": "sanity",
+          "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/a0c72fe005e2f87f60f38fdb440569271c51a8fb-128x128.png?accountingTag=VAL",
+          "dimensions": {
+            "width": 128,
+            "height": 128,
+            "aspectRatio": 1
+          },
+          "mimeType": "image/png"
+        },
+        "content": {
+          "media": {
+            "type": "video",
+            "provider": "sanity",
+            "dimensions": {
+              "width": 1600,
+              "height": 900
+            },
+            "sources": [
+              {
+                "src": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/4cbc968f05713579aae9464c5a16dc3f6863f943.mp4?accountingTag=VAL",
+                "type": "video/mp4"
+              }
+            ]
+          },
+          "title": "UPDRAFT",
+          "description": {
+            "type": "html",
+            "body": "INSTANTLY propel Jett high into the air."
+          }
+        }
+      },
+      {
+        "thumbnail": {
+          "type": "image",
+          "provider": "sanity",
+          "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/18cb69683c16d11590eda4c5458a7025f0667895-128x128.png?accountingTag=VAL",
+          "dimensions": {
+            "width": 128,
+            "height": 128,
+            "aspectRatio": 1
+          },
+          "mimeType": "image/png"
+        },
+        "content": {
+          "media": {
+            "type": "video",
+            "provider": "sanity",
+            "dimensions": {
+              "width": 1600,
+              "height": 900
+            },
+            "sources": [
+              {
+                "src": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/ec6b3cf1f8ac09d597b0193de1d7bb81335b40e4.mp4?accountingTag=VAL",
+                "type": "video/mp4"
+              }
+            ]
+          },
+          "title": "TAILWIND",
+          "description": {
+            "type": "html",
+            "body": "ACTIVATE to prepare a gust of wind for a limited time. RE-USE the wind to propel Jett in the direction she is moving. If Jett is standing still, she propels forward. Tailwind charge resets every two kills."
+          }
+        }
+      },
+      {
+        "thumbnail": {
+          "type": "image",
+          "provider": "sanity",
+          "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/8c5e94bfc817e5d35eca7692fd242404de5ac5dd-128x128.png?accountingTag=VAL",
+          "dimensions": {
+            "width": 128,
+            "height": 128,
+            "aspectRatio": 1
+          },
+          "mimeType": "image/png"
+        },
+        "content": {
+          "media": {
+            "type": "video",
+            "provider": "sanity",
+            "dimensions": {
+              "width": 1600,
+              "height": 900
+            },
+            "sources": [
+              {
+                "src": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/3353597819f0c032d56ff947d9762368b4ee6c6b.mp4?accountingTag=VAL",
+                "type": "video/mp4"
+              }
+            ]
+          },
+          "title": "CLOUDBURST",
+          "description": {
+            "type": "html",
+            "body": "INSTANTLY throw a projectile that expands into a brief vision-blocking cloud on impact with a surface. HOLD the ability key to curve the smoke in the direction of your crosshair."
+          }
+        }
+      },
+      {
+        "thumbnail": {
+          "type": "image",
+          "provider": "sanity",
+          "url": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/8d8e6c956af64b241e49e3625b3cb02fcc61eb09-128x128.png?accountingTag=VAL",
+          "dimensions": {
+            "width": 128,
+            "height": 128,
+            "aspectRatio": 1
+          },
+          "mimeType": "image/png"
+        },
+        "content": {
+          "media": {
+            "type": "video",
+            "provider": "sanity",
+            "dimensions": {
+              "width": 1600,
+              "height": 900
+            },
+            "sources": [
+              {
+                "src": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/667770571300e065b332617e5c8f2e009ed88928.mp4?accountingTag=VAL",
+                "type": "video/mp4"
+              }
+            ]
+          },
+          "title": "BLADE STORM",
+          "description": {
+            "type": "html",
+            "body": "EQUIP a set of highly accurate throwing knives. FIRE to throw a single knife and recharge knives on a kill. ALT FIRE to throw all remaining daggers but does not recharge on a kill."
+          }
+        }
+      }
+    ],
+    "type": "iconTab"
+  }
+]

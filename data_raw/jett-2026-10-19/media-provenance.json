@@ -1,0 +1,40 @@
+{
+  "collected": "2026-10-19",
+  "source": "https://www.youtube.com/watch?v=e_E9W2vsRbQ",
+  "channel": "VALORANT (verified)",
+  "method": "Ego Lite normal watch page screenshots, paused at source timestamp; native video source 1920px, screenshot player viewport 822x462",
+  "crop": {
+    "left": 16,
+    "top": 127,
+    "width": 822,
+    "height": 344
+  },
+  "note": "Crop removes original letterboxing and all browser/player UI. No generated image detail. Derived resolutions upscale screenshot crops.",
+  "assets": [
+    {
+      "sourceFile": "duelists-60.png",
+      "timestampSeconds": 60,
+      "output": [
+        "hero.webp",
+        "og.jpg"
+      ],
+      "content": "Jett facing her opponent, face and upper body"
+    },
+    {
+      "sourceFile": "duelists-28.png",
+      "timestampSeconds": 28,
+      "output": [
+        "gallery/duelists-knife.webp"
+      ],
+      "content": "Jett airborne with throwing knives"
+    },
+    {
+      "sourceFile": "duelists-final-57.png",
+      "timestampSeconds": 57,
+      "output": [
+        "gallery/duelists-closeup.webp"
+      ],
+      "content": "Jett face close-up in the alley"
+    }
+  ]
+}
