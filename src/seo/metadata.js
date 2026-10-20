@@ -1,6 +1,7 @@
 import { YORU_OG_IMAGE, YORU_UPDATED_AT, yoruArticleCopy } from './yoruContent.js'
 import { ISO_OG_IMAGE, ISO_UPDATED_AT, isoArticleCopy } from './isoContent.js'
 import { WAYLAY_OG_IMAGE, WAYLAY_UPDATED_AT, waylayArticleCopy } from './waylayContent.js'
+import { BREACH_OG_IMAGE, BREACH_UPDATED_AT, breachArticleCopy } from './breachContent.js'
 import { NEON_OG_IMAGE, NEON_UPDATED_AT, neonArticleCopy } from './neonContent.js'
 import { REYNA_OG_IMAGE, REYNA_UPDATED_AT, reynaArticleCopy } from './reynaContent.js'
 import { JETT_OG_IMAGE, JETT_UPDATED_AT, jettArticleCopy } from './jettContent.js'
@@ -84,6 +85,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:raze`, RAZE_UPDATED_AT],
     [`${locale}:article:iso`, ISO_UPDATED_AT],
     [`${locale}:article:waylay`, WAYLAY_UPDATED_AT],
+    [`${locale}:article:breach`, BREACH_UPDATED_AT],
     [`${locale}:article:neon`, NEON_UPDATED_AT],
     [`${locale}:article:reyna`, REYNA_UPDATED_AT],
     [`${locale}:article:chamber`, CHAMBER_UPDATED_AT],
@@ -257,6 +259,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'waylay') {
     imagePath = WAYLAY_OG_IMAGE
     imageAlt = waylayArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'breach') {
+    imagePath = BREACH_OG_IMAGE
+    imageAlt = breachArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'neon') {
     imagePath = NEON_OG_IMAGE

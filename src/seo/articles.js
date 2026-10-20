@@ -1,6 +1,7 @@
 import { yoruArticleCopy } from './yoruContent.js'
 import { isoArticleCopy } from './isoContent.js'
 import { waylayArticleCopy } from './waylayContent.js'
+import { breachArticleCopy } from './breachContent.js'
 import { neonArticleCopy } from './neonContent.js'
 import { reynaArticleCopy } from './reynaContent.js'
 import { jettArticleCopy } from './jettContent.js'
@@ -236,6 +237,7 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'yoru') return yoruArticleCopy(locale)
   if (articleKey === 'iso') return isoArticleCopy(locale)
   if (articleKey === 'waylay') return waylayArticleCopy(locale)
+  if (articleKey === 'breach') return breachArticleCopy(locale)
   if (articleKey === 'neon') return neonArticleCopy(locale)
   if (articleKey === 'reyna') return reynaArticleCopy(locale)
   if (articleKey === 'jett') return jettArticleCopy(locale)
