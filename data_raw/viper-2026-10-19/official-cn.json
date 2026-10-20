@@ -1,0 +1,52 @@
+{
+  "result": 0,
+  "msg": "",
+  "err_msg": "",
+  "req_id": "ea9f57e7-d52a-43a5-a7f6-ca2df6c2544a",
+  "data": {
+    "agent": {
+      "desc": "“蝰蛇”是一位来自美洲大陆的化学家，擅长部署毒性化学装置来控制战场并削弱敌人的视野。即便猎物没倒在她的毒素之下，她也会利用心理战将其击溃。",
+      "e_name": "Viper",
+      "name": "蝰蛇",
+      "position_name": "控场",
+      "skill": [
+        {
+          "desc": "装备化学品发射器，按【射击】即可射出一个触地即碎的化学容器，碎裂后会留下一滩化学溶液，对范围内的目标造成伤害并施加【易伤】。",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/09_c.png",
+          "keypad": "C",
+          "name": "蛇吻",
+          "video": {
+            "vid": "l1281wn391y"
+          }
+        },
+        {
+          "desc": "装备气雾喷射器，按【射击】 将其掷出，该装置会一直存在至回合结束。按【辅助射击】 可轻抛。【再次按技能键】 可消耗燃料生成一团化学烟雾。回合开始前，可拾取喷射器，将其【重新部署】。在回合中，此技能可以多次【重复使用】。",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/09_q.png",
+          "keypad": "Q",
+          "name": "瘴云",
+          "video": {
+            "vid": "u128151hr8g"
+          }
+        },
+        {
+          "desc": "装备可穿越地形的气雾喷射器，按【射击】沿一条直线部署气雾喷射器阵列。【再次按技能键】可消耗燃料产生一道气雾幕墙。此技能可以多次【重复使用】",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/09_e.png",
+          "keypad": "E",
+          "name": "毒幕",
+          "video": {
+            "vid": "v1281h1n6e7"
+          }
+        },
+        {
+          "desc": "装备化学喷雾器。按【射击】即可朝蝰蛇的四周喷射化学气雾，产生大片云雾，使范围内的玩家【视野收缩】并使敌人受到【腐坏】效果。【按住技能键】可使气雾提前消散。",
+          "icon": "https://game.gtimg.cn/images/val/agamezlk/agentskill/09_x.png",
+          "keypad": "X",
+          "name": "蝰腹",
+          "video": {
+            "vid": "k1281mftft8"
+          }
+        }
+      ]
+    }
+  }
+}
