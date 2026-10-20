@@ -16,8 +16,8 @@ test('Yoru uses a split square frame and reproduces the complete editor code', (
   assert.equal(p.settings.dot.enabled, false)
   assert.equal(p.settings.outer.enabled, false)
   assert.equal(p.settings.inner.horizontalLength, 1)
-  assert.equal(p.settings.inner.thickness, 7)
-  assert.equal(p.settings.inner.offset, 4)
+  assert.equal(p.settings.inner.thickness, 5)
+  assert.equal(p.settings.inner.offset, 5)
   const code = generateCrosshairCode({colorPreset:s.colorPreset,customColor:s.customColor,
     outline:{enabled:s.outline,opacity:s.outlineOpacity,thickness:s.outlineThickness},
     dot:{enabled:s.dot,opacity:s.dotOpacity,size:s.dotSize},
