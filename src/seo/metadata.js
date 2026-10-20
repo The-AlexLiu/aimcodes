@@ -1,8 +1,10 @@
+import { ASTRA_OG_IMAGE, ASTRA_UPDATED_AT, astraArticleCopy } from './astraContent.js'
 import { SKYE_OG_IMAGE, SKYE_UPDATED_AT, skyeArticleCopy } from './skyeContent.js'
 import { YORU_OG_IMAGE, YORU_UPDATED_AT, yoruArticleCopy } from './yoruContent.js'
 import { SOVA_OG_IMAGE, SOVA_UPDATED_AT, sovaArticleCopy } from './sovaContent.js'
 import { ISO_OG_IMAGE, ISO_UPDATED_AT, isoArticleCopy } from './isoContent.js'
 import { WAYLAY_OG_IMAGE, WAYLAY_UPDATED_AT, waylayArticleCopy } from './waylayContent.js'
+import { TEJO_OG_IMAGE, TEJO_UPDATED_AT, tejoArticleCopy } from './tejoContent.js'
 import { GEKKO_OG_IMAGE, GEKKO_UPDATED_AT, gekkoArticleCopy } from './gekkoContent.js'
 import { KAYO_OG_IMAGE, KAYO_UPDATED_AT, kayoArticleCopy } from './kayoContent.js'
 import { BREACH_OG_IMAGE, BREACH_UPDATED_AT, breachArticleCopy } from './breachContent.js'
@@ -90,6 +92,8 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:sova`, SOVA_UPDATED_AT],
     [`${locale}:article:iso`, ISO_UPDATED_AT],
     [`${locale}:article:waylay`, WAYLAY_UPDATED_AT],
+    [`${locale}:article:astra`, ASTRA_UPDATED_AT],
+    [`${locale}:article:tejo`, TEJO_UPDATED_AT],
     [`${locale}:article:gekko`, GEKKO_UPDATED_AT],
     [`${locale}:article:kayo`, KAYO_UPDATED_AT],
     [`${locale}:article:skye`, SKYE_UPDATED_AT],
@@ -271,6 +275,14 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'waylay') {
     imagePath = WAYLAY_OG_IMAGE
     imageAlt = waylayArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'astra') {
+    imagePath = ASTRA_OG_IMAGE
+    imageAlt = astraArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'tejo') {
+    imagePath = TEJO_OG_IMAGE
+    imageAlt = tejoArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'gekko') {
     imagePath = GEKKO_OG_IMAGE
