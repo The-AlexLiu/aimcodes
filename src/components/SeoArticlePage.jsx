@@ -1,3 +1,4 @@
+import YoruAgentPage from './YoruAgentPage.jsx'
 import NeonAgentPage from './NeonAgentPage.jsx'
 import ReynaAgentPage from './ReynaAgentPage.jsx'
 import JettAgentPage from './JettAgentPage.jsx'
@@ -20,6 +21,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'yoru') return <YoruAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'neon') return <NeonAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'reyna') return <ReynaAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'jett') return <JettAgentPage locale={locale} onCopy={onCopy} />

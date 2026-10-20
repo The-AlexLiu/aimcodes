@@ -1,3 +1,4 @@
+import { yoruArticleCopy } from './yoruContent.js'
 import { neonArticleCopy } from './neonContent.js'
 import { reynaArticleCopy } from './reynaContent.js'
 import { jettArticleCopy } from './jettContent.js'
@@ -230,6 +231,7 @@ function baseArticleCopy(locale, articleKey) {
 }
 
 export function articleCopy(locale, articleKey) {
+  if (articleKey === 'yoru') return yoruArticleCopy(locale)
   if (articleKey === 'neon') return neonArticleCopy(locale)
   if (articleKey === 'reyna') return reynaArticleCopy(locale)
   if (articleKey === 'jett') return jettArticleCopy(locale)
