@@ -1,3 +1,4 @@
+import { skyeArticleCopy } from './skyeContent.js'
 import { yoruArticleCopy } from './yoruContent.js'
 import { sovaArticleCopy } from './sovaContent.js'
 import { isoArticleCopy } from './isoContent.js'
@@ -51,6 +52,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'iso') return isoArticleCopy(locale).title
   if (articleKey === 'waylay') return waylayArticleCopy(locale).title
   if (articleKey === 'kayo') return kayoArticleCopy(locale).title
+  if (articleKey === 'skye') return skyeArticleCopy(locale).title
   if (articleKey === 'breach') return breachArticleCopy(locale).title
   if (articleKey === 'neon') return neonArticleCopy(locale).title
   if (articleKey === 'reyna') return reynaArticleCopy(locale).title

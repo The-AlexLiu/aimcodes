@@ -1,3 +1,4 @@
+import { SKYE_OG_IMAGE, SKYE_UPDATED_AT, skyeArticleCopy } from './skyeContent.js'
 import { YORU_OG_IMAGE, YORU_UPDATED_AT, yoruArticleCopy } from './yoruContent.js'
 import { SOVA_OG_IMAGE, SOVA_UPDATED_AT, sovaArticleCopy } from './sovaContent.js'
 import { ISO_OG_IMAGE, ISO_UPDATED_AT, isoArticleCopy } from './isoContent.js'
@@ -89,6 +90,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:iso`, ISO_UPDATED_AT],
     [`${locale}:article:waylay`, WAYLAY_UPDATED_AT],
     [`${locale}:article:kayo`, KAYO_UPDATED_AT],
+    [`${locale}:article:skye`, SKYE_UPDATED_AT],
     [`${locale}:article:breach`, BREACH_UPDATED_AT],
     [`${locale}:article:neon`, NEON_UPDATED_AT],
     [`${locale}:article:reyna`, REYNA_UPDATED_AT],
@@ -271,6 +273,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'kayo') {
     imagePath = KAYO_OG_IMAGE
     imageAlt = kayoArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'skye') {
+    imagePath = SKYE_OG_IMAGE
+    imageAlt = skyeArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'breach') {
     imagePath = BREACH_OG_IMAGE
