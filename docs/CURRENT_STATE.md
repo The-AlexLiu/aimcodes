@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：K/O 英雄页（已授权发布，待正式核验）
+
+独立分支`codex/kayo-agent-page`，基线`6f9c3aa`。新增五语`/valorant-kayo/`、官方四技能、官方角色预告和战斗图集、淡紫色细长竖轨配中心点准星，复用共享英雄交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权制作后直接发布；待PR预览、CI和正式域名版本/交互核验后确认上线。来源与验收见`docs/KAYO_RELEASE_2026-10-20.md`。原混合工作树及旧英雄配置保持不变。
+
 ## 2026-10-20：铁臂英雄页（已授权发布，待正式核验）
 
 独立分支`codex/breach-agent-page`，基线`181efd4`。新增五语`/valorant-breach/`、官方四技能与INCURSIONS角色图集、橙色长横臂/短竖臂准星。复用共享英雄交互，编辑器保留独立竖线长度。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权制作后直接发布；正式PR、预览、CI与生产版本核验后确认上线。来源及验收见`docs/BREACH_RELEASE_2026-10-20.md`；原混合工作树及其他英雄数据保持不变。
