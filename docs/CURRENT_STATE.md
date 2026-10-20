@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：奇乐英雄页（已授权发布，待正式核验）
+
+独立分支`codex/killjoy-agent-page`，新增五语`/valorant-killjoy/`、官方四技能图标/演示、WARM UP动画与双图灯箱、黄色横轨配上下短刻线准星。复用共享英雄组件，复制/地图/5×/编辑器配置完整。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布；正式PR、预览与Cloudflare版本实测见`docs/KILLJOY_RELEASE_2026-10-20.md`。原混合工作树及旧英雄配置跳过。
+
 ## 2026-10-20：暮蝶英雄页（已授权发布，待正式核验）
 
 独立分支codex/clove-agent-page，基线7ee749e。新增五语/valorant-clove/、四技能官方图标/视频、2 WORLDS动画与双图灯箱、粉紫宽双翼配中心点准星，以及完整地图/复制/生成器交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布；正式验收和来源见docs/CLOVE_RELEASE_2026-10-20.md。原混合工作树及其他英雄配置跳过。

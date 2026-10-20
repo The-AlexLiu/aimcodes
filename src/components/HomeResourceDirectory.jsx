@@ -1,3 +1,4 @@
+import { killjoyArticleCopy } from '../seo/killjoyContent.js'
 import { miksArticleCopy } from '../seo/miksContent.js'
 import { harborArticleCopy } from '../seo/harborContent.js'
 import { cloveArticleCopy } from '../seo/cloveContent.js'
@@ -169,6 +170,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link astra-home-link" href={routePath(locale, { type: 'article', articleKey: 'astra' })}>{astraArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link miks-home-link" href={routePath(locale, { type: 'article', articleKey: 'miks' })}>{miksArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link harbor-home-link" href={routePath(locale, { type: 'article', articleKey: 'harbor' })}>{harborArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link killjoy-home-link" href={routePath(locale, { type: 'article', articleKey: 'killjoy' })}>{killjoyArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link clove-home-link" href={routePath(locale, { type: 'article', articleKey: 'clove' })}>{cloveArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link fade-home-link" href={routePath(locale, { type: 'article', articleKey: 'fade' })}>{fadeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link tejo-home-link" href={routePath(locale, { type: 'article', articleKey: 'tejo' })}>{tejoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>

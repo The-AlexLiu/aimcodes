@@ -1,0 +1,65 @@
+{
+  "retrievedAt": "2026-10-20",
+  "official": "https://playvalorant.com/en-us/agents/killjoy/",
+  "china": "https://api.val.qq.com/go/agame/graphql/graphiQL (agent 12)",
+  "abilities": [
+    {
+      "key": "nanoswarm",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/4ca9c7f4a85e5e454d8d9638247bd36cab1d4124-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/b47a0b24d2499935d28f845a067984a52dbc2542.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "alarmbot",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/d86a84fcd7cc656fec66be28d496a56b5171dd52-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/0582e7e1a0733667614492129abef67e17cfc92c.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "turret",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/6fcb1a4dfb49ad8fabae929bc5aea5240ddb42ac-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/007e5042385d6f7315f4b4cb3fbd3b2c71b530c1.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data/d7d7787df75af327d171b723a262172693125dc4-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/9485f7bbf04841f4c37e031f07dad03e9cbc1bf9.mp4?accountingTag=VAL"
+    }
+  ],
+  "cinematic": "https://www.youtube.com/watch?v=OyLHi34Qzv4",
+  "channel": "VALORANT (verified)",
+  "frames": {
+    "hero": {
+      "seconds": 130,
+      "crop": {
+        "left": 608,
+        "top": 56,
+        "width": 505,
+        "height": 420
+      }
+    },
+    "watching": {
+      "seconds": 130,
+      "crop": {
+        "left": 0,
+        "top": 56,
+        "width": 1200,
+        "height": 503
+      }
+    },
+    "workshop": {
+      "seconds": 50,
+      "crop": {
+        "left": 0,
+        "top": 56,
+        "width": 1200,
+        "height": 503
+      }
+    }
+  },
+  "derived": {
+    "hero": "1920x1080 WebP",
+    "og": "1200x630 JPEG",
+    "gallery": "1200x675 WebP",
+    "videos": "960x540 H264 muted 30fps"
+  },
+  "note": "Riot gameplay demos are illustrative legacy footage. Controls follow patch 12.04; no old cone angle or timings asserted."
+}

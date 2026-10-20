@@ -1,3 +1,4 @@
+import { killjoyArticleCopy } from './killjoyContent.js'
 import { miksArticleCopy } from './miksContent.js'
 import { harborArticleCopy } from './harborContent.js'
 import { cloveArticleCopy } from './cloveContent.js'
@@ -62,6 +63,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'astra') return astraArticleCopy(locale).title
   if (articleKey === 'miks') return miksArticleCopy(locale).title
   if (articleKey === 'harbor') return harborArticleCopy(locale).title
+  if (articleKey === 'killjoy') return killjoyArticleCopy(locale).title
   if (articleKey === 'clove') return cloveArticleCopy(locale).title
   if (articleKey === 'fade') return fadeArticleCopy(locale).title
   if (articleKey === 'tejo') return tejoArticleCopy(locale).title
