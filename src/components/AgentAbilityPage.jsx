@@ -47,6 +47,6 @@ export default function AgentAbilityPage({ locale, onCopy, copy, theme, image, c
     <CharacterMedia copy={copy} theme={theme} image={image} cinematic={cinematic} cinematicId={cinematicId} />
     <details className="hush-unlock"><summary>{copy.profileTitle}</summary><dl className="hush-quick-facts"><div><dt>{copy.originLabel}</dt><dd>{copy.origin}</dd></div><div><dt>{copy.roleLabel}</dt><dd>{copy.role}</dd></div></dl><p>{copy.profileBody}</p></details>
     <AgentCrosshair locale={locale} theme={theme} crosshair={crosshair} onCopy={onCopy} copy={{ ...copy, title: copy.themeTitle, description: copy.themeDescription }} />
-    <p className="hush-credit"><a href={`https://playvalorant.com/en-us/agents/${theme}/`} target="_blank" rel="noreferrer">{copy.credit} ↗</a></p>
+    <p className="hush-credit"><a href={`https://playvalorant.com/en-us/agents/${theme === 'kayo' ? 'kay-o' : theme}/`} target="_blank" rel="noreferrer">{copy.credit} ↗</a></p>
   </article>
 }

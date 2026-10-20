@@ -1,3 +1,4 @@
+import KayoAgentPage from './KayoAgentPage.jsx'
 import SkyeAgentPage from './SkyeAgentPage.jsx'
 import BreachAgentPage from './BreachAgentPage.jsx'
 import YoruAgentPage from './YoruAgentPage.jsx'
@@ -30,6 +31,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   if (articleKey === 'sova') return <SovaAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'iso') return <IsoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'waylay') return <WaylayAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'kayo') return <KayoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'skye') return <SkyeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'breach') return <BreachAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'neon') return <NeonAgentPage locale={locale} onCopy={onCopy} />
