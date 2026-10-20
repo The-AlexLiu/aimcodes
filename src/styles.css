@@ -2577,3 +2577,7 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.brimstone-home-link { border-color: #785635; background: linear-gradient(100deg, #2a2117, #111922); color: #f7a16b; }
 .hush-home-link.brimstone-home-link:hover { border-color: #f7a16b; }
 .hush-home-link.brimstone-home-link:focus-visible { outline-color: #f7a16b; }
+
+.hush-home-link.reyna-home-link { border-color: #986b3e; background: linear-gradient(100deg, #34203f, #1c1425); color: #dd9aff; }
+.hush-home-link.reyna-home-link:hover { border-color: #dd9aff; }
+.hush-home-link.reyna-home-link:focus-visible { outline-color: #dd9aff; }

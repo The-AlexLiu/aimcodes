@@ -1,3 +1,4 @@
+import { reynaArticleCopy } from './reynaContent.js'
 import { razeArticleCopy } from './razeContent.js'
 import { chamberArticleCopy } from './chamberContent.js'
 
@@ -227,6 +228,7 @@ function baseArticleCopy(locale, articleKey) {
 }
 
 export function articleCopy(locale, articleKey) {
+  if (articleKey === 'reyna') return reynaArticleCopy(locale)
   if (articleKey === 'raze') return razeArticleCopy(locale)
   if (articleKey === 'chamber') return chamberArticleCopy(locale)
 

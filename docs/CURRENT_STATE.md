@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：芮娜英雄页（已授权发布，待正式核验）
+
+分支 `codex/reyna-agent-preview`，基线 `177a6b4`，独立工作目录。新增五语 `/valorant-reyna/`、官方四技能演示、动画图集与紫色细线方框准星，复用共享英雄组件。五语均 noindex,follow、自 canonical、无 hreflang、排除 Sitemap；用户已授权发布当前页面，需待PR、Cloudflare与正式域名核验后认定上线；索引保持关闭。来源、索引决策与验收见 `docs/REYNA_PREVIEW_2026-10-20.md`。
+
 ## 2026-10-20：雷兹英雄页（已授权发布，待正式核验）
 
 用户批准雷兹四技能与主题准星页发布。五语 `/valorant-raze/` 均保持 noindex,follow、自 canonical、无 hreflang，排除 Sitemap；不新增中文索引例外。官方技能图标和演示、WARM UP角色图集、橙色实心十字及完整地图/复制/编辑器交互已完成本地验收。发布前整合最新主线，保护其他英雄。来源、验证与授权见 `docs/RAZE_PREVIEW_2026-10-19.md`，正式PR/部署结果发布后补充。

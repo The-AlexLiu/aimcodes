@@ -1,0 +1,43 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.reyna-page{--reyna-accent:#dd9aff;--hush-pink:var(--reyna-accent);--hush-border:#5e3b73;color:#f7eaff}
+.hush-page.reyna-page .hush-hero{background:#211326}
+.hush-page.reyna-page .hush-hero-art{left:40%;width:60%;object-position:72% top;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.reyna-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.reyna-page h2,.hush-page.reyna-page h3{color:#f7eaff}
+.hush-page.reyna-page p,.hush-page.reyna-page li{color:#d7bddf}
+.hush-page.reyna-page .hush-eyebrow,.hush-page.reyna-page .hush-ability-heading h3{color:var(--reyna-accent)}
+.hush-page.reyna-page .hush-primary{background:var(--reyna-accent);color:#291132}
+.hush-page.reyna-page .hush-primary:hover{background:#f0c8ff;color:#291132}
+.hush-page.reyna-page .hush-secondary{border-color:#866398;color:#f7eaff}
+.hush-page.reyna-page .hush-secondary:hover{border-color:var(--reyna-accent);color:var(--reyna-accent)}
+.hush-page.reyna-page .hush-ability{background:linear-gradient(145deg,#302038,#10151e);border-color:var(--hush-border);border-top-color:#b46fda}
+.hush-page.reyna-page .hush-ability-description>p{color:#f4e5fa}
+.hush-page.reyna-page .hush-ability-description .hush-controls{color:#cfb7db}
+.hush-page.reyna-page .hush-binding img{object-fit:contain;background:#221426;padding:5px}
+.hush-page.reyna-page .hush-binding small,.hush-page.reyna-page .hush-gallery-heading>span,.hush-page.reyna-page .hush-crosshair-map-picker{color:#bca3ca}
+.hush-page.reyna-page .hush-ability-media video,.hush-page.reyna-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.reyna-page .hush-play-symbol{background:var(--reyna-accent);color:#291132}
+.hush-page.reyna-page .hush-video-label{color:#f7eaff}
+.hush-page.reyna-page .hush-video-links a,.hush-page.reyna-page .hush-crosshair-more{color:var(--reyna-accent)}
+.hush-page.reyna-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.reyna-page .hush-demo-toggle{border-color:var(--hush-border);color:#d3cff5;background:#2d1c36}
+.hush-page.reyna-page .agent-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #5e3b73;border-radius:8px;background:#111}
+.hush-page.reyna-page .hush-gallery-grid figure{display:block}
+.hush-page.reyna-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#211627}
+.hush-page.reyna-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.reyna-page .hush-unlock summary,.hush-page.reyna-page .hush-quick-facts dd{color:#efdbf8}
+.hush-page.reyna-page .hush-quick-facts dt{color:#bca3ca}
+.hush-page.reyna-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#34203f,#1c1425)}
+.hush-page.reyna-page .hush-crosshair-map,.hush-page.reyna-page .hush-crosshair :is(button,select){border-color:#866398}
+.hush-page.reyna-page .hush-crosshair-map-picker select{background:#2d1c36;color:#f7eaff}
+.hush-page.reyna-page .hush-crosshair-zoom{color:var(--reyna-accent);background:#2d1c36eb}
+.hush-page.reyna-page .hush-crosshair-copy>p,.hush-page.reyna-page .hush-crosshair-import{color:#d7bddf}
+.hush-page.reyna-page .hush-credit a{color:#b49bc1}
+.hush-page.reyna-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--reyna-accent);outline-offset:4px}
+.hush-lightbox.reyna-lightbox{border-color:#866398;background:#221426}
+.hush-lightbox.reyna-lightbox form button{border-color:#866398;background:#34203f}
+.hush-page.reyna-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.reyna-page .hush-hero-art{left:0;width:100%;object-position:70% 10%;mask-image:none}
+ .hush-page.reyna-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}

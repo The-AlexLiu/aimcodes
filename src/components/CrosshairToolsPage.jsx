@@ -1,3 +1,4 @@
+import { REYNA_GENERATOR_SETTINGS } from '../data/reynaCrosshair.js'
 import { RAZE_GENERATOR_SETTINGS } from '../data/razeCrosshair.js'
 import { CHAMBER_GENERATOR_SETTINGS } from '../data/chamberCrosshair.js'
 
@@ -91,7 +92,7 @@ function Toggle({ label, checked, onChange }) {
 
 function Generator({ copy, onCopy }) {
   const [background, setBackground] = useState('ascent')
-  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'raze' ? { ...RAZE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'chamber' ? { ...CHAMBER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'brimstone' ? { ...BRIMSTONE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'viper' ? { ...VIPER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'omen' ? { ...OMEN_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'phoenix' ? { ...PHOENIX_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'sage' ? { ...SAGE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
+  const [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('theme') === 'reyna' ? { ...REYNA_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'raze' ? { ...RAZE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'chamber' ? { ...CHAMBER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'brimstone' ? { ...BRIMSTONE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'viper' ? { ...VIPER_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'omen' ? { ...OMEN_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'phoenix' ? { ...PHOENIX_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'sage' ? { ...SAGE_GENERATOR_SETTINGS } : new URLSearchParams(window.location.search).get('theme') === 'hush' ? { ...HUSH_GENERATOR_SETTINGS } : {
     colorPreset: '5', customColor: '#ed9bda', outline: true, outlineOpacity: 1, outlineThickness: 1,
     dot: false, dotOpacity: 1, dotSize: 2, inner: true, innerOpacity: 1,
     innerLength: 4, innerThickness: 2, innerOffset: 2, outer: false,
