@@ -1,4 +1,5 @@
 import { deadlockArticleCopy } from './deadlockContent.js'
+import { vyseArticleCopy } from './vyseContent.js'
 import { killjoyArticleCopy } from './killjoyContent.js'
 import { cypherArticleCopy } from './cypherContent.js'
 import { miksArticleCopy } from './miksContent.js'
@@ -257,6 +258,7 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'miks') return miksArticleCopy(locale)
   if (articleKey === 'harbor') return harborArticleCopy(locale)
   if (articleKey === 'deadlock') return deadlockArticleCopy(locale)
+  if (articleKey === 'vyse') return vyseArticleCopy(locale)
   if (articleKey === 'killjoy') return killjoyArticleCopy(locale)
   if (articleKey === 'clove') return cloveArticleCopy(locale)
   if (articleKey === 'fade') return fadeArticleCopy(locale)

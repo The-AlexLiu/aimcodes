@@ -1,4 +1,5 @@
 import { deadlockArticleCopy } from '../seo/deadlockContent.js'
+import { vyseArticleCopy } from '../seo/vyseContent.js'
 import { killjoyArticleCopy } from '../seo/killjoyContent.js'
 import { cypherArticleCopy } from '../seo/cypherContent.js'
 import { miksArticleCopy } from '../seo/miksContent.js'
@@ -174,6 +175,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link miks-home-link" href={routePath(locale, { type: 'article', articleKey: 'miks' })}>{miksArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link harbor-home-link" href={routePath(locale, { type: 'article', articleKey: 'harbor' })}>{harborArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link deadlock-home-link" href={routePath(locale, { type: 'article', articleKey: 'deadlock' })}>{deadlockArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link vyse-home-link" href={routePath(locale, { type: 'article', articleKey: 'vyse' })}>{vyseArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link killjoy-home-link" href={routePath(locale, { type: 'article', articleKey: 'killjoy' })}>{killjoyArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link clove-home-link" href={routePath(locale, { type: 'article', articleKey: 'clove' })}>{cloveArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link fade-home-link" href={routePath(locale, { type: 'article', articleKey: 'fade' })}>{fadeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>

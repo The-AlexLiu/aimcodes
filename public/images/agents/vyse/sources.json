@@ -1,0 +1,71 @@
+{
+  "retrievedAt": "2026-10-20",
+  "official": "https://playvalorant.com/en-us/agents/vyse/",
+  "china": "https://api.val.qq.com/go/agame/graphql/graphiQL (agent 25)",
+  "abilities": [
+    {
+      "key": "razorvine",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/3a3e90a9b09ba95e7aed7b3f5979ed88d62d2785-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/84154b3401b08acad60d739616017a4fcd86710a.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "shear",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/665d8820138b5d817a7f6f6522e983edd1ea9df7-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/bacb07fdf5b13efeab5e24168f8e244257c1d0cb.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "arcrose",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/f0ac7fb5d31a65820bcc22217abcafbbfb4077e7-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/5cefca2b93f097285ce2cb4f20fec7184b555218.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/d67be7669c8a4b483305cf7501c27c25adb44236-1024x1024.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data/f9d32afb39a3260b915ea6ef441054c904a69e91.mp4?accountingTag=VAL"
+    }
+  ],
+  "cinematic": "https://www.youtube.com/watch?v=btpWg1gDXIE",
+  "channel": "VALORANT (verified)",
+  "frames": [
+    {
+      "key": "hero",
+      "file": "frame-97.png",
+      "seconds": 97,
+      "crop": {
+        "left": 0,
+        "top": 56,
+        "width": 1200,
+        "height": 506
+      }
+    },
+    {
+      "key": "mask",
+      "file": "frame-100.png",
+      "seconds": 100,
+      "crop": {
+        "left": 0,
+        "top": 56,
+        "width": 1200,
+        "height": 506
+      }
+    },
+    {
+      "key": "thorns",
+      "file": "frame-82.png",
+      "seconds": 82,
+      "crop": {
+        "left": 0,
+        "top": 56,
+        "width": 1200,
+        "height": 506
+      }
+    }
+  ],
+  "derived": {
+    "hero": "1920x1080 WebP",
+    "og": "1200x630 JPEG",
+    "gallery": "1200x675 WebP",
+    "videos": "960x540 H264 muted 30fps"
+  },
+  "mechanics": "Official 11.08 patch: Shear enter/leave trigger, Arc Rose destructible during windup. Legacy official demonstrations are illustrative, not a current timing reference. No old numeric duration or radius claimed."
+}
