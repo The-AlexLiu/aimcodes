@@ -1,3 +1,4 @@
+import { yoruArticleCopy } from '../seo/yoruContent.js'
 import { razeArticleCopy } from '../seo/razeContent.js'
 import { chamberArticleCopy } from '../seo/chamberContent.js'
 
@@ -141,6 +142,7 @@ export default function HomeResourceDirectory({ locale }) {
       <a className="hush-home-link viper-home-link" href={routePath(locale, { type: 'article', articleKey: 'viper' })}>{viperArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link chamber-home-link" href={routePath(locale, { type: 'article', articleKey: 'chamber' })}>{chamberArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link phoenix-home-link" href={routePath(locale, { type: 'article', articleKey: 'phoenix' })}>{phoenixArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <a className="hush-home-link yoru-home-link" href={routePath(locale, { type: 'article', articleKey: 'yoru' })}>{yoruArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link raze-home-link" href={routePath(locale, { type: 'article', articleKey: 'raze' })}>{razeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link brimstone-home-link" href={routePath(locale, { type: 'article', articleKey: 'brimstone' })}>{brimstoneArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
       <a className="hush-home-link omen-home-link" href={routePath(locale, { type: 'article', articleKey: 'omen' })}>{omenArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>

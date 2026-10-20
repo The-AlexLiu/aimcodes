@@ -1,3 +1,4 @@
+import YoruAgentPage from './YoruAgentPage.jsx'
 import RazeAgentPage from './RazeAgentPage.jsx'
 import ChamberAgentPage from './ChamberAgentPage.jsx'
 
@@ -17,6 +18,7 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+  if (articleKey === 'yoru') return <YoruAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'raze') return <RazeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'chamber') return <ChamberAgentPage locale={locale} onCopy={onCopy} />
 
