@@ -1,3 +1,5 @@
+import './agentDirectory.css'
+import { agentsCopy } from '../seo/agentsContent.js'
 import DeadlockAgentPage from './DeadlockAgentPage.jsx'
 import VetoAgentPage from './VetoAgentPage.jsx'
 import VyseAgentPage from './VyseAgentPage.jsx'
@@ -39,39 +41,49 @@ import CrosshairStatisticsPanel from './CrosshairStatisticsPanel.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
+const agentPages = {
+  yoru: YoruAgentPage,
+  sova: SovaAgentPage,
+  iso: IsoAgentPage,
+  waylay: WaylayAgentPage,
+  astra: AstraAgentPage,
+  cypher: CypherAgentPage,
+  miks: MiksAgentPage,
+  harbor: HarborAgentPage,
+  deadlock: DeadlockAgentPage,
+  veto: VetoAgentPage,
+  vyse: VyseAgentPage,
+  killjoy: KilljoyAgentPage,
+  clove: CloveAgentPage,
+  fade: FadeAgentPage,
+  tejo: TejoAgentPage,
+  gekko: GekkoAgentPage,
+  kayo: KayoAgentPage,
+  skye: SkyeAgentPage,
+  breach: BreachAgentPage,
+  neon: NeonAgentPage,
+  reyna: ReynaAgentPage,
+  jett: JettAgentPage,
+  raze: RazeAgentPage,
+  chamber: ChamberAgentPage,
+  brimstone: BrimstoneAgentPage,
+  omen: OmenAgentPage,
+  viper: ViperAgentPage,
+  phoenix: PhoenixAgentPage,
+  sage: SageAgentPage,
+  hush: HushAgentPage,
+}
+
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
-  if (articleKey === 'yoru') return <YoruAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'sova') return <SovaAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'iso') return <IsoAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'waylay') return <WaylayAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'astra') return <AstraAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'cypher') return <CypherAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'miks') return <MiksAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'harbor') return <HarborAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'deadlock') return <DeadlockAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'veto') return <VetoAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'vyse') return <VyseAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'killjoy') return <KilljoyAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'clove') return <CloveAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'fade') return <FadeAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'tejo') return <TejoAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'gekko') return <GekkoAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'kayo') return <KayoAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'skye') return <SkyeAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'breach') return <BreachAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'neon') return <NeonAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'reyna') return <ReynaAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'jett') return <JettAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'raze') return <RazeAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'chamber') return <ChamberAgentPage locale={locale} onCopy={onCopy} />
-
-
-  if (articleKey === 'brimstone') return <BrimstoneAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'omen') return <OmenAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'viper') return <ViperAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'phoenix') return <PhoenixAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'sage') return <SageAgentPage locale={locale} onCopy={onCopy} />
-  if (articleKey === 'hush') return <HushAgentPage locale={locale} onCopy={onCopy} />
+  const AgentPage = agentPages[articleKey]
+  if (AgentPage) return (
+    <>
+      <nav className="agent-directory-return">
+        <a href={routePath(locale, { type: 'agents' })}>← {agentsCopy(locale).viewAll}</a>
+      </nav>
+      <AgentPage locale={locale} onCopy={onCopy} />
+    </>
+  )
   const content = articleCopy(locale, articleKey)
   const labels = {
     en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions', tryCodes: 'Try working codes', openTool: 'Open the tool' },

@@ -1,0 +1,79 @@
+{
+  "retrievedAt": "2026-10-20",
+  "source": "https://valorant-api.com/v1/agents?isPlayableCharacter=true",
+  "note": "Existing Riot character art distributed by Valorant-API; original transparent PNG files, no raster editing.",
+  "images": [
+    {
+      "id": "jett",
+      "source": "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/fullportrait.png",
+      "path": "/images/agents/home/jett.png",
+      "bytes": 628364
+    },
+    {
+      "id": "sage",
+      "source": "https://media.valorant-api.com/agents/569fdd95-4d10-43ab-ca70-79becc718b46/fullportrait.png",
+      "path": "/images/agents/home/sage.png",
+      "bytes": 602243
+    },
+    {
+      "id": "omen",
+      "source": "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/fullportrait.png",
+      "path": "/images/agents/home/omen.png",
+      "bytes": 850496
+    },
+    {
+      "id": "raze",
+      "source": "https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/fullportrait.png",
+      "path": "/images/agents/home/raze.png",
+      "bytes": 831853
+    },
+    {
+      "id": "sova",
+      "source": "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-1f93a9b638fa/fullportrait.png",
+      "path": "/images/agents/home/sova.png",
+      "bytes": 810752
+    },
+    {
+      "id": "chamber",
+      "source": "https://media.valorant-api.com/agents/22697a3d-45bf-8dd7-4fec-84a9e28c69d7/fullportrait.png",
+      "path": "/images/agents/home/chamber.png",
+      "bytes": 634046
+    },
+    {
+      "id": "viper",
+      "source": "https://media.valorant-api.com/agents/707eab51-4836-f488-046a-cda6bf494859/fullportrait.png",
+      "path": "/images/agents/home/viper.png",
+      "bytes": 871929
+    },
+    {
+      "id": "phoenix",
+      "source": "https://media.valorant-api.com/agents/eb93336a-449b-9c1b-0a54-a891f7921d69/fullportrait.png",
+      "path": "/images/agents/home/phoenix.png",
+      "bytes": 748027
+    },
+    {
+      "id": "cypher",
+      "source": "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-0cada7e3823b/fullportrait.png",
+      "path": "/images/agents/home/cypher.png",
+      "bytes": 601327
+    },
+    {
+      "id": "reyna",
+      "source": "https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/fullportrait.png",
+      "path": "/images/agents/home/reyna.png",
+      "bytes": 670651
+    },
+    {
+      "id": "skye",
+      "source": "https://media.valorant-api.com/agents/6f2a04ca-43e0-be17-7f36-b3908627744d/fullportrait.png",
+      "path": "/images/agents/home/skye.png",
+      "bytes": 740411
+    },
+    {
+      "id": "yoru",
+      "source": "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/fullportrait.png",
+      "path": "/images/agents/home/yoru.png",
+      "bytes": 702935
+    }
+  ]
+}

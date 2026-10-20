@@ -1,38 +1,4 @@
-import { deadlockArticleCopy } from '../seo/deadlockContent.js'
-import { vetoArticleCopy } from '../seo/vetoContent.js'
-import { vyseArticleCopy } from '../seo/vyseContent.js'
-import { killjoyArticleCopy } from '../seo/killjoyContent.js'
-import { cypherArticleCopy } from '../seo/cypherContent.js'
-import { miksArticleCopy } from '../seo/miksContent.js'
-import { harborArticleCopy } from '../seo/harborContent.js'
-import { cloveArticleCopy } from '../seo/cloveContent.js'
-
-import { gekkoArticleCopy } from '../seo/gekkoContent.js'
-import { fadeArticleCopy } from '../seo/fadeContent.js'
-import { astraArticleCopy } from '../seo/astraContent.js'
-import { skyeArticleCopy } from '../seo/skyeContent.js'
-import { yoruArticleCopy } from '../seo/yoruContent.js'
-import { sovaArticleCopy } from '../seo/sovaContent.js'
-import { isoArticleCopy } from '../seo/isoContent.js'
-import { waylayArticleCopy } from '../seo/waylayContent.js'
-import { tejoArticleCopy } from '../seo/tejoContent.js'
-import { kayoArticleCopy } from '../seo/kayoContent.js'
-import { breachArticleCopy } from '../seo/breachContent.js'
-import { neonArticleCopy } from '../seo/neonContent.js'
-import { reynaArticleCopy } from '../seo/reynaContent.js'
-import { jettArticleCopy } from '../seo/jettContent.js'
-import './jettAgent.css'
-import { razeArticleCopy } from '../seo/razeContent.js'
-import { chamberArticleCopy } from '../seo/chamberContent.js'
-
-
-import { brimstoneArticleCopy } from '../seo/brimstoneContent.js'
-import { omenArticleCopy } from '../seo/omenContent.js'
-import { viperArticleCopy } from '../seo/viperContent.js'
-import { phoenixArticleCopy } from '../seo/phoenixContent.js'
-import { sageArticleCopy } from '../seo/sageContent.js'
-import { hushArticleCopy } from '../seo/hushContent.js'
-import './hushAgent.css'
+import HomeAgentSection from './HomeAgentSection.jsx'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
@@ -160,36 +126,7 @@ export default function HomeResourceDirectory({ locale }) {
 
   return (
     <section className="home-resource-directory" id="guides-and-tools" aria-labelledby="home-resource-title">
-      <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'hush' })}>{hushArticleCopy(locale).ui.homeLink}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link" href={routePath(locale, { type: 'article', articleKey: 'sage' })}>{sageArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link jett-home-link" href={routePath(locale, { type: 'article', articleKey: 'jett' })}>{jettArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link viper-home-link" href={routePath(locale, { type: 'article', articleKey: 'viper' })}>{viperArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link chamber-home-link" href={routePath(locale, { type: 'article', articleKey: 'chamber' })}>{chamberArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link phoenix-home-link" href={routePath(locale, { type: 'article', articleKey: 'phoenix' })}>{phoenixArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link yoru-home-link" href={routePath(locale, { type: 'article', articleKey: 'yoru' })}>{yoruArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link raze-home-link" href={routePath(locale, { type: 'article', articleKey: 'raze' })}>{razeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link sova-home-link" href={routePath(locale, { type: 'article', articleKey: 'sova' })}>{sovaArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link iso-home-link" href={routePath(locale, { type: 'article', articleKey: 'iso' })}>{isoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link waylay-home-link" href={routePath(locale, { type: 'article', articleKey: 'waylay' })}>{waylayArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link astra-home-link" href={routePath(locale, { type: 'article', articleKey: 'astra' })}>{astraArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link cypher-home-link" href={routePath(locale, { type: 'article', articleKey: 'cypher' })}>{cypherArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link miks-home-link" href={routePath(locale, { type: 'article', articleKey: 'miks' })}>{miksArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link harbor-home-link" href={routePath(locale, { type: 'article', articleKey: 'harbor' })}>{harborArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link deadlock-home-link" href={routePath(locale, { type: 'article', articleKey: 'deadlock' })}>{deadlockArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link veto-home-link" href={routePath(locale, { type: 'article', articleKey: 'veto' })}>{vetoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link vyse-home-link" href={routePath(locale, { type: 'article', articleKey: 'vyse' })}>{vyseArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link killjoy-home-link" href={routePath(locale, { type: 'article', articleKey: 'killjoy' })}>{killjoyArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link clove-home-link" href={routePath(locale, { type: 'article', articleKey: 'clove' })}>{cloveArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link fade-home-link" href={routePath(locale, { type: 'article', articleKey: 'fade' })}>{fadeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link tejo-home-link" href={routePath(locale, { type: 'article', articleKey: 'tejo' })}>{tejoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link gekko-home-link" href={routePath(locale, { type: 'article', articleKey: 'gekko' })}>{gekkoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link kayo-home-link" href={routePath(locale, { type: 'article', articleKey: 'kayo' })}>{kayoArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link breach-home-link" href={routePath(locale, { type: 'article', articleKey: 'breach' })}>{breachArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link skye-home-link" href={routePath(locale, { type: 'article', articleKey: 'skye' })}>{skyeArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link neon-home-link" href={routePath(locale, { type: 'article', articleKey: 'neon' })}>{neonArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link reyna-home-link" href={routePath(locale, { type: 'article', articleKey: 'reyna' })}>{reynaArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link brimstone-home-link" href={routePath(locale, { type: 'article', articleKey: 'brimstone' })}>{brimstoneArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
-      <a className="hush-home-link omen-home-link" href={routePath(locale, { type: 'article', articleKey: 'omen' })}>{omenArticleCopy(locale).title}<span aria-hidden="true">↗</span></a>
+      <HomeAgentSection locale={locale} />
       <header>
         <h2 id="home-resource-title">{copy.title}</h2>
         <p>{copy.intro}</p>

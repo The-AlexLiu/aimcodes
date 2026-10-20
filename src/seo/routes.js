@@ -177,6 +177,7 @@ export function crosshairSlug(id) {
 
 export function routePath(locale, route = { type: 'home' }) {
   const prefix = localePath(locale).replace(/\/$/, '')
+  if (route.type === 'agents') return `${prefix}/valorant-agents/`
   if (route.type === 'catalog') return `${prefix}/crosshairs/`
   if (route.type === 'players') return `${prefix}/pro-players/`
   if (route.type === 'crosshair') return `${prefix}/crosshairs/${crosshairSlug(route.crosshairId)}/`
@@ -195,6 +196,7 @@ export function parseSeoRoute(pathname = '/') {
   const locale = normalizeLocale(segments[0]) || DEFAULT_LOCALE
   const rest = segments.slice(1)
 
+  if (rest.length === 1 && rest[0] === 'valorant-agents') return { locale, type: 'agents' }
   if (rest.length === 0) return { locale, type: 'home' }
   if (rest.length === 1 && rest[0] === 'crosshairs') return { locale, type: 'catalog' }
   if (rest.length === 1 && rest[0] === 'pro-players') return { locale, type: 'players' }
@@ -229,6 +231,7 @@ export function isIndexableRoute(route, locale = DEFAULT_LOCALE) {
     && !ZH_PRODUCT_INDEX_TYPES.has(route.type)
     && !ZH_SEO_INDEX_PATHS.includes(routePath(normalizedLocale, route))) return false
   if (route.type === 'article' && SEO_ARTICLES[route.articleKey]?.indexLocales) return SEO_ARTICLES[route.articleKey].indexLocales.includes(normalizedLocale)
+  if (route.type === 'agents') return false
   if (route.type === 'players') return false
   if (route.type === 'paid') return false
   if (route.type === 'collection' && hiddenCollectionKeySet.has(route.collectionKey)) return false

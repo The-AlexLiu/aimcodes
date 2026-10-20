@@ -13,7 +13,7 @@
     "validate:manifest": "node scripts/validate-catalog-manifest.mjs",
     "validate:finder": "node scripts/validate-reaction-ranks.mjs",
     "validate:localization": "node scripts/validate-localization.mjs && node --test scripts/test-localization-parity.mjs",
-    "validate:routing": "node scripts/validate-localized-routes.mjs",
+    "validate:routing": "node scripts/validate-localized-routes.mjs && node --test scripts/test-agent-directory.mjs",
     "validate:seo": "node scripts/validate-seo-pages.mjs && node scripts/validate-search-intents.mjs && node scripts/validate-keyword-opportunities.mjs",
     "validate:links": "node scripts/validate-internal-links.mjs",
     "validate:tools": "node scripts/validate-seo-tools.mjs",

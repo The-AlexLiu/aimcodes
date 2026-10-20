@@ -12,6 +12,7 @@ const escapeHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll(
 for (const [locale, config] of Object.entries(localeRoutes)) {
   const cases = [
     { type: 'home' },
+    { type: 'agents' },
     { type: 'catalog' },
     { type: 'players' },
     { type: 'finder' },

@@ -1,3 +1,4 @@
+import { agentsCopy } from '../seo/agentsContent.js'
 import { useEffect, useRef, useState } from 'react'
 import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
 import Icon from './Icon.jsx'
@@ -23,7 +24,7 @@ export default function SiteHeader({
   const hasMountedRef = useRef(false)
   const showFinder = route.type === 'finder'
   const exploreActive = route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'players'
-  const resourcesActive = route.type === 'guide' || route.type === 'article' || route.type === 'tool'
+  const resourcesActive = route.type === 'agents' || route.type === 'guide' || route.type === 'article' || route.type === 'tool'
   const content = seoCopy(locale)
 
   useEffect(() => {
@@ -122,6 +123,7 @@ export default function SiteHeader({
           </nav>
           <nav className="nav-drawer-group" aria-label={t('nav.learn')}>
             <span>{t('nav.learn')}</span>
+            <a href={routePath(locale, { type: 'agents' })} onClick={closeMenu}>{agentsCopy(locale).nav}</a>
             <a href={routePath(locale, { type: 'tool', toolKey: 'playbook' })} onClick={closeMenu}>{playbookLabel(locale)}</a>
             <a href={routePath(locale, { type: 'guide' })} onClick={closeMenu}>{content.footer.guide}</a>
             <a href={routePath(locale, { type: 'article', articleKey: 'settings' })} onClick={closeMenu}>{content.footer.settings}</a>

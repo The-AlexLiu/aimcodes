@@ -1,3 +1,6 @@
+import { agentsCopy as collectionAgentsCopy } from '../src/seo/agentsCollectionContent.js'
+import { agentDirectory, agentName, featuredAgents } from '../src/data/agentDirectory.js'
+import { agentsCopy } from '../src/seo/agentsContent.js'
 import { VETO_IMAGE, VETO_CINEMATIC } from '../src/seo/vetoContent.js'
 import { VYSE_IMAGE, VYSE_CINEMATIC } from '../src/seo/vyseContent.js'
 import { VETO_CROSSHAIR } from '../src/data/vetoCrosshair.js'
@@ -288,6 +291,16 @@ function structuredData(locale, route, crosshair, localizedCrosshairs) {
     })
   }
 
+  if (route.type === 'agents') {
+    graph.push({
+      '@type': 'CollectionPage', url: metadata.canonical, name: metadata.title,
+      mainEntity: { '@type': 'ItemList', itemListElement: agentDirectory.map((agent, index) => ({
+        '@type': 'ListItem', position: index + 1, name: agentName(agent, locale),
+        url: `${SITE_ORIGIN}${routePath(locale, { type: 'article', articleKey: agent.id })}`,
+      })) },
+    })
+  }
+
   if (route.type === 'article') {
     const article = articleCopy(locale, route.articleKey)
     graph.push({
@@ -473,8 +486,8 @@ function staticCrosshairCards(locale, items, heading) {
 function staticTopicLinks(locale) {
   const localized = seoCopy(locale)
   const collections = DISCOVERABLE_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
-  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
-  return `<nav class="seo-static-links">${collections}${resources}</nav>`
+  const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.filter((key) => !agentDirectory.some((agent) => agent.id === key)).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
+  return `<nav class="seo-static-links"><a href="${routePath(locale, { type: 'agents' })}">${escapeHtml(agentsCopy(locale).nav)}</a>${collections}${resources}</nav>`
 }
 
 function staticPublisherValue(locale, type) {
@@ -521,12 +534,21 @@ function staticHeroImage(locale, route, crosshair) {
   return `<img class="seo-static-hero-image" src="${image}" width="${width}" height="${height}" alt="${escapeHtml(metadata.imageAlt)}" />`
 }
 
+function staticAgentCards(locale, agents) {
+  const copy = agentsCopy(locale)
+  return `<div class="seo-static-card-grid">${agents.map((agent) => `<a class="seo-static-card" href="${routePath(locale, { type: 'article', articleKey: agent.id })}"><img src="${agent.image}" alt="" width="120" height="120" loading="lazy" /><strong>${escapeHtml(agentName(agent, locale))}</strong><span>${escapeHtml(copy.roles[agent.role])}</span></a>`).join('')}</div>`
+}
+
 function staticBody(locale, route, crosshair, localizedCrosshairs) {
   const localized = seoCopy(locale)
+  if (route.type === 'agents') {
+    const copy = { ...agentsCopy(locale), ...collectionAgentsCopy(locale) }
+    return `<main class="seo-static-shell"><nav><a href="${routePath(locale, { type: 'home' })}">${escapeHtml(copy.home)}</a></nav><h1>${escapeHtml(copy.title)}</h1><p>${escapeHtml(copy.intro)}</p>${staticAgentCards(locale, agentDirectory)}</main>`
+  }
   if (route.type === 'home') {
     const featured = homeFeaturedCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
     const initialPreview = localizedCrosshairs.find((item) => item.id === catalogCrosshairs[0].id)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticCrosshairCards(locale, [initialPreview].filter(Boolean), localized.home.tryNow)}${staticCrosshairCards(locale, featured, localized.home.popular)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.home.title)}</h1><p>${escapeHtml(localized.home.intro)}</p>${staticCrosshairCards(locale, [initialPreview].filter(Boolean), localized.home.tryNow)}${staticCrosshairCards(locale, featured, localized.home.popular)}<section><h2>${escapeHtml(agentsCopy(locale).homeTitle)}</h2><p>${escapeHtml(agentsCopy(locale).intro)}</p>${staticAgentCards(locale, featuredAgents)}<a href="${routePath(locale, { type: 'agents' })}">${escapeHtml(agentsCopy(locale).viewAll)}</a></section>${staticTopicLinks(locale)}${staticPublisherValue(locale, 'home')}</main>`
   }
   if (route.type === 'catalog') {
     const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
@@ -781,6 +803,7 @@ for (const locale of Object.keys(localeRoutes)) {
   const localizedCrosshairs = catalogCrosshairs.map((item) => localizeCrosshair(item, locale, t))
   const baseRoutes = [
     { type: 'home' },
+    { type: 'agents' },
     { type: 'catalog' },
     { type: 'players' },
     { type: 'finder' },
