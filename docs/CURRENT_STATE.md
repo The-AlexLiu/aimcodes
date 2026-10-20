@@ -370,3 +370,7 @@ GA4 新增 `finder_nudge_view`、`finder_nudge_click`、`finder_nudge_dismiss`�
 2. GSC 已存在 `sitemap.xml`、`sitemap-crosshairs.xml` 与 `sitemap-images.xml` 提交记录；本轮发布后文件将自动更新为 2,290、1,980 与 2,120 个页面，下一步检查新增原创详情的抓取与 canonical。
 3. 观察 Tracker、Double Cross、Plus 三个新集合 7/14/28 天的查询、展示、排名和复制；Funny 新增六类主题继续完成 14–28 天观察，未验证信号前不继续无条件扩充。
 4. 通过 AdSense 审核后再配置真实 `ads.txt`、Google 认证 CMP 和少量手动广告位；禁止在反应测试与复制按钮附近投放。
+
+## 猎枭英雄页（2026-10-20）
+
+新增五语猎枭技能与蓝色双层刻线主题准星页面，复用共享完整交互；四技能官方视频/图标、RECKONING动画与已逐图核验的近景。五语均noindex,follow、自canonical、无hreflang、不进Sitemap；目录及索引数量保持。来源、裁切、验证与本次发布记录见 `docs/SOVA_RELEASE_2026-10-20.md`。用户已授权本页完成后直接发布；不延伸到下一英雄。
