@@ -1,5 +1,10 @@
 import { razeArticleCopy } from './razeContent.js'
+import { chamberArticleCopy } from './chamberContent.js'
+
+
+import { brimstoneArticleCopy } from './brimstoneContent.js'
 import { omenArticleCopy } from './omenContent.js'
+import { viperArticleCopy } from './viperContent.js'
 import { phoenixArticleCopy } from './phoenixContent.js'
 import { sageArticleCopy } from './sageContent.js'
 import { hushArticleCopy } from './hushContent.js'
@@ -33,7 +38,12 @@ function localizedLabels(locale) {
 
 export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'raze') return razeArticleCopy(locale).title
+  if (articleKey === 'chamber') return chamberArticleCopy(locale).title
+
+
+  if (articleKey === 'brimstone') return brimstoneArticleCopy(locale).title
   if (articleKey === 'omen') return omenArticleCopy(locale).title
+  if (articleKey === 'viper') return viperArticleCopy(locale).title
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
   if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title

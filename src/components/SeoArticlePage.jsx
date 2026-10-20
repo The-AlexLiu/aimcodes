@@ -1,5 +1,10 @@
 import RazeAgentPage from './RazeAgentPage.jsx'
+import ChamberAgentPage from './ChamberAgentPage.jsx'
+
+
+import BrimstoneAgentPage from './BrimstoneAgentPage.jsx'
 import OmenAgentPage from './OmenAgentPage.jsx'
+import ViperAgentPage from './ViperAgentPage.jsx'
 import PhoenixAgentPage from './PhoenixAgentPage.jsx'
 import SageAgentPage from './SageAgentPage.jsx'
 import HushAgentPage from './HushAgentPage.jsx'
@@ -13,7 +18,12 @@ import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
   if (articleKey === 'raze') return <RazeAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'chamber') return <ChamberAgentPage locale={locale} onCopy={onCopy} />
+
+
+  if (articleKey === 'brimstone') return <BrimstoneAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'omen') return <OmenAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'viper') return <ViperAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'phoenix') return <PhoenixAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'sage') return <SageAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'hush') return <HushAgentPage locale={locale} onCopy={onCopy} />
