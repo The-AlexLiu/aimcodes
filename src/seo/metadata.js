@@ -1,4 +1,5 @@
 import { JETT_OG_IMAGE, JETT_UPDATED_AT, jettArticleCopy } from './jettContent.js'
+import { RAZE_OG_IMAGE, RAZE_UPDATED_AT, razeArticleCopy } from './razeContent.js'
 import { CHAMBER_OG_IMAGE, CHAMBER_UPDATED_AT, chamberArticleCopy } from './chamberContent.js'
 
 
@@ -74,6 +75,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:hush`, HUSH_UPDATED_AT],
     [`${locale}:article:sage`, SAGE_UPDATED_AT],
     [`${locale}:article:jett`, JETT_UPDATED_AT],
+    [`${locale}:article:raze`, RAZE_UPDATED_AT],
     [`${locale}:article:chamber`, CHAMBER_UPDATED_AT],
 
 
@@ -238,6 +240,10 @@ export function routeMetadata(locale, route, crosshair) {
     imagePath = JETT_OG_IMAGE
     imageAlt = jettArticleCopy(locale).imageAlt
     }
+  if (route.type === 'article' && route.articleKey === 'raze') {
+    imagePath = RAZE_OG_IMAGE
+    imageAlt = razeArticleCopy(locale).imageAlt
+  }
   if (route.type === 'article' && route.articleKey === 'chamber') {
     imagePath = CHAMBER_OG_IMAGE
     imageAlt = chamberArticleCopy(locale).imageAlt
