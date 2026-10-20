@@ -1,3 +1,5 @@
+import { harborArticleCopy } from './harborContent.js'
+
 import { gekkoArticleCopy } from './gekkoContent.js'
 import { fadeArticleCopy } from './fadeContent.js'
 import { astraArticleCopy } from './astraContent.js'
@@ -246,6 +248,7 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'iso') return isoArticleCopy(locale)
   if (articleKey === 'waylay') return waylayArticleCopy(locale)
   if (articleKey === 'astra') return astraArticleCopy(locale)
+  if (articleKey === 'harbor') return harborArticleCopy(locale)
   if (articleKey === 'fade') return fadeArticleCopy(locale)
   if (articleKey === 'tejo') return tejoArticleCopy(locale)
   if (articleKey === 'gekko') return gekkoArticleCopy(locale)
