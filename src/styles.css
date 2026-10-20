@@ -2600,3 +2600,8 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.breach-home-link { border-color: #775136; background: linear-gradient(100deg, #342d22, #201c19); color: #ffad60; }
 .hush-home-link.breach-home-link:hover { border-color: #ffad60; }
 .hush-home-link.breach-home-link:focus-visible { outline-color: #ffad60; }
+
+/* Skye resource entry. */
+.hush-home-link.skye-home-link { border-color: #416e4d; background: linear-gradient(100deg, #233a2a, #192b21); color: #87ee82; }
+.hush-home-link.skye-home-link:hover { border-color: #87ee82; }
+.hush-home-link.skye-home-link:focus-visible { outline-color: #87ee82; }
