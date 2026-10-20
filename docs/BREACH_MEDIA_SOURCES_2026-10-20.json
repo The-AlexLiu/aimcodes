@@ -1,0 +1,66 @@
+{
+  "agent": "breach",
+  "collectedAt": "2026-10-20",
+  "official": "https://playvalorant.com/en-us/agents/breach/",
+  "cn": "https://val.qq.com/game-data.html?pageType=1&heroId=1",
+  "skills": [
+    {
+      "key": "flash",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/cca58acc93956ee755ccea171a36584a402793c2-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data_live/ffa4695b83e2f959bc59f0393dfc74e533546a89.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "fault",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/668ca53aca3c788f4b9ef8ad35e86979b84745db-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data_live/a4f24e1fe60879234be5da0f8a768feb8f379fdd.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "aftershock",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2621c00e27da47f6a57772902c7806a7bfe0eb66-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data_live/592212ab60d09999d493c2099f9260d59fab917a.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/58784f89733dfe25c41f8ba950c6eb4c46507d63-256x256.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/game_data_live/207b0ab21f8e27e98ca22f4b5546cc0963d94af6.mp4?accountingTag=VAL"
+    }
+  ],
+  "images": [
+    {
+      "file": "hero.webp",
+      "video": "https://www.youtube.com/watch?v=6nKzziP2lxw",
+      "channel": "VALORANT",
+      "time": 83.8,
+      "crop": [
+        300,
+        147,
+        900,
+        506
+      ]
+    },
+    {
+      "file": "gallery/portrait.webp",
+      "video": "https://www.youtube.com/watch?v=AnGdzz-XWcE",
+      "channel": "VALORANT",
+      "time": 136,
+      "crop": [
+        360,
+        147,
+        840,
+        506
+      ]
+    },
+    {
+      "file": "gallery/arm.webp",
+      "video": "https://www.youtube.com/watch?v=AnGdzz-XWcE",
+      "channel": "VALORANT",
+      "time": 43,
+      "crop": [
+        215,
+        147,
+        680,
+        506
+      ]
+    }
+  ]
+}

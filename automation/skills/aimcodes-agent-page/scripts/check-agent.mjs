@@ -32,7 +32,7 @@ const regenerated = generateCrosshairCode({
   colorPreset: s.colorPreset, customColor: s.customColor,
   outline: { enabled: s.outline, opacity: s.outlineOpacity, thickness: s.outlineThickness },
   dot: { enabled: s.dot, opacity: s.dotOpacity, size: s.dotSize },
-  inner: { enabled: s.inner, opacity: s.innerOpacity, length: s.innerLength, thickness: s.innerThickness, offset: s.innerOffset },
+  inner: { enabled: s.inner, opacity: s.innerOpacity, length: s.innerLength, verticalLength: s.innerVerticalLength, thickness: s.innerThickness, offset: s.innerOffset },
   outer: { enabled: s.outer, opacity: s.outerOpacity, length: s.outerLength, thickness: s.outerThickness, offset: s.outerOffset },
   movementError: s.movementError, firingError: s.firingError,
 })
