@@ -48,7 +48,10 @@ export const SEO_CONTENT_UPDATED_AT = '2026-08-25'
 const routeUpdateKey = (locale, route) => `${locale}:${route.type}:${route.collectionKey || route.articleKey || route.toolKey || route.crosshairId || ''}`
 
 export const SEO_ROUTE_UPDATED_AT = Object.freeze({
-  'en:home:': '2026-09-28',
+  ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => [
+    [`${locale}:home:`, '2026-10-20'],
+    [`${locale}:agents:`, '2026-10-20'],
+  ])),
   'en:collection:dot': '2026-09-02',
   'en:article:movementVsFiring': '2026-09-02',
   'ja:tool:playbook': '2026-09-02',

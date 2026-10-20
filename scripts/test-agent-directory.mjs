@@ -37,19 +37,27 @@ test('search supports local and English names, role combinations and empty resul
   for (const role of agentRoles) assert.ok(filterAgents('en', '', role).every((agent) => agent.role === role))
 })
 
-test('five generated directories retain noindex and every hero link; home has twelve', async () => {
+test('published agent directories and details are indexable in all five locales; home has twelve', async () => {
   const sitemap = await readFile(resolve(root, 'dist/sitemap.xml'), 'utf8')
   for (const locale of locales) {
     const path = routePath(locale, { type: 'agents' })
     assert.equal(parseSeoRoute(path).type, 'agents')
-    assert.equal(isIndexableRoute({ type: 'agents' }, locale), false)
+    assert.equal(isIndexableRoute({ type: 'agents' }, locale), true)
     const html = await readFile(resolve(root, 'dist', path.slice(1), 'index.html'), 'utf8')
-    assert.ok(html.includes('<meta name="robots" content="noindex,follow"'))
+    assert.ok(html.includes('<meta name="robots" content="index,follow,max-image-preview:large"'))
     assert.ok(html.includes(`rel="canonical" href="https://aimcodes.com${path}"`))
-    assert.ok(!html.includes('hreflang='))
-    assert.ok(!sitemap.includes(`https://aimcodes.com${path}<`))
+    assert.ok(html.includes('hreflang='))
+    assert.ok(sitemap.includes(`https://aimcodes.com${path}<`))
     assert.ok(html.includes('"@type":"ItemList"'))
-    for (const agent of agentDirectory) assert.ok(html.includes(`href="${routePath(locale, { type: 'article', articleKey: agent.id })}"`))
+    for (const agent of agentDirectory) {
+      const detailPath = routePath(locale, { type: 'article', articleKey: agent.id })
+      assert.ok(html.includes(`href="${detailPath}"`))
+      assert.equal(isIndexableRoute({ type: 'article', articleKey: agent.id }, locale), true)
+      assert.ok(sitemap.includes(`https://aimcodes.com${detailPath}<`))
+      const detail = await readFile(resolve(root, 'dist', detailPath.slice(1), 'index.html'), 'utf8')
+      assert.ok(detail.includes('content="index,follow,max-image-preview:large"'))
+      assert.ok(detail.includes(`rel="canonical" href="https://aimcodes.com${detailPath}"`))
+    }
     const home = await readFile(resolve(root, 'dist', routePath(locale, { type: 'home' }).slice(1), 'index.html'), 'utf8')
     const linkedAgents = agentDirectory.filter((agent) => home.includes(`href="${routePath(locale, { type: 'article', articleKey: agent.id })}"`))
     assert.deepEqual(new Set(linkedAgents.map((a) => a.id)), new Set(featuredAgents.map((a) => a.id)))

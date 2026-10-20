@@ -1,0 +1,744 @@
+{
+  "authorizedAt": "2026-10-20",
+  "request": "需要注意提交 sitemap；确保 Google 和 Bing 都可以索引到这几天上的界面",
+  "scope": "Published 30 agent detail pages and agent directory, five UI locales",
+  "previousIndexedURLs": 4,
+  "approvedURLCount": 155,
+  "newIndexedURLs": 151,
+  "urls": [
+    "https://aimcodes.com/en/valorant-agents/",
+    "https://aimcodes.com/es/valorant-agents/",
+    "https://aimcodes.com/pt-br/valorant-agents/",
+    "https://aimcodes.com/zh-cn/valorant-agents/",
+    "https://aimcodes.com/ja/valorant-agents/",
+    "https://aimcodes.com/en/valorant-jett/",
+    "https://aimcodes.com/es/valorant-jett/",
+    "https://aimcodes.com/pt-br/valorant-jett/",
+    "https://aimcodes.com/zh-cn/valorant-jett/",
+    "https://aimcodes.com/ja/valorant-jett/",
+    "https://aimcodes.com/en/valorant-raze/",
+    "https://aimcodes.com/es/valorant-raze/",
+    "https://aimcodes.com/pt-br/valorant-raze/",
+    "https://aimcodes.com/zh-cn/valorant-raze/",
+    "https://aimcodes.com/ja/valorant-raze/",
+    "https://aimcodes.com/en/valorant-phoenix/",
+    "https://aimcodes.com/es/valorant-phoenix/",
+    "https://aimcodes.com/pt-br/valorant-phoenix/",
+    "https://aimcodes.com/zh-cn/valorant-phoenix/",
+    "https://aimcodes.com/ja/valorant-phoenix/",
+    "https://aimcodes.com/en/valorant-yoru/",
+    "https://aimcodes.com/es/valorant-yoru/",
+    "https://aimcodes.com/pt-br/valorant-yoru/",
+    "https://aimcodes.com/zh-cn/valorant-yoru/",
+    "https://aimcodes.com/ja/valorant-yoru/",
+    "https://aimcodes.com/en/valorant-neon/",
+    "https://aimcodes.com/es/valorant-neon/",
+    "https://aimcodes.com/pt-br/valorant-neon/",
+    "https://aimcodes.com/zh-cn/valorant-neon/",
+    "https://aimcodes.com/ja/valorant-neon/",
+    "https://aimcodes.com/en/valorant-reyna/",
+    "https://aimcodes.com/es/valorant-reyna/",
+    "https://aimcodes.com/pt-br/valorant-reyna/",
+    "https://aimcodes.com/zh-cn/valorant-reyna/",
+    "https://aimcodes.com/ja/valorant-reyna/",
+    "https://aimcodes.com/en/valorant-iso/",
+    "https://aimcodes.com/es/valorant-iso/",
+    "https://aimcodes.com/pt-br/valorant-iso/",
+    "https://aimcodes.com/zh-cn/valorant-iso/",
+    "https://aimcodes.com/ja/valorant-iso/",
+    "https://aimcodes.com/en/valorant-waylay/",
+    "https://aimcodes.com/es/valorant-waylay/",
+    "https://aimcodes.com/pt-br/valorant-waylay/",
+    "https://aimcodes.com/zh-cn/valorant-waylay/",
+    "https://aimcodes.com/ja/valorant-waylay/",
+    "https://aimcodes.com/en/valorant-sova/",
+    "https://aimcodes.com/es/valorant-sova/",
+    "https://aimcodes.com/pt-br/valorant-sova/",
+    "https://aimcodes.com/zh-cn/valorant-sova/",
+    "https://aimcodes.com/ja/valorant-sova/",
+    "https://aimcodes.com/en/valorant-breach/",
+    "https://aimcodes.com/es/valorant-breach/",
+    "https://aimcodes.com/pt-br/valorant-breach/",
+    "https://aimcodes.com/zh-cn/valorant-breach/",
+    "https://aimcodes.com/ja/valorant-breach/",
+    "https://aimcodes.com/en/valorant-skye/",
+    "https://aimcodes.com/es/valorant-skye/",
+    "https://aimcodes.com/pt-br/valorant-skye/",
+    "https://aimcodes.com/zh-cn/valorant-skye/",
+    "https://aimcodes.com/ja/valorant-skye/",
+    "https://aimcodes.com/en/valorant-kayo/",
+    "https://aimcodes.com/es/valorant-kayo/",
+    "https://aimcodes.com/pt-br/valorant-kayo/",
+    "https://aimcodes.com/zh-cn/valorant-kayo/",
+    "https://aimcodes.com/ja/valorant-kayo/",
+    "https://aimcodes.com/en/valorant-fade/",
+    "https://aimcodes.com/es/valorant-fade/",
+    "https://aimcodes.com/pt-br/valorant-fade/",
+    "https://aimcodes.com/zh-cn/valorant-fade/",
+    "https://aimcodes.com/ja/valorant-fade/",
+    "https://aimcodes.com/en/valorant-gekko/",
+    "https://aimcodes.com/es/valorant-gekko/",
+    "https://aimcodes.com/pt-br/valorant-gekko/",
+    "https://aimcodes.com/zh-cn/valorant-gekko/",
+    "https://aimcodes.com/ja/valorant-gekko/",
+    "https://aimcodes.com/en/valorant-tejo/",
+    "https://aimcodes.com/es/valorant-tejo/",
+    "https://aimcodes.com/pt-br/valorant-tejo/",
+    "https://aimcodes.com/zh-cn/valorant-tejo/",
+    "https://aimcodes.com/ja/valorant-tejo/",
+    "https://aimcodes.com/en/valorant-astra/",
+    "https://aimcodes.com/es/valorant-astra/",
+    "https://aimcodes.com/pt-br/valorant-astra/",
+    "https://aimcodes.com/zh-cn/valorant-astra/",
+    "https://aimcodes.com/ja/valorant-astra/",
+    "https://aimcodes.com/en/valorant-viper/",
+    "https://aimcodes.com/es/valorant-viper/",
+    "https://aimcodes.com/pt-br/valorant-viper/",
+    "https://aimcodes.com/zh-cn/valorant-viper/",
+    "https://aimcodes.com/ja/valorant-viper/",
+    "https://aimcodes.com/en/valorant-brimstone/",
+    "https://aimcodes.com/es/valorant-brimstone/",
+    "https://aimcodes.com/pt-br/valorant-brimstone/",
+    "https://aimcodes.com/zh-cn/valorant-brimstone/",
+    "https://aimcodes.com/ja/valorant-brimstone/",
+    "https://aimcodes.com/en/valorant-omen/",
+    "https://aimcodes.com/es/valorant-omen/",
+    "https://aimcodes.com/pt-br/valorant-omen/",
+    "https://aimcodes.com/zh-cn/valorant-omen/",
+    "https://aimcodes.com/ja/valorant-omen/",
+    "https://aimcodes.com/en/valorant-harbor/",
+    "https://aimcodes.com/es/valorant-harbor/",
+    "https://aimcodes.com/pt-br/valorant-harbor/",
+    "https://aimcodes.com/zh-cn/valorant-harbor/",
+    "https://aimcodes.com/ja/valorant-harbor/",
+    "https://aimcodes.com/en/valorant-clove/",
+    "https://aimcodes.com/es/valorant-clove/",
+    "https://aimcodes.com/pt-br/valorant-clove/",
+    "https://aimcodes.com/zh-cn/valorant-clove/",
+    "https://aimcodes.com/ja/valorant-clove/",
+    "https://aimcodes.com/en/valorant-miks/",
+    "https://aimcodes.com/es/valorant-miks/",
+    "https://aimcodes.com/pt-br/valorant-miks/",
+    "https://aimcodes.com/zh-cn/valorant-miks/",
+    "https://aimcodes.com/ja/valorant-miks/",
+    "https://aimcodes.com/en/valorant-killjoy/",
+    "https://aimcodes.com/es/valorant-killjoy/",
+    "https://aimcodes.com/pt-br/valorant-killjoy/",
+    "https://aimcodes.com/zh-cn/valorant-killjoy/",
+    "https://aimcodes.com/ja/valorant-killjoy/",
+    "https://aimcodes.com/en/valorant-cypher/",
+    "https://aimcodes.com/es/valorant-cypher/",
+    "https://aimcodes.com/pt-br/valorant-cypher/",
+    "https://aimcodes.com/zh-cn/valorant-cypher/",
+    "https://aimcodes.com/ja/valorant-cypher/",
+    "https://aimcodes.com/en/valorant-sage/",
+    "https://aimcodes.com/es/valorant-sage/",
+    "https://aimcodes.com/pt-br/valorant-sage/",
+    "https://aimcodes.com/zh-cn/valorant-sage/",
+    "https://aimcodes.com/ja/valorant-sage/",
+    "https://aimcodes.com/en/valorant-chamber/",
+    "https://aimcodes.com/es/valorant-chamber/",
+    "https://aimcodes.com/pt-br/valorant-chamber/",
+    "https://aimcodes.com/zh-cn/valorant-chamber/",
+    "https://aimcodes.com/ja/valorant-chamber/",
+    "https://aimcodes.com/en/valorant-deadlock/",
+    "https://aimcodes.com/es/valorant-deadlock/",
+    "https://aimcodes.com/pt-br/valorant-deadlock/",
+    "https://aimcodes.com/zh-cn/valorant-deadlock/",
+    "https://aimcodes.com/ja/valorant-deadlock/",
+    "https://aimcodes.com/en/valorant-vyse/",
+    "https://aimcodes.com/es/valorant-vyse/",
+    "https://aimcodes.com/pt-br/valorant-vyse/",
+    "https://aimcodes.com/zh-cn/valorant-vyse/",
+    "https://aimcodes.com/ja/valorant-vyse/",
+    "https://aimcodes.com/en/valorant-veto/",
+    "https://aimcodes.com/es/valorant-veto/",
+    "https://aimcodes.com/pt-br/valorant-veto/",
+    "https://aimcodes.com/zh-cn/valorant-veto/",
+    "https://aimcodes.com/ja/valorant-veto/",
+    "https://aimcodes.com/en/valorant-hush/",
+    "https://aimcodes.com/es/valorant-hush/",
+    "https://aimcodes.com/pt-br/valorant-hush/",
+    "https://aimcodes.com/zh-cn/valorant-hush/",
+    "https://aimcodes.com/ja/valorant-hush/"
+  ],
+  "agents": [
+    {
+      "id": "jett",
+      "targetQuery": "valorant jett abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-jett/",
+        "https://aimcodes.com/es/valorant-jett/",
+        "https://aimcodes.com/pt-br/valorant-jett/",
+        "https://aimcodes.com/zh-cn/valorant-jett/",
+        "https://aimcodes.com/ja/valorant-jett/"
+      ]
+    },
+    {
+      "id": "raze",
+      "targetQuery": "valorant raze abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-raze/",
+        "https://aimcodes.com/es/valorant-raze/",
+        "https://aimcodes.com/pt-br/valorant-raze/",
+        "https://aimcodes.com/zh-cn/valorant-raze/",
+        "https://aimcodes.com/ja/valorant-raze/"
+      ]
+    },
+    {
+      "id": "phoenix",
+      "targetQuery": "valorant phoenix abilities",
+      "beforeIndexLocales": [
+        "en"
+      ],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-phoenix/",
+        "https://aimcodes.com/es/valorant-phoenix/",
+        "https://aimcodes.com/pt-br/valorant-phoenix/",
+        "https://aimcodes.com/zh-cn/valorant-phoenix/",
+        "https://aimcodes.com/ja/valorant-phoenix/"
+      ]
+    },
+    {
+      "id": "yoru",
+      "targetQuery": "valorant yoru abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-yoru/",
+        "https://aimcodes.com/es/valorant-yoru/",
+        "https://aimcodes.com/pt-br/valorant-yoru/",
+        "https://aimcodes.com/zh-cn/valorant-yoru/",
+        "https://aimcodes.com/ja/valorant-yoru/"
+      ]
+    },
+    {
+      "id": "neon",
+      "targetQuery": "valorant neon abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-neon/",
+        "https://aimcodes.com/es/valorant-neon/",
+        "https://aimcodes.com/pt-br/valorant-neon/",
+        "https://aimcodes.com/zh-cn/valorant-neon/",
+        "https://aimcodes.com/ja/valorant-neon/"
+      ]
+    },
+    {
+      "id": "reyna",
+      "targetQuery": "valorant reyna abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-reyna/",
+        "https://aimcodes.com/es/valorant-reyna/",
+        "https://aimcodes.com/pt-br/valorant-reyna/",
+        "https://aimcodes.com/zh-cn/valorant-reyna/",
+        "https://aimcodes.com/ja/valorant-reyna/"
+      ]
+    },
+    {
+      "id": "iso",
+      "targetQuery": "valorant iso abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-iso/",
+        "https://aimcodes.com/es/valorant-iso/",
+        "https://aimcodes.com/pt-br/valorant-iso/",
+        "https://aimcodes.com/zh-cn/valorant-iso/",
+        "https://aimcodes.com/ja/valorant-iso/"
+      ]
+    },
+    {
+      "id": "waylay",
+      "targetQuery": "valorant waylay abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-waylay/",
+        "https://aimcodes.com/es/valorant-waylay/",
+        "https://aimcodes.com/pt-br/valorant-waylay/",
+        "https://aimcodes.com/zh-cn/valorant-waylay/",
+        "https://aimcodes.com/ja/valorant-waylay/"
+      ]
+    },
+    {
+      "id": "sova",
+      "targetQuery": "valorant sova abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-sova/",
+        "https://aimcodes.com/es/valorant-sova/",
+        "https://aimcodes.com/pt-br/valorant-sova/",
+        "https://aimcodes.com/zh-cn/valorant-sova/",
+        "https://aimcodes.com/ja/valorant-sova/"
+      ]
+    },
+    {
+      "id": "breach",
+      "targetQuery": "valorant breach abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-breach/",
+        "https://aimcodes.com/es/valorant-breach/",
+        "https://aimcodes.com/pt-br/valorant-breach/",
+        "https://aimcodes.com/zh-cn/valorant-breach/",
+        "https://aimcodes.com/ja/valorant-breach/"
+      ]
+    },
+    {
+      "id": "skye",
+      "targetQuery": "valorant skye abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-skye/",
+        "https://aimcodes.com/es/valorant-skye/",
+        "https://aimcodes.com/pt-br/valorant-skye/",
+        "https://aimcodes.com/zh-cn/valorant-skye/",
+        "https://aimcodes.com/ja/valorant-skye/"
+      ]
+    },
+    {
+      "id": "kayo",
+      "targetQuery": "valorant kayo abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-kayo/",
+        "https://aimcodes.com/es/valorant-kayo/",
+        "https://aimcodes.com/pt-br/valorant-kayo/",
+        "https://aimcodes.com/zh-cn/valorant-kayo/",
+        "https://aimcodes.com/ja/valorant-kayo/"
+      ]
+    },
+    {
+      "id": "fade",
+      "targetQuery": "valorant fade abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-fade/",
+        "https://aimcodes.com/es/valorant-fade/",
+        "https://aimcodes.com/pt-br/valorant-fade/",
+        "https://aimcodes.com/zh-cn/valorant-fade/",
+        "https://aimcodes.com/ja/valorant-fade/"
+      ]
+    },
+    {
+      "id": "gekko",
+      "targetQuery": "valorant gekko abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-gekko/",
+        "https://aimcodes.com/es/valorant-gekko/",
+        "https://aimcodes.com/pt-br/valorant-gekko/",
+        "https://aimcodes.com/zh-cn/valorant-gekko/",
+        "https://aimcodes.com/ja/valorant-gekko/"
+      ]
+    },
+    {
+      "id": "tejo",
+      "targetQuery": "valorant tejo abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-tejo/",
+        "https://aimcodes.com/es/valorant-tejo/",
+        "https://aimcodes.com/pt-br/valorant-tejo/",
+        "https://aimcodes.com/zh-cn/valorant-tejo/",
+        "https://aimcodes.com/ja/valorant-tejo/"
+      ]
+    },
+    {
+      "id": "astra",
+      "targetQuery": "valorant astra abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-astra/",
+        "https://aimcodes.com/es/valorant-astra/",
+        "https://aimcodes.com/pt-br/valorant-astra/",
+        "https://aimcodes.com/zh-cn/valorant-astra/",
+        "https://aimcodes.com/ja/valorant-astra/"
+      ]
+    },
+    {
+      "id": "viper",
+      "targetQuery": "valorant viper abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-viper/",
+        "https://aimcodes.com/es/valorant-viper/",
+        "https://aimcodes.com/pt-br/valorant-viper/",
+        "https://aimcodes.com/zh-cn/valorant-viper/",
+        "https://aimcodes.com/ja/valorant-viper/"
+      ]
+    },
+    {
+      "id": "brimstone",
+      "targetQuery": "valorant brimstone abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-brimstone/",
+        "https://aimcodes.com/es/valorant-brimstone/",
+        "https://aimcodes.com/pt-br/valorant-brimstone/",
+        "https://aimcodes.com/zh-cn/valorant-brimstone/",
+        "https://aimcodes.com/ja/valorant-brimstone/"
+      ]
+    },
+    {
+      "id": "omen",
+      "targetQuery": "valorant omen abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-omen/",
+        "https://aimcodes.com/es/valorant-omen/",
+        "https://aimcodes.com/pt-br/valorant-omen/",
+        "https://aimcodes.com/zh-cn/valorant-omen/",
+        "https://aimcodes.com/ja/valorant-omen/"
+      ]
+    },
+    {
+      "id": "harbor",
+      "targetQuery": "valorant harbor abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-harbor/",
+        "https://aimcodes.com/es/valorant-harbor/",
+        "https://aimcodes.com/pt-br/valorant-harbor/",
+        "https://aimcodes.com/zh-cn/valorant-harbor/",
+        "https://aimcodes.com/ja/valorant-harbor/"
+      ]
+    },
+    {
+      "id": "clove",
+      "targetQuery": "valorant clove abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-clove/",
+        "https://aimcodes.com/es/valorant-clove/",
+        "https://aimcodes.com/pt-br/valorant-clove/",
+        "https://aimcodes.com/zh-cn/valorant-clove/",
+        "https://aimcodes.com/ja/valorant-clove/"
+      ]
+    },
+    {
+      "id": "miks",
+      "targetQuery": "valorant miks abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-miks/",
+        "https://aimcodes.com/es/valorant-miks/",
+        "https://aimcodes.com/pt-br/valorant-miks/",
+        "https://aimcodes.com/zh-cn/valorant-miks/",
+        "https://aimcodes.com/ja/valorant-miks/"
+      ]
+    },
+    {
+      "id": "killjoy",
+      "targetQuery": "valorant killjoy abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-killjoy/",
+        "https://aimcodes.com/es/valorant-killjoy/",
+        "https://aimcodes.com/pt-br/valorant-killjoy/",
+        "https://aimcodes.com/zh-cn/valorant-killjoy/",
+        "https://aimcodes.com/ja/valorant-killjoy/"
+      ]
+    },
+    {
+      "id": "cypher",
+      "targetQuery": "valorant cypher abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-cypher/",
+        "https://aimcodes.com/es/valorant-cypher/",
+        "https://aimcodes.com/pt-br/valorant-cypher/",
+        "https://aimcodes.com/zh-cn/valorant-cypher/",
+        "https://aimcodes.com/ja/valorant-cypher/"
+      ]
+    },
+    {
+      "id": "sage",
+      "targetQuery": "valorant sage abilities",
+      "beforeIndexLocales": [
+        "en"
+      ],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-sage/",
+        "https://aimcodes.com/es/valorant-sage/",
+        "https://aimcodes.com/pt-br/valorant-sage/",
+        "https://aimcodes.com/zh-cn/valorant-sage/",
+        "https://aimcodes.com/ja/valorant-sage/"
+      ]
+    },
+    {
+      "id": "chamber",
+      "targetQuery": "valorant chamber abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-chamber/",
+        "https://aimcodes.com/es/valorant-chamber/",
+        "https://aimcodes.com/pt-br/valorant-chamber/",
+        "https://aimcodes.com/zh-cn/valorant-chamber/",
+        "https://aimcodes.com/ja/valorant-chamber/"
+      ]
+    },
+    {
+      "id": "deadlock",
+      "targetQuery": "valorant deadlock abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-deadlock/",
+        "https://aimcodes.com/es/valorant-deadlock/",
+        "https://aimcodes.com/pt-br/valorant-deadlock/",
+        "https://aimcodes.com/zh-cn/valorant-deadlock/",
+        "https://aimcodes.com/ja/valorant-deadlock/"
+      ]
+    },
+    {
+      "id": "vyse",
+      "targetQuery": "valorant vyse abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-vyse/",
+        "https://aimcodes.com/es/valorant-vyse/",
+        "https://aimcodes.com/pt-br/valorant-vyse/",
+        "https://aimcodes.com/zh-cn/valorant-vyse/",
+        "https://aimcodes.com/ja/valorant-vyse/"
+      ]
+    },
+    {
+      "id": "veto",
+      "targetQuery": "valorant veto abilities",
+      "beforeIndexLocales": [],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-veto/",
+        "https://aimcodes.com/es/valorant-veto/",
+        "https://aimcodes.com/pt-br/valorant-veto/",
+        "https://aimcodes.com/zh-cn/valorant-veto/",
+        "https://aimcodes.com/ja/valorant-veto/"
+      ]
+    },
+    {
+      "id": "hush",
+      "targetQuery": "valorant hush abilities",
+      "beforeIndexLocales": [
+        "en",
+        "ja"
+      ],
+      "afterIndexLocales": [
+        "en",
+        "es",
+        "pt-BR",
+        "zh-CN",
+        "ja"
+      ],
+      "urls": [
+        "https://aimcodes.com/en/valorant-hush/",
+        "https://aimcodes.com/es/valorant-hush/",
+        "https://aimcodes.com/pt-br/valorant-hush/",
+        "https://aimcodes.com/zh-cn/valorant-hush/",
+        "https://aimcodes.com/ja/valorant-hush/"
+      ]
+    }
+  ]
+}

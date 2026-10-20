@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { catalogCrosshairs, crosshairCollectionKeys } from '../src/data/catalogManifest.js'
@@ -16,6 +16,7 @@ import {
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const reportRoot = resolve(projectRoot, '.aimcodes-reports/current')
+const heroIndexApproval = JSON.parse(await readFile(resolve(projectRoot, 'docs/HERO_INDEXING_2026-10-20.json'), 'utf8'))
 const routeTypes = ['agents', 'home', 'catalog', 'players', 'finder', 'guide', 'collection', 'article', 'tool', 'trust', 'crosshair']
 
 function routesForLocale() {
@@ -46,6 +47,7 @@ const locales = Object.keys(localeRoutes).map((locale) => {
     const expectedPaths = new Set([
       '/zh-cn/', '/zh-cn/crosshairs/', '/zh-cn/reaction-time-test/',
       '/zh-cn/dot-crosshairs/', '/zh-cn/plus-crosshairs/', '/zh-cn/crosshairs/cat/',
+      ...heroIndexApproval.urls.map(value => new URL(value).pathname).filter(path => path.startsWith('/zh-cn/')),
     ])
     const actualPaths = new Set(indexed.map((route) => routePath(locale, route)))
     for (const path of actualPaths) {

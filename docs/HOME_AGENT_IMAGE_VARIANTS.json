@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-10-20T09:44:10.683Z",
+  "quality": 82,
+  "alphaQuality": 100,
+  "images": [
+    {
+      "id": "jett",
+      "source": "/images/agents/home/jett.png",
+      "originalBytes": 628364,
+      "variants": [
+        {
+          "path": "/images/agents/home/jett-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 35336
+        },
+        {
+          "path": "/images/agents/home/jett-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 58094
+        }
+      ]
+    },
+    {
+      "id": "sage",
+      "source": "/images/agents/home/sage.png",
+      "originalBytes": 602243,
+      "variants": [
+        {
+          "path": "/images/agents/home/sage-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 33654
+        },
+        {
+          "path": "/images/agents/home/sage-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 55756
+        }
+      ]
+    },
+    {
+      "id": "omen",
+      "source": "/images/agents/home/omen.png",
+      "originalBytes": 850496,
+      "variants": [
+        {
+          "path": "/images/agents/home/omen-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 46834
+        },
+        {
+          "path": "/images/agents/home/omen-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 80130
+        }
+      ]
+    },
+    {
+      "id": "raze",
+      "source": "/images/agents/home/raze.png",
+      "originalBytes": 831853,
+      "variants": [
+        {
+          "path": "/images/agents/home/raze-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 44482
+        },
+        {
+          "path": "/images/agents/home/raze-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 77528
+        }
+      ]
+    },
+    {
+      "id": "sova",
+      "source": "/images/agents/home/sova.png",
+      "originalBytes": 810752,
+      "variants": [
+        {
+          "path": "/images/agents/home/sova-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 34028
+        },
+        {
+          "path": "/images/agents/home/sova-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 58960
+        }
+      ]
+    },
+    {
+      "id": "chamber",
+      "source": "/images/agents/home/chamber.png",
+      "originalBytes": 634046,
+      "variants": [
+        {
+          "path": "/images/agents/home/chamber-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 30892
+        },
+        {
+          "path": "/images/agents/home/chamber-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 54034
+        }
+      ]
+    },
+    {
+      "id": "viper",
+      "source": "/images/agents/home/viper.png",
+      "originalBytes": 871929,
+      "variants": [
+        {
+          "path": "/images/agents/home/viper-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 40856
+        },
+        {
+          "path": "/images/agents/home/viper-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 74406
+        }
+      ]
+    },
+    {
+      "id": "phoenix",
+      "source": "/images/agents/home/phoenix.png",
+      "originalBytes": 748027,
+      "variants": [
+        {
+          "path": "/images/agents/home/phoenix-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 35106
+        },
+        {
+          "path": "/images/agents/home/phoenix-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 58886
+        }
+      ]
+    },
+    {
+      "id": "cypher",
+      "source": "/images/agents/home/cypher.png",
+      "originalBytes": 601327,
+      "variants": [
+        {
+          "path": "/images/agents/home/cypher-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 27920
+        },
+        {
+          "path": "/images/agents/home/cypher-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 46674
+        }
+      ]
+    },
+    {
+      "id": "reyna",
+      "source": "/images/agents/home/reyna.png",
+      "originalBytes": 670651,
+      "variants": [
+        {
+          "path": "/images/agents/home/reyna-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 39460
+        },
+        {
+          "path": "/images/agents/home/reyna-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 67688
+        }
+      ]
+    },
+    {
+      "id": "skye",
+      "source": "/images/agents/home/skye.png",
+      "originalBytes": 740411,
+      "variants": [
+        {
+          "path": "/images/agents/home/skye-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 40752
+        },
+        {
+          "path": "/images/agents/home/skye-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 70212
+        }
+      ]
+    },
+    {
+      "id": "yoru",
+      "source": "/images/agents/home/yoru.png",
+      "originalBytes": 702935,
+      "variants": [
+        {
+          "path": "/images/agents/home/yoru-640.webp",
+          "width": 640,
+          "height": 581,
+          "bytes": 35824
+        },
+        {
+          "path": "/images/agents/home/yoru-960.webp",
+          "width": 960,
+          "height": 872,
+          "bytes": 61564
+        }
+      ]
+    }
+  ]
+}
