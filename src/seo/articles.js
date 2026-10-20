@@ -1,5 +1,6 @@
 import { miksArticleCopy } from './miksContent.js'
 import { harborArticleCopy } from './harborContent.js'
+import { cloveArticleCopy } from './cloveContent.js'
 
 import { gekkoArticleCopy } from './gekkoContent.js'
 import { fadeArticleCopy } from './fadeContent.js'
@@ -251,6 +252,7 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'astra') return astraArticleCopy(locale)
   if (articleKey === 'miks') return miksArticleCopy(locale)
   if (articleKey === 'harbor') return harborArticleCopy(locale)
+  if (articleKey === 'clove') return cloveArticleCopy(locale)
   if (articleKey === 'fade') return fadeArticleCopy(locale)
   if (articleKey === 'tejo') return tejoArticleCopy(locale)
   if (articleKey === 'gekko') return gekkoArticleCopy(locale)

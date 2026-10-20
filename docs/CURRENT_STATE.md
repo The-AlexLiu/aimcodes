@@ -1,5 +1,9 @@
 # AimCodes 当前状态
 
+## 2026-10-20：暮蝶英雄页（已授权发布，待正式核验）
+
+独立分支codex/clove-agent-page，基线7ee749e。新增五语/valorant-clove/、四技能官方图标/视频、2 WORLDS动画与双图灯箱、粉紫宽双翼配中心点准星，以及完整地图/复制/生成器交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布；正式验收和来源见docs/CLOVE_RELEASE_2026-10-20.md。原混合工作树及其他英雄配置跳过。
+
 ## 2026-10-20：迷核英雄页（已授权发布，待正式核验）
 
 独立分支`codex/miks-agent-page`，基线`7ee749e`。新增五语`/valorant-miks/`、官方四技能图标/演示、角色预告与双图灯箱、紫色中心点配左右双层声波刻线准星。复用共享英雄组件，生成器保留独立外线竖长。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权完成后直接发布；本地25项完整检查及桌面/手机、播放、灯箱、复制与编辑器一致已通过。正式PR/预览/生产版本核验见`docs/MIKS_RELEASE_2026-10-20.md`；原混合工作树与其他英雄跳过。

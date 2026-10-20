@@ -1,5 +1,6 @@
 import { MIKS_OG_IMAGE, MIKS_UPDATED_AT, miksArticleCopy } from './miksContent.js'
 import { HARBOR_OG_IMAGE, HARBOR_UPDATED_AT, harborArticleCopy } from './harborContent.js'
+import { CLOVE_OG_IMAGE, CLOVE_UPDATED_AT, cloveArticleCopy } from './cloveContent.js'
 import { FADE_OG_IMAGE, FADE_UPDATED_AT, fadeArticleCopy } from './fadeContent.js'
 import { ASTRA_OG_IMAGE, ASTRA_UPDATED_AT, astraArticleCopy } from './astraContent.js'
 import { SKYE_OG_IMAGE, SKYE_UPDATED_AT, skyeArticleCopy } from './skyeContent.js'
@@ -99,6 +100,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:tejo`, TEJO_UPDATED_AT],
     [`${locale}:article:miks`, MIKS_UPDATED_AT],
     [`${locale}:article:harbor`, HARBOR_UPDATED_AT],
+    [`${locale}:article:clove`, CLOVE_UPDATED_AT],
     [`${locale}:article:fade`, FADE_UPDATED_AT],
     [`${locale}:article:gekko`, GEKKO_UPDATED_AT],
     [`${locale}:article:kayo`, KAYO_UPDATED_AT],
@@ -297,6 +299,10 @@ export function routeMetadata(locale, route, crosshair) {
   if (route.type === 'article' && route.articleKey === 'harbor') {
     imagePath = HARBOR_OG_IMAGE
     imageAlt = harborArticleCopy(locale).imageAlt
+  }
+  if (route.type === 'article' && route.articleKey === 'clove') {
+    imagePath = CLOVE_OG_IMAGE
+    imageAlt = cloveArticleCopy(locale).imageAlt
   }
   if (route.type === 'article' && route.articleKey === 'tejo') {
     imagePath = TEJO_OG_IMAGE
