@@ -1,0 +1,43 @@
+/* Scope every override above the shared template's specificity, including late-loaded chunks. */
+.hush-page.killjoy-page{--killjoy-accent:#f4d35e;--hush-pink:var(--killjoy-accent);--hush-border:#807135;color:#f0f8ff}
+.hush-page.killjoy-page .hush-hero{background:#343220}
+.hush-page.killjoy-page .hush-hero-art{left:40%;width:60%;object-position:65% center;mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.hush-page.killjoy-page .hush-hero::after{background:linear-gradient(90deg,#10131afc,#10131ae6 32%,#10131a08 78%)}
+.hush-page.killjoy-page h2,.hush-page.killjoy-page h3{color:#f0f8ff}
+.hush-page.killjoy-page p,.hush-page.killjoy-page li{color:#c6d9e3}
+.hush-page.killjoy-page .hush-eyebrow,.hush-page.killjoy-page .hush-ability-heading h3{color:var(--killjoy-accent)}
+.hush-page.killjoy-page .hush-primary{background:var(--killjoy-accent);color:#171333}
+.hush-page.killjoy-page .hush-primary:hover{background:#ffed9e;color:#171333}
+.hush-page.killjoy-page .hush-secondary{border-color:#6d8f9e;color:#f0f8ff}
+.hush-page.killjoy-page .hush-secondary:hover{border-color:var(--killjoy-accent);color:var(--killjoy-accent)}
+.hush-page.killjoy-page .hush-ability{background:linear-gradient(145deg,#333221,#10151e);border-color:var(--hush-border);border-top-color:#f4d35e}
+.hush-page.killjoy-page .hush-ability-description>p{color:#edf7ff}
+.hush-page.killjoy-page .hush-ability-description .hush-controls{color:#c6d9e3}
+.hush-page.killjoy-page .hush-binding img{object-fit:contain;background:#20313b;padding:5px}
+.hush-page.killjoy-page .hush-binding small,.hush-page.killjoy-page .hush-gallery-heading>span,.hush-page.killjoy-page .hush-crosshair-map-picker{color:#b2c8d4}
+.hush-page.killjoy-page .hush-ability-media video,.hush-page.killjoy-page .hush-video-frame{border-color:var(--hush-border)}
+.hush-page.killjoy-page .hush-play-symbol{background:var(--killjoy-accent);color:#171333}
+.hush-page.killjoy-page .hush-video-label{color:#f0f8ff}
+.hush-page.killjoy-page .hush-video-links a,.hush-page.killjoy-page .hush-crosshair-more{color:var(--killjoy-accent)}
+.hush-page.killjoy-page .hush-demo{border-color:var(--hush-border)}
+.hush-page.killjoy-page .hush-demo-toggle{border-color:var(--hush-border);color:#e2f3ff;background:#343424}
+.hush-page.killjoy-page .agent-overview-video{display:block;width:100%;height:auto;margin-top:18px;border:1px solid #807135;border-radius:8px;background:#111}
+.hush-page.killjoy-page .hush-gallery-grid figure{display:block}
+.hush-page.killjoy-page .hush-gallery-grid button{padding:0;line-height:0;overflow:hidden;border-color:var(--hush-border);background:#20243c}
+.hush-page.killjoy-page .hush-gallery-grid img{object-fit:cover;object-position:center top}
+.hush-page.killjoy-page .hush-unlock summary,.hush-page.killjoy-page .hush-quick-facts dd{color:#edf7ff}
+.hush-page.killjoy-page .hush-quick-facts dt{color:#b2c8d4}
+.hush-page.killjoy-page .hush-crosshair{border-color:var(--hush-border);background:linear-gradient(120deg,#35331e,#20271e)}
+.hush-page.killjoy-page .hush-crosshair-map,.hush-page.killjoy-page .hush-crosshair :is(button,select){border-color:#6d8f9e}
+.hush-page.killjoy-page .hush-crosshair-map-picker select{background:#343424;color:#f0f8ff}
+.hush-page.killjoy-page .hush-crosshair-zoom{color:var(--killjoy-accent);background:#343424eb}
+.hush-page.killjoy-page .hush-crosshair-copy>p,.hush-page.killjoy-page .hush-crosshair-import{color:#c6d9e3}
+.hush-page.killjoy-page .hush-credit a{color:#a6becb}
+.hush-page.killjoy-page :is(a,button,summary,select):focus-visible{outline:3px solid var(--killjoy-accent);outline-offset:4px}
+.hush-lightbox.killjoy-lightbox{border-color:#6d8f9e;background:#20313b}
+.hush-lightbox.killjoy-lightbox form button{border-color:#6d8f9e;background:#35331e}
+.hush-page.killjoy-page [id]{scroll-margin-top:100px}
+@media(max-width:680px){
+ .hush-page.killjoy-page .hush-hero-art{left:0;width:100%;object-position:30% 10%;mask-image:none}
+ .hush-page.killjoy-page .hush-hero::after{background:linear-gradient(0deg,#10131a 0%,#10131a 32%,#10131aab 57%,transparent 90%)}
+}
