@@ -1,4 +1,5 @@
 import AstraAgentPage from './AstraAgentPage.jsx'
+import TejoAgentPage from './TejoAgentPage.jsx'
 import KayoAgentPage from './KayoAgentPage.jsx'
 import SkyeAgentPage from './SkyeAgentPage.jsx'
 import BreachAgentPage from './BreachAgentPage.jsx'
@@ -33,6 +34,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   if (articleKey === 'iso') return <IsoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'waylay') return <WaylayAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'astra') return <AstraAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'tejo') return <TejoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'kayo') return <KayoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'skye') return <SkyeAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'breach') return <BreachAgentPage locale={locale} onCopy={onCopy} />
