@@ -1,3 +1,4 @@
+import { YORU_OG_IMAGE, YORU_UPDATED_AT, yoruArticleCopy } from './yoruContent.js'
 import { REYNA_OG_IMAGE, REYNA_UPDATED_AT, reynaArticleCopy } from './reynaContent.js'
 import { JETT_OG_IMAGE, JETT_UPDATED_AT, jettArticleCopy } from './jettContent.js'
 import { RAZE_OG_IMAGE, RAZE_UPDATED_AT, razeArticleCopy } from './razeContent.js'
@@ -75,6 +76,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:home:`, HUSH_UPDATED_AT],
     [`${locale}:article:hush`, HUSH_UPDATED_AT],
     [`${locale}:article:sage`, SAGE_UPDATED_AT],
+    [`${locale}:article:yoru`, YORU_UPDATED_AT],
     [`${locale}:article:jett`, JETT_UPDATED_AT],
     [`${locale}:article:raze`, RAZE_UPDATED_AT],
     [`${locale}:article:reyna`, REYNA_UPDATED_AT],
@@ -238,6 +240,10 @@ export function routeMetadata(locale, route, crosshair) {
     }[locale] || title
   }
 
+  if (route.type === 'article' && route.articleKey === 'yoru') {
+    imagePath = YORU_OG_IMAGE
+    imageAlt = yoruArticleCopy(locale).imageAlt
+  }
   if (route.type === 'article' && route.articleKey === 'reyna') {
     imagePath = REYNA_OG_IMAGE
     imageAlt = reynaArticleCopy(locale).imageAlt

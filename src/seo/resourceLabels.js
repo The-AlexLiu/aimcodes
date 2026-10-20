@@ -1,3 +1,4 @@
+import { yoruArticleCopy } from './yoruContent.js'
 import { reynaArticleCopy } from './reynaContent.js'
 import { jettArticleCopy } from './jettContent.js'
 import { razeArticleCopy } from './razeContent.js'
@@ -39,6 +40,7 @@ function localizedLabels(locale) {
 }
 
 export function articleResourceLabel(locale, articleKey) {
+  if (articleKey === 'yoru') return yoruArticleCopy(locale).title
   if (articleKey === 'reyna') return reynaArticleCopy(locale).title
   if (articleKey === 'jett') return jettArticleCopy(locale).title
   if (articleKey === 'raze') return razeArticleCopy(locale).title
