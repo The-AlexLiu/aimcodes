@@ -1,3 +1,4 @@
+import { vyseArticleCopy } from './vyseContent.js'
 import { killjoyArticleCopy } from './killjoyContent.js'
 import { cypherArticleCopy } from './cypherContent.js'
 import { miksArticleCopy } from './miksContent.js'
@@ -65,6 +66,7 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'cypher') return cypherArticleCopy(locale).title
   if (articleKey === 'miks') return miksArticleCopy(locale).title
   if (articleKey === 'harbor') return harborArticleCopy(locale).title
+  if (articleKey === 'vyse') return vyseArticleCopy(locale).title
   if (articleKey === 'killjoy') return killjoyArticleCopy(locale).title
   if (articleKey === 'clove') return cloveArticleCopy(locale).title
   if (articleKey === 'fade') return fadeArticleCopy(locale).title
