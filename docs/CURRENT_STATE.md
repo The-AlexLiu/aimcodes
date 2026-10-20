@@ -4,6 +4,15 @@
 
 独立分支`codex/fade-agent-page`，基线`eda3dc9`。新增五语`/valorant-fade/`、四技能官方演示、角色动画与图集、冰蓝横向扁环配中心点准星。复用共享英雄交互；五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户明确授权完成后直接发布，待PR预览、CI与生产版本/交互核验。来源与验收见`docs/FADE_RELEASE_2026-10-20.md`；保留原混合工作树与旧英雄。
 
+
+## 2026-10-20：星礈英雄页（已授权发布，待正式核验）
+
+专用分支 `codex/astra-agent-page`，基线 `eda3dc9`。新增五语 `/valorant-astra/`，五组官方技能演示（含独立星界形态）、官方预告与双图灯箱、紫色横长星芒准星，复用共享英雄交互。五语均 noindex,follow、自 canonical、无 hreflang、不入 Sitemap；用户已授权完成后直接发布。实际PR、Cloudflare与正式域名版本/交互核验后确认上线，来源和完整验收见 `docs/ASTRA_RELEASE_2026-10-20.md`。原混合工作树、其他英雄及追踪/支付配置保持不变。
+
+## 2026-10-20：钛狐英雄页（已授权发布，待正式核验）
+
+独立分支`codex/tejo-agent-page`，基线`eda3dc9`。新增五语`/valorant-tejo/`、官方四技能、实机预告与人物图集、金色横臂/中心点/外刻线准星。复用共享英雄交互；五语noindex,follow、自canonical、无hreflang、不入Sitemap。用户要求完成后直接发布，待PR预览/CI/正式域名验证后确认上线。来源及验收见`docs/TEJO_RELEASE_2026-10-20.md`。原混合工作树和旧英雄保持不变。
+
 ## 2026-10-20：K/O 英雄页（已授权发布，待正式核验）
 
 独立分支`codex/kayo-agent-page`，基线`6f9c3aa`。新增五语`/valorant-kayo/`、官方四技能、官方角色预告和战斗图集、淡紫色细长竖轨配中心点准星，复用共享英雄交互。五语均noindex,follow、自canonical、无hreflang、不入Sitemap。用户授权制作后直接发布；待PR预览、CI和正式域名版本/交互核验后确认上线。来源与验收见`docs/KAYO_RELEASE_2026-10-20.md`。原混合工作树及旧英雄配置保持不变。

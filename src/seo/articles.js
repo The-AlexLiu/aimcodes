@@ -1,9 +1,11 @@
+import { fadeArticleCopy } from './fadeContent.js'
+import { astraArticleCopy } from './astraContent.js'
 import { skyeArticleCopy } from './skyeContent.js'
 import { yoruArticleCopy } from './yoruContent.js'
 import { sovaArticleCopy } from './sovaContent.js'
 import { isoArticleCopy } from './isoContent.js'
 import { waylayArticleCopy } from './waylayContent.js'
-import { fadeArticleCopy } from './fadeContent.js'
+import { tejoArticleCopy } from './tejoContent.js'
 import { kayoArticleCopy } from './kayoContent.js'
 import { breachArticleCopy } from './breachContent.js'
 import { neonArticleCopy } from './neonContent.js'
@@ -242,7 +244,9 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'sova') return sovaArticleCopy(locale)
   if (articleKey === 'iso') return isoArticleCopy(locale)
   if (articleKey === 'waylay') return waylayArticleCopy(locale)
+  if (articleKey === 'astra') return astraArticleCopy(locale)
   if (articleKey === 'fade') return fadeArticleCopy(locale)
+  if (articleKey === 'tejo') return tejoArticleCopy(locale)
   if (articleKey === 'kayo') return kayoArticleCopy(locale)
   if (articleKey === 'skye') return skyeArticleCopy(locale)
   if (articleKey === 'breach') return breachArticleCopy(locale)

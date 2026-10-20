@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-20",
+  "officialPage": "https://playvalorant.com/en-us/agents/tejo/",
+  "abilities": [
+    {
+      "key": "drone",
+      "name": "Stealth Drone",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/0bbf5fc8e23c5130760d961d478b9e04eb350293-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news/68c56e770855ce32eab9ba4283e4496952295d9a.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "delivery",
+      "name": "Special Delivery",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/c79ba948fd3bd1bf0001a01f6d9f4a4237144b0c-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news/6fdd2855da57354f3f1d274bea06f8f24140ef23.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "salvo",
+      "name": "Guided Salvo",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/ee6c5d81edeea5eaac58e215cef9d93893c52225-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news/612a857ad0b5ebfa86611af953066356cd33fe97.mp4?accountingTag=VAL"
+    },
+    {
+      "key": "ultimate",
+      "name": "Armageddon",
+      "icon": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/329422a9eeeeb9446eedd9ede2b8346a9453cc48-128x128.png?accountingTag=VAL",
+      "video": "https://cmsassets.rgpub.io/sanity/files/dsfx7636/news/8060ca420965ebd775f8cdbe3589600ee5733911.mp4?accountingTag=VAL"
+    }
+  ],
+  "gallery": {
+    "source": "https://www.youtube.com/watch?v=dRuRID5JoQY",
+    "seconds": 88,
+    "crop": {
+      "left": 320,
+      "top": 64,
+      "width": 640,
+      "height": 640
+    },
+    "output": "gallery/advance.webp"
+  }
+}
