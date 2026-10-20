@@ -33,7 +33,7 @@ const regenerated = generateCrosshairCode({
   outline: { enabled: s.outline, opacity: s.outlineOpacity, thickness: s.outlineThickness },
   dot: { enabled: s.dot, opacity: s.dotOpacity, size: s.dotSize },
   inner: { enabled: s.inner, opacity: s.innerOpacity, length: s.innerLength, verticalLength: s.innerVerticalLength, thickness: s.innerThickness, offset: s.innerOffset },
-  outer: { enabled: s.outer, opacity: s.outerOpacity, length: s.outerLength, thickness: s.outerThickness, offset: s.outerOffset },
+  outer: { enabled: s.outer, opacity: s.outerOpacity, length: s.outerLength, verticalLength: s.outerVerticalLength, thickness: s.outerThickness, offset: s.outerOffset },
   movementError: s.movementError, firingError: s.firingError,
 })
 assert.equal(crosshair.code, regenerated, 'Editor settings must reproduce the preview/copy code exactly')

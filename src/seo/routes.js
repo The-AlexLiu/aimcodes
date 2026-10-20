@@ -57,6 +57,7 @@ export const SEO_ARTICLES = Object.freeze({
   iso: Object.freeze({ slug: 'valorant-iso', keyword: 'valorant iso abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   waylay: Object.freeze({ slug: 'valorant-waylay', keyword: 'valorant waylay abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   astra: Object.freeze({ slug: 'valorant-astra', keyword: 'valorant astra abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
+  miks: Object.freeze({ slug: 'valorant-miks', keyword: 'valorant miks abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   harbor: Object.freeze({ slug: 'valorant-harbor', keyword: 'valorant harbor abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   clove: Object.freeze({ slug: 'valorant-clove', keyword: 'valorant clove abilities', priority: 'P1', indexLocales: Object.freeze([]) }),
   fade: Object.freeze({ slug: 'valorant-fade', keyword: 'valorant fade abilities', priority: 'P1', indexLocales: Object.freeze([]) }),

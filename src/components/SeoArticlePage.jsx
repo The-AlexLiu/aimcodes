@@ -1,3 +1,4 @@
+import MiksAgentPage from './MiksAgentPage.jsx'
 import HarborAgentPage from './HarborAgentPage.jsx'
 import CloveAgentPage from './CloveAgentPage.jsx'
 
@@ -39,6 +40,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   if (articleKey === 'iso') return <IsoAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'waylay') return <WaylayAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'astra') return <AstraAgentPage locale={locale} onCopy={onCopy} />
+  if (articleKey === 'miks') return <MiksAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'harbor') return <HarborAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'clove') return <CloveAgentPage locale={locale} onCopy={onCopy} />
   if (articleKey === 'fade') return <FadeAgentPage locale={locale} onCopy={onCopy} />
