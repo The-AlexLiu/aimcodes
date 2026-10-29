@@ -2609,3 +2609,8 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 .hush-home-link.fade-home-link { border-color: #466879; background: linear-gradient(100deg, #203b48, #152932); color: #b5d9ed; }
 .hush-home-link.fade-home-link:hover { border-color: #b5d9ed; }
 .hush-home-link.fade-home-link:focus-visible { outline-color: #b5d9ed; }
+
+.seo-entry-help { max-width: 860px; margin-top: 24px; }
+.seo-entry-help h2 { font-size: 18px; line-height: 1.4; }
+.seo-entry-help a { color: #83e7e0; text-underline-offset: 3px; }
+.seo-entry-help a:focus-visible { outline: 2px solid #83e7e0; outline-offset: 3px; }

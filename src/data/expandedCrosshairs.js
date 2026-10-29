@@ -43,7 +43,7 @@ export const expandedCrosshairs = [
     id: 'needle-cyan',
     name: 'Agulha — ponto ciano',
     shortName: 'Agulha',
-    description: 'Um único pixel ciano para máxima precisão',
+    description: 'Ponto central ciano de tamanho 1, sem contorno nem linhas',
     category: 'dot',
     colorKey: 'cyan',
     code: '0;P;c;5;h;0;d;1;z;1;0b;0;1b;0',

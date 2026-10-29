@@ -95,7 +95,7 @@ export const crosshairCollections = Object.freeze({
   }),
   dot: Object.freeze({
     slug: 'dot-crosshairs',
-    crosshairIds: Object.freeze(['aspas-dot', 'demon1', 'scream-dot', 'small-dot-thick', 'needle-cyan', ...indexedFamilyIds('tapDot'), ...indexedFamilyIds('pinpoint')]),
+    crosshairIds: Object.freeze(['demon1', 'needle-cyan', 'aspas-dot', 'scream-dot', 'small-dot-thick', ...indexedFamilyIds('tapDot'), ...indexedFamilyIds('pinpoint')]),
   }),
   cute: Object.freeze({
     slug: 'cute-crosshairs',

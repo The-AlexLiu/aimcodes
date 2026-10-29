@@ -367,7 +367,8 @@ export const crosshairCopy = {
     en: ['Pink spark', 'Spark', 'A center dot with two layered star points'], es: ['Destello rosa', 'Destello', 'Un punto central con dos capas en forma de estrella'], 'zh-CN': ['粉色星芒', '星芒', '中心点外叠着两层星芒'], 'pt-BR': ['Faísca rosa', 'Faísca', 'Ponto central com duas camadas em forma de estrela'],
   },
   'needle-cyan': {
-    en: ['Cyan needle dot', 'Needle', 'A single cyan pixel for maximum precision'], es: ['Punto aguja cian', 'Aguja', 'Un solo píxel cian para máxima precisión'], 'zh-CN': ['青色针点', '针点', '只有一个青色像素，目标遮挡最少'], 'pt-BR': ['Ponto agulha ciano', 'Agulha', 'Um único pixel ciano para máxima precisão'],
+    ja: ['シアンの針ドット', '針ドット', 'サイズ1のシアンドット。輪郭とラインはありません。'],
+    en: ['Cyan needle dot', 'Needle', 'A size-1 cyan center dot without outlines or lines'], es: ['Punto aguja cian', 'Aguja', 'Punto central cian de tamaño 1, sin contorno ni líneas'], 'zh-CN': ['青色针点', '针点', '尺寸为 1 的青色中心点，没有轮廓或线条'], 'pt-BR': ['Ponto agulha ciano', 'Agulha', 'Ponto central ciano de tamanho 1, sem contorno nem linhas'],
   },
   'pin-white': {
     en: ['White pin dot', 'Pin', 'A small white dot without an outline'], es: ['Punto alfiler blanco', 'Alfiler', 'Un punto blanco pequeño y sin contorno'], 'zh-CN': ['白色小点', '白色小点', '没有描边的干净白色小点'], 'pt-BR': ['Ponto alfinete branco', 'Alfinete', 'Ponto branco pequeno e sem contorno'],
