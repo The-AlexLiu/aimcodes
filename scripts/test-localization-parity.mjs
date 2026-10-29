@@ -1,4 +1,5 @@
 import test from 'node:test'
+import { parseCrosshairCode } from '../src/utils/crosshairCode.js'
 import assert from 'node:assert/strict'
 import { articleCopy } from '../src/seo/articles.js'
 import { collectionCopy } from '../src/seo/collectionContent.js'
@@ -24,9 +25,18 @@ for (const locale of locales) {
   })
   test(`${locale}: dot choices and navigation have the same product meaning`, () => {
     const dot = collectionCopy(locale, 'dot')
-    assert.deepEqual(dot.quickPicks.map(pick => pick.id), ['demon1', 'tap-dot-apex', 'small-dot-thick'])
+    assert.deepEqual(dot.quickPicks.map(pick => pick.id), ['demon1', 'needle-cyan', 'tap-dot-apex', 'small-dot-thick'])
     assert.deepEqual(dot.introCollectionKeys, ['dot', 'small', 'plus', 'circle'])
     for (const pick of dot.quickPicks) assert(pick.reason.trim())
+    assert.equal(dot.quickPickGroups.length, 2)
+    for (const pick of dot.quickPickGroups[0].picks) {
+      const { settings } = parseCrosshairCode(catalogCrosshairs.find(item => item.id === pick.id).code)
+      assert(settings.dot.enabled && !settings.inner.enabled && !settings.outer.enabled, `${pick.id} must be a pure dot`)
+    }
+    for (const pick of dot.quickPickGroups[1].picks) {
+      const { settings } = parseCrosshairCode(catalogCrosshairs.find(item => item.id === pick.id).code)
+      assert(settings.inner.enabled || settings.outer.enabled, `${pick.id} must be labeled as a line alternative`)
+    }
     for (const key of ['sheriff', 'visibility', 'guardian', 'outlaw', 'marshal', 'burst', 'spray', 'longRange']) {
       const item = collectionCopy(locale, key)
       assert.notDeepEqual(item.body, collectionCopy(locale, 'best').body, `${key}: generic Best fallback returned`)

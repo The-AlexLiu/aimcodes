@@ -1,3 +1,4 @@
+import SeoEntryHelp from './SeoEntryHelp.jsx'
 import { routePath } from '../seo/routes.js'
 import { seoCopy } from '../seo/content.js'
 import { lazy, Suspense } from 'react'
@@ -24,6 +25,7 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
           </nav>
         )}
         {type === 'catalog' && <p>{content.helpBody}</p>}
+        {type === 'catalog' && <SeoEntryHelp locale={locale} />}
         {type === 'catalog' && t && (
           <a className="catalog-reaction-cta" href={routePath(locale, { type: 'finder' })}>
             <strong>{t('finder.title')}</strong>

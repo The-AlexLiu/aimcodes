@@ -8,6 +8,7 @@ import { parseCrosshairCode } from '../src/utils/crosshairCode.js'
 
 // Guard the numeric claims in the editorial shortlist if a profile changes later.
 const claims = {
+  'needle-cyan': { 'dot.size': 1, 'dot.enabled': true, 'inner.enabled': false, 'outer.enabled': false, 'outline.enabled': false },
   demon1: { 'dot.size': 2, 'dot.enabled': true, 'inner.enabled': false, 'outer.enabled': false, 'outline.enabled': true },
   'tap-dot-apex': { 'dot.size': 1, 'dot.enabled': true, 'inner.enabled': true, 'inner.horizontalLength': 1, 'inner.thickness': 1 },
   'small-dot-thick': { 'dot.size': 2, 'inner.horizontalLength': 1, 'inner.thickness': 4, 'inner.offset': 0 },

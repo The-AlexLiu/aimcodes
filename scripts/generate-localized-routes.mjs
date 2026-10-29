@@ -1,3 +1,4 @@
+import { entryHelp } from '../src/seo/entryHelp.js'
 import { breadcrumbCopy } from '../src/seo/breadcrumbs.js'
 import { agentsCopy as collectionAgentsCopy } from '../src/seo/agentsCollectionContent.js'
 import { agentDirectory, agentName, featuredAgents } from '../src/data/agentDirectory.js'
@@ -472,6 +473,11 @@ function replaceSeoBlock(html, nextBlock) {
   return `${html.slice(0, startIndex)}${nextBlock}${html.slice(endIndex + seoEnd.length)}`
 }
 
+function staticEntryHelp(locale) {
+  const copy = entryHelp(locale)
+  return `<section class="seo-entry-help"><h2>${escapeHtml(copy.title)}</h2><p>${escapeHtml(copy.body)} <a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(copy.link)}</a></p></section>`
+}
+
 function staticAgentBreadcrumb(locale, name) {
   const copy = breadcrumbCopy(locale)
   return `<nav aria-label="${escapeHtml(copy.breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">${escapeHtml(copy.home)}</a> / <a href="${routePath(locale, { type: 'agents' })}">${escapeHtml(copy.agents)}</a> / <span aria-current="page">${escapeHtml(name)}</span></nav>`
@@ -561,7 +567,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'catalog') {
     const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p><nav>${[routePath(locale, { type: 'collection', collectionKey: 'best' }), routePath(locale, { type: 'tool', toolKey: 'generator' }), routePath(locale, { type: 'guide' })].map((href, index) => `<a href="${href}">${escapeHtml(localized.catalog.links[index])}</a>`).join('')}</nav><p>${escapeHtml(localized.catalog.helpBody)}</p>${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p><nav>${[routePath(locale, { type: 'collection', collectionKey: 'best' }), routePath(locale, { type: 'tool', toolKey: 'generator' }), routePath(locale, { type: 'guide' })].map((href, index) => `<a href="${href}">${escapeHtml(localized.catalog.links[index])}</a>`).join('')}</nav><p>${escapeHtml(localized.catalog.helpBody)}</p>${staticEntryHelp(locale)}${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
   }
   if (route.type === 'players') {
     const players = proPlayerHubCopy(locale)
@@ -579,7 +585,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter(Boolean)
     const quickPicks = collection.quickPicks?.length
-      ? `<section class="seo-quick-picks"><h2>${escapeHtml(collection.quickPicksTitle)}</h2><ul>${collection.quickPicks.map((pick) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span></li>`).join('')}</ul></section>`
+      ? (collection.quickPickGroups || [{ title: collection.quickPicksTitle, picks: collection.quickPicks }]).map((group) => `<section class="seo-quick-picks"><h2>${escapeHtml(group.title)}</h2><ul>${group.picks.map((pick) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span></li>`).join('')}</ul></section>`).join('')
       : ''
     const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('') + (route.collectionKey === 'best' ? `<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(reviewCopy(locale).best.database)}</a>` : '')
     const selectionContent = Array.isArray(collection.selection)
@@ -593,7 +599,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((key) => `<a href="${routePath(locale, { type: 'collection', collectionKey: key })}">${escapeHtml(collectionCopy(locale, key).label)}</a>`).join('')
     const related = `${(collection.relatedCollectionKeys || []).filter((relatedCollectionKey) => discoverableCollectionSet.has(relatedCollectionKey)).map((relatedCollectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey })}">${escapeHtml(collectionCopy(locale, relatedCollectionKey).title)}</a>`).join('')}${(collection.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(collection.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${quickPicks}${introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${staticLinks(locale, route.collectionKey === 'funny' ? items.slice(12) : items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${quickPicks}${['dot', 'best'].includes(route.collectionKey) ? staticEntryHelp(locale) : ''}${introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${staticLinks(locale, route.collectionKey === 'funny' ? items.slice(12) : items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
