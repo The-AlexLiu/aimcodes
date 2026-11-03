@@ -67,7 +67,14 @@ for (const locale of Object.keys(localeRoutes)) {
     assert.equal(new Set(page.sections.map(s => s.paragraphs.join(' '))).size, 4)
     assert.equal(page.recommendedCrosshairIds.length, 4)
     for (const id of page.recommendedCrosshairIds) assert.ok(indexableCrosshairIds.includes(id))
-    assert.equal(routeContentUpdatedAt(locale, { type: 'article', articleKey: key }), '2026-09-04')
+    const isEnglishStretched = locale === 'en' && key === 'stretched'
+    assert.equal(routeContentUpdatedAt(locale, { type: 'article', articleKey: key }), isEnglishStretched ? '2026-11-03' : '2026-09-04')
+    if (isEnglishStretched) {
+      assert.deepEqual(page.featuredCodes.ids, ['wide-axis-apex', 'wide-axis-bolt'])
+      assert.ok(page.featuredCodes.ids.every(id => crosshairCollections.horizontal.crosshairIds.includes(id)))
+    } else {
+      assert.equal(page.featuredCodes, undefined)
+    }
     assert.ok(!titles.has(page.metaTitle), `${locale}: duplicate title`)
     assert.ok(!descriptions.has(page.metaDescription), `${locale}: duplicate description`)
     titles.add(page.metaTitle)

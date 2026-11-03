@@ -1,3 +1,4 @@
+import CrosshairCard from './CrosshairCard.jsx'
 import './agentDirectory.css'
 import DeadlockAgentPage from './DeadlockAgentPage.jsx'
 import VetoAgentPage from './VetoAgentPage.jsx'
@@ -73,7 +74,7 @@ const agentPages = {
   hush: HushAgentPage,
 }
 
-export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy }) {
+export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy, copiedId, onSelect, t }) {
   const AgentPage = agentPages[articleKey]
   if (AgentPage) return <AgentPage locale={locale} onCopy={onCopy} />
   const content = articleCopy(locale, articleKey)
@@ -87,6 +88,8 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
   const recommended = content.recommendedCrosshairIds
     .map((id) => crosshairs.find((item) => item.id === id))
     .filter(Boolean)
+  const featured = recommended.filter((item) => content.featuredCodes?.ids.includes(item.id))
+  const remaining = recommended.filter((item) => !featured.includes(item))
   const fallbackArticleKeys = [articleKey === 'settings' ? 'colors' : 'settings']
   const relatedArticleKeys = content.relatedArticleKeys || fallbackArticleKeys
   const discoverableCollectionSet = new Set(DISCOVERABLE_COLLECTION_KEYS)
@@ -112,7 +115,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
             <h2>{content.summaryTitle}</h2>
           )}
           <p>{content.summary}</p>
-          {(quickCollectionKey || quickToolKey) && (
+          {!featured.length && (quickCollectionKey || quickToolKey) && (
             <nav className="seo-article-quick-actions" aria-label={labels.quick}>
               {quickCollectionKey && (
                 <a className="primary-button" href={routePath(locale, { type: 'collection', collectionKey: quickCollectionKey })}>
@@ -128,6 +131,19 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
           )}
         </div>
       </aside>
+
+      {featured.length > 0 && (
+        <section className="article-featured-codes">
+          <h2>{content.featuredCodes.title}</h2>
+          <div>
+            {featured.map((item) => (
+              <CrosshairCard key={item.id} crosshair={item}
+                href={routePath(locale, { type: 'crosshair', crosshairId: item.id })}
+                copied={copiedId === item.id} onSelect={onSelect} onCopy={onCopy} t={t} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {articleKey === 'statistics' && <CrosshairStatisticsPanel locale={locale} />}
       {articleKey === 'colors' && <CrosshairColorComparison locale={locale} crosshair={crosshairs.find((item) => item.id === 'tenz')} />}
@@ -151,7 +167,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy 
           <h2>{content.cta}</h2>
         </div>
         <div className="seo-article-link-grid">
-          {recommended.map((crosshair) => (
+          {remaining.map((crosshair) => (
             <a key={crosshair.id} href={routePath(locale, { type: 'crosshair', crosshairId: crosshair.id })}>
               <strong>{crosshair.shortName}</strong>
               <span>{crosshair.description}</span>

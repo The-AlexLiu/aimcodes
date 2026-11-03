@@ -470,7 +470,7 @@ export default function App() {
         ) : route.type === 'guide' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ImportGuide locale={language} /></Suspense>
         ) : route.type === 'article' ? (
-          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoArticlePage locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
+          <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoArticlePage copiedId={copiedId} onSelect={selectCrosshair} t={t} locale={language} articleKey={route.articleKey} crosshairs={allCrosshairs} onCopy={copyCrosshair} /></Suspense>
         ) : route.type === 'tool' && route.toolKey === 'playbook' ? (
           <Suspense fallback={<RouteLoading label={t('loading.route')} />}><ValorantPlaybookPage locale={language} /></Suspense>
         ) : route.type === 'tool' ? (
