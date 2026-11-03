@@ -28,6 +28,7 @@ const content = {
       metaDescription: 'Check an off-center-looking VALORANT crosshair with a simple dot, balanced lines and an uncropped screenshot. Learn why gap offset does not move the whole sight.',
     },
     stretched: {
+      featuredCodes: { title: 'Copy a wide crosshair', ids: ['wide-axis-apex', 'wide-axis-bolt'] },
       title: 'Stretched VALORANT crosshair: code or display scaling?',
       intro: 'A wide crosshair and a stretched screen can look similar in a clip, but they are not the same setting.',
       summary: 'For a wider crosshair only, adjust horizontal and vertical line lengths independently or copy a wide code. A crosshair code does not set screen resolution, stretch enemy models or reproduce another player’s monitor setup.',
