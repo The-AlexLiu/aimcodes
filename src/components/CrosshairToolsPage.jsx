@@ -135,7 +135,7 @@ function Generator({ copy, onCopy }) {
 
   return (
     <div className="tool-workspace">
-      <section className="tool-preview-panel"><Preview item={item} background={background} label={copy.preview} copy={copy} /><MapPicker copy={copy} value={background} onChange={setBackground} /><code>{code}</code><button className="primary-button" type="button" onClick={() => onCopy(item, { interactionSource: 'crosshair_generator' })}>{copy.copy}</button><p>{copy.generatorNote}</p></section>
+      <section id="generator-preview" tabIndex={-1} className="tool-preview-panel"><Preview item={item} background={background} label={copy.preview} copy={copy} /><MapPicker copy={copy} value={background} onChange={setBackground} /><code>{code}</code><button className="primary-button" type="button" onClick={() => onCopy(item, { interactionSource: 'crosshair_generator' })}>{copy.copy}</button><p>{copy.generatorNote}</p></section>
       <section className="tool-controls" aria-label={copy.settings}>
         <h2>{copy.settings}</h2>
         <label className="tool-field"><span>{copy.color}</span><select value={settings.colorPreset} onChange={(event) => update('colorPreset', event.target.value)}>{crosshairColorPresets.map((option) => <option key={option.preset} value={option.preset}>{copy.colors[option.key] || option.key}</option>)}<option value="8">{copy.colors.custom}</option></select></label>
@@ -146,6 +146,7 @@ function Generator({ copy, onCopy }) {
         {settings.inner && <div className="tool-control-group"><h3>{copy.inner}</h3><NumberControl label={copy.opacity} value={settings.innerOpacity} min={0} max={1} step={0.1} onChange={(value) => update('innerOpacity', value)} /><NumberControl label={copy.length} value={settings.innerLength} min={0} max={20} onChange={(value) => update('innerLength', value)} />{settings.innerVerticalLength !== undefined && <NumberControl label={copy.verticalLength} value={settings.innerVerticalLength} min={0} max={20} onChange={(value) => update('innerVerticalLength', value)} />}<NumberControl label={copy.thickness} value={settings.innerThickness} min={0} max={10} onChange={(value) => update('innerThickness', value)} /><NumberControl label={copy.offset} value={settings.innerOffset} min={0} max={20} onChange={(value) => update('innerOffset', value)} /></div>}
         {settings.outer && <div className="tool-control-group"><h3>{copy.outer}</h3><NumberControl label={copy.opacity} value={settings.outerOpacity} min={0} max={1} step={0.1} onChange={(value) => update('outerOpacity', value)} /><NumberControl label={copy.length} value={settings.outerLength} min={0} max={20} onChange={(value) => update('outerLength', value)} />{settings.outerVerticalLength !== undefined && <NumberControl label={copy.verticalLength} value={settings.outerVerticalLength} min={0} max={20} onChange={(value) => update('outerVerticalLength', value)} />}<NumberControl label={copy.thickness} value={settings.outerThickness} min={0} max={10} onChange={(value) => update('outerThickness', value)} /><NumberControl label={copy.offset} value={settings.outerOffset} min={0} max={20} onChange={(value) => update('outerOffset', value)} /></div>}
         <div className="tool-toggle-row"><Toggle label={copy.movement} checked={settings.movementError} onChange={(value) => update('movementError', value)} /><Toggle label={copy.firing} checked={settings.firingError} onChange={(value) => update('firingError', value)} /></div>
+        <a className="generator-preview-jump" href="#generator-preview">{copy.preview} ↑</a>
       </section>
     </div>
   )
@@ -155,6 +156,7 @@ function CodeTool({ copy, mode, crosshairs, onCopy }) {
   const [input, setInput] = useState(crosshairs[0]?.code || '')
   const [background, setBackground] = useState('ascent')
   const parsed = useMemo(() => {
+    if (!input.trim()) return { value: null, error: null }
     try { return { value: parseCrosshairCode(input), error: null } } catch { return { value: null, error: copy.invalid } }
   }, [copy.invalid, input])
   const item = parsed.value ? asToolItem(parsed.value.code, parsed.value, copy.preview) : null
@@ -163,9 +165,9 @@ function CodeTool({ copy, mode, crosshairs, onCopy }) {
   return (
     <div className="tool-workspace is-code-tool">
       <section className="tool-controls">
-        <label className="tool-field"><span>{copy.code}</span><textarea value={input} onChange={(event) => setInput(event.target.value)} placeholder={copy.paste} rows="7" /></label>
-        <p>{copy.codeHelp}</p>
-        <div className={`tool-validation ${parsed.error ? 'is-error' : 'is-valid'}`}>{parsed.error || copy.valid}</div>
+        <label className="tool-field"><span>{copy.code}</span><textarea aria-invalid={Boolean(parsed.error)} aria-describedby="tool-code-help tool-code-status" spellCheck={false} autoCapitalize="none" value={input} onChange={(event) => setInput(event.target.value)} placeholder={copy.paste} rows="7" /></label>
+        <p id="tool-code-help">{copy.codeHelp}</p>
+        <div role="status" id="tool-code-status" className={`tool-validation ${parsed.error ? 'is-error' : parsed.value ? 'is-valid' : ''}`}>{parsed.error || (parsed.value ? copy.valid : copy.paste)}</div>
         {mode === 'decoder' && settings && <div className="decoded-grid">
           <span><b>{copy.color}</b>{copy.colors[parsed.value.colorKey] || parsed.value.color}</span><span><b>{copy.outline}</b>{settings.outline.enabled ? copy.on : copy.off}</span><span><b>{copy.centerDot}</b>{settings.dot.enabled ? copy.on : copy.off}</span><span><b>{copy.inner}</b>{settings.inner.enabled ? `${settings.inner.horizontalLength} / ${settings.inner.thickness} / ${settings.inner.offset}` : copy.off}</span><span><b>{copy.outer}</b>{settings.outer.enabled ? `${settings.outer.horizontalLength} / ${settings.outer.thickness} / ${settings.outer.offset}` : copy.off}</span><span><b>{copy.movement}</b>{settings.movementError.enabled ? copy.on : copy.off}</span><span><b>{copy.firing}</b>{settings.firingError.enabled ? copy.on : copy.off}</span>
         </div>}

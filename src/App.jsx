@@ -431,20 +431,26 @@ export default function App() {
     window.location.assign(routePath(language, { type: 'catalog' }))
   }
 
+  const catalogPath = routePath(language, { type: 'catalog' })
+  const previousUrl = route.type === 'crosshair' && document.referrer ? new URL(document.referrer) : null
+  const previousRoute = previousUrl?.origin === window.location.origin ? parseSeoRoute(previousUrl.pathname) : null
+  const fromCollection = previousRoute?.type === 'collection' && previousRoute.locale === language
+  const returnPath = fromCollection ? routePath(language, previousRoute) : catalogPath
+  const fromCircle = fromCollection && language === 'en' && previousRoute.collectionKey === 'circle'
   const returnToCatalog = (event) => {
-    try {
-      const previous = new URL(document.referrer)
-      if (previous.origin === window.location.origin && previous.pathname !== window.location.pathname) {
-        event.preventDefault()
-        window.history.back()
-      }
-    } catch {
-      // The regular catalog link remains the fallback for direct visits.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    const navigation = window.navigation
+    const previousEntry = navigation?.entries()[navigation.currentEntry?.index - 1]
+    if (previousEntry?.url && new URL(previousEntry.url).pathname === returnPath
+        && new URL(previousEntry.url).origin === window.location.origin) {
+      event.preventDefault()
+      window.history.back()
     }
   }
 
   return (
     <div className={`app-shell ${finderFocus ? 'is-finder-focus' : ''}`} data-locale={language}>
+      <a className="skip-to-content" href="#top">{t('nav.skip')}</a>
       <SiteHeader
         locale={language}
         route={route}
@@ -455,7 +461,7 @@ export default function App() {
         t={t}
       />
 
-      <main id="top" data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'agents' || route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' || route.type === 'paid' ? 'guide-main' : ''}>
+      <main id="top" tabIndex={-1} data-ad-eligible={isAdEligibleRoute(route) ? 'true' : 'false'} className={showFinder ? 'finder-main' : route.type === 'agents' || route.type === 'guide' || route.type === 'article' || route.type === 'trust' || route.type === 'tool' || route.type === 'players' || route.type === 'paid' ? 'guide-main' : ''}>
         {route.type === 'notFound' ? (
           <section className="not-found-page">
             <span>404</span>
@@ -484,7 +490,7 @@ export default function App() {
         ) : (
           <>
         {(route.type === 'home' || route.type === 'catalog') && <SeoPageIntro locale={language} type={route.type} t={t} />}
-        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionIntro locale={language} collectionKey={route.collectionKey} crosshairs={allSourceCrosshairs} copiedId={copiedId} onCopy={copyCrosshair} t={t} /></Suspense>}
+        {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionIntro count={displayedCrosshairs.length} onSelect={selectCrosshair} locale={language} collectionKey={route.collectionKey} crosshairs={allSourceCrosshairs} copiedId={copiedId} onCopy={copyCrosshair} t={t} /></Suspense>}
 
         {route.type === 'catalog' && (
           <CatalogSearch
@@ -493,15 +499,18 @@ export default function App() {
             resultCount={visibleCrosshairs.length}
             onQueryChange={(value) => { setQuery(value); setCatalogLimit(CATALOG_PAGE_SIZE) }}
             onClear={() => { setQuery(''); setCatalogLimit(CATALOG_PAGE_SIZE) }}
-            onSelect={selectCrosshair}
+            onSelect={(item) => {
+              selectCrosshair(item, 'search_enter')
+              window.location.assign(routePath(language, { type: 'crosshair', crosshairId: item.id }))
+            }}
             t={t}
           />
         )}
 
         {route.type === 'crosshair' && (
           <div className="crosshair-return-row">
-            <a href={routePath(language, { type: 'catalog' })} onClick={returnToCatalog}>
-              <Icon name="arrowLeft" size={17} /> {t('catalogUx.backToResults')}
+            <a href={returnPath} onClick={returnToCatalog}>
+              <Icon name="arrowLeft" size={17} /> {fromCircle ? 'Back to circle crosshairs' : t(fromCollection ? 'catalogUx.backToCollection' : 'catalogUx.backToResults')}
             </a>
           </div>
         )}

@@ -20,7 +20,7 @@ export default function AgentsCollectionPage({ locale }) {
 
   return <article className="agents-page">
     <SeoBreadcrumbs locale={locale} current={copy.directory} />
-    <header className="agents-heading"><div><h1>{copy.title}</h1></div><p>{copy.intro}</p></header>
+    <header className="agents-heading"><div><h1>{copy.title}</h1></div><p>{copy.intro} <a className="agents-directory-jump" href="#agent-search">{copy.directory} ↓</a></p></header>
     <section className="agents-stage" style={{ '--agent-accent': selected.crosshair.color }} aria-label={copy.preview}>
       <img key={selected.id} className="agents-stage-art" src={selected.image} alt="" width="1920" height="1080" fetchPriority="high" />
       <div className="agents-stage-shade" />
@@ -35,7 +35,7 @@ export default function AgentsCollectionPage({ locale }) {
       <div className="agents-featured" aria-label={copy.preview}>{featured.map(agent => <button key={agent.id} type="button" aria-pressed={selectedId === agent.id} onClick={() => setSelectedId(agent.id)} style={{ '--agent-accent': agent.crosshair.color }}><img src={agent.asset} alt="" width="48" height="48" /><span>{agentDirectoryName(agent, locale)}</span></button>)}</div>
     </section>
     <section className="agents-directory" aria-labelledby="agents-roster-title">
-      <div className="agents-directory-heading"><h2 id="agents-roster-title">{copy.directory}<span>{String(agentDirectory.length).padStart(2, '0')}</span></h2><label className="agents-search"><span aria-hidden="true">⌕</span><input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={copy.search} aria-label={copy.search} /></label></div>
+      <div className="agents-directory-heading"><h2 id="agents-roster-title">{copy.directory}<span>{String(agentDirectory.length).padStart(2, '0')}</span></h2><label className="agents-search"><span aria-hidden="true">⌕</span><input id="agent-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={copy.search} aria-label={copy.search} /></label></div>
       <div className="agents-filter-row"><div className="agents-filters" aria-label={copy.directory}>{['all', ...Object.keys(copy.roles)].map(key => <button key={key} type="button" aria-pressed={role === key} onClick={() => setRole(key)}>{key === 'all' ? copy.all : copy.roles[key]}</button>)}</div><span className="agents-count" role="status">{filtered.length} {copy.results}</span></div>
       {filtered.length ? <div className="agents-grid">{filtered.map((agent) => {
         const name = agentDirectoryName(agent, locale)

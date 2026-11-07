@@ -27,6 +27,7 @@ export default function CatalogSearch({ query, firstResult, resultCount, onQuery
       <div className="search-bar">
         <Icon name="search" size={21} />
         <input
+          id="catalog-search"
           ref={inputRef}
           type="search"
           aria-label={t('search.label')}
@@ -38,14 +39,15 @@ export default function CatalogSearch({ query, firstResult, resultCount, onQuery
           value={query}
           onChange={(event) => onQueryChange(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key === 'Enter' && firstResult) onSelect(firstResult, 'search_enter')
+            if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return
+            if (event.key === 'Enter' && query.trim() && firstResult) onSelect(firstResult)
             if (event.key === 'Escape') {
               onClear()
             }
           }}
           placeholder={t('search.placeholder')}
         />
-        {query && <button type="button" className="clear-search" onClick={onClear} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
+        {query && <button type="button" className="clear-search" onClick={() => { onClear(); inputRef.current?.focus() }} aria-label={t('search.clear')}><Icon name="x" size={17} /></button>}
         <span className="search-shortcut" aria-hidden="true">/</span>
       </div>
       <span className="visually-hidden" role="status" aria-live="polite" aria-atomic="true">

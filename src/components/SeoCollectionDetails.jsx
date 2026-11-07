@@ -1,3 +1,4 @@
+import SeoTopicLinks from './SeoTopicLinks.jsx'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { articleCopy } from '../seo/articles.js'
 import { seoToolCopy } from '../seo/toolContent.js'
@@ -33,6 +34,7 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
 
   return (
     <section className="seo-collection-details">
+      {content.featuredCodes && <SeoTopicLinks locale={locale} activeCollection={collectionKey} collectionKeys={content.introCollectionKeys} />}
       <div className="seo-collection-copy">
         {content.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         {collectionKey === 'best' && <a href={routePath(locale, { type: 'catalog' })}>{reviewCopy(locale).best.database}</a>}

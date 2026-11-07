@@ -1,3 +1,4 @@
+import { breadcrumbCopy } from '../seo/breadcrumbs.js'
 import { agentsCopy } from '../seo/agentsContent.js'
 import { useEffect, useRef, useState } from 'react'
 import { BrandMark, BrandWordmark } from './BrandLogo.jsx'
@@ -20,8 +21,7 @@ export default function SiteHeader({
   const desktopMenuButtonRef = useRef(null)
   const mobileMenuButtonRef = useRef(null)
   const lastMenuTriggerRef = useRef(null)
-  const firstDrawerLinkRef = useRef(null)
-  const hasMountedRef = useRef(false)
+  const drawerRef = useRef(null)
   const showFinder = route.type === 'finder'
   const exploreActive = route.type === 'catalog' || route.type === 'crosshair' || route.type === 'collection' || route.type === 'players'
   const resourcesActive = route.type === 'agents' || route.type === 'guide' || route.type === 'article' || route.type === 'tool'
@@ -34,27 +34,29 @@ export default function SiteHeader({
       if (!headerRef.current?.contains(event.target)) setMenuOpen(false)
     }
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        lastMenuTriggerRef.current?.focus({ preventScroll: true })
+      }
     }
 
+    document.addEventListener('focusin', closeOnOutsideClick)
     document.addEventListener('pointerdown', closeOnOutsideClick)
     document.addEventListener('keydown', closeOnEscape)
     return () => {
+      document.removeEventListener('focusin', closeOnOutsideClick)
       document.removeEventListener('pointerdown', closeOnOutsideClick)
       document.removeEventListener('keydown', closeOnEscape)
     }
   }, [menuOpen])
 
   useEffect(() => {
-    if (!hasMountedRef.current) {
-      hasMountedRef.current = true
-      return
-    }
-    if (menuOpen) {
-      window.requestAnimationFrame(() => firstDrawerLinkRef.current?.focus())
-    } else {
-      lastMenuTriggerRef.current?.focus({ preventScroll: true })
-    }
+    if (!menuOpen) return undefined
+    const frame = window.requestAnimationFrame(() => {
+      const links = Array.from(drawerRef.current.querySelectorAll('a[href]'))
+      links.find((link) => link.getClientRects().length)?.focus()
+    })
+    return () => window.cancelAnimationFrame(frame)
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
@@ -62,13 +64,13 @@ export default function SiteHeader({
   return (
     <header className="topbar" ref={headerRef}>
       <div className="topbar-inner">
-        <a className="brand" href={routePath(locale, { type: 'home' })} aria-label={`AimCodes · ${t('nav.explore')}`}>
+        <a className="brand" href={routePath(locale, { type: 'home' })} aria-label={`AimCodes · ${breadcrumbCopy(locale).home}`}>
           <BrandMark />
           <BrandWordmark />
         </a>
 
         <nav className="primary-nav" aria-label={t('nav.primary')}>
-          <a className={exploreActive ? 'is-active' : ''} aria-current={exploreActive ? 'page' : undefined} href={routePath(locale, { type: 'catalog' })}>{t('nav.explore')}</a>
+          <a className={exploreActive ? 'is-active' : ''} aria-current={route.type === 'catalog' ? 'page' : undefined} href={routePath(locale, { type: 'catalog' })}>{t('nav.explore')}</a>
           <a className={`nav-finder ${showFinder ? 'is-active' : ''}`} aria-current={showFinder ? 'page' : undefined} href={routePath(locale, { type: 'finder' })} onClick={onFinderOpen}>{t('nav.finder')}</a>
           <button
             className={resourcesActive || menuOpen ? 'is-active' : ''}
@@ -109,14 +111,14 @@ export default function SiteHeader({
           <Icon name={menuOpen ? 'x' : 'menu'} />
         </button>
 
-        <div className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} id="site-navigation-panel">
+        <div ref={drawerRef} className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} id="site-navigation-panel">
           <nav className="nav-drawer-primary" aria-label={t('nav.primary')}>
-            <a className={exploreActive ? 'is-active' : ''} aria-current={exploreActive ? 'page' : undefined} href={routePath(locale, { type: 'catalog' })} onClick={closeMenu}>{t('nav.explore')}</a>
+            <a className={exploreActive ? 'is-active' : ''} aria-current={route.type === 'catalog' ? 'page' : undefined} href={routePath(locale, { type: 'catalog' })} onClick={closeMenu}>{t('nav.explore')}</a>
             <a className={showFinder ? 'is-active' : ''} aria-current={showFinder ? 'page' : undefined} href={routePath(locale, { type: 'finder' })} onClick={() => { closeMenu(); onFinderOpen() }}>{t('nav.finder')}</a>
           </nav>
           <nav className="nav-drawer-group" aria-label={t('nav.collections')}>
             <span>{t('nav.collections')}</span>
-            <a ref={firstDrawerLinkRef} href={routePath(locale, { type: 'collection', collectionKey: 'best' })} onClick={closeMenu}>{content.collections.best.label}</a>
+            <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })} onClick={closeMenu}>{content.collections.best.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'dot' })} onClick={closeMenu}>{content.collections.dot.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'cute' })} onClick={closeMenu}>{content.collections.cute.label}</a>
             <a href={routePath(locale, { type: 'collection', collectionKey: 'small' })} onClick={closeMenu}>{content.collections.small.label}</a>

@@ -130,6 +130,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     [`${locale}:article:viper`, VIPER_UPDATED_AT],
     [`${locale}:article:phoenix`, PHOENIX_UPDATED_AT],
   ])),
+  'en:collection:circle': '2026-11-07',
   'en:article:stretched': '2026-11-03',
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => ['collection:best', 'collection:dot', 'catalog:', 'crosshair:needle-cyan'].map(key => [`${locale}:${key}`, '2026-10-29']))),
 })

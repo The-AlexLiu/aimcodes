@@ -493,7 +493,7 @@ function staticCrosshairCards(locale, items, heading) {
   const t = createTranslator(locale)
   const cards = items.map((item) => {
     const metadata = routeMetadata(locale, { type: 'crosshair', crosshairId: item.id }, item)
-    return `<article class="seo-static-card"><h3><a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a></h3><img src="${metadata.standaloneImage}" width="1080" height="1080" loading="lazy" alt="${escapeHtml(metadata.imageAlt)}" /><details><summary>${escapeHtml(t('modal.code'))}</summary><code>${escapeHtml(item.code)}</code></details></article>`
+    return `<article class="seo-static-card"><h3><a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a></h3>${item.shapeLabel ? `<p>${escapeHtml(item.shapeLabel)}</p>` : ''}<img src="${metadata.standaloneImage}" width="1080" height="1080" loading="lazy" alt="${escapeHtml(metadata.imageAlt)}" /><details><summary>${escapeHtml(t('modal.code'))}</summary><code>${escapeHtml(item.code)}</code></details></article>`
   }).join('')
   return `<section><h2>${escapeHtml(heading)}</h2><div class="seo-static-card-grid">${cards}</div></section>`
 }
@@ -584,6 +584,9 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const items = crosshairCollections[route.collectionKey].crosshairIds
       .map((id) => localizedCrosshairs.find((item) => item.id === id))
       .filter(Boolean)
+    const featuredCards = collection.featuredCodes
+      ? staticCrosshairCards(locale, collection.featuredCodes.picks.map(({ id, shape }) => ({ ...items.find((item) => item.id === id), shapeLabel: shape })), collection.featuredCodes.title)
+      : ''
     const quickPicks = collection.quickPicks?.length
       ? (collection.quickPickGroups || [{ title: collection.quickPicksTitle, picks: collection.quickPicks }]).map((group) => `<section class="seo-quick-picks"><h2>${escapeHtml(group.title)}</h2><ul>${group.picks.map((pick) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span></li>`).join('')}</ul></section>`).join('')
       : ''
@@ -594,12 +597,14 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const selection = collection.selection?.length ? `<section><h2>${escapeHtml(collection.selectionTitle)}</h2>${selectionContent}</section>` : ''
     const settings = collection.settings?.length ? `<section><h2>${escapeHtml(collection.settingsTitle)}</h2><ul>${collection.settings.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>` : ''
     const discoverableCollectionSet = new Set(DISCOVERABLE_COLLECTION_KEYS)
-    const introLinks = (collection.introCollectionKeys || [])
+    const introLinks = (collection.introCollectionKeys || (featuredCards ? DISCOVERABLE_COLLECTION_KEYS : []))
       .filter((key) => discoverableCollectionSet.has(key))
       .map((key) => `<a href="${routePath(locale, { type: 'collection', collectionKey: key })}">${escapeHtml(collectionCopy(locale, key).label)}</a>`).join('')
+    const topicNav = introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''
+    const collectionList = staticLinks(locale, route.collectionKey === 'funny' ? items.slice(12) : items)
     const related = `${(collection.relatedCollectionKeys || []).filter((relatedCollectionKey) => discoverableCollectionSet.has(relatedCollectionKey)).map((relatedCollectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey: relatedCollectionKey })}">${escapeHtml(collectionCopy(locale, relatedCollectionKey).title)}</a>`).join('')}${(collection.relatedArticleKeys || []).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${(collection.relatedToolKeys || []).map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}`
     const faq = collection.faq.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join('')
-    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${quickPicks}${['dot', 'best'].includes(route.collectionKey) ? staticEntryHelp(locale) : ''}${introLinks ? `<nav aria-label="${escapeHtml(localized.topics.title)}">${introLinks}</nav>` : ''}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${staticLinks(locale, route.collectionKey === 'funny' ? items.slice(12) : items)}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${featuredCards}${quickPicks}${['dot', 'best'].includes(route.collectionKey) ? staticEntryHelp(locale) : ''}${featuredCards ? `<a href="#collection">Browse all ${items.length} circle crosshairs ↓</a> <a href="${routePath(locale, { type: 'guide' })}">How to import a code</a>` : topicNav}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${featuredCards ? `<section id="collection"><h2>All circle crosshairs</h2>${collectionList}</section>${topicNav}` : collectionList}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
     return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`

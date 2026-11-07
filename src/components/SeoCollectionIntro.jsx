@@ -1,10 +1,11 @@
+import CrosshairCard from './CrosshairCard.jsx'
 import SeoEntryHelp from './SeoEntryHelp.jsx'
 import { routePath } from '../seo/routes.js'
 import { collectionCopy } from '../seo/collectionContent.js'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 
-export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, copiedId, onCopy, t }) {
+export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, copiedId, onCopy, onSelect, count, t }) {
   const content = collectionCopy(locale, collectionKey)
 
   const groups = content.quickPickGroups || [{ title: content.quickPicksTitle, picks: content.quickPicks }]
@@ -15,6 +16,25 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
 
       <h1>{content.title}</h1>
       <p>{content.intro}</p>
+      {content.featuredCodes && (
+        <section className="article-featured-codes">
+          <h2>{content.featuredCodes.title}</h2>
+          <div>
+            {content.featuredCodes.picks.map(({ id, shape }) => {
+              const item = crosshairs.find((crosshair) => crosshair.id === id)
+              return item && (
+                <CrosshairCard key={id} crosshair={item} shapeLabel={shape}
+                  href={routePath(locale, { type: 'crosshair', crosshairId: id })}
+                  copied={copiedId === id} onSelect={onSelect} onCopy={onCopy} t={t} />
+              )
+            })}
+          </div>
+          <div className="circle-next-actions">
+            <a className="secondary-button circle-browse-all" href="#collection">Browse all {count} circle crosshairs ↓</a>
+            <a href={routePath(locale, { type: 'guide' })}>How to import a code</a>
+          </div>
+        </section>
+      )}
       {content.quickPicks?.length > 0 && (
         groups.map((group) => <section key={group.title} className="seo-quick-picks" aria-label={group.title}>
           <h2>{group.title}</h2>
@@ -43,7 +63,7 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
         </section>)
       )}
       {['dot', 'best'].includes(collectionKey) && <SeoEntryHelp locale={locale} />}
-      <SeoTopicLinks locale={locale} activeCollection={collectionKey} collectionKeys={content.introCollectionKeys} />
+      {!content.featuredCodes && <SeoTopicLinks locale={locale} activeCollection={collectionKey} collectionKeys={content.introCollectionKeys} />}
     </section>
   )
 }

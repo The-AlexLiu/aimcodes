@@ -963,7 +963,10 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
         </section>
 
         <div className="finder-result-quick-share">
-          <button className="finder-secondary-button" type="button" onClick={() => sharePanelRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })}><Icon name="share" size={17} />{t('finder.shareResult')}</button>
+          <button className="finder-secondary-button" type="button" onClick={() => {
+            sharePanelRef.current?.focus({ preventScroll: true })
+            sharePanelRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })
+          }}><Icon name="share" size={17} />{t('finder.shareResult')}</button>
           <span>{roundTimes.map((time) => `${time} ${t('finder.millisecondsShort')}`).join(' / ')}</span>
         </div>
 
@@ -998,7 +1001,7 @@ export default function CrosshairFinder({ locale, onExit, onFocusChange, t }) {
           </dl>
         </details>
 
-        <section ref={sharePanelRef} className="finder-share-panel" aria-labelledby="finder-share-title">
+        <section ref={sharePanelRef} tabIndex={-1} className="finder-share-panel" aria-labelledby="finder-share-title">
           <button className="finder-share-preview-frame" type="button" onClick={openSharePreview} disabled={!sharePreviewUrl} aria-label={resultCopy('previewShareCard')}>
             {sharePreviewUrl
               ? <><img src={sharePreviewUrl} alt="" /><span className="finder-share-preview-action"><Icon name="eye" size={16} />{resultCopy('previewShareCard')}</span></>
