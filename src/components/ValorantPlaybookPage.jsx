@@ -639,7 +639,7 @@ export default function ValorantPlaybookPage({ locale }) {
             <ToolbarButton active={tool === 'eraser'} icon="trash" label={copy.eraser} onClick={() => setTool('eraser')} />
           </div>
           <div className="tactical-color-group" aria-label={copy.color}>
-            {DRAW_COLORS.map((item) => <button key={item} type="button" className={color === item ? 'is-active' : ''} style={{ '--marker-color': item }} aria-label={`${copy.color} ${item}`} onClick={() => setColor(item)} />)}
+            {DRAW_COLORS.map((item) => <button key={item} type="button" aria-pressed={color === item} className={color === item ? 'is-active' : ''} style={{ '--marker-color': item }} aria-label={`${copy.color} ${item}`} onClick={() => setColor(item)} />)}
           </div>
           <div className="tactical-history-group">
             <button className="tactical-rotate-button" type="button" title={copy.rotateAbility} aria-label={copy.rotateAbility} onClick={rotateSelectedAbility} disabled={!canRotateSelected}><Icon name="rotate" size={17} /><span>{copy.rotateAbility}</span></button>
@@ -656,20 +656,20 @@ export default function ValorantPlaybookPage({ locale }) {
             </div>
 
             <div className="tactical-side-switch" aria-label={copy.chooseSide}>
-              <button type="button" className={side === 'attacker' ? 'is-active is-attacker' : ''} onClick={() => setSide('attacker')}>{copy.attacker}</button>
-              <button type="button" className={side === 'defender' ? 'is-active is-defender' : ''} onClick={() => setSide('defender')}>{copy.defender}</button>
+              <button type="button" aria-pressed={side === 'attacker'} className={side === 'attacker' ? 'is-active is-attacker' : ''} onClick={() => setSide('attacker')}>{copy.attacker}</button>
+              <button type="button" aria-pressed={side === 'defender'} className={side === 'defender' ? 'is-active is-defender' : ''} onClick={() => setSide('defender')}>{copy.defender}</button>
             </div>
 
             <div className="tactical-role-filter" aria-label={copy.filterRole}>
-              <button type="button" className={roleFilter === 'all' ? 'is-active' : ''} onClick={() => setRoleFilter('all')}>{copy.allRoles}</button>
+              <button type="button" aria-pressed={roleFilter === 'all'} className={roleFilter === 'all' ? 'is-active' : ''} onClick={() => setRoleFilter('all')}>{copy.allRoles}</button>
               {playbookAgentRoles.map((role) => (
-                <button key={role} type="button" className={roleFilter === role ? 'is-active' : ''} onClick={() => setRoleFilter(role)}>{copy.roles[role]}</button>
+                <button key={role} type="button" aria-pressed={roleFilter === role} className={roleFilter === role ? 'is-active' : ''} onClick={() => setRoleFilter(role)}>{copy.roles[role]}</button>
               ))}
             </div>
 
             <div className="tactical-agent-grid">
               {visibleAgents.map((agent) => (
-                <button key={agent.id} type="button" className={selectedAgent.id === agent.id ? 'is-active' : ''} title={`${playbookAgentName(agent, locale)} · ${copy.roles[agent.role]}`} aria-label={`${copy.placeAgent}: ${playbookAgentName(agent, locale)}`} onClick={() => chooseAgent(agent)}>
+                <button key={agent.id} type="button" aria-pressed={selectedAgent.id === agent.id} className={selectedAgent.id === agent.id ? 'is-active' : ''} title={`${playbookAgentName(agent, locale)} · ${copy.roles[agent.role]}`} aria-label={`${copy.placeAgent}: ${playbookAgentName(agent, locale)}`} onClick={() => chooseAgent(agent)}>
                   <img src={agent.asset} alt="" loading="lazy" />
                   <span>{playbookAgentName(agent, locale)}</span>
                 </button>
@@ -680,7 +680,7 @@ export default function ValorantPlaybookPage({ locale }) {
               <div><img src={selectedAgent.asset} alt="" /><span><strong>{selectedAgentLabel}</strong><small>{copy.abilities}</small></span></div>
               <div className="tactical-ability-grid">
                 {selectedAgent.abilities.map((ability) => (
-                  <button key={ability.id} type="button" className={selectedAbility?.id === ability.id && tool === 'ability' ? 'is-active' : ''} title={playbookAbilityName(ability, locale)} aria-label={`${copy.placeAbility}: ${playbookAbilityName(ability, locale)}`} onClick={() => chooseAbility(ability)}>
+                  <button key={ability.id} type="button" aria-pressed={selectedAbility?.id === ability.id && tool === 'ability'} className={selectedAbility?.id === ability.id && tool === 'ability' ? 'is-active' : ''} title={playbookAbilityName(ability, locale)} aria-label={`${copy.placeAbility}: ${playbookAbilityName(ability, locale)}`} onClick={() => chooseAbility(ability)}>
                     <img src={ability.asset} alt="" loading="lazy" /><span>{ability.slot}</span>
                   </button>
                 ))}

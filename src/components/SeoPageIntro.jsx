@@ -18,6 +18,7 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
         {type === 'catalog' && (
           <nav className="seo-context-links" aria-label={content.help}>
             <div>
+              <a href="#catalog-search">{t('search.label')}</a>
               <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.links[0]}</a>
               <a href={routePath(locale, { type: 'tool', toolKey: 'generator' })}>{content.links[1]}</a>
               <a href={routePath(locale, { type: 'guide' })}>{content.links[2]}</a>

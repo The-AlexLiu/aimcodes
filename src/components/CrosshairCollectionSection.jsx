@@ -27,6 +27,7 @@ export default function CrosshairCollectionSection({
   onClear,
   t,
 }) {
+  const circleList = locale === 'en' && route.type === 'collection' && route.collectionKey === 'circle'
   const isHome = route.type === 'home'
   const count = route.type === 'catalog' ? visibleCrosshairs.length : displayedCrosshairs.length
 
@@ -34,7 +35,7 @@ export default function CrosshairCollectionSection({
     <section className={`collection-section ${isHome ? 'is-home' : route.type === 'catalog' ? 'is-catalog' : ''}`} id="collection" aria-labelledby="crosshair-collection-title">
       {route.type === 'collection' ? (
         <div className="catalog-summary">
-          <h2 id="crosshair-collection-title">{route.collectionKey === 'funny' ? funnyGridTitle(locale) : t('collection.title')}</h2>
+          <h2 id="crosshair-collection-title">{circleList ? 'All circle crosshairs' : route.collectionKey === 'funny' ? funnyGridTitle(locale) : t('collection.title')}</h2>
           <span>{t(displayedCrosshairs.length === 1 ? 'collection.countOne' : 'collection.countMany', { count: displayedCrosshairs.length })}</span>
           <button type="button" onClick={() => onRandom(displayedCrosshairs, 'collection_random')}>
             <Icon name="rotate" size={16} /> {t('actions.random')}

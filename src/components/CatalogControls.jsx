@@ -66,6 +66,7 @@ export default function CatalogControls({
           <button
             key={filter}
             type="button"
+            aria-pressed={activeFilter === filter}
             className={activeFilter === filter ? 'is-active' : ''}
             onClick={() => onFilterChange(filter)}
           >
@@ -86,6 +87,7 @@ export default function CatalogControls({
             <button
               key={filter}
               type="button"
+              aria-pressed={activeFilter === filter}
               className={activeFilter === filter ? 'is-active' : ''}
               onClick={() => onFilterChange(filter)}
             >

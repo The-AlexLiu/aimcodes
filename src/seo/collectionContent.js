@@ -40,6 +40,14 @@ export function collectionCopy(locale, collectionKey) {
     || nextCollectionCopy(locale, collectionKey)
     || seoCopy(locale).collections.best
   const content = completeCollectionUseCase(locale, collectionKey, completeCollectionSelection(locale, collectionKey, enrichReviewCollection(locale, collectionKey, enrichCollectionCopy(locale, collectionKey, baseContent))))
+  if (locale === 'en' && collectionKey === 'circle') {
+    return {
+      ...content,
+      intro: 'Choose a hollow ring or a bullseye with a center dot.',
+      featuredCodes: { title: 'Compare circle codes', picks: [{ id: 'hollow-mint', shape: 'Open center' }, { id: 'bullseye-red', shape: 'Red center dot' }] },
+      body: ['A small hollow ring leaves the middle of a distant target visible. A bullseye marks the center with a dot.', ...content.body.slice(1)],
+    }
+  }
   const links = {
     plus: { collections: ['horizontal', 'static'], articles: ['stretched'] },
     minimalist: { collections: ['static'], articles: [] },
