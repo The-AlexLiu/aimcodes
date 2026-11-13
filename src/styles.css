@@ -2650,3 +2650,7 @@ main { width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2))); pa
 @media (max-width: 760px) {
   .generator-preview-jump { display: inline-flex; align-items: center; min-height: 44px; color: inherit; }
 }
+
+.seo-page-intro.is-catalog { min-height: 0; padding-block: clamp(20px, 3vw, 32px); }
+.catalog-help { margin-top: 28px; }
+.catalog-help > p { color: #b1bbc2; line-height: 1.65; }

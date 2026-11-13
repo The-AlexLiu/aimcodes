@@ -3,7 +3,7 @@ import CatalogSearch from './components/CatalogSearch.jsx'
 import CrosshairCollectionSection from './components/CrosshairCollectionSection.jsx'
 import CrosshairPreviewWorkspace from './components/CrosshairPreviewWorkspace.jsx'
 import Icon from './components/Icon.jsx'
-import SeoPageIntro from './components/SeoPageIntro.jsx'
+import SeoPageIntro, { CatalogHelp } from './components/SeoPageIntro.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
 import SiteHeader from './components/SiteHeader.jsx'
 import { isAdEligibleRoute } from './config/adPolicy.js'
@@ -568,6 +568,7 @@ export default function App() {
             t={t}
           />
         )}
+        {route.type === 'catalog' && <CatalogHelp locale={language} t={t} />}
         {route.type === 'collection' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><SeoCollectionDetails locale={language} collectionKey={route.collectionKey} /></Suspense>}
         {route.type === 'home' && <Suspense fallback={<RouteLoading label={t('loading.route')} />}><HomeResourceDirectory locale={language} /></Suspense>}
         {(route.type === 'home' || route.type === 'catalog') && <Suspense fallback={null}><PublisherValueSection locale={language} type={route.type} /></Suspense>}
