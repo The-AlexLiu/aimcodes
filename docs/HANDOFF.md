@@ -230,3 +230,17 @@ Clarity 项目 `yuxaq5sl26` 已通过 PR #81 发布到生产提交 `ea03ba732507
 完整 release 检查 25/25、10 项 Clarity 测试、GitHub 两项 CI 和 Netlify Deploy Preview 均通过；`source-map-js` 已固定到 1.2.2，依赖审计无已知漏洞。正式浏览器 tag 请求为 200，两个 collect 请求返回 204；QA 持续排除、opt-out 与交付/找回页均为零 Clarity 请求。英语首页、中日隐私页、准星图片、robots 与 Sitemap 均返回 200；Sitemap 保持 1,887 个 URL。Clarity 后台随后识别到 1 位在线验收用户；历史回放与热力图仍待汇总处理，尚未验证历史回放可查看。
 
 本次发布从最新主线建立独立分支 `codex/clarity-release`；旧 GA4 审计工作树及全部未提交用户修改均保留。未修改 GA4 后台、GSC、支付逻辑或执行真实付款。详见 `docs/CLARITY_SETUP_2026-10-09.md`。
+
+## 2026-11-13 SEO 巡检修复发布
+
+分支 codex/audit-ux-seo-release，以 4128c0f 为基线。用户授权完成后直接发布。
+
+- 五语反应测试描述去除历史五款个性化包承诺，补充三轮、平均用时与浏览器段位范围。
+- 准星库标题简介后直接展示搜索和结果，帮助、导入及反应测试入口移到结果后。
+- 静态详情与 React 共用 crosshairSettingRows，直接解析现有代码生成点、轮廓、内外线、移动/射击误差及颜色。五语显示已记录的来源核验日期和导入步骤。
+- 静态链接按目录分类分组，发现导航分为样式与资源，保留全部链接。目录、详情与测试内容日期更新为本次发布日。
+- check:auto 完整 25 项通过，另外逐一验证 548 条准星五语共 2740 个静态详情设置一致性。
+- 390px 和 1280px 五语搜索进入详情、无溢出、三轮反应测试通过。英文手机搜索框顶部约 277px，线上旧版约 833px。
+- 本机浏览器性能观察仅用于开发诊断。公共 PageSpeed API 429，暂无本轮 CrUX 或 INP 数据。
+
+发布后须核对 Cloudflare build-meta.json 的合并提交，正式域名五语搜索与详情设置、三轮测试、robots 和三个 Sitemap，并在 PR 回填正式验收。原 seo-entry-optimization 工作树的两个文档修改保留。

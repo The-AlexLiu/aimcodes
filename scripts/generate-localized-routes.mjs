@@ -1,3 +1,4 @@
+import { crosshairSettingRows } from '../src/seo/crosshairSettings.js'
 import { entryHelp } from '../src/seo/entryHelp.js'
 import { breadcrumbCopy } from '../src/seo/breadcrumbs.js'
 import { agentsCopy as collectionAgentsCopy } from '../src/seo/agentsCollectionContent.js'
@@ -484,7 +485,12 @@ function staticAgentBreadcrumb(locale, name) {
 }
 
 function staticLinks(locale, items) {
-  return `<div class="seo-static-links">${items.map((item) => `<a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a>`).join('')}</div>`
+  const t = createTranslator(locale)
+  const groups = Map.groupBy(items, (item) => item.category)
+  return [...groups].map(([category, entries]) => {
+    const title = t(`filters.${category}`)
+    return `<section><h2>${escapeHtml(title)}</h2><ul class="seo-static-links">${entries.map((item) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a></li>`).join('')}</ul></section>`
+  }).join('')
 }
 
 // Use the same manifest records as the live gallery, including the real code.
@@ -502,7 +508,7 @@ function staticTopicLinks(locale) {
   const localized = seoCopy(locale)
   const collections = DISCOVERABLE_COLLECTION_KEYS.map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`).join('')
   const resources = `<a href="${routePath(locale, { type: 'guide' })}">${escapeHtml(localized.footer.guide)}</a>${SEO_ARTICLE_KEYS.filter((key) => !agentDirectory.some((agent) => agent.id === key)).map((articleKey) => `<a href="${routePath(locale, { type: 'article', articleKey })}">${escapeHtml(articleCopy(locale, articleKey).title)}</a>`).join('')}${SEO_TOOL_KEYS.map((toolKey) => `<a href="${routePath(locale, { type: 'tool', toolKey })}">${escapeHtml(seoToolCopy(locale, toolKey).title)}</a>`).join('')}${TRUST_PAGE_KEYS.map((pageKey) => `<a href="${routePath(locale, { type: 'trust', pageKey })}">${escapeHtml(trustCopy(locale, pageKey).title)}</a>`).join('')}`
-  return `<nav class="seo-static-links"><a href="${routePath(locale, { type: 'agents' })}">${escapeHtml(agentsCopy(locale).nav)}</a>${collections}${resources}</nav>`
+  return `<nav><section><h2>${escapeHtml(localized.topics.title)}</h2><div class="seo-static-links">${collections}</div></section><section><h2>${escapeHtml(localized.footer.resources)}</h2><div class="seo-static-links"><a href="${routePath(locale, { type: 'agents' })}">${escapeHtml(agentsCopy(locale).nav)}</a>${resources}</div></section></nav>`
 }
 
 function staticPublisherValue(locale, type) {
@@ -567,7 +573,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
   }
   if (route.type === 'catalog') {
     const indexableItems = indexableCrosshairIds.map((id) => localizedCrosshairs.find((item) => item.id === id)).filter(Boolean)
-    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p><nav>${[routePath(locale, { type: 'collection', collectionKey: 'best' }), routePath(locale, { type: 'tool', toolKey: 'generator' }), routePath(locale, { type: 'guide' })].map((href, index) => `<a href="${href}">${escapeHtml(localized.catalog.links[index])}</a>`).join('')}</nav><p>${escapeHtml(localized.catalog.helpBody)}</p>${staticEntryHelp(locale)}${staticTopicLinks(locale)}${staticLinks(locale, indexableItems)}${staticPublisherValue(locale, 'catalog')}</main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(localized.catalog.title)}</h1><p>${escapeHtml(localized.catalog.intro)}</p><nav>${[routePath(locale, { type: 'collection', collectionKey: 'best' }), routePath(locale, { type: 'tool', toolKey: 'generator' }), routePath(locale, { type: 'guide' })].map((href, index) => `<a href="${href}">${escapeHtml(localized.catalog.links[index])}</a>`).join('')}</nav><p>${escapeHtml(localized.catalog.helpBody)}</p>${staticLinks(locale, indexableItems)}${staticEntryHelp(locale)}${staticTopicLinks(locale)}${staticPublisherValue(locale, 'catalog')}</main>`
   }
   if (route.type === 'players') {
     const players = proPlayerHubCopy(locale)
@@ -607,7 +613,7 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.catalog.title)}</a> / <span>${escapeHtml(collection.title)}</span></nav><h1>${escapeHtml(collection.title)}</h1><p>${escapeHtml(collection.intro)}</p>${featuredCards}${quickPicks}${['dot', 'best'].includes(route.collectionKey) ? staticEntryHelp(locale) : ''}${featuredCards ? `<a href="#collection">Browse all ${items.length} circle crosshairs ↓</a> <a href="${routePath(locale, { type: 'guide' })}">How to import a code</a>` : topicNav}${staticHeroImage(locale, route, null)}${route.collectionKey === 'funny' ? staticCrosshairCards(locale, items.slice(0, 12), collection.gridTitle) : ''}${featuredCards ? `<section id="collection"><h2>All circle crosshairs</h2>${collectionList}</section>${topicNav}` : collectionList}<section>${body}</section>${selection}${settings}<section><h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}</section><nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'finder') {
-    return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
+    return `<main class="seo-static-shell"><h1>${escapeHtml(createTranslator(locale)('finder.title'))}</h1><p>${escapeHtml(localized.meta.finderDescription)}</p><h2>${escapeHtml(createTranslator(locale)('finder.testBriefLabel'))}</h2><p>${escapeHtml(createTranslator(locale)('finder.subtitle'))}</p><p>${escapeHtml(createTranslator(locale)('finder.legendReady'))} · ${escapeHtml(createTranslator(locale)('finder.legendEarly'))}</p><a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(localized.footer.browse)}</a></main>`
   }
   if (route.type === 'paid') {
     const content = freeSiteCopy(locale)
@@ -798,8 +804,11 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
       .map((collectionKey) => `<a href="${routePath(locale, { type: 'collection', collectionKey })}">${escapeHtml(collectionCopy(locale, collectionKey).label)}</a>`)
       .join('')
     const contextualLinks = relatedCollections ? `<nav class="seo-static-links" aria-label="${escapeHtml(localized.detail.compareStyle)}">${relatedCollections}</nav>` : ''
-    const codeSource = crosshair.sourceUrl && crosshair.sourceName ? `<p><a href="${escapeHtml(crosshair.sourceUrl)}">${escapeHtml(crosshair.sourceName)}</a>${crosshair.id === 'aspas-dot' && crosshair.sourceCheckedAt ? ` · ${escapeHtml(reviewCopy(locale).sourceDate)}: <time datetime="${escapeHtml(crosshair.sourceCheckedAt)}">${escapeHtml(crosshair.sourceCheckedAt)}</time> · ${escapeHtml(reviewCopy(locale).sourceNote)}` : ''}</p>` : ''
-    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}<code>${escapeHtml(crosshair.code)}</code>${codeSource}<h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
+    const rows = crosshairSettingRows(crosshair, locale)
+    const settings = `<section><h2>${escapeHtml(localized.detail.settings)}</h2><dl>${rows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>`
+    const importSteps = `<section><h2>${escapeHtml(localized.detail.import)}</h2><ol>${localized.detail.importSteps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}</ol></section>`
+    const codeSource = crosshair.sourceUrl && crosshair.sourceName ? `<p><a href="${escapeHtml(crosshair.sourceUrl)}">${escapeHtml(crosshair.sourceName)}</a>${crosshair.sourceCheckedAt ? ` · ${escapeHtml(reviewCopy(locale).sourceDate)}: <time datetime="${escapeHtml(crosshair.sourceCheckedAt)}">${escapeHtml(crosshair.sourceCheckedAt)}</time> · ${escapeHtml(reviewCopy(locale).sourceNote)}` : ''}</p>` : ''
+    return `<main class="seo-static-shell"><h1>${escapeHtml(detailHeading(locale, crosshair))}</h1><p>${escapeHtml(crosshair.description)}</p>${staticHeroImage(locale, route, crosshair)}<code>${escapeHtml(crosshair.code)}</code>${codeSource}<h2>${escapeHtml(localized.detail.bestFor)}</h2><p>${escapeHtml(details.bestFor)}</p><h2>${escapeHtml(localized.detail.tradeoff)}</h2><p>${escapeHtml(details.tradeoff)}</p>${settings}${importSteps}${contextualLinks}${staticTopicLinks(locale)}${staticLinks(locale, related)}</main>`
   }
   return '<main class="seo-static-shell"><h1>Page not found</h1></main>'
 }

@@ -5,7 +5,7 @@ import { lazy, Suspense } from 'react'
 
 const SeoTopicLinks = lazy(() => import('./SeoTopicLinks.jsx'))
 
-export default function SeoPageIntro({ locale, type = 'home', t }) {
+export default function SeoPageIntro({ locale, type = 'home' }) {
   const content = seoCopy(locale)[type]
   if (!content) return null
 
@@ -15,25 +15,6 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
 
         <h1>{content.title}</h1>
         <p>{content.intro}</p>
-        {type === 'catalog' && (
-          <nav className="seo-context-links" aria-label={content.help}>
-            <div>
-              <a href="#catalog-search">{t('search.label')}</a>
-              <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.links[0]}</a>
-              <a href={routePath(locale, { type: 'tool', toolKey: 'generator' })}>{content.links[1]}</a>
-              <a href={routePath(locale, { type: 'guide' })}>{content.links[2]}</a>
-            </div>
-          </nav>
-        )}
-        {type === 'catalog' && <p>{content.helpBody}</p>}
-        {type === 'catalog' && <SeoEntryHelp locale={locale} />}
-        {type === 'catalog' && t && (
-          <a className="catalog-reaction-cta" href={routePath(locale, { type: 'finder' })}>
-            <strong>{t('finder.title')}</strong>
-            <span className="catalog-reaction-cta-body">{t('finder.testBriefLabel')} · {t('finder.testDuration')}</span>
-            <span className="catalog-reaction-cta-action">{t('nav.finder')} →</span>
-          </a>
-        )}
         {type === 'home' && (
           <div className="seo-intro-actions">
             <a className="primary-button" href="#preview">{content.tryNow}</a>
@@ -45,6 +26,29 @@ export default function SeoPageIntro({ locale, type = 'home', t }) {
         <div className="home-hero-visual" aria-hidden="true" />
       )}
       {type !== 'home' && type !== 'catalog' && <Suspense fallback={null}><SeoTopicLinks locale={locale} /></Suspense>}
+    </section>
+  )
+}
+
+export function CatalogHelp({ locale, t }) {
+  const content = seoCopy(locale).catalog
+  return (
+    <section className="catalog-help">
+      <nav className="seo-context-links" aria-label={content.help}>
+        <div>
+          <a href="#catalog-search">{t('search.label')}</a>
+          <a href={routePath(locale, { type: 'collection', collectionKey: 'best' })}>{content.links[0]}</a>
+          <a href={routePath(locale, { type: 'tool', toolKey: 'generator' })}>{content.links[1]}</a>
+          <a href={routePath(locale, { type: 'guide' })}>{content.links[2]}</a>
+        </div>
+      </nav>
+      <p>{content.helpBody}</p>
+      <SeoEntryHelp locale={locale} />
+      <a className="catalog-reaction-cta" href={routePath(locale, { type: 'finder' })}>
+        <strong>{t('finder.title')}</strong>
+        <span className="catalog-reaction-cta-body">{t('finder.testBriefLabel')} · {t('finder.testDuration')}</span>
+        <span className="catalog-reaction-cta-action">{t('nav.finder')} →</span>
+      </a>
     </section>
   )
 }

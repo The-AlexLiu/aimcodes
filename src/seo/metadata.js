@@ -139,6 +139,7 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
 })
 
 export function routeContentUpdatedAt(locale, route) {
+  if (['catalog', 'crosshair', 'finder'].includes(route.type)) return '2026-11-13'
   return SEO_ROUTE_UPDATED_AT[routeUpdateKey(locale, route)] || SEO_CONTENT_UPDATED_AT
 }
 
