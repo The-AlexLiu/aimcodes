@@ -46,7 +46,7 @@ const labels = Object.freeze({
     tools: Object.freeze({ generator: 'Generador de miras de VALORANT', decoder: 'Decodificador de códigos de mira de VALORANT', preview: 'Vista previa de miras de VALORANT', comparison: 'Compara miras de VALORANT', playbook: 'Pizarra táctica de VALORANT' }),
   }),
   'pt-BR': Object.freeze({
-    articles: Object.freeze({ copy: 'Como copiar uma mira no VALORANT', notWorking: 'Código de mira do VALORANT não funciona: soluções', makeDot: 'Como fazer uma mira de ponto no VALORANT', makeCircle: 'Como fazer uma mira circular no VALORANT', movementError: 'Erro de movimento da mira no VALORANT', firingError: 'Erro de disparo da mira no VALORANT', movementVsFiring: 'Erro de movimento vs erro de disparo no VALORANT', staticVsDynamic: 'Mira estática vs dinâmica no VALORANT', dotVsCross: 'Mira de ponto vs cruz no VALORANT', placement: 'Guia de posicionamento de mira no VALORANT', exportCrosshair: 'Como exportar um código de mira no VALORANT', shareCrosshair: 'Como compartilhar uma mira do VALORANT', resetCrosshair: 'Como redefinir sua mira do VALORANT', saveMultiple: 'Como salvar várias miras no VALORANT', customColor: 'Como usar uma cor personalizada de mira no VALORANT', outlinesOnOff: 'Contorno da mira no VALORANT: ligado ou desligado?', centerDotOnOff: 'Ponto central no VALORANT: ligado ou desligado?', innerVsOuter: 'Linhas internas vs externas no VALORANT', thickness: 'Espessura da mira no VALORANT: como ajustar', gapOffset: 'Espaço e offset da mira no VALORANT' }),
+    articles: Object.freeze({ copy: 'Como copiar a mira de um aliado no VALORANT', notWorking: 'Código de mira do VALORANT não funciona: soluções', makeDot: 'Como fazer uma mira de ponto no VALORANT', makeCircle: 'Como fazer uma mira circular no VALORANT', movementError: 'Erro de movimento da mira no VALORANT', firingError: 'Erro de disparo da mira no VALORANT', movementVsFiring: 'Erro de movimento vs erro de disparo no VALORANT', staticVsDynamic: 'Mira estática vs dinâmica no VALORANT', dotVsCross: 'Mira de ponto vs cruz no VALORANT', placement: 'Guia de posicionamento de mira no VALORANT', exportCrosshair: 'Como exportar um código de mira no VALORANT', shareCrosshair: 'Como compartilhar uma mira do VALORANT', resetCrosshair: 'Como redefinir sua mira do VALORANT', saveMultiple: 'Como salvar várias miras no VALORANT', customColor: 'Como usar uma cor personalizada de mira no VALORANT', outlinesOnOff: 'Contorno da mira no VALORANT: ligado ou desligado?', centerDotOnOff: 'Ponto central no VALORANT: ligado ou desligado?', innerVsOuter: 'Linhas internas vs externas no VALORANT', thickness: 'Espessura da mira no VALORANT: como ajustar', gapOffset: 'Espaço e offset da mira no VALORANT' }),
     tools: Object.freeze({ generator: 'Gerador de miras do VALORANT', decoder: 'Decodificador de código de mira do VALORANT', preview: 'Prévia de mira do VALORANT', comparison: 'Compare miras do VALORANT', playbook: 'Prancheta tática do VALORANT' }),
   }),
   'zh-CN': Object.freeze({
@@ -96,7 +96,7 @@ export function articleResourceLabel(locale, articleKey) {
   const opportunityTitle = {
     'en:copy': 'How to copy a crosshair in VALORANT: /cc or a profile code',
     'en:firingError': 'VALORANT shooting error: graph vs firing-error crosshair',
-    'ja:copy': 'VALORANT クロスヘアのコピーコマンドとコード入力方法',
+    'ja:copy': 'VALORANTで味方のクロスヘアをコピーする方法',
     'ja:notWorking': 'VALORANT クロスヘアをインポートできないときの確認手順',
   }[`${locale}:${articleKey}`]
   if (opportunityTitle) return opportunityTitle
