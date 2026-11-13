@@ -538,7 +538,7 @@ function staticColorComparison(locale) {
   const copy = reviewCopy(locale).colors
   const keys = ['cyan', 'green', 'white']
   const hexes = ['#00FFFF', '#00FF00', '#FFFFFF']
-  return `<section><h2>${escapeHtml(copy.compareTitle)}</h2><p>${escapeHtml(copy.compareBody)}</p>${keys.map((key, index) => `<p>${escapeHtml(copy.names[index])} <code>${hexes[index]}</code> <a href="${routePath(locale, { type: 'crosshair', crosshairId: 'tenz' })}?color=${key}&amp;mapa=ascent">${escapeHtml(copy.open)}</a></p>`).join('')}</section>`
+  return `<section><h2 id="color-comparison-title">${escapeHtml(copy.compareTitle)}</h2><p>${escapeHtml(copy.compareBody)}</p>${keys.map((key, index) => `<p>${escapeHtml(copy.names[index])} <code>${hexes[index]}</code> <a href="${routePath(locale, { type: 'crosshair', crosshairId: 'tenz' })}?color=${key}&amp;mapa=ascent">${escapeHtml(copy.open)}</a></p>`).join('')}</section>`
 }
 
 function staticHeroImage(locale, route, crosshair) {
@@ -759,9 +759,13 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const sources = article.sources?.length ? `<section><h2>${escapeHtml(staticReferenceLabel(locale))}</h2>${article.sources.map((source) => `<a href="${escapeHtml(source.url)}">${escapeHtml(source.label)}</a>`).join('')}</section>` : ''
     const featured = recommended.filter((item) => article.featuredCodes?.ids.includes(item.id))
     const featuredCards = featured.length ? staticCrosshairCards(locale, featured, article.featuredCodes.title) : ''
+    const quickLinks = (article.quickLinks || []).map((link) => {
+      const href = link.fragment ? `#${link.fragment}` : routePath(locale, link.route)
+      return `<a href="${escapeHtml(href)}">${escapeHtml(link.label)}</a>`
+    }).join(' ')
     const statistics = route.articleKey === 'statistics' ? staticStatisticsSnapshot(locale) : ''
 
-    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p></section>${featuredCards}${statistics}${route.articleKey === 'colors' ? staticColorComparison(locale) : ''}${sections}${staticLinks(locale, recommended.filter((item) => !featured.includes(item)))}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
+    return `<main class="seo-static-shell"><nav aria-label="${escapeHtml(breadcrumbCopy(locale).breadcrumb)}"><a href="${routePath(locale, { type: 'home' })}">AimCodes</a> / <span>${escapeHtml(article.title)}</span></nav><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.intro)}</p><section><h2>${escapeHtml(article.summaryTitle)}</h2><p>${escapeHtml(article.summary)}</p>${quickLinks ? `<nav>${quickLinks}</nav>` : ''}</section>${featuredCards}${statistics}${route.articleKey === 'colors' ? staticColorComparison(locale) : ''}${sections}${staticLinks(locale, recommended.filter((item) => !featured.includes(item)))}<h2>${escapeHtml(staticFaqLabel(locale))}</h2>${faq}${sources}<nav class="seo-static-links">${related}</nav></main>`
   }
   if (route.type === 'tool') {
     const tool = seoToolCopy(locale, route.toolKey)

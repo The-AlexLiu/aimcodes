@@ -115,7 +115,10 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
             <h2>{content.summaryTitle}</h2>
           )}
           <p>{content.summary}</p>
-          {!featured.length && (quickCollectionKey || quickToolKey) && (
+          {content.quickLinks && <nav className="seo-article-quick-actions" aria-label={labels.quick}>
+            {content.quickLinks.map((link, index) => <a className={index === 0 ? 'primary-button' : 'secondary-button'} key={link.label} href={link.fragment ? `#${link.fragment}` : routePath(locale, link.route)}>{link.label}</a>)}
+          </nav>}
+          {!content.quickLinks && !featured.length && (quickCollectionKey || quickToolKey) && (
             <nav className="seo-article-quick-actions" aria-label={labels.quick}>
               {quickCollectionKey && (
                 <a className="primary-button" href={routePath(locale, { type: 'collection', collectionKey: quickCollectionKey })}>

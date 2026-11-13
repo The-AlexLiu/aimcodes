@@ -29,9 +29,21 @@ function enrichSearchArticleCopy(locale, key, content) {
     metaTitle: 'How to Copy a Crosshair in VALORANT: /cc & Codes | AimCodes',
     metaDescription: 'Copy a teammate’s VALORANT crosshair with /cc or /crosshair copy, or import a code from a website. Find the saved profile and check common copy problems.',
   }
+  if (locale === 'pt-BR' && key === 'copy') return {
+    ...content,
+    title: 'Como copiar a mira de um aliado no VALORANT',
+    metaTitle: 'Como copiar mira no VALORANT com /cc | AimCodes',
+    metaDescription: 'Durante a partida, use /cc no chat para salvar a mira do aliado que você está observando. Já tem um código? Veja onde colar nas configurações.',
+    intro: 'Quando estiver assistindo ao aliado cuja mira você quer usar, abra o chat, digite /cc e envie.',
+    summaryTitle: 'Onde fica a mira copiada?',
+    summary: 'Abra Configurações → Mira e selecione o novo perfil. Se recebeu um código fora da partida, abra a opção de importar um código de perfil nessa mesma tela e cole o código completo.',
+    quickLinks: [{ label: 'Importar um código de mira', route: { type: 'guide' } }, { label: 'Resolver um erro de importação', route: { type: 'article', articleKey: 'notWorking' } }],
+    sources: [{ label: 'Riot Games · Notas da Atualização 5.04', url: 'https://playvalorant.com/pt-br/news/game-updates/notas-da-atualizacao-5-04-do-valorant/' }],
+  }
   if (locale === 'ja' && key === 'copy') return {
     ...content,
-    title: 'VALORANT クロスヘアのコピーコマンドとコード入力方法',
+    title: 'VALORANTで味方のクロスヘアをコピーする方法',
+    quickLinks: [{ label: '手元のコードをインポートする', route: { type: 'guide' } }, { label: 'インポートできないとき', route: { type: 'article', articleKey: 'notWorking' } }],
     intro: '味方を観戦中なら /cc または /crosshair copy。サイトで取得したコードなら、クロスヘア設定のインポート欄に入力します。使う場所が違うので、手元にあるものに合わせて選びましょう。',
     sections: [...content.sections, { id: 'website-code-import', title: 'サイトのコードを入力する場所', paragraphs: ['コード全文をコピーし、設定 → クロスヘアでプロファイルコードのインポートを開きます。チャットや色の入力欄ではありません。保存後は選択中のプロファイルを確認してください。'], bullets: ['観戦中のコピー：チャットに /cc または /crosshair copy。', '文字列のコード：プロファイルのインポート欄に全文を貼り付け。', '保存できない：全文のコピーとプロファイルの空き枠を確認。'] }],
     faq: [
@@ -41,7 +53,7 @@ function enrichSearchArticleCopy(locale, key, content) {
       ['コピーしたクロスヘアが見つからないときは？', 'クロスヘア設定で保存されたプロファイルを確認し、選択して名前を付けます。保存できていない場合は観戦対象と空き枠を確認し、もう一度試してください。'],
     ],
     sources: [copySource], relatedArticleKeys: ['notWorking'], relatedCollectionKeys: ['cute', 'small'],
-    metaTitle: 'VALORANT クロスヘアコピー：/cc・コマンド・コード入力 | AimCodes',
+    metaTitle: 'VALORANTでクロスヘアをコピーする方法｜観戦中の /cc と保存先 | AimCodes',
     metaDescription: '味方のクロスヘアをコピーする /cc・/crosshair copy と、サイトのコードを入力する場所を解説。保存したプロファイルの確認とコピーできない場合の手順も。',
   }
   if (locale === 'ja' && key === 'notWorking') return {

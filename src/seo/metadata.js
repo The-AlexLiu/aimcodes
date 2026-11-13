@@ -79,7 +79,6 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'ja:collection:cute': '2026-09-28',
   'en:article:firingError': '2026-09-28',
   'en:article:copy': '2026-09-28',
-  'ja:article:copy': '2026-09-28',
   'ja:article:notWorking': '2026-09-28',
   // Only mark the pages with substantive content changes in this SEO review.
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap((locale) => [
@@ -133,6 +132,10 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'en:collection:circle': '2026-11-07',
   'en:article:stretched': '2026-11-03',
   ...Object.fromEntries(Object.keys(localeRoutes).flatMap(locale => ['collection:best', 'collection:dot', 'catalog:', 'crosshair:needle-cyan'].map(key => [`${locale}:${key}`, '2026-10-29']))),
+  'en:catalog:': '2026-11-13',
+  'en:article:colors': '2026-11-13',
+  'pt-BR:article:copy': '2026-11-13',
+  'ja:article:copy': '2026-11-13',
 })
 
 export function routeContentUpdatedAt(locale, route) {

@@ -94,7 +94,9 @@ const articles = {
       title: 'Which VALORANT crosshair color should you use?',
       intro: 'There is no magic color for every map. Choose a color that separates from both the environment and your enemy outline, then test it on the scenes you actually play.',
       summaryTitle: 'The short answer',
-      summary: 'Cyan and green are the safest all-round starting points. White works best with a thin outline. Yellow and red can be excellent on some maps but disappear into similarly colored walls and effects.',
+      summary: 'Start with cyan (00FFFF). If it blends into a blue wall, compare green (00FF00) in the same spot. Try white (FFFFFF) with a dark outline on bright backgrounds. To enter any of these values, open Settings → Crosshair → Primary, choose Custom under Color and enter the six digits.',
+      sources: [{ label: 'Riot Games · Custom crosshair colors', url: 'https://playvalorant.com/en-gb/news/game-updates/valorant-patch-notes-5-04/' }],
+      quickLinks: [{ label: 'Compare colors on a map', fragment: 'color-comparison-title' }],
       sections: [
         {
           title: 'Cyan: the safest first test',
