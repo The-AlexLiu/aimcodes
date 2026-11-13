@@ -486,7 +486,11 @@ function staticAgentBreadcrumb(locale, name) {
 
 function staticLinks(locale, items) {
   const t = createTranslator(locale)
-  const groups = Map.groupBy(items, (item) => item.category)
+  const groups = new Map()
+  for (const item of items) {
+    if (!groups.has(item.category)) groups.set(item.category, [])
+    groups.get(item.category).push(item)
+  }
   return [...groups].map(([category, entries]) => {
     const title = t(`filters.${category}`)
     return `<section><h2>${escapeHtml(title)}</h2><ul class="seo-static-links">${entries.map((item) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: item.id })}">${escapeHtml(item.shortName)}</a></li>`).join('')}</ul></section>`
