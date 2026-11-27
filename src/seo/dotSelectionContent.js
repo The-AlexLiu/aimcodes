@@ -22,6 +22,21 @@ const navigation = {
   cute: ['cute', 'animals', 'funny', 'pink'],
   funny: ['funny', 'cute', 'animals', 'small'],
 }
+const bunnyCatAndHeart = [
+  { id: 'bunny-white', label: 'White bunny', reason: 'Broad white ears' },
+  { id: 'cat-pink', label: 'Pink cat', reason: 'Pink face with a center dot' },
+  { id: 'heart-pink', label: 'Pink heart', reason: 'Heart-shaped profile' },
+]
+
+const japaneseFunnyPicks = [
+  { id: 'pixel-owl', label: 'ピクセルフクロウ', reason: '黄色の羽と中央のドット' },
+  { id: 'ufo-beam', label: 'UFOビーム', reason: '横に広いシアンの光線' },
+]
+
+export function canQuickCopy(locale, key) {
+  return key === 'dot' || key === 'best' || (locale === 'en' && key === 'oneTap')
+}
+
 export function completeCollectionSelection(locale, key, content) {
   const nav = navigation[key]
   const localized = key === 'dot' ? copy[locale] : null
@@ -30,10 +45,45 @@ export function completeCollectionSelection(locale, key, content) {
     quickPicks: localized.picks.map(([label, reason], index) => ({ id: dotIds[index], label, reason })),
     faq: [...content.faq, ...localized.faq],
   } : {}) }
+  if (locale === 'en' && key === 'cute') {
+    const title = 'Bunny, cat and heart codes'
+    return { ...selected,
+      intro: 'Pick a bunny, cat or heart and copy its code. Open a shape to see how much of the target it covers on a map.',
+      metaTitle: 'Cute VALORANT Crosshair Codes: Bunny, Cat & Heart | AimCodes',
+      quickPicksTitle: title,
+      quickPicks: bunnyCatAndHeart,
+      quickPickGroups: [{ title, picks: bunnyCatAndHeart, layout: 'cards' }],
+    }
+  }
+  if (locale === 'ja' && key === 'funny') {
+    const title = 'そのままコピーできるネタクロスヘア'
+    return { ...selected,
+      title: 'VALORANTのネタクロスヘアコード',
+      intro: 'ピクセルフクロウとUFOビームを実寸と4倍で見比べて、気に入ったコードをコピー。下の一覧ではほかの形も試せます。',
+      metaTitle: 'VALORANT ネタクロスヘアコード一覧｜フクロウ・UFOなど | AimCodes',
+      metaDescription: 'VALORANTで使えるネタクロスヘアを実寸で比較。ピクセルフクロウやUFOビームのコードをその場でコピーし、マップ上の見え方も試せます。',
+      quickPicksTitle: title,
+      quickPicks: japaneseFunnyPicks,
+      quickPickGroups: [{ title, picks: japaneseFunnyPicks, layout: 'cards' }],
+    }
+  }
   if (key !== 'dot') return selected
   const labels = dotGroups[locale] || dotGroups.en
   const picks = selected.quickPicks
   const pure = [picks[0], { id: 'needle-cyan', label: labels[2], reason: labels[3] }]
+  if (locale === 'en') {
+    const dots = [
+      { ...pure[0], reason: 'Size 2 with outline' },
+      { ...pure[1], reason: 'Size 1 without outline' },
+    ]
+    return { ...selected,
+      intro: 'Choose an outlined white dot or a tiny cyan dot. Both have inner and outer lines turned off. Compare them at 1× or 4× and copy the code you want.',
+      metaTitle: 'VALORANT Dot Crosshair Codes: White & Cyan Dots | AimCodes',
+      metaDescription: 'Copy a white size-2 dot with an outline or a cyan size-1 dot without one. Preview both VALORANT dot crosshair codes and open their exact settings.',
+      quickPicks: [...dots, ...picks.slice(1)],
+      quickPickGroups: [{ title: labels[0], picks: dots, layout: 'cards' }, { title: labels[1], picks: picks.slice(1) }],
+    }
+  }
   return { ...selected,
     quickPicks: [...pure, ...picks.slice(1)],
     quickPickGroups: [{ title: labels[0], picks: pure }, { title: labels[1], picks: picks.slice(1) }],

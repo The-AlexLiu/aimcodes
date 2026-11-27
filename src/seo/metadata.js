@@ -34,7 +34,7 @@ import { HUSH_OG_IMAGE, HUSH_UPDATED_AT, hushArticleCopy } from './hushContent.j
 import { freeSiteCopy } from '../i18n/freeSiteCopy.js'
 import { localeRoutes } from '../i18n/localeRoutes.js'
 import { articleCopy } from './articles.js'
-import { crosshairDisplayName, seoCopy } from './content.js'
+import { crosshairDisplayName, detailHeading, seoCopy } from './content.js'
 import { collectionCopy } from './collectionContent.js'
 import { crosshairSlug, isIndexableRoute, routePath, SEO_COLLECTIONS } from './routes.js'
 import { trustCopy } from './trustContent.js'
@@ -136,11 +136,25 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
   'en:article:colors': '2026-11-13',
   'pt-BR:article:copy': '2026-11-13',
   'ja:article:copy': '2026-11-13',
+  ...Object.fromEntries([
+    'en:collection:dot', 'en:collection:oneTap', 'en:collection:cute', 'ja:collection:funny',
+    'es:collection:best', 'en:article:stretched', 'pt-BR:article:stretched',
+    'ja:article:makeDot', 'ja:article:makeCircle',
+    'ja:crosshair:cat-pink', 'ja:crosshair:pig-pink', 'ja:crosshair:crosshairception',
+    'en:collection:small', 'en:article:notWorking', 'en:article:colors', 'en:article:yellowEnemies',
+    'en:article:movementError', 'en:article:firingError', 'en:article:movementVsFiring',
+    'pt-BR:article:copy',
+    ...Object.keys(localeRoutes).flatMap(locale => [`${locale}:tool:decoder`, `${locale}:tool:playbook`]),
+  ].map(key => [key, '2026-11-27'])),
 })
 
 export function routeContentUpdatedAt(locale, route) {
-  if (['catalog', 'crosshair', 'finder'].includes(route.type)) return '2026-11-13'
-  return SEO_ROUTE_UPDATED_AT[routeUpdateKey(locale, route)] || SEO_CONTENT_UPDATED_AT
+  const pageDate = SEO_ROUTE_UPDATED_AT[routeUpdateKey(locale, route)]
+  if (['catalog', 'crosshair', 'finder'].includes(route.type)) {
+    const templateDate = '2026-11-13'
+    return pageDate && pageDate > templateDate ? pageDate : templateDate
+  }
+  return pageDate || SEO_CONTENT_UPDATED_AT
 }
 
 const detailMetadata = Object.freeze({
@@ -240,14 +254,14 @@ export function routeMetadata(locale, route, crosshair) {
       es: `${searchName}: código de mira de VALORANT | AimCodes`,
       'pt-BR': `${searchName}: código de mira do VALORANT | AimCodes`,
       'zh-CN': `${searchName} 无畏契约准星代码与预览 | AimCodes`,
-      ja: `${searchName}のVALORANTクロスヘアコード・設定 | AimCodes`,
+      ja: `${detailHeading(locale, crosshair)}コード・設定 | AimCodes`,
     }
     const descriptions = {
       en: `Preview the ${searchName} VALORANT crosshair on real maps, change its color, and copy the working profile code in one click.`,
       es: `Prueba la mira ${searchName} de VALORANT en mapas reales, cambia el color y copia el código de perfil en un clic.`,
       'pt-BR': `Teste a mira ${searchName} do VALORANT em mapas reais, troque a cor e copie o código de perfil em um clique.`,
       'zh-CN': `在真实地图中预览 ${searchName} 无畏契约准星，切换颜色并一键复制可用的准星配置代码。`,
-      ja: `${searchName}のVALORANTクロスヘアを実際のマップで確認。色を変え、使えるプロファイルコードをワンクリックでコピーできます。`,
+      ja: `${detailHeading(locale, crosshair)}を実際のマップで確認。色を変え、使えるプロファイルコードをワンクリックでコピーできます。`,
     }
     title = metadataOverride?.title || names[locale] || names.en
     description = metadataOverride?.description || descriptions[locale] || descriptions.en
@@ -269,7 +283,7 @@ export function routeMetadata(locale, route, crosshair) {
       es: `Vista previa de la mira ${searchName} de VALORANT en Ascent`,
       'pt-BR': `Prévia da mira ${searchName} do VALORANT na Ascent`,
       'zh-CN': `${searchName} 无畏契约准星在亚海悬城中的预览效果`,
-      ja: `${searchName}のVALORANTクロスヘアをアセントでプレビュー`,
+      ja: `${detailHeading(locale, crosshair)}をアセントでプレビュー`,
     }[locale] || `${searchName} VALORANT crosshair preview`
   } else if (route.type === 'collection') {
     const collection = collectionCopy(locale, route.collectionKey)

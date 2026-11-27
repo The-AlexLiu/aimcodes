@@ -1,11 +1,13 @@
 import { parseCrosshairCode } from '../utils/crosshairCode.js'
 
+export const decoderExampleId = 'wide-axis-apex'
+
 const settingLabels = {
-  en: { movement: 'Movement error', firing: 'Firing error', dot: 'Center dot', outline: 'Outline', inner: 'Inner lines', outer: 'Outer lines', color: 'Color', on: 'On', off: 'Off', size: 'Size', length: 'Length', thickness: 'Thickness', offset: 'Offset' },
-  es: { movement: 'Error de movimiento', firing: 'Error de disparo', dot: 'Punto central', outline: 'Contorno', inner: 'Líneas internas', outer: 'Líneas externas', color: 'Color', on: 'Sí', off: 'No', size: 'Tamaño', length: 'Longitud', thickness: 'Grosor', offset: 'Separación' },
-  'pt-BR': { movement: 'Erro de movimento', firing: 'Erro de disparo', dot: 'Ponto central', outline: 'Contorno', inner: 'Linhas internas', outer: 'Linhas externas', color: 'Cor', on: 'Sim', off: 'Não', size: 'Tamanho', length: 'Comprimento', thickness: 'Espessura', offset: 'Espaço' },
-  'zh-CN': { movement: '移动误差', firing: '射击误差', dot: '中心点', outline: '轮廓', inner: '内侧线条', outer: '外侧线条', color: '颜色', on: '开启', off: '关闭', size: '大小', length: '长度', thickness: '粗细', offset: '间距' },
-  ja: { movement: '移動エラー', firing: '射撃エラー', dot: 'センタードット', outline: '輪郭', inner: '内側ライン', outer: '外側ライン', color: '色', on: 'オン', off: 'オフ', size: 'サイズ', length: '長さ', thickness: '太さ', offset: 'オフセット' },
+  en: { movement: 'Movement error', firing: 'Firing error', dot: 'Center dot', outline: 'Outline', inner: 'Inner lines', outer: 'Outer lines', color: 'Color', on: 'On', off: 'Off', size: 'Size', length: 'Length', horizontal: 'Horizontal length', vertical: 'Vertical length', thickness: 'Thickness', offset: 'Offset' },
+  es: { movement: 'Error de movimiento', firing: 'Error de disparo', dot: 'Punto central', outline: 'Contorno', inner: 'Líneas internas', outer: 'Líneas externas', color: 'Color', on: 'Sí', off: 'No', size: 'Tamaño', length: 'Longitud', horizontal: 'Longitud horizontal', vertical: 'Longitud vertical', thickness: 'Grosor', offset: 'Separación' },
+  'pt-BR': { movement: 'Erro de movimento', firing: 'Erro de disparo', dot: 'Ponto central', outline: 'Contorno', inner: 'Linhas internas', outer: 'Linhas externas', color: 'Cor', on: 'Sim', off: 'Não', size: 'Tamanho', length: 'Comprimento', horizontal: 'Comprimento horizontal', vertical: 'Comprimento vertical', thickness: 'Espessura', offset: 'Espaço' },
+  'zh-CN': { movement: '移动误差', firing: '射击误差', dot: '中心点', outline: '轮廓', inner: '内侧线条', outer: '外侧线条', color: '颜色', on: '开启', off: '关闭', size: '大小', length: '长度', horizontal: '横线长度', vertical: '竖线长度', thickness: '粗细', offset: '间距' },
+  ja: { movement: '移動エラー', firing: '射撃エラー', dot: 'センタードット', outline: '輪郭', inner: '内側ライン', outer: '外側ライン', color: '色', on: 'オン', off: 'オフ', size: 'サイズ', length: '長さ', horizontal: '横の長さ', vertical: '縦の長さ', thickness: '太さ', offset: 'オフセット' },
 }
 
 const colorAliases = Object.freeze({
@@ -67,11 +69,25 @@ export function crosshairSettingRows(crosshair, locale) {
   } catch {
     // Legacy records can still expose their supplied settings.
   }
+  return settingRows(crosshair, settings, labels, locale, false)
+}
+
+export function decodedSettingRows(parsed, locale) {
+  return settingRows(parsed, parsed.settings, settingLabels[locale] || settingLabels.en, locale, true)
+}
+
+function settingRows(crosshair, settings, labels, locale, showAxes) {
   const rows = []
   if (settings.dot !== undefined) rows.push([labels.dot, enabledSettingValue(settings.dot, labels, [[labels.size, settings.dot?.size]])])
   if (settings.outline !== undefined) rows.push([labels.outline, enabledSettingValue(settings.outline, labels, [[labels.thickness, settings.outline?.thickness]])])
-  if (settings.inner !== undefined) rows.push([labels.inner, enabledSettingValue(settings.inner, labels, [[labels.length, displayLineLength(settings.inner)], [labels.thickness, settings.inner?.thickness], [labels.offset, settings.inner?.offset]])])
-  if (settings.outer !== undefined) rows.push([labels.outer, enabledSettingValue(settings.outer, labels, [[labels.length, displayLineLength(settings.outer)], [labels.thickness, settings.outer?.thickness], [labels.offset, settings.outer?.offset]])])
+  for (const key of ['inner', 'outer']) {
+    const line = settings[key]
+    if (line === undefined) continue
+    const lengths = showAxes
+      ? [[labels.horizontal, line.horizontalLength], [labels.vertical, line.verticalLength]]
+      : [[labels.length, displayLineLength(line)]]
+    rows.push([labels[key], enabledSettingValue(line, labels, [...lengths, [labels.thickness, line.thickness], [labels.offset, line.offset]])])
+  }
   rows.push([labels.movement, settingEnabled(settings.movementError) ? labels.on : labels.off])
   rows.push([labels.firing, settingEnabled(settings.firingError) ? labels.on : labels.off])
   rows.push([labels.color, localizedColorName(crosshair, locale)])

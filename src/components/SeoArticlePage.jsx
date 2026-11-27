@@ -1,39 +1,7 @@
+import { lazy } from 'react'
 import CrosshairCard from './CrosshairCard.jsx'
 import './agentDirectory.css'
-import DeadlockAgentPage from './DeadlockAgentPage.jsx'
-import VetoAgentPage from './VetoAgentPage.jsx'
-import VyseAgentPage from './VyseAgentPage.jsx'
-import KilljoyAgentPage from './KilljoyAgentPage.jsx'
-import CypherAgentPage from './CypherAgentPage.jsx'
-import MiksAgentPage from './MiksAgentPage.jsx'
-import HarborAgentPage from './HarborAgentPage.jsx'
-import CloveAgentPage from './CloveAgentPage.jsx'
-
-import GekkoAgentPage from './GekkoAgentPage.jsx'
-import FadeAgentPage from './FadeAgentPage.jsx'
-import AstraAgentPage from './AstraAgentPage.jsx'
-import TejoAgentPage from './TejoAgentPage.jsx'
-import KayoAgentPage from './KayoAgentPage.jsx'
-import SkyeAgentPage from './SkyeAgentPage.jsx'
-import BreachAgentPage from './BreachAgentPage.jsx'
-import YoruAgentPage from './YoruAgentPage.jsx'
-import SovaAgentPage from './SovaAgentPage.jsx'
-import IsoAgentPage from './IsoAgentPage.jsx'
-import WaylayAgentPage from './WaylayAgentPage.jsx'
-import NeonAgentPage from './NeonAgentPage.jsx'
-import ReynaAgentPage from './ReynaAgentPage.jsx'
-import JettAgentPage from './JettAgentPage.jsx'
-import RazeAgentPage from './RazeAgentPage.jsx'
-import ChamberAgentPage from './ChamberAgentPage.jsx'
-
-
-import BrimstoneAgentPage from './BrimstoneAgentPage.jsx'
-import OmenAgentPage from './OmenAgentPage.jsx'
-import ViperAgentPage from './ViperAgentPage.jsx'
-import PhoenixAgentPage from './PhoenixAgentPage.jsx'
-import SageAgentPage from './SageAgentPage.jsx'
-import HushAgentPage from './HushAgentPage.jsx'
-import { articleCopy } from '../seo/articles.js'
+import { guideArticleCopy } from '../seo/articles.js'
 import { collectionCopy } from '../seo/collectionContent.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
@@ -42,42 +10,42 @@ import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import CrosshairColorComparison from './CrosshairColorComparison.jsx'
 
 const agentPages = {
-  yoru: YoruAgentPage,
-  sova: SovaAgentPage,
-  iso: IsoAgentPage,
-  waylay: WaylayAgentPage,
-  astra: AstraAgentPage,
-  cypher: CypherAgentPage,
-  miks: MiksAgentPage,
-  harbor: HarborAgentPage,
-  deadlock: DeadlockAgentPage,
-  veto: VetoAgentPage,
-  vyse: VyseAgentPage,
-  killjoy: KilljoyAgentPage,
-  clove: CloveAgentPage,
-  fade: FadeAgentPage,
-  tejo: TejoAgentPage,
-  gekko: GekkoAgentPage,
-  kayo: KayoAgentPage,
-  skye: SkyeAgentPage,
-  breach: BreachAgentPage,
-  neon: NeonAgentPage,
-  reyna: ReynaAgentPage,
-  jett: JettAgentPage,
-  raze: RazeAgentPage,
-  chamber: ChamberAgentPage,
-  brimstone: BrimstoneAgentPage,
-  omen: OmenAgentPage,
-  viper: ViperAgentPage,
-  phoenix: PhoenixAgentPage,
-  sage: SageAgentPage,
-  hush: HushAgentPage,
+  yoru: lazy(() => import('./YoruAgentPage.jsx')),
+  sova: lazy(() => import('./SovaAgentPage.jsx')),
+  iso: lazy(() => import('./IsoAgentPage.jsx')),
+  waylay: lazy(() => import('./WaylayAgentPage.jsx')),
+  astra: lazy(() => import('./AstraAgentPage.jsx')),
+  cypher: lazy(() => import('./CypherAgentPage.jsx')),
+  miks: lazy(() => import('./MiksAgentPage.jsx')),
+  harbor: lazy(() => import('./HarborAgentPage.jsx')),
+  deadlock: lazy(() => import('./DeadlockAgentPage.jsx')),
+  veto: lazy(() => import('./VetoAgentPage.jsx')),
+  vyse: lazy(() => import('./VyseAgentPage.jsx')),
+  killjoy: lazy(() => import('./KilljoyAgentPage.jsx')),
+  clove: lazy(() => import('./CloveAgentPage.jsx')),
+  fade: lazy(() => import('./FadeAgentPage.jsx')),
+  tejo: lazy(() => import('./TejoAgentPage.jsx')),
+  gekko: lazy(() => import('./GekkoAgentPage.jsx')),
+  kayo: lazy(() => import('./KayoAgentPage.jsx')),
+  skye: lazy(() => import('./SkyeAgentPage.jsx')),
+  breach: lazy(() => import('./BreachAgentPage.jsx')),
+  neon: lazy(() => import('./NeonAgentPage.jsx')),
+  reyna: lazy(() => import('./ReynaAgentPage.jsx')),
+  jett: lazy(() => import('./JettAgentPage.jsx')),
+  raze: lazy(() => import('./RazeAgentPage.jsx')),
+  chamber: lazy(() => import('./ChamberAgentPage.jsx')),
+  brimstone: lazy(() => import('./BrimstoneAgentPage.jsx')),
+  omen: lazy(() => import('./OmenAgentPage.jsx')),
+  viper: lazy(() => import('./ViperAgentPage.jsx')),
+  phoenix: lazy(() => import('./PhoenixAgentPage.jsx')),
+  sage: lazy(() => import('./SageAgentPage.jsx')),
+  hush: lazy(() => import('./HushAgentPage.jsx')),
 }
 
 export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy, copiedId, onSelect, t }) {
   const AgentPage = agentPages[articleKey]
   if (AgentPage) return <AgentPage locale={locale} onCopy={onCopy} />
-  const content = articleCopy(locale, articleKey)
+  const content = guideArticleCopy(locale, articleKey)
   const labels = {
     en: { quick: 'Quick answer', related: 'Related AimCodes guides', import: 'Import and copy crosshair codes', sources: 'Official references', faq: 'Common questions', tryCodes: 'Try working codes', openTool: 'Open the tool' },
     es: { quick: 'Respuesta rápida', related: 'Guías relacionadas de AimCodes', import: 'Guía para importar y copiar miras', sources: 'Referencias oficiales', faq: 'Preguntas habituales', tryCodes: 'Probar códigos', openTool: 'Abrir la herramienta' },
@@ -140,7 +108,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
           <h2>{content.featuredCodes.title}</h2>
           <div>
             {featured.map((item) => (
-              <CrosshairCard key={item.id} crosshair={item}
+              <CrosshairCard key={item.id} crosshair={item} showCode
                 href={routePath(locale, { type: 'crosshair', crosshairId: item.id })}
                 copied={copiedId === item.id} onSelect={onSelect} onCopy={onCopy} t={t} />
             ))}
@@ -149,15 +117,24 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
       )}
 
       {articleKey === 'statistics' && <CrosshairStatisticsPanel locale={locale} />}
-      {articleKey === 'colors' && <CrosshairColorComparison locale={locale} crosshair={crosshairs.find((item) => item.id === 'tenz')} />}
+      {content.colorComparison && <CrosshairColorComparison locale={locale} comparison={content.colorComparison}
+        crosshair={crosshairs.find((item) => item.id === content.colorComparison.crosshairId)} />}
 
       <div className="seo-article-sections">
         {content.sections.map((section, index) => (
-          <section key={section.title} className="seo-article-section">
+          <section key={section.title} className={section.table ? 'seo-article-section seo-article-table-section' : 'seo-article-section'}>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <div>
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.table && (
+                <table className="guide-settings-table" aria-label={section.title}>
+                  <thead><tr>{section.table.columns.map((column) => <th key={column} scope="col">{column}</th>)}</tr></thead>
+                  <tbody>{section.table.rows.map(([setting, ...cells]) => (
+                    <tr key={setting}><th scope="row">{setting}</th>{cells.map((cell) => <td key={cell}>{cell}</td>)}</tr>
+                  ))}</tbody>
+                </table>
+              )}
               {section.bullets?.length > 0 && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
             </div>
           </section>
@@ -201,7 +178,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
 
       <nav className="seo-article-related" aria-label={labels.related}>
         {relatedArticleKeys.filter((key) => key !== articleKey).map((key) => (
-          <a key={`article-${key}`} href={routePath(locale, { type: 'article', articleKey: key })}>{articleCopy(locale, key).title}</a>
+          <a key={`article-${key}`} href={routePath(locale, { type: 'article', articleKey: key })}>{guideArticleCopy(locale, key).title}</a>
         ))}
         {relatedCollectionKeys.map((key) => (
           <a key={`collection-${key}`} href={routePath(locale, { type: 'collection', collectionKey: key })}>{collectionCopy(locale, key).title}</a>

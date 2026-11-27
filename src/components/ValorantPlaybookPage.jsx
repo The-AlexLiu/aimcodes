@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import Icon from './Icon.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import {
@@ -8,6 +8,7 @@ import {
   playbookAgents,
   playbookAgentRoles,
 } from '../data/playbookAgents.js'
+import { ASCENT_EXAMPLE_HASH, createAscentExample } from '../data/playbookExample.js'
 import { playbookMapName, playbookSeoCopy, playbookUiCopy, valorantMaps } from '../seo/playbookContent.js'
 import { trackEvent, trackShareSuccess } from '../utils/analytics.js'
 import { canShareData, copyText, shareData } from '../utils/share.js'
@@ -27,7 +28,7 @@ function createId() {
 }
 
 function safeState(value) {
-  if (!value || ![2, 3].includes(value.version) || typeof value.boards !== 'object') return { ...EMPTY_STATE, boards: {} }
+  if (!value || ![2, 3].includes(value.version) || !value.boards || typeof value.boards !== 'object' || Array.isArray(value.boards)) return { ...EMPTY_STATE, boards: {} }
   return {
     version: 3,
     mapId: valorantMaps.some((map) => map.id === value.mapId) ? value.mapId : 'ascent',
@@ -36,10 +37,20 @@ function safeState(value) {
   }
 }
 
-function decodeSharedBoard() {
-  if (typeof window === 'undefined' || !window.location.hash.startsWith('#board=')) return null
+function boardSource() {
+  const hash = window.location.hash
+  return hash === ASCENT_EXAMPLE_HASH || hash.startsWith('#board=') ? hash : ''
+}
+
+function subscribeToBoardLinks(notify) {
+  window.addEventListener('hashchange', notify)
+  return () => window.removeEventListener('hashchange', notify)
+}
+
+function decodeSharedBoard(hash) {
+  if (!hash.startsWith('#board=')) return null
   try {
-    const encoded = window.location.hash.slice(7).replace(/-/g, '+').replace(/_/g, '/')
+    const encoded = hash.slice(7).replace(/-/g, '+').replace(/_/g, '/')
     const bytes = Uint8Array.from(atob(encoded), (character) => character.charCodeAt(0))
     return safeState(JSON.parse(new TextDecoder().decode(bytes)))
   } catch {
@@ -47,9 +58,13 @@ function decodeSharedBoard() {
   }
 }
 
-function readBoard() {
-  const shared = decodeSharedBoard()
-  if (shared) return shared
+function readBoard(source) {
+  if (source) {
+    const savedCopy = window.history.state?.playbookCopy
+    if (savedCopy?.source === source) return safeState(savedCopy.board)
+    if (source === ASCENT_EXAMPLE_HASH) return createAscentExample()
+    return decodeSharedBoard(source) || { ...EMPTY_STATE, boards: {} }
+  }
   try {
     const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('aimcodes-tactical-board-v2')
     return safeState(JSON.parse(stored || 'null'))
@@ -309,10 +324,15 @@ function ToolbarButton({ active = false, icon, label, onClick, disabled = false 
 }
 
 export default function ValorantPlaybookPage({ locale }) {
+  const source = useSyncExternalStore(subscribeToBoardLinks, boardSource)
+  return <PlaybookEditor key={source} locale={locale} source={source} />
+}
+
+function PlaybookEditor({ locale, source }) {
   const seo = playbookSeoCopy(locale)
   const copy = playbookUiCopy(locale)
-  const [boardState, setBoardState] = useState(() => readBoard())
-  const [tool, setTool] = useState('pen')
+  const [boardState, setBoardState] = useState(() => readBoard(source))
+  const [tool, setTool] = useState(source ? 'select' : 'pen')
   const [color, setColor] = useState(DRAW_COLORS[0])
   const [side, setSide] = useState('attacker')
   const [roleFilter, setRoleFilter] = useState('all')
@@ -341,8 +361,16 @@ export default function ValorantPlaybookPage({ locale }) {
 
   useEffect(() => {
     boardStateRef.current = boardState
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(boardState)) } catch { /* The board still works without storage. */ }
-  }, [boardState])
+    try {
+      if (source) {
+        if (boardSource() === source) {
+          window.history.replaceState({ ...window.history.state, playbookCopy: { source, board: boardState } }, '')
+        }
+      } else {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(boardState))
+      }
+    } catch { /* The board still works when storage is unavailable. */ }
+  }, [boardState, source])
 
   const commit = (nextState) => {
     boardStateRef.current = nextState
@@ -616,11 +644,17 @@ export default function ValorantPlaybookPage({ locale }) {
 
         <h1>{seo.title}</h1>
         <p>{seo.intro}</p>
+        {source ? <a className="playbook-example-link" href="#tactical-board-title">{copy.backToBoard}</a> :
+          <a className="playbook-example-link" href={ASCENT_EXAMPLE_HASH}>{seo.exampleAction}</a>}
       </header>
 
-      <section className="tactical-board-shell" aria-labelledby="tactical-board-title">
+      <section id="ascent-example" tabIndex="-1" className="tactical-board-shell" aria-labelledby="tactical-board-title">
         <div className="tactical-board-topbar">
-          <div><span>{copy.boardEyebrow}</span><h2 id="tactical-board-title">{copy.boardTitle}</h2></div>
+          <div>
+            <span>{copy.boardEyebrow}</span>
+            <h2 id="tactical-board-title" tabIndex="-1">{copy.boardTitle}</h2>
+            {source === ASCENT_EXAMPLE_HASH && <p className="playbook-example-summary">{seo.exampleDescription}</p>}
+          </div>
           <label className="tactical-map-select">
             <span>{copy.map}</span>
             <select value={boardState.mapId} onChange={(event) => changeMap(event.target.value)}>
@@ -749,13 +783,14 @@ export default function ValorantPlaybookPage({ locale }) {
               <button type="button" onClick={shareBoard}><Icon name={status === 'shared' || status === 'copied' ? 'check' : 'share'} size={17} />{status === 'shared' ? copy.shared : status === 'copied' ? copy.linkCopied : copy.share}</button>
               <button className="danger-button" type="button" disabled={!elements.length} onClick={() => { setSelectedElementId(null); replaceElements([]) }}><Icon name="trash" size={17} />{copy.clear}</button>
             </div>
-            <p className="tactical-local-note"><Icon name="shield" size={15} />{copy.localNote}</p>
+            <p className="tactical-local-note"><Icon name="shield" size={15} />{source ? copy.copyNote : copy.localNote}</p>
           </aside>
         </div>
       </section>
 
       <section className="tool-learning-content" aria-labelledby="playbook-guide-title">
         <div className="tool-learning-intro"><h2 id="playbook-guide-title">{seo.guideTitle}</h2><p>{seo.guideIntro}</p></div>
+        <div className="playbook-map-list"><h3>{seo.mapsTitle}</h3><p>{seo.mapsList}</p></div>
         <div className="tool-learning-grid">{seo.tips.map((tip, index) => <article key={tip.title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{tip.title}</h3><p>{tip.body}</p></article>)}</div>
         <div className="tool-learning-faq"><h2>FAQ</h2>{seo.faq.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
       </section>

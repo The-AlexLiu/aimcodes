@@ -1,6 +1,6 @@
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 import { collectionCopy } from '../seo/collectionContent.js'
-import { articleCopy } from '../seo/articles.js'
+import { guideArticleCopy } from '../seo/articles.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 import { reviewCopy } from '../seo/octoberReviewContent.js'
@@ -18,7 +18,7 @@ export default function SeoCollectionDetails({ locale, collectionKey }) {
   const relatedGuides = (content.relatedArticleKeys || []).map((articleKey) => ({
     key: `article-${articleKey}`,
     href: routePath(locale, { type: 'article', articleKey }),
-    label: articleCopy(locale, articleKey).title,
+    label: guideArticleCopy(locale, articleKey).title,
   }))
   const relatedTools = (content.relatedToolKeys || []).map((toolKey) => ({
     key: `tool-${toolKey}`,

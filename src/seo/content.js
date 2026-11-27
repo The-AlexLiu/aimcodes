@@ -112,7 +112,7 @@ const copy = {
     topics: { title: 'Empieza por una colección' },
     collections: {
       best: {
-        label: 'Empieza aquí', eyebrow: '¿NO SABES CUÁL ELEGIR?', title: 'Miras de VALORANT que vale la pena probar', intro: 'Una selección rápida para competitivo, primeras balas limpias y cambios de objetivo, lista para probar y copiar.', gridTitle: 'Prueba primero estas miras',
+        label: 'Empieza aquí', eyebrow: '¿NO SABES CUÁL ELEGIR?', title: 'Mejores miras de VALORANT: compara tres formas', intro: 'Una selección rápida para competitivo, primeras balas limpias y cambios de objetivo, lista para probar y copiar.', gridTitle: 'Prueba primero estas miras',
         body: ['No existe una única mira perfecta para todos. El mejor punto de partida es una forma limpia que se vea bien sin tapar la cabeza.', 'Esta selección mezcla centros abiertos, puntos compactos y configuraciones de pros. Pruébalas en el mismo mapa y quédate con la que tus ojos encuentren más rápido.'],
         faq: [['¿Qué hace que una mira de VALORANT sea buena?', 'Debe verse con claridad, marcar bien el centro y no ocultar al rival. El tamaño y el hueco dependen de tu forma de apuntar.'], ['¿Es mejor empezar con punto o con cruz?', 'Una cruz pequeña con centro abierto suele ser más fácil de seguir. El punto puede sentirse más preciso, pero también se pierde con más facilidad.'], ['¿Qué color de mira funciona mejor?', 'El cian y el verde destacan en muchos mapas. En AimCodes puedes probar seis colores antes de copiar el código final.']],
         relatedArticleKeys: ['placement', 'dotVsCross', 'settings'], relatedToolKeys: ['comparison', 'preview'],
@@ -472,7 +472,7 @@ export function detailHeading(locale, crosshair) {
     es: `Mira ${searchName} de VALORANT`,
     'pt-BR': `Mira ${searchName} do VALORANT`,
     'zh-CN': `${searchName} 无畏契约准星`,
-    ja: `${searchName}のVALORANTクロスヘア`,
+    ja: searchName.endsWith('クロスヘア') ? `VALORANTの${searchName}` : `${searchName}のVALORANTクロスヘア`,
   }
   return headings[locale] || headings.en
 }

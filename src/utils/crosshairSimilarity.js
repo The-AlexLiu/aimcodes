@@ -14,25 +14,33 @@ function sameLineSet(left, right) {
     && closeEnough(left.offset, right.offset)
 }
 
-export function haveSameVisibleShape(left, right) {
+function visibleSettings(item) {
   try {
-    const leftParsed = parseCrosshairCode(left.code, { fallbackColor: left.color })
-    const rightParsed = parseCrosshairCode(right.code, { fallbackColor: right.color })
-    const leftSettings = leftParsed.settings
-    const rightSettings = rightParsed.settings
-
-    return Boolean(leftSettings.outline.enabled) === Boolean(rightSettings.outline.enabled)
-      && Boolean(leftSettings.dot.enabled) === Boolean(rightSettings.dot.enabled)
-      && (!leftSettings.dot.enabled || closeEnough(leftSettings.dot.size, rightSettings.dot.size))
-      && sameLineSet(leftSettings.inner, rightSettings.inner)
-      && sameLineSet(leftSettings.outer, rightSettings.outer)
+    return parseCrosshairCode(item.code, { fallbackColor: item.color }).settings
   } catch {
-    return false
+    return null
   }
 }
 
+function sameVisibleSettings(left, right) {
+  if (!left || !right) return false
+  return Boolean(left.outline.enabled) === Boolean(right.outline.enabled)
+    && Boolean(left.dot.enabled) === Boolean(right.dot.enabled)
+    && (!left.dot.enabled || closeEnough(left.dot.size, right.dot.size))
+    && sameLineSet(left.inner, right.inner)
+    && sameLineSet(left.outer, right.outer)
+}
+
+export function haveSameVisibleShape(left, right) {
+  return sameVisibleSettings(visibleSettings(left), visibleSettings(right))
+}
+
 export function dedupeCrosshairsByAppearance(items) {
-  return items.filter((item, index) => (
-    !items.slice(0, index).some((candidate) => haveSameVisibleShape(candidate, item))
-  ))
+  const previous = []
+  return items.filter((item) => {
+    const settings = visibleSettings(item)
+    const duplicate = previous.some((candidate) => sameVisibleSettings(candidate, settings))
+    previous.push(settings)
+    return !duplicate
+  })
 }

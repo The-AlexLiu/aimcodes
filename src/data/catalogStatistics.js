@@ -1,7 +1,8 @@
 import { indexableCrosshairs } from './catalogManifest.js'
 import { collectionDisplayIds } from './catalogDisplay.js'
+import { dedupeCrosshairsByAppearance } from '../utils/crosshairSimilarity.js'
 
-export const CROSSHAIR_STATISTICS_UPDATED_AT = '2026-10-14'
+export const CROSSHAIR_STATISTICS_UPDATED_AT = '2026-11-27'
 
 const colorAliases = Object.freeze({
   ciano: 'cyan',
@@ -44,6 +45,7 @@ const featuredCollectionKeys = Object.freeze(['funny', 'small', 'dot', 'circle',
 
 export const crosshairStatistics = Object.freeze({
   total: indexableCrosshairs.length,
+  distinctStyles: dedupeCrosshairsByAppearance(indexableCrosshairs).length,
   shapeCount: new Set(indexableCrosshairs.map((crosshair) => crosshair.category)).size,
   colorCount: new Set(indexableCrosshairs.map(normalizedColorKey)).size,
   colors: rankedCounts(indexableCrosshairs, normalizedColorKey),

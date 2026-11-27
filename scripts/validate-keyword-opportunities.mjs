@@ -32,6 +32,18 @@ for (const locale of ['en', 'es', 'pt-BR', 'zh-CN', 'ja']) {
     // Existing Best and Dot selection aids are product content shared by all five locales; indexing is unchanged.
     assert(['en', 'ja'].includes(locale) || ['best', 'dot'].includes(key), 'New editorial shortlist outside growth locales')
     const html = await readFile(new URL(`../dist${routePath(locale, { type: 'collection', collectionKey: key })}index.html`, import.meta.url), 'utf8')
+    for (const group of (content.quickPickGroups || []).filter(group => group.layout === 'cards')) {
+      const heading = `<h2>${group.title}</h2>`
+      const start = html.indexOf(heading)
+      assert(start > -1, `${key}: missing visual shortlist heading`)
+      const shortlist = html.slice(start, html.indexOf('</section>', start))
+      for (const pick of group.picks) {
+        const href = routePath(locale, { type: 'crosshair', crosshairId: pick.id })
+        const item = catalogCrosshairs.find(({ id }) => id === pick.id)
+        const card = shortlist.split('<article ').find(fragment => fragment.includes(`href="${href}"`))
+        assert(card && card.includes(pick.reason) && card.includes(`<code>${item.code}</code>`), `${key}/${pick.id}: missing matching static preview, settings or exact code`)
+      }
+    }
     for (const pick of content.quickPicks) {
       assert(indexableCrosshairIds.includes(pick.id), `${key}: shortlist target is not indexable`)
       assert(crosshairCollections[key].crosshairIds.includes(pick.id), `${key}: shortlist target not in collection`)

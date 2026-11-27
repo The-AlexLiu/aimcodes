@@ -1,0 +1,12 @@
+.article-featured-codes.collection-code-picks > div {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
+  max-width: 570px;
+}
+
+.collection-code-picks .card-code {
+  order: 3;
+}
+
+.collection-code-picks .card-info {
+  overflow-wrap: anywhere;
+}

@@ -15,7 +15,7 @@ const toolContent = {
       metaTitle: 'VALORANT Crosshair Generator & Code Builder | AimCodes', metaDescription: 'Build a VALORANT crosshair with color, outline, center dot, inner and outer lines, movement error and firing error, then copy the code.',
     },
     decoder: {
-      eyebrow: 'READ THE SETTINGS BEHIND A CODE', title: 'VALORANT crosshair code decoder', intro: 'Paste a profile code to check whether it works, see the shape, and read the settings hidden inside it.',
+      eyebrow: 'READ THE SETTINGS BEHIND A CODE', title: 'VALORANT crosshair code decoder', intro: 'Paste a profile code to read its primary settings and preview the shape. Import it in VALORANT to confirm the game accepts it.', exampleTitle: 'Example profile · Wide Axis Apex', loadExample: 'Load the example code',
       guideTitle: 'Use the decoder before importing a mystery code', guideIntro: 'A valid code is not automatically a good fit. Check its center dot, line gap, outline, and error indicators before taking it into a match.',
       tips: [
         { title: 'Paste the full profile', body: 'Copy from the first character to the last value. Missing separators are the most common reason a code fails.' },
@@ -23,7 +23,7 @@ const toolContent = {
         { title: 'Preview before you replace anything', body: 'Keep your current in-game profile until the decoded crosshair has passed a quick range test.' },
       ],
       faq: [['Why does a code fail to decode?', 'It is usually incomplete, contains extra spaces, or is not a VALORANT profile code. Copy the original string again.'], ['Does decoding change the code?', 'No. The decoder only reads the profile and draws a preview in your browser.']],
-      metaTitle: 'VALORANT Crosshair Code Decoder | AimCodes', metaDescription: 'Paste a VALORANT crosshair code to validate it, preview the result and decode color, outline, center dot, inner lines and outer lines.',
+      metaTitle: 'VALORANT Crosshair Code Decoder | AimCodes', metaDescription: 'Read the primary settings in a VALORANT crosshair code. Preview its color, outline and center dot, and compare horizontal and vertical line lengths.',
     },
     preview: {
       eyebrow: 'PASTE IT, THEN PUT IT ON A MAP', title: 'VALORANT crosshair preview', intro: 'Paste a profile code and see it at a normal scale on three map scenes before you import it into the game.',
@@ -57,11 +57,11 @@ const toolContent = {
       metaTitle: 'Generador de Miras y Códigos de VALORANT | AimCodes', metaDescription: 'Crea una mira de VALORANT con color, contorno, punto, líneas y errores de movimiento y disparo; después copia el código.',
     },
     decoder: {
-      eyebrow: 'LEE LOS AJUSTES DEL CÓDIGO', title: 'Decodificador de códigos de mira de VALORANT', intro: 'Pega un código, comprueba si funciona, mira la forma y descubre los ajustes que lleva dentro.',
+      eyebrow: 'LEE LOS AJUSTES DEL CÓDIGO', title: 'Decodificador de códigos de mira de VALORANT', intro: 'Pega un código para ver la forma y los ajustes de la mira principal. Puedes comprobar la importación en VALORANT.', exampleTitle: 'Perfil de ejemplo · Wide Axis Apex', loadExample: 'Cargar el código de ejemplo',
       guideTitle: 'Revisa los códigos desconocidos antes de importarlos', guideIntro: 'Que el código sea válido no significa que sea para ti. Mira el punto, la separación, el contorno y los indicadores de error.',
       tips: [{ title: 'Pega el perfil completo', body: 'Copia desde el primer carácter hasta el último valor. Los separadores que faltan suelen romper el código.' }, { title: 'Fíate de la forma', body: 'Los nombres de pros y los posts envejecen. Los ajustes decodificados enseñan lo que el código dibuja hoy.' }, { title: 'No borres tu mira todavía', body: 'Guarda tu perfil actual hasta probar la nueva mira unos minutos en el campo de tiro.' }],
       faq: [['¿Por qué no se puede leer el código?', 'Suele estar incompleto, tener espacios extra o no ser un perfil de VALORANT. Vuelve a copiarlo.'], ['¿El decodificador modifica el código?', 'No. Solo lee el perfil y dibuja una vista previa en el navegador.']],
-      metaTitle: 'Decodificador de Códigos de Mira VALORANT | AimCodes', metaDescription: 'Pega un código de mira de VALORANT para validarlo, ver el resultado y leer color, contorno, punto y líneas.',
+      metaTitle: 'Decodificador de Códigos de Mira VALORANT | AimCodes', metaDescription: 'Lee los ajustes principales de una mira de VALORANT y compara el color, el contorno y la longitud horizontal y vertical de sus líneas.',
     },
     preview: {
       eyebrow: 'PÉGALA Y PONLA EN EL MAPA', title: 'Vista previa de miras de VALORANT', intro: 'Pega un código y míralo a escala normal sobre tres mapas antes de importarlo al juego.',
@@ -87,11 +87,11 @@ const toolContent = {
       metaTitle: 'Gerador de Miras e Códigos do VALORANT | AimCodes', metaDescription: 'Crie uma mira do VALORANT com cor, contorno, ponto, linhas e erros de movimento e disparo, depois copie o código.',
     },
     decoder: {
-      eyebrow: 'LEIA OS AJUSTES DO CÓDIGO', title: 'Decodificador de código de mira do VALORANT', intro: 'Cole um código, confira se funciona, veja o formato e descubra os ajustes guardados nele.',
+      eyebrow: 'LEIA OS AJUSTES DO CÓDIGO', title: 'Decodificador de código de mira do VALORANT', intro: 'Cole um código para ver o formato e as configurações da mira primária. Importe o perfil no VALORANT para confirmar se o jogo o aceita.', exampleTitle: 'Perfil de exemplo · Wide Axis Apex', loadExample: 'Carregar o código de exemplo',
       guideTitle: 'Confira códigos desconhecidos antes de importar', guideIntro: 'Código válido não significa mira boa para você. Veja ponto, espaçamento, contorno e indicadores de erro antes da partida.',
       tips: [{ title: 'Cole o perfil inteiro', body: 'Copie do primeiro caractere ao último valor. Separadores faltando são o erro mais comum.' }, { title: 'Olhe o formato, não o nome', body: 'Nomes de pros e posts ficam desatualizados. Os ajustes mostram o que o código realmente desenha.' }, { title: 'Guarde sua mira atual', body: 'Não apague o perfil antigo antes de testar a nova mira por alguns minutos no treino.' }],
       faq: [['Por que o código não abre?', 'Normalmente está incompleto, tem espaços extras ou não é um perfil do VALORANT. Copie novamente.'], ['O decodificador altera o código?', 'Não. Ele só lê o perfil e monta uma prévia no navegador.']],
-      metaTitle: 'Decodificador de Código de Mira VALORANT | AimCodes', metaDescription: 'Cole um código de mira do VALORANT para validar, visualizar e ler cor, contorno, ponto e linhas.',
+      metaTitle: 'Decodificador de Código de Mira VALORANT | AimCodes', metaDescription: 'Confira as configurações da mira primária do VALORANT, veja a prévia e compare o comprimento horizontal e vertical das linhas.',
     },
     preview: {
       eyebrow: 'COLE E LEVE PARA O MAPA', title: 'Prévia de mira do VALORANT', intro: 'Cole um código e veja em escala normal em três mapas antes de importar no jogo.',
@@ -117,11 +117,11 @@ const toolContent = {
       metaTitle: '无畏契约准星生成器与代码生成工具 | AimCodes', metaDescription: '调整颜色、轮廓、中心点、内外线、移动误差和射击误差，实时预览并生成无畏契约准星代码。',
     },
     decoder: {
-      eyebrow: '把这串代码拆开看看', title: '无畏契约准星代码解析器', intro: '把准星代码贴进来，马上看它能不能用、长什么样，以及里面到底调了哪些参数。',
+      eyebrow: '把这串代码拆开看看', title: '无畏契约准星代码解析器', intro: '粘贴代码即可预览主准星，查看颜色和内外线设置。能否导入，以游戏里的结果为准。', exampleTitle: '示例准星 · Wide Axis Apex', loadExample: '载入示例代码',
       guideTitle: '来路不明的代码，先拆再导入', guideIntro: '能导入不代表适合你。先看中心点、间距、轮廓和误差提示，免得进游戏才发现挡头或晃眼。',
       tips: [{ title: '整段代码一次贴完', body: '从第一个字符复制到最后一个数值。少一个分隔符，就可能整串都读不出来。' }, { title: '看参数，别只信名字', body: '选手名字和社媒标题都可能过期，解析出来的造型才是这串代码现在真正画出的东西。' }, { title: '旧准星先别删', body: '新准星去训练场打几分钟再决定，别还没试就把顺手的配置覆盖掉。' }],
       faq: [['为什么代码读不出来？', '最常见的是复制不完整、多了空格，或者贴进来的根本不是无畏契约准星代码。重新从原文完整复制一次。'], ['解析会修改原代码吗？', '不会。这里仅读取参数并在浏览器里画出预览。']],
-      metaTitle: '无畏契约准星代码解析器 | AimCodes', metaDescription: '粘贴无畏契约准星代码，检查有效性、预览效果并读取颜色、轮廓、中心点、内线和外线参数。',
+      metaTitle: '无畏契约准星代码解析器 | AimCodes', metaDescription: '粘贴无畏契约准星代码，预览主准星，查看颜色、轮廓和中心点，并分别对比内外线的横向和纵向长度。',
     },
     preview: {
       eyebrow: '先放进地图看看', title: '无畏契约准星预览工具', intro: '粘贴一段准星代码，放进三张地图按正常比例看一遍，再决定要不要带进游戏。',

@@ -1,6 +1,6 @@
 import HomeAgentSection from './HomeAgentSection.jsx'
 import { collectionCopy } from '../seo/collectionContent.js'
-import { articleResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
+import { guideResourceLabel, toolResourceLabel } from '../seo/resourceLabels.js'
 import { DISCOVERABLE_COLLECTION_KEYS, routePath } from '../seo/routes.js'
 import Icon from './Icon.jsx'
 
@@ -158,7 +158,7 @@ export default function HomeResourceDirectory({ locale }) {
           <nav className="home-resource-link-grid" aria-label={copy.guides} id="guides">
             {guideKeys.map((articleKey) => (
               <a href={routePath(locale, { type: 'article', articleKey })} key={articleKey}>
-                {articleResourceLabel(locale, articleKey)}
+                {guideResourceLabel(locale, articleKey)}
               </a>
             ))}
           </nav>

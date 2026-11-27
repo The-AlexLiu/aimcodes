@@ -3,19 +3,61 @@ import { completeCoreGuide } from './coreGuideUpdates.js'
 const copySource = { label: 'Riot Games — VALORANT Patch Notes 5.04', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-5-04/' }
 const shootingSource = { label: 'Riot Games — VALORANT Patch Notes 4.10', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-4-10/' }
 
+const statsSource = { label: 'Riot Games · Where to find performance graphs (3.04)', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-3-04/' }
+const movementSource = { label: 'Riot Games · Movement and weapon accuracy (9.10)', url: 'https://playvalorant.com/en-us/news/game-updates/valorant-patch-notes-9-10/' }
+
 function enrichSearchArticleCopy(locale, key, content) {
+  if (locale === 'en' && key === 'movementVsFiring') return {
+    ...content,
+    sections: [{
+      title: 'Where to find each display on PC',
+      paragraphs: ['Choose the display for the moment you want to see. Crosshair lines give live feedback at the center of the screen. The graph lets you look back at recent shots.'],
+      bullets: [],
+      table: {
+        columns: ['Setting', 'Where to turn it on', 'What to watch'],
+        rows: [
+          ['Movement Error', 'Crosshair → Primary, under the lines you use', 'Those lines spread as you move and settle as you stop. You can see the change before firing.'],
+          ['Firing Error', 'Crosshair → Primary, under the lines you use', 'Those lines spread during repeated shots and settle as firing inaccuracy recovers.'],
+          ['Shooting Error', 'Video → Stats, select the Shooting Error graph', 'The performance graph plots recent shots. Check it after a burst while keeping your usual crosshair.'],
+        ],
+      },
+    }, {
+      title: 'Which settings travel with a crosshair code?',
+      paragraphs: ['The movement and firing toggles belong to the line settings in your crosshair profile. The graph belongs to the Video menu. If a friend shares a profile and you want the same graph, turn it on separately.'],
+      bullets: [],
+    }, ...content.sections.slice(2)],
+    sources: [movementSource, shootingSource, statsSource],
+  }
+  if (locale === 'en' && key === 'movementError') return {
+    ...content,
+    sections: [{
+      title: 'Turn on Movement Error for one line group',
+      paragraphs: ['On PC, open Settings → Crosshair → Primary. Find Movement Error under the inner or outer lines you use. Turn it on for one visible group and leave Firing Error off for this check.', 'Move sideways in the practice range without firing, then stop. Watch the gap between those lines open and close. The setting makes the movement penalty visible.'],
+      bullets: [],
+    }, ...content.sections.slice(1)],
+    sources: [movementSource, copySource],
+  }
   if (locale === 'en' && key === 'firingError') return {
     ...content,
     title: 'VALORANT shooting error: graph vs firing-error crosshair',
     intro: 'Looking for the Shooting Error graph or the Firing Error crosshair setting? Both help you inspect inaccuracy, but one shows recent shots in a graph and the other changes your aiming reference as you fire.',
     summary: 'The Shooting Error graph records recent shots; Firing Error animates crosshair lines. Turning the crosshair setting off keeps that reference steady without removing weapon spread. Choose the display that helps you diagnose your shots.',
-    sections: [{ id: 'shooting-graph-vs-crosshair', title: 'Shooting Error graph vs crosshair feedback', paragraphs: ['Riot introduced the Shooting Error performance graph in patch 4.10 to show recent-shot values. It presents the information from crosshair error settings in a form you can review after an engagement. It is a separate display, not a crosshair code.'], bullets: ['Use the graph when you want to review recent shots.', 'Use crosshair error feedback when you want a visible cue around the aiming point.', 'Neither display changes weapon accuracy.'] }, ...content.sections],
+    sections: [{
+      id: 'shooting-graph-vs-crosshair',
+      title: 'Where to turn on each display on PC',
+      paragraphs: ['You can enable either display on its own. Riot added the Shooting Error graph in patch 4.10 so you can review a shot after the crosshair has settled.'],
+      bullets: [
+        'For a live cue, open Settings → Crosshair → Primary and enable Firing Error for the line group you use.',
+        'For a record of recent shots, open Settings → Video → Stats and choose the Shooting Error graph.',
+        'To keep the center still while recording error, leave the graph on and turn off firing and movement feedback for the visible lines.',
+      ],
+    }, ...content.sections],
     faq: [
       ['Is shooting error the same as firing error?', 'The search term can mean two things: the Shooting Error performance graph, or the Firing Error crosshair setting. The graph displays recent-shot information; the crosshair setting changes the aiming reference while firing.'],
       ['Should I turn firing error on or off?', 'Try it in the range to notice changes between taps and bursts. Turn it off if the moving reference distracts you; the weapon still has the same spread and recoil.'],
       ['Will a static crosshair remove shooting error?', 'No. Disabling movement and firing error changes the display only. Stopping, burst timing and weapon behavior still affect the shot.'],
     ],
-    sources: [...content.sources, shootingSource],
+    sources: [...content.sources, shootingSource, statsSource],
     relatedCollectionKeys: ['static', 'phantom'],
     metaTitle: 'VALORANT Shooting Error: Graph vs Crosshair Setting | AimCodes',
     metaDescription: 'Understand the VALORANT Shooting Error graph and Firing Error crosshair setting. Compare their feedback, decide when to use each, and try static codes.',
@@ -31,14 +73,17 @@ function enrichSearchArticleCopy(locale, key, content) {
   }
   if (locale === 'pt-BR' && key === 'copy') return {
     ...content,
-    title: 'Como copiar a mira de um aliado no VALORANT',
-    metaTitle: 'Como copiar mira no VALORANT com /cc | AimCodes',
+    title: 'Como copiar mira no VALORANT com /cc ou código de perfil',
+    metaTitle: 'Como copiar mira no VALORANT com /cc ou código | AimCodes',
     metaDescription: 'Durante a partida, use /cc no chat para salvar a mira do aliado que você está observando. Já tem um código? Veja onde colar nas configurações.',
-    intro: 'Quando estiver assistindo ao aliado cuja mira você quer usar, abra o chat, digite /cc e envie.',
-    summaryTitle: 'Onde fica a mira copiada?',
-    summary: 'Abra Configurações → Mira e selecione o novo perfil. Se recebeu um código fora da partida, abra a opção de importar um código de perfil nessa mesma tela e cole o código completo.',
+    intro: 'Para copiar a mira do aliado que você está observando, envie /cc ou /crosshair copy no chat. Para usar um código que você recebeu, cole o texto nas configurações da retícula.',
+    summaryTitle: 'Como saber se a mira foi salva?',
+    summary: 'Depois de usar /cc ou importar um código, abra Configurações → Retícula. Selecione o novo perfil e confira a prévia. Dê um nome à mira para encontrá-la na próxima partida.',
     quickLinks: [{ label: 'Importar um código de mira', route: { type: 'guide' } }, { label: 'Resolver um erro de importação', route: { type: 'article', articleKey: 'notWorking' } }],
-    sources: [{ label: 'Riot Games · Notas da Atualização 5.04', url: 'https://playvalorant.com/pt-br/news/game-updates/notas-da-atualizacao-5-04-do-valorant/' }],
+    sources: [
+      { label: 'Riot Games · Copiar a mira do jogador observado (5.04)', url: 'https://playvalorant.com/pt-br/news/game-updates/notas-da-atualizacao-5-04-do-valorant/' },
+      { label: 'Riot Games · Importar um código de retícula (4.05)', url: 'https://playvalorant.com/pt-br/news/game-updates/notas-da-atualizacao-4-05-do-valorant/' },
+    ],
   }
   if (locale === 'ja' && key === 'copy') return {
     ...content,

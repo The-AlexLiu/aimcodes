@@ -1,3 +1,4 @@
+import { crosshairColorPresets } from '../data/crosshairColors.js'
 import { distinctCatalogCrosshairs } from '../data/catalogDisplay.js'
 
 // Query and page evidence: docs/SEO_REVIEW_2026-10-13.md.
@@ -12,7 +13,7 @@ export const octoberReviewCopy = {
   },
   es: {
     catalog: { eyebrow: 'BUSCA · PRUEBA · COPIA', title: 'Base de datos de miras y códigos de VALORANT', intro: 'Busca por jugador, color o estilo. Prueba la mira sobre un mapa, compara la forma y copia el código en VALORANT.', metaTitle: 'Base de Datos de Miras y Códigos de VALORANT | AimCodes', metaDescription: 'Busca códigos de mira de VALORANT: pros, puntos, cruces pequeñas y formas divertidas. Prueba sobre mapas, cambia el color y copia el perfil.', help: 'Encuentra una forma o crea la tuya', helpBody: 'Prueba un nombre como aspas, un color como cian o un estilo como punto. La biblioteca reúne perfiles con fuente del jugador y diseños de AimCodes; el nombre no garantiza sus ajustes actuales.', links: ['Elegir un código', 'Crear una mira', 'Importar un perfil'] },
-    best: { title: 'Elige una forma para empezar', intro: 'Empieza con punto, cruz abierta o centro cerrado. Mantén el mismo mapa y color para comparar.', picks: [['tenz', 'TenZ · cruz abierta', 'Líneas cortas que dejan ver el objetivo en el centro.'], ['demon1', 'Demon1 · punto', 'Una marca central; comprueba que la encuentras sobre paredes claras.'], ['aspas-dot', 'aspas · cruz cerrada', 'Líneas unidas si te cuesta seguir un punto aislado.']], metaTitle: 'Mejores Miras de VALORANT: Punto y Cruz para Copiar | AimCodes', metaDescription: 'Elige códigos de mira de VALORANT entre puntos, cruces abiertas y perfiles compactos. Prueba sobre el mismo mapa, compara colores y copia.', database: 'Buscar en toda la biblioteca de miras' },
+    best: { title: 'Elige una forma para empezar', intro: 'Prueba tres miras en el mismo mapa: TenZ deja el centro libre, Demon1 usa un solo punto y en la de aspas las líneas se juntan. Copia la que te resulte más fácil seguir.', picks: [['tenz', 'TenZ · cruz abierta', 'Líneas cortas que dejan ver el objetivo en el centro.'], ['demon1', 'Demon1 · punto', 'Una marca central; comprueba que la encuentras sobre paredes claras.'], ['aspas-dot', 'aspas · cruz cerrada', 'Líneas unidas si te cuesta seguir un punto aislado.']], metaTitle: 'Mejores miras de VALORANT: compara 3 códigos | AimCodes', metaDescription: 'Prueba la cruz abierta de TenZ, el punto de Demon1 y la cruz cerrada de aspas en el mismo mapa. Copia el código de tu favorita para importarlo en VALORANT.', database: 'Buscar en toda la biblioteca de miras' },
     colors: { title: 'Colores de mira de VALORANT: cian, verde y blanco', intro: 'Mantén una forma y compara cian, verde y blanco en el mismo mapa. Después comprueba el contraste con el contorno del enemigo en el juego.', metaTitle: 'Colores de Mira de VALORANT: Cian, Verde y Blanco | AimCodes', metaDescription: 'Compara cian, verde y blanco con la misma mira y mapa de VALORANT. Revisa códigos de color, contornos y visibilidad; abre un perfil para copiar.', section: 'El color de la mira y el contorno enemigo son ajustes distintos', paragraphs: ['El perfil cambia la mira, no el color del contorno enemigo. Prueba colores que puedas distinguir al apuntar.', 'Si usas blanco, compara también un contorno fino en el juego. La vista previa ayuda a elegir; no demuestra más precisión ni reproduce tu monitor.'], compareTitle: 'Una forma, tres colores', compareBody: 'Estas vistas mantienen la forma de TenZ, la escala y el contorno. Cambia el mapa para las tres y abre el color que prefieras para copiar.', names: ['Cian', 'Verde', 'Blanco'], open: 'Probar este color', map: 'Mapa de comparación' },
     profile: { title: '¿Qué es un código de perfil de mira?', body: 'Es la cadena completa de ajustes, con sus separadores; no es el nombre del jugador ni un valor de color. Copia todo el perfil con el botón. Puedes inspeccionarlo en el decodificador y después importarlo; que el navegador lo lea no garantiza compatibilidad con la versión actual del juego.' },
     sourceDate: 'Fuente comprobada el', sourceNote: 'Perfil guardado en esa fecha; no confirma los ajustes actuales del jugador.', toolLinks: ['Buscar códigos existentes', 'Importar el perfil creado', 'Ver los ajustes de mira'], guideLinks: ['Inspeccionar un código', 'Corregir un error de importación'], circleSettings: 'Crear tu propio círculo',
@@ -68,10 +69,28 @@ export function enrichReviewCollection(locale, key, content) {
 }
 
 export function enrichReviewArticle(locale, key, content) {
-  if (key !== 'colors') return content
+  const yellowEnemies = key === 'yellowEnemies' && locale === 'en'
+  if (key !== 'colors' && !yellowEnemies) return content
   const copy = reviewCopy(locale).colors
+  const keys = yellowEnemies ? ['cyan', 'pink', 'white'] : ['cyan', 'green', 'white']
+  const names = yellowEnemies ? ['Cyan', 'Magenta', 'White'] : copy.names
+  const colorComparison = {
+    crosshairId: yellowEnemies ? 'wide-axis-bolt' : 'tenz',
+    title: yellowEnemies ? 'Compare three colors with a thin outline' : copy.compareTitle,
+    body: yellowEnemies ? 'Each preview uses Wide Axis Bolt on the same map, with a dark outline at thickness 1. Open a color to copy its code, then try it against yellow enemy outlines in VALORANT.' : copy.compareBody,
+    mapLabel: copy.map,
+    openLabel: copy.open,
+    variants: keys.map((key, index) => ({
+      ...crosshairColorPresets.find((preset) => preset.key === key),
+      name: names[index],
+    })),
+  }
+  if (yellowEnemies) return {
+    ...content, colorComparison,
+    quickLinks: [{ label: 'Compare the three colors', fragment: 'color-comparison-title' }],
+  }
   return {
-    ...content, title: copy.title, intro: copy.intro, metaTitle: copy.metaTitle, metaDescription: copy.metaDescription,
+    ...content, colorComparison, title: copy.title, intro: copy.intro, metaTitle: copy.metaTitle, metaDescription: copy.metaDescription,
     sections: [{ title: copy.section, paragraphs: copy.paragraphs, bullets: [] }, ...content.sections],
     relatedCollectionKeys: ['dot', 'small'],
     relatedToolKeys: ['generator', 'comparison'],
