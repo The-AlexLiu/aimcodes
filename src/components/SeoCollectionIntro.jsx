@@ -2,6 +2,8 @@ import CrosshairCard from './CrosshairCard.jsx'
 import SeoEntryHelp from './SeoEntryHelp.jsx'
 import { routePath } from '../seo/routes.js'
 import { collectionCopy } from '../seo/collectionContent.js'
+import { canQuickCopy } from '../seo/dotSelectionContent.js'
+import './collectionCodePicks.css'
 import SeoTopicLinks from './SeoTopicLinks.jsx'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 
@@ -36,10 +38,21 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
         </section>
       )}
       {content.quickPicks?.length > 0 && (
-        groups.map((group) => <section key={group.title} className="seo-quick-picks" aria-label={group.title}>
+        groups.map((group) => group.layout === 'cards' ? (
+          <section key={group.title} className="article-featured-codes collection-code-picks">
+            <h2>{group.title}</h2>
+            <div>{group.picks.map((pick) => {
+              const item = crosshairs.find((crosshair) => crosshair.id === pick.id)
+              return item && <CrosshairCard key={pick.id} crosshair={item}
+                displayName={pick.label} shapeLabel={pick.reason} showCode
+                href={routePath(locale, { type: 'crosshair', crosshairId: pick.id })}
+                copied={copiedId === pick.id} onSelect={onSelect} onCopy={onCopy} t={t} />
+            })}</div>
+          </section>
+        ) : <section key={group.title} className="seo-quick-picks" aria-label={group.title}>
           <h2>{group.title}</h2>
           <ul>{group.picks.map((pick) => {
-            const crosshair = ['best', 'dot'].includes(collectionKey) && crosshairs.find((item) => item.id === pick.id)
+            const crosshair = canQuickCopy(locale, collectionKey) && crosshairs.find((item) => item.id === pick.id)
             const copied = copiedId === pick.id
             return (
               <li key={pick.id}>

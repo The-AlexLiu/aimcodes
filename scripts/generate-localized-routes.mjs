@@ -88,6 +88,7 @@ import {
   seoCopy,
 } from '../src/seo/content.js'
 import { collectionCopy } from '../src/seo/collectionContent.js'
+import { canQuickCopy } from '../src/seo/dotSelectionContent.js'
 import { reviewCopy } from '../src/seo/octoberReviewContent.js'
 import {
   alternateUrls,
@@ -597,9 +598,23 @@ function staticBody(locale, route, crosshair, localizedCrosshairs) {
     const featuredCards = collection.featuredCodes
       ? staticCrosshairCards(locale, collection.featuredCodes.picks.map(({ id, shape }) => ({ ...items.find((item) => item.id === id), shapeLabel: shape })), collection.featuredCodes.title)
       : ''
-    const quickPicks = collection.quickPicks?.length
-      ? (collection.quickPickGroups || [{ title: collection.quickPicksTitle, picks: collection.quickPicks }]).map((group) => `<section class="seo-quick-picks"><h2>${escapeHtml(group.title)}</h2><ul>${group.picks.map((pick) => `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span></li>`).join('')}</ul></section>`).join('')
-      : ''
+    const pickGroups = collection.quickPickGroups || [{ title: collection.quickPicksTitle, picks: collection.quickPicks || [] }]
+    const quickPicks = pickGroups.filter((group) => group.picks.length).map((group) => {
+      if (group.layout === 'cards') {
+        const cards = group.picks.map((pick) => {
+          const item = items.find(({ id }) => id === pick.id)
+          if (!item) throw new Error(`Missing shortlist profile ${pick.id} in ${route.collectionKey}`)
+          return { ...item, shortName: pick.label, shapeLabel: pick.reason }
+        })
+        return staticCrosshairCards(locale, cards, group.title)
+      }
+      const links = group.picks.map((pick) => {
+        const item = canQuickCopy(locale, route.collectionKey) && items.find(({ id }) => id === pick.id)
+        const code = item ? `<details><summary>${escapeHtml(createTranslator(locale)('modal.code'))}</summary><code>${escapeHtml(item.code)}</code></details>` : ''
+        return `<li><a href="${routePath(locale, { type: 'crosshair', crosshairId: pick.id })}">${escapeHtml(pick.label)}</a><span>${escapeHtml(pick.reason)}</span>${code}</li>`
+      }).join('')
+      return `<section class="seo-quick-picks"><h2>${escapeHtml(group.title)}</h2><ul>${links}</ul></section>`
+    }).join('')
     const body = collection.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('') + (route.collectionKey === 'best' ? `<a href="${routePath(locale, { type: 'catalog' })}">${escapeHtml(reviewCopy(locale).best.database)}</a>` : '')
     const selectionContent = Array.isArray(collection.selection)
       ? `<ul>${collection.selection.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`

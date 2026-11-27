@@ -284,6 +284,11 @@ export function articleCopy(locale, articleKey) {
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale)
   if (articleKey === 'sage') return sageArticleCopy(locale)
   if (articleKey === 'hush') return hushArticleCopy(locale)
+  return guideArticleCopy(locale, articleKey)
+}
+
+// Readers of ordinary guides can omit the separate agent profiles in browser builds.
+export function guideArticleCopy(locale, articleKey) {
   const content = enrichReviewArticle(locale, articleKey, enrichArticleCopy(locale, articleKey, searchIntentArticleCopy(locale, articleKey) || baseArticleCopy(locale, articleKey)))
   const links = {
     colors: { articles: ['yellowEnemies'], collections: [] },

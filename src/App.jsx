@@ -370,6 +370,14 @@ export default function App() {
     }
   }
 
+  const restoreCrosshairColor = () => {
+    setColorOverrides((current) => {
+      const remaining = { ...current }
+      delete remaining[selected.id]
+      return remaining
+    })
+  }
+
   const changeBackground = (nextBackground) => {
     setBackground(nextBackground)
     trackEvent('map_change', { map_name: nextBackground, interaction_source: 'explore_preview' })
@@ -532,6 +540,8 @@ export default function App() {
             onToggleSettings={() => setShowPreviewSettings(!showPreviewSettings)}
             onBackgroundChange={changeBackground}
             onColorChange={changeCrosshairColor}
+            colorChanged={Boolean(colorOverrides[selected.id])}
+            onRestoreColor={restoreCrosshairColor}
             onCopy={copyCrosshair}
             onToggleInstructions={toggleInstructions}
             onShare={openCrosshairShare}

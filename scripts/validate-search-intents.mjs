@@ -67,11 +67,19 @@ for (const locale of Object.keys(localeRoutes)) {
     assert.equal(new Set(page.sections.map(s => s.paragraphs.join(' '))).size, 4)
     assert.equal(page.recommendedCrosshairIds.length, 4)
     for (const id of page.recommendedCrosshairIds) assert.ok(indexableCrosshairIds.includes(id))
-    const isEnglishStretched = locale === 'en' && key === 'stretched'
-    assert.equal(routeContentUpdatedAt(locale, { type: 'article', articleKey: key }), isEnglishStretched ? '2026-11-03' : '2026-09-04')
-    if (isEnglishStretched) {
+    const hasWidePresets = key === 'stretched' && (locale === 'en' || locale === 'pt-BR')
+    assert.equal(routeContentUpdatedAt(locale, { type: 'article', articleKey: key }), hasWidePresets ? '2026-11-27' : '2026-09-04')
+    if (hasWidePresets) {
       assert.deepEqual(page.featuredCodes.ids, ['wide-axis-apex', 'wide-axis-bolt'])
-      assert.ok(page.featuredCodes.ids.every(id => crosshairCollections.horizontal.crosshairIds.includes(id)))
+      for (const id of page.featuredCodes.ids) {
+        assert.ok(page.recommendedCrosshairIds.includes(id))
+        assert.ok(crosshairCollections.horizontal.crosshairIds.includes(id))
+        const { settings, color } = parseCrosshairCode(getCatalogCrosshair(id).code)
+        const { horizontalLength, verticalLength, thickness, offset } = settings.inner
+        assert.deepEqual([horizontalLength, verticalLength, thickness, offset], [5, 1, 1, 1])
+        assert.equal(color, id === 'wide-axis-apex' ? '#00ffff' : '#ffffff')
+        assert.equal(settings.outline.enabled, id === 'wide-axis-bolt')
+      }
     } else {
       assert.equal(page.featuredCodes, undefined)
     }

@@ -92,6 +92,10 @@ export function articleResourceLabel(locale, articleKey) {
   if (articleKey === 'phoenix') return phoenixArticleCopy(locale).title
   if (articleKey === 'sage') return sageArticleCopy(locale).title
   if (articleKey === 'hush') return hushArticleCopy(locale).title
+  return guideResourceLabel(locale, articleKey)
+}
+
+export function guideResourceLabel(locale, articleKey) {
   // Keep lightweight homepage labels in sync; validate:localization checks parity.
   const opportunityTitle = {
     'en:copy': 'How to copy a crosshair in VALORANT: /cc or a profile code',

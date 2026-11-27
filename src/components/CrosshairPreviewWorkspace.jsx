@@ -19,6 +19,8 @@ export default function CrosshairPreviewWorkspace({
   onToggleSettings,
   onBackgroundChange,
   onColorChange,
+  colorChanged,
+  onRestoreColor,
   onCopy,
   onToggleInstructions,
   onShare,
@@ -79,7 +81,10 @@ export default function CrosshairPreviewWorkspace({
                 </button>
               ))}
             </div>
-            <p className="control-help">{t('preview.colorHelp')}</p>
+            <div className="color-help-row">
+              <p className="control-help">{t('preview.colorHelp')}</p>
+              {colorChanged && <button type="button" onClick={onRestoreColor}>{t('preview.restoreColor')}</button>}
+            </div>
           </fieldset>
         </div>
 

@@ -244,3 +244,9 @@ Clarity 项目 `yuxaq5sl26` 已通过 PR #81 发布到生产提交 `ea03ba732507
 - 本机浏览器性能观察仅用于开发诊断。公共 PageSpeed API 429，暂无本轮 CrUX 或 INP 数据。
 
 发布后须核对 Cloudflare build-meta.json 的合并提交，正式域名五语搜索与详情设置、三轮测试、robots 和三个 Sitemap，并在 PR 回填正式验收。原 seo-entry-optimization 工作树的两个文档修改保留。
+
+## 2026-11-27 搜索入口与站内体验优化
+
+本地候选分支 `codex/nov27-organic-entry`，生产基线 `88be458`。12 个实质内容更新的 URL 包括五个集合、四篇教程和三个日语详情标题。另完成五语目录多词检索、详情原色恢复、手机操作栏避让与普通指南/英雄页面的代码分包。
+
+本地完整 25 项检查通过。此前所有 canonical、hreflang、robots 及 Sitemap URL 集合已逐项比对。代表页面完成手机和桌面真实复制、键盘和冷加载验证，所有 30 个英文英雄页均独立打开。账户分析、原始证据、复查指标和截图位于本次工作区的 `output/seo-2026-11-27/`。本轮尚未推送或部署。原 seo-entry-optimization 工作树的既有修改保留。

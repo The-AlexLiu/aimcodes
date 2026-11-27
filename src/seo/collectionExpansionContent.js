@@ -64,13 +64,19 @@ const collectionExpansionContent = {
       metaTitle: 'Best VALORANT Crosshairs for Beginners | AimCodes', metaDescription: 'Try beginner-friendly VALORANT crosshair codes with visible, stable shapes. Preview each one, learn the settings and copy a code.',
     },
     oneTap: {
-      label: 'One-tap crosshairs', eyebrow: 'ONE CENTER, ONE CLEAN SHOT', title: 'VALORANT one-tap crosshair codes', intro: 'Compact dots and micro crosses for deliberate first bullets and disciplined head-level placement.', gridTitle: 'One-tap crosshairs to compare',
+      label: 'One-tap crosshairs', eyebrow: 'ONE CENTER, ONE CLEAN SHOT', title: 'VALORANT one-tap crosshair codes', intro: 'Try three static profiles for single shots. Pick a dot to mark the head, an open center to see through, or a solid cross that is easier to find after moving.', gridTitle: 'One-tap crosshairs to compare',
+      quickPicksTitle: 'Choose the center you want to see',
+      quickPicks: [
+        { id: 'demon1', label: 'Demon1 · outlined dot', reason: 'A size-2 white dot with a dark outline. Try it on a bright wall if a plain point disappears.' },
+        { id: 'forsaken', label: 'f0rsakeN · open center', reason: 'Four short inner lines with an offset of 4 leave the middle clear for distant targets.' },
+        { id: 'aspas-dot', label: 'aspas · closed cross', reason: 'The cyan inner lines meet at the center. Try this if you lose a single dot when switching targets.' },
+      ],
       body: ['One-tap crosshairs emphasize the exact center and leave most of the target visible. They feel best when you stop fully, place the crosshair before the peek, and fire one controlled bullet.', 'A tiny sight can punish visibility more than it rewards precision. If the center disappears, add contrast or move to a short cross before shrinking anything else.'],
       selectionTitle: 'How we selected one-tap crosshairs', selection: 'The list uses verified dots and minimal line layouts with a precise center. Larger spray-oriented and decorative profiles were left out.',
       settingsTitle: 'One-tap setup checks', settings: ['Turn firing and movement error off for a stable center.', 'Keep the dot or gap visible at your normal resolution.', 'Practice stop timing instead of chasing an even smaller sight.'],
       faq: [['Is a dot best for one taps?', 'A dot marks the center clearly, but a micro cross can be easier to recover after movement.'], ['Does a one-tap crosshair reduce recoil?', 'No. It is only a visual reference and does not change weapon behavior.']],
       relatedCollectionKeys: ['small', 'dot', 'vandal'], relatedArticleKeys: ['placement', 'dotVsCross'], relatedToolKeys: ['comparison', 'preview'],
-      metaTitle: 'VALORANT One-Tap Crosshair Codes | AimCodes', metaDescription: 'Compare working VALORANT one-tap crosshair codes for clean first shots. Preview compact dots and micro crosses, then copy one.',
+      metaTitle: 'VALORANT One-Tap Crosshair Codes | AimCodes', metaDescription: 'Copy a VALORANT one-tap crosshair code for an outlined dot, an open center or a closed cyan cross. Compare all three on the same map before importing.',
     },
     vandal: {
       label: 'Vandal crosshairs', eyebrow: 'FIRST BULLET COMES FIRST', title: 'Best VALORANT crosshairs for the Vandal', intro: 'Stable crosshairs for head-level placement, controlled taps, and short Vandal bursts.', gridTitle: 'Vandal crosshairs to test',
