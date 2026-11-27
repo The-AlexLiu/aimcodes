@@ -1,3 +1,4 @@
+import { crosshairColorPresets } from '../data/crosshairColors.js'
 import { distinctCatalogCrosshairs } from '../data/catalogDisplay.js'
 
 // Query and page evidence: docs/SEO_REVIEW_2026-10-13.md.
@@ -68,10 +69,28 @@ export function enrichReviewCollection(locale, key, content) {
 }
 
 export function enrichReviewArticle(locale, key, content) {
-  if (key !== 'colors') return content
+  const yellowEnemies = key === 'yellowEnemies' && locale === 'en'
+  if (key !== 'colors' && !yellowEnemies) return content
   const copy = reviewCopy(locale).colors
+  const keys = yellowEnemies ? ['cyan', 'pink', 'white'] : ['cyan', 'green', 'white']
+  const names = yellowEnemies ? ['Cyan', 'Magenta', 'White'] : copy.names
+  const colorComparison = {
+    crosshairId: yellowEnemies ? 'wide-axis-bolt' : 'tenz',
+    title: yellowEnemies ? 'Compare three colors with a thin outline' : copy.compareTitle,
+    body: yellowEnemies ? 'Each preview uses Wide Axis Bolt on the same map, with a dark outline at thickness 1. Open a color to copy its code, then try it against yellow enemy outlines in VALORANT.' : copy.compareBody,
+    mapLabel: copy.map,
+    openLabel: copy.open,
+    variants: keys.map((key, index) => ({
+      ...crosshairColorPresets.find((preset) => preset.key === key),
+      name: names[index],
+    })),
+  }
+  if (yellowEnemies) return {
+    ...content, colorComparison,
+    quickLinks: [{ label: 'Compare the three colors', fragment: 'color-comparison-title' }],
+  }
   return {
-    ...content, title: copy.title, intro: copy.intro, metaTitle: copy.metaTitle, metaDescription: copy.metaDescription,
+    ...content, colorComparison, title: copy.title, intro: copy.intro, metaTitle: copy.metaTitle, metaDescription: copy.metaDescription,
     sections: [{ title: copy.section, paragraphs: copy.paragraphs, bullets: [] }, ...content.sections],
     relatedCollectionKeys: ['dot', 'small'],
     relatedToolKeys: ['generator', 'comparison'],

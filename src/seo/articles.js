@@ -120,8 +120,8 @@ const articles = {
         },
         {
           title: 'Match color to yellow, purple, or red enemy outlines',
-          paragraphs: ['Your crosshair and enemy outline should remain visually separate. If both use similar colors, the center can disappear exactly when it reaches the target.', 'Start with cyan or green against a yellow outline, yellow or green against a purple outline, and cyan, green, white, or pink against a red outline. These are quick test combinations, not rules for every monitor and map.'],
-          bullets: ['Yellow enemy outline: test cyan or green.', 'Purple enemy outline: test yellow, green, or white.', 'Red enemy outline: test cyan, green, white, or pink.'],
+          paragraphs: ['Your crosshair and enemy outline should remain visually separate. If both use similar colors, the center can disappear exactly when it reaches the target.', 'Pick the enemy outline you use, then compare the colors below on one shape. Keep your map and line settings fixed so you can see which change helps.'],
+          bullets: ['For yellow enemy outlines, start with cyan. If it blends into the map, try magenta or white with a thin dark outline.', 'Purple enemy outline: test yellow, green, or white.', 'Red enemy outline: test cyan, green, white, or pink.'],
         },
         {
           title: 'How to choose in two minutes',

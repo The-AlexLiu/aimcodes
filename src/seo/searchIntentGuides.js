@@ -4,12 +4,12 @@ const content = {
     yellowEnemies: {
       title: 'VALORANT crosshair colors for yellow enemy outlines',
       intro: 'If your crosshair gets lost exactly when it touches an enemy, test the color pairing before changing the size.',
-      summary: 'Start by comparing cyan and magenta against yellow outlines, with white plus a thin dark outline as a backup. These are test candidates, not a universal best color. Keep the shape fixed and judge the pairing in your own game.',
+      summary: 'Start with cyan against yellow enemy outlines. If you lose it on a blue or pale background, try magenta or white with a thin dark edge. Compare the same shape in all three colors, then check the one you prefer in game.',
       sections: [
         ['Separate the crosshair from the enemy outline', 'The crosshair color and the enemy highlight color do different jobs. Changing the crosshair code does not change enemy outlines. Yellow-on-yellow can make the center harder to distinguish on the target even when it looks clear on a wall.'],
-        ['Try three pairings, one shape', 'Use cyan (#00FFFF) first, magenta (#FF00FF) second, and white (#FFFFFF) with a thin dark outline third. Cyan and magenta offer a hue difference from yellow; white depends more on its outline. These are AimCodes comparison suggestions, not a Riot ranking or a color-vision guarantee.'],
+        ['Where to enter a custom color', 'In Settings → Crosshair → Primary, choose Custom under Crosshair Color. Enter 00FFFF for cyan, FF00FF for magenta or FFFFFF for white. Enter the six digits without the # sign.'],
         ['Run a short in-game comparison', 'Use the same weapon, crosshair size and enemy outline setting. For each color, check a bright wall, a dark corner and the edge of an enemy head. Look away from the center, then reacquire it. Keep the color you can recover without staring at the sight. Website map previews help compare backgrounds but do not reproduce your enemy highlights or vision.'],
-        ['Save a backup instead of changing everything', 'If all three choices disappear, try one more unit of thickness or a thin outline before making the entire shape larger. Save the original profile first. You can enter a six-digit RGB value under the custom crosshair color setting, then confirm the imported profile still has the intended color.'],
+        ['Save a backup instead of changing everything', 'If all three choices disappear, try one more unit of thickness or a thin outline before making the entire shape larger. Save the original profile first, so you can switch back after testing.'],
       ],
       faq: [['Is cyan always best for yellow enemies?', 'No. Your map, display, visual needs and outline settings all matter. Compare several colors under the same conditions.'], ['Does a code include the enemy outline color?', 'No. A crosshair code controls the sight, not the enemy highlight setting.']],
       metaDescription: 'Compare cyan, magenta and outlined white VALORANT crosshairs with yellow enemy outlines. Use a practical visibility test instead of a universal color ranking.',

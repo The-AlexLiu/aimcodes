@@ -108,7 +108,7 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
           <h2>{content.featuredCodes.title}</h2>
           <div>
             {featured.map((item) => (
-              <CrosshairCard key={item.id} crosshair={item}
+              <CrosshairCard key={item.id} crosshair={item} showCode
                 href={routePath(locale, { type: 'crosshair', crosshairId: item.id })}
                 copied={copiedId === item.id} onSelect={onSelect} onCopy={onCopy} t={t} />
             ))}
@@ -117,15 +117,24 @@ export default function SeoArticlePage({ locale, articleKey, crosshairs, onCopy,
       )}
 
       {articleKey === 'statistics' && <CrosshairStatisticsPanel locale={locale} />}
-      {articleKey === 'colors' && <CrosshairColorComparison locale={locale} crosshair={crosshairs.find((item) => item.id === 'tenz')} />}
+      {content.colorComparison && <CrosshairColorComparison locale={locale} comparison={content.colorComparison}
+        crosshair={crosshairs.find((item) => item.id === content.colorComparison.crosshairId)} />}
 
       <div className="seo-article-sections">
         {content.sections.map((section, index) => (
-          <section key={section.title} className="seo-article-section">
+          <section key={section.title} className={section.table ? 'seo-article-section seo-article-table-section' : 'seo-article-section'}>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <div>
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.table && (
+                <table className="guide-settings-table" aria-label={section.title}>
+                  <thead><tr>{section.table.columns.map((column) => <th key={column} scope="col">{column}</th>)}</tr></thead>
+                  <tbody>{section.table.rows.map(([setting, ...cells]) => (
+                    <tr key={setting}><th scope="row">{setting}</th>{cells.map((cell) => <td key={cell}>{cell}</td>)}</tr>
+                  ))}</tbody>
+                </table>
+              )}
               {section.bullets?.length > 0 && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
             </div>
           </section>

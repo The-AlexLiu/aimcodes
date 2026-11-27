@@ -1,3 +1,5 @@
+import { decoderExampleId } from './crosshairSettings.js'
+
 const englishGuides = {
   copy: {
     title: "How to copy a teammate's crosshair in VALORANT", intro: 'Spectate the teammate whose crosshair you want, enter the /cc command, then save the copied setup as a crosshair profile.', summary: 'While you are spectating the player whose crosshair you want, open chat and enter /cc. VALORANT copies that crosshair into your available profiles; open Crosshair settings after the round to review and rename it.',
@@ -14,9 +16,9 @@ const englishGuides = {
   notWorking: {
     title: 'VALORANT crosshair code not working? Fix it fast', intro: 'Use this checklist when a profile code will not import, shows “Something went wrong while importing your profile,” or looks different after you paste it.', summary: 'Seeing “Something went wrong while importing your profile”? Copy the complete code again, paste it into Import Profile Code rather than chat, and confirm you have room for another profile. If it imports but looks wrong, compare the actual settings instead of relying on a zoomed image.',
     sections: [
-      ['Check the code before changing settings', ['A missing character, extra space, or truncated end can invalidate a profile code. Copy the original code again and avoid editing individual separators.'], ['Copy from the first character to the last.', 'Remove accidental spaces or line breaks.', 'Do not combine two codes.']],
+      ['Compare the result with Wide Axis Apex', ['Copy the example above and try importing it as a separate profile. AimCodes reads its primary settings in the browser. Only the game can confirm the import.'], ['If the example imports, copy your original code again from beginning to end and try it in the same import field.', 'If both codes fail, check the import screen and available profile slots below. Keep a backup before removing a saved profile.', 'If the import succeeds but looks different, open the saved primary settings. Wide Axis Apex has inner-line lengths of 5 horizontally and 1 vertically, with thickness 1 and offset 1.']],
       ['Fix “Something went wrong while importing your profile”', ['Open Settings → Crosshair and choose Import Profile Code. Paste the complete code there, not in chat or the profile-name field, and make sure an empty profile slot is available.'], ['Choose Import Profile Code.', 'Free a profile slot if the list is full.', 'Paste the complete code once and confirm.']],
-      ['If the code imports but the preview differs', ['Preview size, resolution, outlines, and custom colors can make the same geometry look different. Compare inner lines, outer lines, center dot, and color in the saved profile.'], ['Check the game profile rather than a social screenshot.', 'Confirm the custom color value.', 'Try a verified AimCodes code to isolate the problem.']],
+      ['If the code imports but the preview differs', ['Preview size, resolution, outlines, and custom colors can make the same geometry look different. Compare inner lines, outer lines, center dot, and color in the saved profile.'], ['Check the game profile rather than a social screenshot.', 'Confirm the custom color value.', 'Compare the primary profile at your usual resolution.']],
     ],
     faq: [['Why is my crosshair code invalid?', 'The code may be incomplete, contain extra characters, or have been pasted outside the import control.'], ['Can an old code stop working?', 'Profile formats can change, but most failures come from a damaged copy or the wrong import step. Use a recently verified source.']],
     sources: [{ label: 'Riot Games — VALORANT Patch Notes 4.05', url: 'https://playvalorant.com/en-gb/news/game-updates/valorant-patch-notes-4-05/' }],
@@ -175,7 +177,7 @@ const localizedSectionBodies = {
     placement: ['Aprende altura de cabeza con cajas, modelos y detalles repetidos del mapa.', 'No pegues siempre la mira a la esquina: deja más distancia cuando esperes un swing rápido.', 'Mueve la mira a la siguiente posición probable antes de exponer el cuerpo y detente para disparar.'],
   },
   'pt-BR': {
-    copy: ['Espere até observar o aliado certo e digite /cc. O comando copia o jogador espectado.', 'Abra Configurações → Mira, encontre o perfil novo, renomeie e teste antes de apagar o anterior.', 'Se falhar, confirme que está espectando e que há espaço para outro perfil. Códigos de sites entram pelas Configurações, não pelo chat.'],
+    copy: ['Espere até observar o aliado certo e digite /cc. O comando copia o jogador espectado.', 'Na aba Retícula das configurações, selecione o novo perfil e confira a prévia. Você pode guardar a mira antiga para comparar depois.', 'Se falhar, confirme que está espectando e que há espaço para outro perfil. Códigos de sites entram pelas Configurações, não pelo chat.'],
     notWorking: ['Um caractere faltando, espaço ou final cortado pode invalidar o código. Copie tudo novamente.', 'Cole em Importar código de perfil dentro de Configurações → Mira, não no chat nem no nome do perfil.', 'Se importar mas parecer diferente, compare cor, contorno, ponto e linhas reais; imagem ampliada pode enganar.'],
     makeDot: ['Ative Ponto central e desligue Linhas internas e externas para deixar uma única marca.', 'Comece com opacidade total e o menor tamanho que você ainda encontra. Use contorno fino se o branco sumir.', 'Compare o ponto com uma microcruz em cenas claras e escuras antes da ranked.'],
     makeCircle: ['Iguale comprimentos horizontal e vertical e use deslocamento curto para aproximar um anel.', 'O ponto reforça o meio, mas preenche o espaço. Desligue se quiser enxergar o alvo pelo anel.', 'A forma depende de resolução e escala. Compare com código verificado no mesmo mapa.'],
@@ -270,6 +272,10 @@ export function expansionArticleCopy(locale, articleKey) {
   if (locale !== 'en') return localizedExpansion(locale, articleKey)
   return {
     ...english,
+    ...(articleKey === 'notWorking' && {
+      featuredCodes: { title: 'Try this example profile', ids: [decoderExampleId] },
+      recommendedCrosshairIds: [decoderExampleId, 'tenz', 'forsaken', 'small-dot-thick'],
+    }),
     eyebrow: localeLabels.en.eyebrow,
     summaryTitle: localeLabels.en.summaryTitle,
     cta: localeLabels.en.cta,

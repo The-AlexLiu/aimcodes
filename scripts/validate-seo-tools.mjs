@@ -1,4 +1,5 @@
 import { crosshairs } from '../src/data/crosshairs.js'
+import { decodedSettingRows, decoderExampleId } from '../src/seo/crosshairSettings.js'
 import { playbookAgentPlacementIssue, playbookAgents, playbookAgentRoles } from '../src/data/playbookAgents.js'
 import { valorantMaps } from '../src/seo/playbookContent.js'
 import { generateCrosshairCode, parseCrosshairCode } from '../src/utils/crosshairCode.js'
@@ -36,15 +37,29 @@ for (const item of cases) {
 
 for (const crosshair of crosshairs) {
   try {
-    parseCrosshairCode(crosshair.code, { fallbackColor: crosshair.color })
+    parseCrosshairCode(crosshair.code, { fallbackColor: crosshair.color, requireProfileStructure: true })
   } catch (error) {
     errors.push(`${crosshair.id}: existing database code failed decoder (${error.message})`)
   }
 }
 
-for (const invalid of ['', 'broken-code', '0;P;c', '0 P c 5']) {
+for (const requireProfileStructure of [false, true]) {
+  if (parseCrosshairCode('0;P;c;5', { requireProfileStructure }).colorKey !== 'cyan'
+    || !parseCrosshairCode('0;P;d;1', { requireProfileStructure }).settings.dot.enabled) {
+    errors.push('Short primary profiles must keep their explicit settings in the tools and preview')
+  }
+}
+
+const example = crosshairs.find((item) => item.id === decoderExampleId)
+const decodedExample = parseCrosshairCode(example.code, { requireProfileStructure: true })
+const exampleInner = decodedSettingRows(decodedExample, 'en').find(([label]) => label === 'Inner lines')
+if (exampleInner?.[1] !== 'On · Horizontal length 5 · Vertical length 1 · Thickness 1 · Offset 1') {
+  errors.push('Decoder example must show the independent inner line lengths and their labels')
+}
+
+for (const invalid of ['', 'broken-code', '0;P;c', '0 P c 5', '0;P;c;5;0l', '0;P;c;five;0l;2', '0;P;c;;0l;2', '0;P;c;17;0l;5', '0;P;c;1;0g;8', '0;P;0l;99', '0;P;0v;25', '0;P;0t;-1', '0;P;0a;2', '0;P;z;100', `0;P;0o;${'9'.repeat(400)}`]) {
   try {
-    parseCrosshairCode(invalid)
+    parseCrosshairCode(invalid, { requireProfileStructure: true })
     errors.push(`invalid input unexpectedly passed: ${invalid || '<empty>'}`)
   } catch {
     // Expected: decoder must reject incomplete or malformed input.

@@ -52,7 +52,7 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
         ) : <section key={group.title} className="seo-quick-picks" aria-label={group.title}>
           <h2>{group.title}</h2>
           <ul>{group.picks.map((pick) => {
-            const crosshair = canQuickCopy(locale, collectionKey) && crosshairs.find((item) => item.id === pick.id)
+            const crosshair = (pick.showCode || canQuickCopy(locale, collectionKey)) && crosshairs.find((item) => item.id === pick.id)
             const copied = copiedId === pick.id
             return (
               <li key={pick.id}>
@@ -70,6 +70,12 @@ export default function SeoCollectionIntro({ locale, collectionKey, crosshairs, 
                   )}
                 </div>
                 <span>{pick.reason}</span>
+                {pick.showCode && crosshair && (
+                  <details className="card-code">
+                    <summary>{t('modal.code')}</summary>
+                    <code>{crosshair.code}</code>
+                  </details>
+                )}
               </li>
             )
           })}</ul>

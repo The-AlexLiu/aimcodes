@@ -17,9 +17,10 @@ function parseError(code) {
   throw error
 }
 
-function numberValue(values, key, fallback, min = -Infinity, max = Infinity) {
+function readProfileNumber(values, strict, key, fallback, min, max) {
   if (!values.has(key)) return fallback
   const parsed = Number(values.get(key))
+  if (strict && (!Number.isFinite(parsed) || parsed < min || parsed > max)) parseError('invalidField')
   if (!Number.isFinite(parsed)) return fallback
   return Math.min(max, Math.max(min, parsed))
 }
@@ -27,6 +28,36 @@ function numberValue(values, key, fallback, min = -Infinity, max = Infinity) {
 function booleanValue(values, key, fallback) {
   if (!values.has(key)) return fallback
   return values.get(key) !== '0'
+}
+
+// Public tools receive pasted strings. Stored profiles also support legacy, best-effort rendering.
+function validateProfileStructure(tokens) {
+  if (tokens[0] !== '0' || !tokens.includes('P')) parseError('invalidProfile')
+  let section = ''
+  const seenSections = new Set()
+  let primaryFields = 0
+  for (let index = 1; index < tokens.length;) {
+    const key = tokens[index++]
+    if (SECTION_MARKERS.has(key)) {
+      if (seenSections.has(key)) parseError('invalidProfile')
+      seenSections.add(key)
+      section = key
+      continue
+    }
+    const value = tokens[index++]
+    if (!/^(?:[01])?[a-z]$/.test(key) || !value) parseError('invalidField')
+    if (key === 'u' || (section === 'S' && key === 't' && value.length >= 6)) {
+      if (!/^#?[\da-f]{6}(?:[\da-f]{2})?$/i.test(value)) parseError('invalidColor')
+    } else if (!/^-?(?:\d+(?:\.\d+)?|\.\d+)$/.test(value) || !Number.isFinite(Number(value))) {
+      parseError('invalidField')
+    }
+    if (section === 'P') {
+      if (key === 'c' && !/^[0-8]$/.test(value)) parseError('invalidColor')
+      if (/^(?:[hd]|[01][bmfg])$/.test(key) && !/^[01]$/.test(value)) parseError('invalidField')
+      if (/^(?:[chotdazu]|[01][abfgltmov])$/.test(key)) primaryFields++
+    }
+  }
+  if (primaryFields === 0) parseError('missingPrimarySettings')
 }
 
 function parsePrimaryValues(tokens) {
@@ -59,12 +90,11 @@ function customColor(values, fallbackColor) {
   return { hex: fallbackColor || '#ffffff', key: 'custom', approximate: true }
 }
 
-function lineSettings(values, prefix, defaults) {
-  const horizontalLength = numberValue(values, `${prefix}l`, defaults.length, 0, 20)
-  const verticalLength = booleanValue(values, `${prefix}g`, false)
-    ? numberValue(values, `${prefix}v`, horizontalLength, 0, 20)
-    : horizontalLength
-  const opacity = numberValue(values, `${prefix}a`, defaults.opacity, 0, 1)
+function lineSettings(values, readNumber, prefix, defaults) {
+  const horizontalLength = readNumber(`${prefix}l`, defaults.length, 0, 20)
+  const savedVerticalLength = readNumber(`${prefix}v`, horizontalLength, 0, 20)
+  const verticalLength = booleanValue(values, `${prefix}g`, false) ? savedVerticalLength : horizontalLength
+  const opacity = readNumber(`${prefix}a`, defaults.opacity, 0, 1)
   const enabled = booleanValue(values, `${prefix}b`, true) && opacity > 0 && (horizontalLength > 0 || verticalLength > 0)
 
   return {
@@ -72,8 +102,8 @@ function lineSettings(values, prefix, defaults) {
     opacity,
     horizontalLength,
     verticalLength,
-    thickness: numberValue(values, `${prefix}t`, defaults.thickness, 0, 10),
-    offset: numberValue(values, `${prefix}o`, defaults.offset, 0, 20),
+    thickness: readNumber(`${prefix}t`, defaults.thickness, 0, 10),
+    offset: readNumber(`${prefix}o`, defaults.offset, 0, 20),
   }
 }
 
@@ -113,30 +143,33 @@ export function updateCrosshairColor(value, { preset, hex } = {}) {
   return tokens.join(';')
 }
 
-export function parseCrosshairCode(value, { fallbackColor } = {}) {
+export function parseCrosshairCode(value, { fallbackColor, requireProfileStructure = false } = {}) {
   const code = normalizeCrosshairCode(value)
-  if (code.length < 10) parseError('tooShort')
+  if (code.length < 7) parseError('tooShort')
   if (!/^[0-9A-Za-z;.#-]+$/.test(code)) parseError('invalidChars')
 
-  const tokens = code.split(';').filter(Boolean)
+  const fields = code.split(';')
+  if (requireProfileStructure || code.length < 10) validateProfileStructure(fields)
+  const tokens = fields.filter(Boolean)
   const values = parsePrimaryValues(tokens)
+  const readNumber = (key, fallback, min, max) => readProfileNumber(values, requireProfileStructure, key, fallback, min, max)
   const color = customColor(values, fallbackColor)
-  const outlineOpacity = numberValue(values, 'o', 0.5, 0, 1)
+  const outlineOpacity = readNumber('o', 0.5, 0, 1)
   const outlineEnabled = booleanValue(values, 'h', true) && outlineOpacity > 0
 
   const settings = {
     outline: {
       enabled: outlineEnabled,
       opacity: outlineOpacity,
-      thickness: numberValue(values, 't', 1, 1, 6),
+      thickness: readNumber('t', 1, 1, 6),
     },
     dot: {
-      enabled: booleanValue(values, 'd', false) && numberValue(values, 'a', 1, 0, 1) > 0,
-      opacity: numberValue(values, 'a', 1, 0, 1),
-      size: numberValue(values, 'z', 2, 1, 6),
+      enabled: booleanValue(values, 'd', false) && readNumber('a', 1, 0, 1) > 0,
+      opacity: readNumber('a', 1, 0, 1),
+      size: readNumber('z', 2, 1, 6),
     },
-    inner: lineSettings(values, '0', { length: 6, thickness: 2, offset: 3, opacity: 0.8 }),
-    outer: lineSettings(values, '1', { length: 2, thickness: 2, offset: 10, opacity: 0.35 }),
+    inner: lineSettings(values, readNumber, '0', { length: 6, thickness: 2, offset: 3, opacity: 0.8 }),
+    outer: lineSettings(values, readNumber, '1', { length: 2, thickness: 2, offset: 10, opacity: 0.35 }),
     movementError: { enabled: booleanValue(values, '0m', false) },
     firingError: { enabled: booleanValue(values, '0f', false) },
   }

@@ -141,6 +141,10 @@ export const SEO_ROUTE_UPDATED_AT = Object.freeze({
     'es:collection:best', 'en:article:stretched', 'pt-BR:article:stretched',
     'ja:article:makeDot', 'ja:article:makeCircle',
     'ja:crosshair:cat-pink', 'ja:crosshair:pig-pink', 'ja:crosshair:crosshairception',
+    'en:collection:small', 'en:article:notWorking', 'en:article:colors', 'en:article:yellowEnemies',
+    'en:article:movementError', 'en:article:firingError', 'en:article:movementVsFiring',
+    'pt-BR:article:copy',
+    ...Object.keys(localeRoutes).flatMap(locale => [`${locale}:tool:decoder`, `${locale}:tool:playbook`]),
   ].map(key => [key, '2026-11-27'])),
 })
 

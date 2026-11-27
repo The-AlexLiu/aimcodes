@@ -25,6 +25,9 @@ export function playbookMapName(map, locale) {
 
 const seo = {
   en: {
+    exampleAction: 'Open the Ascent example',
+    exampleDescription: 'Jett, a route arrow and the Spike are already on the board. Drag a marker to change the plan.',
+    mapsTitle: 'Maps in the strategy board',
     eyebrow: 'DRAW THE ROUND. SHARE THE CALL.',
     title: 'VALORANT map strategy board',
     intro: 'Choose a tactical map, place your five agents and their utility, draw routes, mark the Spike, then export a round plan your team can read at a glance.',
@@ -44,6 +47,9 @@ const seo = {
     metaDescription: 'Plan VALORANT rounds on 13 maps. Place agents and ability icons, draw routes, mark the Spike, then export or share your strategy board.',
   },
   es: {
+    exampleAction: 'Abrir el ejemplo de Ascent',
+    exampleDescription: 'La pizarra ya incluye a Jett, una flecha y la Spike. Arrastra un marcador para cambiar el plan.',
+    mapsTitle: 'Mapas de la pizarra',
     eyebrow: 'DIBUJA LA RONDA. COMPARTE LA CALL.',
     title: 'Pizarra táctica de mapas de VALORANT',
     intro: 'Elige un mapa, coloca a tus cinco agentes y sus habilidades, dibuja las rutas, marca la Spike y exporta una ronda que el equipo entienda de un vistazo.',
@@ -63,6 +69,9 @@ const seo = {
     metaDescription: 'Planea rondas en 13 mapas de VALORANT. Coloca agentes y habilidades, dibuja rutas, marca la Spike y exporta o comparte la estrategia.',
   },
   'pt-BR': {
+    exampleAction: 'Abrir o exemplo de Ascent',
+    exampleDescription: 'A prancheta já vem com a Jett, uma seta e a Spike. Arraste um marcador para mudar o plano.',
+    mapsTitle: 'Mapas da prancheta',
     eyebrow: 'DESENHE A RODADA. COMPARTILHE A CALL.',
     title: 'Prancheta tática de mapas do VALORANT',
     intro: 'Escolha o mapa, posicione seus cinco agentes e habilidades, desenhe as rotas, marque a Spike e exporte uma rodada que o time entende de primeira.',
@@ -82,6 +91,9 @@ const seo = {
     metaDescription: 'Planeje rodadas em 13 mapas do VALORANT. Posicione agentes e habilidades, desenhe rotas, marque a Spike e exporte ou compartilhe.',
   },
   'zh-CN': {
+    exampleAction: '打开亚海悬城示例',
+    exampleDescription: '图上放好了捷风、路线箭头和爆能器。拖动标记就能调整这套方案。',
+    mapsTitle: '战术板支持的地图',
     eyebrow: '把路线画出来，队友一眼就懂',
     title: '无畏契约地图战术板',
     intro: '选一张地图，放好五名特工和技能落点，再画进攻路线、标记爆能器，整张战术图可以直接发给队友。',
@@ -101,6 +113,9 @@ const seo = {
     metaDescription: '在 13 张无畏契约地图上放置特工头像和技能图标、画路线并标记爆能器，再导出图片或分享战术链接。',
   },
   ja: {
+    exampleAction: 'アセントの作戦例を開く',
+    exampleDescription: 'ジェット、ルートの矢印、スパイクを配置済みです。マーカーをドラッグして作戦を変えられます。',
+    mapsTitle: '作戦ボードで使えるマップ',
     eyebrow: 'ルートを描けば、チームに一目で伝わる',
     title: 'VALORANT作戦ボード（無料）',
     intro: 'VALORANT（ヴァロラント）の13マップから選び、5人のエージェントとアビリティ、進行ルート、スパイクを配置。無料で作戦図を作り、そのまま共有できます。',
@@ -123,25 +138,40 @@ const seo = {
 
 const ui = {
   en: {
+    backToBoard: 'Back to my board',
+    copyNote: 'You’re editing a separate copy. Share a link to keep this version.',
     boardEyebrow: 'TACTICAL BOARD', boardTitle: 'Build the round on the map', map: 'Map', toolbar: 'Board tools', select: 'Move', pen: 'Draw', arrow: 'Arrow', attacker: 'Attack', defender: 'Defense', spike: 'Spike', danger: 'Danger', eraser: 'Erase', color: 'Line color', rotateAbility: 'Rotate ability', undo: 'Undo', redo: 'Redo', mapAlt: 'tactical map', canvasLabel: 'Editable VALORANT tactical board', emptyHint: 'Choose an agent, ability, Draw or Arrow, then use the map.', quickStart: 'Start in 20 seconds', quickSteps: ['Choose a side, then place the five agents and their utility.', 'Draw the main route and fallback in different colors.', 'Export the board or share it with your team.'], notes: 'Optional round notes', notesPlaceholder: 'First contact, utility timing, cancel condition…', export: 'Export PNG', exported: 'PNG exported', share: 'Share with the team', shared: 'Board shared', linkCopied: 'Board link copied', clear: 'Clear this map', localNote: 'Saved in this browser. Each map keeps its own board.', attackerShort: 'A', defenderShort: 'D', spikeShort: 'S',
     agentDock: 'Agents & abilities', chooseAgent: 'Choose what to place', chooseSide: 'Team side', filterRole: 'Filter agents by role', allRoles: 'All', roles: { duelist: 'Duelist', initiator: 'Initiator', controller: 'Controller', sentinel: 'Sentinel' }, abilities: 'Abilities', placeAgent: 'Place agent', placeAbility: 'Place ability', tapMap: 'Click the map to place this ability', tapMapAgent: 'Click the map to place this agent', duplicateAgent: 'That agent is already on this side.', fullTeam: 'This side already has five agents.',
   },
   es: {
+    backToBoard: 'Volver a mi pizarra',
+    copyNote: 'Estás editando una copia independiente. Comparte el enlace para conservar esta versión.',
     boardEyebrow: 'PIZARRA TÁCTICA', boardTitle: 'Monta la ronda sobre el mapa', map: 'Mapa', toolbar: 'Herramientas', select: 'Mover', pen: 'Dibujar', arrow: 'Flecha', attacker: 'Ataque', defender: 'Defensa', spike: 'Spike', danger: 'Peligro', eraser: 'Borrar', color: 'Color de línea', rotateAbility: 'Girar habilidad', undo: 'Deshacer', redo: 'Rehacer', mapAlt: 'mapa táctico', canvasLabel: 'Pizarra táctica editable de VALORANT', emptyHint: 'Elige agente, habilidad, dibujo o flecha y usa el mapa.', quickStart: 'Empieza en 20 segundos', quickSteps: ['Elige bando y coloca los cinco agentes con sus habilidades.', 'Dibuja la ruta principal y la salida con colores distintos.', 'Exporta la imagen o compártela con el equipo.'], notes: 'Notas opcionales', notesPlaceholder: 'Primer contacto, utilidad, condición para cancelar…', export: 'Exportar PNG', exported: 'PNG exportado', share: 'Compartir con el equipo', shared: 'Pizarra compartida', linkCopied: 'Enlace de la pizarra copiado', clear: 'Limpiar mapa', localNote: 'Se guarda en este navegador. Cada mapa conserva su pizarra.', attackerShort: 'A', defenderShort: 'D', spikeShort: 'S',
     agentDock: 'Agentes y habilidades', chooseAgent: 'Elige qué colocar', chooseSide: 'Bando', filterRole: 'Filtrar agentes por rol', allRoles: 'Todos', roles: { duelist: 'Duelista', initiator: 'Iniciador', controller: 'Controlador', sentinel: 'Centinela' }, abilities: 'Habilidades', placeAgent: 'Colocar agente', placeAbility: 'Colocar habilidad', tapMap: 'Haz clic en el mapa para colocarla', tapMapAgent: 'Haz clic en el mapa para colocar al agente', duplicateAgent: 'Ese agente ya está en este bando.', fullTeam: 'Este bando ya tiene cinco agentes.',
   },
   'pt-BR': {
+    backToBoard: 'Voltar à minha prancheta',
+    copyNote: 'Você está editando uma cópia separada. Compartilhe o link para guardar esta versão.',
     boardEyebrow: 'PRANCHETA TÁTICA', boardTitle: 'Monte a rodada no mapa', map: 'Mapa', toolbar: 'Ferramentas', select: 'Mover', pen: 'Desenhar', arrow: 'Seta', attacker: 'Ataque', defender: 'Defesa', spike: 'Spike', danger: 'Perigo', eraser: 'Apagar', color: 'Cor da linha', rotateAbility: 'Girar habilidade', undo: 'Desfazer', redo: 'Refazer', mapAlt: 'mapa tático', canvasLabel: 'Prancheta tática editável do VALORANT', emptyHint: 'Escolha agente, habilidade, desenho ou seta e use o mapa.', quickStart: 'Comece em 20 segundos', quickSteps: ['Escolha o lado e posicione os cinco agentes e habilidades.', 'Desenhe a rota principal e a saída com cores diferentes.', 'Exporte a imagem ou compartilhe com o time.'], notes: 'Notas opcionais', notesPlaceholder: 'Primeiro contato, habilidade, condição para cancelar…', export: 'Exportar PNG', exported: 'PNG exportado', share: 'Compartilhar com o time', shared: 'Prancheta compartilhada', linkCopied: 'Link da prancheta copiado', clear: 'Limpar mapa', localNote: 'Salvo neste navegador. Cada mapa guarda sua prancheta.', attackerShort: 'A', defenderShort: 'D', spikeShort: 'S',
     agentDock: 'Agentes e habilidades', chooseAgent: 'Escolha o que colocar', chooseSide: 'Lado do time', filterRole: 'Filtrar agentes por função', allRoles: 'Todos', roles: { duelist: 'Duelista', initiator: 'Iniciador', controller: 'Controlador', sentinel: 'Sentinela' }, abilities: 'Habilidades', placeAgent: 'Posicionar agente', placeAbility: 'Posicionar habilidade', tapMap: 'Clique no mapa para posicionar', tapMapAgent: 'Clique no mapa para posicionar o agente', duplicateAgent: 'Esse agente já está neste lado.', fullTeam: 'Este lado já tem cinco agentes.',
   },
   'zh-CN': {
+    backToBoard: '返回我的战术板',
+    copyNote: '你正在编辑一份独立副本。复制分享链接即可保留当前版本。',
     boardEyebrow: '地图战术板', boardTitle: '直接在地图上安排这回合', map: '选择地图', toolbar: '战术板工具', select: '移动', pen: '画路线', arrow: '画箭头', attacker: '进攻方', defender: '防守方', spike: '爆能器', danger: '危险点', eraser: '橡皮擦', color: '路线颜色', rotateAbility: '旋转技能范围', undo: '撤销', redo: '重做', mapAlt: '战术地图', canvasLabel: '可编辑的无畏契约地图战术板', emptyHint: '先选特工、技能或画线工具，再直接操作地图。', quickStart: '20 秒上手', quickSteps: ['先选攻守方，再放五名特工和技能落点。', '主攻路线和转点路线用不同颜色。', '导出图片，或者直接发给队友。'], notes: '补充一句回合说明', notesPlaceholder: '第一波在哪接触、技能何时交、什么情况立刻转点……', export: '导出战术图', exported: '战术图已导出', share: '把战术发给队友', shared: '战术已发出', linkCopied: '战术链接已复制', clear: '清空这张地图', localNote: '自动保存在当前浏览器里，每张地图单独保存。', attackerShort: '攻', defenderShort: '守', spikeShort: '包',
     agentDock: '特工与技能', chooseAgent: '选择要放的内容', chooseSide: '选择阵营', filterRole: '按定位筛选特工', allRoles: '全部', roles: { duelist: '决斗', initiator: '先锋', controller: '控场', sentinel: '哨卫' }, abilities: '技能', placeAgent: '放置特工', placeAbility: '放置技能', tapMap: '点击地图放下这个技能', tapMapAgent: '点击地图放下这名特工', duplicateAgent: '这边已经有这名特工了。', fullTeam: '这边已经满五名特工了。',
   },
   ja: {
+    backToBoard: '自分のボードに戻る',
+    copyNote: '別のコピーを編集中です。今の作戦を残すには、共有リンクを保存してください。',
     boardEyebrow: '作戦ボード', boardTitle: 'マップ上でラウンドを組み立てる', map: 'マップ', toolbar: 'ボードツール', select: '移動', pen: 'ルート', arrow: '矢印', attacker: '攻撃', defender: '防衛', spike: 'スパイク', danger: '注意', eraser: '消去', color: 'ライン色', rotateAbility: 'アビリティ範囲を回転', undo: '元に戻す', redo: 'やり直す', mapAlt: '戦術マップ', canvasLabel: '編集できるVALORANTマップ作戦ボード', emptyHint: 'エージェント、アビリティ、描画ツールを選んでマップを操作。', quickStart: '20秒でスタート', quickSteps: ['攻守を選び、5人のエージェントとアビリティを配置します。', 'メインと撤退ルートを別の色で描きます。', '画像を書き出すかチームへ共有します。'], notes: 'ラウンドメモ（任意）', notesPlaceholder: '最初の接敵、スキルのタイミング、中止条件…', export: 'PNGを書き出す', exported: 'PNGを保存しました', share: 'チームへ共有', shared: '作戦を共有しました', linkCopied: '作戦リンクをコピーしました', clear: 'このマップを消去', localNote: 'このブラウザに自動保存。マップごとに別保存です。', attackerShort: '攻', defenderShort: '守', spikeShort: 'S',
     agentDock: 'エージェントとアビリティ', chooseAgent: '配置するものを選択', chooseSide: '攻守', filterRole: 'ロールで絞り込む', allRoles: 'すべて', roles: { duelist: 'デュエリスト', initiator: 'イニシエーター', controller: 'コントローラー', sentinel: 'センチネル' }, abilities: 'アビリティ', placeAgent: 'エージェントを配置', placeAbility: 'アビリティを配置', tapMap: 'マップをクリックして配置', tapMapAgent: 'マップをクリックしてエージェントを配置', duplicateAgent: 'このサイドには同じエージェントを置けません。', fullTeam: 'このサイドは5人そろっています。',
   },
+}
+
+for (const [locale, copy] of Object.entries(seo)) {
+  copy.mapsList = new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' })
+    .format(valorantMaps.map((map) => playbookMapName(map, locale)))
 }
 
 export function playbookSeoCopy(locale) {

@@ -30,11 +30,12 @@ import { OMEN_GENERATOR_SETTINGS } from '../data/omenCrosshair.js'
 import { VIPER_GENERATOR_SETTINGS } from '../data/viperCrosshair.js'
 import { PHOENIX_GENERATOR_SETTINGS } from '../data/phoenixCrosshair.js'
 import { SAGE_GENERATOR_SETTINGS } from '../data/sageCrosshair.js'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import CrosshairCanvas from './CrosshairCanvas.jsx'
 import { HUSH_GENERATOR_SETTINGS } from '../data/hushCrosshair.js'
 import SeoBreadcrumbs from './SeoBreadcrumbs.jsx'
 import { crosshairColorPresets, previewBackgroundOptions } from '../data/previewOptions.js'
+import { decoderExampleId, decodedSettingRows } from '../seo/crosshairSettings.js'
 import { seoToolCopy } from '../seo/toolContent.js'
 import { routePath } from '../seo/routes.js'
 import { reviewCopy } from '../seo/octoberReviewContent.js'
@@ -42,23 +43,23 @@ import { generateCrosshairCode, parseCrosshairCode } from '../utils/crosshairCod
 
 const uiCopy = {
   en: {
-    map: 'Map scene', code: 'Crosshair code', paste: 'Paste a profile code', valid: 'Code looks good—ready to try', invalid: 'This code cannot be read. Check whether a section is missing.', copy: 'Copy code', left: 'Left crosshair', right: 'Right crosshair', settings: 'Shape the crosshair', color: 'Color', outline: 'Outline', centerDot: 'Center dot', inner: 'Inner lines', outer: 'Outer lines', opacity: 'Opacity', length: 'Length', verticalLength: 'Vertical length', thickness: 'Thickness', offset: 'Offset', size: 'Size', movement: 'Movement error', firing: 'Firing error', preview: 'Map preview', decoded: 'What the code contains', on: 'On', off: 'Off', generatorNote: 'Copy it, then give it a few shots in the range.', comparisonNote: 'Same map, same scale. Your eyes can judge the shape without the background getting in the way.', codeHelp: 'Paste the whole string—do not miss the beginning, ending, or separators.', finder: 'Still not sure?', finderAction: 'Let the crosshair finder pick one', faq: 'Common questions',
+    map: 'Map scene', code: 'Crosshair code', paste: 'Paste a profile code', valid: 'Primary settings decoded', invalid: 'This code cannot be read. Check whether a section is missing.', copy: 'Copy code', left: 'Left crosshair', right: 'Right crosshair', settings: 'Shape the crosshair', color: 'Color', outline: 'Outline', centerDot: 'Center dot', inner: 'Inner lines', outer: 'Outer lines', opacity: 'Opacity', length: 'Length', verticalLength: 'Vertical length', thickness: 'Thickness', offset: 'Offset', size: 'Size', movement: 'Movement error', firing: 'Firing error', preview: 'Map preview', decoded: 'What the code contains', on: 'On', off: 'Off', generatorNote: 'Copy it, then give it a few shots in the range.', comparisonNote: 'Same map, same scale. Your eyes can judge the shape without the background getting in the way.', codeHelp: 'Paste the whole string—do not miss the beginning, ending, or separators.', finder: 'Still not sure?', finderAction: 'Let the crosshair finder pick one', faq: 'Common questions',
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' }, colors: { white: 'White', green: 'Green', cyan: 'Cyan', yellow: 'Yellow', red: 'Red', pink: 'Pink', custom: 'Custom' },
   },
   es: {
-    map: 'Mapa de prueba', code: 'Código de mira', paste: 'Pega un código de perfil', valid: 'El código funciona—ya puedes probarlo', invalid: 'No podemos leer este código. Revisa si falta una parte.', copy: 'Copiar código', left: 'Mira izquierda', right: 'Mira derecha', settings: 'Dale forma a la mira', color: 'Color', outline: 'Contorno', centerDot: 'Punto central', inner: 'Líneas interiores', outer: 'Líneas exteriores', opacity: 'Opacidad', length: 'Longitud', verticalLength: 'Longitud vertical', thickness: 'Grosor', offset: 'Separación', size: 'Tamaño', movement: 'Error de movimiento', firing: 'Error de disparo', preview: 'Prueba en el mapa', decoded: 'Qué contiene el código', on: 'Sí', off: 'No', generatorNote: 'Cópiala y dispara unas rondas en el campo de tiro.', comparisonNote: 'Mismo mapa y misma escala: aquí decide la forma, no el fondo.', codeHelp: 'Pega la cadena entera, sin perder el principio, el final ni los separadores.', finder: '¿Sigues con dudas?', finderAction: 'Deja que el buscador elija una', faq: 'Preguntas habituales',
+    map: 'Mapa de prueba', code: 'Código de mira', paste: 'Pega un código de perfil', valid: 'Ajustes principales decodificados', invalid: 'No podemos leer este código. Revisa si falta una parte.', copy: 'Copiar código', left: 'Mira izquierda', right: 'Mira derecha', settings: 'Dale forma a la mira', color: 'Color', outline: 'Contorno', centerDot: 'Punto central', inner: 'Líneas interiores', outer: 'Líneas exteriores', opacity: 'Opacidad', length: 'Longitud', verticalLength: 'Longitud vertical', thickness: 'Grosor', offset: 'Separación', size: 'Tamaño', movement: 'Error de movimiento', firing: 'Error de disparo', preview: 'Prueba en el mapa', decoded: 'Qué contiene el código', on: 'Sí', off: 'No', generatorNote: 'Cópiala y dispara unas rondas en el campo de tiro.', comparisonNote: 'Mismo mapa y misma escala: aquí decide la forma, no el fondo.', codeHelp: 'Pega la cadena entera, sin perder el principio, el final ni los separadores.', finder: '¿Sigues con dudas?', finderAction: 'Deja que el buscador elija una', faq: 'Preguntas habituales',
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' }, colors: { white: 'Blanco', green: 'Verde', cyan: 'Cian', yellow: 'Amarillo', red: 'Rojo', pink: 'Rosa', custom: 'Personalizado' },
   },
   'pt-BR': {
-    map: 'Mapa de teste', code: 'Código da mira', paste: 'Cole um código de perfil', valid: 'Código certo—já dá para testar', invalid: 'Não conseguimos ler este código. Veja se faltou algum trecho.', copy: 'Copiar código', left: 'Mira esquerda', right: 'Mira direita', settings: 'Monte sua mira', color: 'Cor', outline: 'Contorno', centerDot: 'Ponto central', inner: 'Linhas internas', outer: 'Linhas externas', opacity: 'Opacidade', length: 'Comprimento', verticalLength: 'Comprimento vertical', thickness: 'Espessura', offset: 'Espaçamento', size: 'Tamanho', movement: 'Erro de movimento', firing: 'Erro de disparo', preview: 'Teste no mapa', decoded: 'O que existe no código', on: 'Ligado', off: 'Desligado', generatorNote: 'Copie e dê alguns tiros no campo de treino.', comparisonNote: 'Mesmo mapa e mesma escala: aqui quem decide é o formato, não o fundo.', codeHelp: 'Cole a sequência inteira, sem perder começo, fim ou separadores.', finder: 'Ainda na dúvida?', finderAction: 'Deixe o teste escolher uma', faq: 'Dúvidas comuns',
+    map: 'Mapa de teste', code: 'Código da mira', paste: 'Cole um código de perfil', valid: 'Configurações primárias decodificadas', invalid: 'Não conseguimos ler este código. Veja se faltou algum trecho.', copy: 'Copiar código', left: 'Mira esquerda', right: 'Mira direita', settings: 'Monte sua mira', color: 'Cor', outline: 'Contorno', centerDot: 'Ponto central', inner: 'Linhas internas', outer: 'Linhas externas', opacity: 'Opacidade', length: 'Comprimento', verticalLength: 'Comprimento vertical', thickness: 'Espessura', offset: 'Espaçamento', size: 'Tamanho', movement: 'Erro de movimento', firing: 'Erro de disparo', preview: 'Teste no mapa', decoded: 'O que existe no código', on: 'Ligado', off: 'Desligado', generatorNote: 'Copie e dê alguns tiros no campo de treino.', comparisonNote: 'Mesmo mapa e mesma escala: aqui quem decide é o formato, não o fundo.', codeHelp: 'Cole a sequência inteira, sem perder começo, fim ou separadores.', finder: 'Ainda na dúvida?', finderAction: 'Deixe o teste escolher uma', faq: 'Dúvidas comuns',
     maps: { ascent: 'Ascent', haven: 'Haven', bind: 'Bind' }, colors: { white: 'Branco', green: 'Verde', cyan: 'Ciano', yellow: 'Amarelo', red: 'Vermelho', pink: 'Rosa', custom: 'Personalizado' },
   },
   'zh-CN': {
-    map: '试用地图', code: '准星代码', paste: '把整段准星代码贴进来', valid: '代码没问题，直接试', invalid: '这串代码读不出来，检查有没有漏掉一段。', copy: '复制代码', left: '左边准星', right: '右边准星', settings: '怎么长，你来调', color: '准星颜色', outline: '轮廓', centerDot: '中心点', inner: '内线', outer: '外线', opacity: '透明度', length: '长度', verticalLength: '竖线长度', thickness: '粗细', offset: '中心间距', size: '大小', movement: '移动误差', firing: '射击误差', preview: '场景里试试看', decoded: '这串代码调了什么', on: '开', off: '关', generatorNote: '复制后去训练场打几枪，顺手再带进排位。', comparisonNote: '同一张地图、同一个比例，谁更顺眼一眼就能看出来。', codeHelp: '整段代码直接贴进来，别漏头漏尾，也别多带空格。', finder: '还是选不出来？', finderAction: '测一下，让我们帮你挑', faq: '大家常问',
+    map: '试用地图', code: '准星代码', paste: '把整段准星代码贴进来', valid: '已读取主准星设置', invalid: '这串代码读不出来，检查有没有漏掉一段。', copy: '复制代码', left: '左边准星', right: '右边准星', settings: '怎么长，你来调', color: '准星颜色', outline: '轮廓', centerDot: '中心点', inner: '内线', outer: '外线', opacity: '透明度', length: '长度', verticalLength: '竖线长度', thickness: '粗细', offset: '中心间距', size: '大小', movement: '移动误差', firing: '射击误差', preview: '场景里试试看', decoded: '这串代码调了什么', on: '开', off: '关', generatorNote: '复制后去训练场打几枪，顺手再带进排位。', comparisonNote: '同一张地图、同一个比例，谁更顺眼一眼就能看出来。', codeHelp: '整段代码直接贴进来，别漏头漏尾，也别多带空格。', finder: '还是选不出来？', finderAction: '测一下，让我们帮你挑', faq: '大家常问',
     maps: { ascent: '亚海悬城', haven: '隐世修所', bind: '源工重镇' }, colors: { white: '白色', green: '绿色', cyan: '青色', yellow: '黄色', red: '红色', pink: '粉色', custom: '自定义' },
   },
   ja: {
-    map: '試すマップ', code: 'クロスヘアコード', paste: 'プロファイルコードを貼り付ける', valid: '使えるコードです。マップで試せます', invalid: 'コードを読み取れません。途中で切れていないか確認してください。', copy: 'コードをコピー', left: '左のクロスヘア', right: '右のクロスヘア', settings: 'クロスヘアを調整', color: '色', outline: '輪郭', centerDot: 'センタードット', inner: '内側ライン', outer: '外側ライン', opacity: '不透明度', length: '長さ', verticalLength: '縦の長さ', thickness: '太さ', offset: '中心間隔', size: 'サイズ', movement: '移動エラー', firing: '射撃エラー', preview: 'マップでプレビュー', decoded: 'コードの設定', on: 'オン', off: 'オフ', generatorNote: 'コピーしたら、射撃場で数分試してからランクへ。', comparisonNote: '同じマップ・同じ倍率で、中心の見つけやすさを比べます。', codeHelp: '先頭から末尾まで、空白や説明文を入れずに貼り付けてください。', finder: 'まだ迷っていますか？', finderAction: '反応速度テストで選ぶ', faq: 'よくある質問',
+    map: '試すマップ', code: 'クロスヘアコード', paste: 'プロファイルコードを貼り付ける', valid: 'プライマリの設定を読み取りました', invalid: 'コードを読み取れません。途中で切れていないか確認してください。', copy: 'コードをコピー', left: '左のクロスヘア', right: '右のクロスヘア', settings: 'クロスヘアを調整', color: '色', outline: '輪郭', centerDot: 'センタードット', inner: '内側ライン', outer: '外側ライン', opacity: '不透明度', length: '長さ', verticalLength: '縦の長さ', thickness: '太さ', offset: '中心間隔', size: 'サイズ', movement: '移動エラー', firing: '射撃エラー', preview: 'マップでプレビュー', decoded: 'コードの設定', on: 'オン', off: 'オフ', generatorNote: 'コピーしたら、射撃場で数分試してからランクへ。', comparisonNote: '同じマップ・同じ倍率で、中心の見つけやすさを比べます。', codeHelp: '先頭から末尾まで、空白や説明文を入れずに貼り付けてください。', finder: 'まだ迷っていますか？', finderAction: '反応速度テストで選ぶ', faq: 'よくある質問',
     maps: { ascent: 'アセント', haven: 'ヘイヴン', bind: 'バインド' }, colors: { white: '白', green: '緑', cyan: 'シアン', yellow: '黄', red: '赤', pink: 'ピンク', custom: 'カスタム' },
   },
 }
@@ -152,25 +153,34 @@ function Generator({ copy, onCopy }) {
   )
 }
 
-function CodeTool({ copy, mode, crosshairs, onCopy }) {
-  const [input, setInput] = useState(crosshairs[0]?.code || '')
+function CodeTool({ locale, copy, content, mode, crosshairs, onCopy }) {
+  const example = mode === 'decoder' ? crosshairs.find((item) => item.id === decoderExampleId) : null
+  const [input, setInput] = useState(example?.code || crosshairs[0]?.code || '')
+  const inputRef = useRef(null)
   const [background, setBackground] = useState('ascent')
   const parsed = useMemo(() => {
     if (!input.trim()) return { value: null, error: null }
-    try { return { value: parseCrosshairCode(input), error: null } } catch { return { value: null, error: copy.invalid } }
+    try { return { value: parseCrosshairCode(input, { requireProfileStructure: true }), error: null } } catch { return { value: null, error: copy.invalid } }
   }, [copy.invalid, input])
   const item = parsed.value ? asToolItem(parsed.value.code, parsed.value, copy.preview) : null
-  const settings = parsed.value?.settings
+  const isExample = Boolean(example && parsed.value?.code === example.code)
 
   return (
     <div className="tool-workspace is-code-tool">
       <section className="tool-controls">
-        <label className="tool-field"><span>{copy.code}</span><textarea aria-invalid={Boolean(parsed.error)} aria-describedby="tool-code-help tool-code-status" spellCheck={false} autoCapitalize="none" value={input} onChange={(event) => setInput(event.target.value)} placeholder={copy.paste} rows="7" /></label>
+        <label className="tool-field"><span>{copy.code}</span><textarea ref={inputRef} onFocus={(event) => { if (isExample) event.currentTarget.select() }} aria-invalid={Boolean(parsed.error)} aria-describedby="tool-code-help tool-code-status" spellCheck={false} autoCapitalize="none" value={input} onChange={(event) => setInput(event.target.value)} placeholder={copy.paste} rows="7" /></label>
         <p id="tool-code-help">{copy.codeHelp}</p>
+        {example && !isExample && <button className="secondary-button" type="button" onClick={() => {
+          setInput(example.code)
+          inputRef.current.focus()
+        }}>{content.loadExample}</button>}
         <div role="status" id="tool-code-status" className={`tool-validation ${parsed.error ? 'is-error' : parsed.value ? 'is-valid' : ''}`}>{parsed.error || (parsed.value ? copy.valid : copy.paste)}</div>
-        {mode === 'decoder' && settings && <div className="decoded-grid">
-          <span><b>{copy.color}</b>{copy.colors[parsed.value.colorKey] || parsed.value.color}</span><span><b>{copy.outline}</b>{settings.outline.enabled ? copy.on : copy.off}</span><span><b>{copy.centerDot}</b>{settings.dot.enabled ? copy.on : copy.off}</span><span><b>{copy.inner}</b>{settings.inner.enabled ? `${settings.inner.horizontalLength} / ${settings.inner.thickness} / ${settings.inner.offset}` : copy.off}</span><span><b>{copy.outer}</b>{settings.outer.enabled ? `${settings.outer.horizontalLength} / ${settings.outer.thickness} / ${settings.outer.offset}` : copy.off}</span><span><b>{copy.movement}</b>{settings.movementError.enabled ? copy.on : copy.off}</span><span><b>{copy.firing}</b>{settings.firingError.enabled ? copy.on : copy.off}</span>
-        </div>}
+        {mode === 'decoder' && parsed.value && <section className="decoder-results">
+          <h2>{isExample ? content.exampleTitle : copy.decoded}</h2>
+          <dl className="decoded-grid">{decodedSettingRows(parsed.value, locale).map(([label, value]) => (
+            <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+          ))}</dl>
+        </section>}
         <button className="primary-button" disabled={!parsed.value} type="button" onClick={() => parsed.value && onCopy(item, { interactionSource: `crosshair_${mode}` })}>{copy.copy}</button>
       </section>
       <section className="tool-preview-panel"><Preview item={item} background={background} label={copy.preview} copy={copy} /><MapPicker copy={copy} value={background} onChange={setBackground} /></section>
@@ -207,7 +217,7 @@ export default function CrosshairToolsPage({ locale, toolKey, crosshairs, onCopy
       <SeoBreadcrumbs locale={locale} current={content.title} />
       <header><h1>{content.title}</h1><p>{content.intro}</p></header>
       {toolKey === 'generator' && <Generator copy={copy} onCopy={onCopy} />}
-      {(toolKey === 'decoder' || toolKey === 'preview') && <CodeTool copy={copy} mode={toolKey} crosshairs={crosshairs} onCopy={onCopy} />}
+      {(toolKey === 'decoder' || toolKey === 'preview') && <CodeTool key={toolKey} locale={locale} copy={copy} content={content} mode={toolKey} crosshairs={crosshairs} onCopy={onCopy} />}
       {toolKey === 'comparison' && <Comparison copy={copy} crosshairs={crosshairs} onCopy={onCopy} />}
       <section className="tool-learning-content" aria-labelledby="tool-guide-title">
         <div className="tool-learning-intro">

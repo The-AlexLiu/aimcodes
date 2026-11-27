@@ -19,7 +19,7 @@ const collectionUpdates = {
       intro: 'Compare small dot-style crosshairs, tiny open crosses and short closed crosses. Use the examples below to choose how much center space and line thickness you want before copying a code.',
       quickPicksTitle: 'Three small crosshairs with different centers',
       quickPicks: [
-        { id: 'micro-gap-apex', label: 'Tiny cyan open cross', reason: 'Micro Gap Apex: inner length 1, thickness 1, offset 1; center dot off, outline on.' },
+        { id: 'micro-gap-apex', showCode: true, label: 'Tiny cyan open cross', reason: 'Micro Gap Apex: inner length 1, thickness 1, offset 1; center dot off, outline on.' },
         { id: 'micro-gap-bolt', label: 'Small white cross with a gap', reason: 'Micro Gap Bolt: inner length 1, thickness 1, offset 2; center dot and outline off.' },
         { id: 'small-dot-thick', label: 'Small dot-style center', reason: 'Pixel: size-2 center dot plus length-1, thickness-4 inner lines with offset 0. More visible, but it covers more of the target.' },
       ],
